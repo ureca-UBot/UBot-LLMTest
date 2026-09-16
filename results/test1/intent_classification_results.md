@@ -1,11 +1,11 @@
 # 의도 분류 테스트 결과 (항목 3·4)
 
 > 상태: **미실행 (템플릿)** — 모델 실행 후 표를 채워 넣습니다.
-> 평가 방법론 전체는 [`README.md`](../README.md) 참고. 이 문서는 항목 3(FAQ 부재 판단)과 항목 4(의도 분류)를 함께 다룹니다. 둘 다 **결정론적** 채점(정답 라벨과 정확히 일치하는지)이라 LLM Judge나 사람 평가가 필요 없습니다.
+> 평가 방법론 전체는 [`../../README.md`](../../README.md) 참고. 이 문서는 항목 3(FAQ 부재 판단)과 항목 4(의도 분류)를 함께 다룹니다. 둘 다 **결정론적** 채점(정답 라벨과 정확히 일치하는지)이라 LLM Judge나 사람 평가가 필요 없습니다.
 
 ## 개요
 
-- 데이터: `data/eval_sets/intent_classification.csv` (71건 — `faq_easy`/`faq_medium`/`faq_hard`/`rag_faithfulness`/`cluster_labeling` 5개 소스에서 처리 의도가 라벨된 건을 통합)
+- 데이터: `../../data/eval_sets/test_set1/intent_classification.csv` (71건 — `faq_easy`/`faq_medium`/`faq_hard`/`rag_faithfulness`/`cluster_labeling` 5개 소스에서 처리 의도가 라벨된 건을 통합)
 - 분류 대상(3-way): `FAQ_RAG` / `MAP_API` / `UNREGISTERED` (원본의 `UNREGISTERED_CLUSTERING`은 `UNREGISTERED`로 통합 — README 5절 각주 참고)
 - 클래스 분포: FAQ_RAG 37건 · MAP_API 4건 · UNREGISTERED 30건(원 UNREGISTERED 10 + UNREGISTERED_CLUSTERING 20)
 - 입력: 사용자 질문만 LLM에 제공 (FAQ 컨텍스트 없음 — 순수 라우팅 판단 테스트)
@@ -21,7 +21,7 @@
 
 ## 모델별 결과
 
-각 모델마다 Confusion Matrix + 지표를 채우고, **오답인 케이스만** 별도 표에 나열합니다 (71건 전체를 나열하지 않음 — 원본 데이터는 `data/eval_sets/intent_classification.csv` 참고).
+각 모델마다 Confusion Matrix + 지표를 채우고, **오답인 케이스만** 별도 표에 나열합니다 (71건 전체를 나열하지 않음 — 원본 데이터는 `../../data/eval_sets/test_set1/intent_classification.csv` 참고).
 
 ### 1. Qwen3 0.6B (`qwen3:0.6b`)
 

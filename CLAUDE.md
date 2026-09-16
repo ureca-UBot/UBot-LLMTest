@@ -15,8 +15,8 @@
 
 ## 다음에 할 일 (우선순위 순)
 
-1. **의도 분류 라운드 (항목 3·4)** — 데이터(`data/eval_sets/intent_classification.csv`, 113건)는 준비됐지만 **전용 러너 스크립트가 아직 없음** (RAG 안정성처럼 새로 만들어야 함 — FAQ 컨텍스트 없이 질문만 주고 3-way 분류, 채점은 결정론적 Confusion Matrix라 Judge 불필요)
-2. **클러스터 라벨링 라운드 (항목 9)** — 데이터(`data/eval_sets/cluster_labeling.csv`, 20건→4그룹)는 준비됐지만 **전용 러너 스크립트가 아직 없음** (그룹별 라벨링 프롬프트, Judge로 라벨 정확도 채점)
+1. **의도 분류 라운드 (항목 3·4)** — 데이터(`data/eval_sets/test_set1/intent_classification.csv`, 113건)는 준비됐지만 **전용 러너 스크립트가 아직 없음** (RAG 안정성처럼 새로 만들어야 함 — FAQ 컨텍스트 없이 질문만 주고 3-way 분류, 채점은 결정론적 Confusion Matrix라 Judge 불필요)
+2. **클러스터 라벨링 라운드 (항목 9)** — 데이터(`data/eval_sets/test_set1/cluster_labeling.csv`, 20건→4그룹)는 준비됐지만 **전용 러너 스크립트가 아직 없음** (그룹별 라벨링 프롬프트, Judge로 라벨 정확도 채점)
 3. 사람 채점 calibration set 확보 후 Judge 신뢰도 검증
 4. Easy/Medium/Hard/RAG안정성 결과 문서의 `사람평가`/`사람 총평` 칸 검토
 5. RAG 안정성 3개 티어(Small/Medium/Large) 전체 결과를 놓고 **최종 모델 후보 압축** (아래 요약 참고 — Qwen3 4B/8B, Gemma3 4B가 유력)

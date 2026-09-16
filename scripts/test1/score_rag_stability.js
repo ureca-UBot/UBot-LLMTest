@@ -9,7 +9,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { numberVerification } = require('./lib/metrics');
+const { numberVerification } = require('../lib/test1/metrics');
 
 const ROOT = path.resolve(__dirname, '..');
 const RAW_DIR = path.join(ROOT, 'results', 'raw');

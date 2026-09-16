@@ -8,7 +8,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { judgeRagStability } = require('./lib/judge');
+const { judgeRagStability } = require('../lib/test1/judge');
 
 const ROOT = path.resolve(__dirname, '..');
 const RAW_DIR = path.join(ROOT, 'results', 'raw');

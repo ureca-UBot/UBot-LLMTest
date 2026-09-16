@@ -7,8 +7,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const { parseCsvObjects } = require('./lib/csv');
-const { judgeAnswer } = require('./lib/judge');
+const { parseCsvObjects } = require('../lib/test1/csv');
+const { judgeAnswer } = require('../lib/test1/judge');
 
 const ROOT = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT, 'data');

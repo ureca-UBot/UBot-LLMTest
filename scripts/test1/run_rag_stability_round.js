@@ -15,9 +15,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const { parseCsvObjects } = require('./lib/csv');
-const { chatOnce } = require('./lib/ollama');
-const { MODELS, ANSWER_GEN_SYSTEM_PROMPT } = require('./lib/prompts');
+const { parseCsvObjects } = require('../lib/test1/csv');
+const { chatOnce } = require('../lib/test1/ollama');
+const { MODELS, ANSWER_GEN_SYSTEM_PROMPT } = require('../lib/test1/prompts');
 
 const ROOT = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT, 'data');

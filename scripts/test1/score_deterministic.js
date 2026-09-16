@@ -8,8 +8,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const { parseCsvObjects } = require('./lib/csv');
-const { keywordCoverage, rougeL, numberVerification } = require('./lib/metrics');
+const { parseCsvObjects } = require('../lib/test1/csv');
+const { keywordCoverage, rougeL, numberVerification } = require('../lib/test1/metrics');
 
 const ROOT = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT, 'data');
