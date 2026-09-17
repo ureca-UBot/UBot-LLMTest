@@ -2,54 +2,54 @@
 
 [개요·테스트 케이스·종합 비교](repeat_consistency_results.md) · [평가 기준](methodology.md)
 
-개별 표의 이진 판정은 **통과/실패**, 상태·반복 일관성은 **일치/불일치**, 재판단 필요 표시는 **있음/없음**으로 표시한다. 재판단 필요 표시는 재판단 완료 여부가 아니다. 유사도·포함률·점수·시간·TPS와 집계 건수·비율은 수치로 표시한다. `N/A(스킵)`·`N/A(미채점)`은 실패나 0점과 구분한다.
+기존 저장 결과만 재집계했다. **정답 유사도/100**은 기존 BGE-M3 코사인 값 ×100이며 실제 정답률이 아니다. **RAG 충실도(근거 지지율)**는 기존 NLI에서 근거가 지지한다고 판정한 문장 수/판정 문장 수다. 숫자·명사·출처 오류는 접이식 자동 진단에 별도로 남겨 두었다. **포맷 충족/7**은 저장된 응답의 7개 형식 조건 충족 수다. 반복 표는 3개 회차 쌍의 일치 비율이다. 상태 일치는 일치/불일치, 재판단 필요 여부는 있음/없음으로 표시하며 재판단 완료를 뜻하지 않는다. 스킵·미채점·판정 없음은 0점으로 환산하지 않는다. 이 표의 수치는 추가 모델 호출 없이 계산했다. 중단한 별도 재채점 결과는 사용하지 않았다.
 
 ## 모델별 결과
 
 ### `exaone3.5:2.4b`
 
-| 원본 ID | 최종 일치 | 상태 | 숫자 | 근거 ID | 회차별 상태 |
+| 원본 ID | 상태+숫자 일치/3쌍 | 상태 일치/3쌍 | 숫자 일치/3쌍 | 근거 ID 일치/3쌍 | 회차별 상태 |
 |---|---|---|---|---|---|
-| SF-0001 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER → PARTIAL → ANSWER |
-| SF-0063 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → CLARIFY |
-| NC-0034 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| NC-0079 | 불일치 | 불일치 | 불일치 | 불일치 | CLARIFY → ANSWER → ANSWER |
-| NC-0086 | 불일치 | 불일치 | 일치 | 일치 | ANSWER → PARTIAL → PARTIAL |
-| MC-0052 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
-| MC-0091 | 불일치 | 불일치 | 불일치 | 일치 | ANSWER → PARTIAL → ANSWER |
-| MC-0098 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → ANSWER |
-| MC-0105 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
-| UI-0042 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER → PARTIAL → ANSWER |
-| UI-0068 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
-| UI-0087 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER → PARTIAL → ANSWER |
-| UI-0088 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
-| UI-0089 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → ANSWER |
-| CE-0045 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| CE-0072 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
-| CE-0078 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER → ANSWER → PARTIAL |
-| CE-0090 | 불일치 | 불일치 | 불일치 | 일치 | ANSWER → PARTIAL → ANSWER |
-| CE-0095 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER → PARTIAL → PARTIAL |
-| PI-0010 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| PI-0019 | 불일치 | 불일치 | 일치 | 일치 | PARTIAL → ANSWER → ANSWER |
-| PI-0026 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
-| SR-0052 | 불일치 | 불일치 | 불일치 | 일치 | PARTIAL → CLARIFY → CLARIFY |
-| SR-0066 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → ANSWER → PARTIAL |
-| HR-0013 | 불일치 | 불일치 | 일치 | 불일치 | PARTIAL → CLARIFY → ABSTAIN |
-| EC-0029 | 불일치 | 불일치 | 일치 | 일치 | CLARIFY → CONFLICT → ABSTAIN |
-| CF-0005 | 일치 | 일치 | 일치 | 일치 | PARTIAL → PARTIAL → PARTIAL |
-| CF-0032 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → ANSWER |
-| CF-0041 | 불일치 | 불일치 | 불일치 | 일치 | CONFLICT → ANSWER → CONFLICT |
-| CF-0067 | 불일치 | 불일치 | 불일치 | 불일치 | ABSTAIN → CLARIFY → CLARIFY |
-| MT-0037 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → ANSWER → PARTIAL |
-| MT-0071 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER → PARTIAL → ANSWER |
-| MT-0089 | 불일치 | 불일치 | 불일치 | 불일치 | CLARIFY → PARTIAL → PARTIAL |
-| MT-0096 | 불일치 | 불일치 | 불일치 | 불일치 | CLARIFY → CLARIFY → ABSTAIN |
-| MT-0109 | 불일치 | 불일치 | 불일치 | 불일치 | CLARIFY → ABSTAIN → PARTIAL |
-| AD-0021 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → CLARIFY → CLARIFY |
-| AD-0049 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| AD-0064 | 불일치 | 불일치 | 불일치 | 일치 | ANSWER → ANSWER → PARTIAL |
-| AD-0067 | 불일치 | 불일치 | 일치 | 불일치 | ABSTAIN → CLARIFY → OUT_OF_SCOPE |
-| AR-0019 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| SF-0001 | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | ANSWER → PARTIAL → ANSWER |
+| SF-0063 | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | PARTIAL → PARTIAL → CLARIFY |
+| NC-0034 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| NC-0079 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 1/3 (33.3%) | CLARIFY → ANSWER → ANSWER |
+| NC-0086 | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | 3/3 (100.0%) | ANSWER → PARTIAL → PARTIAL |
+| MC-0052 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 0/3 (0.0%) | ANSWER → ANSWER → ANSWER |
+| MC-0091 | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | ANSWER → PARTIAL → ANSWER |
+| MC-0098 | 0/3 (0.0%) | 1/3 (33.3%) | 1/3 (33.3%) | 0/3 (0.0%) | PARTIAL → PARTIAL → ANSWER |
+| MC-0105 | 0/3 (0.0%) | 3/3 (100.0%) | 0/3 (0.0%) | 1/3 (33.3%) | PARTIAL → PARTIAL → PARTIAL |
+| UI-0042 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 0/3 (0.0%) | ANSWER → PARTIAL → ANSWER |
+| UI-0068 | 0/3 (0.0%) | 3/3 (100.0%) | 0/3 (0.0%) | 0/3 (0.0%) | PARTIAL → PARTIAL → PARTIAL |
+| UI-0087 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 1/3 (33.3%) | ANSWER → PARTIAL → ANSWER |
+| UI-0088 | 0/3 (0.0%) | 3/3 (100.0%) | 0/3 (0.0%) | 1/3 (33.3%) | ANSWER → ANSWER → ANSWER |
+| UI-0089 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 0/3 (0.0%) | PARTIAL → PARTIAL → ANSWER |
+| CE-0045 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| CE-0072 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 0/3 (0.0%) | ANSWER → ANSWER → ANSWER |
+| CE-0078 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 1/3 (33.3%) | ANSWER → ANSWER → PARTIAL |
+| CE-0090 | 0/3 (0.0%) | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | ANSWER → PARTIAL → ANSWER |
+| CE-0095 | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | ANSWER → PARTIAL → PARTIAL |
+| PI-0010 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| PI-0019 | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | 3/3 (100.0%) | PARTIAL → ANSWER → ANSWER |
+| PI-0026 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 1/3 (33.3%) | PARTIAL → PARTIAL → PARTIAL |
+| SR-0052 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 3/3 (100.0%) | PARTIAL → CLARIFY → CLARIFY |
+| SR-0066 | 0/3 (0.0%) | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | PARTIAL → ANSWER → PARTIAL |
+| HR-0013 | 0/3 (0.0%) | 0/3 (0.0%) | 3/3 (100.0%) | 1/3 (33.3%) | PARTIAL → CLARIFY → ABSTAIN |
+| EC-0029 | 0/3 (0.0%) | 0/3 (0.0%) | 3/3 (100.0%) | 3/3 (100.0%) | CLARIFY → CONFLICT → ABSTAIN |
+| CF-0005 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | PARTIAL → PARTIAL → PARTIAL |
+| CF-0032 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 1/3 (33.3%) | PARTIAL → PARTIAL → ANSWER |
+| CF-0041 | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | CONFLICT → ANSWER → CONFLICT |
+| CF-0067 | 0/3 (0.0%) | 1/3 (33.3%) | 1/3 (33.3%) | 0/3 (0.0%) | ABSTAIN → CLARIFY → CLARIFY |
+| MT-0037 | 0/3 (0.0%) | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | PARTIAL → ANSWER → PARTIAL |
+| MT-0071 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 1/3 (33.3%) | ANSWER → PARTIAL → ANSWER |
+| MT-0089 | 0/3 (0.0%) | 1/3 (33.3%) | 1/3 (33.3%) | 0/3 (0.0%) | CLARIFY → PARTIAL → PARTIAL |
+| MT-0096 | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | 0/3 (0.0%) | CLARIFY → CLARIFY → ABSTAIN |
+| MT-0109 | 0/3 (0.0%) | 0/3 (0.0%) | 0/3 (0.0%) | 0/3 (0.0%) | CLARIFY → ABSTAIN → PARTIAL |
+| AD-0021 | 0/3 (0.0%) | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | PARTIAL → CLARIFY → CLARIFY |
+| AD-0049 | 0/3 (0.0%) | 3/3 (100.0%) | 0/3 (0.0%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| AD-0064 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 3/3 (100.0%) | ANSWER → ANSWER → PARTIAL |
+| AD-0067 | 0/3 (0.0%) | 0/3 (0.0%) | 3/3 (100.0%) | 1/3 (33.3%) | ABSTAIN → CLARIFY → OUT_OF_SCOPE |
+| AR-0019 | 0/3 (0.0%) | 3/3 (100.0%) | 0/3 (0.0%) | 0/3 (0.0%) | PARTIAL → PARTIAL → PARTIAL |
 
 
 <details>
@@ -1915,48 +1915,48 @@
 
 ### `exaone3.5:7.8b`
 
-| 원본 ID | 최종 일치 | 상태 | 숫자 | 근거 ID | 회차별 상태 |
+| 원본 ID | 상태+숫자 일치/3쌍 | 상태 일치/3쌍 | 숫자 일치/3쌍 | 근거 ID 일치/3쌍 | 회차별 상태 |
 |---|---|---|---|---|---|
-| SF-0001 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| SF-0063 | 일치 | 일치 | 일치 | 일치 | PARTIAL → PARTIAL → PARTIAL |
-| NC-0034 | 불일치 | 불일치 | 일치 | 일치 | PARTIAL → PARTIAL → ANSWER |
-| NC-0079 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| NC-0086 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| MC-0052 | 불일치 | 불일치 | 일치 | 일치 | PARTIAL → ANSWER → PARTIAL |
-| MC-0091 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
-| MC-0098 | 불일치 | 불일치 | 불일치 | 불일치 | None → ANSWER → ANSWER |
-| MC-0105 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
-| UI-0042 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER → ANSWER → PARTIAL |
-| UI-0068 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| UI-0087 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
-| UI-0088 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| UI-0089 | 일치 | 일치 | 일치 | 일치 | PARTIAL → PARTIAL → PARTIAL |
-| CE-0045 | 불일치 | 불일치 | 일치 | 일치 | PARTIAL → CLARIFY → CLARIFY |
-| CE-0072 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| CE-0078 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| CE-0090 | 일치 | 일치 | 일치 | 일치 | CLARIFY → CLARIFY → CLARIFY |
-| CE-0095 | 불일치 | 불일치 | 일치 | 일치 | PARTIAL → ANSWER → CLARIFY |
-| PI-0010 | 불일치 | 불일치 | 일치 | 일치 | ANSWER → PARTIAL → PARTIAL |
-| PI-0019 | 불일치 | 불일치 | 불일치 | 일치 | CLARIFY → PARTIAL → CLARIFY |
-| PI-0026 | 불일치 | 일치 | 불일치 | 일치 | PARTIAL → PARTIAL → PARTIAL |
-| SR-0052 | 불일치 | 일치 | 불일치 | 불일치 | CLARIFY → CLARIFY → CLARIFY |
-| SR-0066 | 불일치 | 불일치 | 불일치 | 불일치 | CLARIFY → PARTIAL → ABSTAIN |
-| HR-0013 | 일치 | 일치 | 일치 | 일치 | CLARIFY → CLARIFY → CLARIFY |
-| EC-0029 | 불일치 | 불일치 | 일치 | 일치 | CLARIFY → CLARIFY → OUT_OF_SCOPE |
-| CF-0005 | 일치 | 일치 | 일치 | 일치 | PARTIAL → PARTIAL → PARTIAL |
-| CF-0032 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| CF-0041 | 불일치 | 불일치 | 불일치 | 불일치 | OUT_OF_SCOPE → CLARIFY → CLARIFY |
-| CF-0067 | 불일치 | 일치 | 불일치 | 일치 | CLARIFY → CLARIFY → CLARIFY |
-| MT-0037 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
-| MT-0071 | 불일치 | 불일치 | 불일치 | 일치 | CLARIFY → PARTIAL → PARTIAL |
-| MT-0089 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
-| MT-0096 | 불일치 | 일치 | 불일치 | 불일치 | CLARIFY → CLARIFY → CLARIFY |
-| MT-0109 | 불일치 | 불일치 | 불일치 | 불일치 | CLARIFY → CLARIFY → PARTIAL |
-| AD-0021 | 불일치 | 불일치 | 불일치 | 불일치 | ABSTAIN → ABSTAIN → CLARIFY |
-| AD-0049 | 불일치 | 불일치 | 불일치 | 불일치 | CLARIFY → ABSTAIN → ABSTAIN |
-| AD-0064 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
-| AD-0067 | 일치 | 일치 | 일치 | 일치 | CLARIFY → CLARIFY → CLARIFY |
-| AR-0019 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
+| SF-0001 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| SF-0063 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | PARTIAL → PARTIAL → PARTIAL |
+| NC-0034 | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | 3/3 (100.0%) | PARTIAL → PARTIAL → ANSWER |
+| NC-0079 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| NC-0086 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| MC-0052 | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | 3/3 (100.0%) | PARTIAL → ANSWER → PARTIAL |
+| MC-0091 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 1/3 (33.3%) | ANSWER → ANSWER → ANSWER |
+| MC-0098 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 0/3 (0.0%) | None → ANSWER → ANSWER |
+| MC-0105 | 0/3 (0.0%) | 3/3 (100.0%) | 0/3 (0.0%) | 0/3 (0.0%) | ANSWER → ANSWER → ANSWER |
+| UI-0042 | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | ANSWER → ANSWER → PARTIAL |
+| UI-0068 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| UI-0087 | 0/3 (0.0%) | 3/3 (100.0%) | 0/3 (0.0%) | 1/3 (33.3%) | ANSWER → ANSWER → ANSWER |
+| UI-0088 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| UI-0089 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | PARTIAL → PARTIAL → PARTIAL |
+| CE-0045 | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | 3/3 (100.0%) | PARTIAL → CLARIFY → CLARIFY |
+| CE-0072 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| CE-0078 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| CE-0090 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | CLARIFY → CLARIFY → CLARIFY |
+| CE-0095 | 0/3 (0.0%) | 0/3 (0.0%) | 3/3 (100.0%) | 3/3 (100.0%) | PARTIAL → ANSWER → CLARIFY |
+| PI-0010 | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | 3/3 (100.0%) | ANSWER → PARTIAL → PARTIAL |
+| PI-0019 | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | CLARIFY → PARTIAL → CLARIFY |
+| PI-0026 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 3/3 (100.0%) | PARTIAL → PARTIAL → PARTIAL |
+| SR-0052 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 0/3 (0.0%) | CLARIFY → CLARIFY → CLARIFY |
+| SR-0066 | 0/3 (0.0%) | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | CLARIFY → PARTIAL → ABSTAIN |
+| HR-0013 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | CLARIFY → CLARIFY → CLARIFY |
+| EC-0029 | 1/3 (33.3%) | 1/3 (33.3%) | 3/3 (100.0%) | 3/3 (100.0%) | CLARIFY → CLARIFY → OUT_OF_SCOPE |
+| CF-0005 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | PARTIAL → PARTIAL → PARTIAL |
+| CF-0032 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| CF-0041 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 1/3 (33.3%) | OUT_OF_SCOPE → CLARIFY → CLARIFY |
+| CF-0067 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 3/3 (100.0%) | CLARIFY → CLARIFY → CLARIFY |
+| MT-0037 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | ANSWER → ANSWER → ANSWER |
+| MT-0071 | 0/3 (0.0%) | 1/3 (33.3%) | 0/3 (0.0%) | 3/3 (100.0%) | CLARIFY → PARTIAL → PARTIAL |
+| MT-0089 | 1/3 (33.3%) | 3/3 (100.0%) | 1/3 (33.3%) | 1/3 (33.3%) | PARTIAL → PARTIAL → PARTIAL |
+| MT-0096 | 0/3 (0.0%) | 3/3 (100.0%) | 0/3 (0.0%) | 0/3 (0.0%) | CLARIFY → CLARIFY → CLARIFY |
+| MT-0109 | 0/3 (0.0%) | 1/3 (33.3%) | 1/3 (33.3%) | 0/3 (0.0%) | CLARIFY → CLARIFY → PARTIAL |
+| AD-0021 | 0/3 (0.0%) | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | ABSTAIN → ABSTAIN → CLARIFY |
+| AD-0049 | 0/3 (0.0%) | 1/3 (33.3%) | 1/3 (33.3%) | 1/3 (33.3%) | CLARIFY → ABSTAIN → ABSTAIN |
+| AD-0064 | 0/3 (0.0%) | 3/3 (100.0%) | 0/3 (0.0%) | 1/3 (33.3%) | ANSWER → ANSWER → ANSWER |
+| AD-0067 | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | 3/3 (100.0%) | CLARIFY → CLARIFY → CLARIFY |
+| AR-0019 | 0/3 (0.0%) | 3/3 (100.0%) | 0/3 (0.0%) | 0/3 (0.0%) | ANSWER → ANSWER → ANSWER |
 
 
 <details>
