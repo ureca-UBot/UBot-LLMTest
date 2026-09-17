@@ -2,7 +2,7 @@
 
 [개요·테스트 케이스·종합 비교](repeat_consistency_results.md) · [평가 기준](methodology.md)
 
-개별 표의 이진 값은 **1=통과·일치, 0=실패·불일치**다. 재판단 필요 여부는 **1=필요, 0=표시 없음**이며 재판단 완료 여부가 아니다. 기존 판정을 숫자로 표시한 것으로 정답 확률이나 새로운 재채점 점수가 아니다. `N/A(스킵)`·`N/A(미채점)`은 0과 구분한다.
+개별 표의 이진 판정은 **통과/실패**, 상태·반복 일관성은 **일치/불일치**, 재판단 필요 표시는 **있음/없음**으로 표시한다. 재판단 필요 표시는 재판단 완료 여부가 아니다. 유사도·포함률·점수·시간·TPS와 집계 건수·비율은 수치로 표시한다. `N/A(스킵)`·`N/A(미채점)`은 실패나 0점과 구분한다.
 
 ## 모델별 결과
 
@@ -10,46 +10,46 @@
 
 | 원본 ID | 최종 일치 | 상태 | 숫자 | 근거 ID | 회차별 상태 |
 |---|---|---|---|---|---|
-| SF-0001 | 0 | 0 | 1 | 0 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE} → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
-| SF-0063 | 0 | 0 | 1 | 0 | None → ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
-| NC-0034 | 0 | 0 | 1 | 0 | ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER |
-| NC-0079 | 0 | 0 | 1 | 0 | None → None → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
-| NC-0086 | 0 | 0 | 1 | 0 | None → ANSWER → None |
-| MC-0052 | 1 | 1 | 1 | 0 | ANSWER → ANSWER → ANSWER |
-| MC-0091 | 1 | 1 | 1 | 0 | None → None → None |
-| MC-0098 | 0 | 0 | 1 | 0 | ANSWER → None → ANSWER |
-| MC-0105 | 0 | 0 | 1 | 0 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER |
-| UI-0042 | 1 | 1 | 1 | 1 | None → None → None |
-| UI-0068 | 1 | 1 | 1 | 1 | None → None → None |
-| UI-0087 | 1 | 1 | 1 | 1 | None → None → None |
-| UI-0088 | 1 | 1 | 1 | 1 | None → None → None |
-| UI-0089 | 1 | 1 | 1 | 1 | None → None → None |
-| CE-0045 | 0 | 0 | 0 | 0 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER |
-| CE-0072 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
-| CE-0078 | 0 | 0 | 1 | 0 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE →  ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
-| CE-0090 | 0 | 0 | 1 | 1 | ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER |
-| CE-0095 | 0 | 0 | 1 | 0 | ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE 중 하나} → ANSWER |
-| PI-0010 | 0 | 0 | 1 | 0 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER |
-| PI-0019 | 0 | 0 | 1 | 0 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → None → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
-| PI-0026 | 1 | 1 | 1 | 0 | ANSWER → ANSWER → ANSWER |
-| SR-0052 | 0 | 1 | 0 | 0 | None → None → None |
-| SR-0066 | 0 | 0 | 0 | 0 | ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER |
-| HR-0013 | 0 | 0 | 1 | 0 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → None → ANSWER |
-| EC-0029 | 0 | 1 | 0 | 0 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
-| CF-0005 | 0 | 0 | 0 | 0 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER |
-| CF-0032 | 0 | 0 | 0 | 1 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER |
-| CF-0041 | 0 | 0 | 0 | 0 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
-| CF-0067 | 0 | 0 | 1 | 0 | ANSWER → ANSWER → None |
-| MT-0037 | 0 | 0 | 0 | 1 | None → None → ANSWER |
-| MT-0071 | 0 | 0 | 1 | 0 | None → None → ANSWER |
-| MT-0089 | 0 | 0 | 0 | 0 | ANSWER → None → None |
-| MT-0096 | 0 | 0 | 0 | 1 | None → None → ANSWER |
-| MT-0109 | 0 | 0 | 0 | 0 | None → None → ANSWER |
-| AD-0021 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
-| AD-0049 | 0 | 0 | 0 | 0 | None → ANSWER → ANSWER |
-| AD-0064 | 0 | 0 | 1 | 0 | A → BA → 완료 |
-| AD-0067 | 0 | 0 | 0 | 0 | ANSWER → ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE 중 하나 |
-| AR-0019 | 1 | 1 | 1 | 1 | None → None → None |
+| SF-0001 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE} → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
+| SF-0063 | 불일치 | 불일치 | 일치 | 불일치 | None → ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
+| NC-0034 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER |
+| NC-0079 | 불일치 | 불일치 | 일치 | 불일치 | None → None → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
+| NC-0086 | 불일치 | 불일치 | 일치 | 불일치 | None → ANSWER → None |
+| MC-0052 | 일치 | 일치 | 일치 | 불일치 | ANSWER → ANSWER → ANSWER |
+| MC-0091 | 일치 | 일치 | 일치 | 불일치 | None → None → None |
+| MC-0098 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER → None → ANSWER |
+| MC-0105 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER |
+| UI-0042 | 일치 | 일치 | 일치 | 일치 | None → None → None |
+| UI-0068 | 일치 | 일치 | 일치 | 일치 | None → None → None |
+| UI-0087 | 일치 | 일치 | 일치 | 일치 | None → None → None |
+| UI-0088 | 일치 | 일치 | 일치 | 일치 | None → None → None |
+| UI-0089 | 일치 | 일치 | 일치 | 일치 | None → None → None |
+| CE-0045 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER |
+| CE-0072 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
+| CE-0078 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE →  ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
+| CE-0090 | 불일치 | 불일치 | 일치 | 일치 | ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER |
+| CE-0095 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE 중 하나} → ANSWER |
+| PI-0010 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER |
+| PI-0019 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → None → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
+| PI-0026 | 일치 | 일치 | 일치 | 불일치 | ANSWER → ANSWER → ANSWER |
+| SR-0052 | 불일치 | 일치 | 불일치 | 불일치 | None → None → None |
+| SR-0066 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER |
+| HR-0013 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → None → ANSWER |
+| EC-0029 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
+| CF-0005 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER |
+| CF-0032 | 불일치 | 불일치 | 불일치 | 일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER |
+| CF-0041 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE → ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE |
+| CF-0067 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER → ANSWER → None |
+| MT-0037 | 불일치 | 불일치 | 불일치 | 일치 | None → None → ANSWER |
+| MT-0071 | 불일치 | 불일치 | 일치 | 불일치 | None → None → ANSWER |
+| MT-0089 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER → None → None |
+| MT-0096 | 불일치 | 불일치 | 불일치 | 일치 | None → None → ANSWER |
+| MT-0109 | 불일치 | 불일치 | 불일치 | 불일치 | None → None → ANSWER |
+| AD-0021 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
+| AD-0049 | 불일치 | 불일치 | 불일치 | 불일치 | None → ANSWER → ANSWER |
+| AD-0064 | 불일치 | 불일치 | 일치 | 불일치 | A → BA → 완료 |
+| AD-0067 | 불일치 | 불일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER/PARTIAL/CLARIFY/ABSTAIN/CONFLICT/OUT_OF_SCOPE 중 하나 |
+| AR-0019 | 일치 | 일치 | 일치 | 일치 | None → None → None |
 
 
 <details>
@@ -2241,46 +2241,46 @@
 
 | 원본 ID | 최종 일치 | 상태 | 숫자 | 근거 ID | 회차별 상태 |
 |---|---|---|---|---|---|
-| SF-0001 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| SF-0063 | 0 | 0 | 1 | 0 | PARTIAL → PARTIAL → PARTIMAL |
-| NC-0034 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| NC-0079 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| NC-0086 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| MC-0052 | 0 | 0 | 1 | 0 | PARTIAL → PARTIAL → ABSTINE |
-| MC-0091 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| MC-0098 | 0 | 0 | 1 | 0 | PARTIAL → PARTIAL/CLARIF → PARTIAL |
-| MC-0105 | 0 | 0 | 1 | 0 | PARTIAL_ANSWER → PARTIAL → PARTIAL |
-| UI-0042 | 0 | 0 | 0 | 0 | PARTIAL → CLARIFY → CLARIFY |
-| UI-0068 | 0 | 0 | 1 | 1 | PARTIAL → None → PARTIAL |
-| UI-0087 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| UI-0088 | 0 | 1 | 0 | 1 | PARTIAL → PARTIAL → PARTIAL |
-| UI-0089 | 0 | 0 | 0 | 1 | PARTIAL → ABSTTAIN → ABSOLUT |
-| CE-0045 | 0 | 0 | 0 | 0 | PARTIAL → PARTIAL → ANSWER |
-| CE-0072 | 0 | 0 | 1 | 0 | PARTIAL → CLARIFY → PARTIAL |
-| CE-0078 | 0 | 0 | 0 | 0 | ABSTAIN → PARTIAL → PARTI |
-| CE-0090 | 0 | 0 | 0 | 0 | PARTIAL → None → CLARIFY |
-| CE-0095 | 0 | 0 | 1 | 0 | PARTICAL → PARTIAL → PARTIAL |
-| PI-0010 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| PI-0019 | 0 | 0 | 1 | 1 | ANSWER → PARTIAL → PARTIAL |
-| PI-0026 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| SR-0052 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| SR-0066 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| HR-0013 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| EC-0029 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| CF-0005 | 0 | 0 | 0 | 1 | ANSWER → PARTIAL → PARTIAL |
-| CF-0032 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| CF-0041 | 0 | 0 | 0 | 0 | PARTIAL → PARTially → PARTIAL |
-| CF-0067 | 0 | 0 | 0 | 0 | CLARIFY → PARTIAL → PARTIAL |
-| MT-0037 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| MT-0071 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| MT-0089 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| MT-0096 | 0 | 0 | 0 | 0 | PARTIAL → PARTIAL → None |
-| MT-0109 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| AD-0021 | 0 | 0 | 0 | 0 | PARTIAL → ABSTAIN → ABSTAIN |
-| AD-0049 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| AD-0064 | 0 | 1 | 0 | 1 | PARTIAL → PARTIAL → PARTIAL |
-| AD-0067 | 0 | 0 | 0 | 0 | PARTIAL → PARTIAL/Clarify → PARTIAL |
-| AR-0019 | 0 | 0 | 0 | 0 | CLARify → ABSTAIN → PARTIAL |
+| SF-0001 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| SF-0063 | 불일치 | 불일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIMAL |
+| NC-0034 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| NC-0079 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| NC-0086 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| MC-0052 | 불일치 | 불일치 | 일치 | 불일치 | PARTIAL → PARTIAL → ABSTINE |
+| MC-0091 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| MC-0098 | 불일치 | 불일치 | 일치 | 불일치 | PARTIAL → PARTIAL/CLARIF → PARTIAL |
+| MC-0105 | 불일치 | 불일치 | 일치 | 불일치 | PARTIAL_ANSWER → PARTIAL → PARTIAL |
+| UI-0042 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → CLARIFY → CLARIFY |
+| UI-0068 | 불일치 | 불일치 | 일치 | 일치 | PARTIAL → None → PARTIAL |
+| UI-0087 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| UI-0088 | 불일치 | 일치 | 불일치 | 일치 | PARTIAL → PARTIAL → PARTIAL |
+| UI-0089 | 불일치 | 불일치 | 불일치 | 일치 | PARTIAL → ABSTTAIN → ABSOLUT |
+| CE-0045 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → ANSWER |
+| CE-0072 | 불일치 | 불일치 | 일치 | 불일치 | PARTIAL → CLARIFY → PARTIAL |
+| CE-0078 | 불일치 | 불일치 | 불일치 | 불일치 | ABSTAIN → PARTIAL → PARTI |
+| CE-0090 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → None → CLARIFY |
+| CE-0095 | 불일치 | 불일치 | 일치 | 불일치 | PARTICAL → PARTIAL → PARTIAL |
+| PI-0010 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| PI-0019 | 불일치 | 불일치 | 일치 | 일치 | ANSWER → PARTIAL → PARTIAL |
+| PI-0026 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| SR-0052 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| SR-0066 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| HR-0013 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| EC-0029 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| CF-0005 | 불일치 | 불일치 | 불일치 | 일치 | ANSWER → PARTIAL → PARTIAL |
+| CF-0032 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| CF-0041 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → PARTially → PARTIAL |
+| CF-0067 | 불일치 | 불일치 | 불일치 | 불일치 | CLARIFY → PARTIAL → PARTIAL |
+| MT-0037 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| MT-0071 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| MT-0089 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| MT-0096 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → None |
+| MT-0109 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| AD-0021 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → ABSTAIN → ABSTAIN |
+| AD-0049 | 일치 | 일치 | 일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| AD-0064 | 불일치 | 일치 | 불일치 | 일치 | PARTIAL → PARTIAL → PARTIAL |
+| AD-0067 | 불일치 | 불일치 | 불일치 | 불일치 | PARTIAL → PARTIAL/Clarify → PARTIAL |
+| AR-0019 | 불일치 | 불일치 | 불일치 | 불일치 | CLARify → ABSTAIN → PARTIAL |
 
 
 <details>
@@ -4049,46 +4049,46 @@
 
 | 원본 ID | 최종 일치 | 상태 | 숫자 | 근거 ID | 회차별 상태 |
 |---|---|---|---|---|---|
-| SF-0001 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| SF-0063 | 0 | 0 | 1 | 1 | CLARIFY → ANSWER → CLARIFY |
-| NC-0034 | 0 | 0 | 1 | 0 | ANSWER → None → ANSWER |
-| NC-0079 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| NC-0086 | 1 | 1 | 1 | 1 | PARTIAL → PARTIAL → PARTIAL |
-| MC-0052 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| MC-0091 | 1 | 1 | 1 | 0 | ANSWER → ANSWER → ANSWER |
-| MC-0098 | 0 | 1 | 0 | 0 | CLARIFY → CLARIFY → CLARIFY |
-| MC-0105 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| UI-0042 | 1 | 1 | 1 | 0 | ANSWER → ANSWER → ANSWER |
-| UI-0068 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
-| UI-0087 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
-| UI-0088 | 0 | 0 | 0 | 1 | ANSWER → PARTIAL → ANSWER |
-| UI-0089 | 0 | 1 | 0 | 0 | CLARIFY → CLARIFY → CLARIFY |
-| CE-0045 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| CE-0072 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| CE-0078 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| CE-0090 | 0 | 0 | 1 | 1 | ABSTAIN → ABSTAIN → CLARIFY |
-| CE-0095 | 1 | 1 | 1 | 1 | CLARIFY → CLARIFY → CLARIFY |
-| PI-0010 | 0 | 0 | 0 | 1 | CLARIFY → PARTIAL → PARTIAL |
-| PI-0019 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| PI-0026 | 1 | 1 | 1 | 1 | PARTIAL → PARTIAL → PARTIAL |
-| SR-0052 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| SR-0066 | 0 | 1 | 0 | 0 | CLARIFY → CLARIFY → CLARIFY |
-| HR-0013 | 1 | 1 | 1 | 0 | ABSTAIN → ABSTAIN → ABSTAIN |
-| EC-0029 | 0 | 1 | 0 | 1 | CLARIFY → CLARIFY → CLARIFY |
-| CF-0005 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| CF-0032 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
-| CF-0041 | 1 | 1 | 1 | 0 | ABSTAIN → ABSTAIN → ABSTAIN |
-| CF-0067 | 1 | 1 | 1 | 1 | CLARIFY → CLARIFY → CLARIFY |
-| MT-0037 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
-| MT-0071 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
-| MT-0089 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
-| MT-0096 | 1 | 1 | 1 | 0 | ABSTAIN → ABSTAIN → ABSTAIN |
-| MT-0109 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
-| AD-0021 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| AD-0049 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
-| AD-0064 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
-| AD-0067 | 0 | 1 | 0 | 1 | CLARIFY → CLARIFY → CLARIFY |
-| AR-0019 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
+| SF-0001 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| SF-0063 | 불일치 | 불일치 | 일치 | 일치 | CLARIFY → ANSWER → CLARIFY |
+| NC-0034 | 불일치 | 불일치 | 일치 | 불일치 | ANSWER → None → ANSWER |
+| NC-0079 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| NC-0086 | 일치 | 일치 | 일치 | 일치 | PARTIAL → PARTIAL → PARTIAL |
+| MC-0052 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| MC-0091 | 일치 | 일치 | 일치 | 불일치 | ANSWER → ANSWER → ANSWER |
+| MC-0098 | 불일치 | 일치 | 불일치 | 불일치 | CLARIFY → CLARIFY → CLARIFY |
+| MC-0105 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| UI-0042 | 일치 | 일치 | 일치 | 불일치 | ANSWER → ANSWER → ANSWER |
+| UI-0068 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| UI-0087 | 불일치 | 일치 | 불일치 | 불일치 | PARTIAL → PARTIAL → PARTIAL |
+| UI-0088 | 불일치 | 불일치 | 불일치 | 일치 | ANSWER → PARTIAL → ANSWER |
+| UI-0089 | 불일치 | 일치 | 불일치 | 불일치 | CLARIFY → CLARIFY → CLARIFY |
+| CE-0045 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| CE-0072 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| CE-0078 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| CE-0090 | 불일치 | 불일치 | 일치 | 일치 | ABSTAIN → ABSTAIN → CLARIFY |
+| CE-0095 | 일치 | 일치 | 일치 | 일치 | CLARIFY → CLARIFY → CLARIFY |
+| PI-0010 | 불일치 | 불일치 | 불일치 | 일치 | CLARIFY → PARTIAL → PARTIAL |
+| PI-0019 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| PI-0026 | 일치 | 일치 | 일치 | 일치 | PARTIAL → PARTIAL → PARTIAL |
+| SR-0052 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| SR-0066 | 불일치 | 일치 | 불일치 | 불일치 | CLARIFY → CLARIFY → CLARIFY |
+| HR-0013 | 일치 | 일치 | 일치 | 불일치 | ABSTAIN → ABSTAIN → ABSTAIN |
+| EC-0029 | 불일치 | 일치 | 불일치 | 일치 | CLARIFY → CLARIFY → CLARIFY |
+| CF-0005 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| CF-0032 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| CF-0041 | 일치 | 일치 | 일치 | 불일치 | ABSTAIN → ABSTAIN → ABSTAIN |
+| CF-0067 | 일치 | 일치 | 일치 | 일치 | CLARIFY → CLARIFY → CLARIFY |
+| MT-0037 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
+| MT-0071 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| MT-0089 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
+| MT-0096 | 일치 | 일치 | 일치 | 불일치 | ABSTAIN → ABSTAIN → ABSTAIN |
+| MT-0109 | 불일치 | 일치 | 불일치 | 불일치 | ANSWER → ANSWER → ANSWER |
+| AD-0021 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| AD-0049 | 일치 | 일치 | 일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| AD-0064 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
+| AD-0067 | 불일치 | 일치 | 불일치 | 일치 | CLARIFY → CLARIFY → CLARIFY |
+| AR-0019 | 불일치 | 일치 | 불일치 | 일치 | ANSWER → ANSWER → ANSWER |
 
 
 <details>
