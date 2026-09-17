@@ -2,52 +2,54 @@
 
 [개요·테스트 케이스·종합 비교](repeat_consistency_results.md) · [평가 기준](methodology.md)
 
+개별 표의 이진 값은 **1=통과·일치, 0=실패·불일치**다. 재판단 필요 여부는 **1=필요, 0=표시 없음**이며 재판단 완료 여부가 아니다. 기존 판정을 숫자로 표시한 것으로 정답 확률이나 새로운 재채점 점수가 아니다. `N/A(스킵)`·`N/A(미채점)`은 0과 구분한다.
+
 ## 모델별 결과
 
 ### `exaone3.5:2.4b`
 
 | 원본 ID | 최종 일치 | 상태 | 숫자 | 근거 ID | 회차별 상태 |
 |---|---|---|---|---|---|
-| SF-0001 | 실패 | 실패 | 통과 | 실패 | ANSWER → PARTIAL → ANSWER |
-| SF-0063 | 실패 | 실패 | 실패 | 실패 | PARTIAL → PARTIAL → CLARIFY |
-| NC-0034 | 통과 | 통과 | 통과 | 통과 | ANSWER → ANSWER → ANSWER |
-| NC-0079 | 실패 | 실패 | 실패 | 실패 | CLARIFY → ANSWER → ANSWER |
-| NC-0086 | 실패 | 실패 | 통과 | 통과 | ANSWER → PARTIAL → PARTIAL |
-| MC-0052 | 실패 | 통과 | 실패 | 실패 | ANSWER → ANSWER → ANSWER |
-| MC-0091 | 실패 | 실패 | 실패 | 통과 | ANSWER → PARTIAL → ANSWER |
-| MC-0098 | 실패 | 실패 | 실패 | 실패 | PARTIAL → PARTIAL → ANSWER |
-| MC-0105 | 실패 | 통과 | 실패 | 실패 | PARTIAL → PARTIAL → PARTIAL |
-| UI-0042 | 실패 | 실패 | 실패 | 실패 | ANSWER → PARTIAL → ANSWER |
-| UI-0068 | 실패 | 통과 | 실패 | 실패 | PARTIAL → PARTIAL → PARTIAL |
-| UI-0087 | 실패 | 실패 | 실패 | 실패 | ANSWER → PARTIAL → ANSWER |
-| UI-0088 | 실패 | 통과 | 실패 | 실패 | ANSWER → ANSWER → ANSWER |
-| UI-0089 | 실패 | 실패 | 실패 | 실패 | PARTIAL → PARTIAL → ANSWER |
-| CE-0045 | 실패 | 통과 | 실패 | 통과 | ANSWER → ANSWER → ANSWER |
-| CE-0072 | 실패 | 통과 | 실패 | 실패 | ANSWER → ANSWER → ANSWER |
-| CE-0078 | 실패 | 실패 | 실패 | 실패 | ANSWER → ANSWER → PARTIAL |
-| CE-0090 | 실패 | 실패 | 실패 | 통과 | ANSWER → PARTIAL → ANSWER |
-| CE-0095 | 실패 | 실패 | 실패 | 실패 | ANSWER → PARTIAL → PARTIAL |
-| PI-0010 | 실패 | 통과 | 실패 | 통과 | ANSWER → ANSWER → ANSWER |
-| PI-0019 | 실패 | 실패 | 통과 | 통과 | PARTIAL → ANSWER → ANSWER |
-| PI-0026 | 통과 | 통과 | 통과 | 실패 | PARTIAL → PARTIAL → PARTIAL |
-| SR-0052 | 실패 | 실패 | 실패 | 통과 | PARTIAL → CLARIFY → CLARIFY |
-| SR-0066 | 실패 | 실패 | 실패 | 실패 | PARTIAL → ANSWER → PARTIAL |
-| HR-0013 | 실패 | 실패 | 통과 | 실패 | PARTIAL → CLARIFY → ABSTAIN |
-| EC-0029 | 실패 | 실패 | 통과 | 통과 | CLARIFY → CONFLICT → ABSTAIN |
-| CF-0005 | 통과 | 통과 | 통과 | 통과 | PARTIAL → PARTIAL → PARTIAL |
-| CF-0032 | 실패 | 실패 | 실패 | 실패 | PARTIAL → PARTIAL → ANSWER |
-| CF-0041 | 실패 | 실패 | 실패 | 통과 | CONFLICT → ANSWER → CONFLICT |
-| CF-0067 | 실패 | 실패 | 실패 | 실패 | ABSTAIN → CLARIFY → CLARIFY |
-| MT-0037 | 실패 | 실패 | 실패 | 실패 | PARTIAL → ANSWER → PARTIAL |
-| MT-0071 | 실패 | 실패 | 실패 | 실패 | ANSWER → PARTIAL → ANSWER |
-| MT-0089 | 실패 | 실패 | 실패 | 실패 | CLARIFY → PARTIAL → PARTIAL |
-| MT-0096 | 실패 | 실패 | 실패 | 실패 | CLARIFY → CLARIFY → ABSTAIN |
-| MT-0109 | 실패 | 실패 | 실패 | 실패 | CLARIFY → ABSTAIN → PARTIAL |
-| AD-0021 | 실패 | 실패 | 실패 | 실패 | PARTIAL → CLARIFY → CLARIFY |
-| AD-0049 | 실패 | 통과 | 실패 | 통과 | ANSWER → ANSWER → ANSWER |
-| AD-0064 | 실패 | 실패 | 실패 | 통과 | ANSWER → ANSWER → PARTIAL |
-| AD-0067 | 실패 | 실패 | 통과 | 실패 | ABSTAIN → CLARIFY → OUT_OF_SCOPE |
-| AR-0019 | 실패 | 통과 | 실패 | 실패 | PARTIAL → PARTIAL → PARTIAL |
+| SF-0001 | 0 | 0 | 1 | 0 | ANSWER → PARTIAL → ANSWER |
+| SF-0063 | 0 | 0 | 0 | 0 | PARTIAL → PARTIAL → CLARIFY |
+| NC-0034 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
+| NC-0079 | 0 | 0 | 0 | 0 | CLARIFY → ANSWER → ANSWER |
+| NC-0086 | 0 | 0 | 1 | 1 | ANSWER → PARTIAL → PARTIAL |
+| MC-0052 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
+| MC-0091 | 0 | 0 | 0 | 1 | ANSWER → PARTIAL → ANSWER |
+| MC-0098 | 0 | 0 | 0 | 0 | PARTIAL → PARTIAL → ANSWER |
+| MC-0105 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
+| UI-0042 | 0 | 0 | 0 | 0 | ANSWER → PARTIAL → ANSWER |
+| UI-0068 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
+| UI-0087 | 0 | 0 | 0 | 0 | ANSWER → PARTIAL → ANSWER |
+| UI-0088 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
+| UI-0089 | 0 | 0 | 0 | 0 | PARTIAL → PARTIAL → ANSWER |
+| CE-0045 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
+| CE-0072 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
+| CE-0078 | 0 | 0 | 0 | 0 | ANSWER → ANSWER → PARTIAL |
+| CE-0090 | 0 | 0 | 0 | 1 | ANSWER → PARTIAL → ANSWER |
+| CE-0095 | 0 | 0 | 0 | 0 | ANSWER → PARTIAL → PARTIAL |
+| PI-0010 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
+| PI-0019 | 0 | 0 | 1 | 1 | PARTIAL → ANSWER → ANSWER |
+| PI-0026 | 1 | 1 | 1 | 0 | PARTIAL → PARTIAL → PARTIAL |
+| SR-0052 | 0 | 0 | 0 | 1 | PARTIAL → CLARIFY → CLARIFY |
+| SR-0066 | 0 | 0 | 0 | 0 | PARTIAL → ANSWER → PARTIAL |
+| HR-0013 | 0 | 0 | 1 | 0 | PARTIAL → CLARIFY → ABSTAIN |
+| EC-0029 | 0 | 0 | 1 | 1 | CLARIFY → CONFLICT → ABSTAIN |
+| CF-0005 | 1 | 1 | 1 | 1 | PARTIAL → PARTIAL → PARTIAL |
+| CF-0032 | 0 | 0 | 0 | 0 | PARTIAL → PARTIAL → ANSWER |
+| CF-0041 | 0 | 0 | 0 | 1 | CONFLICT → ANSWER → CONFLICT |
+| CF-0067 | 0 | 0 | 0 | 0 | ABSTAIN → CLARIFY → CLARIFY |
+| MT-0037 | 0 | 0 | 0 | 0 | PARTIAL → ANSWER → PARTIAL |
+| MT-0071 | 0 | 0 | 0 | 0 | ANSWER → PARTIAL → ANSWER |
+| MT-0089 | 0 | 0 | 0 | 0 | CLARIFY → PARTIAL → PARTIAL |
+| MT-0096 | 0 | 0 | 0 | 0 | CLARIFY → CLARIFY → ABSTAIN |
+| MT-0109 | 0 | 0 | 0 | 0 | CLARIFY → ABSTAIN → PARTIAL |
+| AD-0021 | 0 | 0 | 0 | 0 | PARTIAL → CLARIFY → CLARIFY |
+| AD-0049 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
+| AD-0064 | 0 | 0 | 0 | 1 | ANSWER → ANSWER → PARTIAL |
+| AD-0067 | 0 | 0 | 1 | 0 | ABSTAIN → CLARIFY → OUT_OF_SCOPE |
+| AR-0019 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
 
 
 <details>
@@ -1915,46 +1917,46 @@
 
 | 원본 ID | 최종 일치 | 상태 | 숫자 | 근거 ID | 회차별 상태 |
 |---|---|---|---|---|---|
-| SF-0001 | 통과 | 통과 | 통과 | 통과 | ANSWER → ANSWER → ANSWER |
-| SF-0063 | 통과 | 통과 | 통과 | 통과 | PARTIAL → PARTIAL → PARTIAL |
-| NC-0034 | 실패 | 실패 | 통과 | 통과 | PARTIAL → PARTIAL → ANSWER |
-| NC-0079 | 통과 | 통과 | 통과 | 통과 | ANSWER → ANSWER → ANSWER |
-| NC-0086 | 통과 | 통과 | 통과 | 통과 | ANSWER → ANSWER → ANSWER |
-| MC-0052 | 실패 | 실패 | 통과 | 통과 | PARTIAL → ANSWER → PARTIAL |
-| MC-0091 | 실패 | 통과 | 실패 | 실패 | ANSWER → ANSWER → ANSWER |
-| MC-0098 | 실패 | 실패 | 실패 | 실패 | None → ANSWER → ANSWER |
-| MC-0105 | 실패 | 통과 | 실패 | 실패 | ANSWER → ANSWER → ANSWER |
-| UI-0042 | 실패 | 실패 | 통과 | 실패 | ANSWER → ANSWER → PARTIAL |
-| UI-0068 | 실패 | 통과 | 실패 | 통과 | ANSWER → ANSWER → ANSWER |
-| UI-0087 | 실패 | 통과 | 실패 | 실패 | ANSWER → ANSWER → ANSWER |
-| UI-0088 | 통과 | 통과 | 통과 | 통과 | ANSWER → ANSWER → ANSWER |
-| UI-0089 | 통과 | 통과 | 통과 | 통과 | PARTIAL → PARTIAL → PARTIAL |
-| CE-0045 | 실패 | 실패 | 통과 | 통과 | PARTIAL → CLARIFY → CLARIFY |
-| CE-0072 | 통과 | 통과 | 통과 | 통과 | ANSWER → ANSWER → ANSWER |
-| CE-0078 | 실패 | 통과 | 실패 | 통과 | ANSWER → ANSWER → ANSWER |
-| CE-0090 | 통과 | 통과 | 통과 | 통과 | CLARIFY → CLARIFY → CLARIFY |
-| CE-0095 | 실패 | 실패 | 통과 | 통과 | PARTIAL → ANSWER → CLARIFY |
-| PI-0010 | 실패 | 실패 | 통과 | 통과 | ANSWER → PARTIAL → PARTIAL |
-| PI-0019 | 실패 | 실패 | 실패 | 통과 | CLARIFY → PARTIAL → CLARIFY |
-| PI-0026 | 실패 | 통과 | 실패 | 통과 | PARTIAL → PARTIAL → PARTIAL |
-| SR-0052 | 실패 | 통과 | 실패 | 실패 | CLARIFY → CLARIFY → CLARIFY |
-| SR-0066 | 실패 | 실패 | 실패 | 실패 | CLARIFY → PARTIAL → ABSTAIN |
-| HR-0013 | 통과 | 통과 | 통과 | 통과 | CLARIFY → CLARIFY → CLARIFY |
-| EC-0029 | 실패 | 실패 | 통과 | 통과 | CLARIFY → CLARIFY → OUT_OF_SCOPE |
-| CF-0005 | 통과 | 통과 | 통과 | 통과 | PARTIAL → PARTIAL → PARTIAL |
-| CF-0032 | 실패 | 통과 | 실패 | 통과 | ANSWER → ANSWER → ANSWER |
-| CF-0041 | 실패 | 실패 | 실패 | 실패 | OUT_OF_SCOPE → CLARIFY → CLARIFY |
-| CF-0067 | 실패 | 통과 | 실패 | 통과 | CLARIFY → CLARIFY → CLARIFY |
-| MT-0037 | 통과 | 통과 | 통과 | 통과 | ANSWER → ANSWER → ANSWER |
-| MT-0071 | 실패 | 실패 | 실패 | 통과 | CLARIFY → PARTIAL → PARTIAL |
-| MT-0089 | 실패 | 통과 | 실패 | 실패 | PARTIAL → PARTIAL → PARTIAL |
-| MT-0096 | 실패 | 통과 | 실패 | 실패 | CLARIFY → CLARIFY → CLARIFY |
-| MT-0109 | 실패 | 실패 | 실패 | 실패 | CLARIFY → CLARIFY → PARTIAL |
-| AD-0021 | 실패 | 실패 | 실패 | 실패 | ABSTAIN → ABSTAIN → CLARIFY |
-| AD-0049 | 실패 | 실패 | 실패 | 실패 | CLARIFY → ABSTAIN → ABSTAIN |
-| AD-0064 | 실패 | 통과 | 실패 | 실패 | ANSWER → ANSWER → ANSWER |
-| AD-0067 | 통과 | 통과 | 통과 | 통과 | CLARIFY → CLARIFY → CLARIFY |
-| AR-0019 | 실패 | 통과 | 실패 | 실패 | ANSWER → ANSWER → ANSWER |
+| SF-0001 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
+| SF-0063 | 1 | 1 | 1 | 1 | PARTIAL → PARTIAL → PARTIAL |
+| NC-0034 | 0 | 0 | 1 | 1 | PARTIAL → PARTIAL → ANSWER |
+| NC-0079 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
+| NC-0086 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
+| MC-0052 | 0 | 0 | 1 | 1 | PARTIAL → ANSWER → PARTIAL |
+| MC-0091 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
+| MC-0098 | 0 | 0 | 0 | 0 | None → ANSWER → ANSWER |
+| MC-0105 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
+| UI-0042 | 0 | 0 | 1 | 0 | ANSWER → ANSWER → PARTIAL |
+| UI-0068 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
+| UI-0087 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
+| UI-0088 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
+| UI-0089 | 1 | 1 | 1 | 1 | PARTIAL → PARTIAL → PARTIAL |
+| CE-0045 | 0 | 0 | 1 | 1 | PARTIAL → CLARIFY → CLARIFY |
+| CE-0072 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
+| CE-0078 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
+| CE-0090 | 1 | 1 | 1 | 1 | CLARIFY → CLARIFY → CLARIFY |
+| CE-0095 | 0 | 0 | 1 | 1 | PARTIAL → ANSWER → CLARIFY |
+| PI-0010 | 0 | 0 | 1 | 1 | ANSWER → PARTIAL → PARTIAL |
+| PI-0019 | 0 | 0 | 0 | 1 | CLARIFY → PARTIAL → CLARIFY |
+| PI-0026 | 0 | 1 | 0 | 1 | PARTIAL → PARTIAL → PARTIAL |
+| SR-0052 | 0 | 1 | 0 | 0 | CLARIFY → CLARIFY → CLARIFY |
+| SR-0066 | 0 | 0 | 0 | 0 | CLARIFY → PARTIAL → ABSTAIN |
+| HR-0013 | 1 | 1 | 1 | 1 | CLARIFY → CLARIFY → CLARIFY |
+| EC-0029 | 0 | 0 | 1 | 1 | CLARIFY → CLARIFY → OUT_OF_SCOPE |
+| CF-0005 | 1 | 1 | 1 | 1 | PARTIAL → PARTIAL → PARTIAL |
+| CF-0032 | 0 | 1 | 0 | 1 | ANSWER → ANSWER → ANSWER |
+| CF-0041 | 0 | 0 | 0 | 0 | OUT_OF_SCOPE → CLARIFY → CLARIFY |
+| CF-0067 | 0 | 1 | 0 | 1 | CLARIFY → CLARIFY → CLARIFY |
+| MT-0037 | 1 | 1 | 1 | 1 | ANSWER → ANSWER → ANSWER |
+| MT-0071 | 0 | 0 | 0 | 1 | CLARIFY → PARTIAL → PARTIAL |
+| MT-0089 | 0 | 1 | 0 | 0 | PARTIAL → PARTIAL → PARTIAL |
+| MT-0096 | 0 | 1 | 0 | 0 | CLARIFY → CLARIFY → CLARIFY |
+| MT-0109 | 0 | 0 | 0 | 0 | CLARIFY → CLARIFY → PARTIAL |
+| AD-0021 | 0 | 0 | 0 | 0 | ABSTAIN → ABSTAIN → CLARIFY |
+| AD-0049 | 0 | 0 | 0 | 0 | CLARIFY → ABSTAIN → ABSTAIN |
+| AD-0064 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
+| AD-0067 | 1 | 1 | 1 | 1 | CLARIFY → CLARIFY → CLARIFY |
+| AR-0019 | 0 | 1 | 0 | 0 | ANSWER → ANSWER → ANSWER |
 
 
 <details>
