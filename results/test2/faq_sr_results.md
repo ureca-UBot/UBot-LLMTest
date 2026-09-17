@@ -10,43 +10,43 @@
 
 ## 테스트 케이스
 
-| ID | 난이도 | 기대 상태 | 회차 수 | AI 직접 검토 |
+| ID | 난이도 | 기대 상태 | 회차 수 | AI 직접 검토 횟수 |
 |---|---|---|---|---|
-| SR-0001 | Easy | ABSTAIN | 1 | 회차1 |
-| SR-0005 | Easy | ABSTAIN | 1 | 미실시 |
-| SR-0006 | Easy | ABSTAIN | 1 | 미실시 |
-| SR-0007 | Easy | ABSTAIN | 1 | 미실시 |
-| SR-0008 | Easy | ABSTAIN | 1 | 미실시 |
-| SR-0010 | Easy | ABSTAIN | 1 | 미실시 |
-| SR-0011 | Easy | ABSTAIN | 1 | 미실시 |
-| SR-0013 | Easy | ABSTAIN | 1 | 미실시 |
-| SR-0016 | Easy | ABSTAIN | 1 | 미실시 |
-| SR-0020 | Easy | ABSTAIN | 1 | 미실시 |
-| SR-0022 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0025 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0027 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0028 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0030 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0031 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0032 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0035 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0038 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0040 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0042 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0044 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0045 | Medium | ABSTAIN | 1 | 미실시 |
-| SR-0052 | Hard | ABSTAIN | 3 | 미실시 |
-| SR-0054 | Hard | ABSTAIN | 1 | 미실시 |
-| SR-0055 | Hard | ABSTAIN | 1 | 미실시 |
-| SR-0057 | Hard | ABSTAIN | 1 | 미실시 |
-| SR-0059 | Hard | ABSTAIN | 1 | 미실시 |
-| SR-0061 | Hard | ABSTAIN | 1 | 미실시 |
-| SR-0064 | Hard | ABSTAIN | 1 | 미실시 |
-| SR-0065 | Hard | ABSTAIN | 1 | 미실시 |
-| SR-0066 | Hard | ABSTAIN | 3 | 미실시 |
-| SR-0068 | Hard | ABSTAIN | 1 | 미실시 |
-| SR-0069 | Hard | ABSTAIN | 1 | 미실시 |
-| SR-0070 | Hard | ABSTAIN | 1 | 회차1 |
+| SR-0001 | Easy | ABSTAIN | 1 | 1회 (회차1) |
+| SR-0005 | Easy | ABSTAIN | 1 | 0회 |
+| SR-0006 | Easy | ABSTAIN | 1 | 0회 |
+| SR-0007 | Easy | ABSTAIN | 1 | 0회 |
+| SR-0008 | Easy | ABSTAIN | 1 | 0회 |
+| SR-0010 | Easy | ABSTAIN | 1 | 0회 |
+| SR-0011 | Easy | ABSTAIN | 1 | 0회 |
+| SR-0013 | Easy | ABSTAIN | 1 | 0회 |
+| SR-0016 | Easy | ABSTAIN | 1 | 0회 |
+| SR-0020 | Easy | ABSTAIN | 1 | 0회 |
+| SR-0022 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0025 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0027 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0028 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0030 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0031 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0032 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0035 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0038 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0040 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0042 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0044 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0045 | Medium | ABSTAIN | 1 | 0회 |
+| SR-0052 | Hard | ABSTAIN | 3 | 0회 |
+| SR-0054 | Hard | ABSTAIN | 1 | 0회 |
+| SR-0055 | Hard | ABSTAIN | 1 | 0회 |
+| SR-0057 | Hard | ABSTAIN | 1 | 0회 |
+| SR-0059 | Hard | ABSTAIN | 1 | 0회 |
+| SR-0061 | Hard | ABSTAIN | 1 | 0회 |
+| SR-0064 | Hard | ABSTAIN | 1 | 0회 |
+| SR-0065 | Hard | ABSTAIN | 1 | 0회 |
+| SR-0066 | Hard | ABSTAIN | 3 | 0회 |
+| SR-0068 | Hard | ABSTAIN | 1 | 0회 |
+| SR-0069 | Hard | ABSTAIN | 1 | 0회 |
+| SR-0070 | Hard | ABSTAIN | 1 | 1회 (회차1) |
 
 <details>
 <summary>질문 · 제공 근거 · 기대 행동 전체 펼치기</summary>
@@ -1885,7 +1885,7 @@
 
 ## 채점 기준 (컬럼 설명)
 
-항목1 최종=유사도+커버리지 결합 판정. 항목2=기존 faithful 판정(스킵과 미채점을 구분). 표현=기존 100점 규칙. 포맷=기존 스키마 통과. 상태 일치는 기대 응답 상태와의 정확한 일치이며 별도의 의도 분류 시험이 아니다. [분모와 한계](methodology.md)를 함께 읽는다.
+답변 정확도(자동)=유사도+키워드 포함률 결합 판정. RAG 충실도=기존 근거 일치 판정(스킵과 미채점을 구분). 표현=기존 100점 규칙. 포맷=기존 스키마 통과. 의미 유사도는 BGE-M3 코사인 값, 키워드 포함률은 %, 표현 점수는 100점, 응답 시간은 ms, TPS는 초당 생성 토큰 수다. 이진 판정은 통과/실패로 표시하며 N/A는 0점이 아니다. 상태 일치는 기대 응답 상태와의 정확한 일치이며 별도의 의도 분류 시험이 아니다. [분모와 한계](methodology.md)를 함께 읽는다.
 
 ## 모델별 결과
 
@@ -1897,7 +1897,7 @@
 
 ## 종합 비교
 
-| 모델 | 항목1 자동 최종 통과/전체 | 기대 상태 일치/전체 | 항목2 faithful/채점 | 항목6 포맷/전체 | 표현/100 | 평균 응답(s) | P95(s) |
+| 모델 | 답변 정확도(자동)/전체 | 기대 상태 일치/전체 | RAG 충실도/채점 | 출력 형식/전체 | 표현 점수/100 | 평균 응답(s) | P95(s) |
 |---|---|---|---|---|---|---|---|
 | qwen3:0.6b | 0/35 (0.0%) | 30/35 (85.7%) | 1/5 (20.0%) | 26/35 (74.3%) | 63.5 | 1.162 | 1.943 |
 | qwen3:1.7b | 0/35 (0.0%) | 0/35 (0.0%) | 0/25 (0.0%) | 35/35 (100.0%) | 46.4 | 1.823 | 2.516 |

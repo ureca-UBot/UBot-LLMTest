@@ -10,43 +10,43 @@
 
 ## 테스트 케이스
 
-| ID | 난이도 | 기대 상태 | 회차 수 | AI 직접 검토 |
+| ID | 난이도 | 기대 상태 | 회차 수 | AI 직접 검토 횟수 |
 |---|---|---|---|---|
-| PI-0004 | Easy | PARTIAL | 1 | 회차1 |
-| PI-0005 | Easy | PARTIAL | 1 | 미실시 |
-| PI-0007 | Easy | PARTIAL | 1 | 미실시 |
-| PI-0010 | Easy | PARTIAL | 3 | 미실시 |
-| PI-0011 | Easy | PARTIAL | 1 | 미실시 |
-| PI-0014 | Easy | PARTIAL | 1 | 미실시 |
-| PI-0016 | Easy | PARTIAL | 1 | 미실시 |
-| PI-0017 | Easy | PARTIAL | 1 | 미실시 |
-| PI-0019 | Easy | PARTIAL | 3 | 미실시 |
-| PI-0021 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0025 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0026 | Medium | PARTIAL | 3 | 미실시 |
-| PI-0028 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0031 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0033 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0035 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0036 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0037 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0040 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0049 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0050 | Medium | PARTIAL | 1 | 미실시 |
-| PI-0057 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0061 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0062 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0064 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0065 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0066 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0067 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0068 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0069 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0070 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0071 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0074 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0077 | Hard | PARTIAL | 1 | 미실시 |
-| PI-0080 | Hard | PARTIAL | 1 | 회차1 |
+| PI-0004 | Easy | PARTIAL | 1 | 1회 (회차1) |
+| PI-0005 | Easy | PARTIAL | 1 | 0회 |
+| PI-0007 | Easy | PARTIAL | 1 | 0회 |
+| PI-0010 | Easy | PARTIAL | 3 | 0회 |
+| PI-0011 | Easy | PARTIAL | 1 | 0회 |
+| PI-0014 | Easy | PARTIAL | 1 | 0회 |
+| PI-0016 | Easy | PARTIAL | 1 | 0회 |
+| PI-0017 | Easy | PARTIAL | 1 | 0회 |
+| PI-0019 | Easy | PARTIAL | 3 | 0회 |
+| PI-0021 | Medium | PARTIAL | 1 | 0회 |
+| PI-0025 | Medium | PARTIAL | 1 | 0회 |
+| PI-0026 | Medium | PARTIAL | 3 | 0회 |
+| PI-0028 | Medium | PARTIAL | 1 | 0회 |
+| PI-0031 | Medium | PARTIAL | 1 | 0회 |
+| PI-0033 | Medium | PARTIAL | 1 | 0회 |
+| PI-0035 | Medium | PARTIAL | 1 | 0회 |
+| PI-0036 | Medium | PARTIAL | 1 | 0회 |
+| PI-0037 | Medium | PARTIAL | 1 | 0회 |
+| PI-0040 | Medium | PARTIAL | 1 | 0회 |
+| PI-0049 | Medium | PARTIAL | 1 | 0회 |
+| PI-0050 | Medium | PARTIAL | 1 | 0회 |
+| PI-0057 | Hard | PARTIAL | 1 | 0회 |
+| PI-0061 | Hard | PARTIAL | 1 | 0회 |
+| PI-0062 | Hard | PARTIAL | 1 | 0회 |
+| PI-0064 | Hard | PARTIAL | 1 | 0회 |
+| PI-0065 | Hard | PARTIAL | 1 | 0회 |
+| PI-0066 | Hard | PARTIAL | 1 | 0회 |
+| PI-0067 | Hard | PARTIAL | 1 | 0회 |
+| PI-0068 | Hard | PARTIAL | 1 | 0회 |
+| PI-0069 | Hard | PARTIAL | 1 | 0회 |
+| PI-0070 | Hard | PARTIAL | 1 | 0회 |
+| PI-0071 | Hard | PARTIAL | 1 | 0회 |
+| PI-0074 | Hard | PARTIAL | 1 | 0회 |
+| PI-0077 | Hard | PARTIAL | 1 | 0회 |
+| PI-0080 | Hard | PARTIAL | 1 | 1회 (회차1) |
 
 <details>
 <summary>질문 · 제공 근거 · 기대 행동 전체 펼치기</summary>
@@ -1873,7 +1873,7 @@
 
 ## 채점 기준 (컬럼 설명)
 
-항목1 최종=유사도+커버리지 결합 판정. 항목2=기존 faithful 판정(스킵과 미채점을 구분). 표현=기존 100점 규칙. 포맷=기존 스키마 통과. 상태 일치는 기대 응답 상태와의 정확한 일치이며 별도의 의도 분류 시험이 아니다. [분모와 한계](methodology.md)를 함께 읽는다.
+답변 정확도(자동)=유사도+키워드 포함률 결합 판정. RAG 충실도=기존 근거 일치 판정(스킵과 미채점을 구분). 표현=기존 100점 규칙. 포맷=기존 스키마 통과. 의미 유사도는 BGE-M3 코사인 값, 키워드 포함률은 %, 표현 점수는 100점, 응답 시간은 ms, TPS는 초당 생성 토큰 수다. 이진 판정은 통과/실패로 표시하며 N/A는 0점이 아니다. 상태 일치는 기대 응답 상태와의 정확한 일치이며 별도의 의도 분류 시험이 아니다. [분모와 한계](methodology.md)를 함께 읽는다.
 
 ## 모델별 결과
 
@@ -1885,7 +1885,7 @@
 
 ## 종합 비교
 
-| 모델 | 항목1 자동 최종 통과/전체 | 기대 상태 일치/전체 | 항목2 faithful/채점 | 항목6 포맷/전체 | 표현/100 | 평균 응답(s) | P95(s) |
+| 모델 | 답변 정확도(자동)/전체 | 기대 상태 일치/전체 | RAG 충실도/채점 | 출력 형식/전체 | 표현 점수/100 | 평균 응답(s) | P95(s) |
 |---|---|---|---|---|---|---|---|
 | qwen3:0.6b | 7/35 (20.0%) | 0/35 (0.0%) | 2/12 (16.7%) | 25/35 (71.4%) | 49.1 | 1.362 | 2.388 |
 | qwen3:1.7b | 15/35 (42.9%) | 22/35 (62.9%) | 0/32 (0.0%) | 35/35 (100.0%) | 79.9 | 2.058 | 2.758 |

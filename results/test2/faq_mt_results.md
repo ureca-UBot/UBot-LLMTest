@@ -10,35 +10,35 @@
 
 ## 테스트 케이스
 
-| ID | 난이도 | 기대 상태 | 회차 수 | AI 직접 검토 |
+| ID | 난이도 | 기대 상태 | 회차 수 | AI 직접 검토 횟수 |
 |---|---|---|---|---|
-| MT-0005 | Easy | ANSWER | 1 | 회차1 |
-| MT-0009 | Easy | ANSWER | 1 | 미실시 |
-| MT-0012 | Easy | ANSWER | 1 | 미실시 |
-| MT-0016 | Easy | ANSWER | 1 | 미실시 |
-| MT-0019 | Easy | ANSWER | 1 | 미실시 |
-| MT-0022 | Easy | ANSWER | 1 | 미실시 |
-| MT-0025 | Easy | ANSWER | 1 | 미실시 |
-| MT-0037 | Medium | ANSWER | 3 | 미실시 |
-| MT-0044 | Medium | ANSWER | 1 | 미실시 |
-| MT-0046 | Medium | ANSWER | 1 | 미실시 |
-| MT-0052 | Medium | PARTIAL | 1 | 미실시 |
-| MT-0054 | Medium | PARTIAL | 1 | 미실시 |
-| MT-0060 | Medium | PARTIAL | 1 | 미실시 |
-| MT-0063 | Medium | ANSWER | 1 | 미실시 |
-| MT-0066 | Medium | ANSWER | 1 | 미실시 |
-| MT-0071 | Medium | ANSWER | 3 | 미실시 |
-| MT-0075 | Medium | ANSWER | 1 | 미실시 |
-| MT-0079 | Hard | ANSWER | 1 | 미실시 |
-| MT-0080 | Hard | ANSWER | 1 | 미실시 |
-| MT-0082 | Hard | ANSWER | 1 | 미실시 |
-| MT-0085 | Hard | ANSWER | 1 | 미실시 |
-| MT-0089 | Hard | CLARIFY | 3 | 미실시 |
-| MT-0093 | Hard | CLARIFY | 1 | 미실시 |
-| MT-0096 | Hard | CLARIFY | 3 | 미실시 |
-| MT-0105 | Hard | CLARIFY | 1 | 미실시 |
-| MT-0109 | Hard | ANSWER | 3 | 미실시 |
-| MT-0111 | Hard | ANSWER | 1 | 회차1 |
+| MT-0005 | Easy | ANSWER | 1 | 1회 (회차1) |
+| MT-0009 | Easy | ANSWER | 1 | 0회 |
+| MT-0012 | Easy | ANSWER | 1 | 0회 |
+| MT-0016 | Easy | ANSWER | 1 | 0회 |
+| MT-0019 | Easy | ANSWER | 1 | 0회 |
+| MT-0022 | Easy | ANSWER | 1 | 0회 |
+| MT-0025 | Easy | ANSWER | 1 | 0회 |
+| MT-0037 | Medium | ANSWER | 3 | 0회 |
+| MT-0044 | Medium | ANSWER | 1 | 0회 |
+| MT-0046 | Medium | ANSWER | 1 | 0회 |
+| MT-0052 | Medium | PARTIAL | 1 | 0회 |
+| MT-0054 | Medium | PARTIAL | 1 | 0회 |
+| MT-0060 | Medium | PARTIAL | 1 | 0회 |
+| MT-0063 | Medium | ANSWER | 1 | 0회 |
+| MT-0066 | Medium | ANSWER | 1 | 0회 |
+| MT-0071 | Medium | ANSWER | 3 | 0회 |
+| MT-0075 | Medium | ANSWER | 1 | 0회 |
+| MT-0079 | Hard | ANSWER | 1 | 0회 |
+| MT-0080 | Hard | ANSWER | 1 | 0회 |
+| MT-0082 | Hard | ANSWER | 1 | 0회 |
+| MT-0085 | Hard | ANSWER | 1 | 0회 |
+| MT-0089 | Hard | CLARIFY | 3 | 0회 |
+| MT-0093 | Hard | CLARIFY | 1 | 0회 |
+| MT-0096 | Hard | CLARIFY | 3 | 0회 |
+| MT-0105 | Hard | CLARIFY | 1 | 0회 |
+| MT-0109 | Hard | ANSWER | 3 | 0회 |
+| MT-0111 | Hard | ANSWER | 1 | 1회 (회차1) |
 
 <details>
 <summary>질문 · 제공 근거 · 기대 행동 전체 펼치기</summary>
@@ -1372,7 +1372,7 @@
 
 ## 채점 기준 (컬럼 설명)
 
-항목1 최종=유사도+커버리지 결합 판정. 항목2=기존 faithful 판정(스킵과 미채점을 구분). 표현=기존 100점 규칙. 포맷=기존 스키마 통과. 상태 일치는 기대 응답 상태와의 정확한 일치이며 별도의 의도 분류 시험이 아니다. [분모와 한계](methodology.md)를 함께 읽는다.
+답변 정확도(자동)=유사도+키워드 포함률 결합 판정. RAG 충실도=기존 근거 일치 판정(스킵과 미채점을 구분). 표현=기존 100점 규칙. 포맷=기존 스키마 통과. 의미 유사도는 BGE-M3 코사인 값, 키워드 포함률은 %, 표현 점수는 100점, 응답 시간은 ms, TPS는 초당 생성 토큰 수다. 이진 판정은 통과/실패로 표시하며 N/A는 0점이 아니다. 상태 일치는 기대 응답 상태와의 정확한 일치이며 별도의 의도 분류 시험이 아니다. [분모와 한계](methodology.md)를 함께 읽는다.
 
 ## 모델별 결과
 
@@ -1384,7 +1384,7 @@
 
 ## 종합 비교
 
-| 모델 | 항목1 자동 최종 통과/전체 | 기대 상태 일치/전체 | 항목2 faithful/채점 | 항목6 포맷/전체 | 표현/100 | 평균 응답(s) | P95(s) |
+| 모델 | 답변 정확도(자동)/전체 | 기대 상태 일치/전체 | RAG 충실도/채점 | 출력 형식/전체 | 표현 점수/100 | 평균 응답(s) | P95(s) |
 |---|---|---|---|---|---|---|---|
 | qwen3:0.6b | 1/27 (3.7%) | 6/27 (22.2%) | 0/18 (0.0%) | 18/27 (66.7%) | 76.9 | 1.377 | 2.122 |
 | qwen3:1.7b | 6/27 (22.2%) | 20/27 (74.1%) | 0/26 (0.0%) | 27/27 (100.0%) | 84.8 | 1.760 | 2.825 |
