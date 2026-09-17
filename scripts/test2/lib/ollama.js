@@ -6,12 +6,17 @@
 
 const OLLAMA_HOST = process.env.OLLAMA_HOST || 'http://127.0.0.1:11434';
 
-async function chat(model, messages, { format = 'json', options = {} } = {}) {
+// think: true/false면 최상위 필드로 보냄(options 안이 아님). undefined면 안 보냄 —
+// thinking을 지원하지 않는 모델(gemma3 등)에 보내면 오류가 날 수 있으므로
+// 호출하는 쪽에서 supportsThinking()으로 확인한 뒤 넘긴다.
+async function chat(model, messages, { format = 'json', options = {}, think } = {}) {
   const started = Date.now();
+  const body = { model, messages, format, stream: false, options };
+  if (think !== undefined) body.think = think;
   const res = await fetch(`${OLLAMA_HOST}/api/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model, messages, format, stream: false, options }),
+    body: JSON.stringify(body),
   });
   const wallMs = Date.now() - started;
   if (!res.ok) {
@@ -21,6 +26,7 @@ async function chat(model, messages, { format = 'json', options = {} } = {}) {
   const data = await res.json();
   return {
     content: data.message ? data.message.content : '',
+    thinking: data.message ? (data.message.thinking || null) : null,
     model: data.model,
     wallMs,
     // Timing/token fields straight from the API (ms/ns as Ollama reports them)
@@ -74,6 +80,26 @@ async function withRetry(fn, { retries = 3, baseDelayMs = 1000, label = 'ollama 
   throw lastErr;
 }
 
+// 모델이 thinking(추론 모드)을 지원하는지 /api/show의 capabilities로 확인.
+// capabilities 필드가 없는 구버전 Ollama면 null(모름)을 돌려준다.
+const thinkingSupportCache = new Map();
+async function supportsThinking(model) {
+  if (thinkingSupportCache.has(model)) return thinkingSupportCache.get(model);
+  const res = await fetch(`${OLLAMA_HOST}/api/show`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model }),
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    throw new Error(`Ollama /api/show ${res.status}: ${text}`);
+  }
+  const data = await res.json();
+  const result = Array.isArray(data.capabilities) ? data.capabilities.includes('thinking') : null;
+  thinkingSupportCache.set(model, result);
+  return result;
+}
+
 async function ensureModelAvailable(model) {
   const res = await fetch(`${OLLAMA_HOST}/api/tags`);
   if (!res.ok) throw new Error(`Ollama /api/tags ${res.status}`);
@@ -82,4 +108,4 @@ async function ensureModelAvailable(model) {
   return names.includes(model) || names.some((n) => n.startsWith(model.split(':')[0] + ':'));
 }
 
-module.exports = { chat, embed, ensureModelAvailable, withRetry, OLLAMA_HOST };
+module.exports = { chat, embed, ensureModelAvailable, supportsThinking, withRetry, OLLAMA_HOST };

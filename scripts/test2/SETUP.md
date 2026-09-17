@@ -43,6 +43,12 @@ node scripts/test2/run_all_models.js ec2     # EC2 2개
 node scripts/test2/run_all_models.js all     # 11개 전부
 ```
 
+### 3. 프롬프트 안 비교 (모델 하나, 원커맨드)
+```
+node scripts/test2/run_prompt_test.js qwen3:4b
+```
+프롬프트 4개 안을 실행·채점하고 비교 문서까지 만듭니다. 자세한 사용법은 [PROMPT_TEST.md](PROMPT_TEST.md)를 보세요.
+
 ---
 
 ## 디렉터리 구조
@@ -55,6 +61,9 @@ scripts/test2/
 ├── prepare_test_set2.js            # xlsx -> CSV 변환 (데이터 준비)
 ├── run_pipeline.js                 # ⭐ 모델 1개 원커맨드 실행 (9단계 자동)
 ├── run_all_models.js               # ⭐ 전체 모델 일괄 실행
+├── run_prompt_test.js              # ⭐ 프롬프트 안 비교 원커맨드 실행 (PROMPT_TEST.md)
+├── compare_prompts.js              # 프롬프트 안 비교 문서 생성
+├── PROMPT_TEST.md                  # 프롬프트 비교 테스트 사용 설명서
 ├── run_generation.js               # [단계1] 모델 호출
 ├── score_format_performance.js     # [단계2] 항목6·7 채점
 ├── score_answer_accuracy.js        # [단계3] 항목1 채점
@@ -75,7 +84,7 @@ scripts/test2/
 │   ├── csv.js                      # CSV 파서/직렬화 (zero-dependency)
 │   ├── xlsx.js                     # xlsx 파서 (zero-dependency, unzip+정규식)
 │   ├── jsonl.js                    # JSONL 읽기/이어쓰기(체크포인트) 헬퍼
-│   ├── prompts.js                  # 시스템 프롬프트 + 메시지 빌더
+│   ├── prompts.js                  # 시스템 프롬프트(안별) + 메시지 빌더
 │   ├── context_blocks.js           # "제공 Context"를 FAQ/SYN 블록 단위로 분해
 │   ├── fact_units.js               # 답변을 문장 단위로 분해
 │   ├── regex_checks.js             # 숫자·고유명사 검증, CF 충돌 판별, 출처오매칭 검증

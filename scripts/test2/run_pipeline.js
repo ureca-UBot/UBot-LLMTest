@@ -6,7 +6,10 @@
 //
 // Usage:
 //   node scripts/run_pipeline.js <run_id> <model_tag> [--limit N] [--type T]
-//     [--difficulty D] [--skip-repeat]
+//     [--difficulty D] [--skip-repeat] [--prompt V] [--temperature T]
+//     [--think true|false] [--primary-only]
+//
+// 프롬프트 4개 안을 한 번에 비교하려면 run_prompt_test.js를 쓰세요.
 //
 // run_id 컨벤션: <env>_<model>_<날짜> (예: local-win_gemma3-4b_20260917).
 // 정해진 게 없으면 run_all_models.js가 자동으로 만들어줌.
@@ -37,7 +40,8 @@ function parseArgs(argv) {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--skip-repeat') { skipRepeat = true; continue; }
-    if (['--limit', '--type', '--difficulty', '--run-id'].includes(a)) {
+    if (a === '--primary-only') { passthrough.push(a); continue; }
+    if (['--limit', '--type', '--difficulty', '--run-id', '--prompt', '--temperature', '--think'].includes(a)) {
       passthrough.push(a, argv[++i]);
     } else {
       positional.push(a);
@@ -50,7 +54,7 @@ function main() {
   const { positional, passthrough, skipRepeat } = parseArgs(process.argv.slice(2));
   const [runId, modelTag] = positional;
   if (!runId || !modelTag) {
-    console.error('usage: node scripts/run_pipeline.js <run_id> <model_tag> [--limit N] [--type T] [--difficulty D] [--skip-repeat]');
+    console.error('usage: node scripts/run_pipeline.js <run_id> <model_tag> [--limit N] [--type T] [--difficulty D] [--skip-repeat] [--prompt V] [--temperature T] [--think true|false] [--primary-only]');
     process.exit(1);
   }
 

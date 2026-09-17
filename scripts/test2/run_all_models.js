@@ -6,10 +6,12 @@
 //
 // Usage:
 //   node scripts/run_all_models.js [local|ec2|all] [--limit N] [--type T]
-//     [--difficulty D] [--skip-repeat] [--date YYYYMMDD]
+//     [--difficulty D] [--skip-repeat] [--date YYYYMMDD] [--prompt V]
+//     [--temperature T] [--think true|false] [--primary-only]
 //
 // 기본값: tier 생략 시 현재 OS로 자동 판단(Windows->local, Linux->ec2).
-// run_id는 <env>_<model-tag>_<date> 컨벤션으로 자동 생성.
+// run_id는 <env>_<model-tag>_<date> 컨벤션으로 자동 생성. --prompt가
+// v0_baseline이 아니면 끝에 _<variant>를 붙여 기본 프롬프트 결과와 섞이지 않게 함.
 
 const path = require('path');
 const { spawnSync } = require('child_process');
@@ -31,19 +33,21 @@ function parseArgs(argv) {
   const passthrough = [];
   let date = todayStamp();
   const positional = [];
+  let prompt = 'v0_baseline';
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (['local', 'ec2', 'all'].includes(a)) { tier = a; continue; }
     if (a === '--date') { date = argv[++i]; continue; }
-    if (['--limit', '--type', '--difficulty'].includes(a)) { passthrough.push(a, argv[++i]); continue; }
-    if (a === '--skip-repeat') { passthrough.push(a); continue; }
+    if (a === '--prompt') { prompt = argv[++i]; passthrough.push(a, prompt); continue; }
+    if (['--limit', '--type', '--difficulty', '--temperature', '--think'].includes(a)) { passthrough.push(a, argv[++i]); continue; }
+    if (a === '--skip-repeat' || a === '--primary-only') { passthrough.push(a); continue; }
     positional.push(a);
   }
-  return { tier, passthrough, date };
+  return { tier, passthrough, date, prompt };
 }
 
 function main() {
-  const { tier, passthrough, date } = parseArgs(process.argv.slice(2));
+  const { tier, passthrough, date, prompt } = parseArgs(process.argv.slice(2));
   const modelList = tier === 'all' ? [...models.local, ...models.ec2] : models[tier];
   if (!modelList || modelList.length === 0) {
     console.error(`config/models.js에 "${tier}" 목록이 비어있습니다.`);
@@ -55,7 +59,8 @@ function main() {
 
   const results = [];
   for (const [idx, m] of modelList.entries()) {
-    const runId = `${envTag()}_${sanitizeTag(m.tag)}_${date}`;
+    const suffix = prompt === 'v0_baseline' ? '' : `_${prompt}`;
+    const runId = `${envTag()}_${sanitizeTag(m.tag)}_${date}${suffix}`;
     console.log(`\n\n########## [${idx + 1}/${modelList.length}] ${m.tag} (run_id=${runId}) ##########`);
     const result = spawnSync(process.execPath, [path.join(__dirname, 'run_pipeline.js'), runId, m.tag, ...passthrough], {
       stdio: 'inherit',
