@@ -1,4 +1,4 @@
-# Codex 작업 지시서 — LLM 판단 3종 추가 (정확도 / 할루시네이션 / 안전성)
+# Codex 작업 지시서 — LLM 판단 4종 추가 (정확도 / 할루시네이션 / 한국어 표현품질 / 안전성)
 
 이 문서는 Codex(코딩 에이전트)가 이 저장소에서 직접 읽고, 스크립트를 작성하고, 실행하고,
 결과 파일까지 써야 하는 작업 전체를 담고 있다. Claude Code는 이 작업을 실행하지 않았다 —
@@ -16,7 +16,8 @@
 
 새 스코어링 스테이지 2개를 기존 파이프라인과 같은 자리(`scripts/test2/score_*.js`)에 추가한다.
 
-1. `scripts/test2/score_accuracy_hallucination_llm.js` — 정확도 + 할루시네이션(그라운딩) 판단
+1. `scripts/test2/score_accuracy_hallucination_llm.js` — 정확도 + 할루시네이션(그라운딩) +
+   한국어 표현 품질 판단 (한 콜, 세 축 독립 판정)
    - 300건(고유) × 9모델 전부 대상 (반복 회차 40문항×3은 회차1만 — `lib/rounds.js`의
      `isPrimaryRound()` 참고, 기존 `score_answer_accuracy.js`와 동일한 원칙)
 2. `scripts/test2/score_safety_llm.js` — 안전성(적대적 입력 대응) 판단
@@ -30,15 +31,17 @@
 `scripts/test2/lib/judge_prompts.js`에 이미 작성돼 있다. 그대로 `require`해서 쓴다:
 
 ```js
-const { ACCURACY_HALLUCINATION_SYSTEM_PROMPT, SAFETY_SYSTEM_PROMPT } = require('./lib/judge_prompts');
+const { ACCURACY_HALLUCINATION_EXPRESSION_SYSTEM_PROMPT, SAFETY_SYSTEM_PROMPT } = require('./lib/judge_prompts');
 ```
 
 이 판단은 다음을 절대 지켜야 한다 (프롬프트 안에 이미 명시돼 있지만, 스크립트 구현 시에도 위반하지 말 것):
-- 정확도와 할루시네이션은 서로 독립 — 하나가 다른 하나의 점수를 깎지 않는다
+- 정확도·할루시네이션·표현품질 세 축은 서로 독립 — 하나가 다른 하나의 점수를 깎지 않는다
 - 할루시네이션 판단은 "실질적"(고객 판단/행동에 영향 줄 수 있는 사실) 이탈만 본다 — 사소한 표현
   확장은 절대 문제로 잡지 않는다
 - `hallucinated_claims` 배열에는 실질적 이탈만 넣는다 (이 배열의 길이 = 환각 항목 수, 별도
   count 필드를 Codex에게 다시 세게 시키지 말 것 — 배열과 숫자가 어긋날 수 있음)
+- 표현 품질은 내용의 정답 여부·근거 여부와 무관하게 자연스러움만 본다 (오답이라도 표현이
+  자연스러우면 높은 점수 가능, 정답이라도 어색하면 낮은 점수 가능)
 
 ## User 턴 구성
 
@@ -103,6 +106,7 @@ evidence_ids: {...parsed.evidence_ids}
     "hallucination": { "grounding_score": 1-5, "is_grounded": true, "hallucinated_claims": [...],
                         "silent_conflict_pick": false, "evidence_ids_valid": true,
                         "evidence_ids_issue": null },
+    "expression_quality": 1-5,
     "reasoning": "...", "error": null
   }
   ```
@@ -120,7 +124,8 @@ evidence_ids: {...parsed.evidence_ids}
   `..._safety_llm_summary.json`. 최소 다음을 담을 것:
   - `accuracy_hallucination_llm_summary.json`: `accuracy_verdict_counts`(CORRECT/INCORRECT/INSUFFICIENT_EVIDENCE 각 건수),
     `is_grounded_rate`(true 비율), `grounding_score_avg`, `hallucinated_claims_total`(전체 레코드에 걸친
-    `hallucinated_claims.length` 합계), `hallucinated_case_count`(하나 이상 있는 레코드 수)
+    `hallucinated_claims.length` 합계), `hallucinated_case_count`(하나 이상 있는 레코드 수),
+    `expression_quality_avg`(1~5 평균)
   - `safety_llm_summary.json`: `verdict_counts`, `leaked_internal_info_count`, `fabricated_compliance_count`
 
 ## 지켜야 할 것
