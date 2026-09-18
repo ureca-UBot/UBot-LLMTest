@@ -1,6 +1,8 @@
 # V2 — 2026-09-18 재실행 결과와 AI 채점
 
-**[최종 비교표](summary_results_V2.md)** · [전체 통합 CSV](review_all_models_V2.csv) · [AI 채점 보고서](llm_judge/README.md) · [검수 기록](review_notes_V2.md)
+**[최종 상세 비교 보고서](summary_results_V2.md)** · [전체 통합 CSV](review_all_models_V2.csv) · [AI 채점 보고서](llm_judge/README.md) · [검수 기록](review_notes_V2.md)
+
+상세 보고서는 20개 절로 구성되며 유형별·난이도별 비교, 점수 분포, 상태 혼동표, 응답 시간 분포, 반복 40문항, 안전성 15문항, 실제 답변 비교를 포함한다. [상세 표 CSV 11개](tables/)와 [상세 지표 JSON](detailed_metrics_V2.json)을 함께 제공한다.
 
 V2는 9월 18일 재실행한 5개 모델의 결과다. 기존 9월 17일 결과와 summary_results.md 등 V1 파일을 덮어쓰지 않았다. 원점수 집계는 완료됐으며 표본 검수 중 발견한 판정 경계·일관성 문제는 팀 확인 대상으로 보존했다. 최종 모델은 선정하지 않았다.
 

@@ -1,7 +1,7 @@
 {
   "version": "V2",
   "target_branch": "results/faq-380-test",
-  "file_count_before_manifest": 136,
+  "file_count_before_manifest": 150,
   "source_preservation": "V1 result files unchanged; original V2 response and judgment bytes retained",
   "hash_note": "SHA-256 describes local publication bytes; .gitattributes preserves V2 evidence bytes. Git may normalize code line endings.",
   "files": [
@@ -522,13 +522,23 @@
     },
     {
       "path": "results/test2/V2/README.md",
-      "bytes": 4704,
-      "sha256": "73fc7f936ed0d6a3047883dc5f1890bfb90bb8378f4314bb517a706ce2adba89"
+      "bytes": 5033,
+      "sha256": "6969b10b2197aa0a1fc8aa6e82fabc0ed00a07b387870e018cc61a2d1de765e4"
     },
     {
       "path": "results/test2/V2/comparison_V2.csv",
       "bytes": 2840,
       "sha256": "01b5d40f36a42bd3d2de74fbadcafadad18d58a633bddd57940fa0477a927930"
+    },
+    {
+      "path": "results/test2/V2/detailed_metrics_V2.json",
+      "bytes": 281742,
+      "sha256": "6cfaf5eafe57221b1de32844366780bfd456ee8f6e0e4d29eb2874358ce15f91"
+    },
+    {
+      "path": "results/test2/V2/detailed_validation_V2.json",
+      "bytes": 1290,
+      "sha256": "ebc16d6bfc17486e8ca8e8db1eff9d8c6eecb0b6e3ad29b75ea09b19f6c6af7d"
     },
     {
       "path": "results/test2/V2/evaluation_metrics_V2.json",
@@ -612,13 +622,68 @@
     },
     {
       "path": "results/test2/V2/summary_results_V2.md",
-      "bytes": 6958,
-      "sha256": "bbe6d12c9b049d6e9b9ea2fdb8b96e5cb560dae3e42b73cf2199bdf2eabf01c1"
+      "bytes": 107710,
+      "sha256": "23165d085154aa6914538169089156e6b7242f931c7b2601aa8ab31e5ce62e9f"
+    },
+    {
+      "path": "results/test2/V2/tables/accuracy_grounding_cross_V2.csv",
+      "bytes": 1036,
+      "sha256": "6caf09ef6244f1f23973b43190962dd96fb5b9f3cb05726cd09fe2e12ff2f9f2"
+    },
+    {
+      "path": "results/test2/V2/tables/by_difficulty_V2.csv",
+      "bytes": 2513,
+      "sha256": "985325d7dcd36d983728936fb38cfc2ae6eacf58881a51c9270458b9930ef3c9"
+    },
+    {
+      "path": "results/test2/V2/tables/by_type_V2.csv",
+      "bytes": 9221,
+      "sha256": "0e148d3e422ae58c55869a39a8bc4111d80dd68f2874a3e2439067b2be8ceb2e"
+    },
+    {
+      "path": "results/test2/V2/tables/error_flags_all_cases_V2.csv",
+      "bytes": 161191,
+      "sha256": "10a5fe166a6cb559a65e8414c57d29c0abfda1f8485335257536060b5fa2ae57"
+    },
+    {
+      "path": "results/test2/V2/tables/format_failures_V2.csv",
+      "bytes": 5151,
+      "sha256": "70bc96c9ebb4e0de8959455add284b4d59c2e69ee1e07ad96d83ab8b549785a4"
+    },
+    {
+      "path": "results/test2/V2/tables/paired_model_results_V2.csv",
+      "bytes": 434,
+      "sha256": "91bdbcb55e1803944d14fdcebc37b85b807ec5fb66362261fe4795336f479bec"
+    },
+    {
+      "path": "results/test2/V2/tables/performance_distribution_V2.csv",
+      "bytes": 1627,
+      "sha256": "1ad5451905a0c62378b5b48d6e33504745b6488f882e525757e77c61e559b2ea"
+    },
+    {
+      "path": "results/test2/V2/tables/repeat_all_cases_V2.csv",
+      "bytes": 94699,
+      "sha256": "1cf3fc11bbed5735b22fda3e4d800e74c124fe40698bab225767c8b985c77552"
+    },
+    {
+      "path": "results/test2/V2/tables/safety_all_cases_V2.csv",
+      "bytes": 32110,
+      "sha256": "70122ee532461f0516ab4654e52bda2606f40be742e0b963ea289e2cf52ff0a7"
+    },
+    {
+      "path": "results/test2/V2/tables/score_distribution_V2.csv",
+      "bytes": 1601,
+      "sha256": "324aec4b700202fb9c663a6155abb63d54aca071e94e305d860c59853e5008ab"
+    },
+    {
+      "path": "results/test2/V2/tables/status_confusion_V2.csv",
+      "bytes": 6649,
+      "sha256": "a6507db6b106000394714ee1b48d0b437676ea8aa7a29ee64b9cd786b05f65cf"
     },
     {
       "path": "results/test2/V2/validation_V2.json",
       "bytes": 524,
-      "sha256": "963bb26a9f93c1015d374491d46b43acebf23e2b1f1010cdde133ebbfa1d2b2b"
+      "sha256": "9b1382ef4ac5d466d47dc676f55de6973449c7784a8c208abd7b7eae9413402a"
     },
     {
       "path": "scripts/test2/LLM_JUDGE_20260918.md",
@@ -632,8 +697,8 @@
     },
     {
       "path": "scripts/test2/build_results_V2.js",
-      "bytes": 27620,
-      "sha256": "c2e00f38a8921441a2f995a6585700733b57b8701ace218901fcb9ef4a302eb2"
+      "bytes": 21015,
+      "sha256": "9ddc89e94926eea0a949917c767f7cac7e93481bd2ae30706f3be2130cc4c9c1"
     },
     {
       "path": "scripts/test2/lib/judge_prompts.js",
@@ -649,6 +714,11 @@
       "path": "scripts/test2/lib/llm_judge_schema.js",
       "bytes": 2513,
       "sha256": "1ad472aac42b0f5a94250d4b3422873808f78e1fb3e5aa83016e725c719885b0"
+    },
+    {
+      "path": "scripts/test2/lib/report_details_V2.js",
+      "bytes": 49163,
+      "sha256": "6b760fb580b5823663e29fe4cdc82a9524a1af4e17932604848e75f11a0b20e6"
     },
     {
       "path": "scripts/test2/prepare_llm_judge_inputs.js",
