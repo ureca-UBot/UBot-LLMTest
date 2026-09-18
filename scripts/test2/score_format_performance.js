@@ -49,6 +49,7 @@ function main() {
   // 380행 전부 그대로 기록.
   const latencies = [];
   const tpsList = [];
+  const vramList = [];
   let formatPassCount = 0, primaryCount = 0;
 
   for (const r of rows) {
@@ -76,9 +77,14 @@ function main() {
         if (tps != null) tpsList.push(tps);
       }
     }
+    // 항목8(실측 리소스) 보조: run_generation.js가 케이스마다 남긴 VRAM
+    // 스냅샷. GPU가 없는 환경에서 실행했으면 전부 null이고, 그 경우
+    // vram_mib 요약도 그대로 null로 남는다(0으로 왜곡하지 않음).
+    const vramMib = typeof r.vram_used_mib === 'number' ? r.vram_used_mib : null;
+    if (primary && vramMib != null) vramList.push(vramMib);
     perfAppender.append({
       id: r.id, run_id: r.run_id, model_tag: r.model_tag, env: r.env,
-      latency_ms: latencyMs, tps, error: r.error,
+      latency_ms: latencyMs, tps, vram_used_mib: vramMib, error: r.error,
     });
   }
   formatAppender.close();
@@ -97,11 +103,25 @@ function main() {
     format_success_rate: formatPassCount / (primaryCount || 1),
     latency_ms: { avg: avg(latencies), p95: p95(latencies) },
     tps: { avg: avg(tpsList) },
+    // 항목8: 항목7(성능) 순위와는 별개로 보존 — README 원칙("실측 리소스는
+    // 성능 순위에 넣지 않는다")대로 latency/tps 랭킹에 합산하지 않는다.
+    vram_mib: {
+      avg: avg(vramList),
+      max: vramList.length ? Math.max(...vramList) : null,
+      min: vramList.length ? Math.min(...vramList) : null,
+      n: vramList.length,
+      measured: vramList.length > 0,
+    },
   };
   fs.writeFileSync(perfSummaryPath, JSON.stringify(summary, null, 2), 'utf8');
 
   console.log(`항목6(포맷성공률): ${(summary.format_success_rate * 100).toFixed(1)}% -> ${formatOutPath}`);
   console.log(`항목7(성능): avg latency ${summary.latency_ms.avg?.toFixed(0)}ms, avg TPS ${summary.tps.avg?.toFixed(1)} -> ${perfOutPath}`);
+  if (summary.vram_mib.measured) {
+    console.log(`항목8(VRAM 실측): avg ${summary.vram_mib.avg.toFixed(0)}MiB, max ${summary.vram_mib.max}MiB (n=${summary.vram_mib.n})`);
+  } else {
+    console.log('항목8(VRAM 실측): 측정 안 됨 (nvidia-smi 없음/GPU 없는 환경)');
+  }
   console.log(`요약 -> ${perfSummaryPath}`);
 }
 

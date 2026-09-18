@@ -32,6 +32,7 @@ const { checkFormatSuccess } = require('./lib/metrics');
 const ollama = require('./lib/ollama');
 const { readExistingIds, readAll, makeAppender } = require('./lib/jsonl');
 const { envTag } = require('./lib/platform');
+const { sampleVramMiB } = require('./lib/vram');
 const { isPrimaryRound } = require('./lib/rounds');
 
 const SEED = 42;
@@ -99,19 +100,26 @@ async function main() {
   const alreadyDone = readExistingIds(outPath, 'id');
 
   // 설정 충돌 가드: 같은 run_id에 다른 설정의 결과가 섞이면 비교가 무의미해짐.
+  // inference가 기록되지 않은 결과는 이 옵션들이 생기기 전 코드(Ollama 기본값:
+  // temperature 0.8, Qwen3 추론 ON)로 만든 것이라 지금 설정과 같을 수 없음 —
+  // 이어서 실행하면 두 설정의 결과가 한 run_id에 섞이므로 중단.
   const existing = readAll(outPath);
+  const legacy = existing.filter((r) => !r.inference);
+  if (legacy.length > 0) {
+    console.error(`[중단] run_id "${runId}"에 추론 설정이 기록되지 않은 예전 결과가 ${legacy.length}건 있습니다.`);
+    console.error('       예전 코드(Ollama 기본값: temperature 0.8, Qwen3 추론 ON)로 만든 결과라 지금 설정과 섞이면 안 됩니다.');
+    console.error('       새 run_id(예: --date를 다르게)로 실행하세요.');
+    process.exit(1);
+  }
   const sameInference = (a, b) => a && b && a.temperature === b.temperature && a.seed === b.seed && a.think === b.think;
   const conflict = existing.find((r) => (r.prompt_variant || 'v0_baseline') !== variant
-    || (r.inference && !sameInference(r.inference, inference)));
+    || !sameInference(r.inference, inference));
   if (conflict) {
     console.error(`[중단] run_id "${runId}"에 이미 다른 설정으로 만든 결과가 있습니다.`);
     console.error(`       기존: prompt=${conflict.prompt_variant || '(미기록)'} inference=${JSON.stringify(conflict.inference || null)}`);
     console.error(`       요청: prompt=${variant} inference=${JSON.stringify(inference)}`);
     console.error('       run_id를 다르게 지정하세요.');
     process.exit(1);
-  }
-  if (existing.length > 0 && existing.some((r) => !r.inference)) {
-    console.warn(`[주의] run_id "${runId}"에 추론 설정이 기록되지 않은 예전 결과가 있습니다. 설정이 같은지 확인할 수 없습니다.`);
   }
   const todo = cases.filter((c) => !alreadyDone.has(c['ID']));
 
@@ -138,6 +146,10 @@ async function main() {
         { retries: 2, label: `generate ${row['ID']}` }
       );
       const fmt = checkFormatSuccess(res.content);
+      // 항목8(실측 리소스) 보조: 응답을 받은 직후(모델이 실제로 활성화된
+      // 시점) VRAM을 샘플링. GPU/드라이버가 없으면 null — 그래도 이 케이스
+      // 자체는 정상 처리됨(항목8은 항상 항목1~7과 독립적으로 채점 가능해야 함).
+      const vramUsedMib = sampleVramMiB();
       record = {
         id: row['ID'],
         run_id: runId,
@@ -160,6 +172,7 @@ async function main() {
           eval_count: res.evalCount,
           eval_duration_ns: res.evalDurationNs,
         },
+        vram_used_mib: vramUsedMib,
         error: null,
         generated_at: new Date().toISOString(),
       };
@@ -170,7 +183,7 @@ async function main() {
         prompt_variant: variant, inference,
         유형: row['유형'], 난이도: row['난이도'],
         raw_content: null, parsed: null, format_pass: false, format_fail_reason: null,
-        timing: null, error: String(e.message || e), generated_at: new Date().toISOString(),
+        timing: null, vram_used_mib: null, error: String(e.message || e), generated_at: new Date().toISOString(),
       };
       fail++;
     }
