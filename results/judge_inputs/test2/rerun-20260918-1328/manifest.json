@@ -1,0 +1,68 @@
+{
+  "status": "scored_completed",
+  "batch_id": "rerun-20260918-1328",
+  "source_commit": "18e7c0e5f7c223e1a423a7b6cd0677418fff0d17",
+  "batch_manifest_sha256": "4d2ca34fdf569a7644fe523e237929b5caed0015b39e2c5c5d9dbfe9679fbef4",
+  "cases_sha256": "d4bf692d3e0af110bd34efbcc97ecc3be01e7a253d52a131e094f1c979306f33",
+  "accuracy_system_prompt_sha256": "88ab71c485b1b111c865565f9ea2391a8cac5b6a3d01711143636bd368cb1d05",
+  "safety_system_prompt_sha256": "c859cc2ab9501412f3a7ab25aa32a802db775edaca39bc0d9a6396ec98526708",
+  "planned_accuracy_jobs": 1500,
+  "planned_safety_jobs": 75,
+  "planned_total_jobs": 1575,
+  "completed_judgments": 1575,
+  "runs": [
+    {
+      "run_id": "local-win_qwen3-4b_20260918_rerun-1328",
+      "model": "qwen3:4b",
+      "source_path": "results\\raw\\test2\\local-win_qwen3-4b_20260918_rerun-1328\\generation.jsonl",
+      "source_sha256": "f8ecf15b0803ad78abadb4c36ad8295f40d9a7b24f9be363fa4ec7ed51bf5773",
+      "generation_records": 380,
+      "accuracy_jobs": 300,
+      "safety_jobs": 15
+    },
+    {
+      "run_id": "local-win_qwen3-8b_20260918_rerun-1328",
+      "model": "qwen3:8b",
+      "source_path": "results\\raw\\test2\\local-win_qwen3-8b_20260918_rerun-1328\\generation.jsonl",
+      "source_sha256": "7e051c576f2d9ad0b0296b79f1c2cc59c3b7df9de3079534d6d908f0c2721df2",
+      "generation_records": 380,
+      "accuracy_jobs": 300,
+      "safety_jobs": 15
+    },
+    {
+      "run_id": "local-win_exaone3-5-7-8b_20260918_rerun-1328",
+      "model": "exaone3.5:7.8b",
+      "source_path": "results\\raw\\test2\\local-win_exaone3-5-7-8b_20260918_rerun-1328\\generation.jsonl",
+      "source_sha256": "b7efb35d72385f857be6c1d4da989d33bca892d4c6e276b97451fee8bd6412ba",
+      "generation_records": 380,
+      "accuracy_jobs": 300,
+      "safety_jobs": 15
+    },
+    {
+      "run_id": "local-win_qwen3-1-7b_20260918_rerun-1328",
+      "model": "qwen3:1.7b",
+      "source_path": "results\\raw\\test2\\local-win_qwen3-1-7b_20260918_rerun-1328\\generation.jsonl",
+      "source_sha256": "66b3846f3547e15642106179c93447090de53da0ed4bafee4ab59e931ab3203a",
+      "generation_records": 380,
+      "accuracy_jobs": 300,
+      "safety_jobs": 15
+    },
+    {
+      "run_id": "local-win_gemma3-4b_20260918_rerun-1328",
+      "model": "gemma3:4b",
+      "source_path": "results\\raw\\test2\\local-win_gemma3-4b_20260918_rerun-1328\\generation.jsonl",
+      "source_sha256": "fe5c7ef3b47c5403dadcc932613a7d6d6a5a2398b03861ef5878bbfa208225ee",
+      "generation_records": 380,
+      "accuracy_jobs": 300,
+      "safety_jobs": 15
+    }
+  ],
+  "note": "All 1500 content and 75 safety judgments completed under the approved minor_issues rubric. Saved model responses and per-case input texts remain unchanged. V2 reports preserve original scores and separate targeted review notes.",
+  "rubric_revision": "20260918-minor-issues",
+  "rubric_updated_at": "2026-09-18T08:05:17.228Z",
+  "external_codex_grading_authorized": true,
+  "result_version": "V2",
+  "result_report": "results/test2/V2/summary_results_V2.md",
+  "cases_lf_sha256": "2f06fbac0a4beeae2bd796107cd47cb41af7044a07dce503324d0a2868dc1bf2",
+  "case_hash_note": "cases_sha256 preserves the execution-time bytes; cases_lf_sha256 permits Git CRLF/LF checkout conversion only. Saved response and prepared prompt hashes still require exact bytes."
+}
