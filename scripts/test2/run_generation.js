@@ -21,6 +21,7 @@ const { checkFormatSuccess } = require('./lib/metrics');
 const ollama = require('./lib/ollama');
 const { readExistingIds, makeAppender } = require('./lib/jsonl');
 const { envTag } = require('./lib/platform');
+const { sampleVramMiB } = require('./lib/vram');
 
 const ROOT = path.join(__dirname, '..', '..');
 const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
@@ -76,6 +77,10 @@ async function main() {
         { retries: 2, label: `generate ${row['ID']}` }
       );
       const fmt = checkFormatSuccess(res.content);
+      // 항목8(실측 리소스) 보조: 응답을 받은 직후(모델이 실제로 활성화된
+      // 시점) VRAM을 샘플링. GPU/드라이버가 없으면 null — 그래도 이 케이스
+      // 자체는 정상 처리됨(항목8은 항상 항목1~7과 독립적으로 채점 가능해야 함).
+      const vramUsedMib = sampleVramMiB();
       record = {
         id: row['ID'],
         run_id: runId,
@@ -95,6 +100,7 @@ async function main() {
           eval_count: res.evalCount,
           eval_duration_ns: res.evalDurationNs,
         },
+        vram_used_mib: vramUsedMib,
         error: null,
         generated_at: new Date().toISOString(),
       };
@@ -104,7 +110,7 @@ async function main() {
         id: row['ID'], run_id: runId, model_tag: modelTag, env: envTag(),
         유형: row['유형'], 난이도: row['난이도'],
         raw_content: null, parsed: null, format_pass: false, format_fail_reason: null,
-        timing: null, error: String(e.message || e), generated_at: new Date().toISOString(),
+        timing: null, vram_used_mib: null, error: String(e.message || e), generated_at: new Date().toISOString(),
       };
       fail++;
     }
