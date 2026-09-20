@@ -10,9 +10,15 @@ const schemas = require('./llm_judge_schema');
 const { makeAppender } = require('./jsonl');
 
 const ROOT = path.resolve(__dirname, '../../..');
-const BATCH = 'rerun-20260918-1328';
-const INPUT = path.join(ROOT, 'results/judge_inputs/test2', BATCH);
-const OUTPUT = path.join(ROOT, 'results/llm_judge/test2', BATCH);
+// 배치 ID는 환경변수로 바꿀 수 있다. 기본값은 2026-09-18 test2 배치라
+// 기존 명령의 재개 동작은 그대로다 (test3 배치는 LLM_JUDGE_BATCH로 지정).
+const BATCH = process.env.LLM_JUDGE_BATCH || 'rerun-20260918-1328';
+const BATCH_RE = /^[A-Za-z0-9_-]+$/;
+if (!BATCH_RE.test(BATCH)) throw new Error('LLM_JUDGE_BATCH 값이 올바르지 않습니다: ' + BATCH);
+const SUITE = process.env.LLM_TEST_SUITE || 'test2';
+if (!BATCH_RE.test(SUITE)) throw new Error('LLM_TEST_SUITE 값이 올바르지 않습니다: ' + SUITE);
+const INPUT = path.join(ROOT, 'results/judge_inputs', SUITE, BATCH);
+const OUTPUT = path.join(ROOT, 'results/llm_judge', SUITE, BATCH);
 const JUDGE_MODEL = 'gpt-6-astra';
 const names = { accuracy: 'accuracy_hallucination_llm', safety: 'safety_llm' };
 const hash = data => crypto.createHash('sha256').update(data).digest('hex');
@@ -23,13 +29,22 @@ const writeJson = (file, value) => fs.writeFileSync(file, JSON.stringify(value, 
 
 function verifyInputs() {
     const manifest = json(path.join(INPUT, 'manifest.json'));
-    if (manifest.batch_id !== BATCH || manifest.runs.length !== 5) throw new Error('Wrong evaluation batch.');
+    // 모델 수는 배치마다 다르다(test2=5, test3=7). 배치 ID 일치와 '비어있지
+    // 않음'만 확인하고, 실제 건수는 아래 planned_* 대조가 잡는다.
+    if (manifest.batch_id !== BATCH || !Array.isArray(manifest.runs) || manifest.runs.length === 0) {
+        throw new Error('Wrong evaluation batch.');
+    }
     const casesBytes = fs.readFileSync(path.join(ROOT, 'data/eval_sets/test_set2/cases.csv'));
     const exactCasesMatch = hash(casesBytes) === manifest.cases_sha256;
     const lineEndingOnlyMatch = manifest.cases_lf_sha256 && hash(casesBytes.toString('utf8').replace(/\r\n/g, '\n')) === manifest.cases_lf_sha256;
     if (!exactCasesMatch && !lineEndingOnlyMatch) throw new Error('Cases changed.');
     for (const run of manifest.runs) {
-        if (!run.run_id.endsWith('_20260918_rerun-1328')) throw new Error('Unexpected run ID.');
+        // 접미사 규칙은 매니페스트가 선언한다(없으면 배치 ID 기준). 예전엔 2026-09-18
+        // 배치 문자열이 하드코딩돼 있어 다른 배치를 채점할 수 없었다.
+        // 2026-09-18 배치는 이 필드 없이 만들어졌으므로 그때의 리터럴을 기본값으로
+        // 둔다. 새 배치는 prepare_llm_judge_inputs.js가 run_id_suffix를 써 넣는다.
+        const suffix = manifest.run_id_suffix || '_20260918_rerun-1328';
+        if (!run.run_id.endsWith(suffix)) throw new Error('Unexpected run ID: ' + run.run_id);
         if (hash(fs.readFileSync(path.join(ROOT, run.source_path.replace(/\\/g, '/')))) !== run.source_sha256) throw new Error('Saved answers changed: ' + run.run_id);
     }
     for (const kind of ['accuracy', 'safety']) {
@@ -65,7 +80,7 @@ function parseAnswer(text, kind) {
 }
 
 function resultPath(runId, kind) {
-    return path.join(ROOT, 'results/scored/test2', runId, names[kind] + '.jsonl');
+    return path.join(ROOT, 'results/scored', SUITE, runId, names[kind] + '.jsonl');
 }
 
 function completed(manifest, kind) {
@@ -139,8 +154,10 @@ function summarize(manifest, kind) {
             const verdict = kind === 'accuracy' ? row.accuracy.verdict : row.verdict;
             counts[verdict] = (counts[verdict] || 0) + 1;
         }
-        const data = { run_id: run.run_id, model_tag: run.model, n_expected: kind === 'accuracy' ? 300 : 15,
-            n_scored: valid.length, n_unscored: (kind === 'accuracy' ? 300 : 15) - valid.length, error_attempts: all.filter(r => r.error).length };
+        // 문항 수도 매니페스트(prepare_llm_judge_inputs.js가 데이터셋에서 계산)에서 읽는다.
+        const expected = run[kind + '_jobs'] ?? (kind === 'accuracy' ? 300 : 15);
+        const data = { run_id: run.run_id, model_tag: run.model, n_expected: expected,
+            n_scored: valid.length, n_unscored: expected - valid.length, error_attempts: all.filter(r => r.error).length };
         const avg = fn => valid.length ? valid.reduce((total, row) => total + fn(row), 0) / valid.length : null;
         if (kind === 'accuracy') Object.assign(data, {
             accuracy_verdict_counts: counts,
@@ -156,7 +173,7 @@ function summarize(manifest, kind) {
         summary.push(data);
     }
     writeJson(path.join(OUTPUT, kind + '.progress.json'), { batch_id: BATCH, kind, updated_at: new Date().toISOString(),
-        expected: kind === 'accuracy' ? 1500 : 75, completed: summary.reduce((s, r) => s + r.n_scored, 0), models: summary });
+        expected: summary.reduce((s, r) => s + r.n_expected, 0), completed: summary.reduce((s, r) => s + r.n_scored, 0), models: summary });
     return summary;
 }
 

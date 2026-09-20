@@ -32,6 +32,22 @@ function uniqueIndex(rows, field, label) {
   return index;
 }
 
+// run_id들이 공유하는 최장 공통 접미사. 'ec2-linux_qwen3-4b_t0_think_20260920'
+// 류가 모여 있으면 '_t0_think_20260920'이 나온다. 하나뿐이면 그 전체를 쓰지
+// 않고(너무 좁음) 마지막 '_' 구분자 뒤부터만 인정한다.
+function commonSuffix(ids) {
+  if (!ids.length) return null;
+  let suffix = '';
+  const shortest = Math.min(...ids.map((s) => s.length));
+  for (let i = 1; i <= shortest; i++) {
+    const tail = ids[0].slice(-i);
+    if (!ids.every((id) => id.endsWith(tail))) break;
+    suffix = tail;
+  }
+  const cut = suffix.indexOf('_');
+  return cut < 0 ? null : suffix.slice(cut);
+}
+
 function buildUserText(row, generation, kind) {
   const context = row['제공 Context'];
   const userInfo = row['사용자 정보 / API 결과'];
@@ -89,7 +105,7 @@ function prepare(manifestPath) {
     if (!safeId.test(run.run_id) || seenRuns.has(run.run_id)) throw new Error('Invalid/duplicate run ID');
     seenRuns.add(run.run_id);
     if (run.status !== 'completed') throw new Error(`Incomplete run: ${run.run_id}`);
-    const sourcePath = path.join(ROOT, 'results/raw/test2', run.run_id, 'generation.jsonl');
+    const sourcePath = path.join(ROOT, 'results/raw', process.env.LLM_TEST_SUITE || 'test2', run.run_id, 'generation.jsonl');
     const sourceBytes = fs.readFileSync(sourcePath);
     const generations = parseJsonlStrict(sourceBytes.toString('utf8'), sourcePath);
     const byId = uniqueIndex(generations, 'id', sourcePath);
@@ -119,13 +135,19 @@ function prepare(manifestPath) {
       accuracy_jobs: primary.length, safety_jobs: safetyCases.length,
     });
   }
-  const out = path.join(ROOT, 'results/judge_inputs/test2', batch.batch_id);
+  // 라운드(suite)별로 분리 — LLM_TEST_SUITE 미설정 시 test2(기존 동작).
+  const suite = process.env.LLM_TEST_SUITE || 'test2';
+  if (!safeId.test(suite)) throw new Error('Invalid LLM_TEST_SUITE');
+  const out = path.join(ROOT, 'results/judge_inputs', suite, batch.batch_id);
   const prepared = {
     status: 'inputs_prepared_not_scored', batch_id: batch.batch_id,
     source_commit: batch.source_commit,
     batch_manifest_sha256: sha256(manifestBytes), cases_sha256: sha256(casesBytes),
     accuracy_system_prompt_sha256: sha256(ACCURACY_HALLUCINATION_EXPRESSION_SYSTEM_PROMPT),
     safety_system_prompt_sha256: sha256(SAFETY_SYSTEM_PROMPT),
+    // 채점 실행기가 run_id를 검증할 때 쓰는 공통 접미사. 모든 run_id가 공유하는
+    // 꼬리를 자동으로 뽑는다(없으면 null -> 실행기가 레거시 기본값을 쓴다).
+    run_id_suffix: commonSuffix(runs.map((r) => r.run_id)),
     planned_accuracy_jobs: jobs.accuracy.length, planned_safety_jobs: jobs.safety.length,
     planned_total_jobs: jobs.accuracy.length + jobs.safety.length,
     completed_judgments: 0, runs,

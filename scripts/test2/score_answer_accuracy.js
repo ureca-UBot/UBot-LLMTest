@@ -18,6 +18,7 @@ const { isPrimaryRound } = require('./lib/rounds');
 const ollama = require('./lib/ollama');
 const models = require('./config/models');
 const thresholds = require('./config/thresholds');
+const suitePaths = require('./lib/suite');
 
 const ROOT = path.join(__dirname, '..', '..');
 const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
@@ -32,10 +33,10 @@ async function main() {
   const cases = parseCsvObjects(fs.readFileSync(CASES_PATH, 'utf8'));
   const casesById = Object.fromEntries(cases.map((c) => [c['ID'], c]));
 
-  const genPath = path.join(ROOT, 'results', 'raw', 'test2', runId, 'generation.jsonl');
+  const genPath = suitePaths.generationPath(runId);
   const rows = readAll(genPath).filter((r) => r.parsed && typeof r.parsed.answer === 'string');
 
-  const outPath = path.join(ROOT, 'results', 'scored', 'test2', runId, 'answer_accuracy.jsonl');
+  const outPath = path.join(suitePaths.scoredDir(runId), 'answer_accuracy.jsonl');
   const alreadyDone = readExistingIds(outPath, 'id');
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   const appender = makeAppender(outPath); // append mode — resumable

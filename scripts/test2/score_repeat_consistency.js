@@ -23,6 +23,7 @@ const { extractNumbers } = require('./lib/regex_checks');
 const { cosineSimilarity } = require('./lib/vectors');
 const ollama = require('./lib/ollama');
 const models = require('./config/models');
+const suitePaths = require('./lib/suite');
 
 const ROOT = path.join(__dirname, '..', '..');
 const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
@@ -44,7 +45,7 @@ async function main() {
   const cases = parseCsvObjects(fs.readFileSync(CASES_PATH, 'utf8'));
   const casesById = Object.fromEntries(cases.map((c) => [c['ID'], c]));
 
-  const genPath = path.join(ROOT, 'results', 'raw', 'test2', runId, 'generation.jsonl');
+  const genPath = suitePaths.generationPath(runId);
   const generation = readAll(genPath);
   const genById = Object.fromEntries(generation.map((r) => [r.id, r]));
 
@@ -63,7 +64,7 @@ async function main() {
 
   // 2026-09-17 추가: 체크포인트 — 이미 채점된 원본ID는 건너뛰어서(임베딩
   // 호출도 다시 안 함) 크래시 후 재실행 시 처음부터 다시 안 해도 되게 함.
-  const outDir = path.join(ROOT, 'results', 'scored', 'test2', runId);
+  const outDir = suitePaths.scoredDir(runId);
   const outPath = path.join(outDir, 'repeat_consistency.jsonl');
   const alreadyDone = readExistingIds(outPath, 'original_id');
   const repeatGroups = allRepeatGroups.filter(([origId]) => !alreadyDone.has(origId));

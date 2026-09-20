@@ -38,4 +38,63 @@ function sampleVramMiB() {
   return values.reduce((a, b) => a + b, 0);
 }
 
-module.exports = { sampleVramMiB };
+// --- 모델별 VRAM (Ollama /api/ps) --------------------------------------
+// nvidia-smi는 GPU '전체' 사용량이라 다른 프로세스가 섞이고 "이 모델이 얼마나
+// 쓰는가"를 못 준다. Ollama의 /api/ps는 현재 로드된 모델마다 size_vram(바이트)을
+// 돌려주므로 모델별 실측(항목8)에는 이쪽이 맞다. 둘 다 기록해서 교차 확인한다.
+// nvidia-smi와 마찬가지로 실패 시 절대 throw하지 않고 null을 반환한다.
+
+const OLLAMA_HOST = process.env.OLLAMA_HOST || 'http://127.0.0.1:11434';
+let psWarned = false;
+
+async function sampleLoadedModels() {
+  try {
+    const res = await fetch(`${OLLAMA_HOST}/api/ps`, { signal: AbortSignal.timeout(5000) });
+    if (!res.ok) throw new Error(`/api/ps ${res.status}`);
+    const data = await res.json();
+    return (data.models || []).map((m) => ({
+      name: m.name,
+      size_bytes: m.size ?? null,
+      size_vram_bytes: m.size_vram ?? null,
+      // size_vram이 size보다 작으면 일부가 CPU로 내려간 것 — 지연 해석에 중요하다.
+      fully_on_gpu: m.size != null && m.size_vram != null ? m.size_vram >= m.size : null,
+      expires_at: m.expires_at ?? null,
+    }));
+  } catch (e) {
+    if (!psWarned) {
+      console.warn(`  [vram] Ollama /api/ps 조회 실패 — 모델별 VRAM을 건너뜁니다 (${e.message})`);
+      psWarned = true;
+    }
+    return null;
+  }
+}
+
+// 특정 모델 태그 하나의 VRAM만 뽑아온다. 로드돼 있지 않으면 null.
+async function sampleModelVram(modelTag) {
+  const loaded = await sampleLoadedModels();
+  if (!loaded) return null;
+  // Ollama는 'qwen3:4b'를 그대로 돌려주지만, latest 생략 등 표기가 달라질 수
+  // 있어 접두 일치까지 허용한다.
+  const base = String(modelTag).split(':')[0];
+  return loaded.find((m) => m.name === modelTag)
+    || loaded.find((m) => m.name.startsWith(base + ':'))
+    || null;
+}
+
+// GPU 모델명 — 보고서에 "어느 하드웨어에서 잰 값인지" 남기기 위한 것.
+function gpuName() {
+  let res;
+  try {
+    res = spawnSync('nvidia-smi', ['--query-gpu=name', '--format=csv,noheader'], {
+      encoding: 'utf8',
+      timeout: 5000,
+    });
+  } catch (e) {
+    return null;
+  }
+  if (!res || res.error || res.status !== 0) return null;
+  const names = res.stdout.trim().split('\n').map((s) => s.trim()).filter(Boolean);
+  return names.length ? names.join(' + ') : null;
+}
+
+module.exports = { sampleVramMiB, sampleLoadedModels, sampleModelVram, gpuName };

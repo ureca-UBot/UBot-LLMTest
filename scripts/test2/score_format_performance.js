@@ -14,6 +14,7 @@ const path = require('path');
 const { readAll, makeAppender } = require('./lib/jsonl');
 const { parseCsvObjects } = require('./lib/csv');
 const { isPrimaryRound } = require('./lib/rounds');
+const suitePaths = require('./lib/suite');
 
 const ROOT = path.join(__dirname, '..', '..');
 const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
@@ -24,7 +25,7 @@ function main() {
     console.error('usage: node scripts/score_format_performance.js <run_id>');
     process.exit(1);
   }
-  const genPath = path.join(ROOT, 'results', 'raw', 'test2', runId, 'generation.jsonl');
+  const genPath = suitePaths.generationPath(runId);
   const rows = readAll(genPath);
   if (rows.length === 0) {
     console.error(`generation.jsonl이 비어있거나 없음: ${genPath}`);
@@ -34,9 +35,9 @@ function main() {
     parseCsvObjects(fs.readFileSync(CASES_PATH, 'utf8')).map((c) => [c['ID'], c])
   );
 
-  const formatOutPath = path.join(ROOT, 'results', 'scored', 'test2', runId, 'format_success.jsonl');
-  const perfOutPath = path.join(ROOT, 'results', 'scored', 'test2', runId, 'performance.jsonl');
-  const perfSummaryPath = path.join(ROOT, 'results', 'scored', 'test2', runId, 'performance_summary.json');
+  const formatOutPath = path.join(suitePaths.scoredDir(runId), 'format_success.jsonl');
+  const perfOutPath = path.join(suitePaths.scoredDir(runId), 'performance.jsonl');
+  const perfSummaryPath = path.join(suitePaths.scoredDir(runId), 'performance_summary.json');
 
   fs.mkdirSync(path.dirname(formatOutPath), { recursive: true });
   fs.writeFileSync(formatOutPath, '');

@@ -21,6 +21,7 @@ const { splitFactUnits } = require('./lib/fact_units');
 const { verifyGrounded, verifyScopedToEvidence, classifyScopeConflict } = require('./lib/regex_checks');
 const { scoreNliBatch } = require('./lib/nli');
 const { isPrimaryRound } = require('./lib/rounds');
+const suitePaths = require('./lib/suite');
 
 const ROOT = path.join(__dirname, '..', '..');
 const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
@@ -35,7 +36,7 @@ function main() {
   const cases = parseCsvObjects(fs.readFileSync(CASES_PATH, 'utf8'));
   const casesById = Object.fromEntries(cases.map((c) => [c['ID'], c]));
 
-  const genPath = path.join(ROOT, 'results', 'raw', 'test2', runId, 'generation.jsonl');
+  const genPath = suitePaths.generationPath(runId);
   const rows = readAll(genPath).filter((r) => r.parsed && typeof r.parsed.answer === 'string');
 
   // --- Pass 1: build every case's decomposition + regex check, and collect
@@ -105,7 +106,7 @@ function main() {
   }
 
   // --- Pass 2: aggregate per case (best supporting block per fact unit).
-  const outPath = path.join(ROOT, 'results', 'scored', 'test2', runId, 'rag_faithfulness.jsonl');
+  const outPath = path.join(suitePaths.scoredDir(runId), 'rag_faithfulness.jsonl');
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, '');
   const appender = makeAppender(outPath);

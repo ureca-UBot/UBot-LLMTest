@@ -6,12 +6,18 @@
 
 const OLLAMA_HOST = process.env.OLLAMA_HOST || 'http://127.0.0.1:11434';
 
-async function chat(model, messages, { format = 'json', options = {} } = {}) {
+// `options`는 Ollama의 생성 파라미터(temperature/seed/top_p 등)를 그대로
+// 전달한다. `think`는 options가 아니라 요청 body 최상위 필드라서(= Modelfile
+// PARAMETER로는 설정 불가) 따로 받는다 — Qwen3 계열의 추론 모드 on/off용.
+// think가 undefined면 body에 아예 넣지 않으므로 기존 호출의 동작은 그대로다.
+async function chat(model, messages, { format = 'json', options = {}, think } = {}) {
   const started = Date.now();
+  const body = { model, messages, format, stream: false, options };
+  if (think !== undefined) body.think = think;
   const res = await fetch(`${OLLAMA_HOST}/api/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model, messages, format, stream: false, options }),
+    body: JSON.stringify(body),
   });
   const wallMs = Date.now() - started;
   if (!res.ok) {

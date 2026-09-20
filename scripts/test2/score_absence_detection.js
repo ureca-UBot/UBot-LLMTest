@@ -13,6 +13,7 @@ const { parseCsvObjects } = require('./lib/csv');
 const { readAll, makeAppender } = require('./lib/jsonl');
 const { expectedStatusEnum } = require('./lib/status_map');
 const { isPrimaryRound } = require('./lib/rounds');
+const suitePaths = require('./lib/suite');
 
 const ROOT = path.join(__dirname, '..', '..');
 const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
@@ -26,10 +27,10 @@ function main() {
   const cases = parseCsvObjects(fs.readFileSync(CASES_PATH, 'utf8'));
   const casesById = Object.fromEntries(cases.map((c) => [c['ID'], c]));
 
-  const genPath = path.join(ROOT, 'results', 'raw', 'test2', runId, 'generation.jsonl');
+  const genPath = suitePaths.generationPath(runId);
   const rows = readAll(genPath);
 
-  const outPath = path.join(ROOT, 'results', 'scored', 'test2', runId, 'absence_detection.jsonl');
+  const outPath = path.join(suitePaths.scoredDir(runId), 'absence_detection.jsonl');
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, '');
   const appender = makeAppender(outPath);
@@ -73,7 +74,7 @@ function main() {
     precision, recall, f1,
   };
   fs.writeFileSync(
-    path.join(ROOT, 'results', 'scored', 'test2', runId, 'absence_detection_summary.json'),
+    path.join(suitePaths.scoredDir(runId), 'absence_detection_summary.json'),
     JSON.stringify(summary, null, 2), 'utf8'
   );
 

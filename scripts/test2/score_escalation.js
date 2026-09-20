@@ -19,6 +19,7 @@ const { expectedStatusEnum } = require('./lib/status_map');
 const { extractNumbers } = require('./lib/regex_checks');
 const { evaluateEscalation } = require('./lib/escalation');
 const { splitContextBlocks, findBlocksByIds } = require('./lib/context_blocks');
+const suitePaths = require('./lib/suite');
 
 const ROOT = path.join(__dirname, '..', '..');
 const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
@@ -49,11 +50,11 @@ function main() {
     console.error('usage: node scripts/score_escalation.js <run_id>');
     process.exit(1);
   }
-  const scoredDir = path.join(ROOT, 'results', 'scored', 'test2', runId);
+  const scoredDir = suitePaths.scoredDir(runId);
   const cases = parseCsvObjects(fs.readFileSync(CASES_PATH, 'utf8'));
   const casesById = Object.fromEntries(cases.map((c) => [c['ID'], c]));
 
-  const generation = byId(readAll(path.join(ROOT, 'results', 'raw', 'test2', runId, 'generation.jsonl')));
+  const generation = byId(readAll(suitePaths.generationPath(runId)));
   const answerAcc = byId(readAll(path.join(scoredDir, 'answer_accuracy.jsonl')));
   const faithfulness = byId(readAll(path.join(scoredDir, 'rag_faithfulness.jsonl')));
 

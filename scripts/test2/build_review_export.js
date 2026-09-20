@@ -13,6 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const { parseCsvObjects, toCsv } = require('./lib/csv');
 const { readAll } = require('./lib/jsonl');
+const suitePaths = require('./lib/suite');
 
 const ROOT = path.join(__dirname, '..', '..');
 const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
@@ -39,11 +40,11 @@ function main() {
     console.error('usage: node scripts/build_review_export.js <run_id>');
     process.exit(1);
   }
-  const scoredDir = path.join(ROOT, 'results', 'scored', 'test2', runId);
+  const scoredDir = suitePaths.scoredDir(runId);
   const cases = parseCsvObjects(fs.readFileSync(CASES_PATH, 'utf8'));
   const casesById = Object.fromEntries(cases.map((c) => [c['ID'], c]));
 
-  const generation = byId(readAll(path.join(ROOT, 'results', 'raw', 'test2', runId, 'generation.jsonl')));
+  const generation = byId(readAll(suitePaths.generationPath(runId)));
   const format = byId(readAll(path.join(scoredDir, 'format_success.jsonl')));
   const perf = byId(readAll(path.join(scoredDir, 'performance.jsonl')));
   const answerAcc = byId(readAll(path.join(scoredDir, 'answer_accuracy.jsonl')));

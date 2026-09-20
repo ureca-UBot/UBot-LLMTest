@@ -15,6 +15,7 @@ const path = require('path');
 const { readAll } = require('./lib/jsonl');
 const { parseCsvObjects } = require('./lib/csv');
 const { isPrimaryRound } = require('./lib/rounds');
+const suitePaths = require('./lib/suite');
 
 const ROOT = path.join(__dirname, '..', '..');
 const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
@@ -29,8 +30,8 @@ function main() {
     console.error('usage: node scripts/aggregate_report.js <run_id>');
     process.exit(1);
   }
-  const scoredDir = path.join(ROOT, 'results', 'scored', 'test2', runId);
-  const genPath = path.join(ROOT, 'results', 'raw', 'test2', runId, 'generation.jsonl');
+  const scoredDir = suitePaths.scoredDir(runId);
+  const genPath = suitePaths.generationPath(runId);
 
   const casesById = Object.fromEntries(
     parseCsvObjects(fs.readFileSync(CASES_PATH, 'utf8')).map((c) => [c['ID'], c])
@@ -110,7 +111,7 @@ function main() {
     lines.push('');
   }
 
-  const outDir = path.join(ROOT, 'results', 'reports', 'test2');
+  const outDir = suitePaths.reportsDir();
   fs.mkdirSync(outDir, { recursive: true });
   const outPath = path.join(outDir, `${runId}_summary.md`);
   fs.writeFileSync(outPath, lines.join('\n'), 'utf8');
