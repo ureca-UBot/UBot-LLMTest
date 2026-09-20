@@ -1,0 +1,261 @@
+{
+  "suite": "test3",
+  "generated_at": "2026-09-20T02:36:28.558Z",
+  "comparison_notes": [
+    "test2는 local-win(RTX 4070 Ti, temperature 0.8 = Ollama 기본값), test3은 ec2-linux(temperature 0)이다.",
+    "하드웨어가 함께 바뀌었으므로 두 라운드 간 속도(지연/TPS) 비교는 하지 않는다.",
+    "temperature 효과만 보려면 같은 EC2 위의 대조군(t08_think, 반복 40문항)과 비교한다.",
+    "gemma3:12b / qwen3:14b는 test2에 데이터가 없어 test3 단독 값만 싣는다.",
+    "temp=0에서 반복 일관성이 100%에 가까운 것은 개선이 아니라 샘플링을 끈 결과다."
+  ],
+  "missing_rounds": [
+    "gemma3:4b: test3 본 라운드(t0_think)",
+    "gemma3:4b: temperature 대조군(t08_think)",
+    "qwen3:1.7b: test3 본 라운드(t0_think)",
+    "qwen3:1.7b: 추론 off 라운드(t0_nothink)",
+    "qwen3:1.7b: temperature 대조군(t08_think)",
+    "qwen3:4b: test3 본 라운드(t0_think)",
+    "qwen3:4b: 추론 off 라운드(t0_nothink)",
+    "qwen3:4b: temperature 대조군(t08_think)",
+    "qwen3:8b: test3 본 라운드(t0_think)",
+    "qwen3:8b: 추론 off 라운드(t0_nothink)",
+    "qwen3:8b: temperature 대조군(t08_think)",
+    "exaone3.5:7.8b: test3 본 라운드(t0_think)",
+    "exaone3.5:7.8b: temperature 대조군(t08_think)",
+    "gemma3:12b: test3 본 라운드(t0_think)",
+    "gemma3:12b: temperature 대조군(t08_think)",
+    "qwen3:14b: test3 본 라운드(t0_think)",
+    "qwen3:14b: 추론 off 라운드(t0_nothink)",
+    "qwen3:14b: temperature 대조군(t08_think)"
+  ],
+  "models": [
+    {
+      "model_tag": "gemma3:4b",
+      "tier": "selected",
+      "think_capable": false,
+      "test2": {
+        "suite": "test2",
+        "run_id": "local-win_gemma3-4b_20260918_rerun-1328",
+        "gen_params": null,
+        "n_generation": 380,
+        "status_match": 0.44,
+        "avg_eval_count": 77.41052631578947,
+        "format_success_rate": 0.9866666666666667,
+        "latency_avg_ms": 1851.5066666666667,
+        "latency_p95_ms": 2782,
+        "tps_avg": 121.48591245313736,
+        "vram_mib": {
+          "avg": 7315.133333333333,
+          "max": 9853,
+          "min": 6406,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.525,
+          "status": 0.8,
+          "numbers": 0.625,
+          "evidence": 0.725,
+          "paraphrase_similarity": 0.9495280410552558
+        },
+        "absence_f1": 0.18691588785046728,
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.3566666666666667,
+          "is_grounded_rate": 0.5733333333333334,
+          "grounding_score_avg": 3.8766666666666665,
+          "expression_quality_avg": 4.16
+        }
+      },
+      "test3_think": null,
+      "test3_nothink": null,
+      "test3_temp_control": null
+    },
+    {
+      "model_tag": "qwen3:1.7b",
+      "tier": "selected",
+      "think_capable": true,
+      "test2": {
+        "suite": "test2",
+        "run_id": "local-win_qwen3-1-7b_20260918_rerun-1328",
+        "gen_params": null,
+        "n_generation": 380,
+        "status_match": 0.5533333333333333,
+        "avg_eval_count": 471.5684210526316,
+        "format_success_rate": 0.9966666666666667,
+        "latency_avg_ms": 2024.3333333333333,
+        "latency_p95_ms": 3680,
+        "tps_avg": 236.7749519355839,
+        "vram_mib": {
+          "avg": 4446.326666666667,
+          "max": 10702,
+          "min": 3456,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.375,
+          "status": 0.75,
+          "numbers": 0.475,
+          "evidence": 0.475,
+          "paraphrase_similarity": 0.9130326034731413
+        },
+        "absence_f1": 0.14736842105263157,
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.47,
+          "is_grounded_rate": 0.58,
+          "grounding_score_avg": 3.8333333333333335,
+          "expression_quality_avg": 4.05
+        }
+      },
+      "test3_think": null,
+      "test3_nothink": null,
+      "test3_temp_control": null
+    },
+    {
+      "model_tag": "qwen3:4b",
+      "tier": "selected",
+      "think_capable": true,
+      "test2": {
+        "suite": "test2",
+        "run_id": "local-win_qwen3-4b_20260918_rerun-1328",
+        "gen_params": null,
+        "n_generation": 380,
+        "status_match": 0.82,
+        "avg_eval_count": 1213.5052631578947,
+        "format_success_rate": 0.9933333333333333,
+        "latency_avg_ms": 10612.473333333333,
+        "latency_p95_ms": 29157,
+        "tps_avg": 120.90337928084698,
+        "vram_mib": {
+          "avg": 5619.62,
+          "max": 6075,
+          "min": 5135,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.525,
+          "status": 0.9,
+          "numbers": 0.55,
+          "evidence": 0.875,
+          "paraphrase_similarity": 0.8995903399186768
+        },
+        "absence_f1": 0.7919463087248322,
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.72,
+          "is_grounded_rate": 0.86,
+          "grounding_score_avg": 4.67,
+          "expression_quality_avg": 4.333333333333333
+        }
+      },
+      "test3_think": null,
+      "test3_nothink": null,
+      "test3_temp_control": null
+    },
+    {
+      "model_tag": "qwen3:8b",
+      "tier": "selected",
+      "think_capable": true,
+      "test2": {
+        "suite": "test2",
+        "run_id": "local-win_qwen3-8b_20260918_rerun-1328",
+        "gen_params": null,
+        "n_generation": 380,
+        "status_match": 0.63,
+        "avg_eval_count": 410.81315789473683,
+        "format_success_rate": 1,
+        "latency_avg_ms": 5829.06,
+        "latency_p95_ms": 9276,
+        "tps_avg": 75.31098019556926,
+        "vram_mib": {
+          "avg": 7980.836666666667,
+          "max": 11690,
+          "min": 7254,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.45,
+          "status": 0.725,
+          "numbers": 0.55,
+          "evidence": 0.75,
+          "paraphrase_similarity": 0.9203751340357039
+        },
+        "absence_f1": 0.1075268817204301,
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.6366666666666667,
+          "is_grounded_rate": 0.73,
+          "grounding_score_avg": 4.39,
+          "expression_quality_avg": 4.3133333333333335
+        }
+      },
+      "test3_think": null,
+      "test3_nothink": null,
+      "test3_temp_control": null
+    },
+    {
+      "model_tag": "exaone3.5:7.8b",
+      "tier": "selected",
+      "think_capable": false,
+      "test2": {
+        "suite": "test2",
+        "run_id": "local-win_exaone3-5-7-8b_20260918_rerun-1328",
+        "gen_params": null,
+        "n_generation": 380,
+        "status_match": 0.48333333333333334,
+        "avg_eval_count": 113.18253968253968,
+        "format_success_rate": 0.9933333333333333,
+        "latency_avg_ms": 1937.54,
+        "latency_p95_ms": 3151,
+        "tps_avg": 75.11815902648071,
+        "vram_mib": {
+          "avg": 7872.453333333333,
+          "max": 8855,
+          "min": 7387,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.175,
+          "status": 0.525,
+          "numbers": 0.5,
+          "evidence": 0.675,
+          "paraphrase_similarity": 0.9394332144419197
+        },
+        "absence_f1": 0.16494845360824742,
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.5166666666666667,
+          "is_grounded_rate": 0.4866666666666667,
+          "grounding_score_avg": 3.716666666666667,
+          "expression_quality_avg": 3.9966666666666666
+        }
+      },
+      "test3_think": null,
+      "test3_nothink": null,
+      "test3_temp_control": null
+    },
+    {
+      "model_tag": "gemma3:12b",
+      "tier": "ec2_only",
+      "think_capable": false,
+      "test2": null,
+      "test3_think": null,
+      "test3_nothink": null,
+      "test3_temp_control": null
+    },
+    {
+      "model_tag": "qwen3:14b",
+      "tier": "ec2_only",
+      "think_capable": true,
+      "test2": null,
+      "test3_think": null,
+      "test3_nothink": null,
+      "test3_temp_control": null
+    }
+  ]
+}
