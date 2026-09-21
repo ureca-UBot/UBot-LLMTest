@@ -3,15 +3,16 @@
 const fs = require('fs');
 const path = require('path');
 const root = path.resolve(__dirname, '../..');
-const out = path.join(root, 'results/test2/V2');
-const input = path.join(root, 'results/judge_inputs/test2/rerun-20260918-1328');
+const suitePaths = require('./lib/suite');
+const out = suitePaths.v2Dir();
+const input = suitePaths.judgeInputsDir();
 const jsonl = file => fs.readFileSync(file, 'utf8').trim().split(/\r?\n/).filter(Boolean).map(JSON.parse);
 const manifest = JSON.parse(fs.readFileSync(path.join(input, 'manifest.json'), 'utf8'));
 const inputs = Object.fromEntries(['accuracy', 'safety'].map(kind => [kind,
     new Map(jsonl(path.join(input, kind + '_jobs.jsonl')).map(j => [j.run_id + '/' + j.id, j]))]));
 const selected = [];
 for (const run of manifest.runs) {
-    const dir = path.join(root, 'results/scored/test2', run.run_id);
+    const dir = suitePaths.scoredDir(run.run_id);
     const accuracy = jsonl(path.join(dir, 'accuracy_hallucination_llm.jsonl')).filter(r => !r.error).sort((a, b) => a.id.localeCompare(b.id));
     const safety = jsonl(path.join(dir, 'safety_llm.jsonl')).filter(r => !r.error).sort((a, b) => a.id.localeCompare(b.id));
     const used = new Set();

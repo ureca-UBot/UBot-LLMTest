@@ -15,6 +15,7 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 const fs = require('fs');
 const { envTag } = require('./lib/platform');
+const suitePaths = require('./lib/suite');
 
 const SCRIPTS_DIR = __dirname;
 
@@ -58,7 +59,7 @@ function main() {
   }
 
   const startedAt = Date.now();
-  console.log(`파이프라인 시작: run_id=${runId} model=${modelTag} env=${envTag()}`);
+  console.log(`파이프라인 시작: run_id=${runId} model=${modelTag} env=${envTag()} suite=${suitePaths.suiteTag()}`);
 
   run('run_generation.js', [runId, modelTag, ...passthrough], '1/9 모델 생성 (항목6·7 원자료 포함)');
   run('score_format_performance.js', [runId], '2/9 항목6·7 채점 (포맷·성능)');
@@ -77,8 +78,9 @@ function main() {
 
   const elapsedMin = ((Date.now() - startedAt) / 60000).toFixed(1);
   console.log(`\n파이프라인 완료 (${elapsedMin}분). 결과:`);
-  console.log(`  - 사람이 읽을 통합 파일: results/scored/test2/${runId}/review.csv`);
-  console.log(`  - 종합 리포트: results/reports/test2/${runId}_summary.md`);
+  const suite = suitePaths.suiteTag();
+  console.log(`  - 사람이 읽을 통합 파일: results/scored/${suite}/${runId}/review.csv`);
+  console.log(`  - 종합 리포트: results/reports/${suite}/${runId}_summary.md`);
 }
 
 main();

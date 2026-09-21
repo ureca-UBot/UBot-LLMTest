@@ -106,10 +106,36 @@ node scripts/test3/build_report.js       # -> results/test3/*.md
 환각·정확도를 test2와 같은 기준으로 재려면 LLM Judge를 태운다.
 **이 단계는 저장된 답변을 외부(OpenAI Codex)로 전송하므로 사용자 승인이 필요하다.**
 
+### 7-1. 배치 매니페스트 생성
+
+`prepare_llm_judge_inputs.js`는 매니페스트를 **입력으로 받는다**(만들지 않는다).
+완료된 run을 스캔해 매니페스트를 먼저 만든다.
+
 ```bash
-LLM_TEST_SUITE=test3 node scripts/test2/prepare_llm_judge_inputs.js <배치 매니페스트>
-LLM_TEST_SUITE=test3 LLM_JUDGE_BATCH=<배치ID> node scripts/test2/run_saved_llm_judge.js --concurrency 8
+node scripts/test3/build_batch_manifest.js --dry-run            # 어떤 run이 잡히는지 확인
+node scripts/test3/build_batch_manifest.js --batch test3-round1
 ```
+
+7개 모델이 전부 잡혔는지 확인한다. 빠진 모델이 있으면 경고가 나오며, 그대로
+진행하면 **일부 모델만 평가된 결과가 "완료"로 남는다.**
+
+조건별로 따로 만들 수 있다 — `--condition t0_nothink` 등.
+
+### 7-2. 채점 입력 생성과 실행
+
+```bash
+LLM_TEST_SUITE=test3 node scripts/test2/prepare_llm_judge_inputs.js results/reports/test3/test3-round1.json
+LLM_TEST_SUITE=test3 LLM_JUDGE_BATCH=test3-round1 node scripts/test2/run_saved_llm_judge.js --concurrency 8
+```
+
+### 7-3. 보고서
+
+```bash
+LLM_TEST_SUITE=test3 LLM_JUDGE_BATCH=test3-round1 node scripts/test2/build_llm_judge_report.js
+LLM_TEST_SUITE=test3 LLM_JUDGE_BATCH=test3-round1 node scripts/test2/build_results_V2.js
+```
+
+두 환경변수를 빼면 기존 test2 배치를 재생성한다(기본값 유지).
 
 ## 8. 결과 회수
 

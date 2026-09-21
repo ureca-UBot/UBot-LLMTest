@@ -7,18 +7,16 @@ const path = require('path');
 const crypto = require('crypto');
 const { spawn } = require('child_process');
 const schemas = require('./llm_judge_schema');
+const suitePaths = require('./suite');
 const { makeAppender } = require('./jsonl');
 
 const ROOT = path.resolve(__dirname, '../../..');
-// 배치 ID는 환경변수로 바꿀 수 있다. 기본값은 2026-09-18 test2 배치라
-// 기존 명령의 재개 동작은 그대로다 (test3 배치는 LLM_JUDGE_BATCH로 지정).
-const BATCH = process.env.LLM_JUDGE_BATCH || 'rerun-20260918-1328';
-const BATCH_RE = /^[A-Za-z0-9_-]+$/;
-if (!BATCH_RE.test(BATCH)) throw new Error('LLM_JUDGE_BATCH 값이 올바르지 않습니다: ' + BATCH);
-const SUITE = process.env.LLM_TEST_SUITE || 'test2';
-if (!BATCH_RE.test(SUITE)) throw new Error('LLM_TEST_SUITE 값이 올바르지 않습니다: ' + SUITE);
-const INPUT = path.join(ROOT, 'results/judge_inputs', SUITE, BATCH);
-const OUTPUT = path.join(ROOT, 'results/llm_judge', SUITE, BATCH);
+// 배치·라운드는 lib/suite.js가 한 곳에서 해석한다. 환경변수를 안 주면
+// 2026-09-18 test2 배치라 기존 명령의 재개 동작은 그대로다.
+const BATCH = suitePaths.judgeBatch();
+const SUITE = suitePaths.suiteTag();
+const INPUT = suitePaths.judgeInputsDir(BATCH);
+const OUTPUT = suitePaths.judgeOutputDir(BATCH);
 const JUDGE_MODEL = 'gpt-6-astra';
 const names = { accuracy: 'accuracy_hallucination_llm', safety: 'safety_llm' };
 const hash = data => crypto.createHash('sha256').update(data).digest('hex');
@@ -80,7 +78,7 @@ function parseAnswer(text, kind) {
 }
 
 function resultPath(runId, kind) {
-    return path.join(ROOT, 'results/scored', SUITE, runId, names[kind] + '.jsonl');
+    return path.join(suitePaths.scoredDir(runId), names[kind] + '.jsonl');
 }
 
 function completed(manifest, kind) {

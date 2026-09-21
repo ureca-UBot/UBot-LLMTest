@@ -5,13 +5,14 @@ const path = require('path');
 const crypto = require('crypto');
 const { ACCURACY_HALLUCINATION_EXPRESSION_SYSTEM_PROMPT, SAFETY_SYSTEM_PROMPT } = require('./lib/judge_prompts');
 const root = path.resolve(__dirname, '../..');
-const input = path.join(root, 'results/judge_inputs/test2/rerun-20260918-1328');
+const suitePaths = require('./lib/suite');
+const input = suitePaths.judgeInputsDir();
 const manifestPath = path.join(input, 'manifest.json');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 for (const run of manifest.runs) {
     for (const name of ['accuracy_hallucination_llm.jsonl', 'safety_llm.jsonl']) {
-        const file = path.join(root, 'results/scored/test2', run.run_id, name);
+        const file = path.join(suitePaths.scoredDir(run.run_id), name);
         if (fs.existsSync(file) && fs.readFileSync(file, 'utf8').split(/\r?\n/).filter(Boolean).map(JSON.parse).some(r => !r.error)) {
             throw new Error('Existing successful judgments must not be mixed across rubric versions.');
         }
