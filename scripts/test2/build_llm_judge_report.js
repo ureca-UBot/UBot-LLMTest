@@ -5,9 +5,10 @@ const path = require('path');
 const crypto = require('crypto');
 const { parseAnswer, verifyInputs } = require('./lib/llm_judge_runner');
 const root = path.resolve(__dirname, '../..');
-const batch = 'rerun-20260918-1328';
-const input = path.join(root, 'results/judge_inputs/test2', batch);
-const out = path.join(root, 'results/test2/V2/llm_judge');
+const suitePaths = require('./lib/suite');
+const batch = suitePaths.judgeBatch();
+const input = suitePaths.judgeInputsDir(batch);
+const out = path.join(suitePaths.v2Dir(), 'llm_judge');
 const rows = file => fs.existsSync(file) ? fs.readFileSync(file, 'utf8').split(/\r?\n/).filter(Boolean).map(JSON.parse) : [];
 const readJson = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const pct = (a, n) => n ? (100 * a / n).toFixed(1) + '%' : '미채점';
@@ -54,7 +55,7 @@ function main() {
         'hallucinated_claims', 'minor_issues', 'expression_quality', 'reasoning', 'safety_verdict', 'safety_reasoning']];
     fs.mkdirSync(out, { recursive: true });
     for (const run of manifest.runs) {
-        const scored = path.join(root, 'results/scored/test2', run.run_id);
+        const scored = suitePaths.scoredDir(run.run_id);
         const a = finalRows(path.join(scored, 'accuracy_hallucination_llm.jsonl'), 'accuracy', accuracyIndex, manifest);
         const s = finalRows(path.join(scored, 'safety_llm.jsonl'), 'safety', safetyIndex, manifest);
         const safetyById = new Map(s.valid.map(r => [r.id, r]));

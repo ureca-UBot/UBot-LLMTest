@@ -7,9 +7,27 @@ const crypto = require('crypto');
 const { parseCsvObjects, toCsv } = require('./lib/csv');
 const { isPrimaryRound } = require('./lib/rounds');
 const { verifyInputs, parseAnswer } = require('./lib/llm_judge_runner');
+const suitePaths = require('./lib/suite');
 const root = path.resolve(__dirname, '../..');
-const out = path.join(root, 'results/test2/V2');
-const batch = 'rerun-20260918-1328';
+const out = suitePaths.v2Dir();
+const batch = suitePaths.judgeBatch();
+// 모델 수·문항 수는 매니페스트에서 파생한다. 예전엔 5모델(1900/1500/75)이
+// 상수로 박혀 있어 다른 라운드에서는 이유를 알기 어려운 assert 실패가 났다.
+const rel = abs => path.relative(root, abs).split(path.sep).join('/');
+// run_id들이 공유하는 꼬리(예: _20260918_rerun-1328). 레거시 매니페스트에는
+// run_id_suffix 필드가 없으므로 run_id에서 직접 뽑는다.
+const commonSuffix = ids => {
+    if (!ids.length) return '';
+    let suffix = '';
+    const shortest = Math.min(...ids.map(s => s.length));
+    for (let i = 1; i <= shortest; i++) {
+        const tail = ids[0].slice(-i);
+        if (!ids.every(id => id.endsWith(tail))) break;
+        suffix = tail;
+    }
+    const cut = suffix.indexOf('_');
+    return cut < 0 ? suffix : suffix.slice(cut + 1);
+};
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const json = file => JSON.parse(read(file));
 const rows = file => read(file).trim().split(/\r?\n/).filter(Boolean).map(JSON.parse);
@@ -40,8 +58,12 @@ function fence(value) {
 const manifest = verifyInputs();
 const ai = json('results/test2/V2/llm_judge/summary_V2.json');
 assert.equal(ai.status, 'completed');
-assert.equal(ai.accuracy_scored, 1500);
-assert.equal(ai.safety_scored, 75);
+const N_RUNS = manifest.runs.length;
+const PER_RUN_ACCURACY = manifest.runs[0].accuracy_jobs ?? 300;
+const PER_RUN_SAFETY = manifest.runs[0].safety_jobs ?? 15;
+const PER_RUN_ROWS = manifest.runs[0].generation_records ?? 380;
+assert.equal(ai.accuracy_scored, N_RUNS * PER_RUN_ACCURACY);
+assert.equal(ai.safety_scored, N_RUNS * PER_RUN_SAFETY);
 const cases = parseCsvObjects(read('data/eval_sets/test_set2/cases.csv'));
 const casesById = new Map(cases.map(c => [c.ID, c]));
 const primary = row => isPrimaryRound(casesById.get(row.id));
@@ -64,13 +86,13 @@ const sampleCounts = {};
 for (const note of reviewed.values()) sampleCounts[note.review_status] = (sampleCounts[note.review_status] || 0) + 1;
 const models = [], master = [], flags = [], safetyRecords = [];
 for (const run of manifest.runs) {
-    const dir = 'results/scored/test2/' + run.run_id;
-    const raw = rows('results/raw/test2/' + run.run_id + '/generation.jsonl');
-    assert.equal(raw.length, 380); assert.equal(new Set(raw.map(r => r.id)).size, 380);
-    assert.equal(raw.filter(primary).length, 300); assert.ok(raw.every(r => !r.error));
+    const dir = rel(suitePaths.scoredDir(run.run_id));
+    const raw = rows(rel(suitePaths.generationPath(run.run_id)));
+    assert.equal(raw.length, PER_RUN_ROWS); assert.equal(new Set(raw.map(r => r.id)).size, PER_RUN_ROWS);
+    assert.equal(raw.filter(primary).length, PER_RUN_ACCURACY); assert.ok(raw.every(r => !r.error));
     const a = rows(dir + '/accuracy_hallucination_llm.jsonl');
     const s = rows(dir + '/safety_llm.jsonl');
-    assert.equal(a.length, 300); assert.equal(s.length, 15);
+    assert.equal(a.length, PER_RUN_ACCURACY); assert.equal(s.length, PER_RUN_SAFETY);
     const all = new Map(raw.map(r => [r.id, r]));
     for (const [kind, data] of [['accuracy', a], ['safety', s]]) {
         assert.equal(new Set(data.map(r => r.id)).size, data.length);
@@ -103,15 +125,15 @@ for (const run of manifest.runs) {
     const confusion = { tp: 0, fp: 0, fn: 0, tn: 0 };
     for (const r of absenceRows) confusion[r.expected_abstain ? (r.predicted_abstain ? 'tp' : 'fn') : (r.predicted_abstain ? 'fp' : 'tn')]++;
     assert.deepEqual(confusion, absence.confusion);
-    assert.equal(perf.n_primary, 300); assert.equal(repeat.n, 40);
+    assert.equal(perf.n_primary, PER_RUN_ACCURACY);
     const model = { ...ai.models.find(r => r.run_id === run.run_id),
         format_success_rate: perf.format_success_rate, vram_mib: perf.vram_mib,
         absence_precision: absence.precision, absence_recall: absence.recall, absence_f1: absence.f1,
         absence_eligible: absenceRows.length, absence_confusion: confusion,
         repeat_n: repeat.n, repeat_overall: repeat.overall_consistency_rate,
         repeat_status: repeat.status_consistency_rate, repeat_numbers: repeat.numbers_consistency_rate, repeat_evidence: repeat.evidence_consistency_rate,
-        rule_accuracy_n: acc.length, rule_accuracy_missing: 300 - acc.length,
-        rule_expression_n: expr.length, nli_rule_missing: 300 - rag.length,
+        rule_accuracy_n: acc.length, rule_accuracy_missing: PER_RUN_ACCURACY - acc.length,
+        rule_expression_n: expr.length, nli_rule_missing: PER_RUN_ACCURACY - rag.length,
         bge_similarity_pass_rate: acc.filter(r => r.similarity_pass).length / acc.length,
         keyword_coverage_avg: acc.filter(r => r.keyword_coverage != null).reduce((sum, r) => sum + r.keyword_coverage, 0) / acc.filter(r => r.keyword_coverage != null).length,
         rule_accuracy_pass_rate: acc.filter(r => r.pass).length / acc.length,
@@ -130,7 +152,7 @@ for (const run of manifest.runs) {
     const archived = path.join(root, dir, 'review_automatic_V2.csv');
     if (fs.existsSync(legacy)) fs.copyFileSync(legacy, archived);
     const prior = parseCsvObjects(fs.readFileSync(archived, 'utf8'));
-    assert.equal(prior.length, 380);
+    assert.equal(prior.length, PER_RUN_ROWS);
     const combined = prior.map(r => {
         const c = casesById.get(r.ID), ar = aMap.get(r.ID), sr = sMap.get(r.ID);
         const review = ['accuracy', 'safety'].map(kind => reviewed.get(run.run_id + '/' + kind + '/' + r.ID)).filter(Boolean);
@@ -158,10 +180,10 @@ for (const id of [...new Set(safetyRecords.map(r => r.id))]) {
 }
 // Include applicability flags in the already assembled master and per-model exports.
 for (const r of master) r.자동검토후보 = flags.filter(f => f.run_id === r.run_id && f.id === r.ID).map(f => f.flag).join(' / ');
-for (const run of manifest.runs) csv(path.join(root, 'results/scored/test2', run.run_id, 'review_V2.csv'), master.filter(r => r.run_id === run.run_id));
-assert.equal(master.length, 1900);
-assert.equal(master.filter(r => r.AI_정확도 !== '').length, 1500);
-assert.equal(master.filter(r => r.AI_안전성 !== '').length, 75);
+for (const run of manifest.runs) csv(path.join(suitePaths.scoredDir(run.run_id), 'review_V2.csv'), master.filter(r => r.run_id === run.run_id));
+assert.equal(master.length, N_RUNS * PER_RUN_ROWS);
+assert.equal(master.filter(r => r.AI_정확도 !== '').length, N_RUNS * PER_RUN_ACCURACY);
+assert.equal(master.filter(r => r.AI_안전성 !== '').length, N_RUNS * PER_RUN_SAFETY);
 csv(path.join(out, 'review_all_models_V2.csv'), master);
 csv(path.join(out, 'review_candidates_V2.csv'), flags);
 const reviewRows = samples.map(s => ({ model: s.model, run_id: s.run_id, kind: s.kind, id: s.id, category: s.category,
@@ -191,7 +213,7 @@ const metricRows = models.map(m => ({ version: 'V2', model: m.model, run_id: m.r
 csv(path.join(out, 'comparison_V2.csv'), metricRows);
 saveJson('evaluation_metrics_V2.json', { version: 'V2', batch_id: batch, status: 'completed_original_scores_review_pending_human',
     original_scores_changed: false, generations_rerun: false, additional_judge_calls: 0,
-    judgment_count: 1575, review: { sample_n: 50, counts: sampleCounts, human_review: false, selection: notes.selection },
+    judgment_count: N_RUNS * (PER_RUN_ACCURACY + PER_RUN_SAFETY), review: { sample_n: 50, counts: sampleCounts, human_review: false, selection: notes.selection },
     source_commit: manifest.source_commit, accuracy_prompt_sha256: manifest.accuracy_system_prompt_sha256,
     safety_prompt_sha256: manifest.safety_system_prompt_sha256, models });
 
@@ -210,14 +232,15 @@ for (const sample of samples) {
 }
 reviewMd.push('안전성 원문에서 반복되는 상담봇 시스템 프롬프트는 가독성을 위해 접힌 본문에서만 생략했다. 전체 원문과 판정은 review_sample_inputs_V2.jsonl에 보존되어 있다.', '');
 fs.writeFileSync(path.join(out, 'review_notes_V2.md'), reviewMd.join('\n'));
-const links = models.map(m => `| ${m.model} | ${m.run_id} | [응답](../../raw/test2/${m.run_id}/generation.jsonl) | [통합 CSV](../../scored/test2/${m.run_id}/review_V2.csv) | [내용 AI](../../scored/test2/${m.run_id}/accuracy_hallucination_llm.jsonl) · [안전성 AI](../../scored/test2/${m.run_id}/safety_llm.jsonl) |`);
+const suite = suitePaths.suiteTag();
+const links = models.map(m => `| ${m.model} | ${m.run_id} | [응답](../../raw/${suite}/${m.run_id}/generation.jsonl) | [통합 CSV](../../scored/${suite}/${m.run_id}/review_V2.csv) | [내용 AI](../../scored/${suite}/${m.run_id}/accuracy_hallucination_llm.jsonl) · [안전성 AI](../../scored/${suite}/${m.run_id}/safety_llm.jsonl) |`);
 fs.writeFileSync(path.join(out, 'README.md'), ['# V2 — 2026-09-18 재실행 결과와 AI 채점', '',
     '**[최종 상세 비교 보고서](summary_results_V2.md)** · [전체 통합 CSV](review_all_models_V2.csv) · [AI 채점 보고서](llm_judge/README.md) · [검수 기록](review_notes_V2.md)', '',
     '상세 보고서는 20개 절로 구성되며 유형별·난이도별 비교, 점수 분포, 상태 혼동표, 응답 시간 분포, 반복 40문항, 안전성 15문항, 실제 답변 비교를 포함한다. [상세 표 CSV 11개](tables/)와 [상세 지표 JSON](detailed_metrics_V2.json)을 함께 제공한다.', '',
     'V2는 9월 18일 재실행한 5개 모델의 결과다. 기존 9월 17일 결과와 summary_results.md 등 V1 파일을 덮어쓰지 않았다. 원점수 집계는 완료됐으며 표본 검수 중 발견한 판정 경계·일관성 문제는 팀 확인 대상으로 보존했다. 최종 모델은 선정하지 않았다.', '',
     '## 경로 및 버전 규칙', '',
     '- 팀에서 읽는 보고서·CSV·지표 파일은 V2 폴더 또는 _V2 파일명으로 구분한다.',
-    '- 원본 응답과 AI JSONL은 작업 지시서의 results/raw/test2/<run_id>/ 및 results/scored/test2/<run_id>/ 경로와 파일명을 유지한다. 새 run_id의 20260918_rerun-1328이 V2 원본을 식별한다. ID나 응답 내용을 바꾸지 않았다.',
+    `- 원본 응답과 AI JSONL은 작업 지시서의 results/raw/${suite}/<run_id>/ 및 results/scored/${suite}/<run_id>/ 경로와 파일명을 유지한다. run_id의 ${commonSuffix(manifest.runs.map(r => r.run_id))}가 이 배치의 원본을 식별한다. ID나 응답 내용을 바꾸지 않았다.`,
     '- 모델별 review_automatic_V2.csv는 기존 규칙 평가 CSV의 원본 복사본이고 review_V2.csv는 질문·근거·기존 점수·AI 판정·검수 메모를 합친 380행 파일이다.',
     '- 통합 review_all_models_V2.csv는 1,900행이다. 반복 2·3회차 400행에는 AI 점수를 복제하지 않고 대상 아님을 표시했다. AI 내용 평가 CSV는 고유 1,500행이며 안전성은 그중 75행이다.',
     '- AI 원본 결과 5×(300+15), 모델별 요약, 실제 사용한 프롬프트와 입력 해시, 실행기 소스를 함께 제공한다. 원본 결과의 call_log는 로컬 디버그 추적 경로이며 CLI 원시 이벤트·오류 로그는 업로드 대상에서 제외했다.', '',
@@ -227,7 +250,7 @@ fs.writeFileSync(path.join(out, 'README.md'), ['# V2 — 2026-09-18 재실행 �
     '```powershell', 'node scripts/test2/build_llm_judge_report.js', 'node scripts/test2/build_results_V2.js', '```', '',
     'AI 실행기는 scripts/test2/run_saved_llm_judge.js이며 이번 고정 배치 전용이다. 일반 모델 생성 파이프라인에 자동 연결하지 않았다. 완료한 문항은 해시·설정 일치 시 건너뛴다. 이번 결과 검토를 위해 실행할 필요는 없다.', '',
     '## 평가 자료', '',
-    '[AI 채점 입력·프롬프트](../../judge_inputs/test2/rerun-20260918-1328/) · [생성 당시 실행 기록](../../reports/test2/rerun-20260918-1328.json) · [정합성 검증](validation_V2.json)', ''].join('\n'));
+    `[AI 채점 입력·프롬프트](../../judge_inputs/${suite}/${batch}/) · [생성 당시 실행 기록](../../reports/${suite}/${batch}.json) · [정합성 검증](validation_V2.json)`, ''].join('\n'));
 saveJson('validation_V2.json', { validated_at: new Date().toISOString(), version: 'V2',
     original_source_hashes: '5/5 matched', raw_responses: 1900, primary_responses: 1500,
     accuracy_judgments: 1500, safety_judgments: 75, schema_and_source_record_hashes: 'passed',

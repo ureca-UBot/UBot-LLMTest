@@ -6,6 +6,7 @@ const assert = require('node:assert/strict');
 const { parseCsvObjects, toCsv } = require('./csv');
 const { isPrimaryRound } = require('./rounds');
 const { expectedStatusEnum } = require('./status_map');
+const suitePaths = require('./suite');
 
 module.exports = function writeDetailedReport({ root, out, manifest, models, reviewed }) {
     const read = file => fs.readFileSync(path.join(root, file), 'utf8');
@@ -28,7 +29,9 @@ module.exports = function writeDetailedReport({ root, out, manifest, models, rev
     const byCase = new Map(cases.map(c => [c.ID, c]));
     const types = [...new Set(primaryCases.map(c => c['유형']))];
     const difficulties = ['Easy', 'Medium', 'Hard'];
-    const batch = json('results/reports/test2/rerun-20260918-1328.json');
+    const suite = suitePaths.suiteTag();
+    const batchId = suitePaths.judgeBatch();
+    const batch = json(`results/reports/${suite}/${batchId}.json`);
     const tableFiles = path.join(out, 'tables');
     fs.mkdirSync(tableFiles, { recursive: true });
     const savedTables = [];
@@ -44,8 +47,8 @@ module.exports = function writeDetailedReport({ root, out, manifest, models, rev
         savedTables.push({ file, rows: rows.length });
     }
     const data = models.map(model => {
-        const dir = 'results/scored/test2/' + model.run_id;
-        const raw = lines('results/raw/test2/' + model.run_id + '/generation.jsonl');
+        const dir = `results/scored/${suite}/` + model.run_id;
+        const raw = lines(`results/raw/${suite}/` + model.run_id + '/generation.jsonl');
         const a = lines(dir + '/accuracy_hallucination_llm.jsonl');
         const s = lines(dir + '/safety_llm.jsonl');
         const aMap = new Map(a.map(r => [r.id, r]));
@@ -162,7 +165,10 @@ module.exports = function writeDetailedReport({ root, out, manifest, models, rev
 
     h(2, toc[0][1], 'scope');
     table(['항목', '이번 V2에서 확인된 내용'], [
-        ['실행 배치', manifest.batch_id], ['평가 날짜', '2026-09-18 / Asia/Seoul'], ['모델 수', '5'],
+        ['실행 배치', manifest.batch_id],
+        // 날짜는 배치 매니페스트의 started_at에서 뽑는다(예전엔 문자열 상수였다).
+        ['평가 날짜', (batch.started_at ? new Date(batch.started_at).toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }) : '미기록') + ' / Asia/Seoul'],
+        ['모델 수', String(models.length)],
         ['모델별 원본 응답', '380 = 고유 300 + 반복 추가 80'], ['전체 원본 응답', '1,900'], ['내용 AI 채점', '300 × 5 = 1,500'],
         ['안전성 AI 채점', '고유 문항 중 15 × 5 = 75'], ['의미 표본 검수', '모델별 내용 6 + 안전성 4 = 50개 판정'],
         ['환경', 'Windows 로컬 / ' + batch.gpu], ['Node / Ollama', batch.node + ' / ' + batch.ollama.version],
@@ -392,7 +398,7 @@ module.exports = function writeDetailedReport({ root, out, manifest, models, rev
         text(`전체 정답 ${ratio(m.accuracy_counts.CORRECT, 300)}, 환각 ${ratio(m.hallucinated_cases, 300)}, 평균 응답 ${sec(t.average_ms)}초 / P95 ${sec(t.p95_ms)}초다. 이 모델 내 정답 판정률이 가장 높은 유형은 ${highest.type} ${ratio(highest.correct, highest.n)}, 가장 낮은 유형은 ${lowest.type} ${ratio(lowest.correct, lowest.n)}이다. 동률이면 문항 수가 큰 유형을 먼저 표시했다.`);
         table(['유형', 'n', '정답', '환각', '근거 / 5', '표현 / 5', '평균 / P95 초'], tr.map(r => [r.type, r.n,
             `${r.correct} (${percent(r.correct, r.n)})`, `${r.hallucinated} (${percent(r.hallucinated, r.n)})`, number(r.grounding), number(r.expression), `${sec(r.latency_avg_ms)} / ${sec(r.latency_p95_ms)}`]));
-        text(`[${m.model} 고유 300문항 전체 판정](llm_judge/${m.report}) · [380응답 통합 CSV](../../scored/test2/${m.run_id}/review_V2.csv)`);
+        text(`[${m.model} 고유 300문항 전체 판정](llm_judge/${m.report}) · [380응답 통합 CSV](../../scored/${suite}/${m.run_id}/review_V2.csv)`);
     }
 
     h(2, toc[17][1], 'review');
@@ -425,7 +431,7 @@ module.exports = function writeDetailedReport({ root, out, manifest, models, rev
         ['tables/*_V2.csv', '각 상세 표의 재사용 가능한 데이터'], ['validation_V2.json / detailed_validation_V2.json', '원본·스키마·집계·CSV 검증 결과']] );
     text(...savedTables.map(r => `- [${r.file}](tables/${r.file}) — ${r.rows}행`));
     text('재집계 명령은 아래와 같다. 이미 저장된 결과만 읽어 표와 CSV를 만든다.', '```powershell', 'node scripts/test2/build_results_V2.js', '```',
-        '[V2 파일 안내](README.md) · [AI 원본 결과 안내](llm_judge/README.md) · [실행 당시 배치 기록](../../reports/test2/rerun-20260918-1328.json)',
+        `[V2 파일 안내](README.md) · [AI 원본 결과 안내](llm_judge/README.md) · [실행 당시 배치 기록](../../reports/${suite}/${batchId}.json)`,
         '이번 상세 보고서에서 모델 또는 외부 Judge를 다시 실행하지 않았으며, 기존 1,500건의 정확도·환각·표현 판정과 75건의 안전성 판정을 보존했다. 세부 수치는 원본 응답과 대응하는 판정 ID로 결합한 뒤 집계했다. 사람 최종 검수와 모델 선정은 완료했다고 표시하지 않았다.');
     const output = md.join('\n');
     fs.writeFileSync(path.join(out, 'summary_results_V2.md'), output);

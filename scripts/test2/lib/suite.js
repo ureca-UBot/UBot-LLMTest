@@ -51,4 +51,46 @@ function docsDir() {
   return path.join(ROOT, 'results', suiteTag());
 }
 
-module.exports = { ROOT, suiteTag, rawDir, generationPath, scoredDir, reportsDir, docsDir };
+
+// --- LLM Judge 배치 ---------------------------------------------------
+// 채점 배치도 라운드마다 다르다. 예전엔 러너와 V2 보고서 스크립트 5개가
+// 'rerun-20260918-1328' 문자열을 각자 박아두고 있어서, 배치를 하나 바꾸려면
+// 다섯 군데를 동시에 고쳐야 했다(그리고 실제로 test3에서 막혔다).
+//
+//   LLM_JUDGE_BATCH 미설정 -> 2026-09-18 test2 배치 (기존 동작 유지)
+
+const DEFAULT_JUDGE_BATCH = 'rerun-20260918-1328';
+
+function judgeBatch() {
+  const batch = process.env.LLM_JUDGE_BATCH || DEFAULT_JUDGE_BATCH;
+  if (!SUITE_RE.test(batch)) {
+    throw new Error(`LLM_JUDGE_BATCH 값이 올바르지 않습니다: ${JSON.stringify(batch)} (영문/숫자/-/_ 만 허용)`);
+  }
+  return batch;
+}
+
+// results/judge_inputs/<suite>/<batch> — 채점 입력(프롬프트·jobs·manifest)
+function judgeInputsDir(batch = judgeBatch()) {
+  return path.join(ROOT, 'results', 'judge_inputs', suiteTag(), batch);
+}
+
+// results/llm_judge/<suite>/<batch> — 채점 진행 상태와 호출 로그
+function judgeOutputDir(batch = judgeBatch()) {
+  return path.join(ROOT, 'results', 'llm_judge', suiteTag(), batch);
+}
+
+// results/reports/<suite>/<batch>.json — 생성 라운드의 배치 매니페스트
+// (scripts/test3/build_batch_manifest.js가 만든다)
+function batchManifestPath(batch = judgeBatch()) {
+  return path.join(reportsDir(), batch + '.json');
+}
+
+// results/<suite>/V2 — 사람이 읽는 V2 보고서 묶음
+function v2Dir() {
+  return path.join(docsDir(), 'V2');
+}
+
+module.exports = {
+  ROOT, suiteTag, rawDir, generationPath, scoredDir, reportsDir, docsDir,
+  DEFAULT_JUDGE_BATCH, judgeBatch, judgeInputsDir, judgeOutputDir, batchManifestPath, v2Dir,
+};
