@@ -1,0 +1,178 @@
+
+===== test3 본 라운드 (temp=0, think on, 7개 모델) =====
+suite=test3 env=ec2-linux date=20260920 모델 7개
+생성 파라미터: {"temperature":0,"think":true,"seed":null,"limit":null}
+  - gemma3:4b  ->  ec2-linux_gemma3-4b_t0_think_20260920
+  - qwen3:1.7b  ->  ec2-linux_qwen3-1-7b_t0_think_20260920
+  - qwen3:4b  ->  ec2-linux_qwen3-4b_t0_think_20260920
+  - qwen3:8b  ->  ec2-linux_qwen3-8b_t0_think_20260920
+  - exaone3.5:7.8b  ->  ec2-linux_exaone3-5-7-8b_t0_think_20260920
+  - gemma3:12b  ->  ec2-linux_gemma3-12b_t0_think_20260920
+  - qwen3:14b  ->  ec2-linux_qwen3-14b_t0_think_20260920
+[사전확인] 대상 모델 + 임베딩 모델 전부 확인됨.
+
+
+########## [1/7] gemma3:4b (run_id=ec2-linux_gemma3-4b_t0_think_20260920) ##########
+파이프라인 시작: run_id=ec2-linux_gemma3-4b_t0_think_20260920 model=gemma3:4b env=ec2-linux
+
+=== 1/9 모델 생성 (항목6·7 원자료 포함) ===
+생성 파라미터: {"temperature":0,"seed":null,"think":true,"format":"json"}
+run_id=ec2-linux_gemma3-4b_t0_think_20260920 model=gemma3:4b env=ec2-linux
+총 380건, 이미 완료 0건, 이번에 처리할 건수 380건
+출력: /home/ubuntu/UBot-LLMTest/results/raw/test3/ec2-linux_gemma3-4b_t0_think_20260920/generation.jsonl
+  [재시도 1/2] generate SF-0001 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0001 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0001-R2 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0001-R2 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0001-R3 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0001-R3 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0002 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0002 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0007 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0007 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0020 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0020 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0023 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0023 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0034 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0034 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0036 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0036 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0039 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0039 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0042 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0042 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0046 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0046 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0049 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0049 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0061 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0061 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0063 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0063 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0063-R2 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0063-R2 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0063-R3 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0063-R3 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0064 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0064 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0074 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0074 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0075 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0075 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0077 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0077 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate SF-0078 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate SF-0078 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0004 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0004 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0005 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0005 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0008 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0008 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  25/380 (성공 0, 실패 25, 경과 75s)
+  [재시도 1/2] generate NC-0011 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0011 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0017 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0017 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0034 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0034 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0034-R2 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0034-R2 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0034-R3 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0034-R3 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0035 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0035 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0037 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0037 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0040 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0040 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0052 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0052 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0053 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0053 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0058 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0058 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0061 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0061 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0064 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0064 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0067 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0067 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0072 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0072 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0079 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0079 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0079-R2 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0079-R2 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0079-R3 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0079-R3 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0084 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0084 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0085 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0085 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0086 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0086 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0086-R2 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0086-R2 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0086-R3 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0086-R3 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0094 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0094 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate NC-0100 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate NC-0100 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  50/380 (성공 0, 실패 50, 경과 150s)
+  [재시도 1/2] generate MC-0006 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0006 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0014 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0014 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0017 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0017 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0019 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0019 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0025 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0025 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0027 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0027 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0028 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0028 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0029 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0029 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0033 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0033 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0040 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0040 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0042 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0042 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0052 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0052 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0052-R2 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0052-R2 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0052-R3 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0052-R3 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0054 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0054 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0056 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0056 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0061 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0061 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0065 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0065 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0067 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0067 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0073 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0073 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0075 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0075 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0077 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0077 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0079 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0079 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0086 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0086 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0091 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0091 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  75/380 (성공 0, 실패 75, 경과 226s)
+  [재시도 1/2] generate MC-0091-R2 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 2/2] generate MC-0091-R2 실패, 2000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}
+  [재시도 1/2] generate MC-0091-R3 실패, 1000ms 후 재시도: Ollama /api/chat 400: {"error":"\"gemma3:4b\" does not support thinking"}

@@ -105,7 +105,7 @@ function runRound({ label, models, condition, params, date = todayStamp(), dryRu
   for (const [idx, m] of models.entries()) {
     const runId = makeRunId(m.tag, condition, date);
     console.log(`\n\n########## [${idx + 1}/${models.length}] ${m.tag} (run_id=${runId}) ##########`);
-    const res = spawnSync(process.execPath, buildArgs(runId, m.tag, params), {
+    const res = spawnSync(process.execPath, buildArgs(runId, m.tag, m.thinkCapable ? params : { ...params, think: null }), {
       stdio: 'inherit',
       env: { ...process.env, LLM_TEST_SUITE: SUITE },
     });

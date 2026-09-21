@@ -1,6 +1,6 @@
 {
   "suite": "test3",
-  "generated_at": "2026-09-20T02:36:28.558Z",
+  "generated_at": "2026-09-21T02:52:00.150Z",
   "comparison_notes": [
     "test2는 local-win(RTX 4070 Ti, temperature 0.8 = Ollama 기본값), test3은 ec2-linux(temperature 0)이다.",
     "하드웨어가 함께 바뀌었으므로 두 라운드 간 속도(지연/TPS) 비교는 하지 않는다.",
@@ -8,26 +8,7 @@
     "gemma3:12b / qwen3:14b는 test2에 데이터가 없어 test3 단독 값만 싣는다.",
     "temp=0에서 반복 일관성이 100%에 가까운 것은 개선이 아니라 샘플링을 끈 결과다."
   ],
-  "missing_rounds": [
-    "gemma3:4b: test3 본 라운드(t0_think)",
-    "gemma3:4b: temperature 대조군(t08_think)",
-    "qwen3:1.7b: test3 본 라운드(t0_think)",
-    "qwen3:1.7b: 추론 off 라운드(t0_nothink)",
-    "qwen3:1.7b: temperature 대조군(t08_think)",
-    "qwen3:4b: test3 본 라운드(t0_think)",
-    "qwen3:4b: 추론 off 라운드(t0_nothink)",
-    "qwen3:4b: temperature 대조군(t08_think)",
-    "qwen3:8b: test3 본 라운드(t0_think)",
-    "qwen3:8b: 추론 off 라운드(t0_nothink)",
-    "qwen3:8b: temperature 대조군(t08_think)",
-    "exaone3.5:7.8b: test3 본 라운드(t0_think)",
-    "exaone3.5:7.8b: temperature 대조군(t08_think)",
-    "gemma3:12b: test3 본 라운드(t0_think)",
-    "gemma3:12b: temperature 대조군(t08_think)",
-    "qwen3:14b: test3 본 라운드(t0_think)",
-    "qwen3:14b: 추론 off 라운드(t0_nothink)",
-    "qwen3:14b: temperature 대조군(t08_think)"
-  ],
+  "missing_rounds": [],
   "models": [
     {
       "model_tag": "gemma3:4b",
@@ -67,9 +48,73 @@
           "expression_quality_avg": 4.16
         }
       },
-      "test3_think": null,
+      "test3_think": {
+        "suite": "test3",
+        "run_id": "ec2-linux_gemma3-4b_t0_think_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": null,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.43,
+        "avg_eval_count": 78.03157894736842,
+        "format_success_rate": 0.9966666666666667,
+        "latency_avg_ms": 1832.7233333333334,
+        "latency_p95_ms": 2777,
+        "tps_avg": 61.80861706917755,
+        "vram_mib": {
+          "avg": 3766.213333333333,
+          "max": 3767,
+          "min": 3763,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.875,
+          "status": 1,
+          "numbers": 0.875,
+          "evidence": 0.9,
+          "paraphrase_similarity": 0.9877958882741398
+        },
+        "absence_f1": 0.18691588785046728,
+        "llm_judge": null
+      },
       "test3_nothink": null,
-      "test3_temp_control": null
+      "test3_temp_control": {
+        "suite": "test3",
+        "run_id": "ec2-linux_gemma3-4b_t08_think_20260920",
+        "gen_params": {
+          "temperature": 0.8,
+          "seed": null,
+          "think": null,
+          "format": "json"
+        },
+        "n_generation": 120,
+        "status_match": 0.475,
+        "avg_eval_count": 81.225,
+        "format_success_rate": 1,
+        "latency_avg_ms": 2565.25,
+        "latency_p95_ms": 4002,
+        "tps_avg": 61.995752154344395,
+        "vram_mib": {
+          "avg": 3765.95,
+          "max": 3767,
+          "min": 3763,
+          "n": 40,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.575,
+          "status": 0.85,
+          "numbers": 0.65,
+          "evidence": 0.675,
+          "paraphrase_similarity": 0.9432397989762231
+        },
+        "absence_f1": 0.25,
+        "llm_judge": null
+      }
     },
     {
       "model_tag": "qwen3:1.7b",
@@ -109,9 +154,105 @@
           "expression_quality_avg": 4.05
         }
       },
-      "test3_think": null,
-      "test3_nothink": null,
-      "test3_temp_control": null
+      "test3_think": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-1-7b_t0_think_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": true,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.5833333333333334,
+        "avg_eval_count": 356.05,
+        "format_success_rate": 1,
+        "latency_avg_ms": 3164.02,
+        "latency_p95_ms": 5044,
+        "tps_avg": 119.31356867961283,
+        "vram_mib": {
+          "avg": 2035.3866666666668,
+          "max": 6305,
+          "min": 1773,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.575,
+          "status": 0.925,
+          "numbers": 0.625,
+          "evidence": 0.6,
+          "paraphrase_similarity": 0.9554854039690263
+        },
+        "absence_f1": 0.25742574257425743,
+        "llm_judge": null
+      },
+      "test3_nothink": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-1-7b_t0_nothink_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": false,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.4533333333333333,
+        "avg_eval_count": 85.15,
+        "format_success_rate": 0.9866666666666667,
+        "latency_avg_ms": 849.4466666666667,
+        "latency_p95_ms": 1432,
+        "tps_avg": 124.11527265960031,
+        "vram_mib": {
+          "avg": 1770.74,
+          "max": 1771,
+          "min": 1769,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.85,
+          "status": 1,
+          "numbers": 0.85,
+          "evidence": 0.9,
+          "paraphrase_similarity": 0.9927509019584833
+        },
+        "absence_f1": 0.1075268817204301,
+        "llm_judge": null
+      },
+      "test3_temp_control": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-1-7b_t08_think_20260920",
+        "gen_params": {
+          "temperature": 0.8,
+          "seed": null,
+          "think": true,
+          "format": "json"
+        },
+        "n_generation": 120,
+        "status_match": 0.65,
+        "avg_eval_count": 389.14166666666665,
+        "format_success_rate": 1,
+        "latency_avg_ms": 3996.2,
+        "latency_p95_ms": 7385,
+        "tps_avg": 118.54166271380561,
+        "vram_mib": {
+          "avg": 3721.75,
+          "max": 6305,
+          "min": 1771,
+          "n": 40,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.475,
+          "status": 0.775,
+          "numbers": 0.55,
+          "evidence": 0.5,
+          "paraphrase_similarity": 0.9115726831561952
+        },
+        "absence_f1": 0.33333333333333337,
+        "llm_judge": null
+      }
     },
     {
       "model_tag": "qwen3:4b",
@@ -151,9 +292,105 @@
           "expression_quality_avg": 4.333333333333333
         }
       },
-      "test3_think": null,
-      "test3_nothink": null,
-      "test3_temp_control": null
+      "test3_think": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-4b_t0_think_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": true,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.8233333333333334,
+        "avg_eval_count": 1184.5763157894737,
+        "format_success_rate": 0.9933333333333333,
+        "latency_avg_ms": 18776.673333333332,
+        "latency_p95_ms": 47615,
+        "tps_avg": 61.020321226682,
+        "vram_mib": {
+          "avg": 3211.7066666666665,
+          "max": 3933,
+          "min": 3163,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.6,
+          "status": 0.875,
+          "numbers": 0.65,
+          "evidence": 0.9,
+          "paraphrase_similarity": 0.9365280486360191
+        },
+        "absence_f1": 0.7638888888888888,
+        "llm_judge": null
+      },
+      "test3_nothink": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-4b_t0_nothink_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": false,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.5866666666666667,
+        "avg_eval_count": 96.6921052631579,
+        "format_success_rate": 1,
+        "latency_avg_ms": 1748.2866666666666,
+        "latency_p95_ms": 2918,
+        "tps_avg": 63.89328069059178,
+        "vram_mib": {
+          "avg": 3463.34,
+          "max": 3935,
+          "min": 3163,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.925,
+          "status": 0.975,
+          "numbers": 0.95,
+          "evidence": 0.95,
+          "paraphrase_similarity": 0.9952473216640559
+        },
+        "absence_f1": 0.6141732283464567,
+        "llm_judge": null
+      },
+      "test3_temp_control": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-4b_t08_think_20260920",
+        "gen_params": {
+          "temperature": 0.8,
+          "seed": null,
+          "think": true,
+          "format": "json"
+        },
+        "n_generation": 120,
+        "status_match": 0.9,
+        "avg_eval_count": 1498.9583333333333,
+        "format_success_rate": 1,
+        "latency_avg_ms": 25871.15,
+        "latency_p95_ms": 64506,
+        "tps_avg": 60.49439859727166,
+        "vram_mib": {
+          "avg": 3413.15,
+          "max": 5703,
+          "min": 3165,
+          "n": 40,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.575,
+          "status": 0.825,
+          "numbers": 0.625,
+          "evidence": 0.825,
+          "paraphrase_similarity": 0.9024000741794584
+        },
+        "absence_f1": 0.8000000000000002,
+        "llm_judge": null
+      }
     },
     {
       "model_tag": "qwen3:8b",
@@ -193,9 +430,105 @@
           "expression_quality_avg": 4.3133333333333335
         }
       },
-      "test3_think": null,
-      "test3_nothink": null,
-      "test3_temp_control": null
+      "test3_think": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-8b_t0_think_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": true,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.6433333333333333,
+        "avg_eval_count": 392.35714285714283,
+        "format_success_rate": 0.9933333333333333,
+        "latency_avg_ms": 11586.510067114094,
+        "latency_p95_ms": 18331,
+        "tps_avg": 34.028057439215054,
+        "vram_mib": {
+          "avg": 5534.751677852349,
+          "max": 6241,
+          "min": 5471,
+          "n": 298,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.625,
+          "status": 0.875,
+          "numbers": 0.675,
+          "evidence": 0.9,
+          "paraphrase_similarity": 0.9654062414119771
+        },
+        "absence_f1": 0.20408163265306123,
+        "llm_judge": null
+      },
+      "test3_nothink": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-8b_t0_nothink_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": false,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.5533333333333333,
+        "avg_eval_count": 87.87894736842105,
+        "format_success_rate": 1,
+        "latency_avg_ms": 2909.7466666666664,
+        "latency_p95_ms": 4530,
+        "tps_avg": 35.38122585855319,
+        "vram_mib": {
+          "avg": 5645.7266666666665,
+          "max": 6243,
+          "min": 5471,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.925,
+          "status": 0.975,
+          "numbers": 0.95,
+          "evidence": 0.95,
+          "paraphrase_similarity": 0.9922282622117452
+        },
+        "absence_f1": 0.1276595744680851,
+        "llm_judge": null
+      },
+      "test3_temp_control": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-8b_t08_think_20260920",
+        "gen_params": {
+          "temperature": 0.8,
+          "seed": null,
+          "think": true,
+          "format": "json"
+        },
+        "n_generation": 120,
+        "status_match": 0.7,
+        "avg_eval_count": 474.2416666666667,
+        "format_success_rate": 1,
+        "latency_avg_ms": 15386.375,
+        "latency_p95_ms": 30815,
+        "tps_avg": 34.05407929087388,
+        "vram_mib": {
+          "avg": 6000.75,
+          "max": 9401,
+          "min": 5471,
+          "n": 40,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.275,
+          "status": 0.7,
+          "numbers": 0.425,
+          "evidence": 0.825,
+          "paraphrase_similarity": 0.9234867208399141
+        },
+        "absence_f1": null,
+        "llm_judge": null
+      }
     },
     {
       "model_tag": "exaone3.5:7.8b",
@@ -235,27 +568,251 @@
           "expression_quality_avg": 3.9966666666666666
         }
       },
-      "test3_think": null,
+      "test3_think": {
+        "suite": "test3",
+        "run_id": "ec2-linux_exaone3-5-7-8b_t0_think_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": null,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.4766666666666667,
+        "avg_eval_count": 108.83862433862434,
+        "format_success_rate": 1,
+        "latency_avg_ms": 3305.31,
+        "latency_p95_ms": 5648,
+        "tps_avg": 36.936352138545,
+        "vram_mib": {
+          "avg": 5255.526666666667,
+          "max": 5851,
+          "min": 5081,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.9,
+          "status": 0.975,
+          "numbers": 0.9,
+          "evidence": 0.9,
+          "paraphrase_similarity": 0.9918720951905952
+        },
+        "absence_f1": null,
+        "llm_judge": null
+      },
       "test3_nothink": null,
-      "test3_temp_control": null
+      "test3_temp_control": {
+        "suite": "test3",
+        "run_id": "ec2-linux_exaone3-5-7-8b_t08_think_20260920",
+        "gen_params": {
+          "temperature": 0.8,
+          "seed": null,
+          "think": null,
+          "format": "json"
+        },
+        "n_generation": 120,
+        "status_match": 0.475,
+        "avg_eval_count": 129.25833333333333,
+        "format_success_rate": 1,
+        "latency_avg_ms": 5035.75,
+        "latency_p95_ms": 9400,
+        "tps_avg": 36.77277959067125,
+        "vram_mib": {
+          "avg": 5447.7,
+          "max": 5853,
+          "min": 5081,
+          "n": 40,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.275,
+          "status": 0.575,
+          "numbers": 0.4,
+          "evidence": 0.6,
+          "paraphrase_similarity": 0.9483220772124176
+        },
+        "absence_f1": null,
+        "llm_judge": null
+      }
     },
     {
       "model_tag": "gemma3:12b",
       "tier": "ec2_only",
       "think_capable": false,
       "test2": null,
-      "test3_think": null,
+      "test3_think": {
+        "suite": "test3",
+        "run_id": "ec2-linux_gemma3-12b_t0_think_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": null,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.7166666666666667,
+        "avg_eval_count": 74.27894736842106,
+        "format_success_rate": 1,
+        "latency_avg_ms": 4451.59,
+        "latency_p95_ms": 7283,
+        "tps_avg": 22.51680831647624,
+        "vram_mib": {
+          "avg": 9023.006666666666,
+          "max": 9659,
+          "min": 8887,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.95,
+          "status": 0.975,
+          "numbers": 0.975,
+          "evidence": 1,
+          "paraphrase_similarity": 0.9920965675209823
+        },
+        "absence_f1": 0.7464788732394366,
+        "llm_judge": null
+      },
       "test3_nothink": null,
-      "test3_temp_control": null
+      "test3_temp_control": {
+        "suite": "test3",
+        "run_id": "ec2-linux_gemma3-12b_t08_think_20260920",
+        "gen_params": {
+          "temperature": 0.8,
+          "seed": null,
+          "think": null,
+          "format": "json"
+        },
+        "n_generation": 120,
+        "status_match": 0.55,
+        "avg_eval_count": 86.46666666666667,
+        "format_success_rate": 1,
+        "latency_avg_ms": 7067.4,
+        "latency_p95_ms": 11267,
+        "tps_avg": 22.34888181012803,
+        "vram_mib": {
+          "avg": 8884.6,
+          "max": 8885,
+          "min": 8881,
+          "n": 40,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.7,
+          "status": 0.925,
+          "numbers": 0.725,
+          "evidence": 0.825,
+          "paraphrase_similarity": 0.9516463911670219
+        },
+        "absence_f1": 0.5714285714285715,
+        "llm_judge": null
+      }
     },
     {
       "model_tag": "qwen3:14b",
       "tier": "ec2_only",
       "think_capable": true,
       "test2": null,
-      "test3_think": null,
-      "test3_nothink": null,
-      "test3_temp_control": null
+      "test3_think": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-14b_t0_think_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": true,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.7966666666666666,
+        "avg_eval_count": 326.065963060686,
+        "format_success_rate": 0.9966666666666667,
+        "latency_avg_ms": 18243.418060200667,
+        "latency_p95_ms": 28490,
+        "tps_avg": 18.268366750112076,
+        "vram_mib": {
+          "avg": 9384.15050167224,
+          "max": 10121,
+          "min": 9349,
+          "n": 299,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.775,
+          "status": 0.85,
+          "numbers": 0.825,
+          "evidence": 0.9,
+          "paraphrase_similarity": 0.9786909565350304
+        },
+        "absence_f1": 0.6515151515151516,
+        "llm_judge": null
+      },
+      "test3_nothink": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-14b_t0_nothink_20260920",
+        "gen_params": {
+          "temperature": 0,
+          "seed": null,
+          "think": false,
+          "format": "json"
+        },
+        "n_generation": 380,
+        "status_match": 0.7933333333333333,
+        "avg_eval_count": 91.68157894736842,
+        "format_success_rate": 1,
+        "latency_avg_ms": 5513.243333333333,
+        "latency_p95_ms": 8112,
+        "tps_avg": 18.872612575287274,
+        "vram_mib": {
+          "avg": 9352.74,
+          "max": 9353,
+          "min": 9351,
+          "n": 300,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.925,
+          "status": 1,
+          "numbers": 0.925,
+          "evidence": 0.975,
+          "paraphrase_similarity": 0.9975904422781449
+        },
+        "absence_f1": 0.7246376811594203,
+        "llm_judge": null
+      },
+      "test3_temp_control": {
+        "suite": "test3",
+        "run_id": "ec2-linux_qwen3-14b_t08_think_20260920",
+        "gen_params": {
+          "temperature": 0.8,
+          "seed": null,
+          "think": true,
+          "format": "json"
+        },
+        "n_generation": 120,
+        "status_match": 0.875,
+        "avg_eval_count": 419.0833333333333,
+        "format_success_rate": 1,
+        "latency_avg_ms": 27131.55,
+        "latency_p95_ms": 76596,
+        "tps_avg": 18.257911418086202,
+        "vram_mib": {
+          "avg": 9351.2,
+          "max": 9353,
+          "min": 9351,
+          "n": 40,
+          "measured": true
+        },
+        "repeat": {
+          "overall": 0.4,
+          "status": 0.875,
+          "numbers": 0.425,
+          "evidence": 0.875,
+          "paraphrase_similarity": 0.9466998016849762
+        },
+        "absence_f1": 0.7499999999999999,
+        "llm_judge": null
+      }
     }
   ]
 }
