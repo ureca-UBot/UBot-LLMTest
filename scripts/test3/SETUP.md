@@ -137,6 +137,21 @@ LLM_TEST_SUITE=test3 LLM_JUDGE_BATCH=test3-round1 node scripts/test2/build_resul
 
 두 환경변수를 빼면 기존 test2 배치를 재생성한다(기본값 유지).
 
+## 7-4. (선택) 프롬프트 비교
+
+모델을 고정하고 시스템 프롬프트만 바꿔 같은 300문항을 돌린다. 조건은 추론 off 라운드와
+같으므로(temperature 0 · think false · seed 미고정) `v0_baseline`은 기존 `t0_nothink` run을
+대조군으로 재사용한다.
+
+```bash
+node scripts/test3/run_prompt_test.js qwen3:14b --dry-run   # run_id만 확인
+tmux new -s prompt
+node scripts/test3/run_prompt_test.js qwen3:14b 2>&1 | tee -a test3_prompt_$(date +%Y%m%d).log
+```
+
+결과는 `results/test3/prompt_test_<모델>_<날짜>.md`에 나온다. 자세한 사용법과 결과 읽는 법은
+[PROMPT_TEST.md](PROMPT_TEST.md) 참고.
+
 ## 8. 결과 회수
 
 ```bash

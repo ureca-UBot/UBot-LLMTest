@@ -35,10 +35,12 @@ seed는 **고정하지 않았다.** temperature=0은 greedy decoding(argmax)이�
 - temperature 효과만 보려면 같은 EC2 위의 대조군(t08_think, 반복 40문항)과 비교한다.
 - gemma3:12b / qwen3:14b는 test2에 데이터가 없어 test3 단독 값만 싣는다.
 - temp=0에서 반복 일관성이 100%에 가까운 것은 개선이 아니라 샘플링을 끈 결과다.
-- **RAG 충실도(결정론 채점기)는 이번에도 고치지 않았다.** `score_rag_faithfulness.js:56`이
+- **RAG 충실도(결정론 채점기)의 premise 누락은 이번에도 고치지 않았다.** `score_rag_faithfulness.js:56`이
   NLI premise에 `제공 Context`만 넣고 `사용자 정보 / API 결과`·`대화 이력`을 빼고 있어,
-  해당 입력을 쓰는 유형에서 구조적으로 실패한다. test3의 `rag_faithfulness.jsonl`도 같은
-  한계를 그대로 갖는다. 환각 판단은 LLM Judge 결과를 쓴다.
+  해당 입력을 쓰는 유형에서 구조적으로 실패한다. 절대값은 실제 근거율보다 낮다.
+  다만 편향이 모델에 고루 걸린다는 것을 확인해(`verify_rag_rule_ranking.js`) summary 표에는
+  신뢰구간과 함께 다시 실었다. 구간이 겹치지 않는 쌍끼리만 비교하고, 환각 판단의 기준은
+  여전히 LLM Judge다.
 
 ## 실행 순서
 

@@ -2,7 +2,11 @@
 // test3 결과 문서 생성. compare_rounds.js가 만든 round_comparison.json을 읽어
 // results/test3/ 아래 5개 문서를 쓴다. 모델을 호출하지 않는다.
 //
-// Usage: node scripts/test3/build_report.js
+// Usage: node scripts/test3/build_report.js [--only summary_results.md,methodology.md]
+//
+// --only: 지정한 문서만 다시 쓴다. 일부 문서(think_ablation_results.md 등)는
+// 이 스크립트가 만들지 못하는 수치(조건 간 짝 비교)를 손으로 채워 넣은 상태라,
+// 전체 재생성으로 그 값을 날리지 않게 하려면 이 옵션으로 범위를 좁힌다.
 
 const fs = require('fs');
 const path = require('path');
@@ -12,6 +16,9 @@ const { readJson } = require('./lib/collect');
 
 const SUITE = models.suite;
 const COMPARISON = path.join(ROOT, 'results', 'scored', SUITE, 'round_comparison.json');
+// 결정론 RAG 근거율을 표에 실을 수 있는지 판정한 결과.
+// scripts/test3/verify_rag_rule_ranking.js가 만든다. 없으면 그 컬럼을 뺀다.
+const RAG_CHECK = path.join(ROOT, 'results', 'scored', SUITE, 'rag_rule_ranking_check.json');
 const VRAM = path.join(ROOT, 'results', 'scored', SUITE, 'vram_profile.json');
 const DOCS = path.join(ROOT, 'results', SUITE);
 
@@ -35,15 +42,26 @@ function write(name, lines) {
   console.log(`  -> ${path.relative(ROOT, p)}`);
 }
 
-function summaryDoc(cmp) {
+// 결정론 RAG 근거율 셀: 비율 + 95% 신뢰구간. 신뢰구간을 같이 적는 이유는
+// 검증 결과가 "구간이 겹치지 않는 쌍만 비교 가능"이었기 때문이다.
+function ragCell(t, check) {
+  if (!t || !t.rag_rule || t.rag_rule.rate === null) return '-';
+  const r = t.rag_rule;
+  const found = check && check.models.find((x) => x.run_id === t.run_id);
+  const ci = found && found.ci95 ? ` [${(100 * found.ci95[0]).toFixed(1)}~${(100 * found.ci95[1]).toFixed(1)}]` : '';
+  return `${pct(r.rate)}${ci} (n=${r.n_scored})`;
+}
+
+function summaryDoc(cmp, ragCheck) {
   const rows = cmp.models.map((m) => {
     const t = m.test3_think;
     return [
       m.model_tag, m.tier === 'selected' ? '선별 5' : 'EC2 전용',
       t ? pct(t.llm_judge && t.llm_judge.correct_rate) : '-',
       t ? pct(t.llm_judge && t.llm_judge.is_grounded_rate) : '-',
+      ragCell(t, ragCheck),
       t ? pct(t.status_match) : '-',
-      t ? num(t.absence_f1, 3) : '-',
+      t ? (t.absence_f1 === null ? '0.000' : num(t.absence_f1, 3)) : '-',
       t ? pct(t.format_success_rate) : '-',
       t ? pct(t.repeat && t.repeat.overall) : '-',
       t ? num(t.latency_avg_ms / 1000, 2, 's') : '-',
@@ -61,19 +79,41 @@ function summaryDoc(cmp) {
     '', '## temperature 설정의 근거', '',
     `> ${TEMPERATURE_RATIONALE}`, '',
     '## 모델별 결과', '',
-    table(['모델', '구분', '내용 정확도(AI)', '근거율(AI)', '기대 상태 일치', '부재판단 F1',
+    table(['모델', '구분', '내용 정확도(AI)', '근거율(AI)', 'RAG 근거율(결정론) [95% CI]', '기대 상태 일치', '부재판단 F1',
       '포맷 성공률', '반복 일관성', '평균 지연', 'P95'], rows),
     '',
-    '- 내용 정확도·근거율은 LLM Judge(`accuracy_hallucination_llm_summary.json`) 값이다.',
-    '  아직 채점하지 않았으면 `-`로 표시된다.',
-    '- **결정론 채점기의 RAG 충실도(`rag_faithfulness.jsonl`)는 이 표에 넣지 않았다.**',
-    '  `scripts/test2/score_rag_faithfulness.js`의 premise 누락이 고쳐지지 않아 모델 순위가 역전되기 때문이다.',
-    '  자세한 내용은 [methodology.md](methodology.md) 참고.',
+    '- 내용 정확도·근거율은 LLM Judge 전수 채점 결과다([llm_judge_review/metrics.json](llm_judge_review/metrics.json), 해석은 [interpretation.md](llm_judge_review/interpretation.md)).',
+    '  내용 정확도는 CORRECT 판정 비율, 근거율은 실질적 환각(근거 1~3점)이 없는 답변의 비율(= 1 − 환각률)이다.',
+    '  분모는 채점에 성공한 답변 수다 — qwen3:8b 298문항, qwen3:14b 299문항이고 나머지는 300문항이다.',
+    '- exaone3.5:7.8b의 부재판단 F1 `0.000`은 기대 ABSTAIN 88문항 중 0문항을 맞혀(TP=0)',
+    '  정밀도·재현율이 모두 0인 결과다. 채점기는 0/0 나눗셈을 `null`로 내보내지만 관례상 F1은 0이다.',
+    ...ragColumnNotes(ragCheck),
     '', '## 함께 볼 문서', '',
     '- [측정 방법과 한계](methodology.md)',
     '- [추론 모드 on/off 트레이드오프](think_ablation_results.md)',
     '- [temperature 0 vs 0.8 대조](temperature_comparison.md)',
     '- [모델별 VRAM 실측](vram_results.md)',
+  ];
+}
+
+// 결정론 RAG 근거율 컬럼에 붙이는 주석. 검증 결과 파일이 있으면 실제 수치를
+// 인용하고, 없으면 컬럼을 신뢰할 수 없다는 사실만 적는다.
+function ragColumnNotes(check) {
+  if (!check) {
+    return ['- **RAG 근거율(결정론)**: 검증 파일이 없어 해석 근거가 없다.',
+      '  `node scripts/test3/verify_rag_rule_ranking.js`를 먼저 실행할 것.'];
+  }
+  return [
+    '- **RAG 근거율(결정론)은 절대값으로 읽지 말 것.** `score_rag_faithfulness.js`가 NLI premise에',
+    '  `제공 Context`만 넣고 `사용자 정보 / API 결과`·`대화 이력`을 빼므로 실제보다 낮게 나온다.',
+    `  이 컬럼을 되살린 근거는 [rag_rule_ranking_check.json](../scored/${SUITE}/rag_rule_ranking_check.json)이다 —`,
+    `  편향이 모델에 고루 걸려 전체 순위와 premise 정상 문항만의 순위가 거의 같고(Spearman rho ${check.rho_all_vs_premise_complete}),`,
+    `  신뢰구간이 겹치지 않는 ${check.pairs_separable}쌍은 문항을 절반씩 나눠도 순서가 유지된다(${check.pairs_separable_and_consistent}/${check.pairs_separable}쌍).`,
+    `  반면 7개 모델 전체 줄세우기는 재현되지 않았다(split-half rho ${check.rho_split_half}).`,
+    '  **신뢰구간이 겹치는 모델끼리는 순서를 주장하지 말 것.**',
+    '- `n`은 채점된 문항 수다. 보류(ABSTAIN/CLARIFY/OUT_OF_SCOPE)로 답한 문항은 근거 대조 대상이 아니라',
+    '  분모에서 빠지므로, 보류가 많은 모델일수록 `n`이 작다.',
+    '- 환각 판단의 기준은 여전히 LLM Judge다. 이 컬럼은 보조 지표다.',
   ];
 }
 
@@ -103,10 +143,12 @@ function methodologyDoc(cmp) {
     '100%가 된다. 이는 지표의 개선이 아니라 측정 대상의 소멸이다.',
     '', '## 알려진 한계', '',
     ...cmp.comparison_notes.map((n) => `- ${n}`),
-    '- **RAG 충실도(결정론 채점기)는 이번에도 고치지 않았다.** `score_rag_faithfulness.js:56`이',
+    '- **RAG 충실도(결정론 채점기)의 premise 누락은 이번에도 고치지 않았다.** `score_rag_faithfulness.js:56`이',
     '  NLI premise에 `제공 Context`만 넣고 `사용자 정보 / API 결과`·`대화 이력`을 빼고 있어,',
-    '  해당 입력을 쓰는 유형에서 구조적으로 실패한다. test3의 `rag_faithfulness.jsonl`도 같은',
-    '  한계를 그대로 갖는다. 환각 판단은 LLM Judge 결과를 쓴다.',
+    '  해당 입력을 쓰는 유형에서 구조적으로 실패한다. 절대값은 실제 근거율보다 낮다.',
+    '  다만 편향이 모델에 고루 걸린다는 것을 확인해(`verify_rag_rule_ranking.js`) summary 표에는',
+    '  신뢰구간과 함께 다시 실었다. 구간이 겹치지 않는 쌍끼리만 비교하고, 환각 판단의 기준은',
+    '  여전히 LLM Judge다.',
     '', '## 실행 순서', '', '자세한 명령은 [../../scripts/test3/SETUP.md](../../scripts/test3/SETUP.md) 참고.',
   ];
 }
@@ -217,17 +259,21 @@ function vramDoc(profile) {
 }
 
 function main() {
+  const onlyArg = process.argv.indexOf('--only');
+  const only = onlyArg >= 0 ? new Set(process.argv[onlyArg + 1].split(',').map((s) => s.trim())) : null;
+  const wanted = (name) => !only || only.has(name);
   const cmp = readJson(COMPARISON);
+  const ragCheck = readJson(RAG_CHECK);
   if (!cmp) {
     console.error(`먼저 비교 집계를 만드세요: node scripts/test3/compare_rounds.js`);
     process.exit(1);
   }
   console.log('test3 문서 생성:');
-  write('summary_results.md', summaryDoc(cmp));
-  write('methodology.md', methodologyDoc(cmp));
-  write('think_ablation_results.md', thinkDoc(cmp));
-  write('temperature_comparison.md', tempDoc(cmp));
-  write('vram_results.md', vramDoc(readJson(VRAM)));
+  if (wanted('summary_results.md')) write('summary_results.md', summaryDoc(cmp, ragCheck));
+  if (wanted('methodology.md')) write('methodology.md', methodologyDoc(cmp));
+  if (wanted('think_ablation_results.md')) write('think_ablation_results.md', thinkDoc(cmp));
+  if (wanted('temperature_comparison.md')) write('temperature_comparison.md', tempDoc(cmp));
+  if (wanted('vram_results.md')) write('vram_results.md', vramDoc(readJson(VRAM)));
   if (cmp.missing_rounds.length) {
     console.log(`\n[주의] 아직 안 돌린 라운드가 ${cmp.missing_rounds.length}건 있어 표에 '-'로 남습니다.`);
   }

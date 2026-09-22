@@ -6,7 +6,9 @@
 //
 // Usage:
 //   node scripts/run_pipeline.js <run_id> <model_tag> [--limit N] [--type T]
-//     [--difficulty D] [--skip-repeat]
+//     [--difficulty D] [--skip-repeat] [--prompt V] [--primary-only]
+//
+// 프롬프트 4개 안을 한 번에 비교하려면 scripts/test3/run_prompt_test.js를 쓴다.
 //
 // run_id 컨벤션: <env>_<model>_<날짜> (예: local-win_gemma3-4b_20260917).
 // 정해진 게 없으면 run_all_models.js가 자동으로 만들어줌.
@@ -38,9 +40,9 @@ function parseArgs(argv) {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--skip-repeat') { skipRepeat = true; continue; }
-    if (['--limit', '--type', '--difficulty', '--run-id', '--temperature', '--seed', '--think'].includes(a)) {
+    if (['--limit', '--type', '--difficulty', '--run-id', '--prompt', '--temperature', '--seed', '--think'].includes(a)) {
       passthrough.push(a, argv[++i]);
-    } else if (a === '--repeat-only') {
+    } else if (a === '--repeat-only' || a === '--primary-only') {
       // 값 없는 플래그 — run_generation.js로만 전달된다(채점 단계는 인자를 안 받음).
       passthrough.push(a);
     } else {
@@ -54,7 +56,7 @@ function main() {
   const { positional, passthrough, skipRepeat } = parseArgs(process.argv.slice(2));
   const [runId, modelTag] = positional;
   if (!runId || !modelTag) {
-    console.error('usage: node scripts/run_pipeline.js <run_id> <model_tag> [--limit N] [--type T] [--difficulty D]\n  [--skip-repeat] [--repeat-only] [--temperature N] [--seed N] [--think true|false]');
+    console.error('usage: node scripts/run_pipeline.js <run_id> <model_tag> [--limit N] [--type T] [--difficulty D]\n  [--skip-repeat] [--repeat-only] [--primary-only] [--prompt V] [--temperature N] [--seed N] [--think true|false]');
     process.exit(1);
   }
 

@@ -65,12 +65,16 @@ function buildArgs(runId, modelTag, params) {
     args.push('--seed', String(params.seed));
   }
   if (params.repeatOnly) args.push('--repeat-only');
+  // 프롬프트 비교 라운드용 — 고유 300문항만 생성하고, 시스템 프롬프트 안을 지정한다.
+  if (params.primaryOnly) args.push('--primary-only');
+  if (params.prompt) args.push('--prompt', params.prompt);
   if (params.skipRepeat) args.push('--skip-repeat');
   if (params.limit) args.push('--limit', String(params.limit));
   return args;
 }
 
-// models: [{tag, ...}], params: {temperature, think, seed, repeatOnly, skipRepeat, limit}
+// models: [{tag, ...}], params: {temperature, think, seed, repeatOnly, primaryOnly,
+//                                 prompt, skipRepeat, limit}
 function runRound({ label, models, condition, params, date = todayStamp(), dryRun = false, skipModelCheck = false }) {
   if (!models.length) {
     console.error(`[${label}] 대상 모델이 없습니다.`);
