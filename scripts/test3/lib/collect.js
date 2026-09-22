@@ -42,12 +42,19 @@ function judgeFromReviewMetrics(suite, runId) {
   const run = review.runs.find((r) => r.run_id === runId);
   if (!run || !run.metrics || !run.metrics.n) return null;
   const x = run.metrics;
+  const rate = (a) => !a ? null : a.map((t) => ({
+    key: t.type || t.difficulty, n: t.n, correct: t.correct,
+    rate: t.n ? t.correct / t.n : null,
+  }));
   return {
     n_scored: x.n,
     accuracy_verdict_counts: { CORRECT: x.correct, INCORRECT: x.incorrect },
     is_grounded_rate: 1 - x.hallucinated / x.n,   // 근거율 = 1 − 환각률
     grounding_score_avg: x.grounding,
     expression_quality_avg: x.expression,
+    // 유형·난이도별 정답률 — 평균이 가리는 구멍을 보려면 이게 필요하다.
+    by_type: rate(run.by_type),
+    by_difficulty: rate(run.by_difficulty),
   };
 }
 
@@ -112,6 +119,9 @@ function collectRun(suite, runId, primaryIds) {
       is_grounded_rate: llm.is_grounded_rate,
       grounding_score_avg: llm.grounding_score_avg,
       expression_quality_avg: llm.expression_quality_avg,
+      // 폴백 경로에서만 채워진다(test2의 run별 summary에는 없는 필드).
+      by_type: llm.by_type || null,
+      by_difficulty: llm.by_difficulty || null,
     } : null,
   };
 }

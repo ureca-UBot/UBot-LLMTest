@@ -489,12 +489,159 @@ function thinkSlopeSvg(cmp) {
   return svgDoc(W, H, b.join('\n'), '추론 모드 on/off 기울기 비교');
 }
 
+// ---------------------------------------------------------------- ⑤ 선별 생존율
+
+// 탈락 시뮬레이션 생존율 막대. 0%로 떨어지는 "절벽"이 보이는 게 핵심이라
+// 산점도가 아니라 막대로 그린다(축이 하나뿐인 값이다).
+function survivalSvg(res, opts) {
+  const list = Object.entries(res.rate).sort((a, b) => b[1] - a[1]);
+  if (!list.length) return null;
+  const W = 940, rowH = 30;
+  const M = { l: 178, r: 96, t: 112, b: 58 };
+  const iw = W - M.l - M.r;
+  const H = M.t + list.length * rowH + M.b;
+  const b = [];
+  b.push(txt(26, 32, opts.title, { cls: 'ttl', size: 19 }));
+  b.push(txt(26, 54, opts.sub, { cls: 'sub', size: 12.5 }));
+  b.push(txt(26, 74, opts.note, { cls: 'sub', size: 12.5, weight: 600 }));
+
+  for (const g of [0, 25, 50, 75, 100]) {
+    const x = M.l + g / 100 * iw;
+    b.push(`<line class="grid" x1="${x.toFixed(1)}" y1="${M.t - 8}" x2="${x.toFixed(1)}" y2="${M.t + list.length * rowH - 6}"/>`);
+    b.push(txt(x, M.t - 14, g + '%', { cls: 'axl', size: 10.5, anchor: 'middle' }));
+  }
+  list.forEach(([tag, v], i) => {
+    const y = M.t + i * rowH;
+    const keep = opts.keep.includes(tag);
+    const dead = v < 0.05;
+    b.push(txt(M.l - 12, y + 15, tag, {
+      cls: dead ? 'note' : 'lbl', size: 12.5, anchor: 'end', weight: keep ? 700 : 400,
+    }));
+    const w = Math.max(dead ? 0 : 2, v / 100 * iw);
+    if (w > 0) {
+      b.push(`<rect x="${M.l}" y="${y}" width="${w.toFixed(1)}" height="20" rx="4"`
+        + ` fill="var(--s1)" opacity="${keep ? 1 : dead ? 0.25 : 0.45}"/>`);
+    }
+    b.push(txt(M.l + w + 9, y + 15, v.toFixed(1) + '%', {
+      cls: keep ? 'lbl' : 'note', size: 12, weight: keep ? 700 : 400,
+    }));
+    if (dead) b.push(txt(M.l + w + 56, y + 15, '전 순서 탈락', { cls: 'note', size: 10.5, op: 0.8 }));
+  });
+  b.push(txt(26, H - 18, `지표 순서 ${res.orders.toLocaleString()}가지 전수. 순서를 고르지 않았다.`,
+    { cls: 'note', size: 11.5 }));
+  return svgDoc(W, H, b.join('\n'), opts.title);
+}
+
+// ---------------------------------------------------------------- ⑥ 맞대결
+
+// 두 설정의 유형별 정답률. 45° 대각선이 동률선이라, 점이 어느 쪽에
+// 쏠렸는지가 즉시 읽힌다 — 표 13행을 한 장이 대신한다.
+function headToHeadSvg(h2h) {
+  if (!h2h) return null;
+  const W = 960, H = 780;
+  const M = { l: 92, r: 152, t: 104, b: 132 };   // 오른쪽 여백 = 라벨 통로
+  const iw = W - M.l - M.r, ih = H - M.t - M.b;
+  const sx = (v) => M.l + v * iw, sy = (v) => M.t + ih - v * ih;
+  const nmax = Math.max(...h2h.pairs.map((p) => p.n));
+  const rad = (n) => 5 + Math.sqrt(n / nmax) * 8;
+  const b = [];
+  b.push(txt(26, 32, `유형별 정답률 맞대결 — ${h2h.tagB} vs ${h2h.tagA}`, { cls: 'ttl', size: 19 }));
+  b.push(txt(26, 54, '대각선 위 = 왼쪽 모델 우세. 원 크기는 문항 수. LLM Judge 전수 채점 결과다.',
+    { cls: 'sub', size: 12.5 }));
+  b.push(txt(26, 76, `${h2h.tagB} ${h2h.winsB}승 · ${h2h.tagA} ${h2h.winsA}승 · 무 ${h2h.ties}`,
+    { cls: 'sub', size: 13, weight: 700 }));
+
+  for (let g = 0; g <= 1.0001; g += 0.25) {
+    b.push(`<line class="grid" x1="${sx(g).toFixed(1)}" y1="${M.t}" x2="${sx(g).toFixed(1)}" y2="${M.t + ih}"/>`);
+    b.push(`<line class="grid" x1="${M.l}" y1="${sy(g).toFixed(1)}" x2="${M.l + iw}" y2="${sy(g).toFixed(1)}"/>`);
+    b.push(txt(sx(g), M.t + ih + 20, (g * 100).toFixed(0) + '%', { cls: 'axl', size: 11, anchor: 'middle' }));
+    b.push(txt(M.l - 10, sy(g) + 4, (g * 100).toFixed(0) + '%', { cls: 'axl', size: 11, anchor: 'end' }));
+  }
+  // 동률선
+  b.push(`<line x1="${sx(0)}" y1="${sy(0)}" x2="${sx(1)}" y2="${sy(1)}"`
+    + ` stroke="var(--muted)" stroke-width="2" stroke-dasharray="6 5" opacity="0.8"/>`);
+  // 동률선 라벨은 점이 없는 좌하단에 둔다(우상단은 혼잡하다).
+  b.push(txt(sx(0.16) + 8, sy(0.16) - 6, '동률선 (두 모델 같음)', { cls: 'note', size: 11 }));
+  b.push(txt(M.l + 12, M.t + 22, `▲ ${h2h.tagB} 우세`, { cls: 'sub', size: 12, weight: 600 }));
+  b.push(txt(M.l + iw - 12, M.t + ih - 14, `${h2h.tagA} 우세 ▼`, { cls: 'sub', size: 12, weight: 600, anchor: 'end' }));
+
+  const boxes = [{ x0: sx(0.16), x1: sx(0.16) + 130, y0: sy(0.16) - 18, y1: sy(0.16) + 4 }];
+  boxes.push(...h2h.pairs.map((p) => {
+    const x = sx(p.a), y = sy(p.b), r = rad(p.n) + 3;
+    return { x0: x - r, x1: x + r, y0: y - r, y1: y + r };
+  }));
+  const hits = (bx) => boxes.some((q) => bx.x0 < q.x1 && bx.x1 > q.x0 && bx.y0 < q.y1 && bx.y1 > q.y0);
+  const placed = [];
+  const ordered = h2h.pairs.slice().sort((a, c) => Math.abs(c.b - c.a) - Math.abs(a.b - a.a));
+  for (const p of ordered) {
+    const x = sx(p.a), y = sy(p.b), r = rad(p.n);
+    const big = Math.abs(p.b - p.a) >= 0.2;
+    b.push(`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}"`
+      + ` fill="var(--s1)" fill-opacity="${big ? 0.95 : 0.55}" stroke="var(--surface)" stroke-width="2"/>`);
+    const label = `${p.key} (${p.n})`;
+    const w = textW(label, 11);
+    let best = null;
+    // 오른쪽 3분의 1에 있는 점은 라벨을 왼쪽에 먼저 시도한다 — 안 그러면
+    // 우상단 모서리에서 자리를 못 찾고 라벨이 통째로 사라진다.
+    const sides = x > M.l + iw * 0.78 ? [-1, 1] : [1, -1];
+    outer:
+    for (const side of sides) {
+      for (const dy of [0, -18, 18, -32, 32, -48, 48, -64, 64, -80, 80]) {
+        const tx = side === 1 ? x + r + 7 : x - r - 7;
+        const x0 = side === 1 ? tx : tx - w;
+        const ty = y + 4 + dy;
+        const box = { x0: x0 - 2, x1: x0 + w + 2, y0: ty - 10, y1: ty + 6 };
+        if (x0 < M.l + 2 || x0 + w > W - 8) continue;      // 오른쪽 여백까지 쓴다
+        if (box.y0 < M.t - 26 || box.y1 > M.t + ih) continue;
+        if (hits(box) || placed.some((q) => box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0)) continue;
+        best = { tx, ty, side, box }; break outer;
+      }
+    }
+    if (!best) {   // 마지막 수단: 겹치더라도 점 위에 띄운다(라벨을 잃지 않는다)
+      const tx = x > M.l + iw * 0.78 ? x - r - 7 : x + r + 7;
+      const side = x > M.l + iw * 0.78 ? -1 : 1;
+      const ty = y - r - 8;
+      best = { tx, ty, side, box: { x0: tx - w, x1: tx + w, y0: ty - 10, y1: ty + 6 } };
+    }
+    placed.push(best.box);
+    b.push(txt(best.tx, best.ty, label, {
+      cls: big ? 'lbl' : 'note', size: 11, anchor: best.side === 1 ? 'start' : 'end',
+      weight: big ? 700 : 400,
+    }));
+  }
+  b.push(txt(M.l + iw / 2, H - 92, `${h2h.tagA} 정답률 →`, { cls: 'sub', size: 12, anchor: 'middle' }));
+  b.push(`<text transform="translate(28,${M.t + ih / 2}) rotate(-90)" class="sub" font-size="12" text-anchor="middle">${esc(h2h.tagB)} 정답률 →</text>`);
+  b.push(txt(26, H - 58, `정답률 50% 미만 유형: ${h2h.tagA} ${h2h.belowA}개 · ${h2h.tagB} ${h2h.belowB}개`,
+    { cls: 'lbl', size: 12.5, weight: 700 }));
+  b.push(txt(26, H - 38, '전체 평균만 보면 가려지는 구멍이 여기서 드러난다. 상담봇은 평균이 아니라 최저치가 품질을 정한다.',
+    { cls: 'note', size: 11.5 }));
+  b.push(txt(26, H - 18, '문항 수가 작은 유형(API 5건 등)은 원이 작다 — 한 문항이 20%p라 확정적으로 읽지 않는다.',
+    { cls: 'note', size: 11 }));
+  return svgDoc(W, H, b.join('\n'), '유형별 정답률 맞대결');
+}
+
 // ---------------------------------------------------------------- 출력
 
 function writeAll(cmp, outDir) {
   fs.mkdirSync(outDir, { recursive: true });
   const made = [];
+  const screening = require('./screening');
+  const cands = screening.candidates(cmp);
+  const KEEP = ['gemma3:12b', 'qwen3:14b OFF'];
+  const six = cands.length ? screening.survival(cands, 'six') : null;
+  const nine = cands.length ? screening.survival(cands, 'nine') : null;
   const charts = {
+    'screening_6r.svg': six && survivalSvg(six, {
+      title: '1차 선별 — 하자 있는 모델 걸러내기 (6라운드)',
+      sub: '지표 6개를 한 번씩, 매 라운드 최하위 1개 탈락. 11개 → 5개 생존.',
+      note: '5개 설정은 어떤 순서에서도 탈락했다. 반대로 상위 4개는 서로 큰 차이가 없다.',
+      keep: KEEP }),
+    'screening_9r.svg': nine && survivalSvg(nine, {
+      title: '변별 — 2개까지 좁히기 (9라운드)',
+      sub: '3라운드를 더 돌려 2개만 남긴다. 재사용할 지표 3개까지 독립으로 훑어 앞자리 가중 편향을 제거했다.',
+      note: 'qwen3:14b OFF 97.0% · gemma3:12b 82.7% — 3위(17.3%)와 압도적으로 벌어진다.',
+      keep: KEEP }),
+    'head_to_head.svg': headToHeadSvg(screening.headToHead(cmp, 'gemma3:12b', 'qwen3:14b OFF')),
     'pareto.svg': paretoSvg(cmp),
     'marginal_efficiency.svg': marginalEfficiencySvg(cmp),
     'core_metrics.svg': coreMetricsSvg(cmp),
@@ -509,4 +656,4 @@ function writeAll(cmp, outDir) {
 }
 
 module.exports = { writeAll, settings, paretoFront, paretoSvg,
-  marginalEfficiencySvg, coreMetricsSvg, thinkSlopeSvg };
+  marginalEfficiencySvg, coreMetricsSvg, thinkSlopeSvg, survivalSvg, headToHeadSvg };

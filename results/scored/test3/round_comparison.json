@@ -1,6 +1,6 @@
 {
   "suite": "test3",
-  "generated_at": "2026-09-22T06:42:57.499Z",
+  "generated_at": "2026-09-22T15:35:48.156Z",
   "comparison_notes": [
     "test2는 local-win(RTX 4070 Ti, temperature 0.8 = Ollama 기본값), test3은 ec2-linux(temperature 0)이다.",
     "하드웨어가 함께 바뀌었으므로 두 라운드 간 속도(지연/TPS) 비교는 하지 않는다.",
@@ -119,7 +119,9 @@
           "correct_rate": 0.3566666666666667,
           "is_grounded_rate": 0.5733333333333334,
           "grounding_score_avg": 3.8766666666666665,
-          "expression_quality_avg": 4.16
+          "expression_quality_avg": 4.16,
+          "by_type": null,
+          "by_difficulty": null
         }
       },
       "test3_think": {
@@ -158,7 +160,107 @@
           "correct_rate": 0.31333333333333335,
           "is_grounded_rate": 0.4966666666666667,
           "grounding_score_avg": 3.7133333333333334,
-          "expression_quality_avg": 4.506666666666667
+          "expression_quality_avg": 4.506666666666667,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 10,
+              "rate": 0.5555555555555556
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 14,
+              "rate": 0.6363636363636364
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 16,
+              "rate": 0.5333333333333333
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 5,
+              "rate": 0.20833333333333334
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 9,
+              "rate": 0.375
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 1,
+              "rate": 0.02857142857142857
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 7,
+              "rate": 0.35
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 5,
+              "rate": 0.3333333333333333
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 15,
+              "rate": 0.5555555555555556
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 10,
+              "rate": 0.6666666666666666
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 2,
+              "rate": 0.4
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 33,
+              "rate": 0.4074074074074074
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 36,
+              "rate": 0.32142857142857145
+            },
+            {
+              "key": "Hard",
+              "n": 107,
+              "correct": 25,
+              "rate": 0.2336448598130841
+            }
+          ]
         }
       },
       "test3_nothink": null,
@@ -198,7 +300,107 @@
           "correct_rate": 0.4,
           "is_grounded_rate": 0.625,
           "grounding_score_avg": 4.075,
-          "expression_quality_avg": 4.6
+          "expression_quality_avg": 4.6,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 1,
+              "rate": 0.5
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 2,
+              "rate": 0.6666666666666666
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 4,
+              "correct": 2,
+              "rate": 0.5
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 5,
+              "correct": 1,
+              "rate": 0.2
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 5,
+              "correct": 2,
+              "rate": 0.4
+            },
+            {
+              "key": "부분 정보",
+              "n": 3,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 2,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 4,
+              "correct": 3,
+              "rate": 0.75
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 5,
+              "correct": 2,
+              "rate": 0.4
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 4,
+              "correct": 3,
+              "rate": 0.75
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 4,
+              "correct": 1,
+              "rate": 0.25
+            },
+            {
+              "key": "Hard",
+              "n": 25,
+              "correct": 8,
+              "rate": 0.32
+            },
+            {
+              "key": "Medium",
+              "n": 11,
+              "correct": 7,
+              "rate": 0.6363636363636364
+            }
+          ]
         }
       }
     },
@@ -237,7 +439,9 @@
           "correct_rate": 0.47,
           "is_grounded_rate": 0.58,
           "grounding_score_avg": 3.8333333333333335,
-          "expression_quality_avg": 4.05
+          "expression_quality_avg": 4.05,
+          "by_type": null,
+          "by_difficulty": null
         }
       },
       "test3_think": {
@@ -276,7 +480,107 @@
           "correct_rate": 0.39,
           "is_grounded_rate": 0.5700000000000001,
           "grounding_score_avg": 3.8933333333333335,
-          "expression_quality_avg": 4.42
+          "expression_quality_avg": 4.42,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 16,
+              "rate": 0.8888888888888888
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 15,
+              "rate": 0.6818181818181818
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 13,
+              "rate": 0.43333333333333335
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 7,
+              "rate": 0.2916666666666667
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 10,
+              "rate": 0.4166666666666667
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 8,
+              "rate": 0.22857142857142856
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 7,
+              "rate": 0.2
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 7,
+              "rate": 0.35
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 4,
+              "rate": 0.13333333333333333
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 6,
+              "rate": 0.4
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 11,
+              "rate": 0.4074074074074074
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 11,
+              "rate": 0.7333333333333333
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 2,
+              "rate": 0.4
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 41,
+              "rate": 0.5061728395061729
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 44,
+              "rate": 0.39285714285714285
+            },
+            {
+              "key": "Hard",
+              "n": 107,
+              "correct": 32,
+              "rate": 0.29906542056074764
+            }
+          ]
         }
       },
       "test3_nothink": {
@@ -315,7 +619,107 @@
           "correct_rate": 0.23,
           "is_grounded_rate": 0.43333333333333335,
           "grounding_score_avg": 3.37,
-          "expression_quality_avg": 4.306666666666667
+          "expression_quality_avg": 4.306666666666667,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 8,
+              "rate": 0.4444444444444444
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 11,
+              "rate": 0.5
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 14,
+              "rate": 0.4666666666666667
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 7,
+              "rate": 0.2916666666666667
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 5,
+              "rate": 0.20833333333333334
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 1,
+              "rate": 0.02857142857142857
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 2,
+              "rate": 0.05714285714285714
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 1,
+              "rate": 0.05
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 4,
+              "rate": 0.26666666666666666
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 8,
+              "rate": 0.2962962962962963
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 7,
+              "rate": 0.4666666666666667
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 1,
+              "rate": 0.2
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 28,
+              "rate": 0.345679012345679
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 21,
+              "rate": 0.1875
+            },
+            {
+              "key": "Hard",
+              "n": 107,
+              "correct": 20,
+              "rate": 0.18691588785046728
+            }
+          ]
         }
       },
       "test3_temp_control": {
@@ -354,7 +758,107 @@
           "correct_rate": 0.4,
           "is_grounded_rate": 0.525,
           "grounding_score_avg": 3.725,
-          "expression_quality_avg": 4.2
+          "expression_quality_avg": 4.2,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "rate": 1
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 3,
+              "rate": 1
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 4,
+              "correct": 1,
+              "rate": 0.25
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 5,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 5,
+              "correct": 3,
+              "rate": 0.6
+            },
+            {
+              "key": "부분 정보",
+              "n": 3,
+              "correct": 1,
+              "rate": 0.3333333333333333
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 2,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 1,
+              "correct": 1,
+              "rate": 1
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 4,
+              "correct": 1,
+              "rate": 0.25
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 5,
+              "correct": 1,
+              "rate": 0.2
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 4,
+              "correct": 3,
+              "rate": 0.75
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 4,
+              "correct": 2,
+              "rate": 0.5
+            },
+            {
+              "key": "Hard",
+              "n": 25,
+              "correct": 8,
+              "rate": 0.32
+            },
+            {
+              "key": "Medium",
+              "n": 11,
+              "correct": 6,
+              "rate": 0.5454545454545454
+            }
+          ]
         }
       }
     },
@@ -393,7 +897,9 @@
           "correct_rate": 0.72,
           "is_grounded_rate": 0.86,
           "grounding_score_avg": 4.67,
-          "expression_quality_avg": 4.333333333333333
+          "expression_quality_avg": 4.333333333333333,
+          "by_type": null,
+          "by_difficulty": null
         }
       },
       "test3_think": {
@@ -432,7 +938,107 @@
           "correct_rate": 0.7233333333333334,
           "is_grounded_rate": 0.8633333333333333,
           "grounding_score_avg": 4.66,
-          "expression_quality_avg": 4.72
+          "expression_quality_avg": 4.72,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 18,
+              "rate": 1
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 22,
+              "rate": 1
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 24,
+              "rate": 0.8
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 6,
+              "rate": 0.25
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 21,
+              "rate": 0.875
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 23,
+              "rate": 0.6571428571428571
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 26,
+              "rate": 0.7428571428571429
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 11,
+              "rate": 0.55
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 25,
+              "rate": 0.8333333333333334
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 10,
+              "rate": 0.6666666666666666
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 18,
+              "rate": 0.6666666666666666
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 11,
+              "rate": 0.7333333333333333
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 2,
+              "rate": 0.4
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 73,
+              "rate": 0.9012345679012346
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 80,
+              "rate": 0.7142857142857143
+            },
+            {
+              "key": "Hard",
+              "n": 107,
+              "correct": 64,
+              "rate": 0.5981308411214953
+            }
+          ]
         }
       },
       "test3_nothink": {
@@ -471,7 +1077,107 @@
           "correct_rate": 0.43666666666666665,
           "is_grounded_rate": 0.71,
           "grounding_score_avg": 4.29,
-          "expression_quality_avg": 4.233333333333333
+          "expression_quality_avg": 4.233333333333333,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 14,
+              "rate": 0.7777777777777778
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 14,
+              "rate": 0.6363636363636364
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 13,
+              "rate": 0.43333333333333335
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 8,
+              "rate": 0.3333333333333333
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 1,
+              "rate": 0.041666666666666664
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 20,
+              "rate": 0.5714285714285714
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 7,
+              "rate": 0.2
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 8,
+              "rate": 0.4
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 23,
+              "rate": 0.7666666666666667
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 5,
+              "rate": 0.3333333333333333
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 10,
+              "rate": 0.37037037037037035
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 7,
+              "rate": 0.4666666666666667
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 1,
+              "rate": 0.2
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 47,
+              "rate": 0.5802469135802469
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 45,
+              "rate": 0.4017857142857143
+            },
+            {
+              "key": "Hard",
+              "n": 107,
+              "correct": 39,
+              "rate": 0.3644859813084112
+            }
+          ]
         }
       },
       "test3_temp_control": {
@@ -510,7 +1216,107 @@
           "correct_rate": 0.775,
           "is_grounded_rate": 0.925,
           "grounding_score_avg": 4.8,
-          "expression_quality_avg": 4.625
+          "expression_quality_avg": 4.625,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "rate": 1
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 3,
+              "rate": 1
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 4,
+              "correct": 1,
+              "rate": 0.25
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 5,
+              "correct": 3,
+              "rate": 0.6
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 5,
+              "correct": 5,
+              "rate": 1
+            },
+            {
+              "key": "부분 정보",
+              "n": 3,
+              "correct": 3,
+              "rate": 1
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 2,
+              "correct": 2,
+              "rate": 1
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 1,
+              "correct": 1,
+              "rate": 1
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 1,
+              "correct": 1,
+              "rate": 1
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 4,
+              "correct": 4,
+              "rate": 1
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 5,
+              "correct": 3,
+              "rate": 0.6
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 4,
+              "correct": 3,
+              "rate": 0.75
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 4,
+              "correct": 4,
+              "rate": 1
+            },
+            {
+              "key": "Hard",
+              "n": 25,
+              "correct": 18,
+              "rate": 0.72
+            },
+            {
+              "key": "Medium",
+              "n": 11,
+              "correct": 9,
+              "rate": 0.8181818181818182
+            }
+          ]
         }
       }
     },
@@ -549,7 +1355,9 @@
           "correct_rate": 0.6366666666666667,
           "is_grounded_rate": 0.73,
           "grounding_score_avg": 4.39,
-          "expression_quality_avg": 4.3133333333333335
+          "expression_quality_avg": 4.3133333333333335,
+          "by_type": null,
+          "by_difficulty": null
         }
       },
       "test3_think": {
@@ -588,7 +1396,107 @@
           "correct_rate": 0.5973154362416108,
           "is_grounded_rate": 0.7315436241610738,
           "grounding_score_avg": 4.345637583892618,
-          "expression_quality_avg": 4.701342281879195
+          "expression_quality_avg": 4.701342281879195,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 18,
+              "rate": 1
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 20,
+              "rate": 0.9090909090909091
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 24,
+              "rate": 0.8
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 14,
+              "rate": 0.5833333333333334
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 22,
+              "rate": 0.9166666666666666
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 20,
+              "rate": 0.5714285714285714
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 7,
+              "rate": 0.2
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 5,
+              "rate": 0.25
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 5,
+              "rate": 0.16666666666666666
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 13,
+              "rate": 0.8666666666666667
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 18,
+              "rate": 0.6666666666666666
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 13,
+              "correct": 10,
+              "rate": 0.7692307692307693
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 2,
+              "rate": 0.4
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 57,
+              "rate": 0.7037037037037037
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 61,
+              "rate": 0.5446428571428571
+            },
+            {
+              "key": "Hard",
+              "n": 105,
+              "correct": 60,
+              "rate": 0.5714285714285714
+            }
+          ]
         }
       },
       "test3_nothink": {
@@ -627,7 +1535,107 @@
           "correct_rate": 0.43666666666666665,
           "is_grounded_rate": 0.74,
           "grounding_score_avg": 4.346666666666667,
-          "expression_quality_avg": 4.7
+          "expression_quality_avg": 4.7,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 16,
+              "rate": 0.8888888888888888
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 21,
+              "rate": 0.9545454545454546
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 25,
+              "rate": 0.8333333333333334
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 9,
+              "rate": 0.375
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 9,
+              "rate": 0.375
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 5,
+              "rate": 0.14285714285714285
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 1,
+              "rate": 0.02857142857142857
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 8,
+              "rate": 0.4
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 1,
+              "rate": 0.03333333333333333
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 9,
+              "rate": 0.6
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 17,
+              "rate": 0.6296296296296297
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 9,
+              "rate": 0.6
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 1,
+              "rate": 0.2
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 39,
+              "rate": 0.48148148148148145
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 47,
+              "rate": 0.41964285714285715
+            },
+            {
+              "key": "Hard",
+              "n": 107,
+              "correct": 45,
+              "rate": 0.4205607476635514
+            }
+          ]
         }
       },
       "test3_temp_control": {
@@ -666,7 +1674,107 @@
           "correct_rate": 0.55,
           "is_grounded_rate": 0.625,
           "grounding_score_avg": 4.1,
-          "expression_quality_avg": 4.55
+          "expression_quality_avg": 4.55,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "rate": 1
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 3,
+              "rate": 1
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 4,
+              "correct": 2,
+              "rate": 0.5
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 5,
+              "correct": 2,
+              "rate": 0.4
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 5,
+              "correct": 5,
+              "rate": 1
+            },
+            {
+              "key": "부분 정보",
+              "n": 3,
+              "correct": 1,
+              "rate": 0.3333333333333333
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 2,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 4,
+              "correct": 2,
+              "rate": 0.5
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 5,
+              "correct": 2,
+              "rate": 0.4
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 4,
+              "correct": 2,
+              "rate": 0.5
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 1,
+              "correct": 1,
+              "rate": 1
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 4,
+              "correct": 2,
+              "rate": 0.5
+            },
+            {
+              "key": "Hard",
+              "n": 25,
+              "correct": 14,
+              "rate": 0.56
+            },
+            {
+              "key": "Medium",
+              "n": 11,
+              "correct": 6,
+              "rate": 0.5454545454545454
+            }
+          ]
         }
       }
     },
@@ -705,7 +1813,9 @@
           "correct_rate": 0.5166666666666667,
           "is_grounded_rate": 0.4866666666666667,
           "grounding_score_avg": 3.716666666666667,
-          "expression_quality_avg": 3.9966666666666666
+          "expression_quality_avg": 3.9966666666666666,
+          "by_type": null,
+          "by_difficulty": null
         }
       },
       "test3_think": {
@@ -744,7 +1854,107 @@
           "correct_rate": 0.37333333333333335,
           "is_grounded_rate": 0.4666666666666667,
           "grounding_score_avg": 3.6366666666666667,
-          "expression_quality_avg": 4.52
+          "expression_quality_avg": 4.52,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 15,
+              "rate": 0.8333333333333334
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 17,
+              "rate": 0.7727272727272727
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 18,
+              "rate": 0.6
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 9,
+              "rate": 0.375
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 2,
+              "rate": 0.08333333333333333
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 18,
+              "rate": 0.5142857142857142
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 4,
+              "rate": 0.11428571428571428
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 1,
+              "rate": 0.05
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 1,
+              "rate": 0.03333333333333333
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 7,
+              "rate": 0.4666666666666667
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 11,
+              "rate": 0.4074074074074074
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 8,
+              "rate": 0.5333333333333333
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 1,
+              "rate": 0.2
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 36,
+              "rate": 0.4444444444444444
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 41,
+              "rate": 0.36607142857142855
+            },
+            {
+              "key": "Hard",
+              "n": 107,
+              "correct": 35,
+              "rate": 0.32710280373831774
+            }
+          ]
         }
       },
       "test3_nothink": null,
@@ -784,7 +1994,107 @@
           "correct_rate": 0.375,
           "is_grounded_rate": 0.525,
           "grounding_score_avg": 3.625,
-          "expression_quality_avg": 4.25
+          "expression_quality_avg": 4.25,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 1,
+              "rate": 0.5
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 3,
+              "rate": 1
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 4,
+              "correct": 1,
+              "rate": 0.25
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 5,
+              "correct": 1,
+              "rate": 0.2
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 5,
+              "correct": 1,
+              "rate": 0.2
+            },
+            {
+              "key": "부분 정보",
+              "n": 3,
+              "correct": 1,
+              "rate": 0.3333333333333333
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 2,
+              "correct": 1,
+              "rate": 0.5
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 4,
+              "correct": 3,
+              "rate": 0.75
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 5,
+              "correct": 1,
+              "rate": 0.2
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 4,
+              "correct": 2,
+              "rate": 0.5
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 4,
+              "correct": 2,
+              "rate": 0.5
+            },
+            {
+              "key": "Hard",
+              "n": 25,
+              "correct": 9,
+              "rate": 0.36
+            },
+            {
+              "key": "Medium",
+              "n": 11,
+              "correct": 4,
+              "rate": 0.36363636363636365
+            }
+          ]
         }
       }
     },
@@ -829,7 +2139,107 @@
           "correct_rate": 0.64,
           "is_grounded_rate": 0.7866666666666666,
           "grounding_score_avg": 4.506666666666667,
-          "expression_quality_avg": 4.63
+          "expression_quality_avg": 4.63,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 17,
+              "rate": 0.9444444444444444
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 18,
+              "rate": 0.8181818181818182
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 22,
+              "rate": 0.7333333333333333
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 9,
+              "rate": 0.375
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 7,
+              "rate": 0.2916666666666667
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 31,
+              "rate": 0.8857142857142857
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 18,
+              "rate": 0.5142857142857142
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 12,
+              "rate": 0.6
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 23,
+              "rate": 0.7666666666666667
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 7,
+              "rate": 0.4666666666666667
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 13,
+              "rate": 0.48148148148148145
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 13,
+              "rate": 0.8666666666666667
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 2,
+              "rate": 0.4
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 67,
+              "rate": 0.8271604938271605
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 59,
+              "rate": 0.5267857142857143
+            },
+            {
+              "key": "Hard",
+              "n": 107,
+              "correct": 66,
+              "rate": 0.616822429906542
+            }
+          ]
         }
       },
       "test3_nothink": null,
@@ -869,7 +2279,107 @@
           "correct_rate": 0.475,
           "is_grounded_rate": 0.85,
           "grounding_score_avg": 4.7,
-          "expression_quality_avg": 4.55
+          "expression_quality_avg": 4.55,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "rate": 1
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 2,
+              "rate": 0.6666666666666666
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 4,
+              "correct": 3,
+              "rate": 0.75
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 5,
+              "correct": 1,
+              "rate": 0.2
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 5,
+              "correct": 3,
+              "rate": 0.6
+            },
+            {
+              "key": "부분 정보",
+              "n": 3,
+              "correct": 3,
+              "rate": 1
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 2,
+              "correct": 1,
+              "rate": 0.5
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 1,
+              "correct": 1,
+              "rate": 1
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 4,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 5,
+              "correct": 0,
+              "rate": 0
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 4,
+              "correct": 3,
+              "rate": 0.75
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 1,
+              "correct": 0,
+              "rate": 0
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 4,
+              "correct": 3,
+              "rate": 0.75
+            },
+            {
+              "key": "Hard",
+              "n": 25,
+              "correct": 12,
+              "rate": 0.48
+            },
+            {
+              "key": "Medium",
+              "n": 11,
+              "correct": 4,
+              "rate": 0.36363636363636365
+            }
+          ]
         }
       }
     },
@@ -914,7 +2424,107 @@
           "correct_rate": 0.7558528428093646,
           "is_grounded_rate": 0.7525083612040133,
           "grounding_score_avg": 4.354515050167224,
-          "expression_quality_avg": 4.665551839464883
+          "expression_quality_avg": 4.665551839464883,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 18,
+              "rate": 1
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 22,
+              "rate": 1
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 27,
+              "rate": 0.9
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 9,
+              "rate": 0.375
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 22,
+              "rate": 0.9166666666666666
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 29,
+              "rate": 0.8285714285714286
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 14,
+              "rate": 0.4
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 14,
+              "rate": 0.7
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 26,
+              "rate": 0.8666666666666667
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 12,
+              "rate": 0.8
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 17,
+              "rate": 0.6296296296296297
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 14,
+              "correct": 13,
+              "rate": 0.9285714285714286
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 3,
+              "rate": 0.6
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 68,
+              "rate": 0.8395061728395061
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 79,
+              "rate": 0.7053571428571429
+            },
+            {
+              "key": "Hard",
+              "n": 106,
+              "correct": 79,
+              "rate": 0.7452830188679245
+            }
+          ]
         }
       },
       "test3_nothink": {
@@ -953,7 +2563,107 @@
           "correct_rate": 0.7066666666666667,
           "is_grounded_rate": 0.7633333333333333,
           "grounding_score_avg": 4.433333333333334,
-          "expression_quality_avg": 4.793333333333333
+          "expression_quality_avg": 4.793333333333333,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 18,
+              "rate": 1
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 21,
+              "rate": 0.9545454545454546
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 28,
+              "rate": 0.9333333333333333
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 12,
+              "rate": 0.5
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 24,
+              "correct": 19,
+              "rate": 0.7916666666666666
+            },
+            {
+              "key": "부분 정보",
+              "n": 35,
+              "correct": 29,
+              "rate": 0.8285714285714286
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 10,
+              "rate": 0.2857142857142857
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 20,
+              "correct": 13,
+              "rate": 0.65
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 30,
+              "correct": 18,
+              "rate": 0.6
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 12,
+              "rate": 0.8
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 27,
+              "correct": 16,
+              "rate": 0.5925925925925926
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 14,
+              "rate": 0.9333333333333333
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 5,
+              "correct": 2,
+              "rate": 0.4
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 81,
+              "correct": 70,
+              "rate": 0.8641975308641975
+            },
+            {
+              "key": "Medium",
+              "n": 112,
+              "correct": 73,
+              "rate": 0.6517857142857143
+            },
+            {
+              "key": "Hard",
+              "n": 107,
+              "correct": 69,
+              "rate": 0.6448598130841121
+            }
+          ]
         }
       },
       "test3_temp_control": {
@@ -992,7 +2702,107 @@
           "correct_rate": 0.825,
           "is_grounded_rate": 0.775,
           "grounding_score_avg": 4.425,
-          "expression_quality_avg": 4.575
+          "expression_quality_avg": 4.575,
+          "by_type": [
+            {
+              "key": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "rate": 1
+            },
+            {
+              "key": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 2,
+              "rate": 0.6666666666666666
+            },
+            {
+              "key": "다중 FAQ 조합",
+              "n": 4,
+              "correct": 3,
+              "rate": 0.75
+            },
+            {
+              "key": "사용자 정보+FAQ",
+              "n": 5,
+              "correct": 4,
+              "rate": 0.8
+            },
+            {
+              "key": "조건·예외·경계값",
+              "n": 5,
+              "correct": 4,
+              "rate": 0.8
+            },
+            {
+              "key": "부분 정보",
+              "n": 3,
+              "correct": 3,
+              "rate": 1
+            },
+            {
+              "key": "유사하지만 답 없음",
+              "n": 2,
+              "correct": 2,
+              "rate": 1
+            },
+            {
+              "key": "무관 FAQ",
+              "n": 1,
+              "correct": 1,
+              "rate": 1
+            },
+            {
+              "key": "빈 컨텍스트",
+              "n": 1,
+              "correct": 1,
+              "rate": 1
+            },
+            {
+              "key": "FAQ 충돌·시행일",
+              "n": 4,
+              "correct": 4,
+              "rate": 1
+            },
+            {
+              "key": "멀티턴 대화",
+              "n": 5,
+              "correct": 3,
+              "rate": 0.6
+            },
+            {
+              "key": "적대적 입력·범위 밖",
+              "n": 4,
+              "correct": 3,
+              "rate": 0.75
+            },
+            {
+              "key": "API 결과 답변",
+              "n": 1,
+              "correct": 1,
+              "rate": 1
+            }
+          ],
+          "by_difficulty": [
+            {
+              "key": "Easy",
+              "n": 4,
+              "correct": 4,
+              "rate": 1
+            },
+            {
+              "key": "Hard",
+              "n": 25,
+              "correct": 19,
+              "rate": 0.76
+            },
+            {
+              "key": "Medium",
+              "n": 11,
+              "correct": 10,
+              "rate": 0.9090909090909091
+            }
+          ]
         }
       }
     }

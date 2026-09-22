@@ -103,6 +103,7 @@ function summaryDoc(cmp) {
     '  `scripts/test2/score_rag_faithfulness.js`의 premise 누락이 고쳐지지 않아 모델 순위가 역전되기 때문이다.',
     '  자세한 내용은 [methodology.md](methodology.md) 참고.',
     '', '## 함께 볼 문서', '',
+    '- [**운영 모델 선별 과정과 근거**](model_selection.md)',
     '- [측정 방법과 한계](methodology.md)',
     '- [추론 모드 on/off 트레이드오프](think_ablation_results.md)',
     '- [temperature 0 vs 0.8 대조](temperature_comparison.md)',
@@ -240,6 +241,200 @@ function tempDoc(cmp) {
   ];
 }
 
+function selectionDoc(cmp) {
+  const screening = require('./lib/screening');
+  const cands = screening.candidates(cmp);
+  if (!cands.length) return null;
+  const six = screening.survival(cands, 'six');
+  const nine = screening.survival(cands, 'nine');
+  const A = 'gemma3:12b', B = 'qwen3:14b OFF';
+  const h = screening.headToHead(cmp, A, B);
+  if (!h) return null;
+
+  const find = (tag) => {
+    for (const m of cmp.models) {
+      for (const [k, suf] of [['test3_think', m.think_capable ? ' ON' : ''], ['test3_nothink', ' OFF']]) {
+        if (m.model_tag + suf === tag) return m[k];
+      }
+    }
+    return null;
+  };
+  const ra = find(A), rb = find(B);
+  const srt = (o) => Object.entries(o).sort((x, y) => y[1] - x[1]);
+  const dead = srt(six.rate).filter(([, v]) => v < 0.05).map(([t]) => t);
+  const nineTop = srt(nine.rate);
+
+  const survTable = (res, keep) => table(['설정', '생존율', '비고'],
+    srt(res.rate).map(([t, v]) => [
+      keep.includes(t) ? `**${t}**` : t,
+      (keep.includes(t) ? '**' : '') + v.toFixed(1) + '%' + (keep.includes(t) ? '**' : ''),
+      v < 0.05 ? '어떤 순서에서도 탈락' : '',
+    ]));
+
+  const h2hTable = table(['유형', '문항', A, B, '차이'],
+    h.pairs.map((p) => {
+      const d = (p.b - p.a) * 100;
+      const mark = Math.abs(d) >= 25 ? ' ←' : '';
+      return [p.key, String(p.n),
+        `${p.aC}/${p.n} ${(p.a * 100).toFixed(0)}%`,
+        `${p.bC}/${p.n} ${(p.b * 100).toFixed(0)}%`,
+        (d >= 0 ? '+' : '−') + Math.abs(d).toFixed(0) + 'p' + mark];
+    }));
+
+  const diffTable = table(['난이도', `${A} 정답`, `${B} 정답`, '차이'],
+    (h.difficulty.a || []).map((d) => {
+      const b = (h.difficulty.b || []).find((x) => x.key === d.key);
+      if (!b) return [d.key, `${d.correct}/${d.n}`, '-', '-'];
+      return [d.key, `${d.correct}/${d.n}`, `${b.correct}/${b.n}`,
+        (b.correct - d.correct >= 0 ? '+' : '−') + Math.abs(b.correct - d.correct) + '건'];
+    }));
+
+  return [
+    '# test3 — 운영 모델 선별 과정과 근거', '',
+    `생성 시각: ${cmp.generated_at}`, '',
+    '## 결론', '',
+    `**1차 MVP 모델로 \`qwen3:14b\`(추론 OFF, temperature=0)를 선정한다.**`, '',
+    '- 11개 설정을 2단계로 좁혔다. 1단계는 **하자 걸러내기**, 2단계는 **남은 둘의 서열**이다.',
+    `- 1단계에서 ${dead.length}개 설정이 **지표 순서 ${six.orders}가지 전부에서** 탈락했다.`,
+    `- 2단계에서 \`${B}\`가 \`${A}\`를 유형 ${h.winsB}승 ${h.winsA}패 ${h.ties}무로 앞섰다.`, '',
+    '> **이 선정은 1차 MVP를 위한 것이며, 최종 산출물의 모델로 확정된 것이 아니다.**',
+    '> 최적화·양자화·프롬프트 개선을 거치지 않은 상태의 비교 결과이고,',
+    '> 운영 트래픽에서의 동시 처리 성능은 이번 측정 범위 밖이다.', '',
+    '## 1. 왜 "하자 걸러내기"부터인가', '',
+    '상담 챗봇의 LLM은 **어느 하나가 아무리 특출나도 어디 하나가 고장나 있으면 안 된다.**',
+    '사용자는 평균적인 상담을 경험하지 않는다. 자기 질문 하나를 경험한다.',
+    '그 하나가 47초 걸리거나, 자료에 없는 금액을 지어내면 다른 지표의 1위는 위로가 되지 않는다.',
+    '', '이 주장은 우리 측정값 안에서 직접 확인된다.', '',
+    '### 근거 ① 품질 3관왕이 응답 시간 하나로 무너진다 — `qwen3:4b` ON', '',
+    '`qwen3:4b` ON은 11개 설정 중 **근거율 1위(86.3%) · 기대 상태 일치 1위(82.3%) · 부재판단 F1 1위(0.764)**다.',
+    '세 지표에서 최고이고, 환각률도 13.7%로 전체 최저다. 품질만 보면 압도적이다.',
+    '', '그런데 고유 300문항의 응답 시간 분포는 이렇다.', '',
+    table(['구간', '값'], [
+      ['P50 (중앙값)', '15.1초'], ['P75', '22.1초'], ['P90', '31.7초'],
+      ['P95', '47.6초'], ['P99', '68.5초'],
+      ['**5초 초과**', '**300/300 (100.0%)**'],
+      ['10초 초과', '230/300 (76.7%)'],
+      ['30초 초과', '36/300 (12.0%)'],
+    ]),
+    '', '**단 한 건도 5초 안에 답하지 못했다.** 중앙값이 15초다.',
+    '품질 지표 세 개가 1위여도 이 설정은 상담봇으로 쓸 수 없다.',
+    '평균이나 종합 점수로 묶으면 이 모델이 상위권으로 올라온다 — 그래서 묶지 않았다.', '',
+    '### 근거 ② 상위권 모델의 한 축이 0이 된다 — `exaone3.5:7.8b`', '',
+    '`exaone3.5:7.8b`는 **포맷 성공률 100.0%(공동 1위) · 반복 일관성 90.0%(3위)**로 두 지표에서 상위권이다.',
+    '그런데 FAQ 부재 판단에서 **기대 ABSTAIN 88문항 중 0문항을 맞혔다(TP=0, F1 0.000)**.',
+    '', '"자료에 없습니다"라고 말해야 할 88번 모두 다른 답을 했다는 뜻이다.',
+    'FAQ 챗봇에서 이건 기능 하나가 없는 것과 같고, 포맷·일관성 상위권이 이를 상쇄하지 못한다.', '',
+    '### 근거 ③ 평균은 구멍을 가린다', '',
+    table(['설정', '전체 정답률', '최악 유형'], [
+      ['qwen3:4b OFF', '43.7%', '조건·예외·경계값 **4%** (1/24)'],
+      ['qwen3:8b OFF', '43.7%', '유사하지만 답 없음 **3%** (1/35)'],
+    ]),
+    '', '두 설정은 전체 정답률이 같다. 그런데 무너지는 자리가 서로 다르고, 그 자리에서는 거의 0에 가깝다.',
+    '통신 FAQ는 임계값 규칙(할인 기준 금액, 데이터 한도, 약정 기간)이 많아',
+    '`조건·예외·경계값` 4%는 그 상담 유형을 통째로 못 한다는 뜻이다.',
+    '**평균 하나로는 이 사실이 보이지 않는다.**', '',
+    '### 그래서 최소값 논리를 택했다', '',
+    '매 라운드 **최하위 1개**를 떨어뜨린다. 한 지표에서 꼴찌면 다른 지표의 1위가 그것을 구제하지 못한다.',
+    '이것이 "하자 있는 모델을 걸러낸다"의 조작적 정의다.',
+    '', '이 방식이 이번 데이터에 특히 맞는 이유가 하나 더 있다.',
+    '**최적화하지 않은 테스트라 절대 수치는 신뢰하기 어렵지만, "꼴찌"는 상대 비교라 오차에 강하다.**',
+    '어떤 설정의 정답률이 23.0%가 아니라 28%였더라도 1위(75.6%)가 되지는 않는다.', '',
+    '## 2. 측정 조건과 지표 선택', '',
+    `- 대상: **11개 설정** (7개 모델 × 추론 ON/OFF 조합). 평가 문항은 \`cases.csv\` 고유 300문항.`,
+    '- 탈락 라운드에 쓴 지표 6개:', '',
+    table(['지표', '출처', '방향'], [
+      ['내용 정확도', 'LLM Judge (`gpt-6-astra`) 전수 채점', '높을수록 좋음'],
+      ['근거율 (1 − 환각률)', 'LLM Judge', '높을수록'],
+      ['기대 상태 일치', '코드 (결정론)', '높을수록'],
+      ['부재판단 F1', '코드 (결정론)', '높을수록'],
+      ['반복 일관성', '코드 (결정론)', '높을수록'],
+      ['P95 지연', '실측', '**낮을수록**'],
+    ]),
+    '', '**제외한 지표와 사유**', '',
+    table(['지표', '제외 사유'], [
+      ['포맷 성공률', '11개 설정이 99.3~100.0%. 값의 폭이 1%라 0.7%p로 모델을 죽이면 사실상 동전 던지기'],
+      ['표현 품질', '88.4~94.4%, 폭 6%. 변별력이 없다'],
+      ['평균 지연', 'P95와 중복. 같은 축을 두 번 세면 속도에 가중치가 두 배로 들어간다'],
+    ]),
+    '', '**VRAM은 순위 지표가 아니라 전제다.** 후보군을 보고 EC2 사양을 정했고,',
+    '11개 설정 전부가 Tesla T4 16GB에 적재된다(최대 `qwen3:14b` ON 9.88GB, 여유 6.12GB).',
+    '전원 통과하는 값을 순위에 넣으면 0.45GB 차이로 모델이 탈락하는 왜곡이 생긴다.', '',
+    '## 3. 1단계 선별 — 하자 걸러내기 (6라운드)', '',
+    '![1차 선별 생존율](charts/screening_6r.svg)', '',
+    '지표 6개를 **한 번씩** 쓴다. 매 라운드 최하위 1개가 탈락해 11개 → 5개가 남는다.',
+    `지표를 어떤 순서로 배치하느냐에 결과가 달라지므로, **순서를 고르지 않고 ${six.orders}가지 전순열을 전수로** 돌렸다.`,
+    '각 지표가 정확히 한 번씩만 쓰이므로 **가중치는 완전히 균등하다.**', '',
+    survTable(six, [A, B]),
+    '', `**${dead.length}개 설정이 ${six.orders}가지 전부에서 탈락했다.** 확률이 아니라 예외가 없다.`,
+    `다만 상위 4개(\`${B}\`·\`${A}\`·\`qwen3:14b ON\`·\`qwen3:8b ON\`)는 서로 큰 차이가 없어,`,
+    '이 단계만으로는 2개까지 좁힐 수 없다.', '',
+    '## 4. 변별 — 2개까지 좁히기 (9라운드)', '',
+    '![2개까지 좁히기](charts/screening_9r.svg)', '',
+    '11개를 2개로 줄이려면 9번 탈락시켜야 하는데 지표는 6개다. **3개 지표가 한 번 더 쓰인다.**',
+    '앞자리 지표를 그대로 재사용하면 순서의 앞쪽에 가중치가 두 배로 붙는다.',
+    `그래서 **어느 3개를 재사용할지까지 독립적으로 훑었다** — 앞 6라운드 순열(720) × 재사용 3개 선택(P(6,3)=120) = **${nine.orders.toLocaleString()}가지**.`,
+    '', survTable(nine, [A, B]),
+    '', `**\`${nineTop[0][0]}\` ${nineTop[0][1].toFixed(1)}% · \`${nineTop[1][0]}\` ${nineTop[1][1].toFixed(1)}%.**`,
+    `3위(\`${nineTop[2][0]}\` ${nineTop[2][1].toFixed(1)}%)와 압도적으로 벌어지고, 순위도 \`${nineTop[0][0]}\`가 1위다.`,
+    '', '> 참고: 재사용 지표를 독립으로 훑기 전(720가지)에는 97.0%가 아니라 98.9%였다.',
+    '> **차이가 1.9%p에 불과해, 가중 편향이 결과를 만든 것이 아님이 실측으로 확인된다.**', '',
+    '## 5. 2단계 서열 — `' + A + '` vs `' + B + '`', '',
+    '1단계는 "하자가 없다"까지만 증명한다. 남은 둘의 우열은 다른 기준이 필요하다.',
+    '**상담봇은 평균이 아니라 최저치가 품질을 정하므로, 유형별 커버리지로 판단했다.**', '',
+    '![유형별 맞대결](charts/head_to_head.svg)', '',
+    '### 5-1. 유형별 정답률 (LLM Judge 전수 채점)', '',
+    h2hTable,
+    '', `**${B} ${h.winsB}승 · ${A} ${h.winsA}승 · 무 ${h.ties}.**`,
+    `정답률 50% 미만 유형은 **${A} ${h.belowA}개, ${B} ${h.belowB}개**다.`, '',
+    `\`${A}\`는 조건·예외·경계값에서 29%(7/24)다. 요금제 할인 기준·데이터 한도 같은`,
+    '임계값 상담이 통신 FAQ의 큰 축인데, 이 유형을 사실상 처리하지 못한다.',
+    `\`${B}\`는 같은 유형에서 79%(19/24)다.`, '',
+    '### 5-2. 난이도별 내용 정확도', '',
+    diffTable,
+    '', '기대 상태 일치(`ai_analysis.md` §13.3)로 봐도 같은 방향이다.', '',
+    table(['난이도', `${A} 상태 일치`, `${B} 상태 일치`], [
+      ['Easy / 81', '67', '**73**'], ['Medium / 112', '81', '**86**'], ['Hard / 107', '67', '**79**'],
+    ]),
+    '', '**서로 다른 두 지표(Judge 내용 정확도, 코드 기반 상태 일치)가 전 난이도에서 같은 결론을 낸다.**', '',
+    '### 5-3. 전체 지표', '',
+    table(['지표', A, B], [
+      ['**내용 정확도 (AI)**', pct(ra.llm_judge.correct_rate), '**' + pct(rb.llm_judge.correct_rate) + '**'],
+      ['근거율 (AI)', '**' + pct(ra.llm_judge.is_grounded_rate) + '**', pct(rb.llm_judge.is_grounded_rate)],
+      ['기대 상태 일치', pct(ra.status_match), '**' + pct(rb.status_match) + '**'],
+      ['부재판단 F1', '**' + num(ra.absence_f1, 3) + '**', num(rb.absence_f1, 3)],
+      ['반복 일관성', '**' + pct(ra.repeat.overall) + '**', pct(rb.repeat.overall)],
+      ['평균 지연', '**' + num(ra.latency_avg_ms / 1000, 2, 's') + '**', num(rb.latency_avg_ms / 1000, 2, 's')],
+      ['P95 지연', '**' + num(ra.latency_p95_ms / 1000, 2, 's') + '**', num(rb.latency_p95_ms / 1000, 2, 's')],
+      ['VRAM (최대, 낮을수록 좋음)', num(ra.vram_mib.max / 1024, 2, 'GB'), '**' + num(rb.vram_mib.max / 1024, 2, 'GB') + '**'],
+    ]),
+    '', '### 5-4. 반대 근거도 같이 본다', '',
+    `\`${A}\`가 이기는 지표가 분명히 있다. 숨기지 않는다.`, '',
+    `- **근거율·부재판단 F1·반복 일관성 세 지표에서 \`${A}\`가 앞선다.** 6개 지표 평균 순위로는 \`${A}\`가 우위다.`,
+    `- 유형별로도 \`${A}\`가 3개에서 이긴다 — 유사하지만 답 없음(+23p), 빈 컨텍스트(+17p), 부분 정보(+6p).`,
+    '  **셋 다 "근거가 없을 때 모른다고 말하는" 유형**이고, 이는 추론을 끈 설정의 알려진 약점이다.',
+    `- 속도는 \`${A}\`가 낫다 — 평균 ${num(ra.latency_avg_ms / 1000, 2, 's')} vs ${num(rb.latency_avg_ms / 1000, 2, 's')}, P95 ${num(ra.latency_p95_ms / 1000, 2, 's')} vs ${num(rb.latency_p95_ms / 1000, 2, 's')}.`,
+    `  다만 VRAM은 \`${B}\`가 오히려 적다(${num(rb.vram_mib.max / 1024, 2, 'GB')} vs ${num(ra.vram_mib.max / 1024, 2, 'GB')}).`,
+    '', `그럼에도 \`${B}\`를 택한 이유는, **이기는 유형의 수(${h.winsB}:${h.winsA})와 격차의 크기가 모두 크기 때문**이다.`,
+    '`조건·예외·경계값` +50p, `FAQ 충돌·시행일` +33p, `다중 FAQ 조합` +20p 대',
+    '`유사하지만 답 없음` −23p, `빈 컨텍스트` −17p.',
+    `그리고 50% 미만으로 떨어지는 유형이 ${h.belowA}개 대 ${h.belowB}개다.`, '',
+    `\`${B}\`의 약점(부재 인정)은 **검색 근거가 빈약할 때 LLM을 거치지 않고 상담사로 넘기는 게이트**로`,
+    '보완할 수 있는 성격이다. 반대로 조건·경계값 판단은 외부 게이트로 대체하기 어렵다.', '',
+    '## 6. 한계', '',
+    '- **1차 MVP 선정이다.** 최적화·양자화·프롬프트 튜닝 이전 상태의 비교이며 최종 모델 확정이 아니다.',
+    '- **내용 정확도·근거율은 단일 LLM Judge(`gpt-6-astra`) 판정**이고 사람 검수를 거치지 않았다.',
+    '  다만 코드 기반 결정론 지표(기대 상태 일치)와 모델 순위 상관이 Spearman +0.96으로 높다.',
+    '- **유형별 표본이 작다.** `API 결과 답변`은 5문항이라 한 문항이 20%p다. 확정적으로 읽지 않는다.',
+    '- **지연은 단일 요청 순차 측정**이다. 동시 처리량이 아니며, 실제 트래픽에서는 더 나빠진다.',
+    `  \`${B}\`의 P95 ${num(rb.latency_p95_ms / 1000, 2, 's')}는 상담봇 통상 기준(3~5초)을 넘는다.`,
+    '- **2단계 서열은 판단이다.** 1단계(전순열 전수)는 순서·가중치에 의존하지 않는 결과지만,',
+    '  "유형별 커버리지로 서열을 정한다"는 기준 선택은 우리가 내린 결정이다. 평균 순위로 보면 결론이 달라진다.', '',
+    '## 함께 볼 문서', '',
+    '- [종합 결과](summary_results.md) · [측정 방법과 한계](methodology.md)',
+    '- [추론 on/off 트레이드오프](think_ablation_results.md) · [LLM Judge 상세](llm_judge_review/README.md)',
+  ];
+}
+
 function vramDoc(profile) {
   if (!profile) {
     return ['# 모델별 VRAM 실측', '', '아직 측정하지 않았다. 다음 명령으로 측정한다:', '',
@@ -274,7 +469,9 @@ function vramDoc(profile) {
 
 // 발표용 한 장 — SVG를 인라인해 외부 요청이 0이다. 브라우저에서 열어 그대로 캡처한다.
 function writeDashboard(cmp, svgs) {
-  const order = ['pareto.svg', 'marginal_efficiency.svg', 'core_metrics.svg', 'think_slope.svg'];
+  // 선별 → 서열 → 보조 순. 발표 흐름과 같은 순서로 싣는다.
+  const order = ['screening_6r.svg', 'screening_9r.svg', 'head_to_head.svg',
+    'pareto.svg', 'marginal_efficiency.svg', 'core_metrics.svg', 'think_slope.svg'];
   const figs = order.filter((k) => svgs[k]).map((k) =>
     `<figure>${svgs[k].replace(/ width="\d+" height="\d+"/, ' width="100%" height="auto"')}</figure>`);
   const html = `<!doctype html>
@@ -299,8 +496,9 @@ function writeDashboard(cmp, svgs) {
   code { font-size:11.5px; }
 </style></head>
 <body><div class="wrap">
-<h1>test3 (EC2 라운드) 결과 대시보드</h1>
-<p class="meta">생성 시각 ${cmp.generated_at} · 출처 <code>results/scored/${SUITE}/round_comparison.json</code></p>
+<h1>test3 (EC2 라운드) — 운영 모델 선별</h1>
+<p class="meta">생성 시각 ${cmp.generated_at} · 출처 <code>results/scored/${SUITE}/round_comparison.json</code><br>
+1차 MVP 모델 선정 결과이며 최종 확정이 아니다. 근거 전문은 <code>results/${SUITE}/model_selection.md</code>.</p>
 ${figs.join('\n')}
 <footer>
 내용 정확도·근거율은 LLM Judge(<code>gpt-6-astra</code>) 전수 채점 결과, 기대 상태 일치·반복 일관성·포맷 성공률은 코드 기반 결정론 지표다.<br>
@@ -323,6 +521,8 @@ function main() {
   made.made.forEach((f) => console.log(`  -> results/${SUITE}/charts/${f}`));
   writeDashboard(cmp, made.charts);
 
+  const sel = selectionDoc(cmp);
+  if (sel) write('model_selection.md', sel);
   write('summary_results.md', summaryDoc(cmp));
   write('methodology.md', methodologyDoc(cmp));
   write('think_ablation_results.md', thinkDoc(cmp));

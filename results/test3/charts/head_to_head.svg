@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 780" width="960" height="780"
+ role="img" aria-label="유형별 정답률 맞대결" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+<style>
+  .viz { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+         --grid:#e1e0d9; --axis:#c3c2b7;
+         --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; }
+  @media (prefers-color-scheme: dark) {
+    .viz { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+           --grid:#2c2c2a; --axis:#383835;
+           --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; }
+  }
+  .bg   { fill: var(--surface); }
+  .ttl  { fill: var(--ink);   font-weight:700; }
+  .sub  { fill: var(--ink2); }
+  .lbl  { fill: var(--ink);  }
+  .axl  { fill: var(--muted); }
+  .grid { stroke: var(--grid); stroke-width:1; }
+  .axis { stroke: var(--axis); stroke-width:1; }
+  .note { fill: var(--ink2); }
+</style>
+<g class="viz"><rect class="bg" x="0" y="0" width="960" height="780"/>
+<text x="26.0" y="32.0" class="ttl" font-size="19" text-anchor="start">유형별 정답률 맞대결 — qwen3:14b OFF vs gemma3:12b</text>
+<text x="26.0" y="54.0" class="sub" font-size="12.5" text-anchor="start">대각선 위 = 왼쪽 모델 우세. 원 크기는 문항 수. LLM Judge 전수 채점 결과다.</text>
+<text x="26.0" y="76.0" class="sub" font-size="13" text-anchor="start" font-weight="700">qwen3:14b OFF 9승 · gemma3:12b 3승 · 무 1</text>
+<line class="grid" x1="92.0" y1="104" x2="92.0" y2="648"/>
+<line class="grid" x1="92" y1="648.0" x2="808" y2="648.0"/>
+<text x="92.0" y="668.0" class="axl" font-size="11" text-anchor="middle">0%</text>
+<text x="82.0" y="652.0" class="axl" font-size="11" text-anchor="end">0%</text>
+<line class="grid" x1="271.0" y1="104" x2="271.0" y2="648"/>
+<line class="grid" x1="92" y1="512.0" x2="808" y2="512.0"/>
+<text x="271.0" y="668.0" class="axl" font-size="11" text-anchor="middle">25%</text>
+<text x="82.0" y="516.0" class="axl" font-size="11" text-anchor="end">25%</text>
+<line class="grid" x1="450.0" y1="104" x2="450.0" y2="648"/>
+<line class="grid" x1="92" y1="376.0" x2="808" y2="376.0"/>
+<text x="450.0" y="668.0" class="axl" font-size="11" text-anchor="middle">50%</text>
+<text x="82.0" y="380.0" class="axl" font-size="11" text-anchor="end">50%</text>
+<line class="grid" x1="629.0" y1="104" x2="629.0" y2="648"/>
+<line class="grid" x1="92" y1="240.0" x2="808" y2="240.0"/>
+<text x="629.0" y="668.0" class="axl" font-size="11" text-anchor="middle">75%</text>
+<text x="82.0" y="244.0" class="axl" font-size="11" text-anchor="end">75%</text>
+<line class="grid" x1="808.0" y1="104" x2="808.0" y2="648"/>
+<line class="grid" x1="92" y1="104.0" x2="808" y2="104.0"/>
+<text x="808.0" y="668.0" class="axl" font-size="11" text-anchor="middle">100%</text>
+<text x="82.0" y="108.0" class="axl" font-size="11" text-anchor="end">100%</text>
+<line x1="92" y1="648" x2="808" y2="104" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6 5" opacity="0.8"/>
+<text x="214.6" y="555.0" class="note" font-size="11" text-anchor="start">동률선 (두 모델 같음)</text>
+<text x="104.0" y="126.0" class="sub" font-size="12" text-anchor="start" font-weight="600">▲ qwen3:14b OFF 우세</text>
+<text x="796.0" y="634.0" class="sub" font-size="12" text-anchor="end" font-weight="600">gemma3:12b 우세 ▼</text>
+<circle cx="300.8" cy="217.3" r="11.6" fill="var(--s1)" fill-opacity="0.95" stroke="var(--surface)" stroke-width="2"/>
+<text x="319.5" y="239.3" class="lbl" font-size="11" text-anchor="start" font-weight="700">조건·예외·경계값 (24)</text>
+<circle cx="426.1" cy="212.8" r="10.2" fill="var(--s1)" fill-opacity="0.95" stroke="var(--surface)" stroke-width="2"/>
+<text x="443.4" y="216.8" class="lbl" font-size="11" text-anchor="start" font-weight="700">FAQ 충돌·시행일 (15)</text>
+<circle cx="460.2" cy="492.6" r="13.0" fill="var(--s1)" fill-opacity="0.95" stroke="var(--surface)" stroke-width="2"/>
+<text x="480.2" y="496.6" class="lbl" font-size="11" text-anchor="start" font-weight="700">유사하지만 답 없음 (35)</text>
+<circle cx="617.1" cy="140.3" r="12.4" fill="var(--s1)" fill-opacity="0.95" stroke="var(--surface)" stroke-width="2"/>
+<text x="636.5" y="96.3" class="lbl" font-size="11" text-anchor="start" font-weight="700">다중 FAQ 조합 (30)</text>
+<circle cx="640.9" cy="321.6" r="12.4" fill="var(--s1)" fill-opacity="0.55" stroke="var(--surface)" stroke-width="2"/>
+<text x="660.3" y="325.6" class="note" font-size="11" text-anchor="start" font-weight="400">빈 컨텍스트 (30)</text>
+<circle cx="677.8" cy="128.7" r="11.3" fill="var(--s1)" fill-opacity="0.55" stroke="var(--surface)" stroke-width="2"/>
+<text x="659.5" y="114.7" class="note" font-size="11" text-anchor="end" font-weight="400">유사 FAQ 구분·노이즈 (22)</text>
+<circle cx="360.5" cy="376.0" r="11.6" fill="var(--s1)" fill-opacity="0.55" stroke="var(--surface)" stroke-width="2"/>
+<text x="379.1" y="380.0" class="note" font-size="11" text-anchor="start" font-weight="400">사용자 정보+FAQ (24)</text>
+<circle cx="436.7" cy="325.6" r="12.0" fill="var(--s1)" fill-opacity="0.55" stroke="var(--surface)" stroke-width="2"/>
+<text x="455.8" y="329.6" class="note" font-size="11" text-anchor="start" font-weight="400">멀티턴 대화 (27)</text>
+<circle cx="712.5" cy="140.3" r="10.2" fill="var(--s1)" fill-opacity="0.55" stroke="var(--surface)" stroke-width="2"/>
+<text x="695.3" y="176.3" class="note" font-size="11" text-anchor="end" font-weight="400">적대적 입력·범위 밖 (15)</text>
+<circle cx="726.2" cy="197.3" r="13.0" fill="var(--s1)" fill-opacity="0.55" stroke="var(--surface)" stroke-width="2"/>
+<text x="706.2" y="201.3" class="note" font-size="11" text-anchor="end" font-weight="400">부분 정보 (35)</text>
+<circle cx="768.2" cy="104.0" r="10.7" fill="var(--s1)" fill-opacity="0.55" stroke="var(--surface)" stroke-width="2"/>
+<text x="786.0" y="108.0" class="note" font-size="11" text-anchor="start" font-weight="400">단일 FAQ 답변 (18)</text>
+<circle cx="521.6" cy="294.4" r="11.0" fill="var(--s1)" fill-opacity="0.55" stroke="var(--surface)" stroke-width="2"/>
+<text x="539.6" y="298.4" class="note" font-size="11" text-anchor="start" font-weight="400">무관 FAQ (20)</text>
+<circle cx="378.4" cy="430.4" r="8.0" fill="var(--s1)" fill-opacity="0.55" stroke="var(--surface)" stroke-width="2"/>
+<text x="393.4" y="434.4" class="note" font-size="11" text-anchor="start" font-weight="400">API 결과 답변 (5)</text>
+<text x="450.0" y="688.0" class="sub" font-size="12" text-anchor="middle">gemma3:12b 정답률 →</text>
+<text transform="translate(28,376) rotate(-90)" class="sub" font-size="12" text-anchor="middle">qwen3:14b OFF 정답률 →</text>
+<text x="26.0" y="722.0" class="lbl" font-size="12.5" text-anchor="start" font-weight="700">정답률 50% 미만 유형: gemma3:12b 5개 · qwen3:14b OFF 2개</text>
+<text x="26.0" y="742.0" class="note" font-size="11.5" text-anchor="start">전체 평균만 보면 가려지는 구멍이 여기서 드러난다. 상담봇은 평균이 아니라 최저치가 품질을 정한다.</text>
+<text x="26.0" y="762.0" class="note" font-size="11" text-anchor="start">문항 수가 작은 유형(API 5건 등)은 원이 작다 — 한 문항이 20%p라 확정적으로 읽지 않는다.</text>
+</g></svg>

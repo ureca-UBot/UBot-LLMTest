@@ -1,6 +1,6 @@
 # test3 (EC2 라운드) 종합 결과
 
-생성 시각: 2026-09-22T06:42:57.499Z
+생성 시각: 2026-09-22T15:35:48.156Z
 
 ## 측정 조건
 
@@ -46,6 +46,7 @@
 
 ## 함께 볼 문서
 
+- [**운영 모델 선별 과정과 근거**](model_selection.md)
 - [측정 방법과 한계](methodology.md)
 - [추론 모드 on/off 트레이드오프](think_ablation_results.md)
 - [temperature 0 vs 0.8 대조](temperature_comparison.md)
