@@ -9,6 +9,7 @@ const path = require('path');
 const models = require('./config/models');
 const { ROOT } = require('./lib/runner');
 const { readJson } = require('./lib/collect');
+const charts = require('./lib/charts');
 
 const SUITE = models.suite;
 const COMPARISON = path.join(ROOT, 'results', 'scored', SUITE, 'round_comparison.json');
@@ -33,6 +34,31 @@ function write(name, lines) {
   fs.mkdirSync(DOCS, { recursive: true });
   fs.writeFileSync(p, lines.join('\n').replace(/\n{3,}/g, '\n\n') + '\n', 'utf8');
   console.log(`  -> ${path.relative(ROOT, p)}`);
+}
+
+// 분모 설명을 값에서 만든다 — 다음 라운드에서 건수가 바뀌어도 맞아야 한다.
+function denominatorNote(cmp) {
+  const scored = cmp.models
+    .map((m) => [m.model_tag, m.test3_think && m.test3_think.llm_judge && m.test3_think.llm_judge.n_scored])
+    .filter(([, n]) => n != null);
+  if (!scored.length) return '분모는 채점에 성공한 답변 수다.';
+  const counts = scored.map(([, n]) => n);
+  const mode = counts.sort((a, b) =>
+    counts.filter((v) => v === a).length - counts.filter((v) => v === b).length).pop();
+  const odd = scored.filter(([, n]) => n !== mode).map(([tag, n]) => `${tag} ${n}문항`);
+  return odd.length
+    ? `분모는 채점에 성공한 답변 수다 — ${odd.join(', ')}이고 나머지는 ${mode}문항이다.`
+    : `분모는 채점에 성공한 답변 수다 — 전 모델 ${mode}문항이다.`;
+}
+
+// F1이 0인 모델이 있으면 왜 0인지 각주를 단다(빈 칸과 0을 구분하기 위해).
+function absenceZeroNote(cmp) {
+  const zero = cmp.models.filter((m) => m.test3_think && m.test3_think.absence_f1 === 0);
+  if (!zero.length) return [];
+  return zero.map((m) => [
+    `- ${m.model_tag}의 부재판단 F1 \`0.000\`은 기대 ABSTAIN 문항 중 0문항을 맞혀(TP=0)`,
+    '  정밀도·재현율이 모두 0인 결과다. 채점기는 0/0 나눗셈을 `null`로 내보내지만 관례상 F1은 0이다.',
+  ].join('\n'));
 }
 
 function summaryDoc(cmp) {
@@ -60,12 +86,19 @@ function summaryDoc(cmp) {
     '- seed 미고정 — temperature=0은 greedy decoding이라 seed를 쓰지 않는다',
     '', '## temperature 설정의 근거', '',
     `> ${TEMPERATURE_RATIONALE}`, '',
+    '## 한눈에 보기', '',
+    '![지연 대비 정확도 파레토 프론티어](charts/pareto.svg)', '',
+    '선 위의 설정은 "더 빠르면서 더 정확한 대안이 없는" 설정이다. 빈 원은 그런 대안이 있어 탈락한 설정이다.', '',
+    '![프론티어 구간별 한계 효율](charts/marginal_efficiency.svg)', '',
+    '![test3 본측정 핵심 지표](charts/core_metrics.svg)', '',
     '## 모델별 결과', '',
     table(['모델', '구분', '내용 정확도(AI)', '근거율(AI)', '기대 상태 일치', '부재판단 F1',
       '포맷 성공률', '반복 일관성', '평균 지연', 'P95'], rows),
     '',
-    '- 내용 정확도·근거율은 LLM Judge(`accuracy_hallucination_llm_summary.json`) 값이다.',
-    '  아직 채점하지 않았으면 `-`로 표시된다.',
+    '- 내용 정확도·근거율은 LLM Judge 전수 채점 결과다([llm_judge_review/metrics.json](llm_judge_review/metrics.json), 해석은 [interpretation.md](llm_judge_review/interpretation.md)).',
+    '  내용 정확도는 CORRECT 판정 비율, 근거율은 실질적 환각(근거 1~3점)이 없는 답변의 비율(= 1 − 환각률)이다.',
+    '  ' + denominatorNote(cmp),
+    ...absenceZeroNote(cmp),
     '- **결정론 채점기의 RAG 충실도(`rag_faithfulness.jsonl`)는 이 표에 넣지 않았다.**',
     '  `scripts/test2/score_rag_faithfulness.js`의 premise 누락이 고쳐지지 않아 모델 순위가 역전되기 때문이다.',
     '  자세한 내용은 [methodology.md](methodology.md) 참고.',
@@ -111,19 +144,37 @@ function methodologyDoc(cmp) {
   ];
 }
 
+// 짝 건수 설명도 값에서 만든다.
+function pairedNote(cmp) {
+  const pairs = cmp.paired_thinking || [];
+  if (!pairs.length) return '짝 건수는 조건별 채점 결과에 따른다.';
+  const counts = pairs.map((p) => p.n_paired);
+  const mode = counts.slice().sort((a, b) =>
+    counts.filter((v) => v === a).length - counts.filter((v) => v === b).length).pop();
+  const odd = pairs.filter((p) => p.n_paired !== mode).map((p) => `\`${p.model_tag}\` ${p.n_paired}쌍`);
+  return odd.length
+    ? `${odd.join(', ')}, 나머지는 ${mode}쌍이다.`
+    : `전 모델 ${mode}쌍이다.`;
+}
+
 function thinkDoc(cmp) {
   const targets = cmp.models.filter((m) => m.think_capable);
   const rows = targets.map((m) => {
     const on = m.test3_think, off = m.test3_nothink;
-    const d = (a, b) => (a == null || b == null) ? '-' : ((b - a) >= 0 ? '+' : '') + (b - a).toFixed(1) + '%p';
+    // 정확도만 짝지은 값을 쓴다 — 두 조건 모두 채점된 동일 문항이 분모라
+    // 전체 run 값과 다르다. 토큰·지연은 각 실행의 전체 집계값 그대로다.
+    const pair = (cmp.paired_thinking || []).find((p) => p.model_tag === m.model_tag);
+    // 음수는 U+2212(−)를 쓴다 — ASCII 하이픈은 "값 없음(-)"과 헷갈린다.
+    const d = (a, b) => (a == null || b == null) ? '-'
+      : ((b - a) >= 0 ? '+' : '−') + Math.abs(b - a).toFixed(1) + '%p';
     return [
       m.model_tag,
       on ? num(on.avg_eval_count) : '-', off ? num(off.avg_eval_count) : '-',
       on ? num(on.latency_avg_ms / 1000, 2, 's') : '-', off ? num(off.latency_avg_ms / 1000, 2, 's') : '-',
       on ? num(on.latency_p95_ms / 1000, 2, 's') : '-', off ? num(off.latency_p95_ms / 1000, 2, 's') : '-',
-      on ? pct(on.llm_judge && on.llm_judge.correct_rate) : '-',
-      off ? pct(off.llm_judge && off.llm_judge.correct_rate) : '-',
-      d(on && on.llm_judge && on.llm_judge.correct_rate * 100, off && off.llm_judge && off.llm_judge.correct_rate * 100),
+      pair ? pct(pair.on && pair.on.correct_rate) : '-',
+      pair ? pct(pair.off && pair.off.correct_rate) : '-',
+      d(pair && pair.on && pair.on.correct_rate * 100, pair && pair.off && pair.off.correct_rate * 100),
     ];
   });
   const excluded = cmp.models.filter((m) => !m.think_capable).map((m) => m.model_tag);
@@ -138,8 +189,13 @@ function thinkDoc(cmp) {
     '덕분일 수 있어서, 확인 없이 끄면 모델 선정 근거 자체가 무너진다. 그래서 두 조건을 모두 잰다.',
     '', '## 측정 결과', '',
     '두 조건 모두 temperature=0으로 고정했다 — 추론 변수만 남기기 위해서다.', '',
+    '![추론 on/off 기울기 비교](charts/think_slope.svg)', '',
     table(['모델', 'on 토큰', 'off 토큰', 'on 평균', 'off 평균', 'on P95', 'off P95',
       'on 정확도', 'off 정확도', '정확도 변화'], rows),
+    '',
+    '정확도는 LLM Judge 전수 채점 결과이며, 두 조건 모두 채점된 **동일 문항만 짝지어** 비교했다 —',
+    pairedNote(cmp) + ' 토큰·지연은 각 실행의 전체 집계값이다.',
+    '출처: [llm_judge_review/README.md](llm_judge_review/README.md), [interpretation.md](llm_judge_review/interpretation.md).',
     '',
     `**대상 제외:** ${excluded.join(', ')} — 추론 모드가 없는 모델이라 비교 대상이 아니다.`,
     '', '## 해석 기준', '',
@@ -216,6 +272,46 @@ function vramDoc(profile) {
   ];
 }
 
+// 발표용 한 장 — SVG를 인라인해 외부 요청이 0이다. 브라우저에서 열어 그대로 캡처한다.
+function writeDashboard(cmp, svgs) {
+  const order = ['pareto.svg', 'marginal_efficiency.svg', 'core_metrics.svg', 'think_slope.svg'];
+  const figs = order.filter((k) => svgs[k]).map((k) =>
+    `<figure>${svgs[k].replace(/ width="\d+" height="\d+"/, ' width="100%" height="auto"')}</figure>`);
+  const html = `<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>test3 결과 대시보드</title>
+<style>
+  :root { color-scheme: light dark; --page:#f9f9f7; --card:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --line:#e1e0d9; }
+  @media (prefers-color-scheme: dark) {
+    :root { --page:#0d0d0d; --card:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --line:#2c2c2a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:24px 16px 56px; background:var(--page); color:var(--ink);
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR','Malgun Gothic',sans-serif; }
+  .wrap { max-width:1060px; margin:0 auto; }
+  h1 { font-size:24px; margin:0 0 6px; }
+  .meta { color:var(--ink2); font-size:13px; margin:0 0 28px; }
+  figure { margin:0 0 22px; padding:10px; background:var(--card);
+           border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  figure svg { display:block; width:100%; height:auto; }
+  footer { color:var(--ink2); font-size:12px; margin-top:28px; line-height:1.7; }
+  code { font-size:11.5px; }
+</style></head>
+<body><div class="wrap">
+<h1>test3 (EC2 라운드) 결과 대시보드</h1>
+<p class="meta">생성 시각 ${cmp.generated_at} · 출처 <code>results/scored/${SUITE}/round_comparison.json</code></p>
+${figs.join('\n')}
+<footer>
+내용 정확도·근거율은 LLM Judge(<code>gpt-6-astra</code>) 전수 채점 결과, 기대 상태 일치·반복 일관성·포맷 성공률은 코드 기반 결정론 지표다.<br>
+지연·VRAM은 EC2(Tesla T4)에서 단일 요청을 순차 측정한 값이며 동시 처리량이 아니다. test2와는 하드웨어가 달라 속도를 비교하지 않는다.
+</footer>
+</div></body></html>
+`;
+  fs.writeFileSync(path.join(DOCS, 'dashboard.html'), html, 'utf8');
+  console.log(`  -> results/${SUITE}/dashboard.html`);
+}
+
 function main() {
   const cmp = readJson(COMPARISON);
   if (!cmp) {
@@ -223,6 +319,10 @@ function main() {
     process.exit(1);
   }
   console.log('test3 문서 생성:');
+  const made = charts.writeAll(cmp, path.join(DOCS, 'charts'));
+  made.made.forEach((f) => console.log(`  -> results/${SUITE}/charts/${f}`));
+  writeDashboard(cmp, made.charts);
+
   write('summary_results.md', summaryDoc(cmp));
   write('methodology.md', methodologyDoc(cmp));
   write('think_ablation_results.md', thinkDoc(cmp));
