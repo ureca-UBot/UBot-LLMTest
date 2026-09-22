@@ -149,7 +149,7 @@ tmux new -s prompt
 node scripts/test3/run_prompt_test.js qwen3:14b 2>&1 | tee -a test3_prompt_$(date +%Y%m%d).log
 ```
 
-결과는 `results/test3/prompt_test_<모델>_<날짜>.md`에 나온다. 자세한 사용법과 결과 읽는 법은
+결과는 `results/test3_prompt/prompt_test_<모델>_<날짜>.md`에 나온다. 자세한 사용법과 결과 읽는 법은
 [PROMPT_TEST.md](PROMPT_TEST.md) 참고.
 
 ## 8. 결과 회수

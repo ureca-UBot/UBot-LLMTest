@@ -62,7 +62,7 @@ node scripts/test3/run_prompt_test.js qwen3:14b
 | Python 3.10+ / `.venv_nli` | RAG 충실도 채점에 필요 |
 | 기존 `t0_nothink` run | 대조군. 없으면 `--with-baseline`으로 같이 생성 |
 
-환경 설치는 [SETUP.md](SETUP.md) 참고. 러너가 `LLM_TEST_SUITE=test3`를 자동으로 넣으므로 직접 export할 필요는 없다.
+환경 설치는 [SETUP.md](SETUP.md) 참고. 러너가 `LLM_TEST_SUITE=test3_prompt`를 자동으로 넣으므로 직접 export할 필요는 없다.
 
 ## 4. 실행 방법
 
@@ -98,16 +98,21 @@ node scripts/test3/compare_prompts.js --model qwen3:14b --date 20260922
 | `--dry-run` | 꺼짐 | run_id만 출력, 모델 호출 없음 |
 | `--skip-model-check` | 꺼짐 | 시작 전 `ollama list` 확인 생략 |
 
-run_id는 `<env>_<모델>_<안>_t0_nothink_<날짜>`다. 조건이 이름에 들어가므로 기존 test3 run과 섞이지 않는다.
+run_id는 `<env>_<모델>_<안>_t0_nothink_<날짜>`다. 결과 폴더가 `test3_prompt`로 분리되고 run_id에도 안 이름이 들어가므로 모델 라운드 결과와 섞이지 않는다.
 
 ## 6. 결과 파일
 
+프롬프트 테스트 결과는 **모델 라운드(test3)와 섞지 않고 `test3_prompt` 폴더에 따로 쌓인다.**
+
 | 파일 | 내용 |
 |---|---|
-| `results/test3/prompt_test_<모델>_<날짜>.md` | ⭐ **비교 문서** |
-| `results/reports/test3/<run_id>_summary.md` | 안별 요약 |
-| `results/scored/test3/<run_id>/review.csv` | 문항별 질문·정답·답변·점수 |
-| `results/raw/test3/<run_id>/generation.jsonl` | 원본 출력 (`prompt_variant`, `gen_params` 포함) |
+| `results/test3_prompt/prompt_test_<모델>_<날짜>.md` | ⭐ **비교 문서** |
+| `results/reports/test3_prompt/<run_id>_summary.md` | 안별 요약 |
+| `results/scored/test3_prompt/<run_id>/review.csv` | 문항별 질문·정답·답변·점수 |
+| `results/raw/test3_prompt/<run_id>/generation.jsonl` | 원본 출력 (`prompt_variant`, `gen_params` 포함) |
+
+대조군(`v0_baseline`)만 예외로 `results/*/test3/`의 기존 `t0_nothink` run을 읽는다. 비교 문서의
+표에 안별 `suite`가 함께 표시되므로 어느 폴더에서 온 값인지 알 수 있다.
 
 ## 7. 결과 읽는 법
 

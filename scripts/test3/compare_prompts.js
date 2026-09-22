@@ -2,11 +2,10 @@
 // 프롬프트 안별 결과를 한 문서로 모은다. run_prompt_test.js가 마지막에 부르고,
 // 따로 실행해도 된다. 이미 채점된 파일만 읽으며 모델을 호출하지 않는다.
 //
-// 경로는 lib/collect.js(= results/{raw,scored}/<suite>/...)를 쓴다. suite는
-// LLM_TEST_SUITE로 정해지며 기본값은 config/models.js의 test3다.
-//
-// 대조군(v0_baseline)은 기존 추론 off 라운드(t0_nothink) run을 쓴다 — 프롬프트와
-// 생성 조건이 같으므로 다시 돌릴 필요가 없다.
+// 프롬프트 안의 결과는 전용 suite(기본 test3_prompt = LLM_TEST_SUITE)에 있고,
+// 대조군(v0_baseline)은 모델 라운드 suite(test3)의 기존 t0_nothink run을 읽는다.
+// 프롬프트와 생성 조건이 같으므로 v0를 다시 돌릴 필요가 없다.
+// 두 suite를 섞어 읽으므로 run을 읽을 때마다 suite를 함께 들고 다닌다.
 //
 // Usage:
 //   node scripts/test3/compare_prompts.js --model qwen3:14b [--date 20260922]
@@ -18,11 +17,15 @@ const path = require('path');
 const models = require('./config/models');
 const { ROOT, sanitizeTag } = require('./lib/runner');
 const { collectRun, loadPrimaryCases, findRunId, readJsonl, readJson } = require('./lib/collect');
+const { suiteTag } = require('../test2/lib/suite');
 const { parseCsvObjects } = require('../test2/lib/csv');
 const { expectedStatusEnum } = require('../test2/lib/status_map');
 const { SYSTEM_PROMPTS, PROMPT_NOTES } = require('../test2/lib/prompts');
 
-const SUITE = models.suite;
+// 프롬프트 안 결과가 쌓이는 suite (러너가 LLM_TEST_SUITE로 넘겨준다).
+const SUITE = suiteTag();
+// 대조군(v0)이 있는 suite = 모델 라운드 쪽. --baseline-suite로 바꿀 수 있다.
+const DEFAULT_BASELINE_SUITE = models.suite;
 const CONDITION_SUFFIX = 't0_nothink';
 const BASELINE = 'v0_baseline';
 const STATUSES = ['ANSWER', 'PARTIAL', 'CLARIFY', 'ABSTAIN', 'CONFLICT', 'OUT_OF_SCOPE'];
@@ -40,13 +43,15 @@ const table = (header, rows) => [
 ].join('\n');
 
 function parseArgs(argv) {
-  const o = { model: null, date: null, variants: null, baseline: null, out: null, limitTag: null, failed: [] };
+  const o = { model: null, date: null, variants: null, baseline: null, baselineSuite: DEFAULT_BASELINE_SUITE,
+    out: null, limitTag: null, failed: [] };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--model') o.model = argv[++i];
     else if (a === '--date') o.date = argv[++i];
     else if (a === '--variants') o.variants = argv[++i].split(',').map((s) => s.trim()).filter(Boolean);
     else if (a === '--baseline') o.baseline = argv[++i];
+    else if (a === '--baseline-suite') o.baselineSuite = argv[++i];
     else if (a === '--out') o.out = path.resolve(argv[++i]);
     else if (a === '--limit-tag') o.limitTag = argv[++i];
     else if (a === '--failed') o.failed = argv[++i].split(';').filter(Boolean);
@@ -67,6 +72,7 @@ function loadCaseIndex() {
 }
 
 // 한 run의 문항별 status 판정 결과. 채점 파일이 아니라 생성 결과에서 직접 만든다.
+// suite가 다를 수 있으므로(대조군은 test3, 안들은 test3_prompt) 인자로 받는다.
 function statusByCase(suite, runId, caseIdx) {
   const gen = readJsonl(path.join(ROOT, 'results', 'raw', suite, runId, 'generation.jsonl'));
   if (!gen) return null;
@@ -131,11 +137,12 @@ function pairedDiff(base, cand) {
   };
 }
 
-function resolveRuns(model, date, variants, baselineOverride) {
+function resolveRuns(model, date, variants, baselineOverride, baselineSuite) {
   const slug = sanitizeTag(model);
   const runs = [];
-  const baseId = baselineOverride || findRunId(SUITE, model, CONDITION_SUFFIX);
-  runs.push({ variant: BASELINE, runId: baseId, reused: !baselineOverride && !!baseId });
+  // 대조군: 모델 라운드 suite의 t0_nothink run. 안들과 suite가 다르다.
+  const baseId = baselineOverride || findRunId(baselineSuite, model, CONDITION_SUFFIX);
+  runs.push({ variant: BASELINE, runId: baseId, suite: baselineSuite, reused: !baselineOverride && !!baseId });
   for (const v of variants) {
     // date를 주면 그 날짜 run을, 없으면 가장 최신 run을 쓴다.
     const condition = `${v}_${CONDITION_SUFFIX}`;
@@ -147,7 +154,7 @@ function resolveRuns(model, date, variants, baselineOverride) {
         : [];
       if (exact.length) runId = exact[exact.length - 1];
     }
-    runs.push({ variant: v, runId, reused: false });
+    runs.push({ variant: v, runId, suite: SUITE, reused: false });
   }
   return runs;
 }
@@ -163,15 +170,16 @@ function main() {
     .filter((v) => v !== BASELINE);
   const caseIdx = loadCaseIndex();
   const primary = loadPrimaryCases();
-  const ragCheck = readJson(path.join(ROOT, 'results', 'scored', SUITE, 'rag_rule_ranking_check.json'));
+  // 결정론 RAG 지표의 순위 유효성 검증 결과는 모델 라운드 쪽에 있다.
+  const ragCheck = readJson(path.join(ROOT, 'results', 'scored', opts.baselineSuite, 'rag_rule_ranking_check.json'));
 
-  const resolved = resolveRuns(opts.model, opts.date, variants, opts.baseline);
+  const resolved = resolveRuns(opts.model, opts.date, variants, opts.baseline, opts.baselineSuite);
   const rows = [];
   const missing = [];
   for (const r of resolved) {
     if (!r.runId) { missing.push(`${r.variant}: 해당 조건의 run을 찾지 못했습니다.`); continue; }
-    const metrics = collectRun(SUITE, r.runId, primary);
-    const statuses = statusByCase(SUITE, r.runId, caseIdx);
+    const metrics = collectRun(r.suite, r.runId, primary);
+    const statuses = statusByCase(r.suite, r.runId, caseIdx);
     if (!metrics || !statuses) { missing.push(`${r.variant} (${r.runId}): 결과 파일이 없습니다.`); continue; }
     rows.push({ ...r, metrics, statuses, types: typeStats(statuses) });
   }
@@ -197,12 +205,13 @@ function main() {
   L.push(`- 모델: \`${opts.model}\` 고정. **프롬프트만 바꿨다.**`);
   L.push('- temperature 0 · 추론(thinking) 모드 끔 · seed 미고정 · 고유 문항(실행 회차 1)만');
   L.push('- 평가 데이터셋: `data/eval_sets/test_set2/cases.csv` — test2·test3와 동일');
-  L.push(`- 대조군(\`${BASELINE}\`)은 ${base && base.reused ? '기존 추론 off 라운드 결과를 그대로 썼다' : '이번에 새로 생성했다'}.`);
+  L.push(`- 대조군(\`${BASELINE}\`)은 ${base && base.reused ? `\`${opts.baselineSuite}\`의 기존 추론 off 라운드 결과를 그대로 썼다` : '이번에 새로 생성했다'}.`);
+  L.push(`- 프롬프트 안 결과는 \`results/{raw,scored,reports}/${SUITE}/\`에 있다 — 모델 라운드(\`${opts.baselineSuite}\`)와 섞지 않는다.`);
   L.push('- 추론을 끈 이유: `results/test3/think_ablation_results.md` — 추론을 켜면 P95가 상담 실용선을 크게 넘는다.', '');
-  L.push(table(['안', 'run_id', '바꾼 것', '겨냥한 약점'],
+  L.push(table(['안', 'suite', 'run_id', '바꾼 것', '겨냥한 약점'],
     rows.map((r) => {
       const note = PROMPT_NOTES[r.variant] || { changed: '-', target: '-' };
-      return [r.variant, '`' + r.runId + '`', note.changed, note.target];
+      return [r.variant, r.suite, '`' + r.runId + '`', note.changed, note.target];
     })), '');
 
   const paramSet = new Set(rows.map((r) => JSON.stringify(r.metrics.gen_params)));
@@ -246,7 +255,7 @@ function main() {
   L.push('- 내용 정확도·근거율(AI)은 LLM Judge 채점 결과다. 아직 채점하지 않았으면 `-`다.');
   if (ragCheck) {
     L.push(`- RAG 근거율(결정론)은 절대값이 실제보다 낮다. 편향이 고루 걸려 순위 비교로는 쓸 수 있다고 확인했다`
-      + `(Spearman rho ${ragCheck.rho_all_vs_premise_complete}, [검증](../scored/${SUITE}/rag_rule_ranking_check.json)).`
+      + `(Spearman rho ${ragCheck.rho_all_vs_premise_complete}, [검증](../scored/${opts.baselineSuite}/rag_rule_ranking_check.json)).`
       + ' 다만 여기서는 같은 모델·같은 문항이라 편향이 동일하게 걸리므로 안끼리 차이를 보는 용도로는 더 안전하다.');
   }
   L.push('- `n`은 근거 대조를 한 문항 수다. 보류로 답한 문항은 분모에서 빠지므로, 보류가 늘면 `n`이 줄어든다.', '');
@@ -320,9 +329,9 @@ function main() {
 
   L.push('## 원본 파일', '');
   for (const r of rows) {
-    L.push(`- ${r.variant}: [생성 결과](../raw/${SUITE}/${r.runId}/generation.jsonl)`
-      + ` · [통합 CSV](../scored/${SUITE}/${r.runId}/review.csv)`
-      + ` · [요약](../reports/${SUITE}/${r.runId}_summary.md)`);
+    L.push(`- ${r.variant}: [생성 결과](../raw/${r.suite}/${r.runId}/generation.jsonl)`
+      + ` · [통합 CSV](../scored/${r.suite}/${r.runId}/review.csv)`
+      + ` · [요약](../reports/${r.suite}/${r.runId}_summary.md)`);
   }
   L.push('');
   L.push('## 사람 판단', '', '- 채택할 안:', '- 근거:', '- 다른 모델로 확인할 안:', '- 메모:', '');

@@ -75,14 +75,16 @@ function buildArgs(runId, modelTag, params) {
 
 // models: [{tag, ...}], params: {temperature, think, seed, repeatOnly, primaryOnly,
 //                                 prompt, skipRepeat, limit}
-function runRound({ label, models, condition, params, date = todayStamp(), dryRun = false, skipModelCheck = false }) {
+// suite: 결과가 쌓이는 폴더를 고른다. 기본은 test3(모델 라운드)이고, 프롬프트
+// 비교처럼 성격이 다른 실행은 test3_prompt 같은 별도 suite를 줘서 섞이지 않게 한다.
+function runRound({ label, models, condition, params, date = todayStamp(), dryRun = false, skipModelCheck = false, suite = SUITE }) {
   if (!models.length) {
     console.error(`[${label}] 대상 모델이 없습니다.`);
     process.exit(1);
   }
 
   console.log(`\n===== ${label} =====`);
-  console.log(`suite=${SUITE} env=${envTag()} date=${date} 모델 ${models.length}개`);
+  console.log(`suite=${suite} env=${envTag()} date=${date} 모델 ${models.length}개`);
   console.log(`생성 파라미터: ${JSON.stringify(params)}`);
   for (const m of models) {
     console.log(`  - ${m.tag}  ->  ${makeRunId(m.tag, condition, date)}`);
@@ -111,7 +113,7 @@ function runRound({ label, models, condition, params, date = todayStamp(), dryRu
     console.log(`\n\n########## [${idx + 1}/${models.length}] ${m.tag} (run_id=${runId}) ##########`);
     const res = spawnSync(process.execPath, buildArgs(runId, m.tag, m.thinkCapable ? params : { ...params, think: null }), {
       stdio: 'inherit',
-      env: { ...process.env, LLM_TEST_SUITE: SUITE },
+      env: { ...process.env, LLM_TEST_SUITE: suite },
     });
     results.push({ tag: m.tag, runId, ok: res.status === 0, status: res.status });
     if (res.status !== 0) {

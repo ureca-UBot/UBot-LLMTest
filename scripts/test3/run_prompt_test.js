@@ -26,13 +26,18 @@
 const path = require('path');
 const { spawnSync } = require('child_process');
 const models = require('./config/models');
-const { ROOT, SUITE, runRound, parseCommonArgs, sanitizeTag, envTag, makeRunId } = require('./lib/runner');
+const { ROOT, SUITE, runRound, parseCommonArgs, envTag, makeRunId } = require('./lib/runner');
 const { SYSTEM_PROMPTS } = require('../test2/lib/prompts');
 
 // 프롬프트 비교는 추론 off·온도 0 조건에서 한다. run_id의 조건 부분은
-// <안>_<이 접미사>가 되므로, 기존 t0_nothink run과 디렉터리가 겹치지 않는다.
+// <안>_<이 접미사>가 된다.
 const CONDITION_SUFFIX = 't0_nothink';
 const BASELINE = 'v0_baseline';
+
+// 결과는 test3(모델 라운드)와 섞지 않고 전용 suite에 쌓는다 —
+//   results/{raw,scored,reports}/test3_prompt/... , 문서는 results/test3_prompt/
+// 대조군(v0)은 test3의 t0_nothink run을 그대로 읽는다(재실행 없음).
+const PROMPT_SUITE = `${SUITE}_prompt`;
 
 function parseArgs(argv) {
   const common = parseCommonArgs(argv);
@@ -69,11 +74,12 @@ function main() {
   const configured = models.all.find((m) => m.tag === opts.model);
   if (configured) model.thinkCapable = configured.thinkCapable;
 
-  console.log(`\n프롬프트 비교 — model=${opts.model} suite=${SUITE} env=${envTag()} date=${opts.date}`);
+  console.log(`\n프롬프트 비교 — model=${opts.model} suite=${PROMPT_SUITE} env=${envTag()} date=${opts.date}`);
   console.log(`대상 안 ${variants.length}개: ${variants.join(', ')}`);
   if (!variants.includes(BASELINE)) {
-    console.log(`대조군(${BASELINE})은 새로 생성하지 않고 기존 ${CONDITION_SUFFIX} run을 쓴다.`);
+    console.log(`대조군(${BASELINE})은 새로 생성하지 않고 ${SUITE}의 기존 ${CONDITION_SUFFIX} run을 쓴다.`);
   }
+  console.log(`결과 경로: results/{raw,scored,reports}/${PROMPT_SUITE}/ · 문서: results/${PROMPT_SUITE}/`);
   if (!model.thinkCapable) {
     console.log('이 모델은 추론 모드가 없어 think 값을 보내지 않는다(조건 이름은 그대로 유지).');
   }
@@ -97,6 +103,7 @@ function main() {
       date: opts.date,
       dryRun: opts.dryRun,
       skipModelCheck: opts.skipModelCheck,
+      suite: PROMPT_SUITE,
     });
     results.push({ variant, runId: makeRunId(opts.model, condition, opts.date), ...(r[0] || { ok: opts.dryRun }) });
   }
@@ -112,7 +119,7 @@ function main() {
   const failed = results.filter((r) => !r.ok);
   if (failed.length) args.push('--failed', failed.map((r) => `${r.variant}:exit ${r.status}`).join(';'));
   console.log('\n=== 비교 문서 생성 ===');
-  const cmp = spawnSync(process.execPath, args, { stdio: 'inherit', env: { ...process.env, LLM_TEST_SUITE: SUITE } });
+  const cmp = spawnSync(process.execPath, args, { stdio: 'inherit', env: { ...process.env, LLM_TEST_SUITE: PROMPT_SUITE } });
 
   console.log('\n========== 프롬프트 비교 요약 ==========');
   for (const r of results) console.log(`  ${r.ok ? 'OK  ' : 'FAIL'} ${r.variant} (run_id=${r.runId})`);
@@ -121,7 +128,7 @@ function main() {
     process.exit(1);
   }
   if (cmp.status !== 0) process.exit(cmp.status || 1);
-  console.log(`\n결과 문서는 results/${SUITE}/ 아래에 있습니다. ROOT=${path.relative(process.cwd(), ROOT) || '.'}`);
+  console.log(`\n결과 문서는 results/${PROMPT_SUITE}/ 아래에 있습니다. ROOT=${path.relative(process.cwd(), ROOT) || '.'}`);
 }
 
 main();
