@@ -1,0 +1,213 @@
+{
+  "status": "inputs_prepared_not_scored",
+  "suite": "test3_prompt",
+  "batch_id": "prompt-qwen3-14b-20260922",
+  "input_version": "test3-saved-v1",
+  "schema_version": "test3-saved-v1",
+  "preparation_version": "test3-prompt-input-v1",
+  "source_commit": "3b144b185644cafa2a1e4a827637d26c3e2970d0",
+  "condition": "t0_nothink",
+  "generation_date": "20260922",
+  "judge_model": "gpt-6-astra",
+  "judge_reasoning_effort": "medium",
+  "cases_path": "data/eval_sets/test_set2/cases.csv",
+  "cases_sha256": "d3e0b4638000333469cfe25d9fe2ed5829c8836a54fe14139a6dda546b126f42",
+  "cases_lf_sha256": "2f06fbac0a4beeae2bd796107cd47cb41af7044a07dce503324d0a2868dc1bf2",
+  "run_id_suffix": "_t0_nothink_20260922",
+  "planned_accuracy_jobs": 900,
+  "planned_safety_jobs": 45,
+  "planned_total_jobs": 945,
+  "completed_judgments": 0,
+  "judge_calls_performed": 0,
+  "baseline": {
+    "included_in_jobs": false,
+    "suite": "test3",
+    "run_id": "ec2-linux_qwen3-14b_t0_nothink_20260920",
+    "existing_metrics_path": "results/test3/llm_judge_review/metrics.json"
+  },
+  "rubric_source": "results/test3/llm_judge_review/evaluator/judge_prompts.js",
+  "schema_source": "results/test3/llm_judge_review/evaluator/llm_judge_schema.js",
+  "input_builder": "buildSavedResponseInput",
+  "candidate_system_prompt_source": "scripts/test2/lib/prompts.js",
+  "candidate_system_prompt_resolution": "SYSTEM_PROMPTS[generation.prompt_variant]; reconstructed from repository source because generation records do not store full system prompt text.",
+  "runs": [
+    {
+      "run_id": "ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922",
+      "model": "qwen3:14b",
+      "status": "completed",
+      "prompt_variant": "v1_status_rules",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": false,
+        "format": "json"
+      },
+      "source_path": "results/raw/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/generation.jsonl",
+      "source_sha256": "843bbf0d1ba45bb581b0df05c59b37d34da6987b117ad4e5fcf88fdb04bb1840",
+      "source_lf_sha256": "2b5c9e93813412bd3c8040f9de1131ad0af2fe62d9fa278a3f2d46158e7f6087",
+      "generation_records": 300,
+      "error_records": 0,
+      "unscorable_records": 0,
+      "accuracy_jobs": 300,
+      "safety_jobs": 15,
+      "primary_case_ids_sha256": "3db18437d02d7f1ec39af5ee8e2d5b927749c3aff70cd663bc6ecd46119f39cf",
+      "candidate_system_prompt_sha256": "8cfbee997363aa7bed64902710a4af20491ecc770c61e6a478de2723757bf345"
+    },
+    {
+      "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922",
+      "model": "qwen3:14b",
+      "status": "completed",
+      "prompt_variant": "v2_value_guard",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": false,
+        "format": "json"
+      },
+      "source_path": "results/raw/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/generation.jsonl",
+      "source_sha256": "060ed63bb5bc58435c353514a9fb81540198a1826432312d06a885cceafdcc68",
+      "source_lf_sha256": "bd88fc4b5606174e4cb419fc0f77d4d81aa4f56f79c29546f0d27e65448f9a61",
+      "generation_records": 300,
+      "error_records": 0,
+      "unscorable_records": 0,
+      "accuracy_jobs": 300,
+      "safety_jobs": 15,
+      "primary_case_ids_sha256": "3db18437d02d7f1ec39af5ee8e2d5b927749c3aff70cd663bc6ecd46119f39cf",
+      "candidate_system_prompt_sha256": "6d86a3aa455cdb73b4de777b265e10d6bcdaa7636fa42d1a40927005981b11b2"
+    },
+    {
+      "run_id": "ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922",
+      "model": "qwen3:14b",
+      "status": "completed",
+      "prompt_variant": "v3_decision_tree",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": false,
+        "format": "json"
+      },
+      "source_path": "results/raw/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/generation.jsonl",
+      "source_sha256": "73f7c48d3ccba45c2172c9e884fc7bad4b5146ea4b199158d27cefe1b7104c1f",
+      "source_lf_sha256": "d3683ed06028a15c5bde9d630415c43b4fc711321994da52cf85a92cefdccaa4",
+      "generation_records": 300,
+      "error_records": 0,
+      "unscorable_records": 0,
+      "accuracy_jobs": 300,
+      "safety_jobs": 15,
+      "primary_case_ids_sha256": "3db18437d02d7f1ec39af5ee8e2d5b927749c3aff70cd663bc6ecd46119f39cf",
+      "candidate_system_prompt_sha256": "2c5db8a0684b7d4f11364d2d619eead638a8bb91ea9be23cda3151a90b258e3b"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "data/eval_sets/test_set2/cases.csv",
+      "sha256": "d3e0b4638000333469cfe25d9fe2ed5829c8836a54fe14139a6dda546b126f42",
+      "lf_sha256": "2f06fbac0a4beeae2bd796107cd47cb41af7044a07dce503324d0a2868dc1bf2"
+    },
+    {
+      "path": "results/test3/llm_judge_review/evaluator/judge_prompts.js",
+      "sha256": "ec7a47eb346cf48244ec5be8453ecffe9a358c3520f21bb366545bfb8c51a713",
+      "lf_sha256": "ec7a47eb346cf48244ec5be8453ecffe9a358c3520f21bb366545bfb8c51a713"
+    },
+    {
+      "path": "results/test3/llm_judge_review/evaluator/llm_judge_schema.js",
+      "sha256": "ff491007e340a2b9de99ce30a911c609efe24e998108aa191ce7b2107afa534a",
+      "lf_sha256": "ff491007e340a2b9de99ce30a911c609efe24e998108aa191ce7b2107afa534a"
+    },
+    {
+      "path": "scripts/test2/lib/prompts.js",
+      "sha256": "5e42b64a6349561d8376599193f6c7c6e09c84e6a6fcba04f4d9be2dd4fd8364",
+      "lf_sha256": "64f511c930fbfd69f845001b399d379053071c20ad65f939b0dfc73b324e777c"
+    },
+    {
+      "path": "scripts/test2/lib/csv.js",
+      "sha256": "747e461d2615e87ee5a6ece57a61cec894ce97e0cc4965dcbfd82a0800867f2c",
+      "lf_sha256": "68ade675b672118fc6314a71d45b81a53e39f4d6d1ddf13bab291b7055ba51db"
+    },
+    {
+      "path": "scripts/test2/lib/rounds.js",
+      "sha256": "87257238f542af753f7328a6c0c7397919148a72e3b36e5225ff5f0e568aacb2",
+      "lf_sha256": "2b3230b91dec79024fe9d701b6d9f32ca6b65c0f925bf9b6cba677af3236703d"
+    },
+    {
+      "path": "results/test3/llm_judge_review/evaluator/accuracy_system_prompt.txt",
+      "sha256": "b5b752fba9eb2f9a0b32e770efda4473b81e30cf4523ce8d7bd15f90e02f7636",
+      "lf_sha256": "b5b752fba9eb2f9a0b32e770efda4473b81e30cf4523ce8d7bd15f90e02f7636"
+    },
+    {
+      "path": "results/test3/llm_judge_review/evaluator/safety_system_prompt.txt",
+      "sha256": "73b39bc37c6a567d8e153e5b8ff88f6fa8bdfc66428bafa65b362dc43e199c82",
+      "lf_sha256": "73b39bc37c6a567d8e153e5b8ff88f6fa8bdfc66428bafa65b362dc43e199c82"
+    },
+    {
+      "path": "results/raw/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/generation.jsonl",
+      "sha256": "843bbf0d1ba45bb581b0df05c59b37d34da6987b117ad4e5fcf88fdb04bb1840",
+      "lf_sha256": "2b5c9e93813412bd3c8040f9de1131ad0af2fe62d9fa278a3f2d46158e7f6087"
+    },
+    {
+      "path": "results/raw/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/generation.jsonl",
+      "sha256": "060ed63bb5bc58435c353514a9fb81540198a1826432312d06a885cceafdcc68",
+      "lf_sha256": "bd88fc4b5606174e4cb419fc0f77d4d81aa4f56f79c29546f0d27e65448f9a61"
+    },
+    {
+      "path": "results/raw/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/generation.jsonl",
+      "sha256": "73f7c48d3ccba45c2172c9e884fc7bad4b5146ea4b199158d27cefe1b7104c1f",
+      "lf_sha256": "d3683ed06028a15c5bde9d630415c43b4fc711321994da52cf85a92cefdccaa4"
+    }
+  ],
+  "output_files": {
+    "accuracy_system_prompt.txt": {
+      "sha256": "b5b752fba9eb2f9a0b32e770efda4473b81e30cf4523ce8d7bd15f90e02f7636",
+      "lf_sha256": "b5b752fba9eb2f9a0b32e770efda4473b81e30cf4523ce8d7bd15f90e02f7636",
+      "bytes": 8485
+    },
+    "safety_system_prompt.txt": {
+      "sha256": "73b39bc37c6a567d8e153e5b8ff88f6fa8bdfc66428bafa65b362dc43e199c82",
+      "lf_sha256": "73b39bc37c6a567d8e153e5b8ff88f6fa8bdfc66428bafa65b362dc43e199c82",
+      "bytes": 3135
+    },
+    "accuracy_jobs.jsonl": {
+      "sha256": "40ddf7c5d4afea36c45409bcf33af33049d85c5c00a7c4db115089f0239b5df7",
+      "lf_sha256": "40ddf7c5d4afea36c45409bcf33af33049d85c5c00a7c4db115089f0239b5df7",
+      "bytes": 2763909
+    },
+    "safety_jobs.jsonl": {
+      "sha256": "d6d23b7c17031f8ebb5f594ba871044321624e27e88417018757400662d152be",
+      "lf_sha256": "d6d23b7c17031f8ebb5f594ba871044321624e27e88417018757400662d152be",
+      "bytes": 206670
+    },
+    "README.md": {
+      "sha256": "4384325a6a85748e9a19f8195404b1268c17df0aefb980e2c9dc0744a4bca889",
+      "lf_sha256": "4384325a6a85748e9a19f8195404b1268c17df0aefb980e2c9dc0744a4bca889",
+      "bytes": 2330
+    }
+  },
+  "validation": {
+    "all_primary_cases_present": true,
+    "all_source_run_ids_models_variants_and_parameters_match": true,
+    "duplicate_job_keys": 0,
+    "unscorable_generation_records": 0,
+    "safety_uses_each_variant_system_prompt": true,
+    "baseline_smoke_and_repeat_rounds_excluded": true,
+    "archived_rubric_texts_match": true,
+    "existing_sources_unchanged": true,
+    "explanation": "Checked all 900 saved responses and all 945 rebuilt job payloads before writing; no model calls."
+  },
+  "execution_contract": {
+    "llm_user_message_field": "user_text",
+    "metadata_is_not_llm_input": true,
+    "response_schema": "schema_source exports accuracy/safety; apply validateJudgment(result, kind) from that same archived module.",
+    "note": "Preparation only. Existing legacy runner does not enforce every archived test3 semantic validation; archived runner is not a standalone test3_prompt entry point."
+  },
+  "accuracy_system_prompt_sha256": "b5b752fba9eb2f9a0b32e770efda4473b81e30cf4523ce8d7bd15f90e02f7636",
+  "accuracy_schema_sha256": "e43dbf2c6ea0f70560ad38a4526eae38fc3041806f1ec638a7bc14be91d89f69",
+  "accuracy_jobs_sha256": "2107d36ee03c3dcbfcbbcd6fa7cdfe80d59a55cbf026b38e505167942e60e74a",
+  "unscorable_accuracy_jobs": 0,
+  "safety_system_prompt_sha256": "73b39bc37c6a567d8e153e5b8ff88f6fa8bdfc66428bafa65b362dc43e199c82",
+  "safety_schema_sha256": "be8a39d8fa95bb3baa5de51988bf005dd2e70dee995c6e2a6c3073abcd13c3d3",
+  "safety_jobs_sha256": "5af9e814448e4024ce7a3b873e94c6480a04ee8029d1609bf6a57a11b8fb9d11",
+  "unscorable_safety_jobs": 0
+}
