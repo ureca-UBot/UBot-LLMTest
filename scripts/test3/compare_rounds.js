@@ -14,7 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const models = require('./config/models');
 const { ROOT } = require('./lib/runner');
-const { collectRun, loadPrimaryCases, findRunId, findTest2RunId } = require('./lib/collect');
+const { collectRun, loadPrimaryCases, findRunId, findTest2RunId, loadPairedThinking } = require('./lib/collect');
 
 const OUT_PATH = path.join(ROOT, 'results', 'scored', models.suite, 'round_comparison.json');
 
@@ -54,6 +54,9 @@ function main() {
       'temp=0에서 반복 일관성이 100%에 가까운 것은 개선이 아니라 샘플링을 끈 결과다.',
     ],
     missing_rounds: missing,
+    // 추론 ON/OFF는 "두 조건 모두 채점된 동일 문항"만 짝지어 비교한다.
+    // 전체 run 값과 분모가 달라 별도 블록으로 싣는다(문서는 이쪽을 쓴다).
+    paired_thinking: loadPairedThinking(models.suite),
     models: rows,
   };
 

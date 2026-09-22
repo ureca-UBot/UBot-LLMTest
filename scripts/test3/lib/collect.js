@@ -23,6 +23,42 @@ function generationPath(suite, runId) {
   return path.join(ROOT, 'results', 'raw', suite, runId, 'generation.jsonl');
 }
 
+// llm_judge_review/metrics.json은 라운드 전체가 한 파일이라 suite당 한 번만 읽는다.
+const reviewMetricsCache = new Map();
+function reviewMetrics(suite) {
+  if (!reviewMetricsCache.has(suite)) {
+    reviewMetricsCache.set(suite, readJson(
+      path.join(ROOT, 'results', suite, 'llm_judge_review', 'metrics.json')));
+  }
+  return reviewMetricsCache.get(suite);
+}
+
+// run별 accuracy_hallucination_llm_summary.json이 없을 때의 폴백.
+// test3 판정은 run별 summary 대신 전체를 metrics.json 하나에 썼다 — 필드 이름만
+// 다르고 내용은 같으므로, 기존 summary와 "같은 모양"으로 되돌려준다(호출측 불변).
+function judgeFromReviewMetrics(suite, runId) {
+  const review = reviewMetrics(suite);
+  if (!review || !Array.isArray(review.runs)) return null;
+  const run = review.runs.find((r) => r.run_id === runId);
+  if (!run || !run.metrics || !run.metrics.n) return null;
+  const x = run.metrics;
+  return {
+    n_scored: x.n,
+    accuracy_verdict_counts: { CORRECT: x.correct, INCORRECT: x.incorrect },
+    is_grounded_rate: 1 - x.hallucinated / x.n,   // 근거율 = 1 − 환각률
+    grounding_score_avg: x.grounding,
+    expression_quality_avg: x.expression,
+  };
+}
+
+// 부재판단 F1: TP=0이면 precision·recall이 0이라 score_absence_detection.js가
+// 0/0을 null로 내보낸다. 관례상 이 경우 F1은 0이다(채점 원본은 건드리지 않는다).
+function absenceF1(absence) {
+  if (!absence) return null;
+  if (absence.f1 !== null && absence.f1 !== undefined) return absence.f1;
+  return absence.precision === 0 && absence.recall === 0 ? 0 : null;
+}
+
 // 한 run_id의 지표를 모은다. 없는 파일은 null.
 function collectRun(suite, runId, primaryIds) {
   const dir = scoredDir(suite, runId);
@@ -32,7 +68,9 @@ function collectRun(suite, runId, primaryIds) {
   const repeat = readJson(path.join(dir, 'repeat_consistency_summary.json'));
   const perf = readJson(path.join(dir, 'performance_summary.json'));
   const absence = readJson(path.join(dir, 'absence_detection_summary.json'));
-  const llm = readJson(path.join(dir, 'accuracy_hallucination_llm_summary.json'));
+  // 기존 경로를 우선하고, 없을 때만 llm_judge_review/metrics.json에서 폴백한다.
+  const llm = readJson(path.join(dir, 'accuracy_hallucination_llm_summary.json'))
+    || judgeFromReviewMetrics(suite, runId);
 
   // 기대 응답 상태 일치율 — 고유문항(회차1) 기준.
   let statusMatch = null;
@@ -66,7 +104,7 @@ function collectRun(suite, runId, primaryIds) {
       evidence: repeat.evidence_consistency_rate,
       paraphrase_similarity: repeat.avg_paraphrase_similarity,
     } : null,
-    absence_f1: absence ? absence.f1 : null,
+    absence_f1: absenceF1(absence),
     llm_judge: llm ? {
       n_scored: llm.n_scored,
       correct_rate: llm.accuracy_verdict_counts && llm.n_scored
@@ -111,4 +149,28 @@ function findTest2RunId(modelTag) {
   return any.length ? any.sort()[any.length - 1] : null;
 }
 
-module.exports = { collectRun, loadPrimaryCases, findRunId, findTest2RunId, readJson, readJsonl, scoredDir };
+// 추론 ON/OFF 짝비교 — 두 조건 모두 채점된 "동일 문항"만 짝지은 값이다.
+// 전체 run 값과 다르다(qwen3:14b 전체 70.7% vs 짝 기준 70.6%). 문서는 짝 기준을 쓴다.
+const pairedSide = (b) => !b || !b.n ? null : {
+  n: b.n,
+  correct_rate: b.correct / b.n,
+  is_grounded_rate: 1 - b.hallucinated / b.n,
+  grounding_score_avg: b.grounding,
+  expression_quality_avg: b.expression,
+};
+
+function loadPairedThinking(suite) {
+  const review = reviewMetrics(suite);
+  if (!review || !review.comparisons || !Array.isArray(review.comparisons.thinking)) return null;
+  return review.comparisons.thinking.map((c) => ({
+    model_tag: c.model,
+    n_paired: c.n,
+    on: pairedSide(c.before),
+    off: pairedSide(c.after),
+  }));
+}
+
+module.exports = {
+  collectRun, loadPrimaryCases, findRunId, findTest2RunId,
+  loadPairedThinking, readJson, readJsonl, scoredDir,
+};
