@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 422" width="980" height="422"
+ role="img" aria-label="프론티어 구간별 한계 효율" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+<style>
+  .viz { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+         --grid:#e1e0d9; --axis:#c3c2b7;
+         --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; }
+  @media (prefers-color-scheme: dark) {
+    .viz { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+           --grid:#2c2c2a; --axis:#383835;
+           --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; }
+  }
+  .bg   { fill: var(--surface); }
+  .ttl  { fill: var(--ink);   font-weight:700; }
+  .sub  { fill: var(--ink2); }
+  .lbl  { fill: var(--ink);  }
+  .axl  { fill: var(--muted); }
+  .grid { stroke: var(--grid); stroke-width:1; }
+  .axis { stroke: var(--axis); stroke-width:1; }
+  .note { fill: var(--ink2); }
+</style>
+<g class="viz"><rect class="bg" x="0" y="0" width="980" height="422"/>
+<text x="28.0" y="30.0" class="ttl" font-size="19" text-anchor="start">지연 1초를 더 쓸 때 얻는 정답률 — 프론티어 구간별 한계 효율</text>
+<text x="28.0" y="52.0" class="sub" font-size="12.5" text-anchor="start">프론티어를 따라 한 칸 올라갈 때의 정답률 증가를 추가 지연으로 나눈 값. 값이 급락하는 지점이 "무릎"이다.</text>
+<text x="250.0" y="93.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">qwen3:1.7b OFF → gemma3:4b</text>
+<text x="250.0" y="109.0" class="note" font-size="11" text-anchor="end">+8.3p / +1.35s</text>
+<rect x="262" y="78" width="372.4" height="26" rx="4" fill="var(--s1)" opacity="1"/>
+<text x="646.4" y="96.0" class="lbl" font-size="12.5" text-anchor="start" font-weight="700">6.20 %p/초</text>
+<text x="250.0" y="147.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">gemma3:4b → qwen3:4b OFF</text>
+<text x="250.0" y="163.0" class="note" font-size="11" text-anchor="end">+12.3p / +0.14s</text>
+<rect x="262" y="132" width="522.0" height="26" rx="4" fill="var(--s1)" opacity="0.45"/>
+<path d="M 774.0 132 l 10 13 l -10 13" fill="none" stroke="var(--surface)" stroke-width="3"/>
+<text x="796.0" y="150.0" class="note" font-size="12.5" text-anchor="start" font-weight="400">87.47 %p/초  (잘림)</text>
+<text x="250.0" y="201.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">qwen3:4b OFF → gemma3:12b</text>
+<text x="250.0" y="217.0" class="note" font-size="11" text-anchor="end">+20.3p / +4.37s</text>
+<rect x="262" y="186" width="280.0" height="26" rx="4" fill="var(--s1)" opacity="1"/>
+<text x="554.0" y="204.0" class="lbl" font-size="12.5" text-anchor="start" font-weight="700">4.66 %p/초</text>
+<text x="250.0" y="255.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">gemma3:12b → qwen3:14b OFF</text>
+<text x="250.0" y="271.0" class="note" font-size="11" text-anchor="end">+6.7p / +0.83s</text>
+<rect x="262" y="240" width="483.3" height="26" rx="4" fill="var(--s1)" opacity="1"/>
+<text x="757.3" y="258.0" class="lbl" font-size="12.5" text-anchor="start" font-weight="700">8.04 %p/초</text>
+<text x="250.0" y="309.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">qwen3:14b OFF → qwen3:14b ON</text>
+<text x="250.0" y="325.0" class="note" font-size="11" text-anchor="end">+4.9p / +20.38s</text>
+<rect x="262" y="294" width="14.5" height="26" rx="4" fill="var(--s1)" opacity="0.35"/>
+<text x="288.5" y="312.0" class="lbl" font-size="12.5" text-anchor="start" font-weight="700">0.24 %p/초</text>
+<text x="28.0" y="388.0" class="note" font-size="11.5" text-anchor="start">gemma3:4b → qwen3:4b OFF 구간은 지연 차가 0.14초뿐이라 나눈 값이 발산한다 — 막대를 잘라 표시했고, 해석에 쓰지 않는다.</text>
+<text x="28.0" y="408.0" class="note" font-size="12" text-anchor="start">qwen3:14b OFF까지는 1초당 8.04%p를 얻지만, 그 다음 구간은 0.24%p다 — 효율이 33배 떨어진다. qwen3:14b OFF가 곡선의 무릎이다.</text>
+</g></svg>

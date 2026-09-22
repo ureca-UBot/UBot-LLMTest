@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>test3 결과 대시보드</title>
+<style>
+  :root { color-scheme: light dark; --page:#f9f9f7; --card:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --line:#e1e0d9; }
+  @media (prefers-color-scheme: dark) {
+    :root { --page:#0d0d0d; --card:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --line:#2c2c2a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:24px 16px 56px; background:var(--page); color:var(--ink);
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR','Malgun Gothic',sans-serif; }
+  .wrap { max-width:1060px; margin:0 auto; }
+  h1 { font-size:24px; margin:0 0 6px; }
+  .meta { color:var(--ink2); font-size:13px; margin:0 0 28px; }
+  figure { margin:0 0 22px; padding:10px; background:var(--card);
+           border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  figure svg { display:block; width:100%; height:auto; }
+  footer { color:var(--ink2); font-size:12px; margin-top:28px; line-height:1.7; }
+  code { font-size:11.5px; }
+</style></head>
+<body><div class="wrap">
+<h1>test3 (EC2 라운드) 결과 대시보드</h1>
+<p class="meta">생성 시각 2026-09-22T06:42:57.499Z · 출처 <code>results/scored/test3/round_comparison.json</code></p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 600" width="100%" height="auto"
+ role="img" aria-label="지연 대비 정확도 파레토 프론티어" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+<style>
+  .viz { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+         --grid:#e1e0d9; --axis:#c3c2b7;
+         --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; }
+  @media (prefers-color-scheme: dark) {
+    .viz { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+           --grid:#2c2c2a; --axis:#383835;
+           --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; }
+  }
+  .bg   { fill: var(--surface); }
+  .ttl  { fill: var(--ink);   font-weight:700; }
+  .sub  { fill: var(--ink2); }
+  .lbl  { fill: var(--ink);  }
+  .axl  { fill: var(--muted); }
+  .grid { stroke: var(--grid); stroke-width:1; }
+  .axis { stroke: var(--axis); stroke-width:1; }
+  .note { fill: var(--ink2); }
+</style>
+<g class="viz"><rect class="bg" x="0" y="0" width="1020" height="600"/>
+<text x="28.0" y="30.0" class="ttl" font-size="19" text-anchor="start">지연 대비 정확도 — 파레토 프론티어</text>
+<text x="28.0" y="52.0" class="sub" font-size="12.5" text-anchor="start">x축 P95 지연(로그) · y축 LLM Judge 정답률 · 원 크기 VRAM. 선 위의 설정은 "더 빠르면서 더 정확한 대안이 없는" 설정이다.</text>
+<line class="grid" x1="62" y1="496.3" x2="990" y2="496.3"/>
+<text x="52.0" y="500.3" class="axl" font-size="11" text-anchor="end">20%</text>
+<line class="grid" x1="62" y1="428.8" x2="990" y2="428.8"/>
+<text x="52.0" y="432.8" class="axl" font-size="11" text-anchor="end">30%</text>
+<line class="grid" x1="62" y1="361.3" x2="990" y2="361.3"/>
+<text x="52.0" y="365.3" class="axl" font-size="11" text-anchor="end">40%</text>
+<line class="grid" x1="62" y1="293.9" x2="990" y2="293.9"/>
+<text x="52.0" y="297.9" class="axl" font-size="11" text-anchor="end">50%</text>
+<line class="grid" x1="62" y1="226.4" x2="990" y2="226.4"/>
+<text x="52.0" y="230.4" class="axl" font-size="11" text-anchor="end">60%</text>
+<line class="grid" x1="62" y1="159.0" x2="990" y2="159.0"/>
+<text x="52.0" y="163.0" class="axl" font-size="11" text-anchor="end">70%</text>
+<line class="grid" x1="62" y1="91.5" x2="990" y2="91.5"/>
+<text x="52.0" y="95.5" class="axl" font-size="11" text-anchor="end">80%</text>
+<line class="grid" x1="125.3" y1="78" x2="125.3" y2="530"/>
+<text x="125.3" y="548.0" class="axl" font-size="11" text-anchor="middle">1.5s</text>
+<line class="grid" x1="192.9" y1="78" x2="192.9" y2="530"/>
+<text x="192.9" y="548.0" class="axl" font-size="11" text-anchor="middle">2s</text>
+<line class="grid" x1="288.1" y1="78" x2="288.1" y2="530"/>
+<text x="288.1" y="548.0" class="axl" font-size="11" text-anchor="middle">3s</text>
+<line class="grid" x1="408.1" y1="78" x2="408.1" y2="530"/>
+<text x="408.1" y="548.0" class="axl" font-size="11" text-anchor="middle">5s</text>
+<line class="grid" x1="518.6" y1="78" x2="518.6" y2="530"/>
+<text x="518.6" y="548.0" class="axl" font-size="11" text-anchor="middle">8s</text>
+<line class="grid" x1="571.0" y1="78" x2="571.0" y2="530"/>
+<text x="571.0" y="548.0" class="axl" font-size="11" text-anchor="middle">10s</text>
+<line class="grid" x1="733.8" y1="78" x2="733.8" y2="530"/>
+<text x="733.8" y="548.0" class="axl" font-size="11" text-anchor="middle">20s</text>
+<line class="grid" x1="829.1" y1="78" x2="829.1" y2="530"/>
+<text x="829.1" y="548.0" class="axl" font-size="11" text-anchor="middle">30s</text>
+<line class="grid" x1="949.1" y1="78" x2="949.1" y2="530"/>
+<text x="949.1" y="548.0" class="axl" font-size="11" text-anchor="middle">50s</text>
+<line class="axis" x1="62" y1="530" x2="990" y2="530"/>
+<line x1="408.1" y1="72" x2="408.1" y2="530" stroke="var(--s2)" stroke-width="2" stroke-dasharray="5 4" opacity="0.75"/>
+<text x="414.1" y="82.0" class="sub" font-size="11.5" text-anchor="start" font-weight="600">상담봇 목표 P95 5초</text>
+<path d="M 114.4 476.0 L 270.0 476.0 L 270.0 419.8 L 281.6 419.8 L 281.6 336.6 L 496.5 336.6 L 496.5 199.4 L 521.8 199.4 L 521.8 154.5 L 816.9 154.5 L 816.9 121.3" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" opacity="0.5"/>
+<circle cx="816.9" cy="121.3" r="14.0" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<line x1="832.9" y1="121.3" x2="834.9" y2="95.3" stroke="var(--axis)" stroke-width="1"/>
+<text x="838.9" y="99.3" class="lbl" font-size="12" text-anchor="start" font-weight="700">qwen3:14b ON</text>
+<text x="838.9" y="113.3" class="note" font-size="10.5" text-anchor="start" opacity="0.95">75.6% · 환각 24.7%</text>
+<circle cx="937.6" cy="143.2" r="10.3" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
+<line x1="925.3" y1="143.2" x2="923.3" y2="169.2" stroke="var(--axis)" stroke-width="1"/>
+<text x="919.3" y="173.2" class="note" font-size="12" text-anchor="end" font-weight="400">qwen3:4b ON</text>
+<text x="919.3" y="187.2" class="note" font-size="10.5" text-anchor="end" opacity="0.7">72.3% · 환각 13.7%</text>
+<circle cx="521.8" cy="154.5" r="14.0" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<text x="543.8" y="158.5" class="lbl" font-size="12" text-anchor="start" font-weight="700">qwen3:14b OFF</text>
+<text x="543.8" y="172.5" class="note" font-size="10.5" text-anchor="start" opacity="0.95">70.7% · 환각 23.7%</text>
+<circle cx="496.5" cy="199.4" r="13.8" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<text x="518.3" y="203.4" class="lbl" font-size="12" text-anchor="start" font-weight="700">gemma3:12b</text>
+<text x="518.3" y="217.4" class="note" font-size="10.5" text-anchor="start" opacity="0.95">64.0% · 환각 21.3%</text>
+<circle cx="713.3" cy="228.2" r="11.9" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
+<text x="733.3" y="232.2" class="note" font-size="12" text-anchor="start" font-weight="400">qwen3:8b ON</text>
+<text x="733.3" y="246.2" class="note" font-size="10.5" text-anchor="start" opacity="0.7">59.7% · 환각 26.8%</text>
+<circle cx="281.6" cy="336.6" r="10.5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<line x1="294.1" y1="336.6" x2="296.1" y2="290.6" stroke="var(--axis)" stroke-width="1"/>
+<text x="300.1" y="294.6" class="lbl" font-size="12" text-anchor="start" font-weight="700">qwen3:4b OFF</text>
+<text x="300.1" y="308.6" class="note" font-size="10.5" text-anchor="start" opacity="0.95">43.7% · 환각 29.0%</text>
+<circle cx="385.0" cy="336.6" r="12.0" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
+<line x1="398.9" y1="336.6" x2="400.9" y2="310.6" stroke="var(--axis)" stroke-width="1"/>
+<text x="404.9" y="314.6" class="note" font-size="12" text-anchor="start" font-weight="400">qwen3:8b OFF</text>
+<text x="404.9" y="328.6" class="note" font-size="10.5" text-anchor="start" opacity="0.7">43.7% · 환각 26.0%</text>
+<circle cx="410.2" cy="368.1" r="9.2" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
+<line x1="421.4" y1="368.1" x2="423.4" y2="414.1" stroke="var(--axis)" stroke-width="1"/>
+<text x="427.4" y="418.1" class="note" font-size="12" text-anchor="start" font-weight="400">qwen3:1.7b ON</text>
+<text x="427.4" y="432.1" class="note" font-size="10.5" text-anchor="start" opacity="0.7">39.0% · 환각 43.0%</text>
+<circle cx="436.8" cy="379.3" r="11.7" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
+<text x="456.5" y="383.3" class="note" font-size="12" text-anchor="start" font-weight="400">exaone3.5:7.8b</text>
+<text x="456.5" y="397.3" class="note" font-size="10.5" text-anchor="start" opacity="0.7">37.3% · 환각 53.3%</text>
+<circle cx="270.0" cy="419.8" r="10.7" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<text x="288.7" y="423.8" class="lbl" font-size="12" text-anchor="start" font-weight="700">gemma3:4b</text>
+<text x="288.7" y="437.8" class="note" font-size="10.5" text-anchor="start" opacity="0.95">31.3% · 환각 50.3%</text>
+<circle cx="114.4" cy="476.0" r="8.9" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<text x="131.3" y="480.0" class="lbl" font-size="12" text-anchor="start" font-weight="700">qwen3:1.7b OFF</text>
+<text x="131.3" y="494.0" class="note" font-size="10.5" text-anchor="start" opacity="0.95">23.0% · 환각 56.7%</text>
+<circle cx="68" cy="562" r="6" fill="var(--s1)"/>
+<text x="80.0" y="566.0" class="sub" font-size="11.5" text-anchor="start">파레토 프론티어 (대안 없음)</text>
+<circle cx="268" cy="562" r="6" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
+<text x="280.0" y="566.0" class="sub" font-size="11.5" text-anchor="start">지배당함 (더 빠르고 더 정확한 대안이 있음)</text>
+<text x="62.0" y="588.0" class="note" font-size="11" text-anchor="start">예: qwen3:4b ON(72.3%, 47.62s)는 qwen3:14b ON(75.6%, 28.49s)에게 속도·정확도 모두 뒤진다.</text>
+</g></svg>
+</figure>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 422" width="100%" height="auto"
+ role="img" aria-label="프론티어 구간별 한계 효율" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+<style>
+  .viz { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+         --grid:#e1e0d9; --axis:#c3c2b7;
+         --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; }
+  @media (prefers-color-scheme: dark) {
+    .viz { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+           --grid:#2c2c2a; --axis:#383835;
+           --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; }
+  }
+  .bg   { fill: var(--surface); }
+  .ttl  { fill: var(--ink);   font-weight:700; }
+  .sub  { fill: var(--ink2); }
+  .lbl  { fill: var(--ink);  }
+  .axl  { fill: var(--muted); }
+  .grid { stroke: var(--grid); stroke-width:1; }
+  .axis { stroke: var(--axis); stroke-width:1; }
+  .note { fill: var(--ink2); }
+</style>
+<g class="viz"><rect class="bg" x="0" y="0" width="980" height="422"/>
+<text x="28.0" y="30.0" class="ttl" font-size="19" text-anchor="start">지연 1초를 더 쓸 때 얻는 정답률 — 프론티어 구간별 한계 효율</text>
+<text x="28.0" y="52.0" class="sub" font-size="12.5" text-anchor="start">프론티어를 따라 한 칸 올라갈 때의 정답률 증가를 추가 지연으로 나눈 값. 값이 급락하는 지점이 "무릎"이다.</text>
+<text x="250.0" y="93.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">qwen3:1.7b OFF → gemma3:4b</text>
+<text x="250.0" y="109.0" class="note" font-size="11" text-anchor="end">+8.3p / +1.35s</text>
+<rect x="262" y="78" width="372.4" height="26" rx="4" fill="var(--s1)" opacity="1"/>
+<text x="646.4" y="96.0" class="lbl" font-size="12.5" text-anchor="start" font-weight="700">6.20 %p/초</text>
+<text x="250.0" y="147.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">gemma3:4b → qwen3:4b OFF</text>
+<text x="250.0" y="163.0" class="note" font-size="11" text-anchor="end">+12.3p / +0.14s</text>
+<rect x="262" y="132" width="522.0" height="26" rx="4" fill="var(--s1)" opacity="0.45"/>
+<path d="M 774.0 132 l 10 13 l -10 13" fill="none" stroke="var(--surface)" stroke-width="3"/>
+<text x="796.0" y="150.0" class="note" font-size="12.5" text-anchor="start" font-weight="400">87.47 %p/초  (잘림)</text>
+<text x="250.0" y="201.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">qwen3:4b OFF → gemma3:12b</text>
+<text x="250.0" y="217.0" class="note" font-size="11" text-anchor="end">+20.3p / +4.37s</text>
+<rect x="262" y="186" width="280.0" height="26" rx="4" fill="var(--s1)" opacity="1"/>
+<text x="554.0" y="204.0" class="lbl" font-size="12.5" text-anchor="start" font-weight="700">4.66 %p/초</text>
+<text x="250.0" y="255.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">gemma3:12b → qwen3:14b OFF</text>
+<text x="250.0" y="271.0" class="note" font-size="11" text-anchor="end">+6.7p / +0.83s</text>
+<rect x="262" y="240" width="483.3" height="26" rx="4" fill="var(--s1)" opacity="1"/>
+<text x="757.3" y="258.0" class="lbl" font-size="12.5" text-anchor="start" font-weight="700">8.04 %p/초</text>
+<text x="250.0" y="309.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">qwen3:14b OFF → qwen3:14b ON</text>
+<text x="250.0" y="325.0" class="note" font-size="11" text-anchor="end">+4.9p / +20.38s</text>
+<rect x="262" y="294" width="14.5" height="26" rx="4" fill="var(--s1)" opacity="0.35"/>
+<text x="288.5" y="312.0" class="lbl" font-size="12.5" text-anchor="start" font-weight="700">0.24 %p/초</text>
+<text x="28.0" y="388.0" class="note" font-size="11.5" text-anchor="start">gemma3:4b → qwen3:4b OFF 구간은 지연 차가 0.14초뿐이라 나눈 값이 발산한다 — 막대를 잘라 표시했고, 해석에 쓰지 않는다.</text>
+<text x="28.0" y="408.0" class="note" font-size="12" text-anchor="start">qwen3:14b OFF까지는 1초당 8.04%p를 얻지만, 그 다음 구간은 0.24%p다 — 효율이 33배 떨어진다. qwen3:14b OFF가 곡선의 무릎이다.</text>
+</g></svg>
+</figure>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1106 356" width="100%" height="auto"
+ role="img" aria-label="test3 본측정 핵심 지표 비교" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+<style>
+  .viz { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+         --grid:#e1e0d9; --axis:#c3c2b7;
+         --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; }
+  @media (prefers-color-scheme: dark) {
+    .viz { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+           --grid:#2c2c2a; --axis:#383835;
+           --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; }
+  }
+  .bg   { fill: var(--surface); }
+  .ttl  { fill: var(--ink);   font-weight:700; }
+  .sub  { fill: var(--ink2); }
+  .lbl  { fill: var(--ink);  }
+  .axl  { fill: var(--muted); }
+  .grid { stroke: var(--grid); stroke-width:1; }
+  .axis { stroke: var(--axis); stroke-width:1; }
+  .note { fill: var(--ink2); }
+</style>
+<g class="viz"><rect class="bg" x="0" y="0" width="1106" height="356"/>
+<text x="26.0" y="32.0" class="ttl" font-size="19" text-anchor="start">test3 본측정 핵심 지표 — 7개 모델</text>
+<text x="26.0" y="54.0" class="sub" font-size="12.5" text-anchor="start">모든 패널에서 모델 순서는 정확도 내림차순으로 같다 — 패널 간 순위가 어떻게 뒤집히는지 보기 위해서다. 모든 축은 0~100%.</text>
+<text x="120.0" y="148.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">qwen3:14b</text>
+<text x="120.0" y="174.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">qwen3:4b</text>
+<text x="120.0" y="200.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">gemma3:12b</text>
+<text x="120.0" y="226.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">qwen3:8b</text>
+<text x="120.0" y="252.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">qwen3:1.7b</text>
+<text x="120.0" y="278.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">exaone3.5:7.8b</text>
+<text x="120.0" y="304.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">gemma3:4b</text>
+<text x="130.0" y="112.0" class="sub" font-size="12" text-anchor="start" font-weight="600">내용 정확도 (AI)</text>
+<line class="axis" x1="130" y1="126" x2="130" y2="310"/>
+<rect x="130" y="132" width="130.0" height="18" rx="4" fill="var(--s1)"/>
+<text x="253.0" y="145.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">75.6%</text>
+<rect x="130" y="158" width="124.4" height="18" rx="4" fill="var(--s1)"/>
+<text x="247.4" y="171.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">72.3%</text>
+<rect x="130" y="184" width="110.1" height="18" rx="4" fill="var(--s1)"/>
+<text x="233.1" y="197.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">64.0%</text>
+<rect x="130" y="210" width="102.7" height="18" rx="4" fill="var(--s1)"/>
+<text x="225.7" y="223.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">59.7%</text>
+<rect x="130" y="236" width="67.1" height="18" rx="4" fill="var(--s1)"/>
+<text x="190.1" y="249.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">39.0%</text>
+<rect x="130" y="262" width="64.2" height="18" rx="4" fill="var(--s1)"/>
+<text x="187.2" y="275.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">37.3%</text>
+<rect x="130" y="288" width="53.9" height="18" rx="4" fill="var(--s1)"/>
+<text x="189.9" y="301.5" class="note" font-size="11" text-anchor="start" font-weight="400">31.3%</text>
+<text x="320.0" y="112.0" class="sub" font-size="12" text-anchor="start" font-weight="600">근거율 (1 − 환각률)</text>
+<line class="axis" x1="320" y1="126" x2="320" y2="310"/>
+<rect x="320" y="132" width="129.4" height="18" rx="4" fill="var(--s1)"/>
+<text x="442.4" y="145.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">75.3%</text>
+<rect x="320" y="158" width="148.5" height="18" rx="4" fill="var(--s1)"/>
+<text x="461.5" y="171.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">86.3%</text>
+<rect x="320" y="184" width="135.3" height="18" rx="4" fill="var(--s1)"/>
+<text x="448.3" y="197.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">78.7%</text>
+<rect x="320" y="210" width="125.8" height="18" rx="4" fill="var(--s1)"/>
+<text x="438.8" y="223.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">73.2%</text>
+<rect x="320" y="236" width="98.0" height="18" rx="4" fill="var(--s1)"/>
+<text x="411.0" y="249.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">57.0%</text>
+<rect x="320" y="262" width="80.3" height="18" rx="4" fill="var(--s1)"/>
+<text x="393.3" y="275.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">46.7%</text>
+<rect x="320" y="288" width="85.4" height="18" rx="4" fill="var(--s1)"/>
+<text x="398.4" y="301.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">49.7%</text>
+<text x="510.0" y="112.0" class="sub" font-size="12" text-anchor="start" font-weight="600">기대 상태 일치</text>
+<line class="axis" x1="510" y1="126" x2="510" y2="310"/>
+<rect x="510" y="132" width="137.0" height="18" rx="4" fill="var(--s1)"/>
+<text x="640.0" y="145.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">79.7%</text>
+<rect x="510" y="158" width="141.6" height="18" rx="4" fill="var(--s1)"/>
+<text x="644.6" y="171.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">82.3%</text>
+<rect x="510" y="184" width="123.3" height="18" rx="4" fill="var(--s1)"/>
+<text x="626.3" y="197.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">71.7%</text>
+<rect x="510" y="210" width="110.7" height="18" rx="4" fill="var(--s1)"/>
+<text x="613.7" y="223.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">64.3%</text>
+<rect x="510" y="236" width="100.3" height="18" rx="4" fill="var(--s1)"/>
+<text x="603.3" y="249.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">58.3%</text>
+<rect x="510" y="262" width="82.0" height="18" rx="4" fill="var(--s1)"/>
+<text x="585.0" y="275.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">47.7%</text>
+<rect x="510" y="288" width="74.0" height="18" rx="4" fill="var(--s1)"/>
+<text x="577.0" y="301.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">43.0%</text>
+<text x="700.0" y="112.0" class="sub" font-size="12" text-anchor="start" font-weight="600">반복 일관성</text>
+<line class="axis" x1="700" y1="126" x2="700" y2="310"/>
+<rect x="700" y="132" width="133.3" height="18" rx="4" fill="var(--s1)"/>
+<text x="826.3" y="145.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">77.5%</text>
+<rect x="700" y="158" width="103.2" height="18" rx="4" fill="var(--s1)"/>
+<text x="796.2" y="171.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">60.0%</text>
+<rect x="700" y="184" width="163.4" height="18" rx="4" fill="var(--s1)"/>
+<text x="856.4" y="197.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">95.0%</text>
+<rect x="700" y="210" width="107.5" height="18" rx="4" fill="var(--s1)"/>
+<text x="800.5" y="223.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">62.5%</text>
+<rect x="700" y="236" width="98.9" height="18" rx="4" fill="var(--s1)"/>
+<text x="791.9" y="249.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">57.5%</text>
+<rect x="700" y="262" width="154.8" height="18" rx="4" fill="var(--s1)"/>
+<text x="847.8" y="275.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">90.0%</text>
+<rect x="700" y="288" width="150.5" height="18" rx="4" fill="var(--s1)"/>
+<text x="843.5" y="301.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">87.5%</text>
+<text x="890.0" y="112.0" class="sub" font-size="12" text-anchor="start" font-weight="600">포맷 성공률</text>
+<line class="axis" x1="890" y1="126" x2="890" y2="310"/>
+<rect x="890" y="132" width="171.4" height="18" rx="4" fill="var(--s1)"/>
+<text x="1054.4" y="145.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">99.7%</text>
+<rect x="890" y="158" width="170.9" height="18" rx="4" fill="var(--s1)"/>
+<text x="1053.9" y="171.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">99.3%</text>
+<rect x="890" y="184" width="172.0" height="18" rx="4" fill="var(--s1)"/>
+<text x="1055.0" y="197.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">100.0%</text>
+<rect x="890" y="210" width="170.9" height="18" rx="4" fill="var(--s1)"/>
+<text x="1053.9" y="223.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">99.3%</text>
+<rect x="890" y="236" width="172.0" height="18" rx="4" fill="var(--s1)"/>
+<text x="1055.0" y="249.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">100.0%</text>
+<rect x="890" y="262" width="172.0" height="18" rx="4" fill="var(--s1)"/>
+<text x="1055.0" y="275.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">100.0%</text>
+<rect x="890" y="288" width="171.4" height="18" rx="4" fill="var(--s1)"/>
+<text x="1054.4" y="301.5" class="lbl" font-size="11" text-anchor="end" font-weight="700">99.7%</text>
+<text x="26.0" y="340.0" class="note" font-size="11.5" text-anchor="start">정확도·근거율은 LLM Judge 판정, 나머지 셋은 코드 기반 결정론 지표다. 두 방식의 모델 순위는 거의 같다.</text>
+</g></svg>
+</figure>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="auto"
+ role="img" aria-label="추론 모드 on/off 기울기 비교" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+<style>
+  .viz { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+         --grid:#e1e0d9; --axis:#c3c2b7;
+         --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; }
+  @media (prefers-color-scheme: dark) {
+    .viz { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+           --grid:#2c2c2a; --axis:#383835;
+           --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; }
+  }
+  .bg   { fill: var(--surface); }
+  .ttl  { fill: var(--ink);   font-weight:700; }
+  .sub  { fill: var(--ink2); }
+  .lbl  { fill: var(--ink);  }
+  .axl  { fill: var(--muted); }
+  .grid { stroke: var(--grid); stroke-width:1; }
+  .axis { stroke: var(--axis); stroke-width:1; }
+  .note { fill: var(--ink2); }
+</style>
+<g class="viz"><rect class="bg" x="0" y="0" width="960" height="540"/>
+<text x="28.0" y="32.0" class="ttl" font-size="19" text-anchor="start">추론 모드를 끄면 무엇을 잃는가 — Qwen3 계열</text>
+<text x="28.0" y="54.0" class="sub" font-size="12.5" text-anchor="start">왼쪽은 잃는 것(정확도), 오른쪽은 얻는 것(P95 지연). 정확도는 두 조건 모두 채점된 동일 문항만 짝지은 값이다.</text>
+<text x="28.0" y="76.0" class="sub" font-size="12.5" text-anchor="start" font-weight="600">qwen3:14b만 왼쪽 선이 거의 평평하면서 오른쪽은 급락한다 — 품질을 거의 안 잃고 속도만 얻는 유일한 모델.</text>
+<text x="172.0" y="114.0" class="sub" font-size="13" text-anchor="start" font-weight="600">내용 정확도 — 낮아질수록 나쁘다</text>
+<line class="axis" x1="172" y1="130" x2="172" y2="460"/>
+<line class="axis" x1="440" y1="130" x2="440" y2="460"/>
+<text x="172.0" y="482.0" class="axl" font-size="12" text-anchor="middle" font-weight="600">ON</text>
+<text x="440.0" y="482.0" class="axl" font-size="12" text-anchor="middle" font-weight="600">OFF</text>
+<line x1="172" y1="340.4" x2="440" y2="410.9" stroke="var(--s1)" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="172" cy="340.4" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<circle cx="440" cy="410.9" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<text x="160.0" y="344.4" class="lbl" font-size="11.5" text-anchor="end">qwen3:1.7b  39.0%</text>
+<text x="452.0" y="414.9" class="lbl" font-size="11.5" text-anchor="start" font-weight="700">23.0%</text>
+<line x1="172" y1="193.4" x2="440" y2="319.8" stroke="var(--s2)" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="172" cy="193.4" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
+<circle cx="440" cy="319.8" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
+<text x="160.0" y="198.1" class="lbl" font-size="11.5" text-anchor="end">qwen3:4b  72.3%</text>
+<text x="452.0" y="323.8" class="lbl" font-size="11.5" text-anchor="start" font-weight="700">43.7%</text>
+<line x1="172" y1="249.0" x2="440" y2="320.0" stroke="var(--s3)" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="172" cy="249.0" r="5" fill="var(--s3)" stroke="var(--surface)" stroke-width="2"/>
+<circle cx="440" cy="320.0" r="5" fill="var(--s3)" stroke="var(--surface)" stroke-width="2"/>
+<text x="160.0" y="253.0" class="lbl" font-size="11.5" text-anchor="end">qwen3:8b  59.7%</text>
+<text x="452.0" y="338.8" class="lbl" font-size="11.5" text-anchor="start" font-weight="700">43.6%</text>
+<line x1="172" y1="179.1" x2="440" y2="201.2" stroke="var(--s4)" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="172" cy="179.1" r="5" fill="var(--s4)" stroke="var(--surface)" stroke-width="2"/>
+<circle cx="440" cy="201.2" r="5" fill="var(--s4)" stroke="var(--surface)" stroke-width="2"/>
+<text x="160.0" y="183.1" class="lbl" font-size="11.5" text-anchor="end">qwen3:14b  75.6%</text>
+<text x="452.0" y="205.2" class="lbl" font-size="11.5" text-anchor="start" font-weight="700">70.6%</text>
+<text x="600.0" y="114.0" class="sub" font-size="13" text-anchor="start" font-weight="600">P95 지연 (로그) — 올라갈수록 빠르다</text>
+<line class="axis" x1="600" y1="130" x2="600" y2="460"/>
+<line class="axis" x1="868" y1="130" x2="868" y2="460"/>
+<text x="600.0" y="482.0" class="axl" font-size="12" text-anchor="middle" font-weight="600">ON</text>
+<text x="868.0" y="482.0" class="axl" font-size="12" text-anchor="middle" font-weight="600">OFF</text>
+<line x1="600" y1="262.4" x2="868" y2="179.1" stroke="var(--s1)" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="600" cy="262.4" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<circle cx="868" cy="179.1" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<text x="588.0" y="266.4" class="lbl" font-size="11.5" text-anchor="end">5.04s</text>
+<text x="880.0" y="183.1" class="lbl" font-size="11.5" text-anchor="start" font-weight="700">1.43s</text>
+<line x1="600" y1="410.9" x2="868" y2="226.2" stroke="var(--s2)" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="600" cy="410.9" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
+<circle cx="868" cy="226.2" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
+<text x="588.0" y="414.9" class="lbl" font-size="11.5" text-anchor="end">47.62s</text>
+<text x="880.0" y="230.2" class="lbl" font-size="11.5" text-anchor="start" font-weight="700">2.92s</text>
+<line x1="600" y1="347.8" x2="868" y2="255.3" stroke="var(--s3)" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="600" cy="347.8" r="5" fill="var(--s3)" stroke="var(--surface)" stroke-width="2"/>
+<circle cx="868" cy="255.3" r="5" fill="var(--s3)" stroke="var(--surface)" stroke-width="2"/>
+<text x="588.0" y="351.8" class="lbl" font-size="11.5" text-anchor="end">18.33s</text>
+<text x="880.0" y="259.3" class="lbl" font-size="11.5" text-anchor="start" font-weight="700">4.53s</text>
+<line x1="600" y1="376.9" x2="868" y2="293.8" stroke="var(--s4)" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="600" cy="376.9" r="5" fill="var(--s4)" stroke="var(--surface)" stroke-width="2"/>
+<circle cx="868" cy="293.8" r="5" fill="var(--s4)" stroke="var(--surface)" stroke-width="2"/>
+<text x="588.0" y="380.9" class="lbl" font-size="11.5" text-anchor="end">28.49s</text>
+<text x="880.0" y="297.8" class="lbl" font-size="11.5" text-anchor="start" font-weight="700">8.11s</text>
+<line x1="150" y1="496" x2="168" y2="496" stroke="var(--s1)" stroke-width="3" stroke-linecap="round"/>
+<text x="174.0" y="500.0" class="sub" font-size="11.5" text-anchor="start">qwen3:1.7b</text>
+<line x1="260.95" y1="496" x2="278.95" y2="496" stroke="var(--s2)" stroke-width="3" stroke-linecap="round"/>
+<text x="284.9" y="500.0" class="sub" font-size="11.5" text-anchor="start">qwen3:4b</text>
+<line x1="359.71" y1="496" x2="377.71" y2="496" stroke="var(--s3)" stroke-width="3" stroke-linecap="round"/>
+<text x="383.7" y="500.0" class="sub" font-size="11.5" text-anchor="start">qwen3:8b</text>
+<line x1="458.46999999999997" y1="496" x2="476.46999999999997" y2="496" stroke="var(--s4)" stroke-width="3" stroke-linecap="round"/>
+<text x="482.5" y="500.0" class="sub" font-size="11.5" text-anchor="start">qwen3:14b</text>
+<text x="28.0" y="524.0" class="note" font-size="12" text-anchor="start">qwen3:14b: 정확도 −5.0p를 내주고 P95를 28.49초 → 8.11초로 줄인다 (72% 단축).</text>
+</g></svg>
+</figure>
+<footer>
+내용 정확도·근거율은 LLM Judge(<code>gpt-6-astra</code>) 전수 채점 결과, 기대 상태 일치·반복 일관성·포맷 성공률은 코드 기반 결정론 지표다.<br>
+지연·VRAM은 EC2(Tesla T4)에서 단일 요청을 순차 측정한 값이며 동시 처리량이 아니다. test2와는 하드웨어가 달라 속도를 비교하지 않는다.
+</footer>
+</div></body></html>

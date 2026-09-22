@@ -1,6 +1,6 @@
 # test3 (EC2 라운드) 종합 결과
 
-생성 시각: 2026-09-21T02:52:00.150Z
+생성 시각: 2026-09-22T06:42:57.499Z
 
 ## 측정 조건
 
@@ -12,6 +12,16 @@
 ## temperature 설정의 근거
 
 > Ollama 기본값(temperature 0.8)에서 측정한 결과, 상위 모델조차 반복 일관성이 45~52%였다. 같은 질문에 절반은 다르게 답한다는 뜻이다. FAQ 상담봇에 부적합하다고 판단해 운영 설정을 temperature=0으로 확정했고, EC2 테스트는 그 조건에서 측정했다.
+
+## 한눈에 보기
+
+![지연 대비 정확도 파레토 프론티어](charts/pareto.svg)
+
+선 위의 설정은 "더 빠르면서 더 정확한 대안이 없는" 설정이다. 빈 원은 그런 대안이 있어 탈락한 설정이다.
+
+![프론티어 구간별 한계 효율](charts/marginal_efficiency.svg)
+
+![test3 본측정 핵심 지표](charts/core_metrics.svg)
 
 ## 모델별 결과
 
@@ -28,7 +38,7 @@
 - 내용 정확도·근거율은 LLM Judge 전수 채점 결과다([llm_judge_review/metrics.json](llm_judge_review/metrics.json), 해석은 [interpretation.md](llm_judge_review/interpretation.md)).
   내용 정확도는 CORRECT 판정 비율, 근거율은 실질적 환각(근거 1~3점)이 없는 답변의 비율(= 1 − 환각률)이다.
   분모는 채점에 성공한 답변 수다 — qwen3:8b 298문항, qwen3:14b 299문항이고 나머지는 300문항이다.
-- exaone3.5:7.8b의 부재판단 F1 `0.000`은 기대 ABSTAIN 88문항 중 0문항을 맞혀(TP=0)
+- exaone3.5:7.8b의 부재판단 F1 `0.000`은 기대 ABSTAIN 문항 중 0문항을 맞혀(TP=0)
   정밀도·재현율이 모두 0인 결과다. 채점기는 0/0 나눗셈을 `null`로 내보내지만 관례상 F1은 0이다.
 - **결정론 채점기의 RAG 충실도(`rag_faithfulness.jsonl`)는 이 표에 넣지 않았다.**
   `scripts/test2/score_rag_faithfulness.js`의 premise 누락이 고쳐지지 않아 모델 순위가 역전되기 때문이다.

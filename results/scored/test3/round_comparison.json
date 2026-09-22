@@ -1,6 +1,6 @@
 {
   "suite": "test3",
-  "generated_at": "2026-09-21T02:52:00.150Z",
+  "generated_at": "2026-09-22T06:42:57.499Z",
   "comparison_notes": [
     "test2는 local-win(RTX 4070 Ti, temperature 0.8 = Ollama 기본값), test3은 ec2-linux(temperature 0)이다.",
     "하드웨어가 함께 바뀌었으므로 두 라운드 간 속도(지연/TPS) 비교는 하지 않는다.",
@@ -9,6 +9,80 @@
     "temp=0에서 반복 일관성이 100%에 가까운 것은 개선이 아니라 샘플링을 끈 결과다."
   ],
   "missing_rounds": [],
+  "paired_thinking": [
+    {
+      "model_tag": "qwen3:1.7b",
+      "n_paired": 300,
+      "on": {
+        "n": 300,
+        "correct_rate": 0.39,
+        "is_grounded_rate": 0.5700000000000001,
+        "grounding_score_avg": 3.8933333333333335,
+        "expression_quality_avg": 4.42
+      },
+      "off": {
+        "n": 300,
+        "correct_rate": 0.23,
+        "is_grounded_rate": 0.43333333333333335,
+        "grounding_score_avg": 3.37,
+        "expression_quality_avg": 4.306666666666667
+      }
+    },
+    {
+      "model_tag": "qwen3:4b",
+      "n_paired": 300,
+      "on": {
+        "n": 300,
+        "correct_rate": 0.7233333333333334,
+        "is_grounded_rate": 0.8633333333333333,
+        "grounding_score_avg": 4.66,
+        "expression_quality_avg": 4.72
+      },
+      "off": {
+        "n": 300,
+        "correct_rate": 0.43666666666666665,
+        "is_grounded_rate": 0.71,
+        "grounding_score_avg": 4.29,
+        "expression_quality_avg": 4.233333333333333
+      }
+    },
+    {
+      "model_tag": "qwen3:8b",
+      "n_paired": 298,
+      "on": {
+        "n": 298,
+        "correct_rate": 0.5973154362416108,
+        "is_grounded_rate": 0.7315436241610738,
+        "grounding_score_avg": 4.345637583892618,
+        "expression_quality_avg": 4.701342281879195
+      },
+      "off": {
+        "n": 298,
+        "correct_rate": 0.436241610738255,
+        "is_grounded_rate": 0.7416107382550335,
+        "grounding_score_avg": 4.355704697986577,
+        "expression_quality_avg": 4.708053691275167
+      }
+    },
+    {
+      "model_tag": "qwen3:14b",
+      "n_paired": 299,
+      "on": {
+        "n": 299,
+        "correct_rate": 0.7558528428093646,
+        "is_grounded_rate": 0.7525083612040133,
+        "grounding_score_avg": 4.354515050167224,
+        "expression_quality_avg": 4.665551839464883
+      },
+      "off": {
+        "n": 299,
+        "correct_rate": 0.705685618729097,
+        "is_grounded_rate": 0.7625418060200668,
+        "grounding_score_avg": 4.431438127090301,
+        "expression_quality_avg": 4.792642140468227
+      }
+    }
+  ],
   "models": [
     {
       "model_tag": "gemma3:4b",
@@ -79,7 +153,13 @@
           "paraphrase_similarity": 0.9877958882741398
         },
         "absence_f1": 0.18691588785046728,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.31333333333333335,
+          "is_grounded_rate": 0.4966666666666667,
+          "grounding_score_avg": 3.7133333333333334,
+          "expression_quality_avg": 4.506666666666667
+        }
       },
       "test3_nothink": null,
       "test3_temp_control": {
@@ -113,7 +193,13 @@
           "paraphrase_similarity": 0.9432397989762231
         },
         "absence_f1": 0.25,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 40,
+          "correct_rate": 0.4,
+          "is_grounded_rate": 0.625,
+          "grounding_score_avg": 4.075,
+          "expression_quality_avg": 4.6
+        }
       }
     },
     {
@@ -185,7 +271,13 @@
           "paraphrase_similarity": 0.9554854039690263
         },
         "absence_f1": 0.25742574257425743,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.39,
+          "is_grounded_rate": 0.5700000000000001,
+          "grounding_score_avg": 3.8933333333333335,
+          "expression_quality_avg": 4.42
+        }
       },
       "test3_nothink": {
         "suite": "test3",
@@ -218,7 +310,13 @@
           "paraphrase_similarity": 0.9927509019584833
         },
         "absence_f1": 0.1075268817204301,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.23,
+          "is_grounded_rate": 0.43333333333333335,
+          "grounding_score_avg": 3.37,
+          "expression_quality_avg": 4.306666666666667
+        }
       },
       "test3_temp_control": {
         "suite": "test3",
@@ -251,7 +349,13 @@
           "paraphrase_similarity": 0.9115726831561952
         },
         "absence_f1": 0.33333333333333337,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 40,
+          "correct_rate": 0.4,
+          "is_grounded_rate": 0.525,
+          "grounding_score_avg": 3.725,
+          "expression_quality_avg": 4.2
+        }
       }
     },
     {
@@ -323,7 +427,13 @@
           "paraphrase_similarity": 0.9365280486360191
         },
         "absence_f1": 0.7638888888888888,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.7233333333333334,
+          "is_grounded_rate": 0.8633333333333333,
+          "grounding_score_avg": 4.66,
+          "expression_quality_avg": 4.72
+        }
       },
       "test3_nothink": {
         "suite": "test3",
@@ -356,7 +466,13 @@
           "paraphrase_similarity": 0.9952473216640559
         },
         "absence_f1": 0.6141732283464567,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.43666666666666665,
+          "is_grounded_rate": 0.71,
+          "grounding_score_avg": 4.29,
+          "expression_quality_avg": 4.233333333333333
+        }
       },
       "test3_temp_control": {
         "suite": "test3",
@@ -389,7 +505,13 @@
           "paraphrase_similarity": 0.9024000741794584
         },
         "absence_f1": 0.8000000000000002,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 40,
+          "correct_rate": 0.775,
+          "is_grounded_rate": 0.925,
+          "grounding_score_avg": 4.8,
+          "expression_quality_avg": 4.625
+        }
       }
     },
     {
@@ -461,7 +583,13 @@
           "paraphrase_similarity": 0.9654062414119771
         },
         "absence_f1": 0.20408163265306123,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 298,
+          "correct_rate": 0.5973154362416108,
+          "is_grounded_rate": 0.7315436241610738,
+          "grounding_score_avg": 4.345637583892618,
+          "expression_quality_avg": 4.701342281879195
+        }
       },
       "test3_nothink": {
         "suite": "test3",
@@ -494,7 +622,13 @@
           "paraphrase_similarity": 0.9922282622117452
         },
         "absence_f1": 0.1276595744680851,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.43666666666666665,
+          "is_grounded_rate": 0.74,
+          "grounding_score_avg": 4.346666666666667,
+          "expression_quality_avg": 4.7
+        }
       },
       "test3_temp_control": {
         "suite": "test3",
@@ -527,7 +661,13 @@
           "paraphrase_similarity": 0.9234867208399141
         },
         "absence_f1": null,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 40,
+          "correct_rate": 0.55,
+          "is_grounded_rate": 0.625,
+          "grounding_score_avg": 4.1,
+          "expression_quality_avg": 4.55
+        }
       }
     },
     {
@@ -598,8 +738,14 @@
           "evidence": 0.9,
           "paraphrase_similarity": 0.9918720951905952
         },
-        "absence_f1": null,
-        "llm_judge": null
+        "absence_f1": 0,
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.37333333333333335,
+          "is_grounded_rate": 0.4666666666666667,
+          "grounding_score_avg": 3.6366666666666667,
+          "expression_quality_avg": 4.52
+        }
       },
       "test3_nothink": null,
       "test3_temp_control": {
@@ -632,8 +778,14 @@
           "evidence": 0.6,
           "paraphrase_similarity": 0.9483220772124176
         },
-        "absence_f1": null,
-        "llm_judge": null
+        "absence_f1": 0,
+        "llm_judge": {
+          "n_scored": 40,
+          "correct_rate": 0.375,
+          "is_grounded_rate": 0.525,
+          "grounding_score_avg": 3.625,
+          "expression_quality_avg": 4.25
+        }
       }
     },
     {
@@ -672,7 +824,13 @@
           "paraphrase_similarity": 0.9920965675209823
         },
         "absence_f1": 0.7464788732394366,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.64,
+          "is_grounded_rate": 0.7866666666666666,
+          "grounding_score_avg": 4.506666666666667,
+          "expression_quality_avg": 4.63
+        }
       },
       "test3_nothink": null,
       "test3_temp_control": {
@@ -706,7 +864,13 @@
           "paraphrase_similarity": 0.9516463911670219
         },
         "absence_f1": 0.5714285714285715,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 40,
+          "correct_rate": 0.475,
+          "is_grounded_rate": 0.85,
+          "grounding_score_avg": 4.7,
+          "expression_quality_avg": 4.55
+        }
       }
     },
     {
@@ -745,7 +909,13 @@
           "paraphrase_similarity": 0.9786909565350304
         },
         "absence_f1": 0.6515151515151516,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 299,
+          "correct_rate": 0.7558528428093646,
+          "is_grounded_rate": 0.7525083612040133,
+          "grounding_score_avg": 4.354515050167224,
+          "expression_quality_avg": 4.665551839464883
+        }
       },
       "test3_nothink": {
         "suite": "test3",
@@ -778,7 +948,13 @@
           "paraphrase_similarity": 0.9975904422781449
         },
         "absence_f1": 0.7246376811594203,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 300,
+          "correct_rate": 0.7066666666666667,
+          "is_grounded_rate": 0.7633333333333333,
+          "grounding_score_avg": 4.433333333333334,
+          "expression_quality_avg": 4.793333333333333
+        }
       },
       "test3_temp_control": {
         "suite": "test3",
@@ -811,7 +987,13 @@
           "paraphrase_similarity": 0.9466998016849762
         },
         "absence_f1": 0.7499999999999999,
-        "llm_judge": null
+        "llm_judge": {
+          "n_scored": 40,
+          "correct_rate": 0.825,
+          "is_grounded_rate": 0.775,
+          "grounding_score_avg": 4.425,
+          "expression_quality_avg": 4.575
+        }
       }
     }
   ]
