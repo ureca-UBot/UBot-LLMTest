@@ -21,7 +21,7 @@ node scripts/test3/run_prompt_test.js qwen3:14b
 
 ## 1. 무엇을 비교하는가
 
-프롬프트 원문은 [`scripts/test2/lib/prompts.js`](../test2/lib/prompts.js)에 있다. 세 안 모두 **v0 전문을 그대로 두고 뒤에 블록 하나만 덧붙인다** — 한 번에 하나만 바꿔야 무엇 때문에 점수가 달라졌는지 가릴 수 있다.
+프롬프트 원문은 [`scripts/test2/lib/prompts.js`](../test2/lib/prompts.js)에 있다. 각 안을 그렇게 설계한 근거는 [PROMPT_DESIGN.md](PROMPT_DESIGN.md)에 있다. 세 안 모두 **v0 전문을 그대로 두고 뒤에 블록 하나만 덧붙인다** — 한 번에 하나만 바꿔야 무엇 때문에 점수가 달라졌는지 가릴 수 있다.
 
 | 안 | 바꾼 것 | 겨냥한 약점 |
 |---|---|---|
