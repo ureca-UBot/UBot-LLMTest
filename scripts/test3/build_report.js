@@ -87,8 +87,8 @@ function summaryDoc(cmp) {
     '', '## temperature 설정의 근거', '',
     `> ${TEMPERATURE_RATIONALE}`, '',
     '## 한눈에 보기', '',
-    '![지연 대비 정확도 파레토 프론티어](charts/pareto.svg)', '',
-    '선 위의 설정은 "더 빠르면서 더 정확한 대안이 없는" 설정이다. 빈 원은 그런 대안이 있어 탈락한 설정이다.', '',
+    '![속도 대비 정답률 기준선](charts/speed_quality.svg)', '',
+    '파란 선은 응답 시간(P95)이 그 시간 이내인 설정 중 가장 높은 정답률이다. 기준선 왼쪽은 기다린 만큼 정답률이 오르고, 오른쪽은 기다려도 거의 오르지 않는다. 빈 원은 더 빠르면서 더 정확한 대안이 있는 설정이다.', '',
     '![프론티어 구간별 한계 효율](charts/marginal_efficiency.svg)', '',
     '![test3 본측정 핵심 지표](charts/core_metrics.svg)', '',
     '## 모델별 결과', '',
@@ -471,7 +471,7 @@ function vramDoc(profile) {
 function writeDashboard(cmp, svgs) {
   // 선별 → 서열 → 보조 순. 발표 흐름과 같은 순서로 싣는다.
   const order = ['screening_6r.svg', 'screening_9r.svg', 'head_to_head.svg', 'speed_quality.svg',
-    'pareto.svg', 'marginal_efficiency.svg', 'core_metrics.svg', 'think_slope.svg'];
+    'marginal_efficiency.svg', 'core_metrics.svg', 'think_slope.svg'];
   const figs = order.filter((k) => svgs[k]).map((k) =>
     `<figure>${svgs[k].replace(/ width="\d+" height="\d+"/, ' width="100%" height="auto"')}</figure>`);
   const html = `<!doctype html>
