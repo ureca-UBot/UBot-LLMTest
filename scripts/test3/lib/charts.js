@@ -78,6 +78,7 @@ function settings(cmp) {
         label: m.model_tag + suffix,
         tier: m.tier,
         acc: r.llm_judge.correct_rate,
+        n: r.llm_judge.n_scored,
         grounded: r.llm_judge.is_grounded_rate,
         p95: r.latency_p95_ms == null ? null : r.latency_p95_ms / 1000,
         avg: r.latency_avg_ms == null ? null : r.latency_avg_ms / 1000,
@@ -105,6 +106,35 @@ function paretoFront(pts) {
 // 지배당한 점마다 "누구에게 지는지"를 찾는다(더 빠르면서 더 정확한 설정).
 function dominators(p, front) {
   return front.filter((f) => f.p95 <= p.p95 && f.acc >= p.acc && f !== p);
+}
+
+
+// 라벨 상자가 장애물(점·다른 라벨·주석)과 겹치지 않는 첫 자리를 찾는다.
+// 좌/우 × 세로 오프셋을 순서대로 시도하고, 전부 막히면 오른쪽 기본 자리로 둔다.
+// 찾은 상자는 obstacles에 추가된다 — 다음 라벨의 장애물이 된다.
+function placeLabel(obstacles, { x, y, r, w, lines = 2, bounds, offsets, sides = [1, -1] }) {
+  const hits = (bx) => obstacles.some((q) =>
+    bx.x0 < q.x1 && bx.x1 > q.x0 && bx.y0 < q.y1 && bx.y1 > q.y0);
+  const bottom = lines === 2 ? 19 : 5;
+  let best = null;
+  outer:
+  for (const side of sides) {
+    for (const dy of offsets) {
+      const tx = side === 1 ? x + r + 8 : x - r - 8;
+      const x0 = side === 1 ? tx : tx - w, x1 = x0 + w;
+      const ty = y + 4 + dy;
+      const box = { x0: x0 - 3, x1: x1 + 3, y0: ty - 12, y1: ty + bottom };
+      if (x0 < bounds.x0 || x1 > bounds.x1) continue;
+      if (box.y0 < bounds.y0 || box.y1 > bounds.y1) continue;
+      if (hits(box)) continue;
+      best = { tx, ty, side, box };
+      break outer;
+    }
+  }
+  if (!best) { const tx = x + r + 8, ty = y + 4;
+    best = { tx, ty, side: 1, box: { x0: tx - 3, x1: tx + w + 3, y0: ty - 12, y1: ty + bottom } }; }
+  obstacles.push(best.box);
+  return best;
 }
 
 // ---------------------------------------------------------------- ① 파레토
@@ -174,8 +204,6 @@ function paretoSvg(cmp) {
     const qx = lx(q.p95), qy = ly(q.acc), qr = rad(q.vram) + 3;
     return { x0: qx - qr, x1: qx + qr, y0: qy - qr, y1: qy + qr };
   });
-  const hits = (bx) => boxes.some((q) =>
-    bx.x0 < q.x1 && bx.x1 > q.x0 && bx.y0 < q.y1 && bx.y1 > q.y0);
   const ordered = pts.slice().sort((a, p) => p.acc - a.acc);
   const marks = [];
   for (const p of ordered) {
@@ -187,24 +215,9 @@ function paretoSvg(cmp) {
 
     const sub = `${pctS(p.acc)} · 환각 ${pctS(1 - p.grounded)}`;
     const w = Math.max(textW(p.label, 12), textW(sub, 10.5));
-    let best = null;
-    outer:
-    for (const side of [1, -1]) {
-      for (const dy of [0, -26, 26, -46, 46, -68, 68, -92, 92]) {
-        const tx = side === 1 ? x + r + 8 : x - r - 8;
-        const x0 = side === 1 ? tx : tx - w, x1 = x0 + w;
-        const ty = y + 4 + dy;
-        const box = { x0: x0 - 3, x1: x1 + 3, y0: ty - 12, y1: ty + 19 };
-        if (x0 < M.l + 2 || x1 > M.l + iw - 2) continue;
-        if (box.y0 < M.t - 4 || box.y1 > M.t + ih + 2) continue;
-        if (hits(box)) continue;
-        best = { tx, ty, side, box };
-        break outer;
-      }
-    }
-    if (!best) { const tx = x + r + 8, ty = y + 4;
-      best = { tx, ty, side: 1, box: { x0: tx - 3, x1: tx + w + 3, y0: ty - 12, y1: ty + 19 } }; }
-    boxes.push(best.box);
+    const best = placeLabel(boxes, { x, y, r, w,
+      bounds: { x0: M.l + 2, x1: M.l + iw - 2, y0: M.t - 4, y1: M.t + ih + 2 },
+      offsets: [0, -26, 26, -46, 46, -68, 68, -92, 92] });
     // 라벨이 점에서 떨어졌으면 가는 실선으로 이어준다
     if (Math.abs(best.ty - (y + 4)) > 14) {
       const ax = best.side === 1 ? best.tx - 4 : best.tx + 4;
@@ -308,6 +321,194 @@ function marginalEfficiencySvg(cmp) {
       { cls: 'note', size: 12 }));
   }
   return svgDoc(W, H, b.join('\n'), '프론티어 구간별 한계 효율');
+}
+
+// ---------------------------------------------------------------- ②-b 기준선
+
+// 프론티어에서 곡선이 가장 크게 꺾이는 점 — 양 끝을 잇는 직선에서 위로 가장
+// 멀리 튀어나온 점(Kneedle). x는 선형: 사용자가 체감하는 대기 시간은 선형이다.
+function kneePoint(front) {
+  if (front.length < 3) return null;
+  const a = front[0], z = front[front.length - 1];
+  if (z.acc === a.acc || z.p95 === a.p95) return null;
+  let best = null, bv = -Infinity;
+  for (const p of front) {
+    const v = (p.acc - a.acc) / (z.acc - a.acc) - (p.p95 - a.p95) / (z.p95 - a.p95);
+    if (v > bv) { bv = v; best = p; }
+  }
+  return best;
+}
+
+// 두 정답률 차이가 채점 문항 수에 비해 우연으로 설명되지 않는 크기인가
+// (양측 5%, 비대응 — 문항별 판정 없이 round_comparison.json만으로 계산).
+function distinguishable(a, b) {
+  if (!a.n || !b.n) return null;
+  const se = Math.sqrt(a.acc * (1 - a.acc) / a.n + b.acc * (1 - b.acc) / b.n);
+  return Math.abs(b.acc - a.acc) / se >= 1.96;
+}
+
+function speedQualitySvg(cmp, { keep = [] } = {}) {
+  const pts = settings(cmp);
+  const front = paretoFront(pts);
+  const knee = kneePoint(front);
+  if (!knee) return null;
+  const ki = front.indexOf(knee);
+  const kept = pts.filter((p) => keep.includes(p.label));
+  const bandLo = kept.length ? Math.min(...kept.map((p) => p.p95)) : knee.p95;
+  const bandHi = kept.length ? Math.max(...kept.map((p) => p.p95)) : knee.p95;
+  // 왼쪽 비교 기준: 선택 구간 직전의 프론티어 점. 오른쪽: 무릎 바로 다음 프론티어 점.
+  const L = front.filter((p) => p.p95 < bandLo).pop() || null;
+  const R = front[ki + 1] || null;
+
+  const W = 1200, H = 675;
+  const M = { l: 72, r: 44, t: 120, b: 100 };
+  const iw = W - M.l - M.r, ih = H - M.t - M.b;
+  // x축은 프론티어 끝점까지만 그린다(5초 단위 올림). 그보다 느린 설정은 오른쪽 끝에
+  // 붙이고 실제 값을 라벨에 적는다 — 한 점 때문에 나머지가 한쪽에 몰리지 않게.
+  const xMax = Math.ceil(front[front.length - 1].p95 * 1.04 / 5) * 5;
+  const x = (v) => M.l + Math.min(v, xMax) / xMax * iw;
+  const clipped = (p) => p.p95 > xMax;
+  const accLo = Math.floor((Math.min(...pts.map((p) => p.acc)) - 0.06) * 20) / 20;
+  const accHi = Math.ceil((Math.max(...pts.map((p) => p.acc)) + 0.12) * 20) / 20;
+  const y = (v) => M.t + ih - (v - accLo) / (accHi - accLo) * ih;
+  const s1 = (v) => v.toFixed(1);
+  const b = [];
+  const obstacles = [];
+
+  b.push(txt(M.l - 40, 38, `속도 대비 정답률 — ${s1(knee.p95)}초에서 곡선이 꺾인다`, { cls: 'ttl', size: 22 }));
+  b.push(txt(M.l - 40, 64,
+    '파란 선 = 응답 시간(P95)이 그 시간 이내인 설정 중 가장 높은 정답률. 선이 오르는 동안은 기다린 만큼 얻고, 평평해지면 기다려도 얻는 게 없다.',
+    { cls: 'sub', size: 13 }));
+
+  // 구간 배경: 왼쪽(오르는 구간) 옅게, 선택 구간 진하게
+  b.push(`<rect x="${s1(M.l)}" y="${M.t}" width="${s1(x(knee.p95) - M.l)}" height="${ih}" fill="var(--s1)" opacity="0.06"/>`);
+  const bx0 = x(bandLo) - 7, bx1 = x(bandHi) + 7;
+  b.push(`<rect x="${s1(bx0)}" y="${M.t}" width="${s1(bx1 - bx0)}" height="${ih}" fill="var(--s1)" opacity="0.16"/>`);
+
+  // 격자 + 축
+  const yStep = 0.1;
+  for (let a = Math.ceil(accLo / yStep) * yStep; a <= accHi + 1e-9; a += yStep) {
+    const yy = y(a);
+    b.push(`<line class="grid" x1="${M.l}" y1="${s1(yy)}" x2="${M.l + iw}" y2="${s1(yy)}"/>`);
+    b.push(txt(M.l - 10, yy + 4, (a * 100).toFixed(0) + '%', { cls: 'axl', size: 12, anchor: 'end' }));
+  }
+  for (let t = 0; t <= xMax; t += 5) {
+    const xx = x(t);
+    b.push(`<line class="grid" x1="${s1(xx)}" y1="${M.t}" x2="${s1(xx)}" y2="${M.t + ih}"/>`);
+    b.push(txt(xx, M.t + ih + 20, t + '초', { cls: 'axl', size: 12, anchor: 'middle' }));
+  }
+  b.push(`<line class="axis" x1="${M.l}" y1="${M.t + ih}" x2="${M.l + iw}" y2="${M.t + ih}"/>`);
+  b.push(txt(M.l + iw, M.t + ih + 42, 'P95 응답 시간 — 느린 쪽 5% 답변이 걸린 시간 →', { cls: 'axl', size: 12, anchor: 'end' }));
+  b.push(txt(M.l - 40, M.t - 14, '정답률 (LLM Judge)', { cls: 'axl', size: 12 }));
+
+  // 기준선
+  const kx = x(knee.p95);
+  b.push(`<line x1="${s1(kx)}" y1="${M.t - 30}" x2="${s1(kx)}" y2="${M.t + ih}" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.75"/>`);
+  const keepTxt = kept.length ? `선택: ${kept.map((p) => p.label).join(' · ')}` : knee.label;
+  b.push(txt(kx + 8, M.t - 32, `기준선 ${s1(knee.p95)}초`, { weight: 700, size: 14 }));
+  b.push(txt(kx + 8 + textW(`기준선 ${s1(knee.p95)}초`, 14) + 10, M.t - 32, keepTxt, { cls: 'sub', size: 13 }));
+  obstacles.push({ x0: kx - 3, x1: kx + 3, y0: M.t, y1: M.t + ih });
+
+  // 구간 설명 (숫자는 전부 데이터에서 계산)
+  const zone = (x0, y0, lines) => {
+    let yy = y0;
+    for (const [s, o] of lines) {
+      b.push(txt(x0, yy, s, o));
+      const w = textW(s, o.size);
+      obstacles.push({ x0: x0 - 3, x1: x0 + w + 3, y0: yy - o.size, y1: yy + 5 });
+      yy += o.size + 8;
+    }
+  };
+  if (L) {
+    const dt = knee.p95 - L.p95, da = knee.acc - L.acc;
+    zone(M.l + 12, M.t + 26, [
+      ['① 기다린 만큼 오른다', { weight: 700, size: 15 }],
+      [`${s1(dt)}초 더 기다리면`, { cls: 'sub', size: 13 }],
+      [`정답률 ${signed(da * 100, 1, '%p')}`, { weight: 700, size: 20 }],
+      [`${s1(L.p95)}초 ${pctS(L.acc)} → ${s1(knee.p95)}초 ${pctS(knee.acc)}`, { cls: 'note', size: 11 }],
+    ]);
+  }
+  if (R) {
+    const dt = R.p95 - knee.p95, da = R.acc - knee.acc;
+    const same = distinguishable(knee, R) === false;
+    const lines = [
+      ['② 기다려도 거의 안 오른다', { weight: 700, size: 15 }],
+      [`${s1(dt)}초 더 기다려도`, { cls: 'sub', size: 13 }],
+      [`정답률 ${signed(da * 100, 1, '%p')}`, { weight: 700, size: 20 }],
+      [`${s1(knee.p95)}초 ${pctS(knee.acc)} → ${s1(R.p95)}초 ${pctS(R.acc)}`, { cls: 'note', size: 11 }],
+    ];
+    if (same) lines.push([`${knee.n}문제 기준으로는 우연과 구분되지 않는 차이`, { cls: 'note', size: 11 }]);
+    zone(bx1 + 28, y(knee.acc) + 40, lines);
+  }
+
+  // 계단선: 그 시간 안에서 얻을 수 있는 최고 정답률. 마지막 높이는 오른쪽 끝까지 잇는다.
+  const d = [];
+  front.forEach((p, i) => {
+    if (i === 0) d.push(`M ${s1(x(p.p95))} ${s1(y(p.acc))}`);
+    else d.push(`L ${s1(x(p.p95))} ${s1(y(front[i - 1].acc))} L ${s1(x(p.p95))} ${s1(y(p.acc))}`);
+    const x1 = i + 1 < front.length ? x(front[i + 1].p95) : M.l + iw;
+    obstacles.push({ x0: x(p.p95), x1, y0: y(p.acc) - 2, y1: y(p.acc) + 2 });
+    if (i) obstacles.push({ x0: x(p.p95) - 2, x1: x(p.p95) + 2, y0: y(p.acc), y1: y(front[i - 1].acc) });
+  });
+  d.push(`L ${s1(M.l + iw)} ${s1(y(front[front.length - 1].acc))}`);
+  b.push(`<path d="${d.join(' ')}" fill="none" stroke="var(--s1)" stroke-width="2.5" stroke-linejoin="round"/>`);
+
+  // 점 — 장애물로 먼저 깐 뒤, 선택 → 프론티어 → 나머지 순으로 라벨을 놓는다
+  const inFront = new Set(front), isKept = new Set(kept);
+  const rad = (p) => (isKept.has(p) ? 8 : inFront.has(p) ? 6 : 5);
+  for (const p of pts) {
+    const r = rad(p) + 3;
+    obstacles.push({ x0: x(p.p95) - r, x1: x(p.p95) + r, y0: y(p.acc) - r, y1: y(p.acc) + r });
+  }
+  const rankOf = (p) => (isKept.has(p) ? 0 : inFront.has(p) ? 1 : 2);
+  const ordered = pts.slice().sort((a, c) => rankOf(a) - rankOf(c) || c.acc - a.acc);
+  const dots = [], labels = [];
+  const bounds = { x0: M.l + 4, x1: M.l + iw - 4, y0: M.t + 2, y1: M.t + ih - 2 };
+  for (const p of ordered) {
+    const px = x(p.p95), py = y(p.acc), r = rad(p);
+    const tip = `<title>${esc(`${p.label} — 정답률 ${pctS(p.acc)}, P95 ${p.p95.toFixed(2)}초`)}</title>`;
+    if (isKept.has(p)) {
+      dots.push(`<circle cx="${s1(px)}" cy="${s1(py)}" r="${r}" fill="var(--s1)" stroke="var(--ink)" stroke-width="2.5">${tip}</circle>`);
+    } else if (inFront.has(p)) {
+      dots.push(`<circle cx="${s1(px)}" cy="${s1(py)}" r="${r}" fill="var(--s1)" stroke="var(--surface)" stroke-width="2">${tip}</circle>`);
+    } else {
+      dots.push(`<circle cx="${s1(px)}" cy="${s1(py)}" r="${r}" fill="var(--surface)" stroke="var(--muted)" stroke-width="2">${tip}</circle>`);
+    }
+    const main = rankOf(p) < 2;
+    const sub = `${pctS(p.acc)} · ${s1(p.p95)}초`;
+    const name = clipped(p) ? `${p.label} (${s1(p.p95)}초 →)` : p.label;
+    const w = main ? Math.max(textW(name, 13), textW(sub, 11)) : textW(name, 11);
+    const at = placeLabel(obstacles, { x: px, y: py, r, w, lines: main ? 2 : 1, bounds,
+      offsets: [0, -22, 22, -40, 40, -60, 60, -82, 82, -106, 106, -132, 132] });
+    if (Math.abs(at.ty - (py + 4)) > 14) {
+      const ax = at.side === 1 ? at.tx - 4 : at.tx + 4;
+      labels.push(`<line x1="${s1(px + at.side * (r + 2))}" y1="${s1(py)}" x2="${s1(ax)}" y2="${s1(at.ty - 4)}" stroke="var(--axis)" stroke-width="1"/>`);
+    }
+    const anchor = at.side === 1 ? 'start' : 'end';
+    if (main) {
+      labels.push(txt(at.tx, at.ty, name, { size: 13, anchor, weight: isKept.has(p) ? 700 : 600 }));
+      labels.push(txt(at.tx, at.ty + 15, sub, { cls: 'note', size: 11, anchor }));
+    } else {
+      labels.push(txt(at.tx, at.ty, name, { cls: 'note', size: 11, anchor, op: 0.85 }));
+    }
+  }
+  b.push(labels.join('\n'));
+  b.push(dots.join('\n'));
+
+  // 범례
+  const gy = H - 26;
+  let gx = M.l - 40;
+  const item = (mark, label) => {
+    b.push(mark(gx));
+    b.push(txt(gx + 26, gy + 4, label, { cls: 'sub', size: 12 }));
+    gx += 26 + textW(label, 12) + 28;
+  };
+  item((g) => `<line x1="${g}" y1="${gy}" x2="${g + 18}" y2="${gy}" stroke="var(--s1)" stroke-width="2.5"/>`, '그 시간 안에서 얻을 수 있는 최고 정답률');
+  item((g) => `<circle cx="${g + 9}" cy="${gy}" r="7" fill="var(--s1)" stroke="var(--ink)" stroke-width="2.5"/>`, '선택한 두 설정');
+  item((g) => `<circle cx="${g + 9}" cy="${gy}" r="6" fill="var(--s1)"/>`, '더 빠르면서 더 정확한 대안이 없는 설정');
+  item((g) => `<circle cx="${g + 9}" cy="${gy}" r="5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>`, '더 빠르고 더 정확한 대안이 있는 설정');
+
+  return svgDoc(W, H, b.join('\n'), `속도 대비 정답률 — ${s1(knee.p95)}초 기준선`);
 }
 
 // ---------------------------------------------------------------- ③ 핵심 지표
@@ -642,6 +843,7 @@ function writeAll(cmp, outDir) {
       note: 'qwen3:14b OFF 97.0% · gemma3:12b 82.7% — 3위(17.3%)와 압도적으로 벌어진다.',
       keep: KEEP }),
     'head_to_head.svg': headToHeadSvg(screening.headToHead(cmp, 'gemma3:12b', 'qwen3:14b OFF')),
+    'speed_quality.svg': speedQualitySvg(cmp, { keep: KEEP }),
     'pareto.svg': paretoSvg(cmp),
     'marginal_efficiency.svg': marginalEfficiencySvg(cmp),
     'core_metrics.svg': coreMetricsSvg(cmp),
@@ -655,5 +857,5 @@ function writeAll(cmp, outDir) {
   return { made, charts };
 }
 
-module.exports = { writeAll, settings, paretoFront, paretoSvg,
+module.exports = { writeAll, settings, paretoFront, paretoSvg, speedQualitySvg,
   marginalEfficiencySvg, coreMetricsSvg, thinkSlopeSvg, survivalSvg, headToHeadSvg };

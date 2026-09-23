@@ -470,7 +470,7 @@ function vramDoc(profile) {
 // 발표용 한 장 — SVG를 인라인해 외부 요청이 0이다. 브라우저에서 열어 그대로 캡처한다.
 function writeDashboard(cmp, svgs) {
   // 선별 → 서열 → 보조 순. 발표 흐름과 같은 순서로 싣는다.
-  const order = ['screening_6r.svg', 'screening_9r.svg', 'head_to_head.svg',
+  const order = ['screening_6r.svg', 'screening_9r.svg', 'head_to_head.svg', 'speed_quality.svg',
     'pareto.svg', 'marginal_efficiency.svg', 'core_metrics.svg', 'think_slope.svg'];
   const figs = order.filter((k) => svgs[k]).map((k) =>
     `<figure>${svgs[k].replace(/ width="\d+" height="\d+"/, ' width="100%" height="auto"')}</figure>`);
