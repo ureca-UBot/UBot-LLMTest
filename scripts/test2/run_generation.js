@@ -15,6 +15,10 @@
 //   prompt_variant로 남으므로 결과 파일만 보고 어떤 안인지 알 수 있다.
 // --primary-only: 고유 문항(실행 회차 1, 300행)만 생성 — --repeat-only의 반대쪽.
 //   프롬프트 비교는 반복 회차가 필요 없으므로 이걸 쓴다.
+// --ids <파일>: 파일에 적힌 문항 ID만 생성(한 줄에 하나, #은 주석). 프롬프트 2차
+//   테스트의 스모크(표적+감시 문항만)와 정정 문항 재생성에 쓴다.
+// 문항 파일은 LLM_TEST_CASES 환경변수로 바꿀 수 있다(기본 cases.csv, lib/suite.js).
+//   어떤 파일로 만들었는지 레코드의 cases_file에 남는다.
 //
 // run_id convention: <env>_<model>_<date>, e.g. local-win_gemma3-4b_20260916
 // (scripts/lib/platform.js#envTag supplies <env>; pass --run-id explicitly
@@ -23,7 +27,7 @@
 const fs = require('fs');
 const path = require('path');
 const { parseCsvObjects } = require('./lib/csv');
-const { buildMessages, SYSTEM_PROMPTS } = require('./lib/prompts');
+const { buildMessages, SYSTEM_PROMPTS, resolveSystemPrompt } = require('./lib/prompts');
 const { checkFormatSuccess } = require('./lib/metrics');
 const ollama = require('./lib/ollama');
 const { readExistingIds, readAll, makeAppender } = require('./lib/jsonl');
@@ -32,8 +36,8 @@ const { envTag } = require('./lib/platform');
 const { sampleVramMiB } = require('./lib/vram');
 const suitePaths = require('./lib/suite');
 
-const ROOT = path.join(__dirname, '..', '..');
-const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
+// 기본 data/eval_sets/test_set2/cases.csv. LLM_TEST_CASES로 정정본 등을 지정할 수 있다(lib/suite.js).
+const CASES_PATH = suitePaths.casesPath();
 
 // --repeat-only: 반복 평가 대상(40문항 x 3회차 = 120행)만 남긴다. test3의
 // temperature 대조군 라운드가 반복 일관성만 재기 위해 쓴다.
@@ -42,7 +46,7 @@ function parseArgs(argv) {
   const opts = {
     limit: null, type: null, difficulty: null, runId: null,
     temperature: null, seed: null, think: undefined, repeatOnly: false,
-    primaryOnly: false, prompt: 'v0_baseline',
+    primaryOnly: false, prompt: 'v0_baseline', idsFile: null,
   };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -56,6 +60,7 @@ function parseArgs(argv) {
     else if (a === '--repeat-only') opts.repeatOnly = true;
     else if (a === '--primary-only') opts.primaryOnly = true;
     else if (a === '--prompt') opts.prompt = argv[++i];
+    else if (a === '--ids') opts.idsFile = argv[++i];
     else positional.push(a);
   }
   if (opts.temperature !== null && !Number.isFinite(opts.temperature)) {
@@ -67,11 +72,19 @@ function parseArgs(argv) {
   if (opts.repeatOnly && opts.primaryOnly) {
     throw new Error('--repeat-only와 --primary-only는 함께 쓸 수 없습니다.');
   }
-  if (!SYSTEM_PROMPTS[opts.prompt]) {
+  if (!resolveSystemPrompt(opts.prompt)) {
     throw new Error('알 수 없는 --prompt ' + JSON.stringify(opts.prompt)
-      + ' (가능: ' + Object.keys(SYSTEM_PROMPTS).join(', ') + ')');
+      + ' (가능: ' + Object.keys(SYSTEM_PROMPTS).join(', ') + ', v9_combo-v4-v6 형식의 조합안)');
   }
   return { positional, opts };
+}
+
+// --ids 파일: 한 줄에 ID 하나. 빈 줄과 # 뒤는 무시한다.
+function readIdsFile(file) {
+  const ids = fs.readFileSync(path.resolve(file), 'utf8').split(/\r?\n/)
+    .map((line) => line.replace(/#.*/, '').trim()).filter(Boolean);
+  if (!ids.length) throw new Error(`--ids 파일에 ID가 없습니다: ${file}`);
+  return ids;
 }
 
 function parseThink(value) {
@@ -84,7 +97,7 @@ async function main() {
   const { positional, opts } = parseArgs(process.argv.slice(2));
   const [runIdArg, modelTag] = positional;
   if (!modelTag) {
-    console.error('usage: node scripts/run_generation.js <run_id> <model_tag> [--limit N] [--type T]\n  [--difficulty D] [--repeat-only] [--primary-only] [--prompt V] [--temperature N] [--seed N] [--think true|false]');
+    console.error('usage: node scripts/run_generation.js <run_id> <model_tag> [--limit N] [--type T]\n  [--difficulty D] [--repeat-only] [--primary-only] [--ids FILE] [--prompt V] [--temperature N] [--seed N] [--think true|false]');
     process.exit(1);
   }
   const runId = opts.runId || runIdArg;
@@ -94,7 +107,16 @@ async function main() {
   if (opts.primaryOnly) cases = cases.filter(isPrimaryRound);
   if (opts.type) cases = cases.filter((c) => c['유형'] === opts.type);
   if (opts.difficulty) cases = cases.filter((c) => c['난이도'] === opts.difficulty);
+  if (opts.idsFile) {
+    const wanted = readIdsFile(opts.idsFile);
+    const known = new Set(cases.map((c) => c['ID']));
+    const unknown = wanted.filter((id) => !known.has(id));
+    if (unknown.length) throw new Error(`--ids의 ID가 문항 파일(${suitePaths.casesRelPath()})에 없습니다: ${unknown.join(', ')}`);
+    const set = new Set(wanted);
+    cases = cases.filter((c) => set.has(c['ID']));
+  }
   if (opts.limit) cases = cases.slice(0, opts.limit);
+  const casesFile = suitePaths.casesRelPath();
 
   // Ollama에 넘길 생성 파라미터. 아무것도 지정 안 하면 options={} + think 미전달
   // 이라 test2와 완전히 같은 동작(= Ollama 기본값)이다.
@@ -109,19 +131,21 @@ async function main() {
     think: opts.think === undefined ? null : opts.think,
     format: 'json',
   };
-  console.log(`생성 파라미터: ${JSON.stringify(genParams)} prompt=${opts.prompt}`);
+  console.log(`생성 파라미터: ${JSON.stringify(genParams)} prompt=${opts.prompt} cases=${casesFile}`);
 
   const outPath = suitePaths.generationPath(runId);
   const alreadyDone = readExistingIds(outPath, 'id');
 
   // 설정 충돌 가드 — 한 run_id 안에 다른 프롬프트/파라미터의 결과가 섞이면
   // 비교가 성립하지 않는다. 같은 설정으로 이어서 돌리는 경우는 그대로 통과한다.
+  // cases_file이 없는 예전 레코드는 기본 cases.csv로 만든 것이다.
   const conflict = readAll(outPath).find((r) => (r.prompt_variant || 'v0_baseline') !== opts.prompt
-    || (r.gen_params && JSON.stringify(r.gen_params) !== JSON.stringify(genParams)));
+    || (r.gen_params && JSON.stringify(r.gen_params) !== JSON.stringify(genParams))
+    || (r.cases_file || suitePaths.DEFAULT_CASES) !== casesFile);
   if (conflict) {
     console.error(`[중단] run_id "${runId}"에 이미 다른 설정으로 만든 결과가 있습니다.`);
-    console.error(`       기존: prompt=${conflict.prompt_variant || 'v0_baseline(미기록)'} gen_params=${JSON.stringify(conflict.gen_params || null)}`);
-    console.error(`       요청: prompt=${opts.prompt} gen_params=${JSON.stringify(genParams)}`);
+    console.error(`       기존: prompt=${conflict.prompt_variant || 'v0_baseline(미기록)'} gen_params=${JSON.stringify(conflict.gen_params || null)} cases=${conflict.cases_file || suitePaths.DEFAULT_CASES}`);
+    console.error(`       요청: prompt=${opts.prompt} gen_params=${JSON.stringify(genParams)} cases=${casesFile}`);
     console.error('       run_id를 다르게 지정하세요(예: --date를 바꿔서).');
     process.exit(1);
   }
@@ -157,6 +181,7 @@ async function main() {
         model_tag: modelTag,
         env: envTag(),
         prompt_variant: opts.prompt,
+        cases_file: casesFile,
         유형: row['유형'],
         난이도: row['난이도'],
         raw_content: res.content,
@@ -180,7 +205,7 @@ async function main() {
     } catch (e) {
       record = {
         id: row['ID'], run_id: runId, model_tag: modelTag, env: envTag(),
-        prompt_variant: opts.prompt,
+        prompt_variant: opts.prompt, cases_file: casesFile,
         유형: row['유형'], 난이도: row['난이도'],
         raw_content: null, parsed: null, format_pass: false, format_fail_reason: null,
         timing: null, vram_used_mib: null, gen_params: genParams,

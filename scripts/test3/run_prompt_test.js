@@ -27,7 +27,7 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 const models = require('./config/models');
 const { ROOT, SUITE, runRound, parseCommonArgs, envTag, makeRunId } = require('./lib/runner');
-const { SYSTEM_PROMPTS } = require('../test2/lib/prompts');
+const { SYSTEM_PROMPTS, ROUND1_VARIANTS } = require('../test2/lib/prompts');
 
 // 프롬프트 비교는 추론 off·온도 0 조건에서 한다. run_id의 조건 부분은
 // <안>_<이 접미사>가 된다.
@@ -60,8 +60,9 @@ function main() {
     process.exit(1);
   }
 
+  // 기본값은 1차 안(v1~v3)만. 2차 안(v4~)은 run_prompt_round2.js로 돌린다.
   const known = Object.keys(SYSTEM_PROMPTS);
-  let variants = opts.variants || known.filter((v) => v !== BASELINE);
+  let variants = opts.variants || ROUND1_VARIANTS.filter((v) => v !== BASELINE);
   const unknown = variants.filter((v) => !SYSTEM_PROMPTS[v]);
   if (unknown.length) {
     console.error(`[중단] 알 수 없는 프롬프트 안: ${unknown.join(', ')}`);

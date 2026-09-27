@@ -51,6 +51,28 @@ function docsDir() {
   return path.join(ROOT, 'results', suiteTag());
 }
 
+// --- 평가 문항 파일 ---------------------------------------------------
+// 생성·채점 스크립트가 읽는 문항 CSV. 프롬프트 2차 테스트는 라벨을 고친
+// 정정본(cases_r2.csv)과 신규 문항(new_r2.csv)을 쓰므로 경로를 바꿀 수 있어야 한다.
+//
+//   LLM_TEST_CASES 미설정 -> data/eval_sets/test_set2/cases.csv (기존 동작)
+//   LLM_TEST_CASES=data/eval_sets/test_set2/cases_r2.csv -> 정정본
+//
+// 저장소 루트 기준 상대 경로이며 data/eval_sets/ 아래 .csv만 허용한다.
+const DEFAULT_CASES = 'data/eval_sets/test_set2/cases.csv';
+
+function casesRelPath() {
+  const rel = (process.env.LLM_TEST_CASES || DEFAULT_CASES).replace(/\\/g, '/');
+  if (!/^data\/eval_sets\/[A-Za-z0-9_./-]+\.csv$/.test(rel) || rel.includes('..')) {
+    throw new Error(`LLM_TEST_CASES 값이 올바르지 않습니다: ${JSON.stringify(rel)} (data/eval_sets/ 아래 .csv 상대 경로만 허용)`);
+  }
+  return rel;
+}
+
+function casesPath() {
+  return path.join(ROOT, casesRelPath());
+}
+
 
 // --- LLM Judge 배치 ---------------------------------------------------
 // 채점 배치도 라운드마다 다르다. 예전엔 러너와 V2 보고서 스크립트 5개가
@@ -92,5 +114,6 @@ function v2Dir() {
 
 module.exports = {
   ROOT, suiteTag, rawDir, generationPath, scoredDir, reportsDir, docsDir,
+  DEFAULT_CASES, casesRelPath, casesPath,
   DEFAULT_JUDGE_BATCH, judgeBatch, judgeInputsDir, judgeOutputDir, batchManifestPath, v2Dir,
 };

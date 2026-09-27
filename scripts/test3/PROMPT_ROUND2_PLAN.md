@@ -2,6 +2,7 @@
 
 작성일: 2026-09-25 · 대상 모델: **`qwen3:14b` 하나만** (temperature 0, 추론 끔 — 1차와 동일)
 근거: 1차 프롬프트 테스트(v0~v3, 2026-09-22 생성 / Ultra Judge 채점). 1차 설계는 [PROMPT_DESIGN.md](PROMPT_DESIGN.md), 실행 방법은 [PROMPT_TEST.md](PROMPT_TEST.md).
+**2차 실행 방법은 [PROMPT_ROUND2_RUN.md](PROMPT_ROUND2_RUN.md)**에 있다.
 
 > **요약**
 > - 이번 라운드의 목적은 **"프롬프트 테스트를 끝내도 되는 최종 통과 기준선"을 정하고, 그 기준을 넘는 프롬프트를 찾거나 더 할 게 없음을 확인하고 끝내는 것**이다(§2).
@@ -151,17 +152,18 @@
 | # | 작업 | 산출물 |
 |---|---|---|
 | 0-1 | **라벨 정정본 (완료)** — `cases.csv`는 그대로 두고 `cases_r2.csv`와 정정 목록을 따로 만들었다. MT-0109·MT-0111 대화 이력(§2.2), UI-0016·UI-0053 정답 라벨의 "정수 GB로 계산" 문장 삭제(§2.4). 이어서 v2 재처리 4문항: MT 2건 재생성+재채점, UI 2건 재채점 | `cases_r2.csv`, `cases_r2_errata.md`, v2 재생성 2회·재채점 4건 |
-| 0-2 | **스모크 문항 목록** (§5.3) | ID 목록 파일 |
+| 0-2 | **스모크 문항 목록 (완료)** (§5.3) | `scripts/test3/config/round2_smoke.json` |
 | 0-3 | **신규 50문항 작성** (§6.2). **Phase 1 결과를 보기 전에 끝낸다** | `new_r2.csv` |
-| 0-4 | **도구 수정** (아래) | – |
+| 0-4 | **도구 수정 (완료)** (아래) | [PROMPT_ROUND2_RUN.md](PROMPT_ROUND2_RUN.md) §7 |
 
-**0-4 도구 수정 목록**
-- `run_prompt_test.js`: `--ids <파일>`(스모크 문항만 실행), `--cases <csv>`(정정본·신규 문항) 옵션
-- `compare_prompts.js`·`prompt_stats.js`: `--reference v2_value_guard` 옵션(현재 `v0_baseline` 하드코딩), 안 목록을 `SYSTEM_PROMPTS`에서 읽기
-- Judge 준비 스크립트: **v2와 답변이 글자까지 같은 문항은 v2 판정을 재사용**(§8)
-- `prompt_stats.js`: §2.1 기준선 표를 통과/불통과로 출력하고, 요금·수치 오안내 후보를 뽑는다
-- **정정본 기준 v2 run 합성**: 1차 v2 답변 298건 + 재생성 2건을 합쳐 `test3_prompt_r2`의 v2 run 하나로 만들고, 판정은 `cases_r2.csv` 라벨로 한다(§2.4)
-- `prompt_stats.js`: §2.1의 v2 연동 기준(³)을 판정 시점에 v2 결과에서 계산해 대입
+**0-4 도구 수정 목록 (구현 완료)**
+
+1차 비교 스크립트(`compare_prompts.js`·`prompt_stats.js`)는 v0 대조군·medium/ultra 혼재를 전제로 짜여 있어 고치지 않고, 2차 전용 스크립트를 새로 만들었다.
+- `run_generation.js`: `--ids <파일>`(지정 문항만 생성). 문항 파일은 `LLM_TEST_CASES` 환경변수로 지정(기본 `cases.csv`, test2 파이프라인 전체 공통). 레코드에 `cases_file`을 남긴다
+- `scripts/test2/lib/prompts.js`: v4~v7 블록(`ROUND2_BLOCKS`)과 조합안 조립(`v9_combo-v4-v6` 이름에 구성을 담는다)
+- `scripts/test3/run_prompt_round2.js`: 생성 실행기 — **정정본 기준 v2 run 합성**(1차 v2 답변 298건 + 재생성 2건 → `…_v2_value_guard_t0_nothink_r2base`), 스모크, 조합안, 조건부 지연 확인
+- `scripts/test3/judge_round2.js`: Judge 입력 준비·채점. 1차와 같은 보존 rubric·입력 형식·`gpt-6-astra/ultra`를 쓰고, **Judge 입력이 글자까지 같은 판정은 재사용**(1차 v2 우선)한다(§8)
+- `scripts/test3/report_round2.js`: 스모크 판정(§5.4)과 최종 판정(§2.1 표 통과/불통과, §2.3 결정). **v2 연동 기준(³)은 판정 시점에 기준선 run에서 계산**하고, 요금·수치 오안내 후보를 뽑는다
 - **Judge 실행**: Phase 0 재채점 4건은 따로 돌리지 않고 **Phase 1 스모크 Judge 배치에 함께 넣는다.** v2 기준선과 같은 Judge(`gpt-6-astra / ultra`, rubric `test3-saved-v1`)로 채점해야 하므로 다른 모델로 대신하지 않는다
 - suite는 `test3_prompt_r2`로 분리(정정본을 쓰므로 1차 결과와 섞지 않는다)
 
@@ -240,7 +242,7 @@ v4_account_match (모델이 받는 전체 시스템 프롬프트)
 
 ### 5.4 스모크 통과 조건
 
-아래를 **모두** 만족하면 통과한다.
+아래를 **모두** 만족하면 통과한다. 비교 단위는 주 지표와 같은 **정답∧근거**이고, 같은 문항끼리 짝지어 센다.
 1. 표적 문항에서 v2 대비 순증 **≥ +3** (v5는 AD-0021 통과 + 나머지 AD 퇴보 0)
 2. 감시 20문항에서 v2 대비 **퇴보 ≤ 1**
 3. 치명 오류가 v2보다 늘지 않음

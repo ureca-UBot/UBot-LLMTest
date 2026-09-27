@@ -20,7 +20,7 @@ const { collectRun, loadPrimaryCases, findRunId, readJsonl, readJson } = require
 const { suiteTag } = require('../test2/lib/suite');
 const { parseCsvObjects } = require('../test2/lib/csv');
 const { expectedStatusEnum } = require('../test2/lib/status_map');
-const { SYSTEM_PROMPTS, PROMPT_NOTES } = require('../test2/lib/prompts');
+const { PROMPT_NOTES, ROUND1_VARIANTS } = require('../test2/lib/prompts');
 
 // 프롬프트 안 결과가 쌓이는 suite (러너가 LLM_TEST_SUITE로 넘겨준다).
 const SUITE = suiteTag();
@@ -166,7 +166,7 @@ function main() {
       + '\n  [--variants a,b] [--baseline <run_id>] [--out <md 경로>]');
     process.exit(1);
   }
-  const variants = (opts.variants || Object.keys(SYSTEM_PROMPTS).filter((v) => v !== BASELINE))
+  const variants = (opts.variants || ROUND1_VARIANTS.filter((v) => v !== BASELINE))
     .filter((v) => v !== BASELINE);
   const caseIdx = loadCaseIndex();
   const primary = loadPrimaryCases();

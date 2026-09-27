@@ -25,8 +25,8 @@ const ollama = require('./lib/ollama');
 const models = require('./config/models');
 const suitePaths = require('./lib/suite');
 
-const ROOT = path.join(__dirname, '..', '..');
-const CASES_PATH = path.join(ROOT, 'data', 'eval_sets', 'test_set2', 'cases.csv');
+// 기본 data/eval_sets/test_set2/cases.csv. LLM_TEST_CASES로 정정본 등을 지정할 수 있다(lib/suite.js).
+const CASES_PATH = suitePaths.casesPath();
 const EMBED_CHUNK_SIZE = 32;
 
 function setEquals(a, b) {
