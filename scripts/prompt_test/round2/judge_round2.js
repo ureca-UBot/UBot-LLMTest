@@ -5,7 +5,8 @@
 //   - 채점 기준·입력 형식: results/test3/llm_judge_review/evaluator/ 의 보존본
 //     (judge_prompts.js의 test3-saved-v1 rubric과 buildSavedResponseInput, llm_judge_schema.js)
 //     시작할 때 rubric 해시가 1차 배치 manifest와 같은지 확인하고, 다르면 멈춘다.
-//   - Judge: Codex CLI · gpt-6-astra · reasoning effort ultra (1차 v1~v3 채점과 동일)
+//   - 기본 Judge: Codex CLI · gpt-6-astra · reasoning effort ultra (1차 v1~v3 채점과 동일)
+//     다른 모델/effort를 지정하면 별도 scored suite에 저장해 판정을 섞지 않는다.
 //
 // 같은 입력은 다시 채점하지 않는다. Judge에 들어가는 입력(user_text)이 글자까지 같은
 // 판정이 이미 있으면(1차 v1~v3 또는 2차의 다른 run) 그 판정을 가져온다(reused_from 기록).
@@ -19,6 +20,7 @@
 //   node scripts/prompt_test/round2/judge_round2.js status <batch>
 //
 // Codex 실행 파일은 LLM_JUDGE_CODEX_BIN으로 바꿀 수 있다(기본 codex).
+// LLM_JUDGE_MODEL / LLM_JUDGE_EFFORT로 Judge를 바꾸면 판정은 모델별 별도 suite에 저장된다.
 
 const fs = require('fs');
 const path = require('path');
@@ -32,8 +34,10 @@ const prompts = require(path.join(EVALUATOR_DIR, 'judge_prompts.js'));
 const schemas = require(path.join(EVALUATOR_DIR, 'llm_judge_schema.js'));
 
 const JUDGE = 'Codex CLI';
-const JUDGE_MODEL = 'gpt-6-astra';
-const JUDGE_EFFORT = 'ultra';
+const JUDGE_MODEL = process.env.LLM_JUDGE_MODEL || 'gpt-6-astra';
+const JUDGE_EFFORT = process.env.LLM_JUDGE_EFFORT || 'ultra';
+const SCORE_SUITE = JUDGE_MODEL === 'gpt-6-astra' && JUDGE_EFFORT === 'ultra'
+  ? R.SUITE : `${R.SUITE}_${JUDGE_MODEL}_${JUDGE_EFFORT}`;
 const KINDS = ['accuracy', 'safety'];
 const RUBRIC = { accuracy: prompts.ACCURACY_HALLUCINATION_EXPRESSION_SYSTEM_PROMPT, safety: prompts.SAFETY_SYSTEM_PROMPT };
 const RUBRIC_SHA = { accuracy: R.sha256(RUBRIC.accuracy), safety: R.sha256(RUBRIC.safety) };
@@ -111,10 +115,10 @@ function buildJobs(runIdValue) {
 function reuseIndex() {
   const index = new Map();
   const sources = R.ROUND1.judgedRunIds.map((id) => ({ suite: R.ROUND1.suite, runId: id }));
-  const r2Scored = path.join(R.ROOT, 'results', 'scored', R.SUITE);
+  const r2Scored = path.join(R.ROOT, 'results', 'scored', SCORE_SUITE);
   if (fs.existsSync(r2Scored)) {
     for (const id of fs.readdirSync(r2Scored).sort()) {
-      if (R.SAFE_ID.test(id)) sources.push({ suite: R.SUITE, runId: id });
+      if (R.SAFE_ID.test(id)) sources.push({ suite: SCORE_SUITE, runId: id });
     }
   }
   for (const { suite, runId } of sources) {
@@ -153,7 +157,7 @@ function cmdPrepare(batch, runIds) {
   const index = reuseIndex();
   const counts = {};
   for (const kind of KINDS) {
-    const existingByRun = new Map(runIds.map((id) => [id, R.loadJudgments(R.SUITE, id, kind)]));
+    const existingByRun = new Map(runIds.map((id) => [id, R.loadJudgments(SCORE_SUITE, id, kind)]));
     for (const job of jobs[kind]) {
       const c = counts[`${job.run_id}:${kind}`] ||= { jobs: 0, unscorable: 0, already: 0, reused: 0, pending: 0 };
       c.jobs++;
@@ -167,7 +171,7 @@ function cmdPrepare(batch, runIds) {
       }
       const src = index.get(kind + '\0' + job.user_text_sha256);
       if (src) {
-        const appender = makeAppender(R.judgmentPath(R.SUITE, job.run_id, kind));
+        const appender = makeAppender(R.judgmentPath(SCORE_SUITE, job.run_id, kind));
         appender.append(reusedRecord(job, src, batch));
         appender.close();
         c.reused++; job.plan = 'reused'; continue;
@@ -176,7 +180,7 @@ function cmdPrepare(batch, runIds) {
     }
   }
   const manifest = {
-    suite: R.SUITE, batch_id: batch, rubric_version: prompts.RUBRIC_VERSION,
+    suite: R.SUITE, scored_suite: SCORE_SUITE, batch_id: batch, rubric_version: prompts.RUBRIC_VERSION,
     judge: JUDGE, judge_model: JUDGE_MODEL, judge_reasoning_effort: JUDGE_EFFORT,
     accuracy_system_prompt_sha256: RUBRIC_SHA.accuracy, safety_system_prompt_sha256: RUBRIC_SHA.safety,
     accuracy_schema_sha256: R.sha256(JSON.stringify(schemas.accuracy)), safety_schema_sha256: R.sha256(JSON.stringify(schemas.safety)),
@@ -198,7 +202,9 @@ function cmdPrepare(batch, runIds) {
   if (fs.existsSync(path.join(dir, 'manifest.json'))) {
     const prev = R.readJson(path.join(dir, 'manifest.json'));
     const sameSources = JSON.stringify(prev.runs.map(({ accuracy, safety, ...s }) => s)) === JSON.stringify(manifest.runs.map(({ accuracy, safety, ...s }) => s));
-    if (!sameSources || prev.accuracy_system_prompt_sha256 !== manifest.accuracy_system_prompt_sha256) {
+    if (!sameSources || prev.accuracy_system_prompt_sha256 !== manifest.accuracy_system_prompt_sha256 ||
+        prev.judge_model !== JUDGE_MODEL || prev.judge_reasoning_effort !== JUDGE_EFFORT ||
+        (prev.scored_suite && prev.scored_suite !== SCORE_SUITE)) {
       throw new Error(`배치 ${batch}가 이미 다른 입력으로 준비돼 있습니다. 새 배치 이름을 쓰세요.`);
     }
   }
@@ -213,6 +219,10 @@ function loadBatch(batch) {
   const dir = inputsDir(batch);
   const manifest = R.readJson(path.join(dir, 'manifest.json'));
   if (manifest.batch_id !== batch) throw new Error('배치 이름이 manifest와 다릅니다.');
+  if (manifest.judge_model !== JUDGE_MODEL || manifest.judge_reasoning_effort !== JUDGE_EFFORT) {
+    throw new Error(`배치 Judge 설정은 ${manifest.judge_model}/${manifest.judge_reasoning_effort}입니다. 현재 설정 ${JUDGE_MODEL}/${JUDGE_EFFORT}과 다릅니다.`);
+  }
+  if ((manifest.scored_suite || R.SUITE) !== SCORE_SUITE) throw new Error('배치 판정 저장 경로가 현재 Judge 설정과 다릅니다.');
   for (const kind of KINDS) {
     if (manifest[kind + '_system_prompt_sha256'] !== RUBRIC_SHA[kind]) throw new Error(`배치 준비 후 ${kind} 채점 기준이 바뀌었습니다.`);
   }
@@ -235,7 +245,7 @@ function loadBatch(batch) {
 function pendingJobs(jobs, kind) {
   const done = new Map();
   for (const runId of new Set(jobs.map((j) => j.run_id))) {
-    for (const [id, j] of R.loadJudgments(R.SUITE, runId, kind)) done.set(`${runId}/${id}`, j);
+    for (const [id, j] of R.loadJudgments(SCORE_SUITE, runId, kind)) done.set(`${runId}/${id}`, j);
   }
   return jobs.filter((job) => {
     if (job.unscored_reason) return false;
@@ -301,8 +311,8 @@ function invoke(job, kind, inv, attempt) {
 // 한 번만 Judge를 부르고, 나머지에는 그 판정을 재사용 기록으로 복사한다.
 function copyToDuplicates(batch, kind, source, duplicates) {
   for (const job of duplicates) {
-    const appender = makeAppender(R.judgmentPath(R.SUITE, job.run_id, kind));
-    appender.append(reusedRecord(job, { suite: R.SUITE, record: source }, batch));
+    const appender = makeAppender(R.judgmentPath(SCORE_SUITE, job.run_id, kind));
+    appender.append(reusedRecord(job, { suite: SCORE_SUITE, record: source }, batch));
     appender.close();
   }
 }
@@ -332,7 +342,7 @@ async function runKind(batch, kind, jobs, { limit, concurrency }) {
         batch_id: batch, cases_file: job.cases_file };
       let ok = false;
       for (let attempt = 1; attempt <= 2 && !ok; attempt++) {
-        const appender = makeAppender(R.judgmentPath(R.SUITE, job.run_id, kind));
+        const appender = makeAppender(R.judgmentPath(SCORE_SUITE, job.run_id, kind));
         try {
           const res = await invoke(job, kind, inv, attempt);
           const record = { ...base, ...res.result, judged_at: new Date().toISOString(), judge_latency_ms: res.latency_ms,
@@ -369,14 +379,15 @@ async function cmdRun(batch, opts) {
 function printStatus(batch) {
   const dir = inputsDir(batch);
   const manifest = R.readJson(path.join(dir, 'manifest.json'));
-  console.log(`\n배치 ${batch} (Judge ${JUDGE_MODEL}/${JUDGE_EFFORT}, rubric ${manifest.rubric_version})`);
+  const scoredSuite = manifest.scored_suite || R.SUITE;
+  console.log(`\n배치 ${batch} (Judge ${manifest.judge_model}/${manifest.judge_reasoning_effort}, rubric ${manifest.rubric_version})`);
   console.log('run_id | 종류 | 대상 | 판정 있음(재사용 포함) | 재사용 | 남음 | 미채점(생성 실패)');
   let pendingTotal = 0;
   for (const run of manifest.runs) {
     for (const kind of KINDS) {
       const jobs = R.readJsonl(path.join(dir, kind + '_jobs.jsonl')).filter((j) => j.run_id === run.run_id);
       if (!jobs.length) continue;
-      const judged = R.loadJudgments(R.SUITE, run.run_id, kind);
+      const judged = R.loadJudgments(scoredSuite, run.run_id, kind);
       const ids = new Set(jobs.map((j) => j.id));
       const have = [...judged.values()].filter((j) => ids.has(j.id));
       const unscorable = jobs.filter((j) => j.unscored_reason).length;
@@ -385,7 +396,11 @@ function printStatus(batch) {
       console.log(`${run.run_id} | ${kind} | ${jobs.length} | ${have.length} | ${have.filter((j) => j.reused_from).length} | ${pending} | ${unscorable}`);
     }
   }
-  console.log(pendingTotal ? `\n남은 채점 ${pendingTotal}건 — node scripts/prompt_test/round2/judge_round2.js run ${batch} --concurrency 4` : '\n모든 문항 채점 완료.');
+  if (pendingTotal) {
+    const setting = manifest.judge_model === 'gpt-6-astra' && manifest.judge_reasoning_effort === 'ultra'
+      ? '' : `LLM_JUDGE_MODEL=${manifest.judge_model}, LLM_JUDGE_EFFORT=${manifest.judge_reasoning_effort} 설정 후 `;
+    console.log(`\n남은 채점 ${pendingTotal}건 — ${setting}node scripts/prompt_test/round2/judge_round2.js run ${batch} --concurrency 4`);
+  } else console.log('\n모든 문항 채점 완료.');
 }
 
 function parseArgs(argv) {

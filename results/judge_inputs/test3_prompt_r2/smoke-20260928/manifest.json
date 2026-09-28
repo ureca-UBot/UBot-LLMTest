@@ -1,0 +1,116 @@
+{
+  "suite": "test3_prompt_r2",
+  "batch_id": "smoke-20260928",
+  "rubric_version": "test3-saved-v1",
+  "judge": "Codex CLI",
+  "judge_model": "gpt-6-astra",
+  "judge_reasoning_effort": "ultra",
+  "accuracy_system_prompt_sha256": "b5b752fba9eb2f9a0b32e770efda4473b81e30cf4523ce8d7bd15f90e02f7636",
+  "safety_system_prompt_sha256": "73b39bc37c6a567d8e153e5b8ff88f6fa8bdfc66428bafa65b362dc43e199c82",
+  "accuracy_schema_sha256": "e43dbf2c6ea0f70560ad38a4526eae38fc3041806f1ec638a7bc14be91d89f69",
+  "safety_schema_sha256": "be8a39d8fa95bb3baa5de51988bf005dd2e70dee995c6e2a6c3073abcd13c3d3",
+  "evaluator_source": "results/test3/llm_judge_review/evaluator",
+  "runs": [
+    {
+      "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_r2base",
+      "variant": "v2_value_guard",
+      "cases_file": "data/eval_sets/test_set2/cases_r2.csv",
+      "source_path": "results/raw/test3_prompt_r2/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_r2base/generation.jsonl",
+      "source_sha256": "382fbcec0f11be8b2f947cbdfee18b3cf9a1256c4b55d86a59afdb2ae41e279d",
+      "generation_records": 300,
+      "accuracy": {
+        "jobs": 300,
+        "unscorable": 0,
+        "already": 296,
+        "reused": 0,
+        "pending": 4
+      },
+      "safety": {
+        "jobs": 15,
+        "unscorable": 0,
+        "already": 15,
+        "reused": 0,
+        "pending": 0
+      }
+    },
+    {
+      "run_id": "ec2-linux_qwen3-14b_v4_account_match_t0_nothink_20260928",
+      "variant": "v4_account_match",
+      "cases_file": "data/eval_sets/test_set2/cases_r2.csv",
+      "source_path": "results/raw/test3_prompt_r2/ec2-linux_qwen3-14b_v4_account_match_t0_nothink_20260928/generation.jsonl",
+      "source_sha256": "d9f09676a755b496d0957f36d3339a86c516cce28e8adccde0df9632ab56d97a",
+      "generation_records": 49,
+      "accuracy": {
+        "jobs": 49,
+        "unscorable": 0,
+        "already": 13,
+        "reused": 0,
+        "pending": 36
+      },
+      "safety": null
+    },
+    {
+      "run_id": "ec2-linux_qwen3-14b_v5_doc_isolation_t0_nothink_20260928",
+      "variant": "v5_doc_isolation",
+      "cases_file": "data/eval_sets/test_set2/cases_r2.csv",
+      "source_path": "results/raw/test3_prompt_r2/ec2-linux_qwen3-14b_v5_doc_isolation_t0_nothink_20260928/generation.jsonl",
+      "source_sha256": "29087c314e3bf5d3d85eb136639347228477722e53b0e298b84b2d21b03fe499",
+      "generation_records": 35,
+      "accuracy": {
+        "jobs": 35,
+        "unscorable": 0,
+        "already": 14,
+        "reused": 0,
+        "pending": 21
+      },
+      "safety": {
+        "jobs": 15,
+        "unscorable": 0,
+        "already": 0,
+        "reused": 0,
+        "pending": 15
+      }
+    },
+    {
+      "run_id": "ec2-linux_qwen3-14b_v6_hold_template_t0_nothink_20260928",
+      "variant": "v6_hold_template",
+      "cases_file": "data/eval_sets/test_set2/cases_r2.csv",
+      "source_path": "results/raw/test3_prompt_r2/ec2-linux_qwen3-14b_v6_hold_template_t0_nothink_20260928/generation.jsonl",
+      "source_sha256": "01174bff8280174efc947d9530cb227d0ad07541ac8289eafdd67c8781a9e946",
+      "generation_records": 59,
+      "accuracy": {
+        "jobs": 59,
+        "unscorable": 0,
+        "already": 10,
+        "reused": 0,
+        "pending": 49
+      },
+      "safety": {
+        "jobs": 1,
+        "unscorable": 0,
+        "already": 0,
+        "reused": 0,
+        "pending": 1
+      }
+    },
+    {
+      "run_id": "ec2-linux_qwen3-14b_v7_dialogue_state_t0_nothink_20260928",
+      "variant": "v7_dialogue_state",
+      "cases_file": "data/eval_sets/test_set2/cases_r2.csv",
+      "source_path": "results/raw/test3_prompt_r2/ec2-linux_qwen3-14b_v7_dialogue_state_t0_nothink_20260928/generation.jsonl",
+      "source_sha256": "9432487f65a984bd42eb92f85fbe922137d46c7d9a90feec484978c4c4b9d37e",
+      "generation_records": 47,
+      "accuracy": {
+        "jobs": 47,
+        "unscorable": 0,
+        "already": 17,
+        "reused": 0,
+        "pending": 30
+      },
+      "safety": null
+    }
+  ],
+  "planned_accuracy_jobs": 490,
+  "planned_safety_jobs": 31,
+  "reuse_rule": "같은 kind에서 Judge 입력(user_text)의 SHA-256이 같고 judge_model·effort·rubric이 같은 기존 판정을 가져온다."
+}

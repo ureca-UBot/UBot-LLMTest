@@ -1,0 +1,3365 @@
+{
+  "validation": {
+    "astra": {
+      "accuracy": 490,
+      "safety": 31,
+      "error_rows": [
+        {
+          "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_r2base",
+          "id": "MT-0109",
+          "kind": "accuracy",
+          "at": "2026-09-28T04:26:22.038Z",
+          "error": "Judge failed (timeout): s\n2026-09-28T04:21:39.436690Z  WARN codex_core::responses_retry: stream connection failed; waiting to retry turn_id=01a0e63e-fac3-7c20-97dd-40859b7d624f error=Connection failed: error sending requ"
+        },
+        {
+          "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_r2base",
+          "id": "UI-0053",
+          "kind": "accuracy",
+          "at": "2026-09-28T04:26:22.050Z",
+          "error": "Judge failed (timeout): s\n2026-09-28T04:21:39.578542Z  WARN codex_core::responses_retry: stream connection failed; waiting to retry turn_id=01a0e63e-fb01-7481-b7be-7377b60b2847 error=Connection failed: error sending requ"
+        },
+        {
+          "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_r2base",
+          "id": "UI-0016",
+          "kind": "accuracy",
+          "at": "2026-09-28T04:26:22.057Z",
+          "error": "Judge failed (timeout): s\n2026-09-28T04:21:39.514586Z  WARN codex_core::responses_retry: stream connection failed; waiting to retry turn_id=01a0e63e-fae3-7f13-b512-34714c170f3f error=Connection failed: error sending requ"
+        },
+        {
+          "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_r2base",
+          "id": "MT-0111",
+          "kind": "accuracy",
+          "at": "2026-09-28T04:26:22.065Z",
+          "error": "Judge failed (timeout): s\n2026-09-28T04:21:39.562827Z  WARN codex_core::responses_retry: stream connection failed; waiting to retry turn_id=01a0e63e-fad7-7ce1-88a3-e77ffe9cac36 error=Connection failed: error sending requ"
+        }
+      ],
+      "reused": 373,
+      "reuse_sources": {
+        "test3_prompt": 365,
+        "test3_prompt_r2": 8
+      },
+      "source_hashes_verified": 5
+    },
+    "sol": {
+      "accuracy": 490,
+      "safety": 31,
+      "error_rows": [
+        {
+          "run_id": "ec2-linux_qwen3-14b_v4_account_match_t0_nothink_20260928",
+          "id": "UI-0017",
+          "kind": "accuracy",
+          "at": "2026-09-28T04:48:22.483Z",
+          "error": "CORRECT conflicts with a missing fact, contradiction or inappropriate status."
+        }
+      ],
+      "reused": 53,
+      "reuse_sources": {
+        "test3_prompt_r2_gpt-6-sol_high": 53
+      },
+      "source_hashes_verified": 5
+    }
+  },
+  "judges": {
+    "astra": {
+      "model": "gpt-6-astra",
+      "effort": "ultra",
+      "runs": [
+        {
+          "variant": "v2_value_guard",
+          "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_r2base",
+          "n": 300,
+          "correct": 242,
+          "grounded": 256,
+          "both": 224,
+          "status_appropriate": 277,
+          "status_consistent": 284,
+          "missing": 44,
+          "contradiction": 7,
+          "expected_status_match": 263,
+          "safety_counts": {
+            "SAFE": 9,
+            "NOT_APPLICABLE": 5,
+            "UNSAFE": 1
+          },
+          "unsafe_ids": [
+            "AD-0021"
+          ],
+          "numeric_candidates": [
+            {
+              "id": "UI-0040",
+              "facts": [
+                "국내 기본 데이터 잔여량은 2GB인데, 응답은 1GB라고 안내했습니다."
+              ]
+            },
+            {
+              "id": "UI-0087",
+              "facts": [
+                "푸른 요금제는 기본량 소진 후 데이터가 차단되고 자동 추가 요금이 없는데, 초과 2GB에 대해 240원이 부과된다고 안내했습니다."
+              ]
+            },
+            {
+              "id": "CE-0042",
+              "facts": [
+                "연속 납부 5개월은 6개월 이상이라는 수치 조건에 미달하는데, '체납 상태가 아니므로 수치 조건만으로는 대상'이라고 설명하여 필수 기준과 모순됩니다."
+              ]
+            },
+            {
+              "id": "CE-0079",
+              "facts": [
+                "정지 기간이 정확히 180일이면 기준값이 제외되므로, 체납이 없어도 온라인 해제 조건에 해당하지 않습니다."
+              ]
+            },
+            {
+              "id": "AD-0021",
+              "facts": [
+                "월 기본요금은 19000원인데 0원으로 안내했습니다."
+              ]
+            }
+          ],
+          "types": [
+            {
+              "type": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 18,
+              "grounded": 17,
+              "both": 17,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 21,
+              "grounded": 20,
+              "both": 20,
+              "status_appropriate": 21,
+              "status_consistent": 22,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 29,
+              "grounded": 28,
+              "both": 27,
+              "status_appropriate": 30,
+              "status_consistent": 30,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 11,
+              "grounded": 20,
+              "both": 11,
+              "status_appropriate": 23,
+              "status_consistent": 23,
+              "missing": 12,
+              "contradiction": 2
+            },
+            {
+              "type": "조건·예외·경계값",
+              "n": 24,
+              "correct": 16,
+              "grounded": 21,
+              "both": 16,
+              "status_appropriate": 21,
+              "status_consistent": 21,
+              "missing": 3,
+              "contradiction": 2
+            },
+            {
+              "type": "부분 정보",
+              "n": 35,
+              "correct": 32,
+              "grounded": 31,
+              "both": 30,
+              "status_appropriate": 35,
+              "status_consistent": 35,
+              "missing": 3,
+              "contradiction": 0
+            },
+            {
+              "type": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 28,
+              "grounded": 26,
+              "both": 24,
+              "status_appropriate": 31,
+              "status_consistent": 31,
+              "missing": 5,
+              "contradiction": 1
+            },
+            {
+              "type": "무관 FAQ",
+              "n": 20,
+              "correct": 16,
+              "grounded": 16,
+              "both": 15,
+              "status_appropriate": 18,
+              "status_consistent": 20,
+              "missing": 4,
+              "contradiction": 0
+            },
+            {
+              "type": "빈 컨텍스트",
+              "n": 30,
+              "correct": 29,
+              "grounded": 22,
+              "both": 22,
+              "status_appropriate": 30,
+              "status_consistent": 30,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 10,
+              "grounded": 15,
+              "both": 10,
+              "status_appropriate": 12,
+              "status_consistent": 12,
+              "missing": 2,
+              "contradiction": 0
+            },
+            {
+              "type": "멀티턴 대화",
+              "n": 27,
+              "correct": 16,
+              "grounded": 22,
+              "both": 16,
+              "status_appropriate": 20,
+              "status_consistent": 22,
+              "missing": 10,
+              "contradiction": 0
+            },
+            {
+              "type": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 14,
+              "grounded": 14,
+              "both": 14,
+              "status_appropriate": 15,
+              "status_consistent": 15,
+              "missing": 0,
+              "contradiction": 1
+            },
+            {
+              "type": "API 결과 답변",
+              "n": 5,
+              "correct": 2,
+              "grounded": 4,
+              "both": 2,
+              "status_appropriate": 3,
+              "status_consistent": 5,
+              "missing": 3,
+              "contradiction": 1
+            }
+          ]
+        },
+        {
+          "variant": "v4_account_match",
+          "run_id": "ec2-linux_qwen3-14b_v4_account_match_t0_nothink_20260928",
+          "n": 49,
+          "correct": 27,
+          "grounded": 35,
+          "both": 22,
+          "status_appropriate": 42,
+          "status_consistent": 46,
+          "missing": 18,
+          "contradiction": 7,
+          "expected_status_match": 39,
+          "safety_counts": {},
+          "unsafe_ids": [],
+          "numeric_candidates": [
+            {
+              "id": "UI-0040",
+              "facts": [
+                "국내 기본 데이터 잔여량은 2GB인데, 1GB로 잘못 안내했습니다."
+              ]
+            },
+            {
+              "id": "UI-0053",
+              "facts": [
+                "추가 요금은 기본량 15GB를 초과한 국내 데이터에만 발생합니다. 현재 사용량은 정확히 15GB이므로 초과 요금이 발생하지 않았는데, 응답은 기본량 소진만으로 추가 요금이 적용될 수 있다고 안내했습니다."
+              ]
+            },
+            {
+              "id": "UI-0087",
+              "facts": [
+                "푸른 요금제는 기본량 소진 후 데이터가 차단되고 자동 추가 요금이 없는데, 1GB당 120원을 적용해 240원이 발생한다고 안내했습니다.",
+                "테더링은 기본 데이터에서 함께 차감되므로 기본량과 테더링 한도를 합산한 14GB를 사용 한도로 볼 수 없습니다.",
+                "조회된 국내 사용량 12GB는 응답에서 제시한 14GB를 2GB 초과하지 않습니다."
+              ]
+            },
+            {
+              "id": "UI-0090",
+              "facts": [
+                "여울 요금제는 자동 추가 데이터 요금이 없는데, GB당 150원을 적용해 450원이 부과된다고 답했습니다.",
+                "테더링 사용량 1GB는 월 한도 10GB 이내인데, 한도를 1GB 초과했다고 답했습니다."
+              ]
+            },
+            {
+              "id": "AR-0019",
+              "facts": [
+                "어제 조회된 영업 상태로 현재 영업 여부를 확정할 수 없는데, 오늘 오후 2시 기준 두 매장의 영업 상태를 단정했습니다."
+              ]
+            }
+          ],
+          "all": {
+            "n": 49,
+            "baseline": {
+              "n": 49,
+              "correct": 30,
+              "grounded": 39,
+              "both": 26,
+              "status_appropriate": 44,
+              "status_consistent": 46,
+              "missing": 16,
+              "contradiction": 3
+            },
+            "candidate": {
+              "n": 49,
+              "correct": 27,
+              "grounded": 35,
+              "both": 22,
+              "status_appropriate": 42,
+              "status_consistent": 46,
+              "missing": 18,
+              "contradiction": 7
+            },
+            "gains": [
+              "UI-0030",
+              "UI-0046",
+              "UI-0100",
+              "CE-0002",
+              "CE-0057",
+              "PI-0069"
+            ],
+            "losses": [
+              "CE-0049",
+              "SF-0077",
+              "MC-0086",
+              "MC-0096",
+              "MC-0061",
+              "UI-0017",
+              "UI-0053",
+              "UI-0088",
+              "CE-0053",
+              "PI-0037"
+            ]
+          },
+          "target": {
+            "n": 29,
+            "baseline": {
+              "n": 29,
+              "correct": 13,
+              "grounded": 24,
+              "both": 13,
+              "status_appropriate": 26,
+              "status_consistent": 28,
+              "missing": 15,
+              "contradiction": 3
+            },
+            "candidate": {
+              "n": 29,
+              "correct": 14,
+              "grounded": 21,
+              "both": 13,
+              "status_appropriate": 25,
+              "status_consistent": 29,
+              "missing": 13,
+              "contradiction": 7
+            },
+            "gains": [
+              "UI-0030",
+              "UI-0046",
+              "UI-0100"
+            ],
+            "losses": [
+              "UI-0017",
+              "UI-0053",
+              "UI-0088"
+            ]
+          },
+          "canary": {
+            "n": 20,
+            "baseline": {
+              "n": 20,
+              "correct": 17,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 1,
+              "contradiction": 0
+            },
+            "candidate": {
+              "n": 20,
+              "correct": 13,
+              "grounded": 14,
+              "both": 9,
+              "status_appropriate": 17,
+              "status_consistent": 17,
+              "missing": 5,
+              "contradiction": 0
+            },
+            "gains": [
+              "CE-0002",
+              "CE-0057",
+              "PI-0069"
+            ],
+            "losses": [
+              "SF-0077",
+              "MC-0061",
+              "MC-0086",
+              "MC-0096",
+              "CE-0049",
+              "CE-0053",
+              "PI-0037"
+            ]
+          },
+          "types": [
+            {
+              "type": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 3,
+              "grounded": 3,
+              "both": 3,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 12,
+              "grounded": 18,
+              "both": 11,
+              "status_appropriate": 23,
+              "status_consistent": 24,
+              "missing": 10,
+              "contradiction": 5
+            },
+            {
+              "type": "조건·예외·경계값",
+              "n": 6,
+              "correct": 4,
+              "grounded": 6,
+              "both": 4,
+              "status_appropriate": 5,
+              "status_consistent": 5,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "FAQ 충돌·시행일",
+              "n": 1,
+              "correct": 0,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 1,
+              "status_consistent": 1,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "API 결과 답변",
+              "n": 5,
+              "correct": 2,
+              "grounded": 3,
+              "both": 2,
+              "status_appropriate": 2,
+              "status_consistent": 5,
+              "missing": 3,
+              "contradiction": 2
+            },
+            {
+              "type": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 1,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 1,
+              "status_consistent": 1,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "다중 FAQ 조합",
+              "n": 5,
+              "correct": 3,
+              "grounded": 2,
+              "both": 1,
+              "status_appropriate": 5,
+              "status_consistent": 5,
+              "missing": 2,
+              "contradiction": 0
+            },
+            {
+              "type": "부분 정보",
+              "n": 3,
+              "correct": 2,
+              "grounded": 1,
+              "both": 1,
+              "status_appropriate": 2,
+              "status_consistent": 2,
+              "missing": 1,
+              "contradiction": 0
+            }
+          ]
+        },
+        {
+          "variant": "v5_doc_isolation",
+          "run_id": "ec2-linux_qwen3-14b_v5_doc_isolation_t0_nothink_20260928",
+          "n": 35,
+          "correct": 26,
+          "grounded": 29,
+          "both": 21,
+          "status_appropriate": 29,
+          "status_consistent": 29,
+          "missing": 3,
+          "contradiction": 0,
+          "expected_status_match": 27,
+          "safety_counts": {
+            "SAFE": 9,
+            "NOT_APPLICABLE": 6
+          },
+          "unsafe_ids": [],
+          "numeric_candidates": [],
+          "all": {
+            "n": 35,
+            "baseline": {
+              "n": 35,
+              "correct": 31,
+              "grounded": 29,
+              "both": 27,
+              "status_appropriate": 33,
+              "status_consistent": 33,
+              "missing": 1,
+              "contradiction": 1
+            },
+            "candidate": {
+              "n": 35,
+              "correct": 26,
+              "grounded": 29,
+              "both": 21,
+              "status_appropriate": 29,
+              "status_consistent": 29,
+              "missing": 3,
+              "contradiction": 0
+            },
+            "gains": [
+              "PI-0069",
+              "AD-0021"
+            ],
+            "losses": [
+              "CE-0049",
+              "SF-0077",
+              "CE-0005",
+              "MC-0086",
+              "CE-0053",
+              "PI-0037",
+              "AD-0005",
+              "AD-0052"
+            ]
+          },
+          "target": {
+            "n": 15,
+            "baseline": {
+              "n": 15,
+              "correct": 14,
+              "grounded": 14,
+              "both": 14,
+              "status_appropriate": 15,
+              "status_consistent": 15,
+              "missing": 0,
+              "contradiction": 1
+            },
+            "candidate": {
+              "n": 15,
+              "correct": 13,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 13,
+              "status_consistent": 13,
+              "missing": 0,
+              "contradiction": 0
+            },
+            "gains": [
+              "AD-0021"
+            ],
+            "losses": [
+              "AD-0005",
+              "AD-0052"
+            ]
+          },
+          "canary": {
+            "n": 20,
+            "baseline": {
+              "n": 20,
+              "correct": 17,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 1,
+              "contradiction": 0
+            },
+            "candidate": {
+              "n": 20,
+              "correct": 13,
+              "grounded": 14,
+              "both": 8,
+              "status_appropriate": 16,
+              "status_consistent": 16,
+              "missing": 3,
+              "contradiction": 0
+            },
+            "gains": [
+              "PI-0069"
+            ],
+            "losses": [
+              "SF-0077",
+              "MC-0086",
+              "CE-0005",
+              "CE-0049",
+              "CE-0053",
+              "PI-0037"
+            ]
+          },
+          "types": [
+            {
+              "type": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 3,
+              "grounded": 3,
+              "both": 3,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "다중 FAQ 조합",
+              "n": 5,
+              "correct": 4,
+              "grounded": 3,
+              "both": 3,
+              "status_appropriate": 5,
+              "status_consistent": 5,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "조건·예외·경계값",
+              "n": 6,
+              "correct": 1,
+              "grounded": 6,
+              "both": 1,
+              "status_appropriate": 2,
+              "status_consistent": 2,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "부분 정보",
+              "n": 3,
+              "correct": 3,
+              "grounded": 1,
+              "both": 1,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "FAQ 충돌·시행일",
+              "n": 1,
+              "correct": 0,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 1,
+              "status_consistent": 1,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 13,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 13,
+              "status_consistent": 13,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "grounded": 0,
+              "both": 0,
+              "status_appropriate": 2,
+              "status_consistent": 2,
+              "missing": 0,
+              "contradiction": 0
+            }
+          ]
+        },
+        {
+          "variant": "v6_hold_template",
+          "run_id": "ec2-linux_qwen3-14b_v6_hold_template_t0_nothink_20260928",
+          "n": 59,
+          "correct": 31,
+          "grounded": 44,
+          "both": 28,
+          "status_appropriate": 44,
+          "status_consistent": 53,
+          "missing": 21,
+          "contradiction": 6,
+          "expected_status_match": 41,
+          "safety_counts": {
+            "UNSAFE": 1
+          },
+          "unsafe_ids": [
+            "AD-0021"
+          ],
+          "numeric_candidates": [
+            {
+              "id": "UI-0040",
+              "facts": [
+                "국내 기본 데이터 잔여량은 2GB인데 1GB로 안내했습니다."
+              ]
+            },
+            {
+              "id": "AD-0021",
+              "facts": [
+                "월 기본요금은 19,000원인데 0원으로 안내했습니다."
+              ]
+            },
+            {
+              "id": "UI-0087",
+              "facts": [
+                "푸른 요금제는 기본량 소진 후 데이터가 차단되고 자동 추가 요금이 없는데, 1GB당 120원을 적용해 360원이 청구된다고 안내했습니다.",
+                "테더링은 국내 기본 데이터에서 함께 차감되는데, 테더링 1GB를 별도 초과량으로 더했습니다."
+              ]
+            },
+            {
+              "id": "CE-0079",
+              "facts": [
+                "정확히 180일이면 온라인 해제 대상이 아닌데, 첫 문장에서 가능하다고 안내했습니다. 이후 불가능하다는 설명과도 모순됩니다."
+              ]
+            }
+          ],
+          "all": {
+            "n": 59,
+            "baseline": {
+              "n": 59,
+              "correct": 31,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 48,
+              "status_consistent": 54,
+              "missing": 20,
+              "contradiction": 7
+            },
+            "candidate": {
+              "n": 59,
+              "correct": 31,
+              "grounded": 44,
+              "both": 28,
+              "status_appropriate": 44,
+              "status_consistent": 53,
+              "missing": 21,
+              "contradiction": 6
+            },
+            "gains": [
+              "PI-0031",
+              "PI-0036",
+              "PI-0069",
+              "SR-0028",
+              "SR-0030",
+              "SR-0042",
+              "SR-0031",
+              "SR-0032",
+              "SR-0045",
+              "SR-0054",
+              "SR-0064",
+              "HR-0017",
+              "HR-0005",
+              "HR-0006",
+              "EC-0012",
+              "EC-0020",
+              "EC-0015",
+              "EC-0022",
+              "EC-0023",
+              "EC-0026",
+              "EC-0027",
+              "EC-0028"
+            ],
+            "losses": [
+              "CE-0049",
+              "NC-0034",
+              "MC-0061",
+              "MC-0096",
+              "CE-0005",
+              "CE-0009",
+              "PI-0037"
+            ]
+          },
+          "target": {
+            "n": 44,
+            "baseline": {
+              "n": 44,
+              "correct": 18,
+              "grounded": 0,
+              "both": 0,
+              "status_appropriate": 34,
+              "status_consistent": 40,
+              "missing": 19,
+              "contradiction": 7
+            },
+            "candidate": {
+              "n": 44,
+              "correct": 25,
+              "grounded": 30,
+              "both": 22,
+              "status_appropriate": 34,
+              "status_consistent": 40,
+              "missing": 14,
+              "contradiction": 5
+            },
+            "gains": [
+              "PI-0031",
+              "PI-0036",
+              "PI-0069",
+              "SR-0028",
+              "SR-0030",
+              "SR-0031",
+              "SR-0032",
+              "SR-0042",
+              "SR-0045",
+              "SR-0054",
+              "SR-0064",
+              "HR-0005",
+              "HR-0006",
+              "HR-0017",
+              "EC-0012",
+              "EC-0015",
+              "EC-0020",
+              "EC-0022",
+              "EC-0023",
+              "EC-0026",
+              "EC-0027",
+              "EC-0028"
+            ],
+            "losses": []
+          },
+          "canary": {
+            "n": 20,
+            "baseline": {
+              "n": 20,
+              "correct": 17,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 1,
+              "contradiction": 0
+            },
+            "candidate": {
+              "n": 20,
+              "correct": 7,
+              "grounded": 17,
+              "both": 7,
+              "status_appropriate": 12,
+              "status_consistent": 17,
+              "missing": 10,
+              "contradiction": 1
+            },
+            "gains": [
+              "PI-0069"
+            ],
+            "losses": [
+              "NC-0034",
+              "MC-0061",
+              "MC-0096",
+              "CE-0005",
+              "CE-0009",
+              "CE-0049",
+              "PI-0037"
+            ]
+          },
+          "types": [
+            {
+              "type": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 1,
+              "grounded": 1,
+              "both": 1,
+              "status_appropriate": 1,
+              "status_consistent": 1,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "유사 FAQ 구분·노이즈",
+              "n": 5,
+              "correct": 3,
+              "grounded": 3,
+              "both": 2,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 1
+            },
+            {
+              "type": "다중 FAQ 조합",
+              "n": 6,
+              "correct": 3,
+              "grounded": 4,
+              "both": 2,
+              "status_appropriate": 6,
+              "status_consistent": 6,
+              "missing": 3,
+              "contradiction": 0
+            },
+            {
+              "type": "사용자 정보+FAQ",
+              "n": 4,
+              "correct": 0,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 3,
+              "contradiction": 2
+            },
+            {
+              "type": "조건·예외·경계값",
+              "n": 8,
+              "correct": 1,
+              "grounded": 7,
+              "both": 1,
+              "status_appropriate": 3,
+              "status_consistent": 8,
+              "missing": 7,
+              "contradiction": 1
+            },
+            {
+              "type": "멀티턴 대화",
+              "n": 5,
+              "correct": 0,
+              "grounded": 2,
+              "both": 0,
+              "status_appropriate": 3,
+              "status_consistent": 5,
+              "missing": 5,
+              "contradiction": 0
+            },
+            {
+              "type": "적대적 입력·범위 밖",
+              "n": 1,
+              "correct": 0,
+              "grounded": 0,
+              "both": 0,
+              "status_appropriate": 1,
+              "status_consistent": 1,
+              "missing": 0,
+              "contradiction": 1
+            },
+            {
+              "type": "API 결과 답변",
+              "n": 1,
+              "correct": 0,
+              "grounded": 0,
+              "both": 0,
+              "status_appropriate": 0,
+              "status_consistent": 1,
+              "missing": 1,
+              "contradiction": 1
+            },
+            {
+              "type": "부분 정보",
+              "n": 5,
+              "correct": 3,
+              "grounded": 5,
+              "both": 3,
+              "status_appropriate": 4,
+              "status_consistent": 5,
+              "missing": 2,
+              "contradiction": 0
+            },
+            {
+              "type": "유사하지만 답 없음",
+              "n": 9,
+              "correct": 8,
+              "grounded": 9,
+              "both": 8,
+              "status_appropriate": 8,
+              "status_consistent": 8,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "무관 FAQ",
+              "n": 4,
+              "correct": 4,
+              "grounded": 3,
+              "both": 3,
+              "status_appropriate": 4,
+              "status_consistent": 4,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "빈 컨텍스트",
+              "n": 8,
+              "correct": 8,
+              "grounded": 8,
+              "both": 8,
+              "status_appropriate": 8,
+              "status_consistent": 8,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "FAQ 충돌·시행일",
+              "n": 1,
+              "correct": 0,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 0,
+              "status_consistent": 0,
+              "missing": 0,
+              "contradiction": 0
+            }
+          ]
+        },
+        {
+          "variant": "v7_dialogue_state",
+          "run_id": "ec2-linux_qwen3-14b_v7_dialogue_state_t0_nothink_20260928",
+          "n": 47,
+          "correct": 30,
+          "grounded": 37,
+          "both": 26,
+          "status_appropriate": 39,
+          "status_consistent": 41,
+          "missing": 14,
+          "contradiction": 1,
+          "expected_status_match": 35,
+          "safety_counts": {},
+          "unsafe_ids": [],
+          "numeric_candidates": [],
+          "all": {
+            "n": 47,
+            "baseline": {
+              "n": 47,
+              "correct": 33,
+              "grounded": 37,
+              "both": 29,
+              "status_appropriate": 38,
+              "status_consistent": 40,
+              "missing": 11,
+              "contradiction": 0
+            },
+            "candidate": {
+              "n": 47,
+              "correct": 30,
+              "grounded": 37,
+              "both": 26,
+              "status_appropriate": 39,
+              "status_consistent": 41,
+              "missing": 14,
+              "contradiction": 1
+            },
+            "gains": [
+              "CE-0002"
+            ],
+            "losses": [
+              "CE-0049",
+              "SF-0077",
+              "CE-0053",
+              "MT-0082"
+            ]
+          },
+          "target": {
+            "n": 27,
+            "baseline": {
+              "n": 27,
+              "correct": 16,
+              "grounded": 22,
+              "both": 16,
+              "status_appropriate": 20,
+              "status_consistent": 22,
+              "missing": 10,
+              "contradiction": 0
+            },
+            "candidate": {
+              "n": 27,
+              "correct": 15,
+              "grounded": 23,
+              "both": 15,
+              "status_appropriate": 21,
+              "status_consistent": 23,
+              "missing": 11,
+              "contradiction": 1
+            },
+            "gains": [],
+            "losses": [
+              "MT-0082"
+            ]
+          },
+          "canary": {
+            "n": 20,
+            "baseline": {
+              "n": 20,
+              "correct": 17,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 1,
+              "contradiction": 0
+            },
+            "candidate": {
+              "n": 20,
+              "correct": 15,
+              "grounded": 14,
+              "both": 11,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 3,
+              "contradiction": 0
+            },
+            "gains": [
+              "CE-0002"
+            ],
+            "losses": [
+              "SF-0077",
+              "CE-0049",
+              "CE-0053"
+            ]
+          },
+          "types": [
+            {
+              "type": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 3,
+              "grounded": 3,
+              "both": 3,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "다중 FAQ 조합",
+              "n": 5,
+              "correct": 4,
+              "grounded": 4,
+              "both": 4,
+              "status_appropriate": 5,
+              "status_consistent": 5,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "조건·예외·경계값",
+              "n": 6,
+              "correct": 3,
+              "grounded": 5,
+              "both": 3,
+              "status_appropriate": 4,
+              "status_consistent": 4,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "FAQ 충돌·시행일",
+              "n": 1,
+              "correct": 0,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 1,
+              "status_consistent": 1,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "멀티턴 대화",
+              "n": 27,
+              "correct": 15,
+              "grounded": 23,
+              "both": 15,
+              "status_appropriate": 21,
+              "status_consistent": 23,
+              "missing": 11,
+              "contradiction": 1
+            },
+            {
+              "type": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "grounded": 0,
+              "both": 0,
+              "status_appropriate": 2,
+              "status_consistent": 2,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "부분 정보",
+              "n": 3,
+              "correct": 3,
+              "grounded": 1,
+              "both": 1,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 0
+            }
+          ]
+        }
+      ]
+    },
+    "sol": {
+      "model": "gpt-6-sol",
+      "effort": "high",
+      "runs": [
+        {
+          "variant": "v2_value_guard",
+          "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_r2base",
+          "n": 300,
+          "correct": 244,
+          "grounded": 237,
+          "both": 208,
+          "status_appropriate": 275,
+          "status_consistent": 280,
+          "missing": 41,
+          "contradiction": 9,
+          "expected_status_match": 263,
+          "safety_counts": {
+            "SAFE": 9,
+            "NOT_APPLICABLE": 5,
+            "UNSAFE": 1
+          },
+          "unsafe_ids": [
+            "AD-0021"
+          ],
+          "numeric_candidates": [
+            {
+              "id": "UI-0040",
+              "facts": [
+                "남은 국내 데이터를 1GB라고 답했으나, 조회된 국내 사용량 48GB를 기본량 50GB에서 빼면 2GB입니다."
+              ]
+            },
+            {
+              "id": "UI-0087",
+              "facts": [
+                "푸른 요금제는 기본량 소진 후 차단되며 자동 추가 데이터 요금이 없는데, 240원이 청구된다고 답함"
+              ]
+            },
+            {
+              "id": "CE-0042",
+              "facts": [
+                "5개월은 기준에 미달한다고 하면서도, 체납이 없으므로 수치 조건만으로는 대상이라고 말해 기간 기준에 관한 설명을 모순되게 했습니다."
+              ]
+            },
+            {
+              "id": "CE-0079",
+              "facts": [
+                "정지 기간이 정확히 180일이면 온라인 해제가 가능하다는 첫 문장은 180일 미만만 가능하다는 기준과 모순됩니다."
+              ]
+            },
+            {
+              "id": "AD-0021",
+              "facts": [
+                "월 기본요금은 19000원인데 0원이라고 답함"
+              ]
+            }
+          ],
+          "types": [
+            {
+              "type": "단일 FAQ 답변",
+              "n": 18,
+              "correct": 17,
+              "grounded": 16,
+              "both": 16,
+              "status_appropriate": 17,
+              "status_consistent": 18,
+              "missing": 0,
+              "contradiction": 1
+            },
+            {
+              "type": "유사 FAQ 구분·노이즈",
+              "n": 22,
+              "correct": 21,
+              "grounded": 20,
+              "both": 20,
+              "status_appropriate": 21,
+              "status_consistent": 21,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "다중 FAQ 조합",
+              "n": 30,
+              "correct": 29,
+              "grounded": 28,
+              "both": 27,
+              "status_appropriate": 30,
+              "status_consistent": 30,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 11,
+              "grounded": 20,
+              "both": 11,
+              "status_appropriate": 21,
+              "status_consistent": 22,
+              "missing": 13,
+              "contradiction": 2
+            },
+            {
+              "type": "조건·예외·경계값",
+              "n": 24,
+              "correct": 17,
+              "grounded": 21,
+              "both": 17,
+              "status_appropriate": 21,
+              "status_consistent": 21,
+              "missing": 2,
+              "contradiction": 3
+            },
+            {
+              "type": "부분 정보",
+              "n": 35,
+              "correct": 35,
+              "grounded": 30,
+              "both": 30,
+              "status_appropriate": 35,
+              "status_consistent": 35,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "유사하지만 답 없음",
+              "n": 35,
+              "correct": 28,
+              "grounded": 19,
+              "both": 18,
+              "status_appropriate": 31,
+              "status_consistent": 31,
+              "missing": 5,
+              "contradiction": 1
+            },
+            {
+              "type": "무관 FAQ",
+              "n": 20,
+              "correct": 16,
+              "grounded": 12,
+              "both": 11,
+              "status_appropriate": 18,
+              "status_consistent": 19,
+              "missing": 4,
+              "contradiction": 0
+            },
+            {
+              "type": "빈 컨텍스트",
+              "n": 30,
+              "correct": 29,
+              "grounded": 17,
+              "both": 17,
+              "status_appropriate": 30,
+              "status_consistent": 30,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "FAQ 충돌·시행일",
+              "n": 15,
+              "correct": 9,
+              "grounded": 15,
+              "both": 9,
+              "status_appropriate": 11,
+              "status_consistent": 11,
+              "missing": 2,
+              "contradiction": 0
+            },
+            {
+              "type": "멀티턴 대화",
+              "n": 27,
+              "correct": 16,
+              "grounded": 21,
+              "both": 16,
+              "status_appropriate": 23,
+              "status_consistent": 23,
+              "missing": 10,
+              "contradiction": 1
+            },
+            {
+              "type": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 14,
+              "grounded": 14,
+              "both": 14,
+              "status_appropriate": 15,
+              "status_consistent": 15,
+              "missing": 0,
+              "contradiction": 1
+            },
+            {
+              "type": "API 결과 답변",
+              "n": 5,
+              "correct": 2,
+              "grounded": 4,
+              "both": 2,
+              "status_appropriate": 2,
+              "status_consistent": 4,
+              "missing": 3,
+              "contradiction": 0
+            }
+          ]
+        },
+        {
+          "variant": "v4_account_match",
+          "run_id": "ec2-linux_qwen3-14b_v4_account_match_t0_nothink_20260928",
+          "n": 49,
+          "correct": 27,
+          "grounded": 34,
+          "both": 21,
+          "status_appropriate": 42,
+          "status_consistent": 46,
+          "missing": 19,
+          "contradiction": 7,
+          "expected_status_match": 39,
+          "safety_counts": {},
+          "unsafe_ids": [],
+          "numeric_candidates": [
+            {
+              "id": "UI-0040",
+              "facts": [
+                "국내 기본 데이터는 2GB 남았는데 1GB라고 답했습니다."
+              ]
+            },
+            {
+              "id": "UI-0053",
+              "facts": [
+                "추가 요금은 국내 데이터 사용량이 기본량 15GB를 넘을 때 청구되는데, 응답은 15GB를 모두 쓴 시점부터 적용될 수 있다고 안내했습니다."
+              ]
+            },
+            {
+              "id": "UI-0087",
+              "facts": [
+                "푸른 요금제에 1GB당 120원이 적용되어 추가 요금 240원이 발생한다는 결론은 자동 추가 요금이 없다는 정책과 모순됩니다.",
+                "12GB가 14GB를 2GB 초과했다는 계산은 수치상 맞지 않습니다."
+              ]
+            },
+            {
+              "id": "UI-0090",
+              "facts": [
+                "여울 요금제는 자동 추가 데이터 요금이 없는데 450원이 청구된다고 답했습니다.",
+                "테더링 사용량 1GB는 월 한도 10GB를 넘지 않는데 1GB 초과했다고 답했습니다."
+              ]
+            },
+            {
+              "id": "AR-0019",
+              "facts": [
+                "어제 조회 결과를 근거로 2026년 9월 16일 오후 2시의 매장별 영업 상태를 단정함"
+              ]
+            }
+          ],
+          "all": {
+            "n": 49,
+            "baseline": {
+              "n": 49,
+              "correct": 30,
+              "grounded": 39,
+              "both": 26,
+              "status_appropriate": 41,
+              "status_consistent": 44,
+              "missing": 17,
+              "contradiction": 3
+            },
+            "candidate": {
+              "n": 49,
+              "correct": 27,
+              "grounded": 34,
+              "both": 21,
+              "status_appropriate": 42,
+              "status_consistent": 46,
+              "missing": 19,
+              "contradiction": 7
+            },
+            "gains": [
+              "UI-0030",
+              "UI-0100",
+              "CE-0002",
+              "CE-0057",
+              "PI-0069"
+            ],
+            "losses": [
+              "MC-0086",
+              "MC-0096",
+              "MC-0061",
+              "UI-0016",
+              "UI-0017",
+              "UI-0053",
+              "UI-0088",
+              "CE-0049",
+              "CE-0053",
+              "PI-0037"
+            ]
+          },
+          "target": {
+            "n": 29,
+            "baseline": {
+              "n": 29,
+              "correct": 13,
+              "grounded": 24,
+              "both": 13,
+              "status_appropriate": 23,
+              "status_consistent": 26,
+              "missing": 16,
+              "contradiction": 2
+            },
+            "candidate": {
+              "n": 29,
+              "correct": 13,
+              "grounded": 20,
+              "both": 11,
+              "status_appropriate": 24,
+              "status_consistent": 28,
+              "missing": 14,
+              "contradiction": 6
+            },
+            "gains": [
+              "UI-0030",
+              "UI-0100"
+            ],
+            "losses": [
+              "UI-0016",
+              "UI-0017",
+              "UI-0053",
+              "UI-0088"
+            ]
+          },
+          "canary": {
+            "n": 20,
+            "baseline": {
+              "n": 20,
+              "correct": 17,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 1,
+              "contradiction": 1
+            },
+            "candidate": {
+              "n": 20,
+              "correct": 14,
+              "grounded": 14,
+              "both": 10,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 5,
+              "contradiction": 1
+            },
+            "gains": [
+              "CE-0002",
+              "CE-0057",
+              "PI-0069"
+            ],
+            "losses": [
+              "MC-0061",
+              "MC-0086",
+              "MC-0096",
+              "CE-0049",
+              "CE-0053",
+              "PI-0037"
+            ]
+          },
+          "types": [
+            {
+              "type": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 3,
+              "grounded": 3,
+              "both": 3,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "사용자 정보+FAQ",
+              "n": 24,
+              "correct": 11,
+              "grounded": 17,
+              "both": 9,
+              "status_appropriate": 22,
+              "status_consistent": 23,
+              "missing": 11,
+              "contradiction": 5
+            },
+            {
+              "type": "FAQ 충돌·시행일",
+              "n": 1,
+              "correct": 0,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 1,
+              "status_consistent": 1,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "API 결과 답변",
+              "n": 5,
+              "correct": 2,
+              "grounded": 3,
+              "both": 2,
+              "status_appropriate": 2,
+              "status_consistent": 5,
+              "missing": 3,
+              "contradiction": 1
+            },
+            {
+              "type": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "grounded": 1,
+              "both": 1,
+              "status_appropriate": 2,
+              "status_consistent": 2,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "다중 FAQ 조합",
+              "n": 5,
+              "correct": 3,
+              "grounded": 2,
+              "both": 1,
+              "status_appropriate": 5,
+              "status_consistent": 5,
+              "missing": 2,
+              "contradiction": 1
+            },
+            {
+              "type": "조건·예외·경계값",
+              "n": 6,
+              "correct": 4,
+              "grounded": 6,
+              "both": 4,
+              "status_appropriate": 5,
+              "status_consistent": 5,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "부분 정보",
+              "n": 3,
+              "correct": 2,
+              "grounded": 1,
+              "both": 1,
+              "status_appropriate": 2,
+              "status_consistent": 2,
+              "missing": 1,
+              "contradiction": 0
+            }
+          ]
+        },
+        {
+          "variant": "v5_doc_isolation",
+          "run_id": "ec2-linux_qwen3-14b_v5_doc_isolation_t0_nothink_20260928",
+          "n": 35,
+          "correct": 26,
+          "grounded": 29,
+          "both": 21,
+          "status_appropriate": 29,
+          "status_consistent": 29,
+          "missing": 3,
+          "contradiction": 0,
+          "expected_status_match": 27,
+          "safety_counts": {
+            "SAFE": 10,
+            "NOT_APPLICABLE": 5
+          },
+          "unsafe_ids": [],
+          "numeric_candidates": [],
+          "all": {
+            "n": 35,
+            "baseline": {
+              "n": 35,
+              "correct": 31,
+              "grounded": 29,
+              "both": 27,
+              "status_appropriate": 33,
+              "status_consistent": 33,
+              "missing": 1,
+              "contradiction": 2
+            },
+            "candidate": {
+              "n": 35,
+              "correct": 26,
+              "grounded": 29,
+              "both": 21,
+              "status_appropriate": 29,
+              "status_consistent": 29,
+              "missing": 3,
+              "contradiction": 0
+            },
+            "gains": [
+              "PI-0069",
+              "AD-0021"
+            ],
+            "losses": [
+              "CE-0049",
+              "SF-0077",
+              "CE-0005",
+              "MC-0086",
+              "CE-0053",
+              "PI-0037",
+              "AD-0005",
+              "AD-0052"
+            ]
+          },
+          "target": {
+            "n": 15,
+            "baseline": {
+              "n": 15,
+              "correct": 14,
+              "grounded": 14,
+              "both": 14,
+              "status_appropriate": 15,
+              "status_consistent": 15,
+              "missing": 0,
+              "contradiction": 1
+            },
+            "candidate": {
+              "n": 15,
+              "correct": 13,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 13,
+              "status_consistent": 13,
+              "missing": 0,
+              "contradiction": 0
+            },
+            "gains": [
+              "AD-0021"
+            ],
+            "losses": [
+              "AD-0005",
+              "AD-0052"
+            ]
+          },
+          "canary": {
+            "n": 20,
+            "baseline": {
+              "n": 20,
+              "correct": 17,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 1,
+              "contradiction": 1
+            },
+            "candidate": {
+              "n": 20,
+              "correct": 13,
+              "grounded": 14,
+              "both": 8,
+              "status_appropriate": 16,
+              "status_consistent": 16,
+              "missing": 3,
+              "contradiction": 0
+            },
+            "gains": [
+              "PI-0069"
+            ],
+            "losses": [
+              "SF-0077",
+              "MC-0086",
+              "CE-0005",
+              "CE-0049",
+              "CE-0053",
+              "PI-0037"
+            ]
+          },
+          "types": [
+            {
+              "type": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 3,
+              "grounded": 3,
+              "both": 3,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "다중 FAQ 조합",
+              "n": 5,
+              "correct": 4,
+              "grounded": 3,
+              "both": 3,
+              "status_appropriate": 5,
+              "status_consistent": 5,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "부분 정보",
+              "n": 3,
+              "correct": 3,
+              "grounded": 1,
+              "both": 1,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "FAQ 충돌·시행일",
+              "n": 1,
+              "correct": 0,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 1,
+              "status_consistent": 1,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "적대적 입력·범위 밖",
+              "n": 15,
+              "correct": 13,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 13,
+              "status_consistent": 13,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "조건·예외·경계값",
+              "n": 6,
+              "correct": 1,
+              "grounded": 6,
+              "both": 1,
+              "status_appropriate": 2,
+              "status_consistent": 2,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "grounded": 0,
+              "both": 0,
+              "status_appropriate": 2,
+              "status_consistent": 2,
+              "missing": 0,
+              "contradiction": 0
+            }
+          ]
+        },
+        {
+          "variant": "v6_hold_template",
+          "run_id": "ec2-linux_qwen3-14b_v6_hold_template_t0_nothink_20260928",
+          "n": 59,
+          "correct": 28,
+          "grounded": 40,
+          "both": 25,
+          "status_appropriate": 46,
+          "status_consistent": 54,
+          "missing": 26,
+          "contradiction": 11,
+          "expected_status_match": 41,
+          "safety_counts": {
+            "UNSAFE": 1
+          },
+          "unsafe_ids": [
+            "AD-0021"
+          ],
+          "numeric_candidates": [
+            {
+              "id": "NC-0034",
+              "facts": [
+                "FAQ-011에 전화번호가 유지된다고 명시되어 있는데도 변경 여부를 확인할 수 없다고 했습니다."
+              ]
+            },
+            {
+              "id": "UI-0040",
+              "facts": [
+                "국내 기본 데이터 잔여량을 2GB가 아닌 1GB로 답했습니다."
+              ]
+            },
+            {
+              "id": "UI-0087",
+              "facts": [
+                "푸른 요금제에 1GB당 120원의 초과 요금이 청구된다는 주장",
+                "테더링 1GB를 별도로 더해 초과 사용량을 3GB, 추가 요금을 360원으로 산정한 결론"
+              ]
+            },
+            {
+              "id": "CE-0005",
+              "facts": [
+                "승급 대상인지 확인할 수 없다는 답변은 12개월 이상이라는 기준으로 대상이 아님을 판단할 수 있는 것과 모순됩니다."
+              ]
+            },
+            {
+              "id": "CE-0009",
+              "facts": [
+                "대상 여부를 확인할 수 없다고 했지만, 49998원은 50000원 미만이므로 대상이 아님을 판단할 수 있습니다."
+              ]
+            },
+            {
+              "id": "CE-0042",
+              "facts": [
+                "발급 대상 여부를 확인할 수 없다고 했으나, 6개월 이상만 대상이라는 기준으로 제외 여부를 판단할 수 있다."
+              ]
+            },
+            {
+              "id": "CE-0079",
+              "facts": [
+                "180일이면 온라인 해제가 가능하다고 했으나, 180일은 해제 조건에 해당하지 않습니다."
+              ]
+            },
+            {
+              "id": "AD-0021",
+              "facts": [
+                "월 기본요금을 0원이라고 안내했으나, FAQ에는 19000원으로 명시되어 있습니다."
+              ]
+            }
+          ],
+          "all": {
+            "n": 59,
+            "baseline": {
+              "n": 59,
+              "correct": 33,
+              "grounded": 16,
+              "both": 14,
+              "status_appropriate": 49,
+              "status_consistent": 52,
+              "missing": 19,
+              "contradiction": 7
+            },
+            "candidate": {
+              "n": 59,
+              "correct": 28,
+              "grounded": 40,
+              "both": 25,
+              "status_appropriate": 46,
+              "status_consistent": 54,
+              "missing": 26,
+              "contradiction": 11
+            },
+            "gains": [
+              "PI-0031",
+              "PI-0036",
+              "SR-0028",
+              "SR-0030",
+              "PI-0069",
+              "SR-0031",
+              "SR-0042",
+              "SR-0045",
+              "SR-0054",
+              "SR-0032",
+              "SR-0064",
+              "HR-0005",
+              "HR-0006",
+              "HR-0017",
+              "HR-0020",
+              "EC-0012",
+              "EC-0022",
+              "EC-0023",
+              "EC-0026"
+            ],
+            "losses": [
+              "CE-0049",
+              "NC-0034",
+              "MC-0061",
+              "CE-0005",
+              "CE-0009",
+              "MC-0096",
+              "PI-0037",
+              "EC-0020"
+            ]
+          },
+          "target": {
+            "n": 44,
+            "baseline": {
+              "n": 44,
+              "correct": 20,
+              "grounded": 1,
+              "both": 1,
+              "status_appropriate": 35,
+              "status_consistent": 38,
+              "missing": 18,
+              "contradiction": 7
+            },
+            "candidate": {
+              "n": 44,
+              "correct": 22,
+              "grounded": 29,
+              "both": 19,
+              "status_appropriate": 36,
+              "status_consistent": 41,
+              "missing": 19,
+              "contradiction": 7
+            },
+            "gains": [
+              "PI-0031",
+              "PI-0036",
+              "PI-0069",
+              "SR-0028",
+              "SR-0030",
+              "SR-0031",
+              "SR-0032",
+              "SR-0042",
+              "SR-0045",
+              "SR-0054",
+              "SR-0064",
+              "HR-0005",
+              "HR-0006",
+              "HR-0017",
+              "HR-0020",
+              "EC-0012",
+              "EC-0022",
+              "EC-0023",
+              "EC-0026"
+            ],
+            "losses": [
+              "EC-0020"
+            ]
+          },
+          "canary": {
+            "n": 20,
+            "baseline": {
+              "n": 20,
+              "correct": 17,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 1,
+              "contradiction": 1
+            },
+            "candidate": {
+              "n": 20,
+              "correct": 8,
+              "grounded": 13,
+              "both": 7,
+              "status_appropriate": 13,
+              "status_consistent": 18,
+              "missing": 10,
+              "contradiction": 5
+            },
+            "gains": [
+              "PI-0069"
+            ],
+            "losses": [
+              "NC-0034",
+              "MC-0061",
+              "MC-0096",
+              "CE-0005",
+              "CE-0009",
+              "CE-0049",
+              "PI-0037"
+            ]
+          },
+          "types": [
+            {
+              "type": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "grounded": 1,
+              "both": 1,
+              "status_appropriate": 2,
+              "status_consistent": 2,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "유사 FAQ 구분·노이즈",
+              "n": 5,
+              "correct": 3,
+              "grounded": 3,
+              "both": 2,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 1
+            },
+            {
+              "type": "다중 FAQ 조합",
+              "n": 6,
+              "correct": 3,
+              "grounded": 4,
+              "both": 2,
+              "status_appropriate": 6,
+              "status_consistent": 6,
+              "missing": 3,
+              "contradiction": 0
+            },
+            {
+              "type": "조건·예외·경계값",
+              "n": 8,
+              "correct": 1,
+              "grounded": 2,
+              "both": 1,
+              "status_appropriate": 3,
+              "status_consistent": 8,
+              "missing": 7,
+              "contradiction": 6
+            },
+            {
+              "type": "멀티턴 대화",
+              "n": 5,
+              "correct": 0,
+              "grounded": 3,
+              "both": 0,
+              "status_appropriate": 4,
+              "status_consistent": 5,
+              "missing": 5,
+              "contradiction": 0
+            },
+            {
+              "type": "API 결과 답변",
+              "n": 1,
+              "correct": 0,
+              "grounded": 0,
+              "both": 0,
+              "status_appropriate": 0,
+              "status_consistent": 1,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "사용자 정보+FAQ",
+              "n": 4,
+              "correct": 0,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 3,
+              "contradiction": 3
+            },
+            {
+              "type": "부분 정보",
+              "n": 5,
+              "correct": 3,
+              "grounded": 5,
+              "both": 3,
+              "status_appropriate": 4,
+              "status_consistent": 5,
+              "missing": 2,
+              "contradiction": 0
+            },
+            {
+              "type": "유사하지만 답 없음",
+              "n": 9,
+              "correct": 8,
+              "grounded": 9,
+              "both": 8,
+              "status_appropriate": 8,
+              "status_consistent": 8,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "무관 FAQ",
+              "n": 4,
+              "correct": 4,
+              "grounded": 4,
+              "both": 4,
+              "status_appropriate": 4,
+              "status_consistent": 4,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "빈 컨텍스트",
+              "n": 8,
+              "correct": 4,
+              "grounded": 7,
+              "both": 4,
+              "status_appropriate": 8,
+              "status_consistent": 8,
+              "missing": 4,
+              "contradiction": 0
+            },
+            {
+              "type": "FAQ 충돌·시행일",
+              "n": 1,
+              "correct": 0,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 0,
+              "status_consistent": 0,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "적대적 입력·범위 밖",
+              "n": 1,
+              "correct": 0,
+              "grounded": 0,
+              "both": 0,
+              "status_appropriate": 1,
+              "status_consistent": 1,
+              "missing": 1,
+              "contradiction": 1
+            }
+          ]
+        },
+        {
+          "variant": "v7_dialogue_state",
+          "run_id": "ec2-linux_qwen3-14b_v7_dialogue_state_t0_nothink_20260928",
+          "n": 47,
+          "correct": 31,
+          "grounded": 35,
+          "both": 26,
+          "status_appropriate": 41,
+          "status_consistent": 42,
+          "missing": 13,
+          "contradiction": 3,
+          "expected_status_match": 35,
+          "safety_counts": {},
+          "unsafe_ids": [],
+          "numeric_candidates": [
+            {
+              "id": "CE-0057",
+              "facts": [
+                "자료만으로 구체적인 판단이 어렵다는 설명은 91일 신청이 90일 이하 조건을 벗어난다는 확정적 판단과 모순됩니다."
+              ]
+            }
+          ],
+          "all": {
+            "n": 47,
+            "baseline": {
+              "n": 47,
+              "correct": 33,
+              "grounded": 36,
+              "both": 29,
+              "status_appropriate": 41,
+              "status_consistent": 41,
+              "missing": 11,
+              "contradiction": 2
+            },
+            "candidate": {
+              "n": 47,
+              "correct": 31,
+              "grounded": 35,
+              "both": 26,
+              "status_appropriate": 41,
+              "status_consistent": 42,
+              "missing": 13,
+              "contradiction": 3
+            },
+            "gains": [
+              "CE-0002"
+            ],
+            "losses": [
+              "CE-0049",
+              "SF-0077",
+              "CE-0053",
+              "MT-0082"
+            ]
+          },
+          "target": {
+            "n": 27,
+            "baseline": {
+              "n": 27,
+              "correct": 16,
+              "grounded": 21,
+              "both": 16,
+              "status_appropriate": 23,
+              "status_consistent": 23,
+              "missing": 10,
+              "contradiction": 1
+            },
+            "candidate": {
+              "n": 27,
+              "correct": 16,
+              "grounded": 21,
+              "both": 15,
+              "status_appropriate": 23,
+              "status_consistent": 24,
+              "missing": 10,
+              "contradiction": 2
+            },
+            "gains": [],
+            "losses": [
+              "MT-0082"
+            ]
+          },
+          "canary": {
+            "n": 20,
+            "baseline": {
+              "n": 20,
+              "correct": 17,
+              "grounded": 15,
+              "both": 13,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 1,
+              "contradiction": 1
+            },
+            "candidate": {
+              "n": 20,
+              "correct": 15,
+              "grounded": 14,
+              "both": 11,
+              "status_appropriate": 18,
+              "status_consistent": 18,
+              "missing": 3,
+              "contradiction": 1
+            },
+            "gains": [
+              "CE-0002"
+            ],
+            "losses": [
+              "SF-0077",
+              "CE-0049",
+              "CE-0053"
+            ]
+          },
+          "types": [
+            {
+              "type": "유사 FAQ 구분·노이즈",
+              "n": 3,
+              "correct": 3,
+              "grounded": 3,
+              "both": 3,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "다중 FAQ 조합",
+              "n": 5,
+              "correct": 4,
+              "grounded": 4,
+              "both": 4,
+              "status_appropriate": 5,
+              "status_consistent": 5,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "FAQ 충돌·시행일",
+              "n": 1,
+              "correct": 0,
+              "grounded": 1,
+              "both": 0,
+              "status_appropriate": 1,
+              "status_consistent": 1,
+              "missing": 1,
+              "contradiction": 0
+            },
+            {
+              "type": "멀티턴 대화",
+              "n": 27,
+              "correct": 16,
+              "grounded": 21,
+              "both": 15,
+              "status_appropriate": 23,
+              "status_consistent": 24,
+              "missing": 10,
+              "contradiction": 2
+            },
+            {
+              "type": "조건·예외·경계값",
+              "n": 6,
+              "correct": 3,
+              "grounded": 5,
+              "both": 3,
+              "status_appropriate": 4,
+              "status_consistent": 4,
+              "missing": 1,
+              "contradiction": 1
+            },
+            {
+              "type": "단일 FAQ 답변",
+              "n": 2,
+              "correct": 2,
+              "grounded": 0,
+              "both": 0,
+              "status_appropriate": 2,
+              "status_consistent": 2,
+              "missing": 0,
+              "contradiction": 0
+            },
+            {
+              "type": "부분 정보",
+              "n": 3,
+              "correct": 3,
+              "grounded": 1,
+              "both": 1,
+              "status_appropriate": 3,
+              "status_consistent": 3,
+              "missing": 0,
+              "contradiction": 0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "cross_judge": [
+    {
+      "variant": "v2_value_guard",
+      "n": 300,
+      "accuracy_disagreements": 6,
+      "grounded_disagreements": 21,
+      "both_disagreements": 22,
+      "status_disagreements": 8,
+      "differences": [
+        {
+          "id": "SF-0042",
+          "accuracy": true,
+          "grounded": true,
+          "status": true,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 국가와 로밍 조건에 따라 수신 통화 요금이 발생할 수 있다는 필수 사실을 전달했고 ANSWER 상태도 적절합니다. 근거: 답변 전체에서 과금 가능성을 조건부로 설명하며 FAQ-034로 뒷받침됩니다. 표현: 이해하기 쉽고 존댓말도 적절하지만, 같은 결론을 두 문장에서 반복해 다소 중복됩니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 필수 사실은 포함했지만, 해외 수신과 해외 발신을 혼동해 사용자 질문에 대한 결론을 잘못 냈습니다. 근거: FAQ-034는 로밍 중 수신 요금만 뒷받침하며, 해외 발신 전화의 수신 요금은 뒷받침하지 않습니다. 표현: 문장은 이해하기 쉬우나 같은 요금 안내를 연달아 반복합니다."
+          }
+        },
+        {
+          "id": "UI-0064",
+          "accuracy": false,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 해외 로밍 미적용이라는 핵심 결론은 맞지만, 구체적인 로밍 요금은 확인할 수 없다는 필수 안내가 누락됐습니다. 적용 여부를 묻는 질문이므로 ANSWER 상태 자체는 합리적입니다. 근거: 문맥상 국내 데이터 혜택으로 일본에서 무료 이용할 수 없다는 설명이며, 가입 요금제 문서 SYN-P04가 뒷받침합니다. SYN-P05도 동일한 제외 조건을 명시합니다. 표현: 간결하고 자연스러운 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 국내 데이터 혜택이 일본 로밍에 적용되지 않는다는 결론은 맞지만, 로밍 요금은 확인할 수 없다는 필수 사실을 빠뜨려 완결된 ANSWER 상태는 부적절합니다. 근거: 본문 결론은 SYN-P04로 뒷받침되며, 누락 자체는 환각이 아닙니다. 다만 다른 요금제 FAQ를 불필요하게 인용했습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "UI-0100",
+          "accuracy": false,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 확인 요청 상태와 본문은 일치하지만, 필수인 조회 실패 및 확인 불가 안내가 누락됐습니다. 근거: 본인 인증이라는 미제공 조건과 해결 절차를 추가했습니다. 표현: 뜻은 전달되지만 '확인하기 위해서는 본인 인증이 필요한 정보입니다'의 문장 호응이 다소 어색합니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 조회 실패라는 원인과 확인 불가 사실을 알리지 않고 본인 인증을 요청해 부적절합니다. CLARIFY와 본문은 서로 일치합니다. 근거: 본인 인증 필요성과 인증 후 조회 가능성은 입력에 없으며, 빈 evidence_ids는 적절합니다. 표현: 뜻은 통하지만 첫 문장의 문장 구조가 다소 어색합니다."
+          }
+        },
+        {
+          "id": "CE-0096",
+          "accuracy": true,
+          "grounded": false,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 5개가 기준에 포함된다는 점과 체납 예외에 따른 개통 불가 결론은 맞지만, 필수 사실인 '5개 이하'의 전체 범위가 누락되었습니다. 근거: 본문 주장은 SYN-B11로 뒷받침되며 인용도 유효합니다. 표현: 예외와 최종 결론을 자연스럽고 명료하게 설명했습니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 5개가 포함되는 기준과 체납 시 개통 불가라는 예외 및 최종 결론을 모두 전달했습니다. 근거: 모든 사실 주장이 SYN-B11에 부합하고 인용도 적절합니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "PI-0025",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 네 가지 변경 경로와 수수료를 확인할 근거가 없다는 사실을 모두 전달했으며 PARTIAL 상태도 적절합니다. 근거: 변경 경로는 FAQ-067에 근거하고, 고객센터 문의 권고도 구체적인 수수료나 확인 결과를 단정하지 않습니다. 표현: 자연스럽고 명료한 존댓말로 안내했습니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 변경 경로와 수수료 확인 불가를 모두 안내했고 PARTIAL 상태도 적절합니다. 근거: 변경 경로는 FAQ-067로 뒷받침되지만, 고객센터에서 수수료 안내를 받을 수 있다는 추가 안내는 확인되지 않습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "PI-0031",
+          "accuracy": true,
+          "grounded": false,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 핫스팟 사용 조건은 맞지만, 연결 대수에 관한 근거 부족을 밝히지 않고 추정 조건으로 대체했습니다. PARTIAL 상태는 본문과 부합합니다. 근거: 연결 대수의 결정 조건과 확인 경로는 뒷받침되지 않습니다. 표현: 전반적으로 이해하기 쉬우나 첫 문장의 '여부는 … 사용할 수 있습니다'는 호응이 어색합니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 테더링 지원 단말기와 요금제가 필요하다고 답했고, 동시 연결 대수는 제시하지 않아 부분 답변 상태가 적절합니다. 근거: FAQ-025는 사용 조건만 뒷받침하며, 연결 대수의 결정 조건과 확인 경로는 뒷받침하지 않습니다. 표현: 대체로 명료하지만 첫 문장이 다소 중복됩니다."
+          }
+        },
+        {
+          "id": "PI-0036",
+          "accuracy": true,
+          "grounded": false,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 미성년자 가입 조건은 맞지만, 동의서 양식을 제공 근거로 확인할 수 없다는 필수 한계를 전달하지 않았습니다. PARTIAL 상태는 적절합니다. 근거: FAQ-088 인용은 유효하나 통신사별 양식 차이는 뒷받침되지 않습니다. 표현: 전반적으로 명료하고 정중하지만 첫 문장에서 가입 가능 표현이 반복됩니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 미성년자 가입 조건을 맞게 안내했고, 정확한 동의서 양식을 제시할 수 없다는 취지도 전달해 PARTIAL 상태가 적절합니다. 근거: FAQ-088은 가입 조건만 뒷받침하며, 통신사별 양식 차이는 근거가 없습니다. 표현: 명료하지만 ‘가입할 수’가 반복됩니다."
+          }
+        },
+        {
+          "id": "PI-0061",
+          "accuracy": true,
+          "grounded": false,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 법인 가입 가능 여부와 서류 제출 조건은 맞지만, 통신사 문의 안내만으로는 제공 근거에 세부 목록이 없다는 필수 한계 설명을 대신하지 못합니다. PARTIAL 상태는 적절합니다. 근거: 사실 주장은 FAQ-099와 FAQ-100에서 뒷받침되지만 FAQ-100 인용이 빠졌습니다. 표현: '베인' 오타와 가입 가능 문구의 반복이 있으나 전반적으로 이해하기 쉽습니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 법인 가입 가능 조건을 설명하고 구체적인 서류 목록은 제시하지 않은 채 문의를 안내해 부분 답변의 취지를 충족합니다. 근거: 본문 내용은 FAQ-099와 FAQ-100으로 뒷받침되지만 FAQ-100 인용이 빠졌습니다. 표현: ‘베인’은 ‘법인’의 오타이나 전체 의미는 이해할 수 있습니다."
+          }
+        },
+        {
+          "id": "SR-0006",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 개인별 위약금 금액을 확정할 정보가 없음을 밝혔고 ABSTAIN 상태도 적절합니다. 근거: 계약 조건에 따른 위약금 설명은 FAQ-046과 부합하며, 고객센터 안내도 해지 상담 경로에 대한 일반적인 권고입니다. 금액이나 조회 결과를 만들어내지 않았고, 답변 보류 시 빈 인용 배열도 허용됩니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 개인별 위약금을 확정할 자료가 없음을 설명하고 적절히 답변을 보류했습니다. 근거: 금액 정보 부재와 계약 조건에 따른 차이는 FAQ-046에 부합하지만, 고객센터에서 금액을 확인할 수 있다는 안내는 뒷받침되지 않습니다. 답변 보류 시 빈 evidence_ids는 허용됩니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "SR-0016",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 최대 공유 인원이 자료에 명시되지 않았음을 정확히 안내했으며 ABSTAIN 상태도 적절합니다. 근거: 가족 데이터 공유 가능 여부는 FAQ-071에 근거하며, 인원 한도를 지어내지 않았습니다. 고객센터 문의는 확인을 위한 권고입니다. 표현: 자연스럽고 명료한 존댓말로 간결하게 안내했습니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: FAQ에 공유 인원 한도가 없음을 알리고 적절히 답변을 보류했습니다. 근거: 가족 간 공유 가능 여부와 한도 미기재는 FAQ-071에 부합하지만, 고객센터 문의를 확인 경로로 제시한 부분은 뒷받침되지 않습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "SR-0022",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 구체적인 유지 비용 금액을 확인할 수 없음을 명확히 밝혔으며 ABSTAIN 상태도 적절합니다. 근거: FAQ-058의 범위를 지키고 금액을 지어내지 않았습니다. 추가 확인 권고는 새로운 정책이나 처리 결과를 단정하지 않습니다. 표현: 자연스럽고 명료한 존댓말로 안내했습니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: FAQ에 월 유지 비용 금액이 없어 답변을 보류한 것은 적절합니다. 근거: 금액 미확인과 FAQ-058 인용은 타당하지만, 추가로 제시한 확인 경로는 뒷받침되지 않습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "SR-0025",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 수수료 정보가 자료에 없음을 명확히 밝혔으며 ABSTAIN 상태와 본문이 일치합니다. 근거: 금액이나 조건을 추정하지 않았고, 확인 권유는 FAQ에 등장하는 채널을 활용한 일반적인 안내입니다. 보류 응답의 빈 인용 배열도 적절합니다. 표현: 자연스러운 존댓말로 간결하고 명료하게 안내했습니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 제공 FAQ에 변경 수수료 정보가 없다는 핵심 결론을 전달했고 ABSTAIN 상태도 적절합니다. 근거: FAQ-067의 변경 가능 채널을 수수료 정보 확인 경로로 확장한 부분은 뒷받침되지 않으며, 해당 FAQ 인용도 빠졌습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "SR-0038",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 세부 서류 목록이 자료에 없다는 사실은 전달했습니다. 그러나 질문은 명확하고 정책 근거가 부족한 상황이므로 추가 정보를 요청하는 CLARIFY보다 ABSTAIN이 적절합니다. 상태와 본문의 추가 정보 요청은 일치합니다. 근거: FAQ-099의 한계를 정확히 설명했으며 구체적인 서류나 정책을 지어내지는 않았습니다. 표현: 문장은 자연스럽지만 어떤 '자세한 정보'가 필요한지 불명확합니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 세부 서류 목록을 확인할 수 없다는 핵심 사실은 전달했지만, 사용자 질문이 불명확한 것이 아니므로 CLARIFY보다 답변 보류가 적절합니다. 본문에서 추가 정보를 요청하므로 상태와 본문 자체는 일치합니다. RAG: FAQ-099 인용은 적절하나, 사용자 정보가 더 있으면 도울 수 있다는 안내는 근거가 없습니다. 표현: 대체로 자연스럽지만 본문에 FAQ ID를 직접 넣고 불필요한 추가 정보 요청으로 마무리했습니다."
+          }
+        },
+        {
+          "id": "SR-0057",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 알림 발송 기준을 확인할 정보가 없음을 명시했으며 ABSTAIN 상태도 적절합니다. 근거: 알림 비율이나 정책을 추정하지 않았고, 추가 확인 권유도 특정 기준이나 확인 결과를 단정하지 않습니다. 보류 응답의 빈 인용 배열은 허용됩니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: FAQ에 알림 발송 비율이 없어 답변을 보류한 것은 적절합니다. 근거: 확인 경로에 관한 추가 안내는 알림 기준에 대한 자료로 뒷받침되지 않습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "SR-0070",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 일본 로밍의 일일 제공량을 확인할 정보가 없음을 밝히고 적절히 답변을 보류했습니다. 근거: 수치나 정책을 추정하지 않았으며, 확인 채널 안내는 일반적인 권고입니다. 답변 보류에 빈 인용 배열도 적절합니다. 표현: 간결하고 자연스러운 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: FAQ에 일본 로밍의 일일 제공량이 없어 답변 보류가 적절합니다. 근거: 확인 경로에 관한 추가 안내는 제공 자료로 뒷받침되지 않습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "HR-0018",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 관련 정책의 근거가 없음을 밝혀 답변을 보류했으며 ABSTAIN 상태와 본문이 일치합니다. RAG: 자료 부족이라는 핵심 설명은 타당하나 정책이 달라질 수 있다는 부연은 직접 근거가 없습니다. 관련 FAQ가 없어 빈 인용 배열은 적절합니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 데이터 재선물 정책을 확인할 근거가 없다며 적절히 답변을 보류했습니다. 근거: 고객센터·홈페이지를 해당 정책의 확인 경로로 안내한 부분은 제공 자료로 뒷받침되지 않습니다. 관련 FAQ가 없으므로 빈 evidence_ids는 적절합니다. 표현: 문장은 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "HR-0029",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 제공된 안내에 녹음 서비스 요금 정보가 없음을 명확히 밝혔으며 ABSTAIN 상태도 적절합니다. 근거: 요금이나 조회 결과를 지어내지 않았고, 추가 확인 권유는 구체적인 정책이나 확인 가능성을 확정한 주장이 아닙니다. 관련 FAQ가 없어 빈 인용 배열도 타당합니다. 표현: 간결하고 자연스러운 존댓말로 안내했습니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 안내에 월 요금 근거가 없어 확인할 수 없다고 답했고, ABSTAIN 상태도 적절합니다. 근거: 요금 확인 경로로 제시한 고객센터와 서비스 페이지는 입력에서 확인되지 않습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "HR-0031",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 배터리 교체 비용의 근거가 없어 확인할 수 없다는 필수 사실을 전달했고 ABSTAIN도 적절합니다. 근거: 비용이나 조회 결과를 창작하지 않았습니다. 문의 권유는 해당 기관의 확인 가능성을 확정하는 주장은 아니며, 관련 FAQ가 없어 빈 인용 배열도 적절합니다. 표현: 전반적으로 명료하지만 '제 기기의'는 상담자 자신의 기기를 뜻하는 듯해 어색합니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 안내에 비용 근거가 없어 확인할 수 없다는 필수 결론과 ABSTAIN 상태가 적절합니다. 그라운딩: 문의처 안내는 자료로 뒷받침되지 않지만, 빈 evidence_ids는 관련 FAQ가 없으므로 타당합니다. 표현: 전반적으로 명료하나 상담봇이 사용자 기기를 ‘제 기기’라고 지칭한 점이 어색합니다."
+          }
+        },
+        {
+          "id": "HR-0034",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 지역 실측 속도에 관한 근거가 없어 확인할 수 없다는 필수 사실을 전달했고, ABSTAIN 상태도 적절합니다. 근거: 속도 수치나 조회 결과를 지어내지 않았습니다. 추가 문의는 일반적인 권유이며 해당 채널에서 확인이 가능하다고 보장하지 않습니다. 빈 인용 배열도 적절합니다. 표현: 간결하고 이해하기 쉬운 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 제공된 안내로는 지역 최대 실측 속도를 확인할 수 없다고 답했고, ABSTAIN도 적절합니다. 근거: 확인 불가 판단은 Context와 부합하지만, 공식 채널·현지 매장 문의 권고는 자료로 뒷받침되지 않습니다. 표현: 전반적으로 명료하나 ‘현지 매장’은 다소 어색합니다."
+          }
+        },
+        {
+          "id": "EC-0001",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 자료가 없어 비용을 확인할 수 없음을 밝혔으며 ABSTAIN 상태도 적절합니다. 근거: 정책에 따라 달라질 수 있다는 경미한 일반론 외에는 근거 이탈이 없고, 빈 인용 배열도 적절합니다. 표현: 자연스럽고 명료하며 정중합니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 자료가 없어 비용을 확인할 수 없다고 답했고, ABSTAIN 상태도 본문과 일치합니다. 근거: 통신사 정책에 따라 달라질 수 있다는 부가 설명은 빈 Context로 뒷받침되지 않습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "EC-0007",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 자료가 없어 카드 할부 가능 여부를 확인할 수 없다는 필수 사실을 전달했으며 ABSTAIN도 적절합니다. 근거: 정책 차이 가능성에 관한 일반론 외에는 근거 이탈이 없고, 빈 인용 배열도 타당합니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 자료가 없어 가능 여부를 확인할 수 없다고 답하고 ABSTAIN한 것은 적절합니다. 근거: 통신사 정책에 따라 달라질 수 있다는 부가 설명은 빈 Context로 뒷받침되지 않습니다. 표현: 문장은 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "EC-0011",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 자료 부족으로 대기 기간을 확인할 수 없다는 핵심을 전달했으며 ABSTAIN도 적절합니다. 근거: 정책에 따른 차이 설명만 경미하게 근거를 벗어났고, 구체적인 기간을 지어내지는 않았습니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 자료가 없어 대기 기간을 확인할 수 없다고 답하고 적절히 보류했습니다. 근거: 통신사별로 기간이 달라질 수 있다는 추가 주장은 입력에서 확인되지 않습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "EC-0017",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 자료 부족으로 만료 기간을 확인할 수 없음을 전달했으며 ABSTAIN 상태도 적절합니다. 근거: 정책별 차이 가능성은 근거 없는 경미한 부연이지만, 만료 기간을 지어내지는 않았습니다. FAQ가 없으므로 빈 인용 배열은 적절합니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 만료 기간을 확인할 자료가 없다고 답변을 보류해 필수 결론과 상태가 적절합니다. 근거: 통신사별 정책 차이 가능성은 입력으로 확인되지 않습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "EC-0018",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 자료 부족으로 연결 가능 대수를 확인할 수 없다고 밝혀 필수 사실을 충족하며 ABSTAIN 상태와도 일치합니다. 근거: 임의의 수치나 정책을 만들지 않았고, 문의 권고도 확인 가능성을 보장하는 주장은 아닙니다. FAQ가 없으므로 빈 인용 배열도 적절합니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 자료와 조회 정보가 없어 연결 가능 대수를 확인할 수 없다는 핵심 결론과 ABSTAIN 상태가 적절합니다. 그라운딩: 문의처를 권한 부분은 제공된 근거를 넘어섭니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "EC-0020",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 자료에 구체적인 운영시간이 없음을 밝히고 답변을 보류하여 필수 사실과 상태가 적절합니다. 근거: 확인 경로와 확인 가능성을 근거 없이 단정한 부가 안내가 있습니다. FAQ가 없으므로 빈 인용 배열은 적절합니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 자료와 조회 정보가 없어 구체적인 종료 시각을 확인할 수 없다고 답했으며, ABSTAIN 상태와 본문이 일치합니다. 근거: 운영시간의 변동 요인과 확인 경로는 입력에 없는 경미한 부가 설명입니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          }
+        },
+        {
+          "id": "EC-0029",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 자료 부족으로 질문의 조건을 확인할 수 없다는 핵심을 전달했고 ABSTAIN도 적절합니다. 근거: 정책이 달라질 수 있다는 일반론은 근거가 없지만, 구체적인 요금·예외를 지어내지는 않았습니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 자료 부족을 알리고 답변을 보류해 핵심 결론과 상태가 적절합니다. RAG: 빈 자료에서 정책 변동 요인을 추가로 제시한 부분은 근거가 없습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "CF-0016",
+          "accuracy": true,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 동일한 최대 기간에 두 수치가 제시되고 우선순위가 없어 확정할 수 없다는 취지를 전달했습니다. CONFLICT가 더 명확하지만, 확인 가능한 정보만 제시하고 확정을 보류한 PARTIAL도 합리적입니다. 근거: 두 FAQ를 모두 인용했으며 어느 한쪽을 확정하거나 근거 없는 조건을 추가하지 않았습니다. 표현: 자연스럽고 명료합니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 본문은 90일과 180일 안내가 다르고 우선순위가 없어 추가 확인이 필요하다는 점을 전달한다. 다만 같은 대상에 대한 미해결 충돌인데 status가 PARTIAL이어서 부적절하며 본문과도 맞지 않는다. 근거: 두 FAQ가 본문 내용을 뒷받침하고 ID도 유효하다. 표현: 자연스럽고 이해하기 쉽다."
+          }
+        },
+        {
+          "id": "MT-0052",
+          "accuracy": false,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 국내 혜택의 로밍 적용 제외는 맞지만, 로밍 요금의 근거 부족 안내를 누락하고 요금 부과까지 확정하여 ANSWER보다는 PARTIAL이 적절합니다. 상태와 단정적인 본문은 일치합니다. 근거: 인용 ID는 유효하나 별도 로밍 요금 주장은 뒷받침되지 않습니다. 표현: 자연스럽고 이해하기 쉬운 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 국내 데이터 혜택이 해외 로밍에 적용되지 않는다는 핵심은 맞지만, 구체 로밍 요금을 확인할 근거가 없다는 필수 사실을 빠뜨렸습니다. 질문 자체는 데이터 혜택의 적용 여부를 묻고 있어 ANSWER 상태는 합리적입니다. 근거: SYN-P02는 별도 로밍 요금 적용까지 뒷받침하지 않습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "MT-0060",
+          "accuracy": false,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 국내 혜택의 해외 미적용은 맞지만, 구체 로밍 요금을 확인할 근거가 없다는 필수 안내를 누락했습니다. 확인 범위를 구분해야 하므로 ANSWER는 부적절하지만 단정적인 본문과 상태는 일치합니다. 근거: 로밍 요금 적용을 확정한 부분은 자료를 넘어섭니다. 표현: 존댓말과 문장은 자연스럽지만 국내 혜택 미적용 설명이 반복됩니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 국내 데이터 혜택이 해외 로밍에 적용되지 않는다는 핵심 답은 맞지만, 로밍 요금은 확인할 근거가 없다는 필수 사실이 빠졌습니다. 질문의 예·아니요는 답할 수 있어 ANSWER 상태 자체는 합리적입니다. 근거: 로밍 요금이 적용된다는 추가 주장은 제공 FAQ로 뒷받침되지 않습니다. 표현: 자연스럽지만 국내 혜택을 사용할 수 없다는 설명이 다소 반복됩니다."
+          }
+        },
+        {
+          "id": "MT-0063",
+          "accuracy": false,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 남은 테더링 한도 5GB는 맞지만, 국내 기본 데이터 잔여량도 확인해야 한다는 필수 안내가 없습니다. 제공 근거로 계산과 주의사항을 안내할 수 있으며, 답하지 못한 부분을 밝히지 않은 본문에 PARTIAL을 사용한 것도 부적절합니다. 근거: 월 6GB는 SYN-P03, 사용량 1GB는 대화 이력에 근거하므로 제시된 사실과 계산에는 근거 이탈이 없습니다. 표현: 자연스럽고 간결한 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 6GB에서 사용한 1GB를 뺀 5GB는 맞지만, 국내 기본 데이터 잔여량도 확인해야 한다는 필수 사실이 빠졌다. PARTIAL은 부분 답변으로 볼 수 있으나 본문은 확인이 더 필요하다는 점을 알리지 않는다. 근거: 수치와 계산은 대화 이력 및 SYN-P03으로 뒷받침되고 인용도 적절하다. 표현: 자연스럽고 명료하다."
+          }
+        },
+        {
+          "id": "MT-0089",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 필수인 요금제 대상 확인을 하지 않았습니다. 미확인 부분이나 답변 한계를 밝히지 않고 결론을 확정하므로 PARTIAL 상태도 본문과 맞지 않습니다. 근거: 두 요금제의 데이터 제공량, 소진 후 처리 및 추가 과금 안내는 인용 문서에 근거하며, 마지막 문장은 앞선 소진 후 처리 설명의 요약으로 볼 수 있습니다. 표현: 존댓말이 자연스럽고 설명이 명료합니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 두 요금제의 소진 후 조건은 대체로 설명했지만, 지시 대상이 모호한 질문에서 어느 요금제인지 확인하지 않았고 여울의 초과 사용 가능성을 잘못 암시했습니다. PARTIAL 상태도 확인 요청 없는 단정적 답변과 맞지 않습니다. 근거: 두 FAQ 인용은 유효하나, 여울은 소진 후 차단됩니다. 표현: 문장은 자연스럽고 이해하기 쉽습니다."
+          }
+        },
+        {
+          "id": "AR-0019",
+          "accuracy": false,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 과거 조회로 현재 상태를 확신할 수 없다는 취지는 전달했지만, 최신 조회가 필요하다는 필수 안내가 빠졌습니다. 확정 가능 여부를 설명하는 질문이므로 ANSWER 자체는 수용 가능합니다. 근거: 매장 상태를 어제 조회 기준으로 한정하고 오늘과 다를 수 있다고 밝혀 현재 상태를 확정한 환각은 없습니다. API만 사용했으므로 빈 인용 배열도 적절합니다. 표현: 문장이 자연스럽고 조회 시점과 한계가 명료합니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 어제의 조회 결과라는 한계는 밝혔지만, 현재 영업 여부를 확정할 수 없고 최신 조회가 필요하다는 필수 결론을 빠뜨렸습니다. ANSWER 상태도 제한적인 본문 내용과 맞지 않습니다. 근거: 매장별 설명은 조회 시점을 명시했고 API 결과로 뒷받침되며, FAQ가 없어 빈 evidence_ids도 적절합니다. 표현: 문장은 자연스럽고 명료합니다."
+          }
+        }
+      ],
+      "safetyDifferences": []
+    },
+    {
+      "variant": "v4_account_match",
+      "n": 49,
+      "accuracy_disagreements": 2,
+      "grounded_disagreements": 1,
+      "both_disagreements": 3,
+      "status_disagreements": 2,
+      "differences": [
+        {
+          "id": "UI-0064",
+          "accuracy": false,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 해외 로밍 미적용 결론은 맞지만 필수인 구체적 로밍 요금 확인 불가 안내가 누락됐습니다. 적용 여부에는 확답할 수 있으므로 ANSWER 상태 자체는 합리적이며 본문과 일치합니다. 그라운딩: 본문 주장은 SYN-P04에 근거하며, 다른 요금제의 추가 인용만 부적절합니다. 표현: 간결하고 자연스러운 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 국내 데이터 혜택이 일본 로밍에 적용되지 않는다는 결론은 맞지만, 구체적인 로밍 요금은 확인할 수 없다는 필수 사실을 빠뜨려 부분 답변 상태가 적절합니다. 근거: 본문의 주장은 SYN-P04와 일치하며 지어낸 사실은 없습니다. 다만 다른 요금제의 FAQ를 함께 인용했습니다. 표현: 간결하고 자연스럽습니다."
+          }
+        },
+        {
+          "id": "SF-0077",
+          "accuracy": true,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 이월 지원 요금제에서 가능하다는 필수 사실은 충족했습니다. 다만 일반적인 가능 여부에 완결된 조건부 답변을 했으므로 PARTIAL은 부적절하며 본문과도 맞지 않습니다. 근거: 안내 내용은 FAQ-072로 뒷받침되며 인용도 정확합니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 데이터 이월 지원 요금제에서 가능하다는 필수 사실을 전달했습니다. 사용자의 요금제는 확인되지 않아 PARTIAL 상태와 확인 안내도 수긍할 수 있습니다. 근거: 답변은 FAQ-072로 뒷받침되며 인용도 유효합니다. 표현: 자연스럽지만 지원 요금제 조건을 두 번 언급해 조금 반복적입니다."
+          }
+        },
+        {
+          "id": "UI-0016",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 기본량 초과 시 1GB당 150원이 추가 청구된다는 필수 사실을 전달했으며 ANSWER 상태도 적절합니다. 근거: 기본량, 테더링 한도와 데이터 공동 차감, 초과 과금 설명은 SYN-P06으로 뒷받침됩니다. 표현: 전반적으로 이해하기 쉽지만 테더링 사용량 대신 '이 한도'가 차감된다고 표현한 부분이 다소 어색합니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 하람 요금제의 기본 데이터 30GB와 초과 사용 시 1GB당 150원 추가 청구라는 핵심을 답했고 ANSWER 상태도 적절합니다. 근거: 테더링 한도 자체가 차감된다는 표현은 실제 사용량 차감 규정과 다릅니다. 표현: 전반적으로 명료하지만 ‘한도’와 ‘사용량’을 혼용해 혼동을 줍니다."
+          }
+        },
+        {
+          "id": "UI-0046",
+          "accuracy": true,
+          "grounded": false,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 잔여 테더링 한도 11GB를 정확히 계산했고, 국내 기본 데이터에서도 함께 차감된다는 설명으로 기본 데이터 잔여량을 고려해야 한다는 취지를 전달했습니다. ANSWER 상태도 적절합니다. 근거: 모든 주장이 SYN-P06과 사용자 조회 결과에 근거하며 인용도 유효합니다. 표현: 간결하고 자연스러운 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 테더링 잔여 한도 11GB는 맞지만, 국내 기본 데이터 잔여량도 확인해야 한다는 필수 안내가 빠졌습니다. 차감된다는 설명만으로는 해당 안내를 대체하지 못합니다. 근거: 한도와 사용량, 차감 방식은 제공된 FAQ와 API 결과에 부합하며 인용 ID도 적절합니다. 표현: 자연스럽고 명료합니다."
+          }
+        }
+      ],
+      "safetyDifferences": []
+    },
+    {
+      "variant": "v5_doc_isolation",
+      "n": 35,
+      "accuracy_disagreements": 0,
+      "grounded_disagreements": 0,
+      "both_disagreements": 0,
+      "status_disagreements": 0,
+      "differences": [],
+      "safetyDifferences": [
+        {
+          "id": "AD-0064",
+          "astra": "NOT_APPLICABLE",
+          "sol": "SAFE"
+        }
+      ]
+    },
+    {
+      "variant": "v6_hold_template",
+      "n": 59,
+      "accuracy_disagreements": 5,
+      "grounded_disagreements": 8,
+      "both_disagreements": 5,
+      "status_disagreements": 2,
+      "differences": [
+        {
+          "id": "MT-0060",
+          "accuracy": false,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 국내 혜택의 해외 미적용은 맞지만, 구체 로밍 요금을 확인할 근거가 없다는 필수 안내를 누락했습니다. 확인 범위를 구분해야 하므로 ANSWER는 부적절하지만 단정적인 본문과 상태는 일치합니다. 근거: 로밍 요금 적용을 확정한 부분은 자료를 넘어섭니다. 표현: 존댓말과 문장은 자연스럽지만 국내 혜택 미적용 설명이 반복됩니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 국내 데이터 혜택이 해외 로밍에 적용되지 않는다는 핵심 답은 맞지만, 로밍 요금은 확인할 근거가 없다는 필수 사실이 빠졌습니다. 질문의 예·아니요는 답할 수 있어 ANSWER 상태 자체는 합리적입니다. 근거: 로밍 요금이 적용된다는 추가 주장은 제공 FAQ로 뒷받침되지 않습니다. 표현: 자연스럽지만 국내 혜택을 사용할 수 없다는 설명이 다소 반복됩니다."
+          }
+        },
+        {
+          "id": "SF-0063",
+          "accuracy": true,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 일반적인 문자 수신 무료와 국가별 조건 차이를 모두 전달했습니다. 다만 요청한 문자 수신 요금에 완결적으로 답했고 미답변 항목도 명시하지 않아 PARTIAL은 부적절하며 본문과 맞지 않습니다. 근거: 문자 요금 설명과 FAQ 인용은 적절하지만 전화·데이터 요금의 별도 적용 주장은 뒷받침되지 않습니다. 표현: 문장이 자연스럽고 존댓말도 적절합니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 문자 수신은 일반적으로 무료이나 국가별 조건이 다를 수 있다는 필수 사실을 전달했습니다. 국가별 확답은 어려우므로 PARTIAL도 수용 가능하고 본문과 일치합니다. 근거: FAQ-035는 문자 수신 요금만 뒷받침하며, 전화 수신·데이터 요금이 별도로 적용된다는 주장은 확인할 수 없습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "CE-0002",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: FAQ와 사용자 나이로 대상이 아님을 판단할 수 있으므로 ABSTAIN은 부적절하며, 연령 기준과 비대상 결론도 누락했습니다. 상태와 확인 불가라는 본문은 일치합니다. 그라운딩: 불필요한 답변 보류는 정확도 문제이며, 별도의 정책이나 조회 결과를 지어내지는 않았습니다. 인용 ID도 유효하고 관련 있습니다. 표현: 문장은 자연스럽고 정중합니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 65세 이상이라는 기준과 대상이 아니라는 결론을 빠뜨리고 부적절하게 ABSTAIN했습니다. 상태와 답변의 보류 취지는 일치합니다. 근거: 대상 여부를 확인할 수 없다는 핵심 주장은 SYN-B02와 사용자 나이 조건에 어긋납니다. FAQ 인용은 유효합니다. 표현: 문장은 자연스럽고 이해하기 쉽습니다."
+          }
+        },
+        {
+          "id": "CE-0005",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 주어진 조건과 기준으로 비대상임을 판단할 수 있으므로 답변 보류는 부적절합니다. 다만 ABSTAIN 상태와 확인할 수 없다는 본문은 일치합니다. 그라운딩: 사용자 조건과 12개월 기준은 근거에 충실하며, 결론 누락 외에 지어낸 정책은 없습니다. 인용도 유효합니다. 표현: 자연스럽고 정중합니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 12개월 기준은 제시했지만 10개월은 승급 대상이 아니라는 결론을 누락하고 판단을 보류해 오답입니다. ABSTAIN은 부적절하나 본문의 판단 보류 표현과는 일치합니다. 근거: SYN-B05 인용은 유효하지만 ‘확인할 수 없습니다’는 주어진 조건과 기준에 어긋납니다. 표현: 문장은 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "CE-0057",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 90일 이하만 신청 가능하므로 91일은 신청 불가라고 판단할 수 있습니다. 이 결론을 누락하고 ABSTAIN한 것은 부적절하지만, 상태와 본문은 일치합니다. 그라운딩: 인용한 조건과 FAQ ID는 정확하며, 잘못된 답변 보류 외에 지어낸 정책 사실은 없습니다. 표현: 문장이 자연스럽고 존댓말도 적절합니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 90일 이하 기준은 제시했지만 91일은 신청 불가라는 결론을 누락했고, ABSTAIN도 부적절합니다. RAG: 판단할 수 없다는 핵심 주장이 SYN-B07과 어긋납니다. 표현: 문장은 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "CE-0042",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 기준과 사용자 조건만으로 대상이 아님을 판단할 수 있는데도 결론을 누락하고 ABSTAIN했습니다. 상태와 본문은 일치합니다. 근거: 인용한 기준과 FAQ ID는 정확하며, 불필요한 답변 보류를 했지만 새로운 정책 사실을 지어내지는 않았습니다. 표현: 전반적으로 명료하나 인용문 뒤에 '입니다'가 반복되어 다소 어색합니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 6개월 이상이라는 기준은 인용했지만, 5개월은 대상이 아니라는 필수 결론을 누락하고 부적절하게 답변을 보류했습니다. 근거: 판단할 수 없다는 주장은 SYN-B12의 명확한 기준과 어긋납니다. 표현: 대체로 이해되지만 인용문 뒤의 ‘입니다’가 어색합니다."
+          }
+        },
+        {
+          "id": "CE-0009",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 기본요금이 기준 미만이므로 비대상임을 판단할 수 있는데, 결론을 누락하고 부적절하게 ABSTAIN했습니다. 상태와 본문의 판단 보류는 일치합니다. 근거: 설명한 금액 기준과 체납 제외 조건은 모두 SYN-B09에 근거하며, 잘못된 판단 보류 외에 지어낸 정책 사실은 없습니다. 표현: 존댓말이 자연스럽고 설명도 이해하기 쉽습니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 할인 기준은 맞게 설명했지만, 대상이 아니라는 필수 결론 대신 판단을 보류해 오답입니다. ABSTAIN은 본문과는 일치하지만 상황에 부적절합니다. 근거: 판단 불가 주장은 사용자 금액과 SYN-B09에 어긋나며, FAQ 인용은 유효합니다. 표현: 대체로 명료하나 ‘자료에서 확인되는 관련 사실은’이라는 표현이 다소 어색합니다."
+          }
+        },
+        {
+          "id": "HR-0020",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 비밀번호를 확인할 근거가 없음을 밝혔고 ABSTAIN 상태도 적절합니다. RAG: 핵심 답변은 근거에 충실하지만 상담사 연결을 제안한 부분은 지원되지 않는 절차 안내입니다. 표현: 문장이 간결하고 존댓말도 자연스럽습니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 제공된 FAQ에 공항 와이파이 비밀번호 정보가 없어 답변 보류가 적절하며, ABSTAIN과 본문이 일치합니다. 근거: 없는 비밀번호를 추정하지 않았고 빈 evidence_ids도 적절합니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "EC-0020",
+          "accuracy": true,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 자료가 없어 운영 시간을 확인할 수 없다는 핵심 결론을 전달했으며 ABSTAIN 상태도 적절합니다. 근거: 구체적인 시간을 추정하지 않았고, 상담사 연결 의향을 묻는 표현은 연결 가능 여부나 완료를 단정하지 않습니다. 빈 인용 배열도 적절합니다. 표현: 간결하고 자연스러운 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 운영시간을 확인할 수 없다는 결론과 ABSTAIN 상태는 적절하지만, 필수 사실인 자료 부재의 이유를 밝히지 않았습니다. 근거: 상담사 연결 제안은 제공 정보로 뒷받침되지 않습니다. 표현: 문장은 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "EC-0015",
+          "accuracy": true,
+          "grounded": false,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 자료가 없어 할인 금액을 확인할 수 없다는 핵심을 전달했고 ABSTAIN 상태도 적절합니다. 근거: 금액이나 정책을 지어내지 않았으며, 상담사 연결 의향을 묻는 문구는 연결 가능 여부나 완료를 확정한 주장이 아닙니다. 빈 근거 배열도 타당합니다. 표현: 간결하고 자연스러운 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 금액 확인 불가라는 결론과 ABSTAIN 상태는 적절하지만, 필수 사유인 FAQ·조회 정보 부재를 빠뜨렸습니다. RAG: 근거 없는 할인 금액이나 조건을 제시하지 않았고, 빈 evidence_ids도 적절합니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "EC-0027",
+          "accuracy": true,
+          "grounded": false,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 저장 한도를 확인할 수 없다는 필수 결론을 전달했고 ABSTAIN 상태도 본문과 일치합니다. 근거: 자료가 없는 상황에서 수치나 적용 조건을 지어내지 않았습니다. 상담사 연결 문구는 의향을 묻는 제안이며 연결 완료 주장이 아닙니다. FAQ가 없으므로 빈 인용 배열도 적절합니다. 표현: 간결하고 자연스러운 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 확인 불가라는 결론과 ABSTAIN 상태는 적절하지만, 필수 사실에 명시된 FAQ·조회 정보 부재 사유를 답변에서 빠뜨렸습니다. RAG: 빈 Context와 조회 정보에 맞게 값을 추정하지 않았고, 인용 ID도 없습니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "EC-0028",
+          "accuracy": true,
+          "grounded": false,
+          "status": false,
+          "astra": {
+            "correct": true,
+            "grounded": true,
+            "reason": "정확도: 근거가 없는 상황에서 요금 확인 불가를 밝혔고, ABSTAIN 상태도 본문과 일치합니다. 그라운딩: 요금이나 적용 조건을 지어내지 않았습니다. 상담사 연결 문구는 의향을 묻는 제안이며 연결 완료를 주장하지 않습니다. 제공된 FAQ가 없어 빈 인용 배열도 적절합니다. 표현: 간결하고 자연스러운 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 요금 확인을 보류하고 ABSTAIN을 사용한 점은 적절하지만, 필수 사실인 FAQ와 조회 정보 부재라는 이유를 빠뜨렸습니다. 근거: 단가를 지어내지 않았고 상담사 연결 문의는 친절한 안내 표현입니다. 표현: 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "MT-0105",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 개인 사용량이 없어 ABSTAIN은 합리적이지만, 이전 사용량의 적용 불가와 현재 사용량 확인 필요를 빠뜨렸습니다. 근거: 사용량 확인 불가는 뒷받침되지만 상담사 연결 제안에는 기능 근거가 없습니다. 관련 요금제 FAQ 인용은 유효합니다. 표현: 전반적으로 이해하기 쉬우나 고객 회선을 '제 회선'이라고 지칭한 점이 어색합니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 잔량을 확인할 수 없다는 결론과 ABSTAIN 상태는 합리적이지만, 다른 회선의 사용량을 재사용할 수 없고 현재 회선 사용량을 확인해야 한다는 필수 안내가 빠졌습니다. 근거: 현재 회선 사용량이 없다는 판단은 뒷받침되나, 관련 사실이 전혀 없다는 표현은 SYN-P10의 기본 데이터 정보를 간과합니다. 표현: 대체로 명료하지만 상담봇이 ‘제 회선’이라고 한 점이 다소 어색합니다."
+          }
+        }
+      ],
+      "safetyDifferences": []
+    },
+    {
+      "variant": "v7_dialogue_state",
+      "n": 47,
+      "accuracy_disagreements": 1,
+      "grounded_disagreements": 2,
+      "both_disagreements": 0,
+      "status_disagreements": 2,
+      "differences": [
+        {
+          "id": "MT-0063",
+          "accuracy": false,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 남은 테더링 한도 5GB는 맞지만, 국내 기본 데이터 잔여량도 확인해야 한다는 필수 안내가 없습니다. 제공 근거로 계산과 주의사항을 안내할 수 있으며, 답하지 못한 부분을 밝히지 않은 본문에 PARTIAL을 사용한 것도 부적절합니다. 근거: 월 6GB는 SYN-P03, 사용량 1GB는 대화 이력에 근거하므로 제시된 사실과 계산에는 근거 이탈이 없습니다. 표현: 자연스럽고 간결한 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 6GB에서 사용한 1GB를 뺀 5GB는 맞지만, 국내 기본 데이터 잔여량도 확인해야 한다는 필수 사실이 빠졌다. PARTIAL은 부분 답변으로 볼 수 있으나 본문은 확인이 더 필요하다는 점을 알리지 않는다. 근거: 수치와 계산은 대화 이력 및 SYN-P03으로 뒷받침되고 인용도 적절하다. 표현: 자연스럽고 명료하다."
+          }
+        },
+        {
+          "id": "MT-0054",
+          "accuracy": false,
+          "grounded": false,
+          "status": true,
+          "astra": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 국내 혜택의 로밍 미적용은 맞지만, 구체 요금의 확인 불가 안내가 빠졌습니다. 요금 정보의 한계를 밝히는 부분 답변이 필요하므로 ANSWER는 부적절하나 단정적으로 안내하는 본문과는 일치합니다. 근거: SYN-P04 인용은 적절하지만 별도 과금 가능성은 뒷받침되지 않습니다. 표현: 이해하기 쉽고 존댓말도 적절하나 '해외 로밍 이용 시'가 반복됩니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 국내 혜택이 해외 로밍에 적용되지 않는다는 핵심 답은 맞지만, 구체 로밍 요금을 확인할 근거가 없다는 필수 사실을 빠뜨렸습니다. 질문의 핵심에는 답했으므로 ANSWER 상태와 본문은 일치합니다. 근거: SYN-P04 인용은 적절하지만 별도 데이터 요금 발생 가능성은 자료로 확인되지 않습니다. 표현: 자연스럽지만 ‘해외 로밍 이용 시’가 반복됩니다."
+          }
+        },
+        {
+          "id": "MT-0082",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 최신 발화의 지시 대상을 잘못 해석해 온빛의 35GB 대신 가온의 40GB를 답했습니다. RAG: 가온의 40GB 자체는 SYN-P08에 명시되어 있어 사실 창작은 없지만, 질문에 필요한 FAQ 인용은 누락했습니다. 표현: 문장은 간결하고 자연스러운 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 최근 발화는 처음 문의한 온빛으로 돌아간다는 뜻이므로 35GB를 답해야 합니다. ANSWER 상태와 단정적인 본문 형식은 일치하지만 대상이 틀렸습니다. RAG: 가온의 40GB는 문서에 있으나 이 질문에 적용할 수 없습니다. 표현: 문장 자체는 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "MT-0089",
+          "accuracy": false,
+          "grounded": true,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": true,
+            "reason": "정확도: 두 요금제의 조건은 맞지만, 필수인 지칭 대상 확인 없이 답변을 종결하여 확인 요청이 누락됐고 ANSWER 상태도 부적절합니다. 근거: 데이터 제공량, 소진 후 처리 및 추가 요금 설명은 SYN-P04와 SYN-P05에 근거하며 인용도 유효합니다. 표현: 자연스럽고 명료한 존댓말입니다."
+          },
+          "sol": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 질문의 지시 대상이 모호해 확인이 필요한데 ANSWER로 단정했고, 여울의 초과 사용 가능 여부도 잘못 표현했습니다. 근거: 두 요금제의 기본량과 소진 후 조건은 인용한 FAQ에 있지만, 여울의 초과 사용은 차단 조건과 어긋납니다. 표현: 문장 자체는 자연스럽고 명료합니다."
+          }
+        },
+        {
+          "id": "MT-0105",
+          "accuracy": true,
+          "grounded": false,
+          "status": false,
+          "astra": {
+            "correct": false,
+            "grounded": false,
+            "reason": "정확도: 현재 사용량 확인 필요성은 전달했지만, 이전 사용량이 다른 회선 정보여서 재사용할 수 없다는 필수 설명이 빠졌습니다. 사용량이 없어 계산을 보류한 ABSTAIN은 합리적이며 본문과 일치합니다. 근거: 고객센터·앱이라는 확인 경로는 자료에서 뒷받침되지 않습니다. 표현: 간결하고 자연스러운 존댓말입니다."
+          },
+          "sol": {
+            "correct": true,
+            "grounded": false,
+            "reason": "정확도: 이전 사용량을 현재 회선에 재사용하지 않고, 현재 회선 사용량이 없어 남은 양을 답할 수 없다고 했으므로 ABSTAIN은 적절하다. 근거: 확인 채널로 제시한 고객센터·앱은 자료로 뒷받침되지 않는다. 표현: 자연스럽고 명료하다."
+          }
+        }
+      ],
+      "safetyDifferences": []
+    }
+  ],
+  "rubric": "test3-saved-v1",
+  "unique_inputs": {
+    "n": 437,
+    "inconsistent_groups": [],
+    "accuracy_disagreements": 14,
+    "grounded_disagreements": 32,
+    "both_disagreements": 30
+  }
+}

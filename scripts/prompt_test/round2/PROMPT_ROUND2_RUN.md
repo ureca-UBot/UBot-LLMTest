@@ -127,6 +127,15 @@ node scripts/prompt_test/round2/judge_round2.js run smoke-20261001 --concurrency
 node scripts/prompt_test/round2/judge_round2.js status smoke-20261001
 ```
 
+Judge 모델을 둘 이상 쓰면 배치명을 모델별로 구분한다. 기본값은 `gpt-6-astra/ultra`이고, `gpt-6-sol/high`는 `LLM_JUDGE_MODEL=gpt-6-sol`, `LLM_JUDGE_EFFORT=high`를 설정한 프로세스에서 별도 배치명(예: `smoke-20260928-sol-high`)으로 준비·실행한다. 모델별 판정은 별도 `results/scored/` 경로에 저장되며, 서로의 판정을 재사용하지 않는다. 보고서는 배치를 지정하면 제목과 파일명에 Judge 모델·추론 수준을 표시한다.
+
+```bash
+node scripts/prompt_test/round2/report_round2.js smoke --date 20260928 --judge-batch smoke-20260928-sol-high
+node scripts/prompt_test/round2/report_round2.js smoke --date 20260928 --judge-batch smoke-20260928
+```
+
+두 보고서의 수치는 각 Judge가 채점한 v2 기준선과 후보를 짝지어 해석한다. 한쪽 결과만으로 최종 프롬프트를 확정하지 않는다.
+
 **다시 채점하지 않는 경우**(계획서 §8). Judge에 들어가는 입력이 글자까지 같으면 판정도 같았으므로(1차에서 차이 없음) 가져다 쓴다. 가져온 판정에는 `reused_from`이 붙는다.
 - 1차 v1~v3 판정(v2 우선) 또는 2차의 다른 run에 같은 입력이 있을 때
 - 같은 배치 안에서 여러 안의 답변이 같을 때 — 한 번만 채점하고 나머지는 복사

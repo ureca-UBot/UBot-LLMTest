@@ -1,9 +1,9 @@
 'use strict';
 // 프롬프트 2차 테스트 판정 보고서. 설계: scripts/prompt_test/round2/PROMPT_ROUND2_PLAN.md
 //
-//   node scripts/prompt_test/round2/report_round2.js smoke --date YYYYMMDD
+//   node scripts/prompt_test/round2/report_round2.js smoke --date YYYYMMDD [--judge-batch 배치명]
 //        Phase 1: 블록별 스모크 통과 여부(§5.4)와 조합안 명령
-//   node scripts/prompt_test/round2/report_round2.js final --combo v9_combo-v4-v6 --date YYYYMMDD [--rerun]
+//   node scripts/prompt_test/round2/report_round2.js final --combo v9_combo-v4-v6 --date YYYYMMDD [--rerun] [--judge-batch 배치명]
 //        Phase 2: 최종 통과 기준선(§2.1) 판정과 종료 규칙(§2.3) 결정
 //
 // 기준선은 정정본 기준 v2 run(r2base)이다. "v2 값" 기준(답할 문항·멀티턴)은 판정할 때
@@ -18,15 +18,41 @@ const fs = require('fs');
 const path = require('path');
 const R = require('./lib/round2');
 
+function judgeContext(opts) {
+  const batch = opts.judgeBatch || `${opts.mode === 'smoke' ? 'smoke' : 'combo'}-${opts.date}`;
+  const manifestPath = path.join(R.ROOT, 'results', 'judge_inputs', R.SUITE, R.checkId(batch, 'judge batch'), 'manifest.json');
+  if (!fs.existsSync(manifestPath)) {
+    if (opts.judgeBatch) throw new Error(`Judge 배치 manifest가 없습니다: ${R.rel(manifestPath)}`);
+    return { batch: null, model: 'gpt-6-astra', effort: 'ultra', scoredSuite: R.SUITE, runs: [] };
+  }
+  const m = R.readJson(manifestPath);
+  if (m.batch_id !== batch || m.suite !== R.SUITE) throw new Error('Judge 배치 manifest의 이름 또는 suite가 다릅니다.');
+  return { batch, model: m.judge_model, effort: m.judge_reasoning_effort,
+    scoredSuite: m.scored_suite || R.SUITE, runs: m.runs, rubric: m.rubric_version };
+}
+
+function runFromBatch(judge, variant, suffix, fallback) {
+  const found = judge.runs.filter((r) => r.variant === variant &&
+    (suffix ? r.run_id.endsWith(suffix) : !r.run_id.endsWith('_new') && !r.run_id.endsWith('_r2base')));
+  if (found.length > 1) throw new Error(`${variant}: Judge 배치에 같은 역할의 run이 여럿입니다.`);
+  return found[0]?.run_id || fallback;
+}
+
 // ---------------------------------------------------------------- run 한 개의 문항별 결과
-function loadRun(runIdValue, casesFile) {
+function loadRun(runIdValue, casesFile, judge) {
   const gens = R.loadGenerations(R.SUITE, runIdValue);
   if (!gens.size) return null;
   const cases = R.loadCases(casesFile);
+  const acc = R.loadJudgments(judge.scoredSuite, runIdValue, 'accuracy');
+  const safety = R.loadJudgments(judge.scoredSuite, runIdValue, 'safety');
+  for (const record of [...acc.values(), ...safety.values()]) {
+    if (record.judge_model !== judge.model || record.judge_reasoning_effort !== judge.effort) {
+      throw new Error(`${runIdValue}: Judge 모델/추론 수준이 배치와 다릅니다.`);
+    }
+  }
   return {
     runId: runIdValue, cases, gens,
-    acc: R.loadJudgments(R.SUITE, runIdValue, 'accuracy'),
-    safety: R.loadJudgments(R.SUITE, runIdValue, 'safety'),
+    acc, safety,
     dismissed: R.dismissedCritical(runIdValue),
   };
 }
@@ -69,9 +95,9 @@ function paired(baseItems, varItems, fn) {
   return { gain, loss, net: gain.length - loss.length };
 }
 
-function requireBaseline() {
-  const baseId = R.baselineRunId();
-  const base = loadRun(baseId, R.CASES_R2);
+function requireBaseline(judge) {
+  const baseId = runFromBatch(judge, 'v2_value_guard', '_r2base', R.baselineRunId());
+  const base = loadRun(baseId, R.CASES_R2, judge);
   if (!base) throw new Error(`기준선 run이 없습니다: ${baseId} — run_prompt_round2.js baseline을 먼저 실행하세요.`);
   if (base.gens.size !== 300) throw new Error(`기준선 레코드가 300건이 아닙니다(${base.gens.size}).`);
   return base;
@@ -89,11 +115,12 @@ function writeOut(name, markdown, data) {
 // ---------------------------------------------------------------- Phase 1: 스모크
 function smoke(opts) {
   const sets = R.readJson(R.SMOKE_SETS_PATH);
-  const base = requireBaseline();
+  const judge = judgeContext(opts);
+  const base = requireBaseline(judge);
   const rows = [];
   for (const [variant, block] of Object.entries(R.SMOKE_VARIANTS)) {
-    const runIdValue = R.runId(variant, opts.date);
-    const run = loadRun(runIdValue, R.CASES_R2);
+    const runIdValue = runFromBatch(judge, variant, null, R.runId(variant, opts.date));
+    const run = loadRun(runIdValue, R.CASES_R2, judge);
     const set = sets.variants[variant];
     if (!run) { rows.push({ variant, block, runId: runIdValue, status: 'NOT_RUN' }); continue; }
     const vItems = set.run_ids.map((id) => item(run, id));
@@ -128,9 +155,10 @@ function smoke(opts) {
   const passed = rows.filter((r) => r.status === 'PASS').map((r) => r.block);
   const undecided = rows.filter((r) => r.status === 'PENDING' || r.status === 'NOT_RUN');
   const L = [];
-  L.push(`# 프롬프트 2차 스모크 판정 — ${opts.date}`, '');
+  L.push(`# 프롬프트 2차 스모크 판정 — ${opts.date} · Judge ${judge.model}/${judge.effort}`, '');
+  L.push(`Judge 배치: \`${judge.batch || '기본 설정'}\` · 판정 경로: \`results/scored/${judge.scoredSuite}/\` · rubric: \`${judge.rubric || 'test3-saved-v1'}\``, '');
   L.push(`기준선: \`${base.runId}\` (정정본 라벨) · 모델 \`${R.MODEL}\` · 조건 ${R.CONDITION} · 통과 조건은 계획서 §5.4.`);
-  L.push('비교 단위는 **정답∧근거**(Judge 정답이면서 실질적 환각 없음)이고, 같은 문항끼리 짝지어 센다.', '');
+  L.push('비교 단위는 **정답∧근거**(Judge 정답이면서 실질적 환각 없음)이고, 같은 문항끼리 짝지어 센다. 수치는 이 Judge의 기준선과 후보 안 사이에서만 비교한다.', '');
   L.push('| 안 | 블록 | 판정 | 문항 | 표적 +/− | 감시 퇴보 | 치명 v2→안 |', '|---|---|---|---:|---|---:|---|');
   for (const r of rows) {
     if (r.status === 'NOT_RUN') { L.push(`| ${r.variant} | ${r.block} | 미실행 | - | - | - | - |`); continue; }
@@ -151,23 +179,25 @@ function smoke(opts) {
   if (undecided.length) {
     L.push(`판정하지 못한 안이 있습니다: ${undecided.map((r) => r.variant).join(', ')}. 생성·채점을 마친 뒤 다시 실행하세요.`);
   } else if (!passed.length) {
-    L.push('통과한 블록이 없습니다. 계획서 §6.1에 따라 **v2를 최종 프롬프트로 확정하고 프롬프트 테스트를 종료**합니다.');
+    L.push(`이 Judge(${judge.model}/${judge.effort})의 스모크 기준을 통과한 블록은 없습니다. 다른 Judge 결과까지 확인한 뒤 최종 채택을 결정합니다.`);
   } else {
-    L.push(`통과 블록: ${passed.join(', ')} → 조합안 300문항 + 신규 50문항 실행:`, '', '```bash',
+    L.push(`이 Judge(${judge.model}/${judge.effort})에서 통과한 블록: ${passed.join(', ')}. 다른 Judge 결과와 함께 검토할 조합안 실행 명령:`, '', '```bash',
       `node scripts/prompt_test/round2/run_prompt_round2.js combo --blocks ${passed.join(',')}`, '```');
   }
-  writeOut(`smoke_${opts.date}`, L.join('\n') + '\n', { date: opts.date, baseline: base.runId, passed_blocks: passed, rows });
+  writeOut(`smoke_${opts.date}_${judge.model}_${judge.effort}`, L.join('\n') + '\n',
+    { date: opts.date, judge, baseline: base.runId, passed_blocks: passed, rows });
 }
 
 // ---------------------------------------------------------------- Phase 2: 최종 판정
 function final(opts) {
   if (!opts.combo) throw new Error('--combo <조합안 이름>이 필요합니다 (예: v9_combo-v4-v6).');
-  const base = requireBaseline();
-  const mainId = R.runId(opts.combo, opts.date);
-  const main = loadRun(mainId, R.CASES_R2);
+  const judge = judgeContext(opts);
+  const base = requireBaseline(judge);
+  const mainId = runFromBatch(judge, opts.combo, null, R.runId(opts.combo, opts.date));
+  const main = loadRun(mainId, R.CASES_R2, judge);
   if (!main) throw new Error(`조합안 run이 없습니다: ${mainId}`);
-  const newId = R.runId(opts.combo, opts.date, 'new');
-  const fresh = fs.existsSync(path.join(R.ROOT, R.NEW_R2)) ? loadRun(newId, R.NEW_R2) : null;
+  const newId = runFromBatch(judge, opts.combo, '_new', R.runId(opts.combo, opts.date, 'new'));
+  const fresh = fs.existsSync(path.join(R.ROOT, R.NEW_R2)) ? loadRun(newId, R.NEW_R2, judge) : null;
 
   const primaryIds = R.primaryCases(base.cases).map((c) => c.ID);
   const b = primaryIds.map((id) => item(base, id));
@@ -227,7 +257,8 @@ function final(opts) {
   });
 
   const L = [];
-  L.push(`# 프롬프트 2차 최종 판정 — ${opts.combo} · ${opts.date}${opts.rerun ? ' (재실행)' : ''}`, '');
+  L.push(`# 프롬프트 2차 최종 판정 — ${opts.combo} · ${opts.date}${opts.rerun ? ' (재실행)' : ''} · Judge ${judge.model}/${judge.effort}`, '');
+  L.push(`Judge 배치: \`${judge.batch || '기본 설정'}\` · 판정 경로: \`results/scored/${judge.scoredSuite}/\` · rubric: \`${judge.rubric || 'test3-saved-v1'}\``, '');
   L.push(`## 결정: ${decision.code}`, '', decision.text, '');
   L.push(`- 조합안 run: \`${mainId}\` (정정본 300문항)`, `- 신규 문항 run: ${fresh ? `\`${newId}\`` : '없음'}`, `- 기준선: \`${base.runId}\` (1차 v2 298건 + 재생성 2건, 정정본 라벨)`);
   L.push(`- v2 연동 기준(§2.4): 답할 문항 정답 v2 = ${v2Answerable}, 멀티턴 정답 v2 = ${v2Multiturn}`, '');
@@ -244,18 +275,19 @@ function final(opts) {
   if (p95Sec !== null && p95Sec > T.p95Sec) {
     L.push('', '> P95가 기준을 넘었습니다. 같은 세션에서 `run_prompt_round2.js latency-check`로 v2 40문항을 다시 재서 환경 차이인지 확인하세요(§4.1).');
   }
-  writeOut(`final_${opts.combo}_${opts.date}${opts.rerun ? '_rerun' : ''}`, L.join('\n') + '\n',
-    { combo: opts.combo, date: opts.date, rerun: !!opts.rerun, main_run: mainId, new_run: fresh ? newId : null, baseline: base.runId,
+  writeOut(`final_${opts.combo}_${opts.date}${opts.rerun ? '_rerun' : ''}_${judge.model}_${judge.effort}`, L.join('\n') + '\n',
+    { combo: opts.combo, date: opts.date, judge, rerun: !!opts.rerun, main_run: mainId, new_run: fresh ? newId : null, baseline: base.runId,
       decision, criteria, v2_linked: { answerable: v2Answerable, multiturn: v2Multiturn },
       paired: { both, answerable }, pending: pendingIds });
 }
 
 function parseArgs(argv) {
-  const opts = { mode: argv[0], date: null, combo: null, rerun: false };
+  const opts = { mode: argv[0], date: null, combo: null, rerun: false, judgeBatch: null };
   for (let i = 1; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--date') opts.date = argv[++i];
     else if (a === '--combo') opts.combo = argv[++i];
+    else if (a === '--judge-batch') opts.judgeBatch = argv[++i];
     else if (a === '--rerun') opts.rerun = true;
     else throw new Error(`알 수 없는 인자: ${a}`);
   }
@@ -267,5 +299,5 @@ try {
   const opts = parseArgs(process.argv.slice(2));
   if (opts.mode === 'smoke') smoke(opts);
   else if (opts.mode === 'final') final(opts);
-  else throw new Error('usage: node scripts/prompt_test/round2/report_round2.js <smoke|final> --date YYYYMMDD [--combo 이름] [--rerun]');
+  else throw new Error('usage: node scripts/prompt_test/round2/report_round2.js <smoke|final> --date YYYYMMDD [--combo 이름] [--rerun] [--judge-batch 배치명]');
 } catch (e) { console.error(`[중단] ${e.message}`); process.exit(1); }
