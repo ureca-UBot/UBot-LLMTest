@@ -134,13 +134,18 @@ function smoke(opts) {
   L.push('| 안 | 블록 | 판정 | 문항 | 표적 +/− | 감시 퇴보 | 치명 v2→안 |', '|---|---|---|---:|---|---:|---|');
   for (const r of rows) {
     if (r.status === 'NOT_RUN') { L.push(`| ${r.variant} | ${r.block} | 미실행 | - | - | - | - |`); continue; }
-    L.push(`| ${r.variant} | ${r.block} | **${{ PASS: '통과', FAIL: '탈락', PENDING: '채점 미완료' }[r.status]}** | ${r.n} | +${r.target.gain.length}/−${r.target.loss.length} | ${r.canary.loss.length} | ${r.critBase.length}→${r.critVar.length} |`);
+    if (r.status === 'PENDING') { L.push(`| ${r.variant} | ${r.block} | **채점 미완료** | ${r.n} | - | - | - |`); continue; }
+    L.push(`| ${r.variant} | ${r.block} | **${{ PASS: '통과', FAIL: '탈락' }[r.status]}** | ${r.n} | +${r.target.gain.length}/−${r.target.loss.length} | ${r.canary.loss.length} | ${r.critBase.length}→${r.critVar.length} |`);
   }
   for (const r of rows.filter((x) => x.checks)) {
     L.push('', `## ${r.variant}`, '', `run: \`${r.runId}\``, '');
+    if (r.pendingIds.length) {
+      // 채점 안 된 문항은 오답으로 세어지므로 이때의 순증·퇴보 수치는 의미가 없다 — 보여 주지 않는다.
+      L.push(`- ⏳ 채점 미완료 ${r.pendingIds.length}건: ${fmtIds(r.pendingIds)}`, '- 통과 조건 수치는 채점이 끝난 뒤 계산합니다.');
+      continue;
+    }
     for (const c of r.checks) L.push(`- ${c.ok ? '✅' : '❌'} ${c.name}: ${c.value}`);
     L.push(`- 표적 개선 문항: ${fmtIds(r.target.gain)}`, `- 표적 퇴보 문항: ${fmtIds(r.target.loss)}`);
-    if (r.pendingIds.length) L.push(`- ⏳ 채점 미완료: ${fmtIds(r.pendingIds)}`);
   }
   L.push('', '## 다음 단계', '');
   if (undecided.length) {
@@ -227,7 +232,8 @@ function final(opts) {
   L.push(`- 조합안 run: \`${mainId}\` (정정본 300문항)`, `- 신규 문항 run: ${fresh ? `\`${newId}\`` : '없음'}`, `- 기준선: \`${base.runId}\` (1차 v2 298건 + 재생성 2건, 정정본 라벨)`);
   L.push(`- v2 연동 기준(§2.4): 답할 문항 정답 v2 = ${v2Answerable}, 멀티턴 정답 v2 = ${v2Multiturn}`, '');
   L.push('## 최종 통과 기준선 (§2.1)', '', '| 구분 | 지표 | 기준 | 조합안 | 판정 | 해당 문항 |', '|---|---|---|---:|---|---|');
-  for (const c of criteria) L.push(`| ${c.group} | ${c.name} | ${c.need} | ${c.value} | ${c.ok ? '✅' : '❌'} | ${c.detail || ''} |`);
+  if (pendingIds.length) L.push('', `> ⏳ 채점 미완료 ${pendingIds.length}건 — 아래 수치는 미채점 문항을 오답으로 센 잠정값입니다. 판정에 쓰지 마세요.`, '');
+  for (const c of criteria) L.push(`| ${c.group} | ${c.name} | ${c.need} | ${c.value} | ${pendingIds.length ? '⏳' : c.ok ? '✅' : '❌'} | ${c.detail || ''} |`);
   L.push('', '## v2 대비 (같은 문항 짝 비교, §2.3)', '', '| 항목 | v2 | 조합안 | 개선 | 퇴보 | 순증 | 조건 |', '|---|---:|---:|---:|---:|---:|---|');
   L.push(`| 정답∧근거 | ${count(b, (x) => x.both)} | ${count(m, (x) => x.both)} | ${both.gain.length} | ${both.loss.length} | ${both.net} | ≥ +${R.BETTER_RULES.bothNetMin} |`);
   L.push(`| 답할 문항 정답 | ${count(b.filter((x) => x.answerable), (x) => x.correct)} | ${count(m.filter((x) => x.answerable), (x) => x.correct)} | ${answerable.gain.length} | ${answerable.loss.length} | ${answerable.net} | ≥ ${R.BETTER_RULES.answerableNetMin} |`);
