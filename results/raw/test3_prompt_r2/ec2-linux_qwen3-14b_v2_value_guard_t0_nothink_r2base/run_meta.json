@@ -1,0 +1,31 @@
+{
+  "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_r2base",
+  "suite": "test3_prompt_r2",
+  "model": "qwen3:14b",
+  "condition": "t0_nothink",
+  "variant": "v2_value_guard",
+  "system_prompt_sha256": "6d86a3aa455cdb73b4de777b265e10d6bcdaa7636fa42d1a40927005981b11b2",
+  "cases_file": "data/eval_sets/test_set2/cases_r2.csv",
+  "purpose": "baseline",
+  "ids_sha256": null,
+  "expected_records": 300,
+  "composed_from": [
+    {
+      "suite": "test3_prompt",
+      "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922",
+      "records": 298,
+      "sha256": "bd88fc4b5606174e4cb419fc0f77d4d81aa4f56f79c29546f0d27e65448f9a61"
+    },
+    {
+      "suite": "test3_prompt_r2",
+      "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260928_regen",
+      "records": 2,
+      "ids": [
+        "MT-0109",
+        "MT-0111"
+      ]
+    }
+  ],
+  "note": "레코드의 run_id 필드는 원래 run 값을 그대로 둔다(출처 보존).",
+  "created_at": "2026-09-28T02:32:56.916Z"
+}
