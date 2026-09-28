@@ -136,7 +136,17 @@ node scripts/prompt_test/round2/report_round2.js smoke --date 20260928 --judge-b
 
 두 보고서의 수치는 각 Judge가 채점한 v2 기준선과 후보를 짝지어 해석한다. 한쪽 결과만으로 최종 프롬프트를 확정하지 않는다.
 
-**다시 채점하지 않는 경우**(계획서 §8). Judge에 들어가는 입력이 글자까지 같으면 판정도 같았으므로(1차에서 차이 없음) 가져다 쓴다. 가져온 판정에는 `reused_from`이 붙는다.
+**독립 재평가**는 새 배치명과 `prepare --fresh`를 사용한다. 배치별 별도 저장소를 만들고, 이전 판정을 가져오지 않으며 같은 입력도 각 문항마다 새로 호출한다. `run`은 manifest의 정책을 자동으로 따른다. 중단 후 재개할 때만 해당 배치의 성공한 직접 호출을 건너뛴다. 보고서에 독립 재평가를 표시하고 파일명에 `_fresh`를 붙인다.
+
+```powershell
+$env:LLM_JUDGE_MODEL='gpt-6-astra'
+$env:LLM_JUDGE_EFFORT='medium'
+node scripts/prompt_test/round2/judge_round2.js prepare smoke-20260928-astra-medium-fresh --fresh --runs <run_id,run_id,...>
+node scripts/prompt_test/round2/judge_round2.js run smoke-20260928-astra-medium-fresh --concurrency 4
+node scripts/prompt_test/round2/report_round2.js smoke --date 20260928 --judge-batch smoke-20260928-astra-medium-fresh
+```
+
+**기본 캐시 모드에서 다시 채점하지 않는 경우**(계획서 §8). 같은 입력의 판정을 재사용하며 `reused_from`을 기록한다. 이는 독립 재평가가 아니며, 같은 입력도 새로 호출하면 판정이 달라질 수 있다.
 - 1차 v1~v3 판정(v2 우선) 또는 2차의 다른 run에 같은 입력이 있을 때
 - 같은 배치 안에서 여러 안의 답변이 같을 때 — 한 번만 채점하고 나머지는 복사
 

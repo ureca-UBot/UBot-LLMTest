@@ -28,6 +28,7 @@ function judgeContext(opts) {
   const m = R.readJson(manifestPath);
   if (m.batch_id !== batch || m.suite !== R.SUITE) throw new Error('Judge 배치 manifest의 이름 또는 suite가 다릅니다.');
   return { batch, model: m.judge_model, effort: m.judge_reasoning_effort,
+    evaluationMode: m.evaluation_mode || 'cached',
     scoredSuite: m.scored_suite || R.SUITE, runs: m.runs, rubric: m.rubric_version };
 }
 
@@ -48,6 +49,9 @@ function loadRun(runIdValue, casesFile, judge) {
   for (const record of [...acc.values(), ...safety.values()]) {
     if (record.judge_model !== judge.model || record.judge_reasoning_effort !== judge.effort) {
       throw new Error(`${runIdValue}: Judge 모델/추론 수준이 배치와 다릅니다.`);
+    }
+    if (judge.evaluationMode === 'independent' && (record.batch_id !== judge.batch || record.reused_from || !record.call_log)) {
+      throw new Error(`${runIdValue}: 독립 재평가에 다른 배치 또는 재사용 판정이 섞였습니다.`);
     }
   }
   return {
@@ -156,6 +160,7 @@ function smoke(opts) {
   const undecided = rows.filter((r) => r.status === 'PENDING' || r.status === 'NOT_RUN');
   const L = [];
   L.push(`# 프롬프트 2차 스모크 판정 — ${opts.date} · Judge ${judge.model}/${judge.effort}`, '');
+  L.push(`평가 방식: **${judge.evaluationMode === 'independent' ? '독립 재평가 — 이전 판정 재사용 및 동일 입력 판정 복사 없음' : '캐시 재사용 허용'}**`, '');
   L.push(`Judge 배치: \`${judge.batch || '기본 설정'}\` · 판정 경로: \`results/scored/${judge.scoredSuite}/\` · rubric: \`${judge.rubric || 'test3-saved-v1'}\``, '');
   L.push(`기준선: \`${base.runId}\` (정정본 라벨) · 모델 \`${R.MODEL}\` · 조건 ${R.CONDITION} · 통과 조건은 계획서 §5.4.`);
   L.push('비교 단위는 **정답∧근거**(Judge 정답이면서 실질적 환각 없음)이고, 같은 문항끼리 짝지어 센다. 수치는 이 Judge의 기준선과 후보 안 사이에서만 비교한다.', '');
@@ -184,7 +189,7 @@ function smoke(opts) {
     L.push(`이 Judge(${judge.model}/${judge.effort})에서 통과한 블록: ${passed.join(', ')}. 다른 Judge 결과와 함께 검토할 조합안 실행 명령:`, '', '```bash',
       `node scripts/prompt_test/round2/run_prompt_round2.js combo --blocks ${passed.join(',')}`, '```');
   }
-  writeOut(`smoke_${opts.date}_${judge.model}_${judge.effort}`, L.join('\n') + '\n',
+  writeOut(`smoke_${opts.date}_${judge.model}_${judge.effort}${judge.evaluationMode === 'independent' ? '_fresh' : ''}`, L.join('\n') + '\n',
     { date: opts.date, judge, baseline: base.runId, passed_blocks: passed, rows });
 }
 
@@ -258,6 +263,7 @@ function final(opts) {
 
   const L = [];
   L.push(`# 프롬프트 2차 최종 판정 — ${opts.combo} · ${opts.date}${opts.rerun ? ' (재실행)' : ''} · Judge ${judge.model}/${judge.effort}`, '');
+  L.push(`평가 방식: **${judge.evaluationMode === 'independent' ? '독립 재평가 — 이전 판정 재사용 및 동일 입력 판정 복사 없음' : '캐시 재사용 허용'}**`, '');
   L.push(`Judge 배치: \`${judge.batch || '기본 설정'}\` · 판정 경로: \`results/scored/${judge.scoredSuite}/\` · rubric: \`${judge.rubric || 'test3-saved-v1'}\``, '');
   L.push(`## 결정: ${decision.code}`, '', decision.text, '');
   L.push(`- 조합안 run: \`${mainId}\` (정정본 300문항)`, `- 신규 문항 run: ${fresh ? `\`${newId}\`` : '없음'}`, `- 기준선: \`${base.runId}\` (1차 v2 298건 + 재생성 2건, 정정본 라벨)`);
@@ -275,7 +281,7 @@ function final(opts) {
   if (p95Sec !== null && p95Sec > T.p95Sec) {
     L.push('', '> P95가 기준을 넘었습니다. 같은 세션에서 `run_prompt_round2.js latency-check`로 v2 40문항을 다시 재서 환경 차이인지 확인하세요(§4.1).');
   }
-  writeOut(`final_${opts.combo}_${opts.date}${opts.rerun ? '_rerun' : ''}_${judge.model}_${judge.effort}`, L.join('\n') + '\n',
+  writeOut(`final_${opts.combo}_${opts.date}${opts.rerun ? '_rerun' : ''}_${judge.model}_${judge.effort}${judge.evaluationMode === 'independent' ? '_fresh' : ''}`, L.join('\n') + '\n',
     { combo: opts.combo, date: opts.date, judge, rerun: !!opts.rerun, main_run: mainId, new_run: fresh ? newId : null, baseline: base.runId,
       decision, criteria, v2_linked: { answerable: v2Answerable, multiturn: v2Multiturn },
       paired: { both, answerable }, pending: pendingIds });

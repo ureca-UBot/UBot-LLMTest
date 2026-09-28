@@ -8,12 +8,13 @@
 //   - 기본 Judge: Codex CLI · gpt-6-astra · reasoning effort ultra (1차 v1~v3 채점과 동일)
 //     다른 모델/effort를 지정하면 별도 scored suite에 저장해 판정을 섞지 않는다.
 //
-// 같은 입력은 다시 채점하지 않는다. Judge에 들어가는 입력(user_text)이 글자까지 같은
+// --fresh로 준비하면 배치별 저장소에서 모든 문항을 각각 호출한다(중복 복사도 없음).
+// 기본 캐시 모드에서는 같은 입력을 다시 채점하지 않는다. Judge 입력(user_text)이 글자까지 같은
 // 판정이 이미 있으면(1차 v1~v3 또는 2차의 다른 run) 그 판정을 가져온다(reused_from 기록).
-// 1차에서 입력이 같은 답변은 판정이 100% 같았다(계획서 §8). 정정본으로 라벨이 바뀐
+// 캐시 재사용은 독립 재평가가 아니며, 동일 입력의 새 호출도 판정이 달라질 수 있다. 라벨이 바뀐
 // UI-0016·UI-0053이나 다시 생성한 MT-0109·MT-0111은 입력이 달라지므로 자동으로 새로 채점된다.
 //
-//   node scripts/prompt_test/round2/judge_round2.js prepare <batch> --runs <run_id,run_id,...>
+//   node scripts/prompt_test/round2/judge_round2.js prepare <batch> --runs <run_id,run_id,...> [--fresh]
 //        입력 준비 + 같은 입력 판정 재사용. Judge를 호출하지 않는다.
 //   node scripts/prompt_test/round2/judge_round2.js run <batch> [--concurrency 1..8] [--limit N] [--kind accuracy|safety]
 //        남은 문항만 Judge 호출. 멈추면 같은 명령으로 이어서 한다.
@@ -36,8 +37,10 @@ const schemas = require(path.join(EVALUATOR_DIR, 'llm_judge_schema.js'));
 const JUDGE = 'Codex CLI';
 const JUDGE_MODEL = process.env.LLM_JUDGE_MODEL || 'gpt-6-astra';
 const JUDGE_EFFORT = process.env.LLM_JUDGE_EFFORT || 'ultra';
-const SCORE_SUITE = JUDGE_MODEL === 'gpt-6-astra' && JUDGE_EFFORT === 'ultra'
+let SCORE_SUITE = JUDGE_MODEL === 'gpt-6-astra' && JUDGE_EFFORT === 'ultra'
   ? R.SUITE : `${R.SUITE}_${JUDGE_MODEL}_${JUDGE_EFFORT}`;
+let FRESH = false;
+let ACTIVE_BATCH;
 const KINDS = ['accuracy', 'safety'];
 const RUBRIC = { accuracy: prompts.ACCURACY_HALLUCINATION_EXPRESSION_SYSTEM_PROMPT, safety: prompts.SAFETY_SYSTEM_PROMPT };
 const RUBRIC_SHA = { accuracy: R.sha256(RUBRIC.accuracy), safety: R.sha256(RUBRIC.safety) };
@@ -154,7 +157,7 @@ function cmdPrepare(batch, runIds) {
   if (!runIds.length) throw new Error('--runs가 필요합니다.');
   const built = runIds.map(buildJobs);
   const jobs = { accuracy: built.flatMap((b) => b.jobs.accuracy), safety: built.flatMap((b) => b.jobs.safety) };
-  const index = reuseIndex();
+  const index = FRESH ? new Map() : reuseIndex();
   const counts = {};
   for (const kind of KINDS) {
     const existingByRun = new Map(runIds.map((id) => [id, R.loadJudgments(SCORE_SUITE, id, kind)]));
@@ -164,6 +167,7 @@ function cmdPrepare(batch, runIds) {
       if (job.unscored_reason) { c.unscorable++; job.plan = 'unscorable'; continue; }
       const existing = existingByRun.get(job.run_id).get(job.id);
       if (existing) {
+        checkFreshRecord(existing);
         if (existing.user_text_sha256 !== job.user_text_sha256) {
           throw new Error(`${jobKey(job)}: 이미 다른 입력으로 채점된 판정이 있습니다 (${kind}). 생성 결과가 바뀌었는지 확인하세요.`);
         }
@@ -182,13 +186,15 @@ function cmdPrepare(batch, runIds) {
   const manifest = {
     suite: R.SUITE, scored_suite: SCORE_SUITE, batch_id: batch, rubric_version: prompts.RUBRIC_VERSION,
     judge: JUDGE, judge_model: JUDGE_MODEL, judge_reasoning_effort: JUDGE_EFFORT,
+    evaluation_mode: FRESH ? 'independent' : 'cached',
+    reuse_previous: !FRESH, deduplicate_inputs: !FRESH,
     accuracy_system_prompt_sha256: RUBRIC_SHA.accuracy, safety_system_prompt_sha256: RUBRIC_SHA.safety,
     accuracy_schema_sha256: R.sha256(JSON.stringify(schemas.accuracy)), safety_schema_sha256: R.sha256(JSON.stringify(schemas.safety)),
     evaluator_source: R.rel(EVALUATOR_DIR),
     runs: built.map((b) => ({ ...b.source,
       accuracy: counts[`${b.source.run_id}:accuracy`] || null, safety: counts[`${b.source.run_id}:safety`] || null })),
     planned_accuracy_jobs: jobs.accuracy.length, planned_safety_jobs: jobs.safety.length,
-    reuse_rule: '같은 kind에서 Judge 입력(user_text)의 SHA-256이 같고 judge_model·effort·rubric이 같은 기존 판정을 가져온다.',
+    reuse_rule: FRESH ? '독립 재평가: 이전 판정 재사용 및 동일 입력 판정 복사 금지. 이 배치에서 직접 호출해 성공한 문항만 재개 시 건너뛴다.' : '같은 kind에서 Judge 입력(user_text)의 SHA-256이 같고 judge_model·effort·rubric이 같은 기존 판정을 가져온다.',
   };
   const dir = inputsDir(batch);
   const files = {
@@ -251,11 +257,19 @@ function pendingJobs(jobs, kind) {
     if (job.unscored_reason) return false;
     const prior = done.get(jobKey(job));
     if (!prior) return true;
+    checkFreshRecord(prior);
     if (prior.user_text_sha256 !== job.user_text_sha256 || prior.rubric_sha256 !== RUBRIC_SHA[kind]) {
       throw new Error(`${jobKey(job)}: 저장된 판정의 입력/기준이 배치와 다릅니다 (${kind}).`);
     }
     return false;
   });
+}
+
+function checkFreshRecord(record) {
+  if (FRESH && (record.batch_id !== ACTIVE_BATCH || record.reused_from || !record.call_log ||
+      record.judge_model !== JUDGE_MODEL || record.judge_reasoning_effort !== JUDGE_EFFORT)) {
+    throw new Error('독립 평가 저장소에 다른 배치/설정 또는 재사용 판정이 있습니다.');
+  }
 }
 
 function invocationFiles(batch, kind) {
@@ -320,8 +334,9 @@ function copyToDuplicates(batch, kind, source, duplicates) {
 async function runKind(batch, kind, jobs, { limit, concurrency }) {
   const groups = new Map();
   for (const job of pendingJobs(jobs, kind)) {
-    if (!groups.has(job.user_text_sha256)) groups.set(job.user_text_sha256, []);
-    groups.get(job.user_text_sha256).push(job);
+    const key = FRESH ? jobKey(job) : job.user_text_sha256;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(job);
   }
   const pending = [...groups.values()].map((g) => g[0]).slice(0, limit);
   const dupCount = [...groups.values()].reduce((n, g) => n + g.length - 1, 0);
@@ -348,7 +363,7 @@ async function runKind(batch, kind, jobs, { limit, concurrency }) {
           const record = { ...base, ...res.result, judged_at: new Date().toISOString(), judge_latency_ms: res.latency_ms,
             judge_usage: res.usage, call_log: res.call_log, error: null };
           appender.append(record);
-          copyToDuplicates(batch, kind, record, groups.get(job.user_text_sha256).slice(1));
+          if (!FRESH) copyToDuplicates(batch, kind, record, groups.get(job.user_text_sha256).slice(1));
           ok = true; consecutive = 0;
         } catch (error) {
           appender.append({ ...base, judged_at: new Date().toISOString(), attempt, error: error.message });
@@ -381,7 +396,8 @@ function printStatus(batch) {
   const manifest = R.readJson(path.join(dir, 'manifest.json'));
   const scoredSuite = manifest.scored_suite || R.SUITE;
   console.log(`\n배치 ${batch} (Judge ${manifest.judge_model}/${manifest.judge_reasoning_effort}, rubric ${manifest.rubric_version})`);
-  console.log('run_id | 종류 | 대상 | 판정 있음(재사용 포함) | 재사용 | 남음 | 미채점(생성 실패)');
+  console.log(`평가 방식: ${manifest.evaluation_mode === 'independent' ? '독립 재평가 (기존 판정 재사용 없음, 동일 입력도 각각 호출)' : '캐시 재사용 허용'}`);
+  console.log(`run_id | 종류 | 대상 | ${manifest.evaluation_mode === 'independent' ? '성공한 직접 호출' : '판정 있음(재사용 포함)'} | 재사용 | 남음 | 미채점(생성 실패)`);
   let pendingTotal = 0;
   for (const run of manifest.runs) {
     for (const kind of KINDS) {
@@ -408,7 +424,8 @@ function parseArgs(argv) {
   const opts = { runs: [], limit: Infinity, concurrency: 1, kind: null };
   for (let i = 0; i < rest.length; i++) {
     const a = rest[i];
-    if (a === '--runs') opts.runs = rest[++i].split(',').map((s) => s.trim()).filter(Boolean);
+    if (a === '--fresh') opts.fresh = true;
+    else if (a === '--runs') opts.runs = rest[++i].split(',').map((s) => s.trim()).filter(Boolean);
     else if (a === '--limit') opts.limit = Number(rest[++i]);
     else if (a === '--concurrency') opts.concurrency = Number(rest[++i]);
     else if (a === '--kind') opts.kind = rest[++i];
@@ -423,10 +440,22 @@ function parseArgs(argv) {
 async function main() {
   const { command, batch, opts } = parseArgs(process.argv.slice(2));
   if (!batch || !['prepare', 'run', 'status'].includes(command)) {
-    console.error('usage: node scripts/prompt_test/round2/judge_round2.js <prepare|run|status> <batch> [--runs a,b] [--concurrency N] [--limit N] [--kind K]');
+    console.error('usage: node scripts/prompt_test/round2/judge_round2.js <prepare|run|status> <batch> [--runs a,b] [--fresh] [--concurrency N] [--limit N] [--kind K]');
     process.exit(1);
   }
   R.checkId(batch, 'batch');
+  ACTIVE_BATCH = batch;
+  const manifestPath = path.join(inputsDir(batch), 'manifest.json');
+  const previous = fs.existsSync(manifestPath) ? R.readJson(manifestPath) : null;
+  FRESH = !!opts.fresh || previous?.evaluation_mode === 'independent';
+  if (previous && (previous.evaluation_mode === 'independent') !== FRESH) {
+    throw new Error('기존 배치의 재사용 정책은 바꿀 수 없습니다. 새 배치 이름을 쓰세요.');
+  }
+  if (FRESH) SCORE_SUITE = `${R.SUITE}_${JUDGE_MODEL}_${JUDGE_EFFORT}_${batch}`;
+  if (previous && command !== 'status' && ((previous.scored_suite || R.SUITE) !== SCORE_SUITE ||
+      previous.judge_model !== JUDGE_MODEL || previous.judge_reasoning_effort !== JUDGE_EFFORT)) {
+    throw new Error('기존 배치와 Judge 설정/저장 경로가 다릅니다.');
+  }
   if (command === 'prepare') cmdPrepare(batch, opts.runs);
   else if (command === 'run') await cmdRun(batch, opts);
   else printStatus(batch);
