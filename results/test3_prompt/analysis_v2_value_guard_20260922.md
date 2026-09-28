@@ -31,7 +31,7 @@
 - 첫 규칙은 자료에 없는 금액·시간·수량을 일반론으로 대체하거나, 사용자가 해결할 수 없는 근거 부족을 CLARIFY로 처리하는 문제를 겨냥한다.
 - 둘째 규칙은 통신 주제의 자료 부족을 OUT_OF_SCOPE로 오분류하거나, 비공개·보안 같은 누락 사유를 창작하는 문제를 겨냥한다.
 - v1의 6개 status 정의와 5개 주의사항을 모두 추가하지 않고 핵심 두 규칙으로 얼마나 해결되는지 보는 설계다. 특정 매장의 업무 지원 여부, API 시점, 대화의 현재 상태를 추가로 정의한 안은 아니다.
-- [설계 문서](../../scripts/test3/PROMPT_DESIGN.md)는 짧은 규칙의 효과를 가설로 제시한다. 이번 단일 실행은 규칙 길이 자체가 결과를 유발했다는 실험적 증명을 제공하지 않는다.
+- [설계 문서](../../scripts/prompt_test/round1/PROMPT_DESIGN.md)는 짧은 규칙의 효과를 가설로 제시한다. 이번 단일 실행은 규칙 길이 자체가 결과를 유발했다는 실험적 증명을 제공하지 않는다.
 
 ## 3. 전체 지표
 
@@ -231,7 +231,7 @@ AD-0005·AD-0067·AD-0068은 기대 ANSWER 대신 PARTIAL이지만 Judge가 정�
 - [v2 생성 JSONL](../raw/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/generation.jsonl) · [내용 Judge JSONL](../scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/accuracy_hallucination_llm.jsonl) · [안전성 Judge JSONL](../scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/safety_llm.jsonl)
 - [내용 요약](../scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/accuracy_hallucination_llm_summary.json) · [안전성 요약](../scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/safety_llm_summary.json) · [기존 생성 성능](../scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/performance_summary.json)
 - [평가 문항 CSV](../../data/eval_sets/test_set2/cases.csv) · [CSV 파서](../../scripts/test2/lib/csv.js) · [1회차 판별](../../scripts/test2/lib/rounds.js) · [기대 상태 매핑](../../scripts/test2/lib/status_map.js)
-- [프롬프트 원문](../../scripts/test2/lib/prompts.js) · [설계 근거](../../scripts/test3/PROMPT_DESIGN.md) · [실제 적용 rubric 사본](../test3/llm_judge_review/evaluator/judge_prompts.js)
+- [프롬프트 원문](../../scripts/test2/lib/prompts.js) · [설계 근거](../../scripts/prompt_test/round1/PROMPT_DESIGN.md) · [실제 적용 rubric 사본](../test3/llm_judge_review/evaluator/judge_prompts.js)
 - [Judge 입력 준비 manifest](../judge_inputs/test3_prompt/prompt-qwen3-14b-20260922/manifest.json) — 준비 시점 기록이며 실행 완료 수·실제 reasoning effort는 결과 JSONL로 확인한다.
 - [ultra 실행 설정](../llm_judge/test3_prompt/prompt-qwen3-14b-20260922/execution_config.json) · [ultra 통합 비교 보고서](prompt_test_qwen3-14b_20260922_judge_ultra.md)
 - [v1 내용 Judge JSONL](../scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/accuracy_hallucination_llm.jsonl) · [v0 생성 JSONL](../raw/test3/ec2-linux_qwen3-14b_t0_nothink_20260920/generation.jsonl)

@@ -3,7 +3,7 @@
 모델은 고정하고 **시스템 프롬프트만 바꿔서** 같은 300문항을 돌린 뒤, 비교 문서 1개를 만든다.
 
 ```bash
-node scripts/test3/run_prompt_test.js qwen3:14b
+node scripts/prompt_test/round1/run_prompt_test.js qwen3:14b
 ```
 
 ## 목차
@@ -21,7 +21,7 @@ node scripts/test3/run_prompt_test.js qwen3:14b
 
 ## 1. 무엇을 비교하는가
 
-프롬프트 원문은 [`scripts/test2/lib/prompts.js`](../test2/lib/prompts.js)에 있다. 각 안을 그렇게 설계한 근거는 [PROMPT_DESIGN.md](PROMPT_DESIGN.md)에 있다. 세 안 모두 **v0 전문을 그대로 두고 뒤에 블록 하나만 덧붙인다** — 한 번에 하나만 바꿔야 무엇 때문에 점수가 달라졌는지 가릴 수 있다.
+프롬프트 원문은 [`scripts/test2/lib/prompts.js`](../../test2/lib/prompts.js)에 있다. 각 안을 그렇게 설계한 근거는 [PROMPT_DESIGN.md](PROMPT_DESIGN.md)에 있다. 세 안 모두 **v0 전문을 그대로 두고 뒤에 블록 하나만 덧붙인다** — 한 번에 하나만 바꿔야 무엇 때문에 점수가 달라졌는지 가릴 수 있다.
 
 | 안 | 바꾼 것 | 겨냥한 약점 |
 |---|---|---|
@@ -32,7 +32,7 @@ node scripts/test3/run_prompt_test.js qwen3:14b
 
 ### 겨냥한 약점 (qwen3:14b 추론 off, 고유 300문항)
 
-근거: [results/test3/ai_analysis.md](../../results/test3/ai_analysis.md) 13.1~13.2절과 생성 결과 직접 집계.
+근거: [results/test3/ai_analysis.md](../../../results/test3/ai_analysis.md) 13.1~13.2절과 생성 결과 직접 집계.
 
 | 유형 | n | 기대 상태 일치 | 주된 오분류 |
 |---|---:|---:|---|
@@ -48,7 +48,7 @@ node scripts/test3/run_prompt_test.js qwen3:14b
 | 항목 | 값 | 이유 |
 |---|---|---|
 | temperature | 0 | test3 운영 설정. 0.8에서는 반복 일관성이 45~52%였다 |
-| 추론(thinking) | **끔** | 켜면 qwen3:14b P95가 28.49초다. 끄면 8.11초 ([think_ablation_results.md](../../results/test3/think_ablation_results.md)) |
+| 추론(thinking) | **끔** | 켜면 qwen3:14b P95가 28.49초다. 끄면 8.11초 ([think_ablation_results.md](../../../results/test3/think_ablation_results.md)) |
 | seed | 미고정 | temperature 0은 greedy decoding이라 난수를 쓰지 않는다 |
 | 문항 | 고유 300문항 (`--primary-only`) | 반복 회차는 프롬프트 비교에 필요 없다 |
 
@@ -62,25 +62,25 @@ node scripts/test3/run_prompt_test.js qwen3:14b
 | Python 3.10+ / `.venv_nli` | RAG 충실도 채점에 필요 |
 | 기존 `t0_nothink` run | 대조군. 없으면 `--with-baseline`으로 같이 생성 |
 
-환경 설치는 [SETUP.md](SETUP.md) 참고. 러너가 `LLM_TEST_SUITE=test3_prompt`를 자동으로 넣으므로 직접 export할 필요는 없다.
+환경 설치는 [SETUP.md](../../test3/SETUP.md) 참고. 러너가 `LLM_TEST_SUITE=test3_prompt`를 자동으로 넣으므로 직접 export할 필요는 없다.
 
 ## 4. 실행 방법
 
 ```bash
 # 안 3개 전부 (v0는 기존 t0_nothink run 재사용)
-node scripts/test3/run_prompt_test.js qwen3:14b
+node scripts/prompt_test/round1/run_prompt_test.js qwen3:14b
 ```
 ```bash
 # 파이프라인 점검 — 5문항만
-node scripts/test3/run_prompt_test.js qwen3:14b --limit 5
+node scripts/prompt_test/round1/run_prompt_test.js qwen3:14b --limit 5
 ```
 ```bash
 # 무엇이 돌지 먼저 확인
-node scripts/test3/run_prompt_test.js qwen3:14b --dry-run
+node scripts/prompt_test/round1/run_prompt_test.js qwen3:14b --dry-run
 ```
 ```bash
 # 비교 문서만 다시 생성
-node scripts/test3/compare_prompts.js --model qwen3:14b --date 20260922
+node scripts/prompt_test/round1/compare_prompts.js --model qwen3:14b --date 20260922
 ```
 
 **tmux 안에서 돌릴 것.** 300문항 × 3안 = 900회 호출이고, qwen3:14b 추론 off 평균 5.51초 기준 약 1시간 25분 + 채점 시간이다.
@@ -135,7 +135,7 @@ run_id는 `<env>_<모델>_<안>_t0_nothink_<날짜>`다. 결과 폴더가 `test3
 
 ## 8. 프롬프트 안 추가하기
 
-[`scripts/test2/lib/prompts.js`](../test2/lib/prompts.js)의 `SYSTEM_PROMPTS`와 `PROMPT_NOTES`에 넣으면 다음 실행부터 자동으로 포함된다.
+[`scripts/test2/lib/prompts.js`](../../test2/lib/prompts.js)의 `SYSTEM_PROMPTS`와 `PROMPT_NOTES`에 넣으면 다음 실행부터 자동으로 포함된다.
 
 - **v0에서 한 가지만 바꿀 것.** 여러 개를 동시에 바꾸면 원인을 가릴 수 없다.
 - **출력 형식은 유지할 것.** `status`/`answer`/`evidence_ids` 키와 status 6종을 바꾸면 채점이 깨진다.
@@ -151,7 +151,7 @@ run_id는 `<env>_<모델>_<안>_t0_nothink_<날짜>`다. 결과 폴더가 `test3
 대조군으로 쓸 `t0_nothink` run이 없다. `--with-baseline`으로 v0도 생성하거나, `compare_prompts.js --baseline <run_id>`로 직접 지정한다.
 
 ### 4단계(RAG 충실도)에서 멈춤
-`.venv_nli`가 없거나 KLUE-NLI 모델을 못 받은 경우다. [SETUP.md](SETUP.md)의 환경 설치를 먼저 끝낸다.
+`.venv_nli`가 없거나 KLUE-NLI 모델을 못 받은 경우다. [SETUP.md](../../test3/SETUP.md)의 환경 설치를 먼저 끝낸다.
 
 ### 지연이 test3 문서 값과 크게 다름
 같은 EC2에서 돌렸는지 확인한다. 하드웨어가 다르면 속도는 비교할 수 없다.

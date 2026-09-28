@@ -1,25 +1,26 @@
 #!/usr/bin/env node
 'use strict';
 // prompt_stats.js가 만든 JSON 하나만 읽어 프롬프트 비교 차트(SVG)를 만든다.
+// 1차 프롬프트 비교(v0~v3) 전용. 대조군·안 목록은 JSON의 baseline·variants를 따른다.
 //
-//   node scripts/test3/prompt_charts.js --model qwen3:14b --date 20260922
+//   node scripts/prompt_test/round1/prompt_charts.js --model qwen3:14b --date 20260922
 //
 // 출력: results/test3_prompt/charts/
 //   ① prompt_two_axis.svg     답해야 할 문항 vs 막아야 할 문항 정답률 산점도
-//   ② prompt_gain_loss.svg    v0 대비 얻은/잃은 문항(두 축별 짝 비교)
-//   ③ prompt_by_type.svg      유형별 v0 → 채택 후보 정답률(덤벨, 나머지 안은 작은 점)
-//   ④ prompt_head_to_head.svg 유형별 v0 vs 채택 후보 맞대결(45° 산점도, 마우스를 올리면 상세)
-// 그리고 results/test3_prompt/dashboard.html — 요약·표 2개·차트 4장을 한 페이지에 모은다.
+//   ② prompt_gain_loss.svg    대조군 대비 얻은/잃은 문항(두 축별 짝 비교)
+//   ③ prompt_by_type.svg      유형별 대조군 → 후보 정답률(덤벨, 나머지 안은 작은 점)
+//   ④ prompt_head_to_head.svg 유형별 대조군 vs 후보 맞대결(45° 산점도, 마우스를 올리면 상세)
+// 그리고 results/test3_prompt/dashboard.html — 요약·표·차트 4장을 한 페이지에 모은다.
 //
 // 스타일(팔레트·폰트·light/dark 토큰)은 test3 모델 라운드의 lib/charts.js와 맞췄다.
 // npm 의존성 0 규칙을 지켜 SVG를 문자열로 조립한다.
 
 const fs = require('fs');
 const path = require('path');
-const models = require('./config/models');
-const { ROOT, sanitizeTag } = require('./lib/runner');
+const models = require('../../test3/config/models');
+const { ROOT, sanitizeTag } = require('../../test3/lib/runner');
 
-const PROMPT_SUITE = `${models.suite}_prompt`;
+const SUITE = `${models.suite}_prompt`;
 
 const FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', sans-serif";
 
@@ -69,13 +70,56 @@ const pct = (v, d = 1) => (v == null ? '-' : (v * 100).toFixed(d) + '%');
 const signed = (v) => (v >= 0 ? '+' : '−') + Math.abs(v);
 const pFmt = (p) => (p < 0.001 ? 'p<0.001' : `p=${p.toFixed(p < 0.01 ? 3 : 2)}`);
 
-// 안별 표시 이름과 색. v0는 대조군이라 회색으로 한 발 물린다.
-const VARIANT = {
-  v0_baseline: { short: 'v0', name: 'v0 기준선', color: 'var(--muted)' },
-  v1_status_rules: { short: 'v1', name: 'v1 상태 규칙', color: 'var(--s1)' },
-  v2_value_guard: { short: 'v2', name: 'v2 값 가드', color: 'var(--s3)' },
-  v3_decision_tree: { short: 'v3', name: 'v3 판단 순서', color: 'var(--s4)' },
+// 안별 표시 이름. 색은 회차마다 setVariants()가 정한다 — 대조군은 회색으로 한 발 물리고,
+// 안들은 s1·s3·s4 순서다(1차: v1 파랑 · v2 초록 · v3 노랑).
+const NAMES = {
+  v0_baseline: '기준선', v1_status_rules: '상태 규칙', v2_value_guard: '값 가드', v3_decision_tree: '판단 순서',
+  v4_injection_guard: '공격 경계', v5_condition_apply: '조건 적용', v6_abstain_examples: '보류 예시',
 };
+const SERIES = ['var(--s1)', 'var(--s3)', 'var(--s4)', 'var(--s2)'];
+let VARIANT = {};
+let BASE = 'v0_baseline';   // 대조군 안 이름
+let B0 = 'v0';              // 대조군 짧은 이름
+
+function setVariants(stats) {
+  BASE = stats.baseline || 'v0_baseline';
+  B0 = BASE.split('_')[0];
+  const vs = stats.variants || Object.keys(stats.headline).filter((v) => v !== BASE);
+  const entry = (v, color) => ({ short: v.split('_')[0], name: `${v.split('_')[0]} ${NAMES[v] || v}`, color });
+  VARIANT = { [BASE]: entry(BASE, 'var(--muted)') };
+  vs.forEach((v, i) => { VARIANT[v] = entry(v, SERIES[i % SERIES.length]); });
+}
+
+// "v1·v2·v3" → "v1~v3"처럼 번호가 이어지면 범위로 줄인다.
+function shortList(vs) {
+  const shorts = vs.map((v) => v.split('_')[0]);
+  const nums = shorts.map((x) => Number(x.slice(1)));
+  const consecutive = nums.every((n, i) => i === 0 || n === nums[i - 1] + 1);
+  return shorts.length > 2 && consecutive ? `${shorts[0]}~${shorts[shorts.length - 1]}` : shorts.join('·');
+}
+
+// Judge 설정(reasoning effort)이 같은 안끼리 묶는다 — [{label: 'v1~v3', effort: 'ultra'}]
+function judgeGroups(stats) {
+  const groups = [];
+  for (const v of Object.keys(VARIANT)) {
+    const eff = (stats.headline[v].judge_effort || []).join('/') || '미채점';
+    const last = groups[groups.length - 1];
+    if (last && last.effort === eff) last.vs.push(v); else groups.push({ effort: eff, vs: [v] });
+  }
+  return groups.map((g) => ({ label: shortList(g.vs), effort: g.effort }));
+}
+const judgeShort = (stats) => judgeGroups(stats).map((g) => `${g.label} Judge ${g.effort}`).join(', ');
+const modelNote = (stats) => `${stats.model} · temperature 0 · 추론 끔 · 300문항`;
+const sigLoss = (x) => x.p_mcnemar < 0.05 && x.only_a > x.only_b;
+const sigGain = (x) => x.p_mcnemar < 0.05 && x.only_b > x.only_a;
+const COUNT_WORD = { 2: '두', 3: '세', 4: '네' };
+
+// 막을 문항을 유의하게 개선하면서 답할 문항을 유의하게 잃지 않은 안.
+function keepers(stats) {
+  return stats.paired.filter((p) => p.a === BASE)
+    .filter((p) => sigGain(p.ai_correct_by_axis.should_hold) && !sigLoss(p.ai_correct_by_axis.answerable))
+    .map((p) => p.b);
+}
 
 // ---------------------------------------------------------------- ① 두 축
 
@@ -83,15 +127,25 @@ function twoAxisSvg(stats) {
   const W = 960, H = 660;
   const M = { l: 92, r: 48, t: 118, b: 104 };
   const iw = W - M.l - M.r, ih = H - M.t - M.b;
-  const X = [0.6, 0.9], Y = [0.4, 1.0];
+  // 축 범위는 신뢰구간이 모두 들어가게 x는 5%p, y는 10%p 단위로 잡는다.
+  const all = Object.values(stats.two_axis);
+  const xs = all.flatMap((a) => [a.answerable.ai_correct.lo, a.answerable.ai_correct.hi]);
+  const ys = all.flatMap((a) => [a.should_hold.ai_correct.lo, a.should_hold.ai_correct.hi]);
+  const X = [Math.floor(Math.min(...xs) * 20 + 1e-9) / 20, Math.min(1, Math.ceil(Math.max(...xs) * 20 - 1e-9) / 20)];
+  const Y = [Math.floor(Math.min(...ys) * 10 + 1e-9) / 10, Math.min(1, Math.ceil(Math.max(...ys) * 10 - 1e-9) / 10)];
+  const heroes = keepers(stats);
+  const hero = heroes.length === 1 ? heroes[0] : null;
   const sx = (v) => M.l + (v - X[0]) / (X[1] - X[0]) * iw;
   const sy = (v) => M.t + ih - (v - Y[0]) / (Y[1] - Y[0]) * ih;
   const b = [];
 
-  b.push(txt(26, 32, '보류를 늘리면서 답변 능력을 지킨 건 v2뿐', { cls: 'ttl', size: 19 }));
+  const title = hero ? `보류를 늘리면서 답변 능력을 지킨 건 ${VARIANT[hero].short}뿐`
+    : heroes.length ? `막을 문항을 개선하면서 답변 능력을 지킨 안: ${heroes.map((v) => VARIANT[v].short).join(', ')}`
+      : `답해야 할 문항 vs 막아야 할 문항 — ${B0} 대비`;
+  b.push(txt(26, 32, title, { cls: 'ttl', size: 19 }));
   b.push(txt(26, 54, `x = 답해야 할 문항(기대 상태 답변·부분 답변) 정답률 · y = 막아야 할 문항(보류·확인·범위 밖·충돌) 정답률.`,
     { cls: 'sub', size: 12.5 }));
-  b.push(txt(26, 74, '오른쪽 위일수록 좋다. 가로·세로 선은 95% 신뢰구간(Wilson), 점선 화살표는 v0에서의 이동.',
+  b.push(txt(26, 74, `오른쪽 위일수록 좋다. 가로·세로 선은 95% 신뢰구간(Wilson), 점선 화살표는 ${B0}에서의 이동.`,
     { cls: 'sub', size: 12.5 }));
 
   for (let g = X[0]; g <= X[1] + 1e-9; g += 0.05) {
@@ -102,16 +156,16 @@ function twoAxisSvg(stats) {
     b.push(`<line class="grid" x1="${M.l}" y1="${sy(g).toFixed(1)}" x2="${M.l + iw}" y2="${sy(g).toFixed(1)}"/>`);
     b.push(txt(M.l - 10, sy(g) + 4, (g * 100).toFixed(0) + '%', { cls: 'axl', size: 11, anchor: 'end' }));
   }
-  const ans0 = stats.two_axis.v0_baseline.answerable.ai_correct;
+  const ans0 = stats.two_axis[BASE].answerable.ai_correct;
   b.push(txt(M.l + iw / 2, M.t + ih + 46, `답해야 할 문항 정답률 (n=${ans0.n}) →`, { cls: 'sub', size: 12.5, anchor: 'middle', weight: 600 }));
-  const yl = `막아야 할 문항 정답률 (n=${stats.two_axis.v0_baseline.should_hold.ai_correct.n}) →`;
+  const yl = `막아야 할 문항 정답률 (n=${stats.two_axis[BASE].should_hold.ai_correct.n}) →`;
   b.push(`<text transform="translate(30 ${(M.t + ih / 2).toFixed(1)}) rotate(-90)" class="sub" font-size="12.5"`
     + ` font-weight="600" text-anchor="middle">${esc(yl)}</text>`);
 
-  // v0의 답변 수준 기준선 — 이 선보다 왼쪽이면 "답할 문항"에서 v0보다 못하다.
+  // 대조군의 답변 수준 기준선 — 이 선보다 왼쪽이면 "답할 문항"에서 대조군보다 못하다.
   b.push(`<line x1="${sx(ans0.rate).toFixed(1)}" y1="${M.t}" x2="${sx(ans0.rate).toFixed(1)}" y2="${M.t + ih}"`
     + ` stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/>`);
-  b.push(txt(sx(ans0.rate) + 6, M.t + 14, 'v0의 답변 정답률', { cls: 'note', size: 11 }));
+  b.push(txt(sx(ans0.rate) + 6, M.t + 14, `${B0}의 답변 정답률`, { cls: 'note', size: 11 }));
   b.push(txt(sx(ans0.rate) - 6, M.t + 14, '← 여기서 왼쪽 = 답변 능력 손실', { cls: 'note', size: 11, anchor: 'end' }));
 
   b.push('<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">'
@@ -120,7 +174,7 @@ function twoAxisSvg(stats) {
   const pts = Object.entries(stats.two_axis).map(([v, a]) => ({
     v, x: a.answerable.ai_correct, y: a.should_hold.ai_correct,
   }));
-  const p0 = pts.find((p) => p.v === 'v0_baseline');
+  const p0 = pts.find((p) => p.v === BASE);
   for (const p of pts) {
     if (p === p0) continue;
     const x1 = sx(p0.x.rate), y1 = sy(p0.y.rate), x2 = sx(p.x.rate), y2 = sy(p.y.rate);
@@ -134,26 +188,48 @@ function twoAxisSvg(stats) {
     b.push(`<line x1="${sx(p.x.lo).toFixed(1)}" y1="${y.toFixed(1)}" x2="${sx(p.x.hi).toFixed(1)}" y2="${y.toFixed(1)}" stroke="${c}" stroke-width="2" opacity="0.45"/>`);
     b.push(`<line x1="${x.toFixed(1)}" y1="${sy(p.y.lo).toFixed(1)}" x2="${x.toFixed(1)}" y2="${sy(p.y.hi).toFixed(1)}" stroke="${c}" stroke-width="2" opacity="0.45"/>`);
   }
-  // 라벨 자리는 점 배치에 맞춰 고정한다(4개뿐이라 자동 배치보다 읽기 쉽다).
-  const place = { v0_baseline: [14, 22, 'start'], v1_status_rules: [-14, -30, 'end'],
+  // 1차는 점 배치에 맞춰 라벨 자리를 손으로 정했다(4개뿐이라 읽기 쉽다).
+  // 다른 회차는 점·다른 라벨과 겹치지 않는 첫 자리를 고른다.
+  const ROUND1_PLACE = { v0_baseline: [14, 22, 'start'], v1_status_rules: [-14, -30, 'end'],
     v2_value_guard: [48, -30, 'start'], v3_decision_tree: [-14, 30, 'end'] };
+  const fixed = BASE === 'v0_baseline';
+  const taken = pts.map((p) => ({ x0: sx(p.x.rate) - 12, x1: sx(p.x.rate) + 12, y0: sy(p.y.rate) - 12, y1: sy(p.y.rate) + 12 }));
+  const autoPlace = (p) => {
+    const x = sx(p.x.rate), y = sy(p.y.rate);
+    const w = Math.max(textW(VARIANT[p.v].name, 13.5), textW('답 00.0% · 막기 00.0%', 11.5));
+    for (const [dx, dy, anchor] of [[14, 22, 'start'], [14, -30, 'start'], [-14, -30, 'end'], [-14, 22, 'end'], [48, -30, 'start'], [14, 48, 'start']]) {
+      const x0 = anchor === 'start' ? x + dx : x + dx - w;
+      const box = { x0: x0 - 3, x1: x0 + w + 3, y0: y + dy - 14, y1: y + dy + 22 };
+      if (box.x0 < M.l || box.x1 > M.l + iw || box.y0 < M.t || box.y1 > M.t + ih) continue;
+      if (taken.some((q) => box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0)) continue;
+      taken.push(box);
+      return [dx, dy, anchor];
+    }
+    return [14, 22, 'start'];
+  };
   for (const p of pts) {
     const c = VARIANT[p.v].color, x = sx(p.x.rate), y = sy(p.y.rate);
-    const hero = p.v === 'v2_value_guard';
-    b.push(`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${hero ? 10 : 8}" fill="${c}" stroke="var(--surface)" stroke-width="2"/>`);
-    const [dx, dy, anchor] = place[p.v];
+    const isHero = p.v === hero;
+    b.push(`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isHero ? 10 : 8}" fill="${c}" stroke="var(--surface)" stroke-width="2"/>`);
+    const [dx, dy, anchor] = fixed && ROUND1_PLACE[p.v] ? ROUND1_PLACE[p.v] : autoPlace(p);
     b.push(txt(x + dx, y + dy, VARIANT[p.v].name, { cls: 'lbl', size: 13.5, anchor, weight: 700 }));
     b.push(txt(x + dx, y + dy + 17, `답 ${pct(p.x.rate)} · 막기 ${pct(p.y.rate)}`, { cls: 'note', size: 11.5, anchor }));
   }
 
   // Judge 설정 교란 점검 결과를 그대로 적는다(prompt_stats.js의 judge_calibration).
   const cal = Object.values(stats.judge_calibration || {});
-  const same = cal.map((c) => c.identical_answers);
-  const agree = cal.reduce((a, c) => a + c.verdict_agree, 0) / Math.max(1, same.reduce((a, c) => a + c, 0));
-  b.push(txt(26, H - 30, 'LLM Judge(gpt-6-astra) 정답 판정 기준. v0는 medium, v1~v3는 ultra 설정으로 채점했다 —'
-    + ` v0와 답이 글자까지 같은 ${Math.min(...same)}~${Math.max(...same)}문항에서 두 설정의 판정은 ${pct(agree, 0)} 일치했다.`,
-  { cls: 'note', size: 11.5 }));
-  b.push(txt(26, H - 12, `qwen3:14b · temperature 0 · 추론 끔 · 300문항`, { cls: 'note', size: 11.5 }));
+  if (cal.length) {
+    const same = cal.map((c) => c.identical_answers);
+    const agree = cal.reduce((a, c) => a + c.verdict_agree, 0) / Math.max(1, same.reduce((a, c) => a + c, 0));
+    const settings = judgeGroups(stats).map((g) => `${g.label}는 ${g.effort}`).join(', ');
+    b.push(txt(26, H - 30, `LLM Judge(gpt-6-astra) 정답 판정 기준. ${settings} 설정으로 채점했다 —`
+      + ` ${B0}와 답이 글자까지 같은 ${Math.min(...same)}~${Math.max(...same)}문항에서 두 설정의 판정은 ${pct(agree, 0)} 일치했다.`,
+    { cls: 'note', size: 11.5 }));
+  } else {
+    b.push(txt(26, H - 30, `LLM Judge(gpt-6-astra) 정답 판정 기준. 모든 안을 같은 설정(${judgeGroups(stats)[0].effort})으로 채점했다.`,
+      { cls: 'note', size: 11.5 }));
+  }
+  b.push(txt(26, H - 12, modelNote(stats), { cls: 'note', size: 11.5 }));
   return svgDoc(W, H, b.join('\n'), '프롬프트별 답해야 할 문항과 막아야 할 문항 정답률');
 }
 
@@ -161,7 +237,7 @@ function twoAxisSvg(stats) {
 
 function gainLossSvg(stats) {
   const rows = [];
-  for (const r of stats.paired.filter((x) => x.a === 'v0_baseline')) {
+  for (const r of stats.paired.filter((x) => x.a === BASE)) {
     for (const [axis, label] of [['should_hold', '막아야 할 문항'], ['answerable', '답해야 할 문항']]) {
       const s = r.ai_correct_by_axis[axis];
       rows.push({ v: r.b, axis, label, gain: s.only_b, loss: s.only_a, n: s.n, p: s.p_mcnemar });
@@ -172,17 +248,28 @@ function gainLossSvg(stats) {
   const H = top + rows.length * rowH + (rows.length / 2 - 1) * groupGap + 110;
   const max = Math.max(...rows.map((r) => Math.max(r.gain, r.loss)));
   const half = 230;
-  const cx = labelW + half + 20;
+  // 막대 왼쪽 끝과 행 라벨 사이에 숫자(−NN)가 들어갈 자리를 남긴다.
+  const cx = labelW + half + 44;
   const scale = (n) => n / max * half;
   const b = [];
 
-  b.push(txt(26, 32, 'v0 대비 어디서 얻고 어디서 잃었나', { cls: 'ttl', size: 19 }));
-  b.push(txt(26, 54, '같은 문항끼리 짝지어 센 LLM Judge 정답 수. 오른쪽 = v0에서 틀렸다가 맞힌 문항, 왼쪽 = v0에서 맞혔다가 틀린 문항.',
+  b.push(txt(26, 32, `${B0} 대비 어디서 얻고 어디서 잃었나`, { cls: 'ttl', size: 19 }));
+  b.push(txt(26, 54, `같은 문항끼리 짝지어 센 LLM Judge 정답 수. 오른쪽 = ${B0}에서 틀렸다가 맞힌 문항, 왼쪽 = ${B0}에서 맞혔다가 틀린 문항.`,
     { cls: 'sub', size: 12.5 }));
-  b.push(txt(26, 74, '세 안 모두 "막아야 할 문항"은 크게 고쳤다. "답해야 할 문항"을 유의하게 잃지 않은 건 v2뿐이다.',
-    { cls: 'sub', size: 12.5, weight: 600 }));
+  // 요약 한 줄도 데이터에서 만든다.
+  const fromBase = stats.paired.filter((p) => p.a === BASE);
+  const holdUp = fromBase.filter((p) => sigGain(p.ai_correct_by_axis.should_hold)).map((p) => p.b);
+  const keep = fromBase.filter((p) => !sigLoss(p.ai_correct_by_axis.answerable)).map((p) => p.b);
+  const sh = (vs) => vs.map((v) => VARIANT[v].short).join(', ');
+  const part1 = holdUp.length === fromBase.length
+    ? `${COUNT_WORD[fromBase.length] || fromBase.length} 안 모두 "막아야 할 문항"은 크게 고쳤다.`
+    : `"막아야 할 문항"을 유의하게 고친 안: ${sh(holdUp) || '없음'}.`;
+  const part2 = keep.length === 1 ? `"답해야 할 문항"을 유의하게 잃지 않은 건 ${sh(keep)}뿐이다.`
+    : keep.length === fromBase.length ? '"답해야 할 문항"을 유의하게 잃은 안은 없다.'
+      : `"답해야 할 문항"을 유의하게 잃지 않은 안: ${sh(keep) || '없음'}.`;
+  b.push(txt(26, 74, `${part1} ${part2}`, { cls: 'sub', size: 12.5, weight: 600 }));
 
-  b.push(txt(cx - 8, top - 16, '← 잃음 (v0만 맞힘)', { cls: 'sub', size: 12, anchor: 'end', weight: 600 }));
+  b.push(txt(cx - 8, top - 16, `← 잃음 (${B0}만 맞힘)`, { cls: 'sub', size: 12, anchor: 'end', weight: 600 }));
   b.push(txt(cx + 8, top - 16, '얻음 (이 안만 맞힘) →', { cls: 'sub', size: 12, weight: 600 }));
   b.push(txt(W - 26, top - 16, '순증 · McNemar', { cls: 'sub', size: 12, anchor: 'end', weight: 600 }));
 
@@ -218,15 +305,15 @@ function gainLossSvg(stats) {
     { cls: 'note', size: 11.5 }));
   b.push(txt(26, H - 30, 'McNemar 정확검정(양측)은 짝이 갈린 문항만으로 우연 여부를 본다. p<0.05면 진하게 표시했다.',
     { cls: 'note', size: 11.5 }));
-  b.push(txt(26, H - 12, 'qwen3:14b · temperature 0 · 추론 끔 · 300문항', { cls: 'note', size: 11.5 }));
-  return svgDoc(W, H, b.join('\n'), 'v0 대비 프롬프트별 얻은 문항과 잃은 문항');
+  b.push(txt(26, H - 12, modelNote(stats), { cls: 'note', size: 11.5 }));
+  return svgDoc(W, H, b.join('\n'), `${B0} 대비 프롬프트별 얻은 문항과 잃은 문항`);
 }
 
 // ---------------------------------------------------------------- ③ 유형별 덤벨
 
 // 유형 13개를 한 줄씩. v0(빈 원) → 채택 후보(큰 원)를 선으로 잇고, 나머지 안은 작은 점으로
 // 같은 줄에 찍는다. 산점도는 90~100% 구간에 유형이 몰려 라벨이 겹쳐서 줄 형태로 그린다.
-function byTypeSvg(stats, A = 'v0_baseline', B = 'v2_value_guard') {
+function byTypeSvg(stats, A, B) {
   const others = Object.keys(VARIANT).filter((v) => v !== A && v !== B);
   const rows = stats.by_type
     .filter((t) => t[A] && t[B] && t[A].ai_correct != null && t[B].ai_correct != null)
@@ -290,7 +377,7 @@ function byTypeSvg(stats, A = 'v0_baseline', B = 'v2_value_guard') {
   });
 
   b.push(txt(26, H - 30, '⚠ = 10문항 미만. 1~2문항 차이로 비율이 크게 흔들리므로 결론 근거로 쓰지 말 것.', { cls: 'note', size: 11.5 }));
-  b.push(txt(26, H - 12, 'qwen3:14b · temperature 0 · 추론 끔 · 300문항 · v0 Judge medium, v1~v3 Judge ultra', { cls: 'note', size: 11.5 }));
+  b.push(txt(26, H - 12, `${modelNote(stats)} · ${judgeShort(stats)}`, { cls: 'note', size: 11.5 }));
   return svgDoc(W, H, b.join('\n'), `유형별 정답률 ${nA} 대 ${nB}`);
 }
 
@@ -301,7 +388,7 @@ function byTypeSvg(stats, A = 'v0_baseline', B = 'v2_value_guard') {
 // (<title> = 브라우저 기본 툴팁, data-tip = 대시보드의 즉시 툴팁).
 // 점끼리 겹치면 가려진 점에 마우스를 올릴 수 없으므로 밀어내고(반발 이완),
 // 실제 위치에는 작은 점 + 지시선을 남긴다.
-function headToHeadSvg(stats, A = 'v0_baseline', B = 'v2_value_guard') {
+function headToHeadSvg(stats, A, B) {
   const others = Object.keys(VARIANT).filter((v) => v !== A && v !== B);
   const rows = stats.by_type
     .filter((t) => t[A] && t[B] && t[A].ai_correct != null && t[B].ai_correct != null)
@@ -394,16 +481,16 @@ function headToHeadSvg(stats, A = 'v0_baseline', B = 'v2_value_guard') {
     { cls: 'note', size: 11.5 }));
   b.push(txt(26, H - 30, '축은 20%부터. 겹치는 원은 옆으로 밀고 실제 위치는 작은 점과 가는 선으로 남겼다.',
     { cls: 'note', size: 11.5 }));
-  b.push(txt(26, H - 12, 'qwen3:14b · temperature 0 · 추론 끔 · 300문항 · v0 Judge medium, v1~v3 Judge ultra', { cls: 'note', size: 11.5 }));
+  b.push(txt(26, H - 12, `${modelNote(stats)} · ${judgeShort(stats)}`, { cls: 'note', size: 11.5 }));
   return svgDoc(W, H, b.join('\n'), `유형별 정답률 맞대결 ${nB} 대 ${nA}`);
 }
 
 // ---------------------------------------------------------------- 대시보드
 
-// 데이터가 가리키는 후보: v0 대비 "답해야 할 문항"을 유의하게 잃지 않은 안 중 AI 정확도 최고.
+// 1차 후보 규칙: 대조군 대비 "답해야 할 문항"을 유의하게 잃지 않은 안 중 AI 정확도 최고.
 // (보류를 늘려 막기만 잘하는 안을 거르기 위한 규칙이다. 최종 채택은 사람이 한다.)
 function pickCandidate(stats) {
-  const fromV0 = stats.paired.filter((p) => p.a === 'v0_baseline');
+  const fromV0 = stats.paired.filter((p) => p.a === BASE);
   const ok = fromV0.filter((p) => {
     const s = p.ai_correct_by_axis.answerable;
     return !(s.p_mcnemar < 0.05 && s.only_a > s.only_b);
@@ -412,7 +499,7 @@ function pickCandidate(stats) {
   return pool.sort((x, y) => stats.headline[y].ai_correct.rate - stats.headline[x].ai_correct.rate)[0];
 }
 
-function dashboardHtml(stats, charts) {
+function dashboardHtml(stats, charts, suite) {
   const H = stats.headline;
   const V = Object.keys(VARIANT).filter((v) => H[v]);
   const best = pickCandidate(stats);
@@ -421,45 +508,61 @@ function dashboardHtml(stats, charts) {
   const ci = (m) => `${pct(m.rate)} <span class="ci">[${pct(m.lo, 0)}–${pct(m.hi, 0)}]</span>`;
   const verdict = (p, net) => (p >= 0.05 ? '차이 없음' : net > 0 ? '유의하게 좋아짐' : '유의하게 나빠짐');
 
+  const decode = V.map((v) => `${VARIANT[v].short} ${H[v].decode_tok_per_s}`).join(' · ');
+  const cal = Object.values(stats.judge_calibration || {});
+  const calSame = cal.reduce((a, c) => a + c.identical_answers, 0);
+  const calAgree = cal.reduce((a, c) => a + c.verdict_agree, 0);
+  const cands = V.filter((v) => v !== BASE);
+
+  // 지연: 대조군과 안들의 디코딩 속도가 5% 넘게 다르면 실행 환경이 다른 것이다.
+  const speeds = cands.map((v) => H[v].decode_tok_per_s);
+  const baseSpeed = H[BASE].decode_tok_per_s;
+  const envDiff = speeds.some((x) => Math.abs(x - baseSpeed) / Math.max(x, baseSpeed) > 0.05);
+  const interLat = stats.paired.filter((p) => p.a !== BASE && p.b !== BASE).map((p) => Math.abs(p.latency.mean_diff_s));
+  const latencyNote = envDiff
+    ? `<b>지연은 프롬프트 효과가 아니다</b> — 디코딩 속도(tok/s)가 ${decode}로 ${B0} 실행 환경이 달랐다.`
+      + (interLat.length ? ` ${shortList(cands)}끼리의 지연 차이는 짝 비교로 ${Math.max(...interLat).toFixed(2)}초 수준이다.` : '')
+    : `디코딩 속도(tok/s)가 ${decode}로 같아, 지연 차이를 그대로 비교할 수 있다.`;
+  const judgeNote = cal.length
+    ? `Judge 설정: ${judgeGroups(stats).map((g, i) => `${g.label}는 ${i === 0 ? 'gpt-6-astra ' : ''}${g.effort}`).join(', ')}.`
+      + ` ${B0}와 답이 글자까지 같은 ${calSame}건에서 두 설정의 판정 일치 ${calAgree}/${calSame}건 — 설정 차이의 영향은 작다.`
+    : `Judge 설정: 모든 안 gpt-6-astra ${judgeGroups(stats)[0].effort} — AI 지표를 그대로 비교할 수 있다.`;
+
   // ---- 요약: 전부 JSON에서 계산해 적는다(하드코딩 없음).
-  const p0 = pair('v0_baseline', best);
+  const p0 = pair(BASE, best);
   const ax = p0.ai_correct_by_axis;
-  const others = V.filter((v) => v !== 'v0_baseline' && v !== best);
+  const others = V.filter((v) => v !== BASE && v !== best);
   const vsOthers = others.map((o) => {
     const p = pair(o, best);
     const net = p.a === o ? p.ai_correct.only_b - p.ai_correct.only_a : p.ai_correct.only_a - p.ai_correct.only_b;
     return `${VARIANT[o].short} 대비 ${signed(net)}문항 (Holm ${pFmt(p.ai_correct.p_holm)}, ${verdict(p.ai_correct.p_holm, net)})`;
   });
   const worst = stats.by_type
-    .filter((t) => t.n >= 10 && t[best] && t.v0_baseline)
-    .map((t) => ({ type: t.type, d: t[best].ai_correct - t.v0_baseline.ai_correct }))
+    .filter((t) => t.n >= 10 && t[best] && t[BASE])
+    .map((t) => ({ type: t.type, d: t[best].ai_correct - t[BASE].ai_correct }))
     .filter((t) => t.d < -0.05).sort((a, b) => a.d - b.d);
-  const decode = V.map((v) => `${VARIANT[v].short} ${H[v].decode_tok_per_s}`).join(' · ');
-  const cal = Object.values(stats.judge_calibration || {});
-  const calSame = cal.reduce((a, c) => a + c.identical_answers, 0);
-  const calAgree = cal.reduce((a, c) => a + c.verdict_agree, 0);
 
   const summary = `
 <section class="card lead">
   <p class="eyebrow">데이터가 가리키는 후보</p>
   <h2><span class="dot" style="background:${VARIANT[best].color.replace('var(--', 'var(--c-')}"></span>${esc(VARIANT[best].name)} <code>${best}</code></h2>
   <ul>
-    <li><b>내용 정확도 ${pct(H.v0_baseline.ai_correct.rate)} → ${pct(H[best].ai_correct.rate)}</b>
+    <li><b>내용 정확도 ${pct(H[BASE].ai_correct.rate)} → ${pct(H[best].ai_correct.rate)}</b>
       — 같은 문항 짝 비교 ${signed(p0.ai_correct.net_b_minus_a)}문항, Holm ${pFmt(p0.ai_correct.p_holm)}</li>
     <li>막아야 할 문항 ${signed(ax.should_hold.only_b)} / ${'−' + ax.should_hold.only_a}문항 (${pFmt(ax.should_hold.p_mcnemar)}),
       답해야 할 문항 ${signed(ax.answerable.only_b)} / ${'−' + ax.answerable.only_a}문항 (${pFmt(ax.answerable.p_mcnemar)}, ${verdict(ax.answerable.p_mcnemar, ax.answerable.net_b_minus_a)})
       — <b>보류를 늘리면서 답변 능력을 잃지 않은 안</b></li>
     <li>다른 안과 비교: ${vsOthers.map(esc).join(' · ')}</li>
-    ${worst.length ? `<li>남은 약점(v0보다 5%p 이상 하락, 10문항 이상 유형): ${worst.map((w) => `${esc(w.type)} ${signed(Math.round(w.d * 100))}%p`).join(' · ')}</li>` : ''}
+    ${worst.length ? `<li>남은 약점(${B0}보다 5%p 이상 하락, 10문항 이상 유형): ${worst.map((w) => `${esc(w.type)} ${signed(Math.round(w.d * 100))}%p`).join(' · ')}</li>` : ''}
   </ul>
-  <p class="rule">후보 규칙: v0 대비 "답해야 할 문항"을 유의하게(p&lt;0.05) 잃지 않은 안 중 내용 정확도가 가장 높은 안. 최종 채택은 사람이 판단한다.</p>
+  <p class="rule">후보 규칙: ${B0} 대비 "답해야 할 문항"을 유의하게(p&lt;0.05) 잃지 않은 안 중 내용 정확도가 가장 높은 안. 최종 채택은 사람이 판단한다.</p>
 </section>`;
 
   // ---- 표 1: 전체 비교
   const t1 = V.map((v) => {
     const h = H[v], a = stats.two_axis[v];
     return `<tr${v === best ? ' class="hi"' : ''}><th>${esc(VARIANT[v].name)}</th>
-      <td>${ci(h.ai_correct)}</td><td>${ci(h.ai_grounded)}</td><td>${ci(h.status_match)}</td>
+      <td>${ci(h.ai_correct)}</td><td>${h.correct_grounded ? pct(h.correct_grounded.rate) : '-'}</td><td>${ci(h.ai_grounded)}</td><td>${ci(h.status_match)}</td>
       <td>${h.abstain_f1 != null ? h.abstain_f1.toFixed(3) : '-'}</td>
       <td>${pct(a.answerable.ai_correct.rate)}</td><td>${pct(a.should_hold.ai_correct.rate)}</td>
       <td>${a.answerable.over_refusal.k}</td><td>${a.should_hold.over_answer.k}</td>
@@ -527,20 +630,20 @@ function dashboardHtml(stats, charts) {
 </style></head>
 <body><div class="wrap">
 <h1>프롬프트 비교 — ${esc(stats.model)}</h1>
-<p class="meta">생성 시각 ${new Date().toISOString()} · 출처 <code>results/${PROMPT_SUITE}/${path.basename(stats.__file || 'prompt_stats.json')}</code><br>
-모델 고정, 시스템 프롬프트만 변경 · temperature 0 · 추론 끔 · 고유 300문항 · 대조군 v0는 <code>${esc(stats.runs.v0_baseline.runId)}</code></p>
+<p class="meta">생성 시각 ${new Date().toISOString()} · 출처 <code>results/${suite}/${path.basename(stats.__file || 'prompt_stats.json')}</code><br>
+모델 고정, 시스템 프롬프트만 변경 · temperature 0 · 추론 끔 · 고유 300문항 · 대조군 ${B0}는 <code>${esc(stats.runs[BASE].runId)}</code></p>
 ${summary}
 <section class="card">
   <h3>전체 비교</h3>
   <div class="scroll"><table>
-    <thead><tr><th></th><th>내용 정확도(AI) [95% CI]</th><th>근거율(AI)</th><th>기대 상태 일치</th><th>부재 F1</th>
+    <thead><tr><th></th><th>내용 정확도(AI) [95% CI]</th><th>정답·무환각</th><th>근거율(AI)</th><th>기대 상태 일치</th><th>부재 F1</th>
       <th>답할 문항 정답</th><th>막을 문항 정답</th><th>과잉 보류</th><th>과잉 답변</th><th>환각 답변</th><th>표현 /5</th>
       <th>평균 지연</th><th>P95</th><th>입력 토큰</th></tr></thead>
     <tbody>${t1}</tbody>
   </table></div>
-  <p class="tbl-note">답할 문항 = 기대 상태 답변·부분 답변(${stats.two_axis.v0_baseline.answerable.n}문항), 막을 문항 = 보류·확인 요청·범위 밖·충돌 고지(${stats.two_axis.v0_baseline.should_hold.n}문항).
-    과잉 보류 = 답할 문항을 보류·확인·범위 밖으로 뺀 수, 과잉 답변 = 막을 문항에 답변·부분 답변을 낸 수.<br>
-    <b>지연은 프롬프트 효과가 아니다</b> — 디코딩 속도(tok/s)가 ${decode}로 v0 실행 환경이 달랐다. v1~v3끼리의 지연 차이는 짝 비교로 0.01초 수준이다.</p>
+  <p class="tbl-note">답할 문항 = 기대 상태 답변·부분 답변(${stats.two_axis[BASE].answerable.n}문항), 막을 문항 = 보류·확인 요청·범위 밖·충돌 고지(${stats.two_axis[BASE].should_hold.n}문항).
+    과잉 보류 = 답할 문항을 보류·확인·범위 밖으로 뺀 수, 과잉 답변 = 막을 문항에 답변·부분 답변을 낸 수. 정답·무환각 = 정답이면서 실질적 환각 없음(계획서 주지표).<br>
+    ${latencyNote}</p>
 </section>
 <section class="card">
   <h3>같은 문항 짝 비교 (McNemar 정확검정)</h3>
@@ -549,14 +652,14 @@ ${summary}
       <th>상태 일치 순증</th><th>상태 p (Holm)</th><th>Judge 설정</th></tr></thead>
     <tbody>${t2}</tbody>
   </table></div>
-  <p class="tbl-note">순증 = B만 정답 − A만 정답(문항 수). Holm은 지표별 6쌍 다중 비교 보정. 300문항에서 1문항 ≈ 0.3%p.<br>
-    Judge 설정: v0는 gpt-6-astra medium, v1~v3는 ultra. v0와 답이 글자까지 같은 ${calSame}건에서 두 설정의 판정 일치 ${calAgree}/${calSame}건 — 설정 차이의 영향은 작다.</p>
+  <p class="tbl-note">순증 = B만 정답 − A만 정답(문항 수). Holm은 지표별 ${stats.paired.length}쌍 다중 비교 보정. 300문항에서 1문항 ≈ 0.3%p.<br>
+    ${judgeNote}</p>
 </section>
 ${figs}
 <footer>
-  다시 만들기: <code>node scripts/test3/prompt_stats.js --model ${esc(stats.model)} --date &lt;날짜&gt;</code> →
-  <code>node scripts/test3/prompt_charts.js --model ${esc(stats.model)} --date &lt;날짜&gt;</code><br>
-  차트 원본 SVG는 <code>results/${PROMPT_SUITE}/charts/</code>, 표 원문은 <code>results/${PROMPT_SUITE}/prompt_test_*.md</code>.
+  다시 만들기: <code>node scripts/prompt_test/round1/prompt_stats.js --model ${esc(stats.model)} --date &lt;날짜&gt;</code> →
+  <code>node scripts/prompt_test/round1/prompt_charts.js --model ${esc(stats.model)} --date &lt;날짜&gt;</code><br>
+  차트 원본 SVG는 <code>results/${suite}/charts/</code>, 표 원문은 <code>results/${suite}/prompt_test_*.md</code>.
 </footer>
 </div>
 <div id="tip" role="tooltip"></div>
@@ -589,26 +692,30 @@ function main() {
   const model = get('--model', 'qwen3:14b');
   const date = get('--date', null);
   if (!date) throw new Error('--date가 필요합니다 (예: 20260922)');
+  const suite = SUITE;
   const slug = sanitizeTag(model);
-  const statsPath = path.join(ROOT, 'results', PROMPT_SUITE, `prompt_stats_${slug}_${date}.json`);
+  const statsPath = path.join(ROOT, 'results', suite, `prompt_stats_${slug}_${date}.json`);
   if (!fs.existsSync(statsPath)) throw new Error(`통계 파일이 없습니다. 먼저 prompt_stats.js를 실행하세요: ${statsPath}`);
   const stats = JSON.parse(fs.readFileSync(statsPath, 'utf8'));
   stats.__file = path.basename(statsPath);
+  setVariants(stats);
+  // 유형별 차트(③④)의 비교 상대 = 후보 규칙이 고른 안.
+  const focus = pickCandidate(stats);
 
-  const outDir = path.join(ROOT, 'results', PROMPT_SUITE, 'charts');
+  const outDir = path.join(ROOT, 'results', suite, 'charts');
   fs.mkdirSync(outDir, { recursive: true });
   const charts = {
     'prompt_two_axis.svg': twoAxisSvg(stats),
     'prompt_gain_loss.svg': gainLossSvg(stats),
-    'prompt_by_type.svg': byTypeSvg(stats),
-    'prompt_head_to_head.svg': headToHeadSvg(stats),
+    'prompt_by_type.svg': byTypeSvg(stats, BASE, focus),
+    'prompt_head_to_head.svg': headToHeadSvg(stats, BASE, focus),
   };
   for (const [name, svg] of Object.entries(charts)) {
     fs.writeFileSync(path.join(outDir, name), svg, 'utf8');
     console.log(`차트 저장: ${path.relative(ROOT, path.join(outDir, name))}`);
   }
-  const dash = path.join(ROOT, 'results', PROMPT_SUITE, 'dashboard.html');
-  fs.writeFileSync(dash, dashboardHtml(stats, Object.values(charts)), 'utf8');
+  const dash = path.join(ROOT, 'results', suite, 'dashboard.html');
+  fs.writeFileSync(dash, dashboardHtml(stats, Object.values(charts), suite), 'utf8');
   console.log(`대시보드 저장: ${path.relative(ROOT, dash)}`);
 }
 

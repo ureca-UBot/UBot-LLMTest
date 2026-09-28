@@ -144,13 +144,13 @@ LLM_TEST_SUITE=test3 LLM_JUDGE_BATCH=test3-round1 node scripts/test2/build_resul
 대조군으로 재사용한다.
 
 ```bash
-node scripts/test3/run_prompt_test.js qwen3:14b --dry-run   # run_id만 확인
+node scripts/prompt_test/round1/run_prompt_test.js qwen3:14b --dry-run   # run_id만 확인
 tmux new -s prompt
-node scripts/test3/run_prompt_test.js qwen3:14b 2>&1 | tee -a test3_prompt_$(date +%Y%m%d).log
+node scripts/prompt_test/round1/run_prompt_test.js qwen3:14b 2>&1 | tee -a test3_prompt_$(date +%Y%m%d).log
 ```
 
 결과는 `results/test3_prompt/prompt_test_<모델>_<날짜>.md`에 나온다. 자세한 사용법과 결과 읽는 법은
-[PROMPT_TEST.md](PROMPT_TEST.md) 참고.
+[PROMPT_TEST.md](../prompt_test/round1/PROMPT_TEST.md) 참고. 2차는 [PROMPT_ROUND2_RUN.md](../prompt_test/round2/PROMPT_ROUND2_RUN.md)를 따른다.
 
 ## 8. 결과 회수
 

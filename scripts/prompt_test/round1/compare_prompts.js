@@ -8,19 +8,19 @@
 // 두 suite를 섞어 읽으므로 run을 읽을 때마다 suite를 함께 들고 다닌다.
 //
 // Usage:
-//   node scripts/test3/compare_prompts.js --model qwen3:14b [--date 20260922]
+//   node scripts/prompt_test/round1/compare_prompts.js --model qwen3:14b [--date 20260922]
 //     [--variants a,b] [--baseline <run_id>] [--out <md 경로>] [--limit-tag N]
 //     [--failed "v1_x:exit 1;..."]
 
 const fs = require('fs');
 const path = require('path');
-const models = require('./config/models');
-const { ROOT, sanitizeTag } = require('./lib/runner');
-const { collectRun, loadPrimaryCases, findRunId, readJsonl, readJson } = require('./lib/collect');
-const { suiteTag } = require('../test2/lib/suite');
-const { parseCsvObjects } = require('../test2/lib/csv');
-const { expectedStatusEnum } = require('../test2/lib/status_map');
-const { PROMPT_NOTES, ROUND1_VARIANTS } = require('../test2/lib/prompts');
+const models = require('../../test3/config/models');
+const { ROOT, sanitizeTag } = require('../../test3/lib/runner');
+const { collectRun, loadPrimaryCases, findRunId, readJsonl, readJson } = require('../../test3/lib/collect');
+const { suiteTag } = require('../../test2/lib/suite');
+const { parseCsvObjects } = require('../../test2/lib/csv');
+const { expectedStatusEnum } = require('../../test2/lib/status_map');
+const { PROMPT_NOTES, ROUND1_VARIANTS } = require('../../test2/lib/prompts');
 
 // 프롬프트 안 결과가 쌓이는 suite (러너가 LLM_TEST_SUITE로 넘겨준다).
 const SUITE = suiteTag();
@@ -162,7 +162,7 @@ function resolveRuns(model, date, variants, baselineOverride, baselineSuite) {
 function main() {
   const opts = parseArgs(process.argv.slice(2));
   if (!opts.model) {
-    console.error('usage: node scripts/test3/compare_prompts.js --model <tag> [--date YYYYMMDD]'
+    console.error('usage: node scripts/prompt_test/round1/compare_prompts.js --model <tag> [--date YYYYMMDD]'
       + '\n  [--variants a,b] [--baseline <run_id>] [--out <md 경로>]');
     process.exit(1);
   }
@@ -196,7 +196,7 @@ function main() {
   const L = [];
   const tag = opts.limitTag ? ` · 문항 ${opts.limitTag}건만` : '';
   L.push(`# 프롬프트 비교 — ${opts.model} (${SUITE}${tag})`, '');
-  L.push('> 자동 생성 문서입니다 (`scripts/test3/compare_prompts.js`). 같은 이름으로 다시 생성하면 덮어써집니다.');
+  L.push('> 자동 생성 문서입니다 (`scripts/prompt_test/round1/compare_prompts.js`). 같은 이름으로 다시 생성하면 덮어써집니다.');
   L.push('> "사람 판단" 칸을 채웠다면 파일을 복사해 두세요.');
   L.push(`> 생성 시각: ${new Date().toISOString()}`, '');
 

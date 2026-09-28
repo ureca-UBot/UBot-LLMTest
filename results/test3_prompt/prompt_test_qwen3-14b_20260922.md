@@ -1,6 +1,6 @@
 # 프롬프트 비교 — qwen3:14b (test3_prompt)
 
-> 자동 생성 문서입니다 (`scripts/test3/compare_prompts.js`). 같은 이름으로 다시 생성하면 덮어써집니다.
+> 자동 생성 문서입니다 (`scripts/prompt_test/round1/compare_prompts.js`). 같은 이름으로 다시 생성하면 덮어써집니다.
 > "사람 판단" 칸을 채웠다면 파일을 복사해 두세요.
 > 생성 시각: 2026-09-22T06:32:42.536Z
 

@@ -1,5 +1,5 @@
 'use strict';
-// 프롬프트 2차 테스트 LLM Judge. 설계: scripts/test3/PROMPT_ROUND2_PLAN.md §8
+// 프롬프트 2차 테스트 LLM Judge. 설계: scripts/prompt_test/round2/PROMPT_ROUND2_PLAN.md §8
 //
 // 기준선 v2와 같은 Judge로 채점해야 비교가 성립한다. 그래서 1차 채점과 같은 것을 쓴다.
 //   - 채점 기준·입력 형식: results/test3/llm_judge_review/evaluator/ 의 보존본
@@ -12,11 +12,11 @@
 // 1차에서 입력이 같은 답변은 판정이 100% 같았다(계획서 §8). 정정본으로 라벨이 바뀐
 // UI-0016·UI-0053이나 다시 생성한 MT-0109·MT-0111은 입력이 달라지므로 자동으로 새로 채점된다.
 //
-//   node scripts/test3/judge_round2.js prepare <batch> --runs <run_id,run_id,...>
+//   node scripts/prompt_test/round2/judge_round2.js prepare <batch> --runs <run_id,run_id,...>
 //        입력 준비 + 같은 입력 판정 재사용. Judge를 호출하지 않는다.
-//   node scripts/test3/judge_round2.js run <batch> [--concurrency 1..8] [--limit N] [--kind accuracy|safety]
+//   node scripts/prompt_test/round2/judge_round2.js run <batch> [--concurrency 1..8] [--limit N] [--kind accuracy|safety]
 //        남은 문항만 Judge 호출. 멈추면 같은 명령으로 이어서 한다.
-//   node scripts/test3/judge_round2.js status <batch>
+//   node scripts/prompt_test/round2/judge_round2.js status <batch>
 //
 // Codex 실행 파일은 LLM_JUDGE_CODEX_BIN으로 바꿀 수 있다(기본 codex).
 
@@ -24,8 +24,8 @@ const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
 const R = require('./lib/round2');
-const { resolveSystemPrompt } = require('../test2/lib/prompts');
-const { makeAppender } = require('../test2/lib/jsonl');
+const { resolveSystemPrompt } = require('../../test2/lib/prompts');
+const { makeAppender } = require('../../test2/lib/jsonl');
 
 const EVALUATOR_DIR = path.join(R.ROOT, 'results', 'test3', 'llm_judge_review', 'evaluator');
 const prompts = require(path.join(EVALUATOR_DIR, 'judge_prompts.js'));
@@ -385,7 +385,7 @@ function printStatus(batch) {
       console.log(`${run.run_id} | ${kind} | ${jobs.length} | ${have.length} | ${have.filter((j) => j.reused_from).length} | ${pending} | ${unscorable}`);
     }
   }
-  console.log(pendingTotal ? `\n남은 채점 ${pendingTotal}건 — node scripts/test3/judge_round2.js run ${batch} --concurrency 4` : '\n모든 문항 채점 완료.');
+  console.log(pendingTotal ? `\n남은 채점 ${pendingTotal}건 — node scripts/prompt_test/round2/judge_round2.js run ${batch} --concurrency 4` : '\n모든 문항 채점 완료.');
 }
 
 function parseArgs(argv) {
@@ -408,7 +408,7 @@ function parseArgs(argv) {
 async function main() {
   const { command, batch, opts } = parseArgs(process.argv.slice(2));
   if (!batch || !['prepare', 'run', 'status'].includes(command)) {
-    console.error('usage: node scripts/test3/judge_round2.js <prepare|run|status> <batch> [--runs a,b] [--concurrency N] [--limit N] [--kind K]');
+    console.error('usage: node scripts/prompt_test/round2/judge_round2.js <prepare|run|status> <batch> [--runs a,b] [--concurrency N] [--limit N] [--kind K]');
     process.exit(1);
   }
   R.checkId(batch, 'batch');

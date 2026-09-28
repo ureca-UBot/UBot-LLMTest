@@ -206,7 +206,7 @@ v0와의 기대 상태 일치는 238→255건이다. 같은 ID끼리 비교하�
 - [실제 Judge 실행 설정][execution] · [준비 입력 매니페스트][manifest] · [내용 평가 기준][rubric]
 
 [prompts]: ../../scripts/test2/lib/prompts.js
-[design]: ../../scripts/test3/PROMPT_DESIGN.md
+[design]: ../../scripts/prompt_test/round1/PROMPT_DESIGN.md
 [cases]: ../../data/eval_sets/test_set2/cases.csv
 [csv-parser]: ../../scripts/test2/lib/csv.js
 [generation]: ../raw/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/generation.jsonl

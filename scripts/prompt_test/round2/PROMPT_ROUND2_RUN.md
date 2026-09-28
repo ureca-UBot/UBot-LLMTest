@@ -3,7 +3,7 @@
 설계와 판정 기준은 [PROMPT_ROUND2_PLAN.md](PROMPT_ROUND2_PLAN.md)에 있다. 이 문서는 **어떤 명령을 어떤 순서로 돌리는지**만 다룬다.
 
 - 모델: `qwen3:14b` 하나 · temperature 0 · 추론 끔 · seed 미고정 (1차와 동일)
-- 문항: 정정본 `data/eval_sets/test_set2/cases_r2.csv` (정정 내역: [cases_r2_errata.md](../../data/eval_sets/test_set2/cases_r2_errata.md)) + 신규 `new_r2.csv`
+- 문항: 정정본 `data/eval_sets/test_set2/cases_r2.csv` (정정 내역: [cases_r2_errata.md](../../../data/eval_sets/test_set2/cases_r2_errata.md)) + 신규 `new_r2.csv`
 - 결과: `results/{raw,scored}/test3_prompt_r2/` · Judge 입력 `results/judge_inputs/test3_prompt_r2/` · 보고서 `results/test3_prompt_r2/`
 - **생성만** 하고 1차 파이프라인의 결정론 채점(NLI·임베딩)은 돌리지 않는다. 판정 기준은 전부 Judge 결과와 생성 레코드(status·포맷·지연)로 계산한다.
 
@@ -39,7 +39,7 @@
 ## 2. Phase 0 — 기준선
 
 ```bash
-node scripts/test3/run_prompt_round2.js baseline --date 20261001
+node scripts/prompt_test/round2/run_prompt_round2.js baseline --date 20261001
 ```
 
 1. 대화 이력을 고친 MT-0109·MT-0111만 v2로 다시 생성한다(`..._v2_value_guard_t0_nothink_<날짜>_regen`).
@@ -50,7 +50,7 @@ node scripts/test3/run_prompt_round2.js baseline --date 20261001
 ## 3. Phase 1 — 스모크
 
 ```bash
-node scripts/test3/run_prompt_round2.js smoke --date 20261001
+node scripts/prompt_test/round2/run_prompt_round2.js smoke --date 20261001
 ```
 
 v4~v7 네 안을 각각 **표적 문항 + 감시 문항 20건**에만 돌린다(총 190회). 문항 목록은 [config/round2_smoke.json](config/round2_smoke.json)에 고정돼 있고, 실행할 때마다 계획서 §5.3의 정의로 다시 계산해 파일과 같은지 확인한다.
@@ -67,7 +67,7 @@ v4~v7 네 안을 각각 **표적 문항 + 감시 문항 20건**에만 돌린다(
 생성이 끝나면 명령이 출력하는 `judge_round2.js prepare …` 줄을 그대로 Judge 실행자에게 넘긴다(기준선 run이 포함돼 있다). 채점이 끝나면:
 
 ```bash
-node scripts/test3/report_round2.js smoke --date 20261001
+node scripts/prompt_test/round2/report_round2.js smoke --date 20261001
 ```
 
 `results/test3_prompt_r2/smoke_<날짜>.md`에 블록별 통과·탈락과 조합안 명령이 나온다. 통과 조건(계획서 §5.4)은 **정답∧근거**(Judge 정답이면서 실질적 환각 없음)를 같은 문항끼리 짝지어 센다.
@@ -80,7 +80,7 @@ node scripts/test3/report_round2.js smoke --date 20261001
 ## 4. Phase 2 — 조합안과 최종 판정
 
 ```bash
-node scripts/test3/run_prompt_round2.js combo --blocks v4,v6 --date 20261003
+node scripts/prompt_test/round2/run_prompt_round2.js combo --blocks v4,v6 --date 20261003
 ```
 
 조합안 이름은 통과한 블록으로 정해진다(`v9_combo-v4-v6` = v2 + v4 블록 + v6 블록, 순서는 v4→v7 고정). 정정본 300문항과 신규 50문항을 각각 한 run으로 돌린다. `new_r2.csv`가 없으면 신규 run은 건너뛰고 경고한다(이 경우 신규 문항 기준은 "미측정"으로 불통과 처리된다).
@@ -88,7 +88,7 @@ node scripts/test3/run_prompt_round2.js combo --blocks v4,v6 --date 20261003
 채점이 끝나면:
 
 ```bash
-node scripts/test3/report_round2.js final --combo v9_combo-v4-v6 --date 20261003
+node scripts/prompt_test/round2/report_round2.js final --combo v9_combo-v4-v6 --date 20261003
 ```
 
 `results/test3_prompt_r2/final_<조합안>_<날짜>.md`에 §2.1 기준선 표의 통과 여부와 §2.3 종료 규칙에 따른 결정이 나온다.
@@ -118,13 +118,13 @@ v2 기준선과 비교하려면 **1차와 같은 Judge**로 채점해야 한다.
 
 ```bash
 # 1) 입력 준비 — Judge를 부르지 않는다. 같은 입력의 기존 판정은 여기서 가져온다.
-node scripts/test3/judge_round2.js prepare smoke-20261001 --runs <run_id,run_id,...>
+node scripts/prompt_test/round2/judge_round2.js prepare smoke-20261001 --runs <run_id,run_id,...>
 
 # 2) 채점 — 남은 문항만. 멈추면 같은 명령으로 이어서 한다.
-node scripts/test3/judge_round2.js run smoke-20261001 --concurrency 4
+node scripts/prompt_test/round2/judge_round2.js run smoke-20261001 --concurrency 4
 
 # 진행 상황
-node scripts/test3/judge_round2.js status smoke-20261001
+node scripts/prompt_test/round2/judge_round2.js status smoke-20261001
 ```
 
 **다시 채점하지 않는 경우**(계획서 §8). Judge에 들어가는 입력이 글자까지 같으면 판정도 같았으므로(1차에서 차이 없음) 가져다 쓴다. 가져온 판정에는 `reused_from`이 붙는다.
@@ -139,7 +139,7 @@ node scripts/test3/judge_round2.js status smoke-20261001
 
 `cases.csv`와 **같은 컬럼**을 쓴다. 채점 스크립트가 쓰는 컬럼은 `ID`, `유형`, `난이도`, `User Question`, `제공 Context`, `대화 이력`, `사용자 정보 / API 결과`, `정답 예시`, `필수 포함 사실`, `기대 응답 상태`, `실행 회차`(모두 `1`)다.
 
-`유형`은 아래 이름을 그대로 써야 판정 스크립트가 묶음을 찾는다(`scripts/test3/lib/round2.js`의 `NEW_TYPES`).
+`유형`은 아래 이름을 그대로 써야 판정 스크립트가 묶음을 찾는다(`scripts/prompt_test/round2/lib/round2.js`의 `NEW_TYPES`).
 
 | 유형 값 | 문항 수 | 판정 기준 | 비고 |
 |---|---:|---|---|
@@ -155,12 +155,12 @@ node scripts/test3/judge_round2.js status smoke-20261001
 
 | 파일 | 역할 |
 |---|---|
-| `scripts/test3/run_prompt_round2.js` | 생성 실행기 (baseline · smoke · combo · latency-check · smoke-sets) |
-| `scripts/test3/judge_round2.js` | Judge 입력 준비·재사용·채점 |
-| `scripts/test3/report_round2.js` | 스모크 판정·최종 판정 보고서 |
-| `scripts/test3/lib/round2.js` | 공통 상수·경로·문항 판정 규칙·기준 수치(`THRESHOLDS`) |
-| `scripts/test3/config/round2_smoke.json` | 고정한 스모크 문항 목록 |
-| `scripts/test3/build_new_r2.js` | 신규 50문항(`new_r2.csv`) 생성기 |
+| `scripts/prompt_test/round2/run_prompt_round2.js` | 생성 실행기 (baseline · smoke · combo · latency-check · smoke-sets) |
+| `scripts/prompt_test/round2/judge_round2.js` | Judge 입력 준비·재사용·채점 |
+| `scripts/prompt_test/round2/report_round2.js` | 스모크 판정·최종 판정 보고서 |
+| `scripts/prompt_test/round2/lib/round2.js` | 공통 상수·경로·문항 판정 규칙·기준 수치(`THRESHOLDS`) |
+| `scripts/prompt_test/round2/config/round2_smoke.json` | 고정한 스모크 문항 목록 |
+| `scripts/prompt_test/round2/build_new_r2.js` | 신규 50문항(`new_r2.csv`) 생성기 |
 | `scripts/test2/lib/prompts.js` | v4~v7 블록(`ROUND2_BLOCKS`)과 조합안 조립(`v9_combo-…`) |
 | `scripts/test2/run_generation.js` | `--ids <파일>`(지정 문항만), 문항 파일은 `LLM_TEST_CASES`로 지정 |
 | `results/raw/test3_prompt_r2/<run>/run_meta.json` | 안·문항 파일·시스템 프롬프트 해시 등 run 설정 기록 |

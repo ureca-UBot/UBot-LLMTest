@@ -2,7 +2,7 @@
 
 `cases_r2.csv`는 `cases.csv`(380행)와 **같은 문항·같은 행 수**에 오류 정정만 반영한 파일이다. 문항을 추가하지 않았다. 원본 `cases.csv`는 test1~test3·1차 프롬프트 테스트의 기준이므로 수정하지 않는다.
 
-적용 대상: 프롬프트 2차 테스트([PROMPT_ROUND2_PLAN.md](../../../scripts/test3/PROMPT_ROUND2_PLAN.md) §2.2·§4.2).
+적용 대상: 프롬프트 2차 테스트([PROMPT_ROUND2_PLAN.md](../../../scripts/prompt_test/round2/PROMPT_ROUND2_PLAN.md) §2.2·§4.2).
 
 ## 정정 내역
 

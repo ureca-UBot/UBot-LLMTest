@@ -1,9 +1,9 @@
 'use strict';
-// 프롬프트 2차 테스트 판정 보고서. 설계: scripts/test3/PROMPT_ROUND2_PLAN.md
+// 프롬프트 2차 테스트 판정 보고서. 설계: scripts/prompt_test/round2/PROMPT_ROUND2_PLAN.md
 //
-//   node scripts/test3/report_round2.js smoke --date YYYYMMDD
+//   node scripts/prompt_test/round2/report_round2.js smoke --date YYYYMMDD
 //        Phase 1: 블록별 스모크 통과 여부(§5.4)와 조합안 명령
-//   node scripts/test3/report_round2.js final --combo v9_combo-v4-v6 --date YYYYMMDD [--rerun]
+//   node scripts/prompt_test/round2/report_round2.js final --combo v9_combo-v4-v6 --date YYYYMMDD [--rerun]
 //        Phase 2: 최종 통과 기준선(§2.1) 판정과 종료 규칙(§2.3) 결정
 //
 // 기준선은 정정본 기준 v2 run(r2base)이다. "v2 값" 기준(답할 문항·멀티턴)은 판정할 때
@@ -154,7 +154,7 @@ function smoke(opts) {
     L.push('통과한 블록이 없습니다. 계획서 §6.1에 따라 **v2를 최종 프롬프트로 확정하고 프롬프트 테스트를 종료**합니다.');
   } else {
     L.push(`통과 블록: ${passed.join(', ')} → 조합안 300문항 + 신규 50문항 실행:`, '', '```bash',
-      `node scripts/test3/run_prompt_round2.js combo --blocks ${passed.join(',')}`, '```');
+      `node scripts/prompt_test/round2/run_prompt_round2.js combo --blocks ${passed.join(',')}`, '```');
   }
   writeOut(`smoke_${opts.date}`, L.join('\n') + '\n', { date: opts.date, baseline: base.runId, passed_blocks: passed, rows });
 }
@@ -267,5 +267,5 @@ try {
   const opts = parseArgs(process.argv.slice(2));
   if (opts.mode === 'smoke') smoke(opts);
   else if (opts.mode === 'final') final(opts);
-  else throw new Error('usage: node scripts/test3/report_round2.js <smoke|final> --date YYYYMMDD [--combo 이름] [--rerun]');
+  else throw new Error('usage: node scripts/prompt_test/round2/report_round2.js <smoke|final> --date YYYYMMDD [--combo 이름] [--rerun]');
 } catch (e) { console.error(`[중단] ${e.message}`); process.exit(1); }

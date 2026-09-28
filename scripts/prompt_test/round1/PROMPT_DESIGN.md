@@ -1,7 +1,7 @@
 # 프롬프트 3안 설계 근거
 
 대상: `qwen3:14b` (temperature 0, 추론 off) · 프롬프트만 바꾸고 나머지 조건은 test3 추론 off 라운드와 동일
-근거 자료: [results/test3/ai_analysis.md](../../results/test3/ai_analysis.md) 13.1~13.2절, `ec2-linux_qwen3-14b_t0_nothink_20260920` 생성 결과 집계
+근거 자료: [results/test3/ai_analysis.md](../../../results/test3/ai_analysis.md) 13.1~13.2절, `ec2-linux_qwen3-14b_t0_nothink_20260920` 생성 결과 집계
 
 ## 1. v0의 약점 — 무엇을 고치려는가
 
@@ -66,4 +66,4 @@ v0 프롬프트는 "근거 없는 내용을 만들지 마라"고는 하지만, *
 - 지연도 함께 본다. 프롬프트가 길어지면 입력 토큰이 늘어난다. v0 기준 평균 5.51초 / P95 8.11초이고, 상담 실용선은 P95 3~5초다.
 - 채택 후에는 다른 모델(`gemma3:12b` 등)에서도 같은 방향으로 움직이는지 확인한다.
 
-실행 방법은 [PROMPT_TEST.md](PROMPT_TEST.md), 프롬프트 원문은 [scripts/test2/lib/prompts.js](../test2/lib/prompts.js)에 있다.
+실행 방법은 [PROMPT_TEST.md](PROMPT_TEST.md), 프롬프트 원문은 [scripts/test2/lib/prompts.js](../../test2/lib/prompts.js)에 있다.

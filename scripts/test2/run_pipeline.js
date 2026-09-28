@@ -8,7 +8,7 @@
 //   node scripts/run_pipeline.js <run_id> <model_tag> [--limit N] [--type T]
 //     [--difficulty D] [--skip-repeat] [--prompt V] [--primary-only]
 //
-// 프롬프트 4개 안을 한 번에 비교하려면 scripts/test3/run_prompt_test.js를 쓴다.
+// 프롬프트 4개 안을 한 번에 비교하려면 scripts/prompt_test/round1/run_prompt_test.js를 쓴다.
 //
 // run_id 컨벤션: <env>_<model>_<날짜> (예: local-win_gemma3-4b_20260917).
 // 정해진 게 없으면 run_all_models.js가 자동으로 만들어줌.

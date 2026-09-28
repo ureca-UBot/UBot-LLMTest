@@ -1,7 +1,7 @@
 # 프롬프트 2차 테스트 계획 — 통신 상담 AI 관점
 
 작성일: 2026-09-25 · 대상 모델: **`qwen3:14b` 하나만** (temperature 0, 추론 끔 — 1차와 동일)
-근거: 1차 프롬프트 테스트(v0~v3, 2026-09-22 생성 / Ultra Judge 채점). 1차 설계는 [PROMPT_DESIGN.md](PROMPT_DESIGN.md), 실행 방법은 [PROMPT_TEST.md](PROMPT_TEST.md).
+근거: 1차 프롬프트 테스트(v0~v3, 2026-09-22 생성 / Ultra Judge 채점). 1차 설계는 [PROMPT_DESIGN.md](../round1/PROMPT_DESIGN.md), 실행 방법은 [PROMPT_TEST.md](../round1/PROMPT_TEST.md).
 **2차 실행 방법은 [PROMPT_ROUND2_RUN.md](PROMPT_ROUND2_RUN.md)**에 있다.
 
 > **요약**
@@ -26,7 +26,7 @@
 
 ## 1. 1차 결과에서 이해한 것
 
-출처: [prompt_stats_qwen3-14b_20260922.json](../../results/test3_prompt/prompt_stats_qwen3-14b_20260922.json), [Ultra Judge 비교 문서](../../results/test3_prompt/prompt_test_qwen3-14b_20260922_judge_ultra.md)
+출처: [prompt_stats_qwen3-14b_20260922.json](../../../results/test3_prompt/prompt_stats_qwen3-14b_20260922.json), [Ultra Judge 비교 문서](../../../results/test3_prompt/prompt_test_qwen3-14b_20260922_judge_ultra.md)
 
 | 안 | 정답 | 근거 있음 | 정답∧근거 | 기대 상태 일치 | **답할 문항 정답** (n=196) | **막을 문항 정답** (n=104) |
 |---|---:|---:|---:|---:|---:|---:|
@@ -85,7 +85,7 @@
 | MT-0111 | 사용자: 하람 요금제가 궁금해요. | 사용자: **지금 하람 요금제 쓰고 있어요.** |
 
 - MT-0109의 "여울**으**로 바꾸려고요"는 오타라 "여울**로**"로 함께 고쳤다.
-- 질문·자료·정답 라벨·필수 사실은 그대로다. 수정 내역은 [cases_r2_errata.md](../../data/eval_sets/test_set2/cases_r2_errata.md)에 있다.
+- 질문·자료·정답 라벨·필수 사실은 그대로다. 수정 내역은 [cases_r2_errata.md](../../../data/eval_sets/test_set2/cases_r2_errata.md)에 있다.
 - **모델 입력이 바뀌었으므로** 두 문항은 v2 답변을 **다시 생성(2회)하고 채점(2건)**해야 기준선 비교가 성립한다.
 - 이제 가입 사실이 대화에 있으므로 v7 블록("가입 요금제가 대화나 조회 결과에 없으면 확인을 요청한다")과도 충돌하지 않는다. 멀티턴 기준은 27문항 전체로 적용한다.
 
@@ -103,7 +103,7 @@
 
 ### 2.4 v2 기준값은 재처리 후 바뀐다
 
-라벨 정정(§2.2, [정정 목록](../../data/eval_sets/test_set2/cases_r2_errata.md))으로 **v2 답변 4문항을 다시 처리**하므로, §2.1의 "v2 (1차 채점)" 열 값 일부가 바뀐다. 표의 v2 값은 1차 채점 기준이며 **최종 기준값이 아니다.**
+라벨 정정(§2.2, [정정 목록](../../../data/eval_sets/test_set2/cases_r2_errata.md))으로 **v2 답변 4문항을 다시 처리**하므로, §2.1의 "v2 (1차 채점)" 열 값 일부가 바뀐다. 표의 v2 값은 1차 채점 기준이며 **최종 기준값이 아니다.**
 
 | 문항 | 처리 | 바뀌는 v2 값 |
 |---|---|---|
@@ -152,8 +152,8 @@
 | # | 작업 | 산출물 |
 |---|---|---|
 | 0-1 | **라벨 정정본 (완료)** — `cases.csv`는 그대로 두고 `cases_r2.csv`와 정정 목록을 따로 만들었다. MT-0109·MT-0111 대화 이력(§2.2), UI-0016·UI-0053 정답 라벨의 "정수 GB로 계산" 문장 삭제(§2.4). 이어서 v2 재처리 4문항: MT 2건 재생성+재채점, UI 2건 재채점 | `cases_r2.csv`, `cases_r2_errata.md`, v2 재생성 2회·재채점 4건 |
-| 0-2 | **스모크 문항 목록 (완료)** (§5.3) | `scripts/test3/config/round2_smoke.json` |
-| 0-3 | **신규 50문항 작성 (완료)** (§6.2). Phase 1 결과를 보기 전에 끝냈다. 생성기가 정책 원문에서 정답 숫자를 계산한다 | `new_r2.csv`, `scripts/test3/build_new_r2.js` |
+| 0-2 | **스모크 문항 목록 (완료)** (§5.3) | `scripts/prompt_test/round2/config/round2_smoke.json` |
+| 0-3 | **신규 50문항 작성 (완료)** (§6.2). Phase 1 결과를 보기 전에 끝냈다. 생성기가 정책 원문에서 정답 숫자를 계산한다 | `new_r2.csv`, `scripts/prompt_test/round2/build_new_r2.js` |
 | 0-4 | **도구 수정 (완료)** (아래) | [PROMPT_ROUND2_RUN.md](PROMPT_ROUND2_RUN.md) §7 |
 
 **0-4 도구 수정 목록 (구현 완료)**
@@ -161,9 +161,9 @@
 1차 비교 스크립트(`compare_prompts.js`·`prompt_stats.js`)는 v0 대조군·medium/ultra 혼재를 전제로 짜여 있어 고치지 않고, 2차 전용 스크립트를 새로 만들었다.
 - `run_generation.js`: `--ids <파일>`(지정 문항만 생성). 문항 파일은 `LLM_TEST_CASES` 환경변수로 지정(기본 `cases.csv`, test2 파이프라인 전체 공통). 레코드에 `cases_file`을 남긴다
 - `scripts/test2/lib/prompts.js`: v4~v7 블록(`ROUND2_BLOCKS`)과 조합안 조립(`v9_combo-v4-v6` 이름에 구성을 담는다)
-- `scripts/test3/run_prompt_round2.js`: 생성 실행기 — **정정본 기준 v2 run 합성**(1차 v2 답변 298건 + 재생성 2건 → `…_v2_value_guard_t0_nothink_r2base`), 스모크, 조합안, 조건부 지연 확인
-- `scripts/test3/judge_round2.js`: Judge 입력 준비·채점. 1차와 같은 보존 rubric·입력 형식·`gpt-6-astra/ultra`를 쓰고, **Judge 입력이 글자까지 같은 판정은 재사용**(1차 v2 우선)한다(§8)
-- `scripts/test3/report_round2.js`: 스모크 판정(§5.4)과 최종 판정(§2.1 표 통과/불통과, §2.3 결정). **v2 연동 기준(³)은 판정 시점에 기준선 run에서 계산**하고, 요금·수치 오안내 후보를 뽑는다
+- `scripts/prompt_test/round2/run_prompt_round2.js`: 생성 실행기 — **정정본 기준 v2 run 합성**(1차 v2 답변 298건 + 재생성 2건 → `…_v2_value_guard_t0_nothink_r2base`), 스모크, 조합안, 조건부 지연 확인
+- `scripts/prompt_test/round2/judge_round2.js`: Judge 입력 준비·채점. 1차와 같은 보존 rubric·입력 형식·`gpt-6-astra/ultra`를 쓰고, **Judge 입력이 글자까지 같은 판정은 재사용**(1차 v2 우선)한다(§8)
+- `scripts/prompt_test/round2/report_round2.js`: 스모크 판정(§5.4)과 최종 판정(§2.1 표 통과/불통과, §2.3 결정). **v2 연동 기준(³)은 판정 시점에 기준선 run에서 계산**하고, 요금·수치 오안내 후보를 뽑는다
 - **Judge 실행**: Phase 0 재채점 4건은 따로 돌리지 않고 **Phase 1 스모크 Judge 배치에 함께 넣는다.** v2 기준선과 같은 Judge(`gpt-6-astra / ultra`, rubric `test3-saved-v1`)로 채점해야 하므로 다른 모델로 대신하지 않는다
 - suite는 `test3_prompt_r2`로 분리(정정본을 쓰므로 1차 결과와 섞지 않는다)
 

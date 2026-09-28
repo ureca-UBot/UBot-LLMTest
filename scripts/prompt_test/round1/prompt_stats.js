@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 'use strict';
-// 프롬프트 비교(test3_prompt)의 차트용 통계를 JSON 하나로 뽑는다.
+// 1차 프롬프트 비교(v0~v3)의 차트용 통계를 JSON 하나로 뽑는다.
 //
-//   node scripts/test3/prompt_stats.js --model qwen3:14b --date 20260922
+//   node scripts/prompt_test/round1/prompt_stats.js --model qwen3:14b --date 20260922
 //
 // compare_prompts.js가 "표"를 만든다면 이 스크립트는 그 표 밑의 문항 단위 비교를 한다.
 //   - 헤드라인 지표 + Wilson 95% CI
-//   - 같은 문항끼리 짝지은 McNemar 정확검정(상태 일치 · AI 정답 · AI 근거)
+//   - 같은 문항끼리 짝지은 McNemar 정확검정(상태 일치 · AI 정답 · AI 근거 · 정답이면서 환각 없음)
 //   - 지연 차이의 부트스트랩 95% CI
-//   - Judge 설정 차이(v0 = medium, v1~v3 = ultra) 교란 점검:
+//   - Judge 설정이 다른 안이 섞였을 때(1차: v0 = medium, v1~v3 = ultra) 교란 점검:
 //     답변이 글자까지 같은 문항에서 두 Judge 판정이 얼마나 일치하는지
 //   - 답해야 할 문항 vs 막아야 할 문항 두 축, status 분포, 유형별 표
 //
@@ -17,15 +17,39 @@
 
 const fs = require('fs');
 const path = require('path');
-const models = require('./config/models');
-const { ROOT, sanitizeTag } = require('./lib/runner');
-const { findRunId, readJsonl, readJson } = require('./lib/collect');
-const { parseCsvObjects } = require('../test2/lib/csv');
-const { expectedStatusEnum } = require('../test2/lib/status_map');
+const models = require('../../test3/config/models');
+const { ROOT, sanitizeTag } = require('../../test3/lib/runner');
+const { readJsonl, readJson } = require('../../test3/lib/collect');
+const { parseCsvObjects } = require('../../test2/lib/csv');
+const { expectedStatusEnum } = require('../../test2/lib/status_map');
 
-const PROMPT_SUITE = `${models.suite}_prompt`;
-const BASE_SUITE = models.suite;
-const VARIANTS = ['v0_baseline', 'v1_status_rules', 'v2_value_guard', 'v3_decision_tree'];
+const { ROUND1_VARIANTS } = require('../../test2/lib/prompts');
+
+// 1차 설정: 대조군 v0는 모델 라운드(test3)의 추론 off run, v1~v3는 전용 폴더(test3_prompt).
+const SUITE = `${models.suite}_prompt`;
+const CONDITION_SUFFIX = 't0_nothink';
+const BASELINE = 'v0_baseline';
+const BASELINE_SUITE = models.suite;
+const CANDIDATES = ROUND1_VARIANTS.filter((v) => v !== BASELINE);
+// 1차 비교 문서와 같은 방향의 6쌍(대조군 대비 3쌍 + 안끼리 3쌍).
+const PAIRS = [
+  ['v0_baseline', 'v1_status_rules'], ['v0_baseline', 'v2_value_guard'], ['v0_baseline', 'v3_decision_tree'],
+  ['v1_status_rules', 'v2_value_guard'], ['v3_decision_tree', 'v2_value_guard'], ['v1_status_rules', 'v3_decision_tree'],
+];
+
+// 날짜(YYYYMMDD)로 끝나는 정식 run만 찾는다. _smoke 같은 점검 run은 이름순으로 날짜보다
+// 뒤에 와서 "최신"으로 잘못 잡히므로 제외한다. date를 주면 그 날짜 run, 없으면 가장 최근 날짜 run.
+function findRun(suite, modelTag, condition, date = null) {
+  const base = path.join(ROOT, 'results', 'scored', suite);
+  if (!fs.existsSync(base)) return null;
+  const slug = sanitizeTag(modelTag);
+  const matches = fs.readdirSync(base)
+    .filter((d) => d.includes(`_${slug}_${condition}_`) && /_\d{8}$/.test(d))
+    .filter((d) => !date || d.endsWith(`_${date}`))
+    .sort();
+  return matches.length ? matches[matches.length - 1] : null;
+}
+
 const ANSWERABLE = new Set(['ANSWER', 'PARTIAL']);
 
 function parseArgs(argv) {
@@ -121,7 +145,7 @@ function loadCases() {
 // v0 판정은 jsonl이 아니라 llm_judge_review의 문항별 md에 들어 있다.
 // <summary>ID · 유형 · VERDICT</summary> 다음의 "AI 평가 결과" json 블록을 읽는다.
 function loadV0Judge(runId) {
-  const f = path.join(ROOT, 'results', BASE_SUITE, 'llm_judge_review', 't0_nothink', `${runId}.md`);
+  const f = path.join(ROOT, 'results', models.suite, 'llm_judge_review', 't0_nothink', `${runId}.md`);
   if (!fs.existsSync(f)) return null;
   const text = fs.readFileSync(f, 'utf8');
   const out = new Map();
@@ -215,6 +239,9 @@ function headline(run, absence) {
       ...wilson(judged.filter((r) => r.judge.correct).length, judged.length) },
     ai_grounded: { k: judged.filter((r) => r.judge.grounded).length, n: judged.length,
       ...wilson(judged.filter((r) => r.judge.grounded).length, judged.length) },
+    // 계획서의 주지표 — 정답이면서 실질적 환각 없음(두 독립 판정의 교집합).
+    correct_grounded: { k: judged.filter((r) => r.judge.correct && r.judge.grounded).length, n: judged.length,
+      ...wilson(judged.filter((r) => r.judge.correct && r.judge.grounded).length, judged.length) },
     hallucinated_cases: judged.filter((r) => !r.judge.grounded).length,
     grounding_avg: round(mean(judged.map((r) => r.judge.grounding))),
     expression_avg: round(mean(judged.map((r) => r.judge.expression))),
@@ -309,17 +336,22 @@ function statusDist(run) {
   return { dist, confusion };
 }
 
-function byType(runs) {
+function byType(runs, baseline) {
   const types = new Map();
   for (const [v, run] of Object.entries(runs)) {
     for (const r of run.values()) {
       if (!types.has(r.type)) types.set(r.type, {});
       const t = types.get(r.type);
-      t[v] = t[v] || { n: 0, status_hit: 0, judged: 0, ai_correct: 0, grounded: 0 };
+      t[v] = t[v] || { n: 0, status_hit: 0, judged: 0, ai_correct: 0, grounded: 0, correct_grounded: 0 };
       const s = t[v];
       s.n++;
       if (r.statusHit) s.status_hit++;
-      if (r.judge) { s.judged++; if (r.judge.correct) s.ai_correct++; if (r.judge.grounded) s.grounded++; }
+      if (r.judge) {
+        s.judged++;
+        if (r.judge.correct) s.ai_correct++;
+        if (r.judge.grounded) s.grounded++;
+        if (r.judge.correct && r.judge.grounded) s.correct_grounded++;
+      }
     }
   }
   const out = [];
@@ -330,11 +362,12 @@ function byType(runs) {
         status_match: round(s.status_hit / s.n),
         ai_correct: s.judged ? round(s.ai_correct / s.judged) : null,
         ai_grounded: s.judged ? round(s.grounded / s.judged) : null,
+        correct_grounded: s.judged ? round(s.correct_grounded / s.judged) : null,
       };
     }
     out.push(row);
   }
-  return out.sort((a, b) => (a.v0_baseline.ai_correct ?? 1) - (b.v0_baseline.ai_correct ?? 1));
+  return out.sort((a, b) => (a[baseline].ai_correct ?? 1) - (b[baseline].ai_correct ?? 1));
 }
 
 // Judge 설정 교란 점검: v0 답변과 글자까지 같은 답(status+answer)을 낸 문항에서
@@ -356,10 +389,9 @@ function judgeCalibration(v0, vx) {
     ultra_minus_medium_pp: same ? round((ultraOnly - mediumOnly) / same * 100, 2) : null };
 }
 
-// v0가 상태를 틀린 문항을 어느 안이 고쳤는가(UpSet 차트용).
-function fixOverlap(runs, pick) {
-  const base = runs.v0_baseline;
-  const others = VARIANTS.slice(1);
+// 대조군이 틀린 문항을 어느 안이 고쳤는가(UpSet 차트용).
+function fixOverlap(runs, pick, baseline, others) {
+  const base = runs[baseline];
   const combos = {};
   let v0Fail = 0;
   for (const [id, r] of base) {
@@ -369,7 +401,7 @@ function fixOverlap(runs, pick) {
     const key = fixed.length ? fixed.map((v) => v.split('_')[0]).join('+') : 'none';
     combos[key] = (combos[key] || 0) + 1;
   }
-  return { v0_fail: v0Fail, fixed_by: combos };
+  return { baseline_fail: v0Fail, fixed_by: combos };
 }
 
 function main() {
@@ -377,19 +409,18 @@ function main() {
   const slug = sanitizeTag(opts.model);
   const cases = loadCases();
 
+  const VARIANTS = [BASELINE, ...CANDIDATES];
   const runIds = {
-    v0_baseline: { suite: BASE_SUITE, runId: findRunId(BASE_SUITE, opts.model, 't0_nothink') },
+    [BASELINE]: { suite: BASELINE_SUITE, runId: findRun(BASELINE_SUITE, opts.model, CONDITION_SUFFIX) },
   };
-  for (const v of VARIANTS.slice(1)) {
-    const d = path.join(ROOT, 'results', 'scored', PROMPT_SUITE);
-    const id = fs.readdirSync(d).find((x) => x.includes(`_${slug}_${v}_t0_nothink_${opts.date}`));
-    runIds[v] = { suite: PROMPT_SUITE, runId: id };
+  for (const v of CANDIDATES) {
+    runIds[v] = { suite: SUITE, runId: findRun(SUITE, opts.model, `${v}_${CONDITION_SUFFIX}`, opts.date) };
   }
 
   const runs = {}, head = {}, axes = {}, status = {};
   for (const v of VARIANTS) {
     const { suite, runId } = runIds[v];
-    if (!runId) throw new Error(`${v} run을 찾지 못했습니다`);
+    if (!runId) throw new Error(`${v} run을 찾지 못했습니다 (results/scored/${suite}/, 날짜 ${v === BASELINE ? '최신' : opts.date})`);
     runs[v] = loadRun(v, suite, runId, cases);
     const absence = readJson(path.join(ROOT, 'results', 'scored', suite, runId, 'absence_detection_summary.json'));
     head[v] = headline(runs[v], absence);
@@ -397,14 +428,12 @@ function main() {
     status[v] = statusDist(runs[v]);
   }
 
-  const pairs = [
-    ['v0_baseline', 'v1_status_rules'], ['v0_baseline', 'v2_value_guard'], ['v0_baseline', 'v3_decision_tree'],
-    ['v1_status_rules', 'v2_value_guard'], ['v3_decision_tree', 'v2_value_guard'], ['v1_status_rules', 'v3_decision_tree'],
-  ];
+  const pairs = PAIRS;
   const metrics = {
     status_match: (r) => r.statusHit,
     ai_correct: (r) => (r.judge ? r.judge.correct : null),
     ai_grounded: (r) => (r.judge ? r.judge.grounded : null),
+    correct_grounded: (r) => (r.judge ? r.judge.correct && r.judge.grounded : null),
   };
   const pairedOut = [];
   for (const [a, b] of pairs) {
@@ -424,31 +453,42 @@ function main() {
     items.forEach((it, i) => { pairedOut[i][m].p_holm = round(it.p_holm, 5); });
   }
 
+  // Judge 설정이 대조군과 다른 안만 교란 점검을 한다(1차 v0 medium vs ultra). 같으면 비운다.
   const calib = {};
-  for (const v of VARIANTS.slice(1)) calib[v] = judgeCalibration(runs.v0_baseline, runs[v]);
+  for (const v of CANDIDATES) {
+    if (head[v].judge_effort.join() !== head[BASELINE].judge_effort.join()) calib[v] = judgeCalibration(runs[BASELINE], runs[v]);
+  }
+  const efforts = VARIANTS.map((v) => `${v.split('_')[0]} ${head[v].judge_effort.join('/') || '미채점'}`).join(', ');
 
   const out = {
     generated_at: new Date().toISOString(),
     model: opts.model,
+    baseline: BASELINE,
+    variants: CANDIDATES,
+    suite: SUITE,
     runs: runIds,
     notes: [
-      'v0 AI 판정은 gpt-6-astra/medium, v1~v3는 gpt-6-astra/ultra. v0 대비 AI 지표 차이에는 Judge 설정 차이가 섞인다 — judge_calibration 참고.',
-      '상태 일치·부재판단 F1·지연은 Judge와 무관한 결정론 값이라 v0 비교에 그대로 쓸 수 있다.',
-      'paired.*.only_a = A만 맞힌 문항, only_b = B만 맞힌 문항. p_mcnemar는 McNemar 정확검정(양측), p_holm은 지표별 6쌍 Holm 보정.',
+      `Judge 설정(reasoning effort): ${efforts}.` + (Object.keys(calib).length
+        ? ' 대조군과 설정이 다른 안은 AI 지표 차이에 Judge 설정 차이가 섞인다 — judge_calibration 참고.'
+        : ' 모두 같아 AI 지표를 그대로 비교할 수 있다.'),
+      '상태 일치·부재판단 F1·지연은 Judge와 무관한 결정론 값이다.',
+      `paired.*.only_a = A만 맞힌 문항, only_b = B만 맞힌 문항. p_mcnemar는 McNemar 정확검정(양측), p_holm은 지표별 ${pairs.length}쌍 Holm 보정.`,
+      'correct_grounded = 정답이면서 실질적 환각 없음(2차 계획의 주지표 "정답∧근거").',
     ],
     headline: head,
     paired: pairedOut,
     judge_calibration: calib,
     two_axis: axes,
     status: status,
-    by_type: byType(runs),
+    by_type: byType(runs, BASELINE),
     fix_overlap: {
-      status_match: fixOverlap(runs, (r) => r.statusHit),
-      ai_correct: fixOverlap(runs, (r) => (r.judge ? r.judge.correct : null)),
+      status_match: fixOverlap(runs, (r) => r.statusHit, BASELINE, CANDIDATES),
+      ai_correct: fixOverlap(runs, (r) => (r.judge ? r.judge.correct : null), BASELINE, CANDIDATES),
     },
   };
 
-  const outPath = opts.out || path.join(ROOT, 'results', PROMPT_SUITE, `prompt_stats_${slug}_${opts.date}.json`);
+  const outPath = opts.out || path.join(ROOT, 'results', SUITE, `prompt_stats_${slug}_${opts.date}.json`);
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, JSON.stringify(out, null, 2) + '\n', 'utf8');
   console.log(`통계 저장: ${path.relative(ROOT, outPath)}`);
 }

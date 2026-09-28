@@ -1,17 +1,17 @@
 'use strict';
-// 프롬프트 2차 테스트 생성 실행기. 설계: scripts/test3/PROMPT_ROUND2_PLAN.md
-// 사용법 전체: scripts/test3/PROMPT_ROUND2_RUN.md
+// 프롬프트 2차 테스트 생성 실행기. 설계: scripts/prompt_test/round2/PROMPT_ROUND2_PLAN.md
+// 사용법 전체: scripts/prompt_test/round2/PROMPT_ROUND2_RUN.md
 //
 // 모델은 qwen3:14b 하나, 조건은 1차와 같다(temperature 0 · 추론 끔 · seed 미고정).
 // 생성만 한다 — 채점은 judge_round2.js(LLM Judge), 판정은 report_round2.js.
 // 1차처럼 run_pipeline.js의 결정론 채점(NLI·임베딩 등)은 돌리지 않는다. 2차 판정
 // 기준(§2.1)은 Judge 결과와 생성 레코드(status·포맷·지연)만으로 계산한다.
 //
-//   node scripts/test3/run_prompt_round2.js smoke-sets [--write]   # 스모크 문항 목록 확인/고정
-//   node scripts/test3/run_prompt_round2.js baseline                 # Phase 0: v2 재생성 2문항 + 기준선 합성
-//   node scripts/test3/run_prompt_round2.js smoke [--variants v4_account_match,...]   # Phase 1
-//   node scripts/test3/run_prompt_round2.js combo --blocks v4,v6     # Phase 2 (300 + 신규 50)
-//   node scripts/test3/run_prompt_round2.js latency-check            # 조건부: P95 환경 확인
+//   node scripts/prompt_test/round2/run_prompt_round2.js smoke-sets [--write]   # 스모크 문항 목록 확인/고정
+//   node scripts/prompt_test/round2/run_prompt_round2.js baseline                 # Phase 0: v2 재생성 2문항 + 기준선 합성
+//   node scripts/prompt_test/round2/run_prompt_round2.js smoke [--variants v4_account_match,...]   # Phase 1
+//   node scripts/prompt_test/round2/run_prompt_round2.js combo --blocks v4,v6     # Phase 2 (300 + 신규 50)
+//   node scripts/prompt_test/round2/run_prompt_round2.js latency-check            # 조건부: P95 환경 확인
 //
 // 공통 옵션: --date YYYYMMDD (기본 오늘) · --dry-run · --skip-model-check
 // 도중에 멈추면 같은 명령을 다시 실행한다. 끝난 문항은 건너뛴다.
@@ -20,8 +20,8 @@ const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
 const R = require('./lib/round2');
-const { todayStamp, checkModelsAvailable } = require('./lib/runner');
-const { comboVariantName, resolveSystemPrompt, ROUND2_BLOCK_ORDER } = require('../test2/lib/prompts');
+const { todayStamp, checkModelsAvailable } = require('../../test3/lib/runner');
+const { comboVariantName, resolveSystemPrompt, ROUND2_BLOCK_ORDER } = require('../../test2/lib/prompts');
 
 const GENERATION = path.join(R.ROOT, 'scripts', 'test2', 'run_generation.js');
 
@@ -209,7 +209,7 @@ function cmdBaseline(opts) {
   }
   const baseId = composeBaseline(regenId);
   console.log(`\n다음: Phase 1 스모크 생성 후 한 배치로 채점한다.`);
-  console.log(`  node scripts/test3/run_prompt_round2.js smoke --date ${opts.date}`);
+  console.log(`  node scripts/prompt_test/round2/run_prompt_round2.js smoke --date ${opts.date}`);
   console.log(`  기준선 run: ${baseId}`);
 }
 
@@ -227,7 +227,7 @@ function cmdSmoke(opts) {
   if (!opts.dryRun) {
     const runs = [R.baselineRunId(), ...results.map((r) => r.runId)];
     console.log('\n다음: 기준선 재처리 4문항과 스모크를 한 배치로 채점 준비');
-    console.log(`  node scripts/test3/judge_round2.js prepare smoke-${opts.date} --runs ${runs.join(',')}`);
+    console.log(`  node scripts/prompt_test/round2/judge_round2.js prepare smoke-${opts.date} --runs ${runs.join(',')}`);
   }
 }
 
@@ -251,7 +251,7 @@ function cmdCombo(opts) {
   summarize(results, opts);
   if (!opts.dryRun) {
     console.log('\n다음: 채점 준비');
-    console.log(`  node scripts/test3/judge_round2.js prepare combo-${opts.date} --runs ${results.map((r) => r.runId).join(',')}`);
+    console.log(`  node scripts/prompt_test/round2/judge_round2.js prepare combo-${opts.date} --runs ${results.map((r) => r.runId).join(',')}`);
   }
 }
 
@@ -281,8 +281,8 @@ function main() {
   const opts = parseArgs(process.argv.slice(2));
   const commands = { 'smoke-sets': cmdSmokeSets, baseline: cmdBaseline, smoke: cmdSmoke, combo: cmdCombo, 'latency-check': cmdLatency };
   if (!commands[opts.command]) {
-    console.error('usage: node scripts/test3/run_prompt_round2.js <smoke-sets|baseline|smoke|combo|latency-check> [옵션]');
-    console.error('       자세한 사용법: scripts/test3/PROMPT_ROUND2_RUN.md');
+    console.error('usage: node scripts/prompt_test/round2/run_prompt_round2.js <smoke-sets|baseline|smoke|combo|latency-check> [옵션]');
+    console.error('       자세한 사용법: scripts/prompt_test/round2/PROMPT_ROUND2_RUN.md');
     process.exit(1);
   }
   commands[opts.command](opts);

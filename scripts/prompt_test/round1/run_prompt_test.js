@@ -12,9 +12,9 @@
 // 켜면 P95 28.49초로 실시간 상담에 못 쓰고, 끄면 8.11초다.
 //
 // Usage:
-//   node scripts/test3/run_prompt_test.js qwen3:14b
-//   node scripts/test3/run_prompt_test.js qwen3:14b --variants v1_status_rules
-//   node scripts/test3/run_prompt_test.js qwen3:14b --limit 5 --dry-run
+//   node scripts/prompt_test/round1/run_prompt_test.js qwen3:14b
+//   node scripts/prompt_test/round1/run_prompt_test.js qwen3:14b --variants v1_status_rules
+//   node scripts/prompt_test/round1/run_prompt_test.js qwen3:14b --limit 5 --dry-run
 //
 // 옵션:
 //   --variants a,b   실행할 안 (기본: v0 외 전부). v0_baseline은 기본적으로
@@ -25,9 +25,9 @@
 
 const path = require('path');
 const { spawnSync } = require('child_process');
-const models = require('./config/models');
-const { ROOT, SUITE, runRound, parseCommonArgs, envTag, makeRunId } = require('./lib/runner');
-const { SYSTEM_PROMPTS, ROUND1_VARIANTS } = require('../test2/lib/prompts');
+const models = require('../../test3/config/models');
+const { ROOT, SUITE, runRound, parseCommonArgs, envTag, makeRunId } = require('../../test3/lib/runner');
+const { SYSTEM_PROMPTS, ROUND1_VARIANTS } = require('../../test2/lib/prompts');
 
 // 프롬프트 비교는 추론 off·온도 0 조건에서 한다. run_id의 조건 부분은
 // <안>_<이 접미사>가 된다.
@@ -55,7 +55,7 @@ function parseArgs(argv) {
 function main() {
   const opts = parseArgs(process.argv.slice(2));
   if (!opts.model) {
-    console.error('usage: node scripts/test3/run_prompt_test.js <model_tag> [--variants a,b] [--with-baseline]'
+    console.error('usage: node scripts/prompt_test/round1/run_prompt_test.js <model_tag> [--variants a,b] [--with-baseline]'
       + '\n  [--limit N] [--date YYYYMMDD] [--dry-run] [--skip-model-check]');
     process.exit(1);
   }

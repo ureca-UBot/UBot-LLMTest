@@ -11,7 +11,7 @@
 //     [--primary-only]
 //
 // --prompt: lib/prompts.js의 SYSTEM_PROMPTS 키 (기본 v0_baseline = 현행 프롬프트).
-//   프롬프트 비교 테스트(scripts/test3/run_prompt_test.js)가 쓴다. 레코드에
+//   프롬프트 비교 테스트(scripts/prompt_test/round1/run_prompt_test.js)가 쓴다. 레코드에
 //   prompt_variant로 남으므로 결과 파일만 보고 어떤 안인지 알 수 있다.
 // --primary-only: 고유 문항(실행 회차 1, 300행)만 생성 — --repeat-only의 반대쪽.
 //   프롬프트 비교는 반복 회차가 필요 없으므로 이걸 쓴다.

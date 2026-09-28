@@ -1,5 +1,5 @@
 'use strict';
-// 프롬프트 2차 테스트 공통 정의. 설계: scripts/test3/PROMPT_ROUND2_PLAN.md
+// 프롬프트 2차 테스트 공통 정의. 설계: scripts/prompt_test/round2/PROMPT_ROUND2_PLAN.md
 //
 // 실행기(run_prompt_round2.js), Judge(judge_round2.js), 판정 보고서(report_round2.js)가
 // 같은 상수·경로·문항 판정 규칙을 쓰도록 여기 모은다. 기준 수치를 바꾸려면 계획서
@@ -8,12 +8,12 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { parseCsvObjects } = require('../../test2/lib/csv');
-const { isPrimaryRound } = require('../../test2/lib/rounds');
-const { expectedStatusEnum } = require('../../test2/lib/status_map');
-const { envTag, sanitizeTag } = require('./runner');
+const { parseCsvObjects } = require('../../../test2/lib/csv');
+const { isPrimaryRound } = require('../../../test2/lib/rounds');
+const { expectedStatusEnum } = require('../../../test2/lib/status_map');
+const { envTag, sanitizeTag } = require('../../../test3/lib/runner');
 
-const ROOT = path.join(__dirname, '..', '..', '..');
+const ROOT = path.join(__dirname, '..', '..', '..', '..');
 
 // ---------------------------------------------------------------- 실행 조건
 const SUITE = 'test3_prompt_r2';
@@ -76,7 +76,7 @@ const SMOKE_VARIANTS = {
   v6_hold_template: 'v6',
   v7_dialogue_state: 'v7',
 };
-const SMOKE_SETS_PATH = path.join(ROOT, 'scripts', 'test3', 'config', 'round2_smoke.json');
+const SMOKE_SETS_PATH = path.join(ROOT, 'scripts', 'prompt_test', 'round2', 'config', 'round2_smoke.json');
 
 // ---------------------------------------------------------------- 판정 기준 (계획서 §2.1)
 const THRESHOLDS = {

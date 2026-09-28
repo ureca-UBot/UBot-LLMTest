@@ -5,8 +5,8 @@
 // 복사한 문장이다 — 여기서 고치면 xlsx도 같이 고쳐야 한다. test1~test3이 전부
 // 이 프롬프트로 돌았다.
 //
-// v1~v3은 프롬프트 비교 테스트(scripts/test3/run_prompt_test.js) 전용이며 xlsx에
-// 반영하지 않는다. v4~v7·v9_combo는 프롬프트 2차 테스트(scripts/test3/run_prompt_round2.js)
+// v1~v3은 프롬프트 비교 테스트(scripts/prompt_test/round1/run_prompt_test.js) 전용이며 xlsx에
+// 반영하지 않는다. v4~v7·v9_combo는 프롬프트 2차 테스트(scripts/prompt_test/round2/run_prompt_round2.js)
 // 전용이다. 세 안 모두 v0 전문을 그대로 두고 뒤에 블록 하나만 덧붙인다 —
 // 무엇을 바꿔서 점수가 달라졌는지 가려내려면 한 번에 하나만 바꿔야 한다.
 //
@@ -60,7 +60,7 @@ const V3_DECISION_TREE = SYSTEM_PROMPT + `
 조회 결과에 없는 항목은 확정하지 말고, 자료에 없는 이유도 만들어 붙이지 마세요.`;
 
 // ---------------------------------------------------------------- 프롬프트 2차
-// 설계: scripts/test3/PROMPT_ROUND2_PLAN.md §5. 1차에서 가장 좋았던 v2를 기준선으로
+// 설계: scripts/prompt_test/round2/PROMPT_ROUND2_PLAN.md §5. 1차에서 가장 좋았던 v2를 기준선으로
 // 두고, v2 전문 뒤에 블록 하나만 덧붙인다(v4~v7). 블록 문구는 계획서 §5.2와 같아야
 // 한다 — 여기서 고치면 계획서도 같이 고친다.
 const ROUND2_BLOCKS = {

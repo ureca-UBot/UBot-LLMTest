@@ -1,9 +1,9 @@
 'use strict';
 // 프롬프트 2차 테스트 신규 50문항(data/eval_sets/test_set2/new_r2.csv) 생성기.
-// 설계: scripts/test3/PROMPT_ROUND2_PLAN.md §6.2 · 파일 형식: PROMPT_ROUND2_RUN.md §6
+// 설계: scripts/prompt_test/round2/PROMPT_ROUND2_PLAN.md §6.2 · 파일 형식: PROMPT_ROUND2_RUN.md §6
 //
-//   node scripts/test3/build_new_r2.js           # 파일 생성(이미 있으면 내용이 같을 때만 통과)
-//   node scripts/test3/build_new_r2.js --check   # 파일이 이 스크립트 출력과 같은지만 확인
+//   node scripts/prompt_test/round2/build_new_r2.js           # 파일 생성(이미 있으면 내용이 같을 때만 통과)
+//   node scripts/prompt_test/round2/build_new_r2.js --check   # 파일이 이 스크립트 출력과 같은지만 확인
 //
 // 문항은 아래 SPEC에 사람이 썼다. 자료(Context)는 faq_master.csv 원문을 그대로 붙이고,
 // 잔여량·초과 요금 같은 정답 숫자는 요금제 원문에서 읽은 값으로 계산한다 — 손으로 쓴
@@ -18,10 +18,10 @@
 
 const fs = require('fs');
 const path = require('path');
-const { parseCsv, parseCsvObjects, toCsv } = require('../test2/lib/csv');
+const { parseCsv, parseCsvObjects, toCsv } = require('../../test2/lib/csv');
 const { NEW_R2, NEW_TYPES } = require('./lib/round2');
 
-const ROOT = path.join(__dirname, '..', '..');
+const ROOT = path.join(__dirname, '..', '..', '..');
 const OUT = path.join(ROOT, NEW_R2);
 const FAQ = new Map(parseCsvObjects(fs.readFileSync(path.join(ROOT, 'data/eval_sets/test_set2/faq_master.csv'), 'utf8'))
   .map((r) => [r['FAQ ID'], r]));
