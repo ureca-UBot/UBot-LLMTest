@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 500" width="940" height="500"
+ role="img" aria-label="1차 선별 — 하자 있는 모델 걸러내기 (6라운드)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+<style>
+  .viz { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+         --grid:#e1e0d9; --axis:#c3c2b7;
+         --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; }
+  @media (prefers-color-scheme: dark) {
+    .viz { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+           --grid:#2c2c2a; --axis:#383835;
+           --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; }
+  }
+  .bg   { fill: var(--surface); }
+  .ttl  { fill: var(--ink);   font-weight:700; }
+  .sub  { fill: var(--ink2); }
+  .lbl  { fill: var(--ink);  }
+  .axl  { fill: var(--muted); }
+  .grid { stroke: var(--grid); stroke-width:1; }
+  .axis { stroke: var(--axis); stroke-width:1; }
+  .note { fill: var(--ink2); }
+</style>
+<g class="viz"><rect class="bg" x="0" y="0" width="940" height="500"/>
+<text x="26.0" y="32.0" class="ttl" font-size="19" text-anchor="start">1차 선별 — 하자 있는 모델 걸러내기 (6라운드)</text>
+<text x="26.0" y="54.0" class="sub" font-size="12.5" text-anchor="start">지표 6개를 한 번씩, 매 라운드 최하위 1개 탈락. 11개 → 5개 생존.</text>
+<text x="26.0" y="74.0" class="sub" font-size="12.5" text-anchor="start" font-weight="600">5개 설정은 어떤 순서에서도 탈락했다. 반대로 상위 4개는 서로 큰 차이가 없다.</text>
+<line class="grid" x1="178.0" y1="104" x2="178.0" y2="436"/>
+<text x="178.0" y="98.0" class="axl" font-size="10.5" text-anchor="middle">0%</text>
+<line class="grid" x1="344.5" y1="104" x2="344.5" y2="436"/>
+<text x="344.5" y="98.0" class="axl" font-size="10.5" text-anchor="middle">25%</text>
+<line class="grid" x1="511.0" y1="104" x2="511.0" y2="436"/>
+<text x="511.0" y="98.0" class="axl" font-size="10.5" text-anchor="middle">50%</text>
+<line class="grid" x1="677.5" y1="104" x2="677.5" y2="436"/>
+<text x="677.5" y="98.0" class="axl" font-size="10.5" text-anchor="middle">75%</text>
+<line class="grid" x1="844.0" y1="104" x2="844.0" y2="436"/>
+<text x="844.0" y="98.0" class="axl" font-size="10.5" text-anchor="middle">100%</text>
+<text x="166.0" y="127.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">gemma3:12b</text>
+<rect x="178" y="112" width="666.0" height="20" rx="4" fill="var(--s1)" opacity="1"/>
+<text x="853.0" y="127.0" class="lbl" font-size="12" text-anchor="start" font-weight="700">100.0%</text>
+<text x="166.0" y="157.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="700">qwen3:14b OFF</text>
+<rect x="178" y="142" width="666.0" height="20" rx="4" fill="var(--s1)" opacity="1"/>
+<text x="853.0" y="157.0" class="lbl" font-size="12" text-anchor="start" font-weight="700">100.0%</text>
+<text x="166.0" y="187.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">qwen3:14b ON</text>
+<rect x="178" y="172" width="654.9" height="20" rx="4" fill="var(--s1)" opacity="0.45"/>
+<text x="841.9" y="187.0" class="note" font-size="12" text-anchor="start" font-weight="400">98.3%</text>
+<text x="166.0" y="217.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">qwen3:8b ON</text>
+<rect x="178" y="202" width="610.5" height="20" rx="4" fill="var(--s1)" opacity="0.45"/>
+<text x="797.5" y="217.0" class="note" font-size="12" text-anchor="start" font-weight="400">91.7%</text>
+<text x="166.0" y="247.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">qwen3:4b OFF</text>
+<rect x="178" y="232" width="466.2" height="20" rx="4" fill="var(--s1)" opacity="0.45"/>
+<text x="653.2" y="247.0" class="note" font-size="12" text-anchor="start" font-weight="400">70.0%</text>
+<text x="166.0" y="277.0" class="lbl" font-size="12.5" text-anchor="end" font-weight="400">qwen3:8b OFF</text>
+<rect x="178" y="262" width="266.4" height="20" rx="4" fill="var(--s1)" opacity="0.45"/>
+<text x="453.4" y="277.0" class="note" font-size="12" text-anchor="start" font-weight="400">40.0%</text>
+<text x="166.0" y="307.0" class="note" font-size="12.5" text-anchor="end" font-weight="400">gemma3:4b</text>
+<text x="187.0" y="307.0" class="note" font-size="12" text-anchor="start" font-weight="400">0.0%</text>
+<text x="234.0" y="307.0" class="note" font-size="10.5" text-anchor="start" opacity="0.8">전 순서 탈락</text>
+<text x="166.0" y="337.0" class="note" font-size="12.5" text-anchor="end" font-weight="400">qwen3:1.7b ON</text>
+<text x="187.0" y="337.0" class="note" font-size="12" text-anchor="start" font-weight="400">0.0%</text>
+<text x="234.0" y="337.0" class="note" font-size="10.5" text-anchor="start" opacity="0.8">전 순서 탈락</text>
+<text x="166.0" y="367.0" class="note" font-size="12.5" text-anchor="end" font-weight="400">qwen3:1.7b OFF</text>
+<text x="187.0" y="367.0" class="note" font-size="12" text-anchor="start" font-weight="400">0.0%</text>
+<text x="234.0" y="367.0" class="note" font-size="10.5" text-anchor="start" opacity="0.8">전 순서 탈락</text>
+<text x="166.0" y="397.0" class="note" font-size="12.5" text-anchor="end" font-weight="400">qwen3:4b ON</text>
+<text x="187.0" y="397.0" class="note" font-size="12" text-anchor="start" font-weight="400">0.0%</text>
+<text x="234.0" y="397.0" class="note" font-size="10.5" text-anchor="start" opacity="0.8">전 순서 탈락</text>
+<text x="166.0" y="427.0" class="note" font-size="12.5" text-anchor="end" font-weight="400">exaone3.5:7.8b</text>
+<text x="187.0" y="427.0" class="note" font-size="12" text-anchor="start" font-weight="400">0.0%</text>
+<text x="234.0" y="427.0" class="note" font-size="10.5" text-anchor="start" opacity="0.8">전 순서 탈락</text>
+<text x="26.0" y="482.0" class="note" font-size="11.5" text-anchor="start">지표 순서 720가지 전수. 순서를 고르지 않았다.</text>
+</g></svg>

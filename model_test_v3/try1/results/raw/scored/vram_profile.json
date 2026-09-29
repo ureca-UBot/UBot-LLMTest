@@ -1,0 +1,93 @@
+{
+  "suite": "test3",
+  "env": "ec2-linux",
+  "gpu_name": "Tesla T4",
+  "measured_at": "2026-09-21T02:46:57.515Z",
+  "note": "size_vram_mib는 Ollama /api/ps의 모델별 값, delta_mib는 nvidia-smi 전체값에서 유휴 기준선을 뺀 순증분이다. 둘이 크게 다르면 GPU를 쓰는 다른 프로세스가 있다는 뜻이다.",
+  "measurements": [
+    {
+      "model_tag": "gemma3:4b",
+      "tier": "selected",
+      "baseline_total_mib": 0,
+      "loaded_total_mib": 3759,
+      "delta_mib": 3759,
+      "size_vram_mib": 2742,
+      "model_size_mib": 2742,
+      "fully_on_gpu": true,
+      "warmup_load_ms": 29172,
+      "warmup_error": null
+    },
+    {
+      "model_tag": "qwen3:1.7b",
+      "tier": "selected",
+      "baseline_total_mib": 0,
+      "loaded_total_mib": 1767,
+      "delta_mib": 1767,
+      "size_vram_mib": 1624,
+      "model_size_mib": 1624,
+      "fully_on_gpu": true,
+      "warmup_load_ms": 13469,
+      "warmup_error": null
+    },
+    {
+      "model_tag": "qwen3:4b",
+      "tier": "selected",
+      "baseline_total_mib": 0,
+      "loaded_total_mib": 3159,
+      "delta_mib": 3159,
+      "size_vram_mib": 3031,
+      "model_size_mib": 3031,
+      "fully_on_gpu": true,
+      "warmup_load_ms": 30312,
+      "warmup_error": null
+    },
+    {
+      "model_tag": "qwen3:8b",
+      "tier": "selected",
+      "baseline_total_mib": 0,
+      "loaded_total_mib": 5463,
+      "delta_mib": 5463,
+      "size_vram_mib": 5320,
+      "model_size_mib": 5320,
+      "fully_on_gpu": true,
+      "warmup_load_ms": 45739,
+      "warmup_error": null
+    },
+    {
+      "model_tag": "exaone3.5:7.8b",
+      "tier": "selected",
+      "baseline_total_mib": 0,
+      "loaded_total_mib": 5071,
+      "delta_mib": 5071,
+      "size_vram_mib": 4945,
+      "model_size_mib": 4945,
+      "fully_on_gpu": true,
+      "warmup_load_ms": 38898,
+      "warmup_error": null
+    },
+    {
+      "model_tag": "gemma3:12b",
+      "tier": "ec2_only",
+      "baseline_total_mib": 0,
+      "loaded_total_mib": 8875,
+      "delta_mib": 8875,
+      "size_vram_mib": 7672,
+      "model_size_mib": 7672,
+      "fully_on_gpu": true,
+      "warmup_load_ms": 71488,
+      "warmup_error": null
+    },
+    {
+      "model_tag": "qwen3:14b",
+      "tier": "ec2_only",
+      "baseline_total_mib": 0,
+      "loaded_total_mib": 9345,
+      "delta_mib": 9345,
+      "size_vram_mib": 9199,
+      "model_size_mib": 9199,
+      "fully_on_gpu": true,
+      "warmup_load_ms": 80496,
+      "warmup_error": null
+    }
+  ]
+}

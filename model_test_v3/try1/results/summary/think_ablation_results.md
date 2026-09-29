@@ -1,0 +1,50 @@
+# 추론(thinking) 모드 on/off 트레이드오프
+
+## 배경
+
+test2에서 `qwen3:4b`는 평균 1,171토큰 / 9.52초, P95 21.67초였다(`gemma3:4b`는 77토큰 / 1.84초).
+실시간 채팅에 쓰기 어려운 수치인데, test1·test2 모두 추론을 켠 채로만 돌려서 끈 조건은
+한 번도 측정된 적이 없다.
+
+그렇다고 그냥 끌 수도 없다. `qwen3:4b`가 내용 정확도 1위(test2 기준 72.0%)인 것이 추론
+덕분일 수 있어서, 확인 없이 끄면 모델 선정 근거 자체가 무너진다. 그래서 두 조건을 모두 잰다.
+
+## 측정 결과
+
+두 조건 모두 temperature=0으로 고정했다 — 추론 변수만 남기기 위해서다.
+
+![추론 on/off 기울기 비교](charts/think_slope.svg)
+
+| 모델 | on 토큰 | off 토큰 | on 평균 | off 평균 | on P95 | off P95 | on 정확도 | off 정확도 | 정확도 변화 |
+|---|---|---|---|---|---|---|---|---|---|
+| qwen3:1.7b | 356 | 85 | 3.16s | 0.85s | 5.04s | 1.43s | 39.0% | 23.0% | −16.0%p |
+| qwen3:4b | 1185 | 97 | 18.78s | 1.75s | 47.62s | 2.92s | 72.3% | 43.7% | −28.7%p |
+| qwen3:8b | 392 | 88 | 11.59s | 2.91s | 18.33s | 4.53s | 59.7% | 43.6% | −16.1%p |
+| qwen3:14b | 326 | 92 | 18.24s | 5.51s | 28.49s | 8.11s | 75.6% | 70.6% | −5.0%p |
+
+정확도는 LLM Judge 전수 채점 결과이며, 두 조건 모두 채점된 **동일 문항만 짝지어** 비교했다 —
+`qwen3:8b` 298쌍, `qwen3:14b` 299쌍, 나머지는 300쌍이다. 토큰·지연은 각 실행의 전체 집계값이다.
+출처: [llm_judge_review/README.md](../llm_judge/README.md), [interpretation.md](../llm_judge/interpretation.md).
+
+**대상 제외:** gemma3:4b, exaone3.5:7.8b, gemma3:12b — 추론 모드가 없는 모델이라 비교 대상이 아니다.
+
+## 해석 기준
+
+- 지연이 줄어도 **정확도 하락폭이 크면 못 쓴다.** 두 값을 함께 봐야 한다.
+- 상담봇의 실용 한계선은 통상 완료 3~5초다. P95를 기준으로 판단한다.
+
+## 근거 문서
+
+이 문서의 수치와 사례는 아래 run별 세부 결과에서 나왔다.
+
+| 모델 | 조건 | 세부 결과 (report) | LLM Judge 문항별 판정 |
+|---|---|---|---|
+| qwen3-1-7b | 본측정 (temp 0, 추론 ON) | [ec2-linux_qwen3-1-7b_t0_think_20260920_summary.md](../report/ec2-linux_qwen3-1-7b_t0_think_20260920_summary.md) | [ec2-linux_qwen3-1-7b_t0_think_20260920.md](../llm_judge/t0_think/ec2-linux_qwen3-1-7b_t0_think_20260920.md) |
+| qwen3-14b | 본측정 (temp 0, 추론 ON) | [ec2-linux_qwen3-14b_t0_think_20260920_summary.md](../report/ec2-linux_qwen3-14b_t0_think_20260920_summary.md) | [ec2-linux_qwen3-14b_t0_think_20260920.md](../llm_judge/t0_think/ec2-linux_qwen3-14b_t0_think_20260920.md) |
+| qwen3-4b | 본측정 (temp 0, 추론 ON) | [ec2-linux_qwen3-4b_t0_think_20260920_summary.md](../report/ec2-linux_qwen3-4b_t0_think_20260920_summary.md) | [ec2-linux_qwen3-4b_t0_think_20260920.md](../llm_judge/t0_think/ec2-linux_qwen3-4b_t0_think_20260920.md) |
+| qwen3-8b | 본측정 (temp 0, 추론 ON) | [ec2-linux_qwen3-8b_t0_think_20260920_summary.md](../report/ec2-linux_qwen3-8b_t0_think_20260920_summary.md) | [ec2-linux_qwen3-8b_t0_think_20260920.md](../llm_judge/t0_think/ec2-linux_qwen3-8b_t0_think_20260920.md) |
+| qwen3-1-7b | 추론 OFF | [ec2-linux_qwen3-1-7b_t0_nothink_20260920_summary.md](../report/ec2-linux_qwen3-1-7b_t0_nothink_20260920_summary.md) | [ec2-linux_qwen3-1-7b_t0_nothink_20260920.md](../llm_judge/t0_nothink/ec2-linux_qwen3-1-7b_t0_nothink_20260920.md) |
+| qwen3-14b | 추론 OFF | [ec2-linux_qwen3-14b_t0_nothink_20260920_summary.md](../report/ec2-linux_qwen3-14b_t0_nothink_20260920_summary.md) | [ec2-linux_qwen3-14b_t0_nothink_20260920.md](../llm_judge/t0_nothink/ec2-linux_qwen3-14b_t0_nothink_20260920.md) |
+| qwen3-4b | 추론 OFF | [ec2-linux_qwen3-4b_t0_nothink_20260920_summary.md](../report/ec2-linux_qwen3-4b_t0_nothink_20260920_summary.md) | [ec2-linux_qwen3-4b_t0_nothink_20260920.md](../llm_judge/t0_nothink/ec2-linux_qwen3-4b_t0_nothink_20260920.md) |
+| qwen3-8b | 추론 OFF | [ec2-linux_qwen3-8b_t0_nothink_20260920_summary.md](../report/ec2-linux_qwen3-8b_t0_nothink_20260920_summary.md) | [ec2-linux_qwen3-8b_t0_nothink_20260920.md](../llm_judge/t0_nothink/ec2-linux_qwen3-8b_t0_nothink_20260920.md) |
+
