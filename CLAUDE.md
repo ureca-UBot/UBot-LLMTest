@@ -2,9 +2,39 @@
 
 이 프로젝트에서 다시 작업을 시작할 때 이 파일부터 읽으세요. 전체 방법론/설계 이유는 [`README.md`](README.md)에 있고, 이 파일은 **"지금 어디까지 했고 다음에 뭘 해야 하는지"**만 빠르게 파악하기 위한 진행 상황 스냅샷입니다.
 
-## 마지막 작업일: 2026-09-11
+## 마지막 작업일: 2026-09-29
 
-## 지금까지 한 일
+## 저장소 구조 (2026-09-28 개편)
+
+```
+data/                         # 버전 공통 데이터 (eval_sets/test_set1 = v1, test_set2 = v2·v3)
+model_test_vN/
+├── SETUP.md                  # 테스트 항목 · 라운드별 스크립트 · 실행 순서
+├── PATH_MAP.csv              # 개편 전(results/..., scripts/testN/...) → 개편 후 경로
+├── scripts/                  # 버전 단위 스크립트 (try끼리 공유)
+└── tryN/results/
+    ├── all_summary.md        # ⭐ 회차 전체 요약 — 여기서 시작
+    ├── raw/ (v2·v3는 raw/scored/ 포함) · report/ · llm_judge/ · summary/
+```
+
+- 버전 ↔ 옛 이름: v1 = test1, v2 try1 = test2(9/17, 9모델), v2 try2 = test2 V2 재실행(9/18, 5모델 + LLM Judge), v3 try1 = test3(EC2, 9/20)
+- v2·v3 스크립트는 `LLM_TEST_TRY`(기본: v2=`try2`, v3=`try1`)로 결과 try를 고르고, 경로는 `scripts/lib/suite.js` 한 곳에서 해석한다. 옛 `LLM_TEST_SUITE`는 없어졌다.
+- v3 채점 스크립트는 v2의 **복사본**이다 — 채점 로직을 고치면 양쪽에 반영할 것.
+- 13개 항목 + 반복 라운드 스크립트: `model_test_v2|v3/scripts/rounds/01~14_*.js` (`--dry-run` 지원)
+- 증거 파일(배치 매니페스트·publish_manifest 등)의 `source_path`는 옛 경로로 기록돼 있고 SHA-256 보존을 위해 수정하지 않는다. 스크립트는 run_id로 새 경로를 찾는다.
+- **v4부터 평가 방식 변경**(README 4-9절): 결과론적 평가는 유사도 점수로 정확도를 보고 통과/실패·통과율 없음, "AI 재판단 필요"(escalation) 없음, LLM Judge는 항상 별도 단계로 전수. v2·v3 스크립트·결과는 기존 방식 그대로 둔다.
+- 새 try를 추가하면 `all_summary.md`를 작성한다: 서두에 테스트 항목·건수·평가 기준 → 전체 결과(LLM Judge 우선) → 이전 버전/회차 대비 → 항목별 요약(모든 평가 기준) → summary 문서 요약 → 세부 경로.
+
+## 현재 상태 (2026-09-29)
+
+- v3 try1에서 **1차 MVP 모델로 `qwen3:14b` 추론 OFF(temperature 0)** 선정 (`model_test_v3/try1/results/summary/model_selection.md`). 최종 확정 아님.
+- 후속 과제 후보: 문항 적합성 검토(`data/eval_sets/test_set2/item_review.md`)의 수정 필요 23문항 반영, LLM Judge 채점 경계(상태 오류 반영·SAFE/NOT_APPLICABLE) 통일, 동시 요청 처리량 측정.
+
+---
+
+아래는 **v1(test1) 진행 당시(2026-09-11) 스냅샷**이다. 경로는 개편 전 기준이며 새 경로는 `model_test_v1/PATH_MAP.csv`를 따른다.
+
+## 지금까지 한 일 (v1 당시)
 
 1. **테스트 대상 확정**: Qwen3(0.6B/1.7B/4B/8B), EXAONE 3.5(2.4B/7.8B), Gemma3(270M/1B/4B) 9개 모델, 전부 Ollama에 로컬 설치 완료
 2. **평가 프레임워크 9개 영역 확정** + 프롬프트 템플릿 3종 확정 (README 5·9절)
