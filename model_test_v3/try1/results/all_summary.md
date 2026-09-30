@@ -469,6 +469,7 @@ FAQ가 질문의 일부만 다룰 때 아는 부분만 답하고 나머지는 �
 | [temperature_comparison.md](summary/temperature_comparison.md) | temperature 0 vs 0.8 대조 | v2(local 0.8) · EC2 대조군(0.8) · EC2 본측정(0)의 반복 일관성 비교로 하드웨어 효과와 temperature 효과를 분리. |
 | [vram_results.md](summary/vram_results.md) | 모델별 VRAM 실측 | Tesla T4에서 모델을 하나씩 올려 잰 `size_vram`(1.6~9.2GB)과 로드 시간. 7개 모두 GPU 전량 적재. |
 | [hallucination_cause.md](summary/hallucination_cause.md) | 환각 원인 분류 (규칙 위반 vs 판단 오류) | 환각 699건(본측정)·406건(추론 OFF)을 A(규칙 위반)·P(절차 덧붙임)·B(판단 오류)로 분류. Qwen3 4B·Gemma3 12B·Qwen3 14B는 status는 맞고 본문을 지어낸 A1 비중이 크고, Qwen3 1.7B는 B 계열이 71.8%. 판정 불가의 88%는 ABSTAIN↔CLARIFY/OUT_OF_SCOPE 교차. |
+| [prompt_tuning_candidates.md](summary/prompt_tuning_candidates.md) | 저급 모델 프롬프트 제어 튜닝 후보 선정 | test2·test3 `hallucination_cause.md`를 "프롬프트 제어로 고치기 쉬운가" 기준으로 재해석. 저급 모델 후보(gemma3:4b·exaone3.5:7.8b·qwen3:1.7b) 중 `gemma3:4b`는 B1(판단 오류)이 2~3%로 가장 낮고 실패 대부분이 스펙 공백이라 1순위, `qwen3:1.7b`는 B1이 35~45%로 압도적이라 프롬프트 튜닝에는 부적합. |
 | [ai_analysis.md](summary/ai_analysis.md) | 3차 테스트 상세 평가 (환각·RAG·안전성·성능) | 원본 답변 사례(근거 없는 수치, 조회 시점 오판, 공격 지시 순응, 내부 문자열 노출 등) 중심의 정성 분석과 13개 유형·난이도별 비교. LLM Judge 전수 채점 **이전**에 작성된 문서라 "전수 정확도 미채점"으로 적혀 있다 — 전수 수치는 이 문서의 1·3절을 따른다. |
 | [charts/](summary/charts/) | 차트 8종 | 속도-정답률 기준선, 한계 효율, 핵심 지표, 추론 기울기, 선별 생존율(6·9라운드), 유형별 맞대결 SVG. |
 
