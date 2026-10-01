@@ -1,4 +1,4 @@
-# CLAUDE.md — 작업 재개용 메모
+# AGENTS.md — 작업 재개용 메모
 
 이 프로젝트에서 다시 작업을 시작할 때 이 파일부터 읽으세요. 전체 방법론/설계 이유는 [`README.md`](README.md)에 있고, 이 파일은 **"지금 어디까지 했고 다음에 뭘 해야 하는지"**만 빠르게 파악하기 위한 진행 상황 스냅샷입니다.
 
@@ -46,7 +46,7 @@ model_test_vN/                # (아래는 v1~v3 구조)
 
 1. **테스트 대상 확정**: Qwen3(0.6B/1.7B/4B/8B), EXAONE 3.5(2.4B/7.8B), Gemma3(270M/1B/4B) 9개 모델, 전부 Ollama에 로컬 설치 완료
 2. **평가 프레임워크 9개 영역 확정** + 프롬프트 템플릿 3종 확정 (README 5·9절)
-3. **자동화 파이프라인 구축** — 모델 호출(Ollama API) → 결정론적 보조지표 → Judge 채점(Claude Code 헤드리스) → 결과 문서 자동 집계, 4단계 스크립트 (README 10절)
+3. **자동화 파이프라인 구축** — 모델 호출(Ollama API) → 결정론적 보조지표 → Judge 채점(Codex 헤드리스) → 결과 문서 자동 집계, 4단계 스크립트 (README 10절)
 4. **FAQ 답변 생성 라운드 (Easy/Medium/Hard) 전부 실행 완료** ✅ — 각 9개 모델 × 9케이스, 결과는 `results/faq_{easy,medium,hard}_results.md`
 5. **RAG 안정성 테스트를 유형당 3건(21건)→9건(63건)으로 확대**, 컨텍스트 개수(3/5/10개) 기준 Small/Medium/Large 3개 파일로 분리, 전용 파이프라인 스크립트 작성
 6. **RAG 안정성 Small/Medium/Large 라운드 전부 실행 완료** ✅ — `results/faq_rag_stability_{small,medium,large}_results.md` — **1차 라운드(FAQ 답변 생성 + RAG 안정성) 전체 완주**
