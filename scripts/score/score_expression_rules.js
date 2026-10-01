@@ -1,6 +1,6 @@
 'use strict';
 // 표현 규칙 점수(/100): 실격 3종(내부 용어 누출·질문 echo·비존대) + 감점 5종 규칙.
-// 기준은 lib/expression_quality.js. 자연스러움 판단은 LLM Judge 표현 점수를 쓴다.
+// 기준은 lib/expression_quality.js. v4는 전수 Judge 표현 점수를 제외하며 이 규칙 점수가 자연스러움 판정을 대체하지는 않는다.
 //
 //   raw/scored/<run_id>/expression_rules.jsonl
 //   raw/scored/<run_id>/expression_rules_summary.json

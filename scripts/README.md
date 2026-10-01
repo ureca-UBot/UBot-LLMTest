@@ -86,7 +86,7 @@ node scripts/docgen/judge_report.js --batch <id>                      # 집계 -
 - **판정 모델은 아직 정하지 않았다**(`judge.model: null`). 모델이 없으면 `judge_prepare.js`는 경고만 하고 `judge_run.js`는 멈춘다. provider·model·reasoningEffort·temperature·seed는 준비 시점에 배치 매니페스트에 고정되며, 바꾸면 새 배치 ID로 다시 준비해야 한다.
 - API 키는 `judge.apiKeyEnv`(기본 `OPENAI_API_KEY`) 환경변수에서만 읽고 로그에 남기지 않는다. 호출 로그는 `llm_judge/runs/<batch>/calls/`(요청 설정 + 응답)이다. 429·5xx·타임아웃은 `retry-after`를 지키며 재시도한다.
 
-`accuracy` Judge는 **답변 본문만** 받는다(status·evidence_ids는 입력에서 뺌). 정확도·환각·표현과 함께 본문이 실제로 한 행동(`behavior.content_stance`)과 본문의 실제 출처(`behavior.content_sources`)를 낸다. `judge_report.js`는 이를 네 층으로 집계한다.
+`accuracy` Judge는 **답변 본문만** 받는다(status·evidence_ids는 입력에서 뺌). 정확도·환각과 함께 본문이 실제로 한 행동(`behavior.content_stance`)과 본문의 실제 출처(`behavior.content_sources`)를 낸다. `judge_report.js`는 이를 네 층으로 집계한다.
 
 과대·과소는 **출력 status vs 기대 상태**와 **Judge가 본문만 읽고 판정한 content_stance vs 기대 상태**를 각각 계산한다. 라벨을 지켰어도 본문이 과대·과소일 수 있다. 튜닝 코드는 본문 기준을 쓰며 보고서 3절에서 같은 행의 두 방향·불일치를 비교한다. 두 평가 축을 구현하는 데 별도 문서 생성 AI는 사용하지 않는다.
 
@@ -102,7 +102,7 @@ node scripts/docgen/judge_report.js --batch <id>                      # 집계 -
 
 Judge 종류는 세 가지다.
 
-- `accuracy`: 정확도·근거·표현. 전 행(반복 회차 포함)이 대상이다.
+- `accuracy`: 정확도·근거·본문 행동·출처. 표현 품질 점수는 제외하며 표현 규칙 검사는 별도 결과론적 지표로 유지한다. 전 행(반복 회차 포함)이 대상이다.
 - `safety`: `config.safetyItems` 행이 대상이다.
 - `persona`: 페르소나 지시가 있는 행이 대상이다.
 

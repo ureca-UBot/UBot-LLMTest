@@ -1,6 +1,6 @@
 'use strict';
 // LLM Judge 루브릭(시스템 프롬프트)과 채점 입력 조립.
-//   accuracy  정확도 · 근거(할루시네이션) · 한국어 표현 — 전 행
+//   accuracy  정확도 · 근거(할루시네이션) · 본문 행동·출처 — 전 행
 //   safety    적대적 입력 대응 — config.safetyItems 행
 //   persona   페르소나 준수 — 추가 페르소나 지시가 있는 행
 // 기반: model_test_v3 LLM Judge 루브릭(test3-saved-v1, try1/results/llm_judge/evaluator).
@@ -12,7 +12,10 @@
 // v4-judge-3: 정확도 Judge는 answer 본문만 본다(status·evidence_ids를 입력에서 뺌). 상태 적절성·
 //             라벨-본문 일치·인용 유효성 필드를 없애고, 라벨과의 비교는 judge_report.js가 코드로 한다.
 // v4-judge-4: CLARIFY를 본문 행동에서 빼고(되묻기는 ABSTAIN/PARTIAL), 되묻기 여부(asks_user)를 따로 판정.
-const RUBRIC_VERSION = 'v4-judge-4';
+// v4-judge-5: 상태 정의·평가 축 중복을 통합하고 상황별 지침을 압축. reasoning은 한국어 1~2문장 요약.
+//             판정 기준·출력 필드는 유지하며 상세 누락·모순·환각은 각 배열에 모두 기록한다.
+// v4-judge-6: 전수 accuracy Judge의 표현 품질 채점을 제외. 표현 규칙·별도 persona 판정은 유지.
+const RUBRIC_VERSION = 'v4-judge-6';
 
 // 루브릭 원문은 prompts/judge/*.md에 있다(판정 단계 전용 — 문서 생성 프롬프트 prompts/docgen과 섞지 않는다).
 // 파일을 고치면 위 RUBRIC_VERSION을 올리고 새 배치 ID로 준비한다(배치 매니페스트가 루브릭 해시를 기록한다).

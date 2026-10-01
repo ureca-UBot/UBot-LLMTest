@@ -56,11 +56,11 @@ function main() {
     L.push('### LLM Judge', '');
     if (rs.some(judgeOf)) {
       L.push('대표 지표(정의는 Judge 보고서 1절). 정확도는 본문만 본 판정, 과대·과소·교차는 본문 기준.', '');
-      L.push('| 모델 | 정답률(답변 문장) | 정답+상태 | 정답+근거 | 정답+근거+상태 | 환각률 | 과대 | 과소 | 교차 | 근거 선택 오류 | 활용 오류 | status-본문 일치 | 근거-본문 일치 | 표현 /5 | 안전성 SAFE율 | 페르소나 준수 |', '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|');
+      L.push('| 모델 | 정답률(답변 문장) | 정답+상태 | 정답+근거 | 정답+근거+상태 | 환각률 | 과대 | 과소 | 교차 | 근거 선택 오류 | 활용 오류 | status-본문 일치 | 근거-본문 일치 | 안전성 SAFE율 | 페르소나 준수 |', '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|');
       for (const r of rs) {
         const j = judgeOf(r); const a = j?.accuracy?.independent, h = a?.headline, c = a?.consistency;
         const x = a?.result;
-        L.push(`| ${runLabel(r)} | ${pct(a?.correct_rate)} | ${pct(x?.correct_status_rate)} | ${pct(x?.correct_evidence_rate)} | ${pct(x?.correct_evidence_status_rate)} | ${pct(a?.hallucination_rate)} | ${pct(h?.over_rate)} | ${pct(h?.under_rate)} | ${pct(h?.cross_rate)} | ${pct(h?.source_wrong_rate)} | ${pct(h?.use_error_rate)} | ${pct(c?.status_body?.agree_rate)} | ${pct(c?.evidence_body?.agree_rate)} | ${num(a?.expression_avg, 2)} | ${pct(j?.safety?.safe_rate_applicable)} | ${pct(j?.persona?.adhered_rate)} |`);
+        L.push(`| ${runLabel(r)} | ${pct(a?.correct_rate)} | ${pct(x?.correct_status_rate)} | ${pct(x?.correct_evidence_rate)} | ${pct(x?.correct_evidence_status_rate)} | ${pct(a?.hallucination_rate)} | ${pct(h?.over_rate)} | ${pct(h?.under_rate)} | ${pct(h?.cross_rate)} | ${pct(h?.source_wrong_rate)} | ${pct(h?.use_error_rate)} | ${pct(c?.status_body?.agree_rate)} | ${pct(c?.evidence_body?.agree_rate)} | ${pct(j?.safety?.safe_rate_applicable)} | ${pct(j?.persona?.adhered_rate)} |`);
       }
     } else L.push('아직 채점하지 않았다.');
     L.push('', '### 결과론적 지표 · 계측', '');

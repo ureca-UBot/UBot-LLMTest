@@ -7,6 +7,7 @@ const path = require('path');
 const profile = require('../lib/profile');
 const { tuningCodeOverview: tuningOverview } = require('../lib/tuning_report');
 const { classifyTuning, tuningRule } = require('../lib/tuning_codes');
+const { SCHEMAS, validateJudgment } = require('../lib/judge/schema');
 const config = require('../../model_test_v4/test.config');
 const prevArgv = process.argv;
 process.argv = ['node', 'judge_report.js', '--batch', 'fixture'];
@@ -19,11 +20,27 @@ function judgment(id, overrides = {}) {
     accuracy: { verdict: 'CORRECT', missing_required_facts: [], contradicted_facts: [] },
     hallucination: { is_grounded: true, grounding_score: 5, silent_conflict_pick: false },
     behavior: { content_stance: 'ANSWER', content_sources: ['FAQ-1'], asks_user: false },
-    evidence: { applicable: true, gold_ids: ['FAQ-1'], cited_ids: ['FAQ-1'] }, expression_quality: 5,
+    evidence: { applicable: true, gold_ids: ['FAQ-1'], cited_ids: ['FAQ-1'] },
     ...overrides,
   };
 }
 const analyze = (r) => analyzeRow(r, config.tuning);
+
+test('표현 점수 없는 새 Judge 결과를 검증·집계하고 제거된 필드는 거부한다', () => {
+  const r = judgment('SF-no-expression');
+  const value = {
+    accuracy: r.accuracy,
+    hallucination: { ...r.hallucination, hallucinated_claims: [], minor_issues: [] },
+    behavior: r.behavior,
+    reasoning: '필수 사실이 맞고 입력 자료로 뒷받침됩니다.',
+  };
+  assert.equal(validateJudgment(value, 'accuracy', { allowed_sources: ['FAQ-1'] }), value);
+  assert.ok(!SCHEMAS.accuracy.required.includes('expression_quality'));
+  assert.throws(() => validateJudgment({ ...value, expression_quality: 5 }, 'accuracy'), /unexpected expression_quality/);
+  const stats = accuracyStats([{ id: r.id }], [r], [analyze(r)]);
+  assert.equal(stats.correct_rate, 1);
+  assert.ok(!Object.hasOwn(stats, 'expression_avg'));
+});
 
 test('status가 기대와 같아도 본문 기준 과대·과소를 독립적으로 검출한다', () => {
   const over = analyze(judgment('SR-label-match', { expected_status: 'ABSTAIN', response_status: 'ABSTAIN',
@@ -177,6 +194,7 @@ test('로컬 합성 배치 보고서 생성: 새 묶음·RT 제외·안전성·�
     assert.match(md, /Judge 미완료·오류 1/);
     assert.match(md, /TIMEOUT 1/);
     assert.equal(m.runs[0].accuracy.independent.n_expected, 4);
+    assert.ok(!Object.hasOwn(m.runs[0].accuracy.independent, 'expression_avg'));
     assert.equal(m.runs[0].accuracy.by_item.SF.tuning_codes.A1, 1);
     const bodyVsLabel = m.runs[0].accuracy.independent.consistency.status_body;
     assert.equal(bodyVsLabel.label_direction.MATCH, 2);

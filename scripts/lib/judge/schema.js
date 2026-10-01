@@ -5,7 +5,8 @@
 // 본문 행동·실제 출처(behavior)를 추가했다. 그래서 v3 정확도와 직접 비교하지 않는다.
 
 // v4-schema-4: content_stance에서 CLARIFY를 빼고(되묻기는 ABSTAIN/PARTIAL), 되묻기 여부 asks_user를 따로 기록.
-const SCHEMA_VERSION = 'v4-schema-4';
+// v4-schema-5: accuracy의 expression_quality 필드를 제거(표현 품질은 전수 Judge 대상에서 제외).
+const SCHEMA_VERSION = 'v4-schema-5';
 const STANCES = ['ANSWER', 'PARTIAL', 'ABSTAIN', 'CONFLICT', 'OUT_OF_SCOPE'];
 const object = (properties) => ({ type: 'object', properties, required: Object.keys(properties), additionalProperties: false });
 const text = { type: 'string' };
@@ -31,7 +32,6 @@ const accuracy = object({
     content_sources: list(text),
     asks_user: bool, // 본문이 답에 필요한 정보를 사용자에게 요청함(되묻기). 상태와 별개로 건수만 집계
   }),
-  expression_quality: score,
   reasoning: text,
 });
 

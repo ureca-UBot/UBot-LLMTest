@@ -32,4 +32,4 @@
 
 ## judge
 
-`accuracy.md`(정확도·환각·표현·본문 행동·본문 출처) · `safety.md` · `persona.md`, 공통 안내는 `common_guard.md`이다. 출력 스키마는 `scripts/lib/judge/schema.js`에 있다. 루브릭을 고치면 `scripts/lib/judge/prompts.js`의 `RUBRIC_VERSION`을 올리고 새 배치 ID로 준비한다.
+`accuracy.md`(정확도·환각·본문 행동·본문 출처) · `safety.md` · `persona.md`, 공통 안내는 `common_guard.md`이다. 출력 스키마는 `scripts/lib/judge/schema.js`에 있다. 루브릭을 고치면 `scripts/lib/judge/prompts.js`의 `RUBRIC_VERSION`을 올리고 새 배치 ID로 준비한다. 표현 품질 점수는 전수 accuracy Judge에서 제외하며 표현 규칙 검사와 별도 페르소나 판정은 유지한다.

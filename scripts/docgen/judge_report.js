@@ -246,7 +246,7 @@ function consistencyStats(rows) {
   };
 }
 
-// 결과 조합: 정답(답변 문장만 본 Judge 판정)에 상태 라벨·근거 라벨이 맞았는지를 더한다. 환각·표현과 무관.
+// 결과 조합: 정답(답변 문장만 본 Judge 판정)에 상태 라벨·근거 라벨이 맞았는지를 더한다. 환각과 무관.
 // 근거 조건은 정답 근거 문서가 정해진 행(근거 대상 행)에서만 판정한다.
 function resultStats(rows) {
   const app = rows.filter((x) => x.evidence_applicable);
@@ -286,7 +286,6 @@ function accuracyStats(jobs, results, analyzed) {
     hallucination_rate: rate(count((r) => !r.hallucination.is_grounded), results.length),
     grounded_rate: rate(count((r) => r.hallucination.is_grounded), results.length),
     grounding_score_avg: avg(results.map((r) => r.hallucination.grounding_score)),
-    expression_avg: avg(results.map((r) => r.expression_quality)),
     silent_conflict_pick: count((r) => r.hallucination.silent_conflict_pick),
     // 행동
     paths: ps,
@@ -451,7 +450,7 @@ function main() {
     const modelCandidates = r.tuning_overview.methods.find((m) => m.key === 'MODEL')?.count || 0;
     L.push(`| ${r.model} | ${pct(a.correct_rate)} | ${pct(rs.correct_status_rate)} | ${pct(rs.correct_evidence_rate)} | ${pct(rs.correct_evidence_status_rate)} | ${pct(a.hallucination_rate)} | ${pct(h.over_rate)} | ${pct(h.under_rate)} | ${pct(h.cross_rate)} | ${pct(h.source_wrong_rate)} | ${pct(h.use_error_rate)} | ${pct(a.body_answered_without_citation_rate)} | ${a.asks_user.count} | ${pct(c.status_body.agree_rate)} | ${pct(c.evidence_body.agree_rate)} | ${pct(rate(modelCandidates, r.tuning_overview.n_with_issue))} |`);
   }
-  L.push('', '- 정답률은 Judge가 **답변 문장만** 보고 판정(환각·표현·상태·근거와 독립). 정답+상태·정답+근거·정답+근거+상태는 모델이 출력한 라벨 기준 조합이고 환각 여부와 무관 — 정의와 분모는 4절.');
+  L.push('', '- 정답률은 Judge가 **답변 문장만** 보고 판정(환각·상태·근거와 독립). 정답+상태·정답+근거·정답+근거+상태는 모델이 출력한 라벨 기준 조합이고 환각 여부와 무관 — 정의와 분모는 4절.');
   L.push('- 과대·과소·교차는 **본문 기준**(Judge가 본문만 읽고 정한 행동 vs 기대 상태). 근거 선택 오류는 근거 판정 대상 행 중 비율.');
   L.push('- 근거-본문 일치는 본문에 쓴 문서를 모두 인용한 비율(관련 문서를 더 인용한 것은 허용). 엄격 일치는 3절.');
   L.push('- 답했는데 근거 미기재 = 본문이 답·부분 답·충돌 고지를 했는데 evidence_ids가 빈 비율(설정의 제외 항목 제외).');
@@ -500,7 +499,7 @@ function main() {
   }
 
   L.push('', '## 4. 결과 — 정답 · 정답+상태 · 정답+근거 · 정답+근거+상태', '');
-  L.push('정답 = Judge가 답변 문장만 보고 CORRECT로 판정. 상태 = 모델이 출력한 status가 기대 상태와 같음. 근거 = 모델이 출력한 evidence_ids가 하나 이상이고 모두 정답 근거 문서(틀린 문서를 섞지 않음 — 정답 근거 문서가 정해진 "근거 대상 행"에서만 판정). 환각·표현과 무관하다. 근거가 들어간 조합은 근거 대상 행이 분모이므로, 같은 분모의 정답·정답+상태를 함께 적는다. 엄격 = 정답+근거+상태 + 경로 P0(환각·누락·오적용 없음) + 본문에 쓴 문서를 모두 인용(참고용 운영 목표).', '');
+  L.push('정답 = Judge가 답변 문장만 보고 CORRECT로 판정. 상태 = 모델이 출력한 status가 기대 상태와 같음. 근거 = 모델이 출력한 evidence_ids가 하나 이상이고 모두 정답 근거 문서(틀린 문서를 섞지 않음 — 정답 근거 문서가 정해진 "근거 대상 행"에서만 판정). 환각과 무관하다. 근거가 들어간 조합은 근거 대상 행이 분모이므로, 같은 분모의 정답·정답+상태를 함께 적는다. 엄격 = 정답+근거+상태 + 경로 P0(환각·누락·오적용 없음) + 본문에 쓴 문서를 모두 인용(참고용 운영 목표).', '');
   L.push(...header(['모델', '정답 (전체)', '정답+상태 (전체)', '정답 (근거 대상 행)', '정답+상태 (근거 대상 행)', '정답+근거', '정답+근거+상태', '엄격(참고)']));
   for (const r of runs) {
     const x = r.accuracy?.independent?.result;

@@ -44,10 +44,10 @@ function main() {
       const a = j.accuracy?.independent;
       L.push(`### 배치 \`${batch}\``, '');
       if (a) {
-        L.push('| 범위 | 채점 | 내용 정확도 | 환각률 | 근거 /5 | 표현 /5 |', '|---|---|---|---|---|---|');
-        L.push(`| 독립 표본 | ${a.n_scored}/${a.n_expected} | ${pct(a.correct_rate)} | ${pct(a.hallucination_rate)} | ${num(a.grounding_score_avg, 2)} | ${num(a.expression_avg, 2)} |`);
+        L.push('| 범위 | 채점 | 내용 정확도 | 환각률 | 근거 /5 |', '|---|---|---|---|---|');
+        L.push(`| 독립 표본 | ${a.n_scored}/${a.n_expected} | ${pct(a.correct_rate)} | ${pct(a.hallucination_rate)} | ${num(a.grounding_score_avg, 2)} |`);
         for (const [code, v] of Object.entries(j.accuracy.by_item || {})) {
-          L.push(`| ${code} ${itemName(code)} | ${v.n_scored}/${v.n_expected} | ${pct(v.correct_rate)} | ${pct(v.hallucination_rate)} | ${num(v.grounding_score_avg, 2)} | ${num(v.expression_avg, 2)} |`);
+          L.push(`| ${code} ${itemName(code)} | ${v.n_scored}/${v.n_expected} | ${pct(v.correct_rate)} | ${pct(v.hallucination_rate)} | ${num(v.grounding_score_avg, 2)} |`);
         }
         L.push('');
       }
