@@ -83,15 +83,28 @@ module.exports = {
   },
 
   // 오답 행의 대응 수단 분류(가설 — 튜닝 실험 결과로 고친다). judge_report.js가 행마다
-  // (경로, 항목)으로 수단을 붙이고, MODEL 몫을 "튜닝 한계" 지표로 보고한다. 이 몫이 크고
-  // 튜닝으로 줄지 않으면 상위 모델(qwen3:8b)로 넘어가는 근거가 된다.
+  // (경로, 항목)으로 수단을 붙인다. MODEL 몫은 식별·추론 보강 후보 비중이며, 실제 튜닝
+  // 한계가 아니다. 같은 문항에서 보강 실험·회귀·속도를 확인한 뒤 상위 모델과 비교한다.
   //   OUTPUT_STRUCTURE 본문은 맞는데 라벨(status·evidence_ids)만 틀림 → 출력 순서·형식
   //   PROMPT           규칙·정의·예시로 고칠 수 있음
   //   CODE             모델 앞뒤 코드로 막을 수 있음(빈 Context 차단, 임베딩 임계값 등)
-  //   MODEL            모델의 판단·식별 능력 문제 → 프롬프트·코드로 개선이 어렵다고 본다
+  //   MODEL            판단·식별 보강 실험 후보(프롬프트·코드로 개선 불가라는 판정 아님)
   // 경로 값은 문자열(전 항목 공통) 또는 { default, <항목 코드>: ... }.
   tuning: {
     labelOnly: 'OUTPUT_STRUCTURE',
+    // A/B/C는 판단 방향 × 본문 근거 상태. 수단·난이도는 실험 전 가설이다.
+    // A4를 하나의 보류 문제로 합치면 빈 Context·무관 FAQ·유사 문서의 난이도 차이가 가려진다.
+    codes: {
+      A4: {
+        EC: { methods: ['CODE'], difficulty: 'LOW', action: '빈 Context임을 코드로 확인하고 확정 답변을 차단한다.' },
+        HR: { methods: ['CODE', 'PROMPT'], difficulty: 'HIGH', action: '무관성을 정답 라벨 없이 탐지할 수 있는 검색 신호를 별도로 검증한 뒤 차단·보류 규칙을 실험한다.' },
+        SR: { methods: ['PROMPT', 'MODEL'], difficulty: 'HIGH', action: '관련은 있지만 질문의 답은 없는 문서의 대조 예시와 답변 가능성 판단을 보강한다.' },
+      },
+      D2: {
+        AR: { methods: ['CODE'], difficulty: 'LOW', action: 'API의 조회 상태·대상·수치에 맞는 코드 템플릿으로 답변을 만들고 실제 값과 대조한다.' },
+      },
+    },
+    // P 경로 기반 배타 집계는 과거 자료 추적용. 사용자용 집계는 위 codes와 공통 코드 정의를 사용한다.
     paths: {
       P1: { default: 'PROMPT', EC: 'CODE', HR: 'CODE', SR: 'MODEL' }, // 과대: 유사하지만 답 없는 문서(SR)에서의 오판은 능력 문제. NC는 기대가 전부 ANSWER라 P1이 없다
       P2: 'PROMPT',            // 과소: 상태 정의·부정 답변 예외

@@ -22,7 +22,7 @@ const { direction } = require('./status_direction');
 const PATHS = ['P0', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'PF'];
 const PATH_NAMES = {
   P0: '정상', P1: '과대 판단', P2: '과소 판단', P3: '교차', P4: '근거 선택 오류',
-  P5: '누락', P6: '오적용', P7: '정답+환각', PF: '판정 불가',
+  P5: '누락', P6: '오적용', P7: '근거 없는 주장(정답 여부 별도)', PF: '판정 불가',
 };
 
 // sourceOk: true(정답 문서 사용) / false(정답 문서 아님) / null(근거 판정 대상 외)

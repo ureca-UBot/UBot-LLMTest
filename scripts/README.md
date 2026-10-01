@@ -88,12 +88,17 @@ node scripts/docgen/judge_report.js --batch <id>                      # 집계 -
 
 `accuracy` Judge는 **답변 본문만** 받는다(status·evidence_ids는 입력에서 뺌). 정확도·환각·표현과 함께 본문이 실제로 한 행동(`behavior.content_stance`)과 본문의 실제 출처(`behavior.content_sources`)를 낸다. `judge_report.js`는 이를 네 층으로 집계한다.
 
+과대·과소는 **출력 status vs 기대 상태**와 **Judge가 본문만 읽고 판정한 content_stance vs 기대 상태**를 각각 계산한다. 라벨을 지켰어도 본문이 과대·과소일 수 있다. 튜닝 코드는 본문 기준을 쓰며 보고서 3절에서 같은 행의 두 방향·불일치를 비교한다. 두 평가 축을 구현하는 데 별도 문서 생성 AI는 사용하지 않는다.
+
 - 내용: 정확도·환각
-- 행동: 응답 경로표 P0~P7(`lib/response_paths.js`, 방향 규칙은 `lib/status_direction.js`)과 오답 분해(오답을 과대·과소·교차·근거 틀림·오적용·누락으로, 칸마다 환각 동반 건수)
+- 튜닝 진단: **A/B/C = 과대/과소/교차 × 근거 상태(1 정답, 2 잘못된 문서, 3 본문 문서 근거 없음, 4 대상 외)**. D 근거·내용, E 출력 정합, F 문항·판정 검토, S 안전성으로 묶는다(`lib/tuning_codes.js`·`lib/tuning_report.js`). 기본 코드는 배타적, S1은 별도 동반. 환각·오적용·누락을 함께 기록하고 심각도를 따로 표시한다. 수단·난이도는 가설이며 항목별로 달라질 수 있다.
+- 상세 행동 진단: 이전 응답 경로 P0~P7(`lib/response_paths.js`, 방향 규칙은 `lib/status_direction.js`)과 오답 분해는 추적용으로 보존한다.
 - 정합: 라벨 vs 본문(코드 계산)
 - 결과: 정답 · 정답+상태 · 정답+근거 · 정답+근거+상태(라벨 기준, 환각과 무관)
 
 여기에 튜닝 가능성(`test.config.js`의 `tuning`)과 공통 오답 후보가 더해진다. 경로 모듈은 입력 출처와 무관하게 설계되어 있다. 그래서 라벨(status·evidence_ids)과 규칙 기반 값을 넣는 결정론 버전도 같은 규칙으로 계산할 수 있다.
+
+보고서 0·5절은 새 튜닝 코드를 쓴다. 0절에는 채점 완료율·생성 실패·Judge 미완료도 표시하며 자료 판정 불가는 모델 오답과 구분한다. 전체 요약의 '독립 표본'은 RT 제외 행이라는 기존 이름이며 통계적 독립성을 보장하지 않는다. v4 검토·코드 해석은 [`TUNING_GUIDE.md`](../model_test_v4/TUNING_GUIDE.md)를 참고한다. 로컬 합성 판정으로 문서 생성만 검증: `node --test scripts/tests/tuning_report.test.js`(API 호출 없음).
 
 Judge 종류는 세 가지다.
 
