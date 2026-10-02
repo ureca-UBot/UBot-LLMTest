@@ -70,7 +70,7 @@ run_id 형식은 `<env>_<모델>_<조건>_<컨텍스트 방식>_n<항목당 건�
 ```bash
 node scripts/judge/build_batch_manifest.js --batch <id> [--size N]   # 완료된 run 고정 -> report/<id>.json
 node scripts/judge/judge_prepare.js --batch <id>                     # 채점 입력(외부 호출 없음) -> llm_judge/inputs/<id>/
-node scripts/judge/judge_run.js --batch <id> --confirm-external [--concurrency 8]   # ⚠ 외부 전송(OpenAI API) — 승인 후
+node scripts/judge/judge_run.js --batch <id> --confirm-external [--concurrency 8]   # ⚠ 외부 전송(provider 설정에 따름 — v4는 Codex CLI) — 승인 후
 node scripts/docgen/judge_report.js --batch <id>                      # 집계 -> llm_judge/<id>_report.md
 ```
 
@@ -78,27 +78,26 @@ node scripts/docgen/judge_report.js --batch <id>                      # 집계 -
 
 | 단계 | 스크립트 | 프롬프트·스키마 | 외부 호출 |
 |---|---|---|---|
-| **판정** (모델이 저장 답변을 채점) | `judge/judge_prepare.js` → `judge/judge_run.js` | `prompts/judge/*.md`(루브릭) · `lib/judge/schema.js`(출력 스키마) · `lib/judge/providers/`(호출부) | OpenAI API |
+| **판정** (모델이 저장 답변을 채점) | `judge/judge_prepare.js` → `judge/judge_run.js` | `prompts/judge/*.md`(루브릭) · `lib/judge/schema.js`(출력 스키마) · `lib/judge/providers/`(호출부) | provider 설정에 따름(v4는 Codex CLI) |
 | **문서 생성** (판정·채점 결과를 표·보고서로) | `judge_report.js` · `build_run_report.js` · `compare_runs.js` | 없음 — 코드로 집계 | 없음 |
 
 - 문서 생성에 LLM을 쓰게 되면(예: 결과 해석 초안) 프롬프트는 `prompts/docgen/`에, 스크립트는 `scripts/docgen/`에 따로 만든다. 판정 루브릭(`prompts/judge/`)을 재사용하거나 판정 스크립트에 끼워 넣지 않는다.
-- 판정 호출부는 provider로 나뉜다: `openai`(기본, Chat Completions + Structured Outputs `json_schema` strict), `codex`(v3 방식 Codex CLI, 재채점 호환용). `test.config.js`의 `judge.provider`로 고른다.
-- **판정 모델은 아직 정하지 않았다**(`judge.model: null`). 모델이 없으면 `judge_prepare.js`는 경고만 하고 `judge_run.js`는 멈춘다. provider·model·reasoningEffort·temperature·seed는 준비 시점에 배치 매니페스트에 고정되며, 바꾸면 새 배치 ID로 다시 준비해야 한다.
-- API 키는 `judge.apiKeyEnv`(기본 `OPENAI_API_KEY`) 환경변수에서만 읽고 로그에 남기지 않는다. 호출 로그는 `llm_judge/runs/<batch>/calls/`(요청 설정 + 응답)이다. 429·5xx·타임아웃은 `retry-after`를 지키며 재시도한다.
+- 판정 호출부는 provider로 나뉜다: `openai`(OpenAI API, Chat Completions + Structured Outputs `json_schema` strict, 토큰 과금), `codex`(Codex CLI — **v4가 쓰는 provider**, ChatGPT 구독 인증으로 실행해 API 토큰 과금이 아님, `--output-schema`로 구조화 출력 강제). `test.config.js`의 `judge.provider`로 고른다.
+- **판정 모델은 아직 정하지 않았다**(`judge.model: null`). 모델이 없으면 `judge_prepare.js`는 경고만 하고 `judge_run.js`는 멈춘다. provider·model·reasoningEffort·temperature·seed는 준비 시점에 배치 매니페스트에 고정되며, 바꾸면 새 배치 ID로 다시 준비해야 한다. v4는 `reasoningEffort: 'medium'`으로 정했다(2026-10-02).
+- `openai` provider는 API 키를 `judge.apiKeyEnv`(기본 `OPENAI_API_KEY`) 환경변수에서만 읽고 로그에 남기지 않으며, 429·5xx·타임아웃은 `retry-after`를 지키며 재시도한다. `codex` provider는 `codex login`으로 끝난 구독 인증을 그대로 쓰고 별도 API 키가 없다 — `judge.cli`(기본 `codex`, `LLM_JUDGE_CODEX_BIN` 환경변수로 덮어쓰기 가능) 실행 파일이 PATH에 있어야 한다. 호출 로그는 두 provider 모두 `llm_judge/runs/<batch>/calls/`(요청 설정 + 응답)에 남는다.
 
-`accuracy` Judge는 **답변 본문만** 받는다(status·evidence_ids는 입력에서 뺌). 정확도·환각과 함께 본문이 실제로 한 행동(`behavior.content_stance`)과 본문의 실제 출처(`behavior.content_sources`)를 낸다. `judge_report.js`는 이를 네 층으로 집계한다.
+`accuracy` Judge는 **답변 본문만** 받는다(status·evidence_ids는 입력에서 뺌). 정확도·환각과 함께 본문이 실제로 한 행동(`behavior.content_stance`)과 본문의 실제 출처(`behavior.content_sources`)를 낸다. `judge_report.js`는 이를 세 층으로 집계한다.
 
-과대·과소는 **출력 status vs 기대 상태**와 **Judge가 본문만 읽고 판정한 content_stance vs 기대 상태**를 각각 계산한다. 라벨을 지켰어도 본문이 과대·과소일 수 있다. 튜닝 코드는 본문 기준을 쓰며 보고서 3절에서 같은 행의 두 방향·불일치를 비교한다. 두 평가 축을 구현하는 데 별도 문서 생성 AI는 사용하지 않는다.
+상태(본문 행동 `content_stance`)가 기대와 다르게 나온 경우는 **정합(3절)에서만** 본다 — 라벨 기준(출력 status vs 기대 상태)과 본문 기준(Judge가 읽고 판정한 content_stance vs 기대 상태)을 각각 세서 일치율·불일치 건수로 보여줄 뿐, "심각한 문제"로 우선순위를 매기지 않는다. 2026-10-02에 과대/과소/교차를 최우선으로 보던 응답 경로표(P0~P7, `lib/response_paths.js`)와 튜닝 코드(A/B/C/D/E/F/S, `lib/tuning_codes.js`·`lib/tuning_report.js`)는 폐기하고 세 파일을 삭제했다 — 상태 불일치를 최우선 문제로 보는 전제가, 상태를 아예 안 보는 정확도 판정·"정답+상태 완화"(ANSWER↔PARTIAL 등은 정답으로도 집계) 결정과 맞지 않았기 때문이다.
 
 - 내용: 정확도·환각
-- 튜닝 진단: **A/B/C = 과대/과소/교차 × 근거 상태(1 정답, 2 잘못된 문서, 3 본문 문서 근거 없음, 4 대상 외)**. D 근거·내용, E 출력 정합, F 문항·판정 검토, S 안전성으로 묶는다(`lib/tuning_codes.js`·`lib/tuning_report.js`). 기본 코드는 배타적, S1은 별도 동반. 환각·오적용·누락을 함께 기록하고 심각도를 따로 표시한다. 수단·난이도는 가설이며 항목별로 달라질 수 있다.
-- 상세 행동 진단: 이전 응답 경로 P0~P7(`lib/response_paths.js`, 방향 규칙은 `lib/status_direction.js`)과 오답 분해는 추적용으로 보존한다.
-- 정합: 라벨 vs 본문(코드 계산)
-- 결과: 정답 · 정답+상태 · 정답+근거 · 정답+근거+상태(라벨 기준, 환각과 무관)
+- 오답 이유(배타 분류, 상태 무관): **근거 오류**(content_sources vs 정답 문서, 코드 판단) → **필수 사실 누락**(Judge) → **사실 오적용/모순**(Judge) → **기타**. 칸마다 환각 동반 건수를 같이 센다.
+- 정합: 라벨 vs 본문(코드 계산) — status 다르게 표기된 경우는 여기서 일치율·불일치 건수·대표 문항으로 본다
+- 결과: 정답 · 정답+상태(+완화) · 정답+근거 · 정답+근거+상태(+완화)(라벨 기준, 환각과 무관)
 
-여기에 튜닝 가능성(`test.config.js`의 `tuning`)과 공통 오답 후보가 더해진다. 경로 모듈은 입력 출처와 무관하게 설계되어 있다. 그래서 라벨(status·evidence_ids)과 규칙 기반 값을 넣는 결정론 버전도 같은 규칙으로 계산할 수 있다.
+여기에 공통 오답 후보(같은 문항·같은 오답 이유로 2개 이상 모델이 틀림)가 더해진다.
 
-보고서 0·5절은 새 튜닝 코드를 쓴다. 0절에는 채점 완료율·생성 실패·Judge 미완료도 표시하며 자료 판정 불가는 모델 오답과 구분한다. 전체 요약의 '독립 표본'은 RT 제외 행이라는 기존 이름이며 통계적 독립성을 보장하지 않는다. v4 검토·코드 해석은 [`TUNING_GUIDE.md`](../model_test_v4/TUNING_GUIDE.md)를 참고한다. 로컬 합성 판정으로 문서 생성만 검증: `node --test scripts/tests/tuning_report.test.js`(API 호출 없음).
+보고서 1절은 대표 지표, 4-1절은 오답 이유 배타 분류를 보여준다. 채점 완료율·생성 실패·Judge 미완료도 표시하며 자료 판정 불가는 모델 오답과 구분한다. 전체 요약의 '독립 표본'은 RT 제외 행이라는 기존 이름이며 통계적 독립성을 보장하지 않는다.
 
 Judge 종류는 세 가지다.
 

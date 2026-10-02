@@ -8,16 +8,16 @@
 //
 // 지표 구조 (model_test_v4/SETUP.md "평가 기준")
 //   내용  정확도(Judge가 answer 본문만 보고 판정) · 환각률
-//   행동  경로표 P0~P7 — 판단(본문 행동 vs 기대) → 근거(본문 출처 vs 정답 문서) → 내용(누락·오적용),
-//         환각은 모든 경로에 붙는 표시. 행마다 다섯 표시를 전부 남긴다(lib/response_paths.js).
-//   정합  라벨(status·evidence_ids)과 본문이 맞는가 — 코드가 계산(Judge는 라벨을 보지 않는다)
+//   정합  라벨(status·evidence_ids)과 본문이 맞는가 — 코드가 계산(Judge는 라벨을 보지 않는다).
+//         상태(본문 행동)가 기대와 다르게 나온 경우는 여기서만 본다 — 정확도·오답 이유 판정에는 안 섞는다
+//         (2026-10-02 결정: 과대·과소·교차를 최우선으로 보던 이전 경로표·튜닝코드 체계는 폐기했다.
+//         status 불일치는 "얼마나 심각한 문제인지"가 아니라 "그런 라벨 조합이 몇 건인지"만 본다).
 //   결과  정답(답변 문장만 본 판정) · 정답+상태 · 정답+근거 · 정답+근거+상태(라벨 기준, 환각과 무관).
 //         정답+상태(완화)는 데이터 정리 — ANSWER↔PARTIAL(양방향), 기대 OUT_OF_SCOPE·CONFLICT인데
 //         ABSTAIN으로 덜 확정한 경우(단방향)를 정답으로도 본다(2026-10-02, Judge 판정 아님).
 //         교차 건수는 조합별로 항상 따로 집계해 숨기지 않는다.
-//         오답 이유(4-1절)는 상태를 안 섞고 네 칸— 근거 오류(코드) → 필수 사실 누락(Judge) →
+//         오답 이유(4-1절)는 상태를 안 섞고 네 칸 — 근거 오류(코드) → 필수 사실 누락(Judge) →
 //         사실 오적용/모순(Judge) → 기타 — 로 배타 분류한다.
-//         진단은 위 세 층으로 한다.
 //
 // 분모는 채점에 성공한 행이다. 전체 요약은 독립 표본(반복 항목 제외), 반복 항목은 항목별 표에서 본다.
 //
@@ -34,9 +34,7 @@ const { itemName } = require('../lib/dataset');
 const { avg, rate, groupBy, pct, num } = require('../lib/stats');
 const { writeJson, writeJsonl } = require('../lib/run_data');
 const { DIRECTIONS, direction } = require('../lib/status_direction');
-const { PATHS, PATH_NAMES, responseFlags, pathOf, pathStats } = require('../lib/response_paths');
-const { tuningCodeOverview, renderTuningCodes } = require('../lib/tuning_report');
-const { CODES, classifyTuning, sourceState } = require('../lib/tuning_codes');
+const { HALLUCINATION_TYPES } = require('../lib/judge/schema');
 
 const SPECIAL_SOURCES = new Set(['USER_INFO_API', 'HISTORY']);
 const ANSWERING = new Set(['ANSWER', 'PARTIAL', 'CONFLICT']);
@@ -57,18 +55,9 @@ function forgivableStatusPair(expected, actual) {
   const hit = FORGIVABLE_STATUS_PAIRS.some(([e, a]) => e === expected && a === actual);
   return hit ? `${expected}→${actual}` : null;
 }
-const LEVERS = ['OUTPUT_STRUCTURE', 'PROMPT', 'CODE', 'MODEL', 'REVIEW'];
-const LEVER_NAMES = { OUTPUT_STRUCTURE: '출력 구조', PROMPT: '프롬프트', CODE: '코드', MODEL: '문서 식별·추론 보강(가설)', REVIEW: '미분류 오답 검토' };
 const subset = (a, b) => a.every((x) => b.includes(x));
 // 근거 채택(주 기준, score_evidence.js와 같은 정의): 하나 이상이고 모두 정답 근거 문서
 const adoptedBy = (list, gold) => list.length > 0 && subset(list, gold);
-
-// test.config.js의 tuning.paths로 경로·항목의 대응 수단을 고른다.
-function leverOf(tuning, p, item) {
-  const v = tuning.paths[p];
-  if (!v) return null;
-  return typeof v === 'string' ? v : (v[item] || v.default || null);
-}
 
 function evidenceRelation(cited, sources) {
   const cInS = subset(cited, sources), sInC = subset(sources, cited);
@@ -78,8 +67,8 @@ function evidenceRelation(cited, sources) {
   return 'MISMATCH';
 }
 
-// Judge 판정 한 행 + 잡 메타 + 결정론 근거 채점 -> 경로·표시·정합·결과
-function analyzeRow(r, tuning) {
+// Judge 판정 한 행 + 잡 메타 + 결정론 근거 채점 -> 표시·정합·결과
+function analyzeRow(r) {
   const ev = r.evidence;
   const stance = r.behavior.content_stance;
   const srcDocs = r.behavior.content_sources.filter((s) => !SPECIAL_SOURCES.has(s));
@@ -89,32 +78,25 @@ function analyzeRow(r, tuning) {
   // 본문에 문서 기반 사실이 전혀 없으면(보류뿐·전부 지어냄) 근거 판정을 하지 않는다(null) —
   // 지어낸 내용은 환각 표시로 잡힌다.
   const sourceOk = gold && srcDocs.length ? subset(srcDocs, gold) : null;
-
-  const flags = responseFlags({
-    expected: r.expected_status,
-    stance,
-    sourceOk,
+  const flags = {
+    source_ok: sourceOk,
     missing: r.accuracy.missing_required_facts.length > 0,
     misapplied: r.accuracy.contradicted_facts.length > 0,
     hallucinated: !r.hallucination.is_grounded,
-  });
-  const p = pathOf(flags);
+  };
 
   const label = r.response_status;
   const cited = ev ? ev.cited_ids : [];
   const relation = cited.length || srcDocs.length ? evidenceRelation(cited, srcDocs) : null;
-  const evidenceOkForResult = gold ? adoptedBy(cited, gold) && subset(srcDocs, cited) : true;
   // 본문이 답을 냈는데(답·부분 답·충돌 고지) 인용이 비어 있음. 라벨 기준 값은 score_evidence.js에 있다.
   const bodyAnsweredWithoutCitation = ANSWERING.has(stance) && cited.length === 0 && ev?.excluded_by !== 'EXCLUDED_ITEM';
-  // 본문은 정상(P0)인데 라벨만 틀림: status 라벨이 기대와 다름, 정답 문서 미인용, 본문에 쓴 문서 미인용, 인용 없음
-  const labelOnlyError = p === 'P0' && r.accuracy.verdict === 'CORRECT' && (label !== r.expected_status || (gold && !adoptedBy(cited, gold))
-    || !subset(srcDocs, cited) || bodyAnsweredWithoutCitation);
-  const lever = p === 'P0' ? (r.accuracy.verdict !== 'CORRECT' ? 'REVIEW' : labelOnlyError ? tuning.labelOnly : null) : leverOf(tuning, p, r.item);
-  const analyzed = {
+  return {
     id: r.id, item: r.item, difficulty: r.difficulty, expected_status: r.expected_status,
-    verdict: r.accuracy.verdict, path: p, flags,
+    verdict: r.accuracy.verdict, flags,
     label_status: label, content_stance: stance,
+    // 상태(본문 행동) 방향은 정합(3절)에서만 본다 — 정확도·오답 이유 판정에는 쓰지 않는다(2026-10-02).
     label_direction: direction(r.expected_status, label),
+    content_direction: direction(r.expected_status, stance),
     status_body_agree: label ? label === stance : null,
     evidence_applicable: !!gold, gold_ids: gold, cited_ids: cited, content_source_docs: srcDocs,
     evidence_relation: relation,
@@ -128,20 +110,20 @@ function analyzeRow(r, tuning) {
     status_forgiven_pair: forgivableStatusPair(r.expected_status, label),
     status_label_ok_loose: label === r.expected_status || !!forgivableStatusPair(r.expected_status, label),
     evidence_label_ok: gold ? adoptedBy(cited, gold) : null, // 근거 판정 대상 외 행은 null
-    strict_ok: p === 'P0' && r.accuracy.verdict === 'CORRECT' && label === r.expected_status && evidenceOkForResult,
+    // 참고용 운영 목표: 정답 + 상태 라벨 일치 + 근거(인용 기준) 일치 + 본문에 쓴 문서를 모두 인용 +
+    // 환각·누락·오적용 없음. "엄격"은 이 다섯 조건을 전부 만족해야 한다.
+    strict_ok: r.accuracy.verdict === 'CORRECT' && label === r.expected_status
+      && (gold ? adoptedBy(cited, gold) && subset(srcDocs, cited) : true)
+      && !flags.hallucinated && !flags.missing && !flags.misapplied,
     body_answered_without_citation: bodyAnsweredWithoutCitation,
     asks_user: !!r.behavior.asks_user, // 되묻기(본문이 답에 필요한 정보를 사용자에게 요청). 상태와 별개로 건수만 센다
-    label_only_error: labelOnlyError,
-    lever,
+    error_reason: errorCategory({ flags }),
   };
-  analyzed.source_state = sourceState(analyzed);
-  analyzed.tuning_code = classifyTuning(analyzed);
-  return analyzed;
 }
 
 // 오답 이유(2026-10-02 결정): 정답률(Judge가 답변 문장만 본 판정)에서 오답으로 나온 행을 원인 하나로 나눈다.
 // 상태(본문 행동)는 더 이상 섞지 않는다 — v4 accuracy verdict는 애초에 상태를 안 보고 판정한다(상태 방향
-// 진단은 2·3절의 경로표·정합 표에서 따로 본다). 네 칸, 위에서부터 처음 걸린 것 하나(배타적, 합계 = 오답 수):
+// 진단은 3절의 정합 표에서 따로 본다). 네 칸, 위에서부터 처음 걸린 것 하나(배타적, 합계 = 오답 수):
 //   근거 오류         본문 출처(content_sources)가 정답 근거 문서 밖에서 옴 — 코드가 판단(정답 근거 ID와 비교)
 //   필수 사실 누락    근거는 맞는데(또는 근거 판정 대상 외) missing_required_facts가 있음 — Judge 판단
 //   사실 오적용/모순  근거도 맞고 누락도 없는데 contradicted_facts가 있음 — Judge 판단
@@ -190,7 +172,6 @@ function errorBreakdown(rows) {
     all_categories: categorize(rows), // 정답+오답 합계 — 튜닝 수단(칸)별 전체 규모
     // 오답 중 표시 비율(겹침 허용) — 배타 분류에서 앞 칸에 가려진 원인도 보인다
     incidence_in_incorrect: {
-      status_wrong: share((x) => x.flags.direction !== 'MATCH'),
       source_wrong: share((x) => x.flags.source_ok === false),
       misapplied: share((x) => x.flags.misapplied),
       missing: share((x) => x.flags.missing),
@@ -222,36 +203,24 @@ function asksUserStats(rows) {
   };
 }
 
-function tuningStats(rows) {
-  const errors = rows.filter((x) => x.lever);
-  const by = Object.fromEntries(LEVERS.map((l) => [l, errors.filter((x) => x.lever === l).length]));
-  return {
-    n_rows: rows.length,
-    n_with_issue: errors.length,
-    by_lever: by,
-    model_share_of_issues: rate(by.MODEL, errors.length),
-    model_share_of_rows: rate(by.MODEL, rows.length),
-  };
-}
-
 function consistencyStats(rows) {
   const withLabel = rows.filter((x) => x.label_status);
   const evRows = rows.filter((x) => x.evidence_relation);
   const app = rows.filter((x) => x.evidence_applicable);
   const relations = ['SAME', 'CITED_EXTRA', 'CITED_MISSING', 'MISMATCH'];
   const matrix = Object.fromEntries(DIRECTIONS.map((l) => [l, Object.fromEntries(DIRECTIONS.map((b) => [b,
-    withLabel.filter((x) => x.label_direction === l && x.flags.direction === b).length]))]));
+    withLabel.filter((x) => x.label_direction === l && x.content_direction === b).length]))]));
   return {
     status_body: {
       n: withLabel.length,
       agree_rate: rate(withLabel.filter((x) => x.status_body_agree).length, withLabel.length),
-      direction_agree_rate: rate(withLabel.filter((x) => x.label_direction === x.flags.direction).length, withLabel.length),
+      direction_agree_rate: rate(withLabel.filter((x) => x.label_direction === x.content_direction).length, withLabel.length),
       label_direction: Object.fromEntries(DIRECTIONS.map((d) => [d, withLabel.filter((x) => x.label_direction === d).length])),
-      body_direction: Object.fromEntries(DIRECTIONS.map((d) => [d, withLabel.filter((x) => x.flags.direction === d).length])),
-      direction_mismatch_count: withLabel.filter((x) => x.label_direction !== x.flags.direction).length,
-      direction_mismatch_ids: withLabel.filter((x) => x.label_direction !== x.flags.direction).map((x) => x.id),
+      body_direction: Object.fromEntries(DIRECTIONS.map((d) => [d, withLabel.filter((x) => x.content_direction === d).length])),
+      direction_mismatch_count: withLabel.filter((x) => x.label_direction !== x.content_direction).length,
+      direction_mismatch_ids: withLabel.filter((x) => x.label_direction !== x.content_direction).map((x) => x.id),
       // 라벨만 틀림: 라벨은 기대와 다른데 본문은 기대대로
-      label_error: withLabel.filter((x) => x.label_direction !== 'MATCH' && x.flags.direction === 'MATCH').length,
+      label_error: withLabel.filter((x) => x.label_direction !== 'MATCH' && x.content_direction === 'MATCH').length,
       matrix_label_x_body: matrix,
     },
     evidence_body: {
@@ -305,8 +274,7 @@ function resultStats(rows) {
 
 function accuracyStats(jobs, results, analyzed) {
   const count = (fn) => results.filter(fn).length;
-  const ps = pathStats(analyzed);
-  const d = ps.flags.direction, n = analyzed.length;
+  const srcApplicable = analyzed.filter((x) => x.flags.source_ok !== null);
   return {
     n_expected: jobs.length,
     n_unscorable: jobs.filter((j) => j.unscored_reason).length,
@@ -323,24 +291,20 @@ function accuracyStats(jobs, results, analyzed) {
     hallucination_rate: rate(count((r) => !r.hallucination.is_grounded), results.length),
     grounded_rate: rate(count((r) => r.hallucination.is_grounded), results.length),
     grounding_score_avg: avg(results.map((r) => r.hallucination.grounding_score)),
-    silent_conflict_pick: count((r) => r.hallucination.silent_conflict_pick),
-    // 행동
-    paths: ps,
-    tuning_codes: Object.fromEntries([...groupBy(analyzed, (x) => x.tuning_code)]
-      .map(([code, rows]) => [code, rows.length])),
+    // 환각 종류별 건수(hallucinated_claims·minor_issues 전체 — 한 응답에 여러 건이면 전부 센다)
+    hallucination_type_counts: Object.fromEntries(HALLUCINATION_TYPES.map((t) => [t,
+      results.reduce((n, r) => n + [...r.hallucination.hallucinated_claims, ...r.hallucination.minor_issues]
+        .filter((c) => c.type === t).length, 0)])),
     headline: {
-      over_rate: rate(d.OVER, n),
-      under_rate: rate(d.UNDER, n),
-      cross_rate: rate(d.CROSS, n),
-      source_wrong_rate: ps.flags.source_wrong_rate,
-      use_error_rate: rate(ps.paths.P5.total + ps.paths.P6.total, n),
+      source_wrong_rate: rate(srcApplicable.filter((x) => x.flags.source_ok === false).length, srcApplicable.length),
     },
-    p0_but_incorrect: analyzed.filter((x) => x.path === 'P0' && x.verdict === 'INCORRECT').length, // 실패 조건 해당 등
     error_breakdown: errorBreakdown(analyzed),
+    // 오답 중 이유별 건수(항목별 표의 "가장 많은 오답 이유"용)
+    error_reason_counts: Object.fromEntries([...groupBy(analyzed.filter((x) => x.verdict === 'INCORRECT'), (x) => x.error_reason)]
+      .map(([k, rs]) => [k, rs.length])),
     body_answered_without_citation: analyzed.filter((x) => x.body_answered_without_citation).length,
     body_answered_without_citation_rate: rate(analyzed.filter((x) => x.body_answered_without_citation).length,
       analyzed.filter((x) => ANSWERING.has(x.content_stance)).length),
-    tuning: tuningStats(analyzed),
     asks_user: asksUserStats(analyzed),
     // 정합 · 결과
     consistency: consistencyStats(analyzed),
@@ -379,7 +343,7 @@ function personaStats(jobs, results) {
   };
 }
 
-// 공통 오답 후보: 서로 다른 모델 2개 이상이 같은 문항에서 같은 오답 경로. 판정 도구가 아니라
+// 공통 오답 후보: 서로 다른 모델 2개 이상이 같은 문항에서 같은 오답 이유. 판정 도구가 아니라
 // 문항 검토 후보 목록이다(모델 수가 적고 같은 계열끼리는 같이 틀리기 쉬워 우연히 겹칠 수 있다).
 function commonErrorCandidates(perRun) {
   const models = new Set(perRun.map((r) => r.model));
@@ -388,15 +352,15 @@ function commonErrorCandidates(perRun) {
   for (const { model, rows } of perRun) {
     for (const x of rows) {
       if (x.verdict !== 'INCORRECT') continue;
-      const key = `${x.id}|${x.path}`;
-      if (!byCase.has(key)) byCase.set(key, { id: x.id, item: x.item, path: x.path, models: new Set() });
+      const key = `${x.id}|${x.error_reason}`;
+      if (!byCase.has(key)) byCase.set(key, { id: x.id, item: x.item, error_reason: x.error_reason, models: new Set() });
       byCase.get(key).models.add(model);
     }
   }
   const candidates = [...byCase.values()].filter((c) => c.models.size >= 2)
     .map((c) => ({ ...c, models: [...c.models].sort(), n_models: c.models.size }))
     .sort((a, b) => b.n_models - a.n_models || a.id.localeCompare(b.id));
-  return { n_models: models.size, rule: '서로 다른 모델 2개 이상 · 본문 오답 · 같은 문항 · 같은 경로(P0 미분류 포함)', candidates };
+  return { n_models: models.size, rule: '서로 다른 모델 2개 이상 · 본문 오답 · 같은 문항 · 같은 오답 이유', candidates };
 }
 
 function main() {
@@ -408,12 +372,11 @@ function main() {
   const manifest = JSON.parse(fs.readFileSync(path.join(inputDir, 'manifest.json'), 'utf8'));
   const repeatItem = config.repeatItem;
 
-  const metrics = { batch_id: batchId, report_version: 'tuning-codes-v4', tuning_code_definitions: CODES, tuning_rules: config.tuning,
+  const metrics = { batch_id: batchId, report_version: 'v5',
     rubric_version: manifest.rubric_version, judge: manifest.judge, runs: [] };
   const perRunRows = [];
   for (const run of manifest.runs) {
     const out = { run_id: run.run_id, model: run.model };
-    let independentRows = [], safetyRows = [];
     for (const kind of Object.keys(manifest.kinds)) {
       const jobs = readAll(path.join(inputDir, `${kind}_jobs.jsonl`)).filter((j) => j.run_id === run.run_id);
       const jobByKey = new Map(jobs.map((j) => [j.id, j]));
@@ -422,13 +385,12 @@ function main() {
         .map((r) => ({ ...r, persona_sub: jobByKey.get(r.id)?.persona_sub ?? null, expected_status: jobByKey.get(r.id)?.expected_status,
           response_status: jobByKey.get(r.id)?.response_status ?? null, evidence: evidence.get(r.id) || null }));
       if (kind === 'accuracy') {
-        const analyzed = results.map((r) => analyzeRow(r, config.tuning));
+        const analyzed = results.map((r) => analyzeRow(r));
         const byId = new Map(analyzed.map((x) => [x.id, x]));
         const pick = (rs) => rs.map((r) => byId.get(r.id));
         const stats = (js, rs) => accuracyStats(js, rs, pick(rs));
         const indJobs = jobs.filter((j) => j.item !== repeatItem);
         const indRes = results.filter((r) => r.item !== repeatItem);
-        independentRows = analyzed.filter((x) => x.item !== repeatItem);
         out.accuracy = {
           independent: stats(indJobs, indRes),
           by_item: Object.fromEntries(config.items.map((i) => i.code).filter((code) => jobs.some((j) => j.item === code))
@@ -442,12 +404,10 @@ function main() {
         perRunRows.push({ model: run.model, rows: analyzed.filter((x) => x.item !== repeatItem) });
       } else if (kind === 'safety') {
         out.safety = safetyStats(jobs, results);
-        safetyRows = results.filter((r) => r.item !== repeatItem);
       }
       // 페르소나도 정확도처럼 독립 표본만 집계한다(반복 항목의 페르소나 행이 10회씩 중복으로 섞이지 않게).
       else if (kind === 'persona') out.persona = personaStats(jobs.filter((j) => j.item !== repeatItem), results.filter((r) => r.item !== repeatItem));
     }
-    out.tuning_overview = tuningCodeOverview(independentRows, config.tuning, safetyRows);
     writeJson(path.join(paths.scoredDir(run.run_id), 'llm_judge', batchId, 'summary.json'), out);
     metrics.runs.push(out);
   }
@@ -461,10 +421,6 @@ function main() {
   L.push('> 분모는 채점에 성공한 행. 전체 요약은 독립 표본(반복 항목 제외). 정확도는 Judge가 **답변 본문만** 보고 판정한 값이다(status·evidence_ids는 Judge에 주지 않음) — v3 정확도(상태 적절성 포함)와 직접 비교하지 않는다.', '');
   L.push('> 여기서 독립 표본은 RT 제외 행을 뜻하는 기존 집계 이름이다. 동일 독립 집계 단위·질문의 변형 행이 남아 있을 수 있어 통계적 독립성이나 고유 시나리오 수를 뜻하지 않는다.', '');
 
-  L.push('## 0. 먼저 볼 문제와 튜닝 묶음', '',
-    '**문자 = 판단 방향·튜닝 영역, 숫자 = 근거 상태·세부 문제.** A는 과대, B는 과소, C는 교차 판단이며 1=정답 근거 사용, 2=잘못된 근거 사용, 3=판정 대상 문서가 있지만 본문 문서 근거 없음, 4=근거 정오 판정 대상 외·자료 없음이다. D는 판단 일치 후 근거 선택·활용, E는 출력 정합, F는 문항·판정 검토, S는 안전성이다. 정상은 OK로 표시한다.', '',
-    '판단 방향과 근거 상태는 Judge가 답변 본문을 읽어 판정한 행동·출처 기준이다. 모델이 출력한 status·evidence_ids만으로 분류하지 않는다. 라벨 기준 과대·과소와 본문 기준 과대·과소를 각각 계산해 3절에서 비교한다. A1과 A2, A1과 B1은 대응 방향·난이도가 달라 별도 집계한다. 기본 코드는 배타적이며 환각·오적용·누락은 동반 표시로 모두 보존한다. 수단·난이도는 가설이며 같은 코드도 EC·HR·SR·AR 등 항목에 따라 달라질 수 있다. 코드 순서가 심각도 서열은 아니다.', '');
-  for (const r of runs) L.push(...renderTuningCodes(r.tuning_overview, r.model, r.run_id), '');
   L.push('### 채점 완료율과 생성 실패 (독립 표본)', '');
   for (const r of runs) {
     const a = r.accuracy?.independent;
@@ -478,39 +434,30 @@ function main() {
   }
 
   L.push('## 1. 대표 지표', '');
-  L.push(...header(['모델', '정답률(답변 문장)', '정답+상태', '정답+근거', '정답+근거+상태', '환각률', '과대', '과소', '교차', '근거 선택 오류', '활용 오류(누락+오적용)', '답했는데 근거 미기재', '되묻기(건)', 'status-본문 일치', '근거-본문 일치', '식별·추론 보강 후보 몫(가설)']));
+  L.push(...header(['모델', '정답률(답변 문장)', '정답+상태', '정답+근거', '정답+근거+상태', '환각률', '근거 선택 오류', '답했는데 근거 미기재', '되묻기(건)', 'status-본문 일치', '근거-본문 일치']));
   for (const r of runs) {
     const a = r.accuracy?.independent;
     if (!a) continue;
     const h = a.headline, c = a.consistency;
     const rs = a.result;
-    const modelCandidates = r.tuning_overview.methods.find((m) => m.key === 'MODEL')?.count || 0;
-    L.push(`| ${r.model} | ${pct(a.correct_rate)} | ${pct(rs.correct_status_rate)} | ${pct(rs.correct_evidence_rate)} | ${pct(rs.correct_evidence_status_rate)} | ${pct(a.hallucination_rate)} | ${pct(h.over_rate)} | ${pct(h.under_rate)} | ${pct(h.cross_rate)} | ${pct(h.source_wrong_rate)} | ${pct(h.use_error_rate)} | ${pct(a.body_answered_without_citation_rate)} | ${a.asks_user.count} | ${pct(c.status_body.agree_rate)} | ${pct(c.evidence_body.agree_rate)} | ${pct(rate(modelCandidates, r.tuning_overview.n_with_issue))} |`);
+    L.push(`| ${r.model} | ${pct(a.correct_rate)} | ${pct(rs.correct_status_rate)} | ${pct(rs.correct_evidence_rate)} | ${pct(rs.correct_evidence_status_rate)} | ${pct(a.hallucination_rate)} | ${pct(h.source_wrong_rate)} | ${pct(a.body_answered_without_citation_rate)} | ${a.asks_user.count} | ${pct(c.status_body.agree_rate)} | ${pct(c.evidence_body.agree_rate)} |`);
   }
-  L.push('', '- 정답률은 Judge가 **답변 문장만** 보고 판정(환각·상태·근거와 독립). 정답+상태·정답+근거·정답+근거+상태는 모델이 출력한 라벨 기준 조합이고 환각 여부와 무관 — 정의와 분모는 4절.');
-  L.push('- 과대·과소·교차는 **본문 기준**(Judge가 본문만 읽고 정한 행동 vs 기대 상태). 근거 선택 오류는 근거 판정 대상 행 중 비율.');
+  L.push('', '- 정답률은 Judge가 **답변 문장만** 보고 판정(환각·상태·근거와 독립). 정답+상태·정답+근거·정답+근거+상태는 모델이 출력한 라벨 기준 조합이고 환각 여부와 무관 — 정의와 분모는 4절. 상태(본문 행동)가 기대와 다르게 표기된 경우는 여기 안 섞이고 3절에서만 본다.');
+  L.push('- 근거 선택 오류는 본문 출처(content_sources)가 정답 문서 밖인 비율(근거 판정 대상 행 중) — 오답 이유 1순위(4-1절)와 같은 정의.');
   L.push('- 근거-본문 일치는 본문에 쓴 문서를 모두 인용한 비율(관련 문서를 더 인용한 것은 허용). 엄격 일치는 3절.');
   L.push('- 답했는데 근거 미기재 = 본문이 답·부분 답·충돌 고지를 했는데 evidence_ids가 빈 비율(설정의 제외 항목 제외).');
-  L.push('- 식별·추론 보강 후보 몫 = 문제 행 중 대응 수단이 MODEL로 분류된 몫(가설). 튜닝 한계를 입증한 값이 아니다. 미분류 오답도 검토 대상으로 포함한다 — 4-2절.');
 
-  L.push('', '## 2. 응답 경로표 (독립 표본, 건수 · 괄호는 그중 환각 있음)', '');
-  L.push('<details>', '<summary>진단용 경로 코드·표시 펼치기</summary>', '');
-  L.push('판단(본문 행동 vs 기대) → 근거(본문 출처 vs 정답 문서) → 내용(오적용·누락) 순으로 처음 걸린 경로. 환각은 모든 경로에 붙는 표시다.', '');
-  L.push(...header(['모델', ...PATHS.map((p) => `${p} ${PATH_NAMES[p]}`), 'P0인데 오답']));
+  L.push('', '## 1-1. 환각 종류 (독립 표본, hallucinated_claims+minor_issues 전체 건수)', '');
+  L.push('grounding_score(심각도)와 별개로 "어떤 식으로 환각했는지"를 본다. 한 응답에 여러 건이면 전부 센다(응답 수가 아니라 주장 건수).', '');
+  L.push(...header(['모델', ...HALLUCINATION_TYPES]));
   for (const r of runs) {
     const a = r.accuracy?.independent;
     if (!a) continue;
-    L.push(`| ${r.model} | ${PATHS.map((p) => `${a.paths.paths[p].total} (${a.paths.paths[p].hallucinated})`).join(' | ')} | ${a.p0_but_incorrect} |`);
+    L.push(`| ${r.model} | ${HALLUCINATION_TYPES.map((t) => a.hallucination_type_counts[t]).join(' | ')} |`);
   }
-  L.push('', '표시별 비율(경로와 무관하게 전체 행 기준 — 앞 단계 경로에 가려진 원인도 보인다):', '');
-  L.push(...header(['모델', '판단 일치/과대/과소/교차', '근거 선택 오류(대상 행)', '누락', '오적용', '환각']));
-  for (const r of runs) {
-    const f = r.accuracy?.independent?.paths.flags;
-    if (!f) continue;
-    L.push(`| ${r.model} | ${f.direction.MATCH} / ${f.direction.OVER} / ${f.direction.UNDER} / ${f.direction.CROSS} | ${pct(f.source_wrong_rate)} (${f.source_applicable}) | ${pct(f.missing_rate)} | ${pct(f.misapplied_rate)} | ${pct(f.hallucinated_rate)} |`);
-  }
+  L.push('', '- FABRICATION 순수 창작 · FALSE_COMPLETION 완료 조작(실행 안 된 작업을 했다고 말함) · MISATTRIBUTION 대상·시점 오귀속(다른 상품/시점 사실을 지금인 것처럼) · UNSUPPORTED_GENERALIZATION 근거 없는 일반화 · SILENT_CONFLICT_PICK 조용한 충돌 해소.');
 
-  L.push('', '</details>', '', '## 2-1. 되묻기 집계 (독립 표본)', '');
+  L.push('', '## 2. 되묻기 집계 (독립 표본)', '');
   L.push('v4에는 되묻기 상태(CLARIFY)가 없다. 정보 요청은 ABSTAIN/PARTIAL 안에서 하고, 본문이 답에 필요한 정보(주소·조건·대상 등)를 사용자에게 요청했는지를 Judge가 따로 표시한다(일반 안내·고객센터 문의 안내는 제외). 건수만 집계하며 경로·정답률 계산에는 쓰지 않는다.', '');
   L.push(...header(['모델', '되묻기', '비율', '정답 / 오답', '기대 상태별', '본문 행동별', '항목별']));
   for (const r of runs) {
@@ -584,25 +531,17 @@ function main() {
     const c = r.accuracy?.independent?.error_breakdown?.correct;
     if (c) L.push(`| ${r.model} | ${c.total} | ${c.with_hallucination} | ${c.status_label_wrong} | ${c.evidence_label_wrong} | ${c.answered_without_citation} |`);
   }
-  L.push('', '대응 수단 가설은 test.config.js의 tuning에서 읽는다. 환각 동반은 0절에서 별도 문제로 함께 묶는다.', '', '</details>');
+  L.push('', '대응 수단은 항목·오답 이유를 보고 사람이 판단한다(자동 튜닝 코드 체계는 폐기, 2026-10-02).', '', '</details>');
 
-  L.push('', '## 4-2. 튜닝 방법별 문항 수 (RT 제외)', '');
-  L.push('0절의 새 튜닝 코드·항목별 대응 가설로 집계한다. 한 문항에 여러 수단을 제안할 수 있으므로 수단별 건수는 합산하지 않는다. 안전성 실패도 포함한다. MODEL은 능력 한계 판정이 아니라 문서 식별·추론 보강 실험 후보다. 상위 모델 전환은 같은 문항에서 튜닝 전후 변화와 속도·회귀를 확인한 뒤 결정한다.', '');
-  L.push(...header(['모델', '문제 문항', ...LEVERS.map((l) => LEVER_NAMES[l])]));
-  for (const r of runs) {
-    const t = r.tuning_overview;
-    L.push(`| ${r.model} | ${t.n_with_issue} | ${LEVERS.map((l) => t.methods.find((m) => m.key === l)?.count || 0).join(' | ')} |`);
-  }
-
-  L.push('', '## 5. 항목별 — 정확도 / 환각률 / 가장 많은 튜닝 코드', '');
+  L.push('', '## 5. 항목별 — 정확도 / 환각률 / 가장 많은 오답 이유', '');
   L.push(...header(['항목', ...runs.map((r) => r.model)]));
   for (const code of config.items.map((i) => i.code)) {
     if (!runs.some((r) => r.accuracy?.by_item?.[code])) continue;
     L.push(`| ${code} ${itemName(code)} | ${runs.map((r) => {
       const v = r.accuracy?.by_item?.[code];
       if (!v) return '-';
-      const top = Object.entries(v.tuning_codes).filter(([c]) => CODES[c]).sort((a, b) => b[1] - a[1])[0];
-      return `${pct(v.correct_rate)} / ${pct(v.hallucination_rate)} / ${top ? `${top[0]} ${CODES[top[0]].title} ${top[1]}건` : '-'}`;
+      const top = Object.entries(v.error_reason_counts).sort((a, b) => b[1] - a[1])[0];
+      return `${pct(v.correct_rate)} / ${pct(v.hallucination_rate)} / ${top ? `${ERROR_CAT_NAMES[top[0]]} ${top[1]}건` : '-'}`;
     }).join(' | ')} |`);
   }
 
@@ -624,12 +563,12 @@ function main() {
   if (!ce.candidates.length) L.push(ce.note || '해당 없음');
   else {
     L.push(`규칙: ${ce.rule}. 총 ${ce.candidates.length}건(상위 50건 표시, 전체는 metrics.json).`, '');
-    L.push(...header(['문항', '항목', '경로', '모델']));
-    for (const c of ce.candidates.slice(0, 50)) L.push(`| ${c.id} | ${c.item} | ${c.path} ${PATH_NAMES[c.path]} | ${c.models.join(', ')} |`);
+    L.push(...header(['문항', '항목', '오답 이유', '모델']));
+    for (const c of ce.candidates.slice(0, 50)) L.push(`| ${c.id} | ${c.item} | ${ERROR_CAT_NAMES[c.error_reason] || c.error_reason} | ${c.models.join(', ')} |`);
   }
 
   L.push('', '## 9. 파일', '', `- 입력: \`${repoRel(inputDir)}/\``, `- 판정: \`raw/scored/<run_id>/llm_judge/${batchId}/<kind>.jsonl\``,
-    `- 행별 경로·표시·정합: \`raw/scored/<run_id>/llm_judge/${batchId}/paths.jsonl\``, `- 원자료: \`${batchId}_metrics.json\``);
+    `- 행별 표시·정합: \`raw/scored/<run_id>/llm_judge/${batchId}/paths.jsonl\``, `- 원자료: \`${batchId}_metrics.json\``);
 
   fs.mkdirSync(paths.llmJudgeDir, { recursive: true });
   writeJson(path.join(paths.llmJudgeDir, `${batchId}_metrics.json`), metrics);

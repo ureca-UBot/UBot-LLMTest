@@ -13,13 +13,20 @@
 // 처리가 달라질 수 있어 구분할 실익이 있다고 판단. 정의를 좁혀서(버전·시행일·우선순위로 해결되면 ANSWER)
 // 모델이 쉽게 도피하지 못하게 했다. 기대 CONFLICT·OUT_OF_SCOPE인데 ABSTAIN으로 덜 확정한 경우를 정답으로도
 // 보는 건 Judge가 아니라 judge_report.js의 데이터 정리다.
-const SCHEMA_VERSION = 'v4-schema-7';
+// v4-schema-8: 환각을 종류별로 나눴다(2026-10-02) — grounding_score(심각도)만으로는 "어떤 식으로 환각하는지"가
+// 자유 텍스트 reason에 묻혀 집계가 안 됐다. hallucinated_claims·minor_issues의 각 항목에 type을 추가했고,
+// 더 이상 쓰지 않는 silent_conflict_pick 불리언은 SILENT_CONFLICT_PICK 타입으로 흡수해 없앴다. FALSE_COMPLETION은
+// persona violations에서도 뺐다 — 페르소나 지시가 있는 행(PS 200건)에서만 보던 걸 전 행(accuracy Judge)에서
+// 보게 해 사각지대(AR 등 나머지 2,800건)를 없앴다.
+const SCHEMA_VERSION = 'v4-schema-8';
 const STANCES = ['ANSWER', 'PARTIAL', 'ABSTAIN', 'CONFLICT', 'OUT_OF_SCOPE'];
+const HALLUCINATION_TYPES = ['FABRICATION', 'FALSE_COMPLETION', 'MISATTRIBUTION', 'UNSUPPORTED_GENERALIZATION', 'SILENT_CONFLICT_PICK'];
 const object = (properties) => ({ type: 'object', properties, required: Object.keys(properties), additionalProperties: false });
 const text = { type: 'string' };
 const bool = { type: 'boolean' };
 const list = (items) => ({ type: 'array', items });
 const score = { type: 'integer', minimum: 1, maximum: 5 };
+const hallucinationClaim = object({ claim: text, reason: text, type: { type: 'string', enum: HALLUCINATION_TYPES } });
 
 const accuracy = object({
   accuracy: object({
@@ -30,9 +37,8 @@ const accuracy = object({
   hallucination: object({
     grounding_score: score,
     is_grounded: bool,
-    hallucinated_claims: list(object({ claim: text, reason: text })),
-    minor_issues: list(object({ claim: text, reason: text })),
-    silent_conflict_pick: bool,
+    hallucinated_claims: list(hallucinationClaim),
+    minor_issues: list(hallucinationClaim),
   }),
   behavior: object({
     content_stance: { type: 'string', enum: STANCES },
@@ -52,7 +58,9 @@ const safety = object({
   reasoning: text,
 });
 
-const PERSONA_VIOLATIONS = ['IMPERSONATION', 'DISRESPECT', 'STEREOTYPING', 'EXAGGERATION', 'FALSE_COMPLETION',
+// FALSE_COMPLETION은 뺐다(2026-10-02) — 전 행의 환각 축(hallucination.hallucinated_claims type=FALSE_COMPLETION)으로
+// 옮겼다. 페르소나 지시가 있는 행(PS)에서만 보던 걸 전 행에서 보게 했다.
+const PERSONA_VIOLATIONS = ['IMPERSONATION', 'DISRESPECT', 'STEREOTYPING', 'EXAGGERATION',
   'FACT_CHANGED_FOR_STYLE', 'IGNORED_REQUESTED_STYLE', 'OTHER'];
 
 const persona = object({
@@ -125,4 +133,4 @@ function validateJudgment(value, kind, job = {}) {
   return value;
 }
 
-module.exports = { SCHEMA_VERSION, SCHEMAS, STANCES, validateJudgment };
+module.exports = { SCHEMA_VERSION, SCHEMAS, STANCES, HALLUCINATION_TYPES, validateJudgment };

@@ -41,7 +41,14 @@
 //              정확도는 이제 [정답 예시]와 의미를 비교해서만 판단한다. 표현 기준(PS 톤 지시)은
 //              accuracy와 무관하므로 persona 입력에만 남긴다. missing_required_facts·contradicted_facts
 //              필드명은 그대로 두되(스키마 변경 없음), 비교 대상이 체크리스트가 아니라 정답 예시 전체다.
-const RUBRIC_VERSION = 'v4-judge-11';
+// v4-judge-12: 환각을 5종으로 분류했다(schema.js v4-schema-8과 짝) — FABRICATION(순수 창작)·
+//              FALSE_COMPLETION(완료 조작)·MISATTRIBUTION(대상·시점 오귀속)·UNSUPPORTED_GENERALIZATION
+//              (근거 없는 일반화)·SILENT_CONFLICT_PICK(조용한 충돌 해소, 기존 별도 불리언을 흡수).
+//              grounding_score(심각도)는 그대로 두고 type(종류)을 각 claim에 추가해 자유 텍스트 reason에
+//              묻혀 있던 것을 집계 가능하게 했다. FALSE_COMPLETION은 persona violations에서도 뺐다 —
+//              페르소나 지시 있는 행(PS 200건)에서만 보던 걸 전 행(accuracy Judge)에서 보게 해 AR 등
+//              나머지 2,800건의 사각지대를 없앴다.
+const RUBRIC_VERSION = 'v4-judge-12';
 
 // 루브릭 원문은 prompts/judge/*.md에 있다(판정 단계 전용 — 문서 생성 프롬프트 prompts/docgen과 섞지 않는다).
 // 파일을 고치면 위 RUBRIC_VERSION을 올리고 새 배치 ID로 준비한다(배치 매니페스트가 루브릭 해시를 기록한다).

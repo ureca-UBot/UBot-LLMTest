@@ -1,6 +1,6 @@
 'use strict';
-// LLM Judge provider — Codex CLI(v3 evaluator의 호출 방식). v4 기본은 openai provider이고, 이 어댑터는
-// v3와 같은 방식으로 다시 채점해야 할 때를 위해 남긴다(judge.provider: 'codex').
+// LLM Judge provider — Codex CLI. ChatGPT 구독 인증(`codex login`)으로 실행해 OpenAI API 토큰 과금이 아니다.
+// v4가 쓰는 provider다(judge.provider: 'codex', 2026-10-02 결정 — 그전엔 v3 재채점 호환용으로만 뒀었다).
 // 도구·웹·셸을 끄고 출력 스키마를 강제하며, 이벤트 로그를 calls/에 남긴다. 도구 사용 시도가 보이면 결과를 버린다.
 
 const fs = require('fs');

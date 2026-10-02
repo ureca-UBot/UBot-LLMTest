@@ -1,7 +1,8 @@
 'use strict';
-// LLM Judge 3단계(판정): 준비된 입력을 외부 Judge로 채점한다. 기본 provider는 OpenAI API
-// (lib/judge/providers/openai.js), 판정 설정(provider·model·추론 강도)은 배치를 준비할 때 매니페스트에
-// 고정된다. 저장 답변이 외부로 전송되므로 --confirm-external 없이는 실행하지 않는다(README 4-8절).
+// LLM Judge 3단계(판정): 준비된 입력을 외부 Judge로 채점한다. provider는 test.config.js의 judge.provider로
+// 고른다 — openai(OpenAI API, lib/judge/providers/openai.js) 또는 codex(Codex CLI, ChatGPT 구독 인증,
+// lib/judge/providers/codex.js — v4가 쓰는 provider, 2026-10-02). 판정 설정(provider·model·추론 강도)은
+// 배치를 준비할 때 매니페스트에 고정된다. 저장 답변이 외부로 전송되므로 --confirm-external 없이는 실행하지 않는다(README 4-8절).
 // 판정 단계는 이 스크립트 + lib/judge/{prompts,schema}.js + providers/만 쓴다. 문서 생성(judge_report.js
 // 등)과 스크립트·프롬프트를 섞지 않는다.
 //

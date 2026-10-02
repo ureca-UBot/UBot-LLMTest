@@ -51,9 +51,11 @@ module.exports = {
     defaultSize: 200,
   },
 
-  // 15개 항목. 순서가 보고서의 항목 순서다.
+  // 14개 항목. 순서가 보고서의 항목 순서다.
+  // SF(단일 FAQ 답변)는 뺐다(2026-10-02) — top-k를 3으로 고정해서 상담봇에 항상 FAQ 3개가 주어지므로
+  // "FAQ 1개만 주어짐" 상황 자체가 더 이상 발생하지 않는다. 데이터셋(test_set3/cases_fixed.csv)은 아직
+  // SF 200행을 포함한 15항목·3,000행 구조다 — 데이터셋을 다시 만들 때 이 설정에 맞춰 함께 뺀다.
   items: [
-    { code: 'SF', name: '단일 FAQ 답변' },
     { code: 'NC', name: '유사 FAQ 구분·노이즈' },
     { code: 'MC', name: '다중 FAQ 조합' },
     { code: 'UI', name: '사용자 정보 + FAQ' },
@@ -83,40 +85,11 @@ module.exports = {
     expectedStatuses: ['ANSWER', 'PARTIAL', 'CONFLICT'],
   },
 
-  // 오답 행의 대응 수단 분류(가설 — 튜닝 실험 결과로 고친다). judge_report.js가 행마다
-  // (경로, 항목)으로 수단을 붙인다. MODEL 몫은 식별·추론 보강 후보 비중이며, 실제 튜닝
-  // 한계가 아니다. 같은 문항에서 보강 실험·회귀·속도를 확인한 뒤 상위 모델과 비교한다.
-  //   OUTPUT_STRUCTURE 본문은 맞는데 라벨(status·evidence_ids)만 틀림 → 출력 순서·형식
-  //   PROMPT           규칙·정의·예시로 고칠 수 있음
-  //   CODE             모델 앞뒤 코드로 막을 수 있음(빈 Context 차단, 임베딩 임계값 등)
-  //   MODEL            판단·식별 보강 실험 후보(프롬프트·코드로 개선 불가라는 판정 아님)
-  // 경로 값은 문자열(전 항목 공통) 또는 { default, <항목 코드>: ... }.
-  tuning: {
-    labelOnly: 'OUTPUT_STRUCTURE',
-    // A/B/C는 판단 방향 × 본문 근거 상태. 수단·난이도는 실험 전 가설이다.
-    // A4를 하나의 보류 문제로 합치면 빈 Context·무관 FAQ·유사 문서의 난이도 차이가 가려진다.
-    codes: {
-      A4: {
-        EC: { methods: ['CODE'], difficulty: 'LOW', action: '빈 Context임을 코드로 확인하고 확정 답변을 차단한다.' },
-        HR: { methods: ['CODE', 'PROMPT'], difficulty: 'HIGH', action: '무관성을 정답 라벨 없이 탐지할 수 있는 검색 신호를 별도로 검증한 뒤 차단·보류 규칙을 실험한다.' },
-        SR: { methods: ['PROMPT', 'MODEL'], difficulty: 'HIGH', action: '관련은 있지만 질문의 답은 없는 문서의 대조 예시와 답변 가능성 판단을 보강한다.' },
-      },
-      D2: {
-        AR: { methods: ['CODE'], difficulty: 'LOW', action: 'API의 조회 상태·대상·수치에 맞는 코드 템플릿으로 답변을 만들고 실제 값과 대조한다.' },
-      },
-    },
-    // P 경로 기반 배타 집계는 과거 자료 추적용. 사용자용 집계는 위 codes와 공통 코드 정의를 사용한다.
-    paths: {
-      P1: { default: 'PROMPT', EC: 'CODE', HR: 'CODE', SR: 'MODEL' }, // 과대: 유사하지만 답 없는 문서(SR)에서의 오판은 능력 문제. NC는 기대가 전부 ANSWER라 P1이 없다
-      P2: 'PROMPT',            // 과소: 상태 정의·부정 답변 예외
-      P3: 'PROMPT',            // 교차: 상태 정의 경계
-      P4: 'MODEL',             // 근거 선택: 비슷한 문서 식별(재순위화는 이 테스트 범위 밖)
-      P5: 'PROMPT',            // 누락: 원문 인용·필수 항목 규칙
-      P6: { default: 'MODEL', AR: 'CODE' }, // 오적용: 조건·계산 추론. AR은 API 값 템플릿
-      P7: 'PROMPT',            // 정답+환각: 근거 밖 보충 금지
-      PF: 'OUTPUT_STRUCTURE',  // 본문 행동을 알 수 없음(형식·생성 실패)
-    },
-  },
+  // 2026-10-02: 경로(P0~P7) 기반 자동 튜닝 코드 체계(A/B/C/D/E/F/S)는 폐기했다 — 상태(본문 행동)
+  // 불일치를 최우선 문제로 보는 전제가, 상태를 아예 안 보는 정확도 판정·정답+상태 완화 결정과
+  // 맞지 않았다. 대응 수단은 judge_report.js의 "오답 이유"(근거 오류→필수 사실 누락→사실
+  // 오적용/모순→기타)와 항목 코드를 보고 사람이 판단한다. scripts/lib/response_paths.js·
+  // tuning_codes.js·tuning_report.js는 삭제했다.
 
   // 상담봇 시스템 프롬프트 — prompts/chatbot/variants.json의 안 이름.
   // v4_base = prompts/chatbot/variants.json 참고(공통 문단 + 판정 기준 + 출력 순서).
@@ -159,14 +132,18 @@ module.exports = {
   // LLM Judge(판정 단계). provider·model·reasoningEffort·temperature·seed는 배치 준비 때 매니페스트에
   // 고정된다 — 바꾸면 새 배치 ID로 다시 준비해야 한다.
   judge: {
-    provider: 'openai',       // 'openai'(OpenAI API) | 'codex'(v3 방식 Codex CLI)
-    model: null,              // 미정 — 판정 모델 테스트 후 정한다. null이면 judge_run.js가 멈춘다
-    reasoningEffort: null,    // 추론 모델이면 'low'|'medium'|'high', 아니면 null
-    temperature: null,        // null이면 보내지 않음(추론 모델은 지원 안 함)
+    // codex = Codex CLI(ChatGPT 구독 인증, API 토큰 과금 아님). OpenAI API(provider: 'openai')는 안 쓴다(2026-10-02).
+    provider: 'codex',
+    // v2·v3가 쓰던 gpt-6-astra와 같은 코드네임 라인업의 다음 모델(2026-10-02). codex --help로 실제
+    // 가능한 식별자인지 확인 전이면 judge_prepare.js 실행 시 바로 확인한다(틀리면 codex CLI가 에러를 냄).
+    model: 'gpt-6-sol',
+    reasoningEffort: 'medium', // v2·v3(gpt-6-astra)와 같은 reasoning effort
+    temperature: null,        // codex provider는 안 씀(추론 모델은 temperature 미지원)
     seed: null,
-    apiKeyEnv: 'OPENAI_API_KEY',
-    baseUrl: 'https://api.openai.com/v1',
-    maxRetries: 4,            // 429·5xx·타임아웃 재시도(retry-after 존중)
+    apiKeyEnv: 'OPENAI_API_KEY',   // openai provider 전용(지금 provider=codex라 안 씀)
+    baseUrl: 'https://api.openai.com/v1', // openai provider 전용(지금 provider=codex라 안 씀)
+    cli: 'codex',             // PATH의 codex 실행 파일. LLM_JUDGE_CODEX_BIN 환경변수로 덮어쓸 수 있음
+    maxRetries: 4,            // openai provider 전용 — codex는 judge_run.js의 공통 재시도(시도 2회)만 적용
     timeoutMs: 180000,
     // accuracy = 정확도·근거·표현(전 행), safety = safetyItems, persona = 페르소나 지시가 있는 행
     kinds: ['accuracy', 'safety', 'persona'],
