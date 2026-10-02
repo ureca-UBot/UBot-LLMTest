@@ -12,6 +12,11 @@
 //         환각은 모든 경로에 붙는 표시. 행마다 다섯 표시를 전부 남긴다(lib/response_paths.js).
 //   정합  라벨(status·evidence_ids)과 본문이 맞는가 — 코드가 계산(Judge는 라벨을 보지 않는다)
 //   결과  정답(답변 문장만 본 판정) · 정답+상태 · 정답+근거 · 정답+근거+상태(라벨 기준, 환각과 무관).
+//         정답+상태(완화)는 데이터 정리 — ANSWER↔PARTIAL(양방향), 기대 OUT_OF_SCOPE·CONFLICT인데
+//         ABSTAIN으로 덜 확정한 경우(단방향)를 정답으로도 본다(2026-10-02, Judge 판정 아님).
+//         교차 건수는 조합별로 항상 따로 집계해 숨기지 않는다.
+//         오답 이유(4-1절)는 상태를 안 섞고 네 칸— 근거 오류(코드) → 필수 사실 누락(Judge) →
+//         사실 오적용/모순(Judge) → 기타 — 로 배타 분류한다.
 //         진단은 위 세 층으로 한다.
 //
 // 분모는 채점에 성공한 행이다. 전체 요약은 독립 표본(반복 항목 제외), 반복 항목은 항목별 표에서 본다.
@@ -35,6 +40,23 @@ const { CODES, classifyTuning, sourceState } = require('../lib/tuning_codes');
 
 const SPECIAL_SOURCES = new Set(['USER_INFO_API', 'HISTORY']);
 const ANSWERING = new Set(['ANSWER', 'PARTIAL', 'CONFLICT']);
+// "정답+상태" 집계용 데이터 정리(Judge 판정이 아니다 — Judge는 라벨을 보지 않는다). (expected, actual) 순서쌍이다 —
+// ANSWER↔PARTIAL만 양방향(정답 데이터 작성 방식에 따라 둘 다 나올 수 있음), OUT_OF_SCOPE·CONFLICT는 ABSTAIN으로
+// "덜 확정"한 방향만 봐준다(더 구체적으로 확정했어야 할 때 안전하게 덜 확정한 것). 반대 방향(기대 ABSTAIN인데
+// OUT_OF_SCOPE·CONFLICT로 "더" 확정)은 더 구체적인 틀린 주장이라 정답으로 보지 않는다(2026-10-02 결정).
+// 라벨이 기대와 달라도 이 조합이면 "정답+상태"에서는 정답으로 치되, 몇 건이 이 조합으로 들어왔는지는
+// status_forgiven_counts로 항상 따로 집계한다. 상태 정의 자체(behavior.content_stance)나 진단용 방향 분류
+// (status_direction.js)는 바꾸지 않는다.
+const FORGIVABLE_STATUS_PAIRS = [
+  ['ANSWER', 'PARTIAL'], ['PARTIAL', 'ANSWER'],
+  ['OUT_OF_SCOPE', 'ABSTAIN'],
+  ['CONFLICT', 'ABSTAIN'],
+];
+function forgivableStatusPair(expected, actual) {
+  if (!actual || expected === actual) return null;
+  const hit = FORGIVABLE_STATUS_PAIRS.some(([e, a]) => e === expected && a === actual);
+  return hit ? `${expected}→${actual}` : null;
+}
 const LEVERS = ['OUTPUT_STRUCTURE', 'PROMPT', 'CODE', 'MODEL', 'REVIEW'];
 const LEVER_NAMES = { OUTPUT_STRUCTURE: '출력 구조', PROMPT: '프롬프트', CODE: '코드', MODEL: '문서 식별·추론 보강(가설)', REVIEW: '미분류 오답 검토' };
 const subset = (a, b) => a.every((x) => b.includes(x));
@@ -101,6 +123,10 @@ function analyzeRow(r, tuning) {
     // 결과 조합(라벨 기준 — 모델이 출력한 status·evidence_ids). 정답은 Judge가 답변 문장만 보고 판정한 값.
     correct: r.accuracy.verdict === 'CORRECT',
     status_label_ok: label === r.expected_status,
+    // 데이터 정리: ANSWER↔PARTIAL(양방향), 기대 OUT_OF_SCOPE·CONFLICT→실제 ABSTAIN(단방향)은
+    // 정답+상태에서 정답으로도 본다(위 FORGIVABLE_STATUS_PAIRS 설명 참고).
+    status_forgiven_pair: forgivableStatusPair(r.expected_status, label),
+    status_label_ok_loose: label === r.expected_status || !!forgivableStatusPair(r.expected_status, label),
     evidence_label_ok: gold ? adoptedBy(cited, gold) : null, // 근거 판정 대상 외 행은 null
     strict_ok: p === 'P0' && r.accuracy.verdict === 'CORRECT' && label === r.expected_status && evidenceOkForResult,
     body_answered_without_citation: bodyAnsweredWithoutCitation,
@@ -113,30 +139,30 @@ function analyzeRow(r, tuning) {
   return analyzed;
 }
 
-// 오답 분해: 정답률(Judge가 답변 문장만 본 판정)에서 오답으로 나온 행을 튜닝 수단이 갈리는 단위로 나눈다.
-//   상태 틀림 — 과대 / 과소 / 교차 / 판정 불가(본문 행동 기준, 각각 근거 O·X·대상 외로 다시 나눔)
-//   상태 맞음 · 근거 틀림
-//   상태 맞음 · 근거 맞음/대상 외 — 오적용 / 누락 / 기타(누락·오적용 기록 없이 실패 조건 등으로 오답)
-// 분류는 위에서부터 처음 걸린 것 하나(배타적, 합계 = 오답 수)이고, 각 칸에 환각 동반 건수를 같이 센다.
-// 앞 칸에 가려진 원인은 "오답 중 표시 비율"(겹침 허용)로 따로 본다.
-const ERROR_CATS = ['STATUS_OVER', 'STATUS_UNDER', 'STATUS_CROSS', 'STATUS_NONE', 'SOURCE_WRONG', 'MISAPPLIED', 'MISSING', 'OTHER'];
+// 오답 이유(2026-10-02 결정): 정답률(Judge가 답변 문장만 본 판정)에서 오답으로 나온 행을 원인 하나로 나눈다.
+// 상태(본문 행동)는 더 이상 섞지 않는다 — v4 accuracy verdict는 애초에 상태를 안 보고 판정한다(상태 방향
+// 진단은 2·3절의 경로표·정합 표에서 따로 본다). 네 칸, 위에서부터 처음 걸린 것 하나(배타적, 합계 = 오답 수):
+//   근거 오류         본문 출처(content_sources)가 정답 근거 문서 밖에서 옴 — 코드가 판단(정답 근거 ID와 비교)
+//   필수 사실 누락    근거는 맞는데(또는 근거 판정 대상 외) missing_required_facts가 있음 — Judge 판단
+//   사실 오적용/모순  근거도 맞고 누락도 없는데 contradicted_facts가 있음 — Judge 판단
+//   기타(실패 조건 등) 위 셋 다 아닌데 INCORRECT — missing·contradicted 둘 다 비어 실패 조건 등으로 추정
+// 각 칸에 환각 동반 건수를 같이 센다. 앞 칸에 가려진 원인은 "오답 중 표시 비율"(겹침 허용)로 따로 본다.
+const ERROR_CATS = ['SOURCE_WRONG', 'MISSING', 'MISAPPLIED', 'OTHER'];
 const ERROR_CAT_NAMES = {
-  STATUS_OVER: '상태 틀림 · 과대', STATUS_UNDER: '상태 틀림 · 과소', STATUS_CROSS: '상태 틀림 · 교차', STATUS_NONE: '상태 판정 불가',
-  SOURCE_WRONG: '상태 맞음 · 근거 틀림', MISAPPLIED: '상태·근거 맞음 · 오적용', MISSING: '상태·근거 맞음 · 누락', OTHER: '상태·근거 맞음 · 기타',
+  SOURCE_WRONG: '근거 오류', MISSING: '필수 사실 누락', MISAPPLIED: '사실 오적용/모순', OTHER: '기타(실패 조건 등)',
 };
 
 function errorCategory(x) {
-  const d = x.flags.direction;
-  if (d !== 'MATCH') return `STATUS_${d}`;
   if (x.flags.source_ok === false) return 'SOURCE_WRONG';
-  if (x.flags.misapplied) return 'MISAPPLIED';
   if (x.flags.missing) return 'MISSING';
+  if (x.flags.misapplied) return 'MISAPPLIED';
   return 'OTHER';
 }
 
-// 같은 분류를 정답 행과 오답 행에 똑같이 적용한다 — 튜닝 수단은 분류(행동)로 정해지고, 정답 여부는
-// 우선순위(오답 = 틀린 정보 전달)와 해석(정답인데 상태 틀림이 많으면 문항·기대 상태 의심)을 바꾼다.
-// 마지막 칸(OTHER)은 오답이면 "기타(실패 조건 등)", 정답이면 "문제 없음"이다.
+// 같은 분류를 정답 행과 오답 행에 똑같이 적용한다. CORRECT는 missing_required_facts·contradicted_facts가
+// 항상 비어 있으므로(스키마 제약) 정답 쪽에는 SOURCE_WRONG 또는 OTHER만 나온다 — "정답인데 근거가 틀린"
+// 경우(우연히 맞혔거나 사전 지식으로 답한 경우)를 잡는 용도다. 마지막 칸(OTHER)은 오답이면 "기타(실패
+// 조건 등)", 정답이면 "문제 없음"이다.
 function categorize(rs) {
   const src = (x) => (x.flags.source_ok === true ? 'ok' : x.flags.source_ok === false ? 'wrong' : 'na');
   return Object.fromEntries(ERROR_CATS.map((c) => {
@@ -248,21 +274,32 @@ function consistencyStats(rows) {
 
 // 결과 조합: 정답(답변 문장만 본 Judge 판정)에 상태 라벨·근거 라벨이 맞았는지를 더한다. 환각과 무관.
 // 근거 조건은 정답 근거 문서가 정해진 행(근거 대상 행)에서만 판정한다.
+// "완화"(loose) 지표는 데이터 정리 — ANSWER↔PARTIAL(양방향), 기대 OUT_OF_SCOPE·CONFLICT→실제 ABSTAIN(단방향)
+// 라벨 교차를 정답+상태에 포함한다.
 function resultStats(rows) {
   const app = rows.filter((x) => x.evidence_applicable);
   const r = (rs, fn) => rate(rs.filter(fn).length, rs.length);
+  const forgiven = rows.filter((x) => x.status_forgiven_pair);
+  const status_forgiven_counts = Object.fromEntries([...groupBy(forgiven, (x) => x.status_forgiven_pair)]
+    .map(([pair, rs]) => [pair, rs.length]));
   return {
     n: rows.length,
     n_evidence_applicable: app.length,
     correct_rate: r(rows, (x) => x.correct),
     correct_status_rate: r(rows, (x) => x.correct && x.status_label_ok),
+    correct_status_rate_loose: r(rows, (x) => x.correct && x.status_label_ok_loose),
     correct_evidence_rate: r(app, (x) => x.correct && x.evidence_label_ok),
     correct_evidence_status_rate: r(app, (x) => x.correct && x.evidence_label_ok && x.status_label_ok),
+    correct_evidence_status_rate_loose: r(app, (x) => x.correct && x.evidence_label_ok && x.status_label_ok_loose),
     // 근거 대상 행으로 좁힌 정답·정답+상태(정답+근거와 같은 분모로 비교할 때)
     correct_rate_on_evidence_rows: r(app, (x) => x.correct),
     correct_status_rate_on_evidence_rows: r(app, (x) => x.correct && x.status_label_ok),
+    correct_status_rate_on_evidence_rows_loose: r(app, (x) => x.correct && x.status_label_ok_loose),
     // 참고: 가장 엄격한 운영 목표 — 정답+근거+상태 + 경로 P0(환각·누락·오적용 없음) + 본문 출처를 모두 인용
     strict_rate: r(rows, (x) => x.strict_ok),
+    // 교차 투명성: 완화 지표가 몇 건을 정답으로 추가로 봐줬는지 조합별로 그대로 보존한다.
+    status_forgiven_total: forgiven.length,
+    status_forgiven_counts,
   };
 }
 
@@ -371,7 +408,7 @@ function main() {
   const manifest = JSON.parse(fs.readFileSync(path.join(inputDir, 'manifest.json'), 'utf8'));
   const repeatItem = config.repeatItem;
 
-  const metrics = { batch_id: batchId, report_version: 'tuning-codes-v2', tuning_code_definitions: CODES, tuning_rules: config.tuning,
+  const metrics = { batch_id: batchId, report_version: 'tuning-codes-v4', tuning_code_definitions: CODES, tuning_rules: config.tuning,
     rubric_version: manifest.rubric_version, judge: manifest.judge, runs: [] };
   const perRunRows = [];
   for (const run of manifest.runs) {
@@ -500,23 +537,32 @@ function main() {
 
   L.push('', '## 4. 결과 — 정답 · 정답+상태 · 정답+근거 · 정답+근거+상태', '');
   L.push('정답 = Judge가 답변 문장만 보고 CORRECT로 판정. 상태 = 모델이 출력한 status가 기대 상태와 같음. 근거 = 모델이 출력한 evidence_ids가 하나 이상이고 모두 정답 근거 문서(틀린 문서를 섞지 않음 — 정답 근거 문서가 정해진 "근거 대상 행"에서만 판정). 환각과 무관하다. 근거가 들어간 조합은 근거 대상 행이 분모이므로, 같은 분모의 정답·정답+상태를 함께 적는다. 엄격 = 정답+근거+상태 + 경로 P0(환각·누락·오적용 없음) + 본문에 쓴 문서를 모두 인용(참고용 운영 목표).', '');
-  L.push(...header(['모델', '정답 (전체)', '정답+상태 (전체)', '정답 (근거 대상 행)', '정답+상태 (근거 대상 행)', '정답+근거', '정답+근거+상태', '엄격(참고)']));
+  L.push('완화(loose) = 데이터 정리 — ANSWER↔PARTIAL는 양방향 교차를 정답+상태에 포함한다(설계에 따라 둘 다 나올 수 있음). 기대가 OUT_OF_SCOPE·CONFLICT인데 ABSTAIN으로 덜 확정해 답한 경우(단방향만)도 정답+상태에 포함한다 — 반대로 기대가 ABSTAIN인데 OUT_OF_SCOPE·CONFLICT로 더 확정한 경우는 더 구체적인 틀린 주장이라 포함하지 않는다. Judge 판정이 아니라 집계 단계에서만 적용한다. 교차 건수는 아래 표에서 조합별로 그대로 보여 완화로 추가된 몫을 숨기지 않는다.', '');
+  L.push(...header(['모델', '정답 (전체)', '정답+상태 (전체)', '정답+상태 (완화)', '정답 (근거 대상 행)', '정답+상태 (근거 대상 행)', '정답+근거', '정답+근거+상태', '정답+근거+상태 (완화)', '엄격(참고)']));
   for (const r of runs) {
     const x = r.accuracy?.independent?.result;
     if (!x) continue;
-    L.push(`| ${r.model} | ${pct(x.correct_rate)} (${x.n}) | ${pct(x.correct_status_rate)} | ${pct(x.correct_rate_on_evidence_rows)} (${x.n_evidence_applicable}) | ${pct(x.correct_status_rate_on_evidence_rows)} | ${pct(x.correct_evidence_rate)} | ${pct(x.correct_evidence_status_rate)} | ${pct(x.strict_rate)} |`);
+    L.push(`| ${r.model} | ${pct(x.correct_rate)} (${x.n}) | ${pct(x.correct_status_rate)} | ${pct(x.correct_status_rate_loose)} | ${pct(x.correct_rate_on_evidence_rows)} (${x.n_evidence_applicable}) | ${pct(x.correct_status_rate_on_evidence_rows)} | ${pct(x.correct_evidence_rate)} | ${pct(x.correct_evidence_status_rate)} | ${pct(x.correct_evidence_status_rate_loose)} | ${pct(x.strict_rate)} |`);
+  }
+  L.push('', '교차 투명성 — "정답+상태 (완화)"가 정답으로 추가로 봐준 라벨 교차 건수(조합별):', '');
+  const forgivenPairs = [...new Set(runs.flatMap((r) => Object.keys(r.accuracy?.independent?.result?.status_forgiven_counts || {})))];
+  if (forgivenPairs.length) {
+    L.push(...header(['모델', '완화 교차 총건수', ...forgivenPairs]));
+    for (const r of runs) {
+      const x = r.accuracy?.independent?.result;
+      if (!x) continue;
+      L.push(`| ${r.model} | ${x.status_forgiven_total} | ${forgivenPairs.map((p) => x.status_forgiven_counts[p] || 0).join(' | ')} |`);
+    }
+  } else {
+    L.push('해당 없음(완화 대상 교차 없음).');
   }
 
-  L.push('', '## 4-1. 문제 분해 — 정답 행과 오답 행을 같은 분류로 (독립 표본)', '');
+  L.push('', '## 4-1. 오답 이유 — 정답 행과 오답 행을 같은 분류로 (독립 표본)', '');
   L.push('<details>', '<summary>배타 분류·정답/오답 세부 집계 펼치기</summary>', '');
-  L.push('정답·오답 = Judge가 답변 문장만 보고 판정. 상태는 **본문 행동** 기준(라벨 아님), 근거는 본문 출처가 정답 문서인가. 위에서부터 처음 걸린 칸 하나에 넣는다(행 합계 = 정답 수 / 오답 수). 칸마다 "건수 (환각 동반)"이고, 상태 틀림 칸은 근거 O/X/대상 외로 한 번 더 나눈다. 마지막 칸은 오답이면 기타(실패 조건 등), 정답이면 문제 없음.', '');
-  L.push('같은 문제 유형도 항목에 따라 대응 수단이 달라진다(예: 과대 판단의 EC·HR·SR). 실제 묶음은 0절의 항목 코드와 대응 수단을 함께 본다. 정답 여부와 별도로 환각 동반을 확인한다.', '');
-  L.push(...header(['모델', '정답 여부', '행', ...ERROR_CATS.map((c) => (c === 'OTHER' ? '상태·근거 맞음 · 기타 / 문제 없음' : ERROR_CAT_NAMES[c]))]));
-  const cellOf = (cats, c) => {
-    const v = cats[c];
-    const base = `${v.total} (${v.hallucinated})`;
-    return c.startsWith('STATUS_') && v.total ? `${base}<br>근거 O${v.source.ok}·X${v.source.wrong}·-${v.source.na}` : base;
-  };
+  L.push('정답·오답 = Judge가 답변 문장만 보고 판정. 상태(본문 행동)는 이 분류에 섞지 않는다 — v4 정확도 판정 자체가 상태를 안 본다(상태 방향 진단은 2·3절). 위에서부터 처음 걸린 칸 하나에 넣는다(행 합계 = 정답 수 / 오답 수): **근거 오류**(본문 출처가 정답 문서 밖 — 코드 판단) → **필수 사실 누락**(Judge) → **사실 오적용/모순**(Judge) → **기타**. 칸마다 "건수 (환각 동반)". CORRECT는 스키마 제약상 누락·모순 배열이 항상 비어 있어 정답 쪽에는 근거 오류 또는 기타(=문제 없음)만 나온다.', '');
+  L.push('같은 문제 유형도 항목에 따라 대응 수단이 달라진다(예: 근거 오류의 EC·HR·SR). 실제 묶음은 0절의 항목 코드와 대응 수단을 함께 본다. 정답 여부와 별도로 환각 동반을 확인한다.', '');
+  L.push(...header(['모델', '정답 여부', '행', ...ERROR_CATS.map((c) => (c === 'OTHER' ? '기타(실패 조건 등) / 문제 없음' : ERROR_CAT_NAMES[c]))]));
+  const cellOf = (cats, c) => `${cats[c].total} (${cats[c].hallucinated})`;
   for (const r of runs) {
     const eb = r.accuracy?.independent?.error_breakdown;
     if (!eb) continue;
@@ -525,9 +571,9 @@ function main() {
     L.push(`| ${r.model} | 평가 자료 판정 불가 | ${eb.undetermined} | ${ERROR_CATS.map((c) => cellOf(eb.undetermined_categories, c)).join(' | ')} |`);
     L.push(`| ${r.model} | **합계** | ${eb.n} | ${ERROR_CATS.map((c) => cellOf(eb.all_categories, c)).join(' | ')} |`);
   }
-  L.push('', '읽는 법: 튜닝 수단은 **합계** 줄의 칸 크기로 고르고, 우선순위와 효과 판정은 **오답** 줄로 본다(합치면 정답 쪽의 쉬운 개선이 섞여 효과가 부풀 수 있다). 정답 줄의 상태 틀림이 크면 문항의 기대 상태·필수 사실 기준을 먼저 의심한다.');
+  L.push('', '읽는 법: 튜닝 수단은 **합계** 줄의 칸 크기로 고르고, 우선순위와 효과 판정은 **오답** 줄로 본다(합치면 정답 쪽의 쉬운 개선이 섞여 효과가 부풀 수 있다). 정답 줄의 근거 오류가 크면 "우연히 맞혔거나 사전 지식으로 답한" 경우를 의심한다.');
   L.push('', '오답 중 표시 비율(겹침 허용 — 위 표에서 앞 칸에 가려진 원인도 보인다):', '');
-  L.push(...header(['모델', '상태 틀림', '근거 틀림', '오적용', '누락', '환각']));
+  L.push(...header(['모델', '상태 틀림(참고)', '근거 틀림', '오적용', '누락', '환각']));
   for (const r of runs) {
     const i = r.accuracy?.independent?.error_breakdown?.incidence_in_incorrect;
     if (i) L.push(`| ${r.model} | ${pct(i.status_wrong)} | ${pct(i.source_wrong)} | ${pct(i.misapplied)} | ${pct(i.missing)} | ${pct(i.hallucinated)} |`);

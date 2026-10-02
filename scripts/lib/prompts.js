@@ -97,6 +97,9 @@ function buildMessages(testCase, variant = DEFAULT_VARIANT) {
 
 // 상담봇 출력 계약의 status 목록 — 포맷 채점(lib/metrics.js)이 이걸 쓴다.
 // CLARIFY는 v4에서 뺐다(데이터셋에 CLARIFY 기대가 없음 — 되묻기는 ABSTAIN/PARTIAL 안에서, Judge가 따로 센다).
+// CONFLICT는 한 번 뺐다가(2026-10-02) 같은 날 다시 넣었다 — "FAQ끼리 모순"은 "자료 없음"(ABSTAIN)과
+// 구분할 실익이 있다고 판단했다(prompts/chatbot/status_rules.md). 정의는 버전·시행일·우선순위로
+// 해결되는 차이를 뺀, 좁은 의미의 모순만 가리킨다.
 const OUTPUT_STATUSES = ['ANSWER', 'PARTIAL', 'ABSTAIN', 'CONFLICT', 'OUT_OF_SCOPE'];
 
 // Ollama 구조화 출력(format에 JSON 스키마)용 스키마. 생성 문법이 properties에 적은 순서대로 키를

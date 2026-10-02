@@ -6,7 +6,14 @@
 
 // v4-schema-4: content_stance에서 CLARIFY를 빼고(되묻기는 ABSTAIN/PARTIAL), 되묻기 여부 asks_user를 따로 기록.
 // v4-schema-5: accuracy의 expression_quality 필드를 제거(표현 품질은 전수 Judge 대상에서 제외).
-const SCHEMA_VERSION = 'v4-schema-5';
+// v4-schema-6: content_stance에서 CONFLICT를 빼고 ABSTAIN에 합쳤다(2026-10-02) — test3 재채점에서 "핵심 답을
+// 확정하지 않는다"는 점에서 같은 수준인 상태끼리(ABSTAIN·CLARIFY·CONFLICT·OUT_OF_SCOPE) 혼용돼도 내용은 맞는
+// 경우가 많았다. 해결되지 않은 자료 충돌로 확정할 수 없는 경우도 ABSTAIN으로 판정한다.
+// v4-schema-7: CONFLICT를 같은 날 다시 넣었다 — "FAQ끼리 모순"은 "자료 자체가 없음"(ABSTAIN)과 백엔드
+// 처리가 달라질 수 있어 구분할 실익이 있다고 판단. 정의를 좁혀서(버전·시행일·우선순위로 해결되면 ANSWER)
+// 모델이 쉽게 도피하지 못하게 했다. 기대 CONFLICT·OUT_OF_SCOPE인데 ABSTAIN으로 덜 확정한 경우를 정답으로도
+// 보는 건 Judge가 아니라 judge_report.js의 데이터 정리다.
+const SCHEMA_VERSION = 'v4-schema-7';
 const STANCES = ['ANSWER', 'PARTIAL', 'ABSTAIN', 'CONFLICT', 'OUT_OF_SCOPE'];
 const object = (properties) => ({ type: 'object', properties, required: Object.keys(properties), additionalProperties: false });
 const text = { type: 'string' };

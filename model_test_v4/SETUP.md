@@ -20,7 +20,7 @@ v4는 **저급 모델 튜닝 전 기준선(레거시)**을 만드는 테스트�
 | 데이터셋 | `test_set2` 13개 항목 · 고유 300 + 반복 80 = 380건 | **`test_set3` 15개 항목 × 200건 = 3,000건** (실제 백엔드 FAQ 1,024건 기반). 간이용 50/100/150건 서브셋 |
 | 항목 | 13개 + 반복(평가 지표) | 13개 + **페르소나(PS)** + **반복 테스트(RT)를 독립 항목으로** |
 | 반복 | 40문항 × 3회차 | RT: 원본 질문 20개 × 10회 |
-| 기대 상태·출력 status | 6종(CLARIFY 포함) | 5종(ANSWER·PARTIAL·ABSTAIN·CONFLICT·OUT_OF_SCOPE) — **CLARIFY를 출력 계약에서도 뺌**. 되묻기는 ABSTAIN/PARTIAL 안에서 하고 Judge가 건수만 따로 집계(`asks_user`) |
+| 기대 상태·출력 status | 6종(CLARIFY 포함) | **5종(ANSWER·PARTIAL·ABSTAIN·CONFLICT·OUT_OF_SCOPE)** — CLARIFY를 출력 계약에서도 뺌(되묻기는 ABSTAIN/PARTIAL 안에서, Judge가 건수만 따로 집계 `asks_user`). CONFLICT는 한 번 뺐다가 같은 날(2026-10-02) 다시 넣음 — test3에서 모델이 CONFLICT를 출력한 55건의 정밀도 47%·재현율 51%를 확인했지만, "FAQ끼리 모순"과 "자료 없음"(ABSTAIN)을 구분할 실익이 있다고 판단. 정의는 버전·시행일·우선순위로 해결되는 차이를 뺀 좁은 의미로 한정. 데이터 정리(판정 아님): 기대 ANSWER↔PARTIAL 교차, 기대 OUT_OF_SCOPE·CONFLICT인데 ABSTAIN으로 덜 확정한 경우(반대 방향 제외)는 정답+상태 집계에서 정답으로도 보되 교차 건수는 조합별로 따로 집계 |
 | 입력 | 대화 이력 텍스트 | 대화 이력·사용자 정보/API가 JSON, 페르소나 지시는 시스템 영역 |
 | 프롬프트 | v0(`SYSTEM_PROMPT`) | **`v4_base`** (`prompts/chatbot/`) = 공통 문단(v0 + test_set3 데이터셋 공통 프롬프트 통합: 존댓말·명령은 데이터·수치 보존·누락값 0 금지·시행일 규칙·조회 상태 조건·페르소나 적용 원칙) + status 판정 기준(v1 수정본을 **고른 근거 기준**으로 다시 씀, status-answer 일치 규칙 추가) + 출력 순서 지시. 보류 시 evidence_ids는 빈 배열 |
 | 출력 순서·형식 | `status → answer → evidence_ids` · JSON 모드 | **`evidence_ids → status → answer`** · Ollama 구조화 출력(JSON 스키마)으로 순서와 status enum을 강제 |

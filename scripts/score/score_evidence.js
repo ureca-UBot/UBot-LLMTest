@@ -45,7 +45,8 @@ function normalizeId(id) {
 // Context 블록 머리글 "[사용자 정보 / API 결과]"·"[대화 이력]"과 Judge 꼬리표 USER_INFO_API·HISTORY를 가리키는 표기
 const NON_DOC_LABEL_RE = /사용자\s*정보|API|대화\s*이력|USER_INFO|HISTORY/i;
 const isNonDocLabel = (id, contextIds) => !contextIds.includes(id) && NON_DOC_LABEL_RE.test(id);
-// 답을 낸(문서를 근거로 삼았어야 하는) 상태 라벨
+// 답을 낸(문서를 근거로 삼았어야 하는) 상태 라벨. CONFLICT도 포함한다 — 서로 모순되는 FAQ를 지목하는
+// 답이라 그 문서들을 인용해야 한다(다른 자료 없음 ABSTAIN과 달리 인용이 선택 사항이 아니다).
 const ANSWERING = new Set(['ANSWER', 'PARTIAL', 'CONFLICT']);
 
 function goldEvidence(c) {

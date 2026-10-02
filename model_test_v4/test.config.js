@@ -79,6 +79,7 @@ module.exports = {
     // AR은 API 결과만으로 답하면 evidence_ids가 빈 배열이어도 정상이라(프롬프트 허용) 제외한다.
     excludeItems: ['AR'],
     // 보류 응답은 인용이 선택 사항이므로(프롬프트 허용) 답을 내야 하는 기대 상태만 판정한다.
+    // CONFLICT는 모순되는 두 문서를 지목해야 하므로 포함한다(2026-10-02, 같은 날 재결정).
     expectedStatuses: ['ANSWER', 'PARTIAL', 'CONFLICT'],
   },
 

@@ -18,7 +18,7 @@ const argv = profile.applyCliSelectors(process.argv.slice(2));
 const { parseRunArgs } = require('../lib/args');
 const { readAll } = require('../lib/jsonl');
 const { loadCases, isRepeatCase } = require('../lib/dataset');
-const { systemPromptFor, OUTPUT_STATUSES } = require('../lib/prompts');
+const { OUTPUT_STATUSES } = require('../lib/prompts');
 const { splitContextBlocks } = require('../lib/context_blocks');
 const { RUBRIC_VERSION, SYSTEM_PROMPTS, buildUserText } = require('../lib/judge/prompts');
 const { SCHEMA_VERSION, SCHEMAS } = require('../lib/judge/schema');
@@ -59,12 +59,11 @@ function buildPlan(batchId) {
     const bytes = fs.readFileSync(path.join(paths.root, run.source_path));
     if (sha256(bytes) !== run.source_sha256) throw new Error(`배치 이후 저장 답변이 바뀌었습니다: ${run.run_id}`);
     const generations = readAll(path.join(paths.root, run.source_path));
-    const candidatePrompt = systemPromptFor(run.prompt_variant);
     for (const g of generations) {
       const c = byId.get(g.id);
       for (const kind of kinds) {
         if (!selectFor(kind, c, config)) continue;
-        const userText = buildUserText(kind, c, g, candidatePrompt);
+        const userText = buildUserText(kind, c, g);
         jobs[kind].push({
           kind, id: c.id, run_id: run.run_id, model_tag: run.model, item: c.item, difficulty: c.difficulty,
           round: c.round, original_id: c.originalId, expected_status: c.expectedStatus,
