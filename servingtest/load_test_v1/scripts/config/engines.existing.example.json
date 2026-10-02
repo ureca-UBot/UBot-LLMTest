@@ -1,0 +1,312 @@
+{
+  "combinations": [
+    {
+      "engine": "llama.cpp",
+      "model": "gemma3:4b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "llama-server"
+      ],
+      "port": 8080,
+      "model_path": "ollama://gemma3:4b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "GGUF",
+      "quantization": "auto",
+      "dtype": "half",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": true,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [],
+      "env": {}
+    },
+    {
+      "engine": "llama.cpp",
+      "model": "qwen3:4b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "llama-server"
+      ],
+      "port": 8080,
+      "model_path": "ollama://qwen3:4b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "GGUF",
+      "quantization": "auto",
+      "dtype": "half",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": false,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [],
+      "env": {}
+    },
+    {
+      "engine": "llama.cpp",
+      "model": "qwen3:8b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "llama-server"
+      ],
+      "port": 8080,
+      "model_path": "ollama://qwen3:8b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "GGUF",
+      "quantization": "auto",
+      "dtype": "half",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": false,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [],
+      "env": {}
+    },
+    {
+      "engine": "llama.cpp",
+      "model": "qwen3:14b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "llama-server"
+      ],
+      "port": 8080,
+      "model_path": "ollama://qwen3:14b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "GGUF",
+      "quantization": "auto",
+      "dtype": "half",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": false,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [],
+      "env": {}
+    },
+    {
+      "engine": "vllm",
+      "model": "gemma3:4b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "/opt/vllm/bin/python",
+        "-m",
+        "vllm.entrypoints.openai.api_server"
+      ],
+      "port": 8000,
+      "model_path": "/opt/models/gemma3-4b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "safetensors",
+      "quantization": "auto",
+      "dtype": "half",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": true,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [],
+      "env": {
+        "VLLM_ATTENTION_BACKEND": "FLEX_ATTENTION"
+      }
+    },
+    {
+      "engine": "vllm",
+      "model": "qwen3:4b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "/opt/vllm/bin/python",
+        "-m",
+        "vllm.entrypoints.openai.api_server"
+      ],
+      "port": 8000,
+      "model_path": "/opt/models/qwen3-4b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "safetensors",
+      "quantization": "auto",
+      "dtype": "half",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": false,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [],
+      "env": {
+        "VLLM_ATTENTION_BACKEND": "FLEX_ATTENTION"
+      }
+    },
+    {
+      "engine": "vllm",
+      "model": "qwen3:8b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "/opt/vllm/bin/python",
+        "-m",
+        "vllm.entrypoints.openai.api_server"
+      ],
+      "port": 8000,
+      "model_path": "/opt/models/qwen3-8b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "safetensors",
+      "quantization": "auto",
+      "dtype": "half",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": false,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [],
+      "env": {
+        "VLLM_ATTENTION_BACKEND": "FLEX_ATTENTION"
+      }
+    },
+    {
+      "engine": "vllm",
+      "model": "qwen3:14b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "/opt/vllm/bin/python",
+        "-m",
+        "vllm.entrypoints.openai.api_server"
+      ],
+      "port": 8000,
+      "model_path": "/opt/models/qwen3-14b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "safetensors",
+      "quantization": "auto",
+      "dtype": "half",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": false,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [],
+      "env": {
+        "VLLM_ATTENTION_BACKEND": "FLEX_ATTENTION"
+      }
+    },
+    {
+      "engine": "sglang",
+      "model": "gemma3:4b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "/opt/sglang/bin/python",
+        "-m",
+        "sglang.launch_server"
+      ],
+      "port": 30000,
+      "model_path": "/opt/models/gemma3-4b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "safetensors",
+      "quantization": "auto",
+      "dtype": "float16",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": true,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [
+        "--attention-backend",
+        "torch_native",
+        "--sampling-backend",
+        "pytorch"
+      ],
+      "env": {}
+    },
+    {
+      "engine": "sglang",
+      "model": "qwen3:4b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "/opt/sglang/bin/python",
+        "-m",
+        "sglang.launch_server"
+      ],
+      "port": 30000,
+      "model_path": "/opt/models/qwen3-4b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "safetensors",
+      "quantization": "auto",
+      "dtype": "float16",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": false,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [
+        "--attention-backend",
+        "triton",
+        "--sampling-backend",
+        "pytorch"
+      ],
+      "env": {}
+    },
+    {
+      "engine": "sglang",
+      "model": "qwen3:8b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "/opt/sglang/bin/python",
+        "-m",
+        "sglang.launch_server"
+      ],
+      "port": 30000,
+      "model_path": "/opt/models/qwen3-8b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "safetensors",
+      "quantization": "auto",
+      "dtype": "float16",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": false,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [
+        "--attention-backend",
+        "triton",
+        "--sampling-backend",
+        "pytorch"
+      ],
+      "env": {}
+    },
+    {
+      "engine": "sglang",
+      "model": "qwen3:14b",
+      "enabled": true,
+      "reason": "",
+      "command": [
+        "/opt/sglang/bin/python",
+        "-m",
+        "sglang.launch_server"
+      ],
+      "port": 30000,
+      "model_path": "/opt/models/qwen3-14b",
+      "version": "auto",
+      "revision": "auto",
+      "weight_format": "safetensors",
+      "quantization": "auto",
+      "dtype": "float16",
+      "memory_fraction": 0.85,
+      "merge_system_to_user": false,
+      "ready_timeout_ms": 600000,
+      "stop_timeout_ms": 15000,
+      "extra_args": [
+        "--attention-backend",
+        "triton",
+        "--sampling-backend",
+        "pytorch"
+      ],
+      "env": {}
+    }
+  ]
+}

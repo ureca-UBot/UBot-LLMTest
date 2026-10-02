@@ -1,0 +1,39 @@
+# 자동 설치 런타임: 모델, CUDA 빌드, 가상환경, 서버 상태
+**/.t4-runtime/
+**/.t4-state/
+**/.t4-automation.lock
+load_test_v2/.benchmark.lock*
+
+# Docker 전달 묶음: 이미지 tar, 모델 tar, 로컬 검증 자료
+/docker_artifacts/
+
+# 로컬 모델 가중치·캐시·검증 기록 (폴더 안내만 버전 관리)
+/model_assets/*
+!/model_assets/README.md
+
+# 측정 결과와 실행 로그
+**/results/
+**/automation_logs/
+*.log
+
+# 서버별 설정과 자격 증명
+**/engines.local.json
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Python 개발 환경과 캐시
+**/__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 배포용 압축 파일과 운영체제 파일
+*.zip
+*.zip.tmp
+.DS_Store
+Thumbs.db
+
+# Local source-workspace audit; not needed by the cloud runner.
+load_test_v2/v1_baseline.json
