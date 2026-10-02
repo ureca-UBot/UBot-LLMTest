@@ -1,0 +1,364 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-10-02T07:40:15.162Z",
+  "platform": "linux/amd64",
+  "node_version": "v24.17.0",
+  "docker_cli_version": "29.7.2",
+  "profile_file": "load_test_v2/config/http.t4.json",
+  "profile_sha256": "201e43bbef27d414b0aeb672299e02f956a80234de086009f2684fa010f37ea2",
+  "models_file": "load_test_v2/config/models.lock.json",
+  "models_sha256": "d7634729d87da0556977f7322299da62406c773d5335a8e7d48ec700430b7c81",
+  "images": [
+    {
+      "id": "ollama",
+      "reference": "llm-frozen/ollama:20261002-b3a38945364d",
+      "source_reference": "ollama/ollama:0.34.0",
+      "source_id": "sha256:684d8674b4315fa18f4f0e973a118ec2652ed96f67563277839985175858e0ba",
+      "source_digest": "ollama/ollama@sha256:684d8674b4315fa18f4f0e973a118ec2652ed96f67563277839985175858e0ba",
+      "transfer_method": "archive",
+      "platform": "linux/amd64",
+      "config_fingerprint": "b3a38945364df58ae49dd835d861e139cdf1cad73f3c91ccce3538db123fe87f",
+      "created": "2026-09-09T23:17:47.304461496Z",
+      "size_bytes": 3703364316,
+      "rootfs_layers": [
+        "sha256:6078cde548a521a729def2ee7875e9f65513c18f0d4bac4db817417617d7006a",
+        "sha256:9b930d1efe67267584b80a116d45a6d3be17ab84636ab42e8b7c1497b7189cd1",
+        "sha256:ca448e7a7158f7effdccb1d790d6f8776049b12b73a3aafe185b073772cf9c3b",
+        "sha256:c49d8fd3709e96d71819244b5910ba85cbb7cf733edb344fd370cc6ddc23f126"
+      ],
+      "source_identity_limitation": "Captured current daemon image. Earlier benchmark reports did not record image IDs."
+    },
+    {
+      "id": "llamacpp",
+      "reference": "llm-frozen/llamacpp:20261002-bb4015809bc5",
+      "source_reference": "ghcr.io/ggml-org/llama.cpp:server-cuda",
+      "source_id": "sha256:6cdf9529493b9581c421fec5628dcd4b8dd7c09507fc7d27ad739cc9205d66f5",
+      "source_digest": "ghcr.io/ggml-org/llama.cpp@sha256:6cdf9529493b9581c421fec5628dcd4b8dd7c09507fc7d27ad739cc9205d66f5",
+      "transfer_method": "archive",
+      "platform": "linux/amd64",
+      "config_fingerprint": "bb4015809bc555b26eb3e70cbdb9074c2489c1a5625f7e5f5b14f4a00899e471",
+      "created": "2026-10-01T05:33:24.868931861Z",
+      "size_bytes": 2592047491,
+      "rootfs_layers": [
+        "sha256:4b7c01ed0534d4f9be9cf97d068da1598c6c20b26cb6134fad066defdb6d541d",
+        "sha256:5d874d849ec64ad89b8e1ff34cefc562238dfaaa6540905f0a8bac73777d4f25",
+        "sha256:5ef6645238f3599acf1a7b450ae0a8e9306bea4e342a7af89d3992b804676999",
+        "sha256:723554db4ba2a109baacf03b25cff50db586ce45370dfdbd21557171201992f5",
+        "sha256:6020d84069cf575521faca653d2817e2195b8233b8c4e2d7bc65f3296296c2bb",
+        "sha256:09d8fc1b386fa3eb8491421932e290ce3c33a55265e1d6da8cc9d720a08d3306",
+        "sha256:d9ab1aaed362889c6b77ea27e8df132379e24e2a0aacdfaed8fadf3cddb3131d",
+        "sha256:9004b01e4a91e9612a7374cce04c721e1e3a8f9e99619de547fb333425c79637",
+        "sha256:a2dd2dc8d2b5463fe695696cc9b429d90af7bb8b1ad911859146a38b720f4963",
+        "sha256:71395160cf11a4610966b04d73b6facc42971f3bd68224bc7475fc28712c10c8",
+        "sha256:933d1f54c367e8e13e964e5878f1b2361e689a5b94dfeb6a563167498e70f96e",
+        "sha256:ca11652c8e31e25ab66cf9c6825f9abe86972762e58eaca06296c06d3425b269",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      ],
+      "source_identity_limitation": "Captured current daemon image. Earlier benchmark reports did not record image IDs."
+    },
+    {
+      "id": "vllm",
+      "reference": "llm-frozen/vllm:20261002-5bcee11334e5",
+      "source_reference": "vllm/vllm-openai:v0.30.0",
+      "source_id": "sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+      "source_digest": "vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+      "transfer_method": "archive",
+      "platform": "linux/amd64",
+      "config_fingerprint": "5bcee11334e55e68bdf6d652d1f6ec2b382d6ad4ee6849e0ccb08e97e9af11fd",
+      "created": "2026-09-21T23:03:19.744436587Z",
+      "size_bytes": 8730577043,
+      "rootfs_layers": [
+        "sha256:073ec47a8c22dcaa4d6e5758799ccefe2f9bde943685830b1bf6fd2395f5eabc",
+        "sha256:18241330a2d180465d0b9868e4978456293d37da715de2f313ba08862da2aab1",
+        "sha256:b5c4de646bbad7dd50f917376023047d99ff9a1e806943dd86799e933b6a6294",
+        "sha256:dab2da33fe40a74d9faf939b829b701aa6cfc6b4502ff68fcf716fd2973697ac",
+        "sha256:b7ec8fd7c485bbedbe64cbc5a7a810ceabb9156e95c83ba60596ddb9b4955d48",
+        "sha256:71d7d2888634e673c4117cb08190c8d0472cc0f1ebfe85a2e7ce72604260367d",
+        "sha256:231ec203d497220f93ab647176948ff7dbec57b4768ded1abbc440f4539c8ca9",
+        "sha256:5a56fe7a5ff3e2896f2a80246cfa572bccd93aec1ef68f20b0cdf6cf2fa1dd05",
+        "sha256:4db05c0f6741f29459eda0789ee9f7f6eb5be29f063d3bf284f1372bd3fd1b8d",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:ec10e82eacb2110bc18bcbcb26de1a920d40dd508d63018d832031e8462ecb0e",
+        "sha256:cb20b108197ff98545e00c6d647e2f91359bb3141bbba9d5774dfa1f2b4296a4",
+        "sha256:23b0cdc2126c1c66376c9640e930c7623718da07bbd526ace43c5f8c97bc3cf2",
+        "sha256:1f3ae933eed68a445b7dcbf9448284d2d75a333393a12766e1fe872b30ebd8a6",
+        "sha256:20361246d685b1b442710d42d0f84bb81fd72309e0ea999b921b8bc25cbecce0",
+        "sha256:20361246d685b1b442710d42d0f84bb81fd72309e0ea999b921b8bc25cbecce0",
+        "sha256:d5dc59f16a599043f8cc647a43890d983bda80af45952e43de342f49b68910f4",
+        "sha256:6f085663d1e82d0cfba71d0474671aa4095de24630c884bd3c94682ac6cab73a",
+        "sha256:c6f2b9a8b969aa1b830e033f87a857896cb5acaf74cb00614984f079966bcc43",
+        "sha256:7b95ad1d5323643257d6d97b1ec755aaaafe67e0d8cb9a625e401c0ca65e3623",
+        "sha256:0913f122d69217d3c67184224e77edd8ddec3a87cc4122e8091798d542e172de",
+        "sha256:1905064561521dfa2c91f3f8f9310b1f9520c14703247b72671c0ac315dad918",
+        "sha256:326021465d947cd15f28d0e6b323f53ac91621e629ffc94908118662b00e5e13",
+        "sha256:754666eaa0a11843c7e67cbf7cc233079c889c7fa29876d9ecf8b4b0ced6db06",
+        "sha256:9a0b7573448a08e20e2ed8316c9e0b00b2c257f5ebfeb7ad46c14ac0e3945d89",
+        "sha256:338575a99af38b9c75fd630e410e6bb5ec3731fef8bcfe7cb517d47b7c4bccce",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:09b0a85f2e22e5c64d512bc6e7e5c10b6d216c8a7dc23a6d9ac64eb19b5be7d3",
+        "sha256:8bfda261631239fd65ff99980f96050267d7295db4b5c2a2a131a8dc7790bccb",
+        "sha256:6fe85be3963847a998866b8ede0705ece395846fdf8ccef3a981da3950629f15",
+        "sha256:64c615bd313cb18c4b7e5da986c73e07c584e56c1c6d9404c579fb40d09b4695",
+        "sha256:1b7c4f12d94820d28e8b22b7df758cc17e8f2500d928c99a5096ecae4dd372d5",
+        "sha256:fac293c06b470c6ae4bc66f3b486f7da963c6144c96427f891a71c60d5aee97a",
+        "sha256:896c91aa7ca0c0c0c01c3a67da6c4bc988a1935b10297e4e33dd062afdd8e938",
+        "sha256:be8c72fc0a97f9c3287ba17b7f0c8ba3bbbba60d87e05bf25fdf0ef3136916fc",
+        "sha256:27f58690a735cf850d00c85119ed4805035bfb1190fb36e8f2e246b9f503bbe5",
+        "sha256:3c2e36a934c0b6a5dba50b10a3b301647c0b9f68cafa111c134fa91a7830fc35"
+      ],
+      "source_identity_limitation": "Captured current daemon image. Earlier benchmark reports did not record image IDs."
+    },
+    {
+      "id": "sglang",
+      "reference": "llm-frozen/sglang:20261002-f784a3df9ec0",
+      "source_reference": "llm-local-opt-sglang:0.4.6-post5",
+      "source_id": "sha256:754f054985fb313ff220a82b4989d6d1473d751e07c7ab9d3994935115ef53e6",
+      "source_digest": null,
+      "transfer_method": "archive",
+      "platform": "linux/amd64",
+      "config_fingerprint": "f784a3df9ec07f4f504d38a030b20791d1a0eaffb845c1ac6a37843933e07dc9",
+      "created": "2026-10-02T00:24:03.560661712Z",
+      "size_bytes": 8809612873,
+      "rootfs_layers": [
+        "sha256:5498e8c22f6996f25ef193ee58617d5b37e2a96decf22e72de13c3b34e147591",
+        "sha256:28c139aca4328d0f6911b67c9699af5dff0f9765a0db3d87dac21ef01b40c81c",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:c14a8ee52db061dd013c76e696665740f360df5648c170a6a20555aafd998d33",
+        "sha256:147b0872d115dc3311e306c5e557df8f2987cd928a4e668de7bf1c1d314b0b08",
+        "sha256:67134b4c3ccc35293ab232be049bdc30365352891611495a3f66fd90e69e5717",
+        "sha256:f1d961de7b067ab90c9993476c8857362b1679f8d282e293f4d67a4dcfe237f1",
+        "sha256:f64b0221c5b91feacd2cef5c200df7301d77bbea0bb629a9c0cfd514e262d53a",
+        "sha256:31204c91c9ed9faf9e61e82b9b1eec7e271e93c593c9ad4f9e6749fd8bca60c8",
+        "sha256:7f23732579ecb35511e1367a0ff96397dc9e738a9f44ae60d2c0a06567987504",
+        "sha256:12d4c615e1066748fc6c08021730faf9d2e13b6a1d4316f953b6fd4d0707bf20",
+        "sha256:883706b219bd097161abfcf670d63d5664cfc3f5876632643a4d12e3e4b21283",
+        "sha256:12d63adad6310f30514511b90b1b71d51e9ef755916f605b16a31f7acfd4756a",
+        "sha256:5e76418387d068fe27ab23830a83c26ac25e0a8cb926d2da9766519c42ba9d34",
+        "sha256:40b7b50a288324e0e77a4dcf0a7f6c91a3d6df7997cef221f9ecf3a0f52f9929",
+        "sha256:61abc3c363440d2b58d046a5741cb780bb19ff03ec1fda327f056bbf886179b0",
+        "sha256:2f83d8fa2aeacb280bfaeb6a59d36b1010aeaa8ad9b61cd78343457afdced5e5",
+        "sha256:9684bd5b9932cc2cc4f9a7324ecc7e3657c023315b33d5965e2547c110b8ade6",
+        "sha256:7b306717a479756c6238aa5eca4c2889f936d024ae9601b03df6a6b9e06a9b85",
+        "sha256:228c8d31933c62662d6c5f0402619437812ad6aea848e245ad406e3171ab579f",
+        "sha256:68383d13664929249e428497ea9582b52c61b5f97aaefe33064014a098891394"
+      ],
+      "source_identity_limitation": "Captured current daemon image. Earlier benchmark reports did not record image IDs."
+    },
+    {
+      "id": "runner",
+      "reference": "llm-frozen/runner:20261002-fbc595f78605",
+      "source_reference": "llm-frozen/runner:20261002-node24.17.0",
+      "source_id": "sha256:b2b9945781ba8f333c0d1e256c80b99d4362ea061e53ccac2844121bf4ab40d2",
+      "source_digest": null,
+      "transfer_method": "archive",
+      "platform": "linux/amd64",
+      "config_fingerprint": "fbc595f78605b3e986bf7e2905cf17217ce927eaaee5766facf194c4898133c3",
+      "created": "2026-10-02T04:56:16.989925569Z",
+      "size_bytes": 99618712,
+      "rootfs_layers": [
+        "sha256:b05a96227958df6091396f6fbd5aa4616df631a65626ac8688c91cfa70d1a7e6",
+        "sha256:5ccb04c1a1371d94b8105c82b512006c7b5e30ccf68c3a1df59a4a782dc05c89",
+        "sha256:8c8ec1716844bf1b1f087032c174e7cc6f6b596a1ac8872e2b758c3c0cd7dcb8",
+        "sha256:4352f4160e6fef2c73e9fe1975a8f9228cf7c39b5fa5c2b24731310bb66d04bf",
+        "sha256:e11c6e2438bf5f488c9165d23f1346c311d0f52c4c4b105d4899213acea5b98b",
+        "sha256:fa10eeefe08b3abae52515e62466dea101ecba1396f2e75a7584f176b84afef9",
+        "sha256:253203ce6f665ca820363a4833b819168f85996aa500ad2d86f10d75f466a99d"
+      ],
+      "source_identity_limitation": "Captured current daemon image. Earlier benchmark reports did not record image IDs."
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "75dcbce4cdc5460dfd4e348d1ecffa215672c5b176fc4b98757f5ce43af4b1e5"
+    },
+    {
+      "path": "load_test_v2/config/http.t4.json",
+      "sha256": "201e43bbef27d414b0aeb672299e02f956a80234de086009f2684fa010f37ea2"
+    },
+    {
+      "path": "load_test_v2/config/images.lock.json",
+      "sha256": "c1723f93ec715760b4389d5ffa8a6389bb59145d5f1f205e43c16210c67b6c90"
+    },
+    {
+      "path": "load_test_v2/config/models.lock.json",
+      "sha256": "d7634729d87da0556977f7322299da62406c773d5335a8e7d48ec700430b7c81"
+    },
+    {
+      "path": "load_test_v2/data/benchmark_prompts.jsonl",
+      "sha256": "67ca43b2b901360cefde705a872e52441edc107abb4c19b202f746d923ea4122"
+    },
+    {
+      "path": "load_test_v2/docker/inventory/sglang.json",
+      "sha256": "d558dacc59c5d973df68969c300508b690867e33c933927daee17f992827da68"
+    },
+    {
+      "path": "load_test_v2/docker/inventory/vllm.json",
+      "sha256": "57d4a34a5a4fe95a9284d9e7c447df2a132ca7a608bd06cc3a1e61b82fec0e70"
+    },
+    {
+      "path": "load_test_v2/docker/runner.Dockerfile",
+      "sha256": "f44621ec07de3d47d71fcbd5e4dac2bc306ba2d016b713be08740c35d411a014"
+    },
+    {
+      "path": "load_test_v2/docker/sglang.recipe.Dockerfile",
+      "sha256": "428f592eaa3d2a98ddb827eddd6047ff70702a21d1326341a906cd0ee9d5421a"
+    },
+    {
+      "path": "load_test_v2/docker/templates/qwen3_base.jinja",
+      "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+    },
+    {
+      "path": "load_test_v2/README.cloud.md",
+      "sha256": "98374b12960e204de9e4f8754fb3f19ed8f85b4598cdbd78a96520eeddc114bf"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/archive_models.py",
+      "sha256": "8ca0f99ce6fc1ddaed8343b373207e2cae36a112afff27955725182621b35f20"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/bootstrap_images.py",
+      "sha256": "eb9f2f40c3994155e665ec99b8e0422c839aa523538bc0776fd9ad194ce54a7f"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/bundle.js",
+      "sha256": "c889107ff9e66d83858796b489dc05f6f44e4b15b9ac0775551b23b3505b491a"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/capture_environment.py",
+      "sha256": "45be15a70f82969f49083d20df61564c34bf0300b074089c30b79a6bf19d2436"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/capture_images.js",
+      "sha256": "0a1eb537b4d989d406ae6985e765e201ee5a1d21ed19953a46d417ed130ebee4"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/export_images.js",
+      "sha256": "0db066f227e794c856f6cf154e1988ed071903ee655a1ec7ec806b5c46b35fc3"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/freeze_sources.js",
+      "sha256": "e2f696602137b9dea774cb6e2fb930f6baefaed1defedbcb006004825f83f217"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/gpu_observation.js",
+      "sha256": "8560d1a17af0d7df58d96e652b7b0c882bf5250ba4edb0392917bd5ca337d72d"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/import_images.js",
+      "sha256": "f80d851acca96d81fa04006f29dd3590390441f4d07f89dfcd25b2cbea351e42"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/model_manifest.js",
+      "sha256": "efba6afe4133da9e2454305ab44ef4af251434dab1792bbdf37836dd156cd5d6"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/pack_sources.py",
+      "sha256": "d8a7816f3d5073f4061540cc33698c1899b2c0b5caa46fb49758b0be3817597f"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/prepare_models.py",
+      "sha256": "1a4168cab6a0ecd0fa32b8122af3e48889cc58e0041efc87b00af922159b7e68"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/run_http_exploration.js",
+      "sha256": "878d414f9efdfc0e6b9d5ef4888e847a06edd64986bdefe745d4c39eaa10e104"
+    },
+    {
+      "path": "load_test_v2/scripts/cloud/run_t4.sh",
+      "sha256": "01bcf354f9b5f44f9a70573b27c934dd670772e7b5118cb662a0394407ec4088"
+    },
+    {
+      "path": "load_test_v2/scripts/dev/create_mock_config.js",
+      "sha256": "395b09f07f0285ff9c0c64875a1b036117fc97dc327f746fbbebea13072b724f"
+    },
+    {
+      "path": "load_test_v2/scripts/dev/http_capacity.js",
+      "sha256": "4f3551c886e3e3f1f422b73a619ee197c770da47853ecdce6acfbf499d7627f2"
+    },
+    {
+      "path": "load_test_v2/scripts/dev/local_gpu_observation.js",
+      "sha256": "453333166d4ca582aafb563e958016e074fcd4650df813da3f9c60dd2884f486"
+    },
+    {
+      "path": "load_test_v2/scripts/dev/local_http_candidates.js",
+      "sha256": "e1470c236a7c8ccc37afa91c97adc7050d934fa89dacc3e33d37175155801385"
+    },
+    {
+      "path": "load_test_v2/scripts/dev/mock_server.js",
+      "sha256": "ca145e11963d96f6843940d5d0638f6faeb7c3295ba12a5f7aed32d5d697bd4f"
+    },
+    {
+      "path": "load_test_v2/scripts/dev/model_assets.js",
+      "sha256": "be97abeeebfcd07d9e8d3213eb11213f7772d9d58366bf03991f4ff267010edc"
+    },
+    {
+      "path": "load_test_v2/scripts/dev/recover_local_http_lock.js",
+      "sha256": "17dcf909e5647b2c97e3311fb8dca6d2b583b17f56c47d065921bf0930facc88"
+    },
+    {
+      "path": "load_test_v2/scripts/dev/run_local_cleanup_probe.js",
+      "sha256": "2f6b5664a719b8325326984fb57d040e06028ae19eb57cf46af40cd722624ec4"
+    },
+    {
+      "path": "load_test_v2/scripts/dev/run_local_http_exploration.js",
+      "sha256": "d21b264c016f26b1b11caef2d72a3be6af20ca761bc1b101ff46426adf339a65"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/arrival.js",
+      "sha256": "b4a755b576cfc1300af8c45b958fa1be229cd3a570490bae8494f88b92db8cb7"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/cases.js",
+      "sha256": "89eebd35833f20320853cde3f114c479dc53ae9cf03ea2b9e6278c94a23b9b12"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/cleanup.js",
+      "sha256": "f57d5c63d28dec02fc96c8b0c6ba456b777dbeddce33f1efc9583a9ede0cd3c2"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/config.js",
+      "sha256": "fe468a6ceb0aaa2988b9ff9785d12e4ed9c7946e5241126bae094b5bbcb537cb"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/engine_metrics.js",
+      "sha256": "700e2d91a5ba70581421213fcd9d99a78c9f4ae2e03b62f45af3ed3e662e1b7d"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/gpu_cleanup.js",
+      "sha256": "26a9b42fa740c9ea2b719b86f48c7349d1a60c98876272fa9d280e6f1497a94f"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/load_generator.js",
+      "sha256": "6ca384e28e3a5c4b53929057b3ebefeeed24ba1334e8f50f6b7da512df1b41ba"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/monitor.js",
+      "sha256": "a4d0ba1888fb0053079dc9d93152189f59bc966a43c2d0272145e6575b6c1605"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/provenance.js",
+      "sha256": "b29809867a7f144587966ead859c11b94f3530f783cfc0fe260fba2ebd40648d"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/runtime.js",
+      "sha256": "3dd2ecad508739750116035648d14d8db96b0364a5bc5720b7d1478f34428f0b"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/stats.js",
+      "sha256": "6d6c2f0bc4bfa599b2938fb0323178ad79bf8e002e6cce77a7bedf9d5cbea90d"
+    },
+    {
+      "path": "load_test_v2/scripts/lib/transport.js",
+      "sha256": "014d4ee098d2750cb767382a8b045eb461f93078197683bb2e12f85ce3ab3877"
+    },
+    {
+      "path": "load_test_v2/scripts/run_benchmark.js",
+      "sha256": "e893e50d8022a4e97ac9776cdcac239af4fc959c9fede71f97cb12f885f52159"
+    }
+  ],
+  "limitations": [
+    "GPU and host driver are outside the image. Effective kernels may differ on T4.",
+    "Exact upstream GGUF/AWQ conversion lineage is unverified. This is HTTP exploration, not formal SLO capacity."
+  ]
+}
