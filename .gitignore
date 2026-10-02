@@ -4,6 +4,10 @@ node_modules/
 __pycache__/
 *.pyc
 
+# Codex 임시 토큰·비용 계산 자료
+/.codex/tmp/judge-cost-deps/
+/.codex/tmp/judge-cost-tokenizer-cache/
+
 # IDE · 에디터 개인 설정
 .idea/
 .vscode/
@@ -18,6 +22,9 @@ __pycache__/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# 루트의 임시 분석 스크립트 (예: count_json_fmt.py). scripts/python_nli/ 등 하위 폴더 .py는 추적한다
+/*.py
 
 # 로컬 환경변수 · 비밀값
 .env

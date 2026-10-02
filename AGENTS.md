@@ -1,8 +1,8 @@
-# CLAUDE.md — 작업 재개용 메모
+# AGENTS.md — 작업 재개용 메모
 
 이 프로젝트에서 다시 작업을 시작할 때 이 파일부터 읽으세요. 전체 방법론/설계 이유는 [`README.md`](README.md)에 있고, 이 파일은 **"지금 어디까지 했고 다음에 뭘 해야 하는지"**만 빠르게 파악하기 위한 진행 상황 스냅샷입니다.
 
-## 마지막 작업일: 2026-09-30
+## 마지막 작업일: 2026-10-01
 
 ## 저장소 구조 (2026-09-28 개편, 2026-09-30 공통 엔진 추가)
 
@@ -32,10 +32,14 @@ model_test_vN/                # (아래는 v1~v3 구조)
 ## 현재 상태 (2026-09-30)
 
 - v3 try1에서 **1차 MVP 모델로 `qwen3:14b` 추론 OFF(temperature 0)** 선정 (`model_test_v3/try1/results/summary/model_selection.md`). 최종 확정 아님.
-- **v4(test4) 준비 중 — 저급 모델 튜닝 전 기준선(레거시)**. 대상은 `qwen3:4b` OFF · `gemma3:4b`이고, 튜닝 한계가 확인되면 `qwen3:8b` OFF로 넘어간다. 데이터는 `test_set3`(15개 항목 × 200 = 3,000건, 50/100/150 중첩 서브셋)이고, 상담봇 프롬프트는 `v4_base`(**CLARIFY 상태 없음 — 되묻기는 ABSTAIN/PARTIAL 안에서, Judge가 asks_user로 건수만 집계**, `prompts/chatbot/` — 공통 문단 + 근거 기준 status 판정 + 출력 순서 `evidence_ids → status → answer`, 순서는 구조화 출력으로 강제)이다. Judge 루브릭 `v4-judge-4`: 정답률은 답변 문장만 보고 판정하고, 정답+상태·정답+근거·정답+근거+상태를 따로 집계한다. **Judge는 OpenAI API 호출**(`lib/judge/providers/openai.js`)이고 **판정 모델은 미정**(`judge.model: null` — 정하기 전엔 `judge_run.js`가 멈춤). **프롬프트는 모두 `prompts/`(chatbot·judge·docgen), 스크립트는 `scripts/`(run·score·judge·docgen·lib)에 용도별로 둔다** — 판정 단계와 문서 생성 단계는 스크립트·프롬프트를 섞지 않는다.
+- **v4(test4) 준비 중 — 저급 모델 튜닝 전 기준선(레거시)**. 대상은 `qwen3:4b` OFF · `gemma3:4b`이고, 튜닝 한계가 확인되면 `qwen3:8b` OFF로 넘어간다. 데이터는 `test_set3`(15개 항목 × 200 = 3,000건, 50/100/150 중첩 서브셋)이고, 상담봇 프롬프트는 `v4_base`(**CLARIFY 상태 없음 — 되묻기는 ABSTAIN/PARTIAL 안에서, Judge가 asks_user로 건수만 집계**, `prompts/chatbot/` — 공통 문단 + 근거 기준 status 판정 + 출력 순서 `evidence_ids → status → answer`, 순서는 구조화 출력으로 강제)이다. Judge 루브릭 `v4-judge-6`: 정답률은 답변 문장만 보고 판정하고, 정답+상태·정답+근거·정답+근거+상태를 따로 집계한다. **Judge는 OpenAI API 호출**(`lib/judge/providers/openai.js`)이고 **판정 모델은 미정**(`judge.model: null` — 정하기 전엔 `judge_run.js`가 멈춤). **프롬프트는 모두 `prompts/`(chatbot·judge·docgen), 스크립트는 `scripts/`(run·score·judge·docgen·lib)에 용도별로 둔다** — 판정 단계와 문서 생성 단계는 스크립트·프롬프트를 섞지 않는다.
   - 공통 엔진과 `model_test_v4/test.config.js` · `SETUP.md`는 작성 완료다. 스모크 테스트(생성 → 채점 → 보고서, Judge는 가짜 CLI로 배관만 검증)까지 확인했다. **본 라운드와 LLM Judge는 아직 실행하지 않았다.**
   - 임베딩 검색 적용 테스트(`contextMode: 'retrieval'`, `FAQ_RAG_3000건_사전Context제거_*.xlsx`)는 미구현이다.
+  - Judge 프롬프트 압축(2026-10-01, `v4-judge-5`): accuracy의 행동 정의를 공통화하고 정확도·환각 경계의 중복과 상황별 지침을 줄였다. `reasoning`은 한국어 1~2문장 요약이며 상세 누락·모순·환각은 기존 배열에 모두 기록한다. 평가 항목·출력 스키마는 유지한다. 이전 배치와 섞지 않고 새 배치로 준비한다.
+  - 표현 품질 범위 축소(2026-10-01, `v4-judge-6` / `v4-schema-5`): 전수 accuracy Judge의 표현 지침·`expression_quality`·보고서 표현 /5를 제거했다. v3 모델 평균은 4.23~4.79지만 개별 답변의 4점 미만은 t0 3,297건 중 197건(5.98%), v4 대상과 같은 두 설정은 600건 중 72건(12%)이다. 표현 규칙 검사는 유지하고 자연스러움 점수의 대체로 해석하지 않는다. 별도 페르소나 준수·안전성은 유지한다. v2·v3 결과는 수정하지 않는다.
   - 결정(2026-10-01): 표현 규칙(v4 공통 엔진)에서 "제공된 자료" 실격 패턴을 빼고, 질문 echo 실격은 질문 전체를 되풀이한 경우만으로 좁혔다. 근거 채택 주 기준은 "인용한 문서가 모두 정답 근거 문서이고 하나 이상"(전부 인용은 엄격 기준으로 따로). v2·v3 스크립트는 그대로.
+  - 튜닝 보고서(2026-10-01): 사용자용 코드는 **A/B/C = 과대/과소/교차 × 본문 근거 상태(1 정답, 2 잘못된 문서, 3 본문 문서 근거 없음, 4 판정 대상 외)**, D 근거·내용, E 출력 정합, F 문항 검토, S 안전성. `scripts/lib/tuning_codes.js`·`tuning_report.js`, 보고서 0·5절에 반영. 심각도·동반 환각/오적용/누락·항목별 대응 가설을 따로 표시한다. P 경로는 기존 JSON·접힌 진단에 보존. 채점 완료율·미채점·자료 판정 불가·미분류 오답을 분리했다. 검토 메모는 `model_test_v4/TUNING_GUIDE.md`; 로컬 검증은 `node --test scripts/tests/tuning_report.test.js`. 실제 Judge·본 라운드는 실행하지 않았으며 모델은 여전히 미정이다.
+  - 판정·문서 생성 역할: accuracy Judge가 정확도·환각과 본문 행동·출처를 판정한다. **출력 status vs 기대 상태(라벨 기준)**와 **Judge의 content_stance vs 기대 상태(본문 기준)**를 각각 계산·비교하며, 튜닝 코드는 본문 기준이다. 보고서 3절에 같은 행의 두 방향 건수·불일치·대표 ID를 표시하고 전체 교차표는 JSON에 보존한다. 문서 생성 AI는 현재 미구현(`prompts/docgen/README.md`); 역할별 스크립트·프롬프트 분리를 유지한다.
 - 후속 과제 후보: 동시성 테스트, 프롬프트 비교 테스트, top-k 테스트(모두 v4 기준선과 비교). v2·v3용 `item_review.md` 수정 23문항과 Judge 채점 경계 통일은 test_set2 한정.
 
 ---
@@ -46,7 +50,7 @@ model_test_vN/                # (아래는 v1~v3 구조)
 
 1. **테스트 대상 확정**: Qwen3(0.6B/1.7B/4B/8B), EXAONE 3.5(2.4B/7.8B), Gemma3(270M/1B/4B) 9개 모델, 전부 Ollama에 로컬 설치 완료
 2. **평가 프레임워크 9개 영역 확정** + 프롬프트 템플릿 3종 확정 (README 5·9절)
-3. **자동화 파이프라인 구축** — 모델 호출(Ollama API) → 결정론적 보조지표 → Judge 채점(Claude Code 헤드리스) → 결과 문서 자동 집계, 4단계 스크립트 (README 10절)
+3. **자동화 파이프라인 구축** — 모델 호출(Ollama API) → 결정론적 보조지표 → Judge 채점(Codex 헤드리스) → 결과 문서 자동 집계, 4단계 스크립트 (README 10절)
 4. **FAQ 답변 생성 라운드 (Easy/Medium/Hard) 전부 실행 완료** ✅ — 각 9개 모델 × 9케이스, 결과는 `results/faq_{easy,medium,hard}_results.md`
 5. **RAG 안정성 테스트를 유형당 3건(21건)→9건(63건)으로 확대**, 컨텍스트 개수(3/5/10개) 기준 Small/Medium/Large 3개 파일로 분리, 전용 파이프라인 스크립트 작성
 6. **RAG 안정성 Small/Medium/Large 라운드 전부 실행 완료** ✅ — `results/faq_rag_stability_{small,medium,large}_results.md` — **1차 라운드(FAQ 답변 생성 + RAG 안정성) 전체 완주**
