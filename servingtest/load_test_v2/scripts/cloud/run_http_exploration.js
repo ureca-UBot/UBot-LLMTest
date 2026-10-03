@@ -36,14 +36,16 @@ const emit = value => process.stdout.write(JSON.stringify(value) + '\n');
 
 function options(argv) {
   const result = { dryRun: false };
-  const names = { '--config': 'configPath', '--manifest': 'manifestPath', '--out': 'out', '--candidate': 'candidate' };
+  const names = { '--config': 'configPath', '--manifest': 'manifestPath', '--out': 'out', '--candidate': 'candidate', '--gpu-mode': 'gpuMode' };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--dry-run') { if (result.dryRun) throw new Error('Duplicate --dry-run.'); result.dryRun = true; continue; }
     const key = names[argv[i]];
-    if (!key || result[key] !== undefined || !argv[i + 1] || argv[i + 1].startsWith('--')) throw new Error('Use --config FILE --manifest FILE [--out NEW_DIRECTORY] [--candidate ID] [--dry-run].');
+    if (!key || result[key] !== undefined || !argv[i + 1] || argv[i + 1].startsWith('--')) throw new Error('Use --config FILE --manifest FILE [--out NEW_DIRECTORY] [--candidate ID] [--gpu-mode gpus|cdi] [--dry-run].');
     result[key] = argv[++i];
   }
   if (!result.configPath || !result.manifestPath) throw new Error('A prepared candidate config and frozen manifest are required.');
+  result.gpuMode = result.gpuMode ?? 'gpus';
+  if (!['gpus', 'cdi'].includes(result.gpuMode)) throw new Error('GPU mode must be gpus or cdi.');
   result.configPath = path.resolve(result.configPath); result.manifestPath = path.resolve(result.manifestPath);
   result.out = path.resolve(result.out || path.join(ROOT, 'results', `cloud_http_8rps_${new Date().toISOString().replace(/[:.]/g, '-')}`));
   const base = path.join(ROOT, 'results'), relative = path.relative(base, result.out);
@@ -73,8 +75,7 @@ function validatePlan(bundle, candidateId, { requireMountsPresent = false } = {}
     if (!Number.isInteger(candidate.runtime.container_port) || candidate.runtime.container_port < 1 || candidate.runtime.container_port > 65535) throw new Error('A valid container port is required.');
     if (!Number.isInteger(candidate.runtime.ready_timeout_ms) || candidate.runtime.ready_timeout_ms < 1 || candidate.runtime.ready_timeout_ms > 600000) throw new Error('A bounded model readiness timeout is required.');
     if ((candidate.runtime.mounts || []).some(mount => !path.isAbsolute(mount.source) || !mount.target?.startsWith('/')
-      || mount.source.includes(',') || mount.target.includes(',') || mount.read_only !== true
-      || requireMountsPresent && !fs.existsSync(mount.source))) throw new Error('All prepared artifact mounts must be read-only, absolute and present before execution.');
+      || mount.source.includes(',') || mount.target.includes(',') || mount.read_only !== true)) throw new Error('All prepared artifact mounts must be read-only and absolute.');
     if (candidate.runtime.env?.HF_HUB_OFFLINE !== '1' || candidate.runtime.env?.TRANSFORMERS_OFFLINE !== '1') throw new Error('The frozen runtime must disable model downloads.');
     if (candidate.engine === 'ollama' && (typeof candidate.import_model?.from !== 'string'
       || !candidate.import_model.from.startsWith('/') || /[\r\n]/.test(candidate.import_model.from))) throw new Error('A frozen Ollama GGUF import source is required.');
@@ -82,6 +83,9 @@ function validatePlan(bundle, candidateId, { requireMountsPresent = false } = {}
   }
   const selected = candidates.filter(candidate => !candidateId || candidate.id === candidateId);
   if (!selected.length) throw new Error('Unknown candidate ID.');
+  if (requireMountsPresent && selected.some(candidate => candidate.runtime.mounts.some(mount => !fs.existsSync(mount.source)))) {
+    throw new Error('Selected artifact mounts must be present before execution.');
+  }
   return { config, candidates: selected, workload, manifest: bundle.manifest };
 }
 
@@ -133,8 +137,10 @@ function abortableRun(command, args, { timeoutMs = 10000, env } = {}, signal) {
   }));
 }
 
-function ownedCommandRunner(candidate, directory, gpuUuid, { commandRunner = run, request = jsonRequest, pause = sleep, signal } = {}) {
+function ownedCommandRunner(candidate, directory, gpuUuid, { commandRunner = run, request = jsonRequest, pause = sleep, signal, gpuMode = 'gpus' } = {}) {
   if (!/^sha256:[a-f0-9]{64}$/.test(candidate.runtime.image || '')) throw new Error('Only an immutable verified image ID may launch.');
+  if (!['gpus', 'cdi'].includes(gpuMode)) throw new Error('GPU mode must be gpus or cdi.');
+  if (!/^GPU-[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(gpuUuid || '')) throw new Error('A measured exact GPU UUID is required.');
   const execute = (command, args, opts) => {
     // Interrupt launch/import clients promptly, leaving cleanup commands usable
     // after cancellation. The daemon may already have created an owned container.
@@ -145,10 +151,13 @@ function ownedCommandRunner(candidate, directory, gpuUuid, { commandRunner = run
   return async (command, args, opts) => {
     if (command !== 'docker') throw new Error('The cloud runtime only executes owned Docker commands.');
     if (args[0] === 'create') {
-      args = args.slice(); const index = args.indexOf('--gpus');
-      if (index < 0 || args[index + 1] !== 'device=0') throw new Error('Unexpected Runtime GPU selector.');
-      args[index + 1] = `device=${gpuUuid}`;
-      if (!args.includes(candidate.runtime.image) || !args.includes('never') || !args.includes('--label')) throw new Error('The owned runtime must use its locked image without pulling.');
+      args = args.slice(); const selectors = args.flatMap((argument, index) => argument === '--gpus' ? [index] : []);
+      if (selectors.length !== 1 || args[selectors[0] + 1] !== 'device=0'
+        || args.some(argument => argument.startsWith('--gpus=') || argument === '--device' || argument.startsWith('--device='))) throw new Error('Unexpected Runtime GPU selector.');
+      const index = selectors[0];
+      if (gpuMode === 'cdi') args.splice(index, 2, '--device', `nvidia.com/gpu=${gpuUuid}`);
+      else args[index + 1] = `device=${gpuUuid}`;
+      if (!args.includes(candidate.runtime.image) || args[args.indexOf('--pull') + 1] !== 'never' || !args.includes('--label')) throw new Error('The owned runtime must use its locked image without pulling.');
     }
     const response = await execute(command, args, opts);
     if (args[0] === 'start' && response.code === 0 && candidate.import_model) {
@@ -197,19 +206,23 @@ async function main(argv = process.argv.slice(2), dependencies = {}) {
   const platform = dependencies.platform || process.platform;
   if (!opt.dryRun && platform !== 'linux') throw new Error('Real cloud HTTP exploration requires Linux.');
   const bundleLibrary = dependencies.bundleLibrary || require('./bundle');
-  const bundle = await bundleLibrary.validateFrozenBundle({ configPath: opt.configPath, manifestPath: opt.manifestPath, verifyModels: !opt.dryRun });
+  const bundle = await bundleLibrary.validateFrozenBundle({ configPath: opt.configPath, manifestPath: opt.manifestPath,
+    candidateId: opt.candidate, verifyModels: !opt.dryRun });
   const plan = validatePlan(bundle, opt.candidate, { requireMountsPresent: !opt.dryRun });
   const pool = (dependencies.loadCases || loadCases)(plan.workload.path, PROFILE.seed, WORKLOAD_SHA);
   if (pool.size !== 300 || pool.sha256 !== WORKLOAD_SHA) throw new Error('The fixed 300-case workload is unverified.');
   const output = dependencies.emit || emit;
   if (opt.dryRun) {
     const result = { status: 'dry_run_validated', scope: 'cloud_http_capacity_exploration', dry_run: true,
+      gpu_mode: opt.gpuMode,
       profile: PROFILE, generation: GENERATION, candidates: plan.candidates.map(candidate => ({ id: candidate.id,
         image: candidate.runtime.image, users: candidate.users, internal_limit: candidate.internal_limit })),
       workload: { sha256: pool.sha256, case_count: pool.size }, docker_gpu_http_calls: 0,
+      required_images: bundle.required_images?.map(image => ({ id: image.id, reference: image.reference })) ?? null,
       external_call_count_scope: 'this_node_process_only; the_optional_launcher_starts_its_frozen_wrapper', files_written: 0,
-      model_readiness: { present: bundle.model_readiness?.present ?? null, sha256_verified: false,
-        status: 'full_model_hashes_required_at_real_preflight' },
+      model_readiness: { model_ids: bundle.model_readiness?.model_ids ?? null,
+        present: bundle.model_readiness?.present ?? null, sha256_verified: false,
+        status: 'selected_model_hashes_required_at_real_preflight' },
       formal_benchmark_eligible: false };
     output(result); return result;
   }
@@ -219,13 +232,18 @@ async function main(argv = process.argv.slice(2), dependencies = {}) {
   const lock = dependencies.lockPath || path.join(ROOT, '.benchmark.lock'), token = randomUUID(), controller = new AbortController();
   const interrupt = () => controller.abort(new Error('user_interrupted'));
   const report = { schema_version: 2, scope: 'cloud_http_capacity_exploration', mock: dependencies.mock === true,
+    gpu_mode: opt.gpuMode,
     started_at: new Date().toISOString(), status: 'running', config: opt.configPath, frozen_manifest: opt.manifestPath,
     profile: PROFILE, generation: GENERATION, transport: { streaming: true, http_keep_alive: true, timeout_ms: PROFILE.timeoutMs, retries: 0 },
     target: { http_completion_rps: PROFILE.targetRps, latency_limit_ms: null, quality_gate_applied: false,
       success_basis: 'complete_2xx_http_stream_inside_fixed_window' },
     workload: { source: pool.source, sha256: pool.sha256, case_count: pool.size, categories: pool.categories,
       seed: PROFILE.seed, ordering: 'balanced_seeded_300_case_cyclic_pool' },
-    model_family: 'Qwen/Qwen3-4B', strict_gpu_release: 'required', formal_benchmark_eligible: false,
+    model_family: 'Qwen/Qwen3-4B', model_readiness: bundle.model_readiness,
+    preparation_scope: { candidate_ids: plan.candidates.map(candidate => candidate.id),
+      image_ids: bundle.required_images?.map(image => image.id) ?? null,
+      model_ids: bundle.required_models?.map(model => model.id) ?? null },
+    strict_gpu_release: 'required', formal_benchmark_eligible: false,
     c_slo: null, lambda_slo: null, candidates: [], limitations: [
       'No latency, quality or failure-rate threshold is applied to the HTTP 8 RPS target.',
       '30-second single exploratory windows do not establish sustainable open-loop arrival capacity.',
@@ -260,7 +278,8 @@ async function main(argv = process.argv.slice(2), dependencies = {}) {
       controller.signal.addEventListener('abort', forward, { once: true });
       const runtime = dependencies.createRuntime ? dependencies.createRuntime(candidate, directory, linked.signal)
         : new Runtime(candidate, directory, { signal: linked.signal,
-          commandRunner: ownedCommandRunner(candidate, directory, report.gpu_identity.gpu_uuid, { commandRunner, request, signal: linked.signal }) });
+          commandRunner: ownedCommandRunner(candidate, directory, report.gpu_identity.gpu_uuid,
+            { commandRunner, request, signal: linked.signal, gpuMode: opt.gpuMode }) });
       let client, monitor, heartbeat, aliveTimer, checking = false, phase = 'loading', timeouts = 0, persistenceError;
       try {
         output({ event: 'starting', candidate: candidate.id, users: candidate.users });

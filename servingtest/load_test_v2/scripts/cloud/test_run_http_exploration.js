@@ -62,21 +62,33 @@ function testLauncher(directory) {
     const environment = { ...process.env,
       CLOUD_LAUNCH_CAPTURE: capture.replace(/\\/g, '/'), CLOUD_MOCK_SOCKET: 'yes', MSYS_NO_PATHCONV: '1' };
     const shellBin = bin.replace(/\\/g, '/').replace(/^([A-Za-z]):\//, (_, drive) => `/${drive.toLowerCase()}/`);
-    for (const dry of [true, false]) {
+    for (const dry of [true, false]) for (const gpuMode of [undefined, 'gpus', 'cdi']) {
       execFileSync(process.env.CLOUD_TEST_BASH, ['-c', 'export PATH="$1:$PATH"; shift; exec bash "$@"', 'fixture', shellBin,
-        script, ...(dry ? ['--dry-run'] : []), '--candidate', 'vllm_s8'], { env: environment });
+        script, ...(dry ? ['--dry-run'] : []), '--candidate', 'vllm_s8', ...(gpuMode ? ['--gpu-mode', gpuMode] : [])], { env: environment });
       const args = fs.readFileSync(capture, 'utf8').trim().split(/\r?\n/);
       assert(args.includes(imageId)); assert(args.includes('--init')); assert.equal(args[args.indexOf('--stop-timeout') + 1], '180');
       assert.equal(args[args.indexOf('--network') + 1], dry ? 'none' : 'host');
       assert(args.includes('vllm_s8')); assert(args.includes('--config')); assert(args.includes('--manifest'));
+      if (gpuMode) assert.equal(args[args.indexOf('--gpu-mode') + 1], gpuMode);
+      else assert(!args.includes('--gpu-mode'));
       const mounts = args.filter((_, index) => args[index - 1] === '--mount');
       const rootMount = mounts.find(mount => mount.includes(`target=${args[args.indexOf('--workdir') + 1]}`));
       assert(rootMount); const values = Object.fromEntries(rootMount.split(',').filter(part => part.includes('=')).map(part => part.split('=')));
       assert.equal(values.source, values.target);
       if (dry) { assert(rootMount.endsWith(',readonly')); assert(args.includes('NVIDIA_VISIBLE_DEVICES=void'));
-        assert(!args.includes('--gpus')); assert(!mounts.some(mount => mount.includes('docker.sock'))); }
-      else { assert.equal(args[args.indexOf('--pid') + 1], 'host'); assert.equal(args[args.indexOf('--gpus') + 1], 'all');
+        assert(!args.includes('--gpus')); assert(!args.includes('--device')); assert(!mounts.some(mount => mount.includes('docker.sock'))); }
+      else { assert.equal(args[args.indexOf('--pid') + 1], 'host');
+        if (gpuMode === 'cdi') { assert(!args.includes('--gpus')); assert.equal(args[args.indexOf('--device') + 1], 'nvidia.com/gpu=all'); }
+        else { assert(!args.includes('--device')); assert.equal(args[args.indexOf('--gpus') + 1], 'all'); }
         assert(args.includes('NVIDIA_DRIVER_CAPABILITIES=utility')); assert(mounts.some(mount => mount.includes('docker.sock'))); }
+    }
+    for (const arguments_ of [['--gpu-mode', 'unknown'], ['--gpu-mode', 'gpus', '--gpu-mode', 'cdi'], ['--gpu-mode']]) {
+      fs.unlinkSync(capture);
+      assert.throws(() => execFileSync(process.env.CLOUD_TEST_BASH, ['-c', 'export PATH="$1:$PATH"; shift; exec bash "$@"', 'fixture', shellBin,
+        script, ...arguments_], { env: environment, stdio: 'pipe' }), /Command failed/);
+      assert.equal(fs.existsSync(capture), false);
+      // Keep the following rejection independent of the previous capture state.
+      fs.writeFileSync(capture, 'fixture');
     }
   }
   if (process.env.CLOUD_TEST_PYTHON) {
@@ -97,7 +109,20 @@ async function test() {
   assert.throws(() => options(['--config', 'x']), /manifest/);
   assert.throws(() => options(['--config', 'x', '--manifest', 'y', '--dry-run', '--dry-run']), /Duplicate/);
   assert.throws(() => options(['--config', 'x', '--manifest', 'y', '--measure-ms', '1']), /Use/);
+  assert.equal(options(['--config', 'x', '--manifest', 'y']).gpuMode, 'gpus');
+  assert.equal(options(['--config', 'x', '--manifest', 'y', '--gpu-mode', 'cdi']).gpuMode, 'cdi');
+  for (const arguments_ of [['--gpu-mode', 'unknown'], ['--gpu-mode', 'gpus', '--gpu-mode', 'cdi'], ['--gpu-mode']]) {
+    assert.throws(() => options(['--config', 'x', '--manifest', 'y', ...arguments_]));
+  }
   const prepared = bundle(); validatePlan(prepared);
+  const partiallyPrepared = bundle([candidate(), candidate('vllm_s32')]);
+  partiallyPrepared.candidates[1].runtime.mounts[0].source = path.join(RESULTS, 'absent_unselected_model_fixture');
+  assert.equal(validatePlan(partiallyPrepared, 'vllm_s8', { requireMountsPresent: true }).candidates.length, 1);
+  assert.throws(() => validatePlan(partiallyPrepared, undefined, { requireMountsPresent: true }), /Selected artifact mounts/);
+  assert.throws(() => validatePlan(partiallyPrepared, 'vllm_s32', { requireMountsPresent: true }), /Selected artifact mounts/);
+  assert.throws(() => validatePlan(partiallyPrepared, 'unknown', { requireMountsPresent: true }), /Unknown candidate/);
+  const invalidUnselected = structuredClone(partiallyPrepared); invalidUnselected.candidates[1].internal_limit = 7;
+  assert.throws(() => validatePlan(invalidUnselected, 'vllm_s8', { requireMountsPresent: true }), /profile/);
   const launchController = new AbortController();
   const pendingClient = abortableRun(process.execPath, ['-e', 'setTimeout(() => {}, 10000)'], { timeoutMs: 15000 }, launchController.signal);
   launchController.abort(new Error('mock launch cancellation'));
@@ -137,17 +162,31 @@ async function test() {
   try {
     testLauncher(directory);
     const argv = out => ['--config', path.join(directory, 'prepared.json'), '--manifest', path.join(directory, 'manifest.json'), '--out', path.join(directory, out)];
-    let modelVerification;
+    let modelVerification, selectedCandidate;
     const failExternal = async () => { throw new Error('Dry run called an external operation'); };
-    const dry = await main([...argv('dry'), '--dry-run'], {
-      bundleLibrary: { validateFrozenBundle: async args => { modelVerification = args.verifyModels; return bundle(); }, verifyDockerImages: failExternal },
+    const dryPrepared = bundle([candidate(), candidate('vllm_s32')]);
+    dryPrepared.candidates[1].runtime.mounts[0].source = path.join(directory, 'missing_unselected_model');
+    dryPrepared.required_images = [{ id: 'vllm', reference: candidate().runtime.image }, { id: 'runner', reference: 'llm-frozen/runner:fixture' }];
+    dryPrepared.required_models = [{ id: 'qwen3_4b_awq' }]; dryPrepared.model_readiness = { model_ids: ['qwen3_4b_awq'], present: true, sha256_verified: false };
+    const dryDependencies = {
+      bundleLibrary: { validateFrozenBundle: async args => { modelVerification = args.verifyModels; selectedCandidate = args.candidateId; return dryPrepared; }, verifyDockerImages: failExternal },
       commandRunner: failExternal, snapshot: failExternal, request: failExternal, fixedBaseline: failExternal,
       createRuntime: failExternal, emit() {}, lockPath: path.join(directory, '.unused.lock'), mock: true,
-    });
+    };
+    const dry = await main([...argv('dry'), '--dry-run', '--candidate', 'vllm_s8'], dryDependencies);
     assert.equal(modelVerification, false); assert.equal(dry.status, 'dry_run_validated');
+    assert.equal(dry.gpu_mode, 'gpus');
+    assert.equal(selectedCandidate, 'vllm_s8'); assert.deepEqual(dry.candidates.map(value => value.id), ['vllm_s8']);
+    assert.deepEqual(dry.required_images.map(value => value.id).sort(), ['runner', 'vllm']);
+    assert.deepEqual(dry.model_readiness.model_ids, ['qwen3_4b_awq']);
     assert.equal(fs.existsSync(path.join(directory, 'dry')), false); assert.equal(fs.existsSync(path.join(directory, '.unused.lock')), false);
     assert.equal(dry.docker_gpu_http_calls, 0); assert.equal(dry.files_written, 0);
     assert.equal(dry.model_readiness.sha256_verified, false); assert.match(dry.model_readiness.status, /real_preflight/);
+    const dryCdi = await main([...argv('dry_cdi'), '--dry-run', '--candidate', 'vllm_s8', '--gpu-mode', 'cdi'], dryDependencies);
+    assert.equal(dryCdi.gpu_mode, 'cdi'); assert.equal(dryCdi.docker_gpu_http_calls, 0);
+    assert.equal(fs.existsSync(path.join(directory, 'dry_cdi')), false);
+    await assert.rejects(main([...argv('unknown'), '--dry-run', '--candidate', 'unknown'], dryDependencies), /Unknown candidate/);
+    assert.equal(fs.existsSync(path.join(directory, 'unknown')), false);
 
     const createCalls = [];
     const effective = freezeRuntimeImages([candidate()], verification())[0];
@@ -157,6 +196,26 @@ async function test() {
     });
     await wrapper('docker', ['create', '--pull', 'never', '--label', 'llm.benchmark.session=fixture', '--gpus', 'device=0', imageId]);
     assert(createCalls[0].args.includes(`device=${baseline.gpus[0].uuid}`));
+    assert(!createCalls[0].args.includes('--device'));
+    assert.throws(() => ownedCommandRunner(effective, directory, baseline.gpus[0].uuid, { gpuMode: 'invalid' }), /GPU mode/);
+    assert.throws(() => ownedCommandRunner(effective, directory, 'GPU-invalid', { gpuMode: 'cdi' }), /exact GPU UUID/);
+    const cdiWrapper = ownedCommandRunner(effective, directory, baseline.gpus[0].uuid, { gpuMode: 'cdi',
+      commandRunner: async (command, args) => { createCalls.push({ command, args }); return { code: 0 }; } });
+    const createArgs = ['create', '--pull', 'never', '--label', 'llm.benchmark.session=fixture', '--gpus', 'device=0', imageId];
+    await cdiWrapper('docker', createArgs);
+    assert.deepEqual(createArgs, ['create', '--pull', 'never', '--label', 'llm.benchmark.session=fixture', '--gpus', 'device=0', imageId]);
+    const cdiArgs = createCalls[1].args;
+    assert(!cdiArgs.includes('--gpus')); assert.equal(cdiArgs[cdiArgs.indexOf('--device') + 1], `nvidia.com/gpu=${baseline.gpus[0].uuid}`);
+    assert.equal(cdiArgs.filter(argument => argument === '--device').length, 1);
+    assert(cdiArgs.includes(imageId)); assert(cdiArgs.includes('--label')); assert.equal(cdiArgs[cdiArgs.indexOf('--pull') + 1], 'never');
+    const prefix = ['create', '--pull', 'never', '--label', 'llm.benchmark.session=fixture'];
+    for (const badSelectors of [[], ['--gpus', 'all'], ['--gpus', 'device=1'], ['--gpus=device=0'],
+      ['--gpus', 'device=0', '--gpus', 'device=0'], ['--gpus', 'device=0', '--gpus=all'],
+      ['--gpus', 'device=0', '--device', '/dev/nvidia0'], ['--gpus', 'device=0', '--device=/dev/nvidia0']]) {
+      for (const controlled of [wrapper, cdiWrapper]) await assert.rejects(controlled('docker', [...prefix, ...badSelectors, imageId]), /GPU selector/);
+    }
+    assert.equal(createCalls.length, 2);
+    await assert.rejects(cdiWrapper('docker', ['create', '--pull', 'always', '--label', 'fixture', '--gpus', 'device=0', imageId, 'never']), /without pulling/);
     await assert.rejects(wrapper('bash', ['-c', 'echo invalid']), /Docker/);
     const ollama = { engine: 'ollama', api_model: 'fixture:4b', runtime: { mounts: [] }, import_model: { from: '/weights/model.gguf' } };
     prepareOllamaImport(ollama, directory);
@@ -164,13 +223,18 @@ async function test() {
     assert.deepEqual(ollama.import_model.command, ['ollama', 'create', 'fixture:4b', '-f', '/benchmark/Modelfile']);
     assert.equal(ollama.runtime.mounts[0].read_only, true);
 
-    async function runScenario(out, failCleanup) {
+    async function runScenario(out, failCleanup, selected = false, gpuMode) {
       let launched = 0, stopped = 0, releaseCalls = 0, measured = 0, closed = 0;
       const lockPath = path.join(directory, `${out}.lock`), firstBaseline = idleGpu();
-      const report = await main(argv(out), {
+      const prepared = bundle([candidate(), candidate('vllm_s32')]);
+      if (selected) prepared.candidates[1].runtime.mounts[0].source = path.join(directory, 'missing_unselected_model');
+      prepared.required_images = [{ id: 'vllm', reference: candidate().runtime.image }, { id: 'runner', reference: 'llm-frozen/runner:fixture' }];
+      prepared.required_models = [{ id: 'qwen3_4b_awq' }]; prepared.model_readiness = { model_ids: ['qwen3_4b_awq'], present: true, sha256_verified: true };
+      const report = await main([...argv(out), ...(selected ? ['--candidate', 'vllm_s8'] : []), ...(gpuMode ? ['--gpu-mode', gpuMode] : [])], {
         mock: true, platform: 'linux', lockPath, emit() {},
-        bundleLibrary: { validateFrozenBundle: async args => { assert.equal(args.verifyModels, true); return bundle([candidate(), candidate('vllm_s32')]); },
-          verifyDockerImages: async () => verification() },
+        bundleLibrary: { validateFrozenBundle: async args => { assert.equal(args.verifyModels, true); assert.equal(args.candidateId, selected ? 'vllm_s8' : undefined); return prepared; },
+          verifyDockerImages: async current => { assert.deepEqual(current.required_images.map(value => value.id).sort(), ['runner', 'vllm']);
+            return { ...verification(), images: [...verification().images, { id: 'runner', reference: 'llm-frozen/runner:fixture', image_id: `sha256:${'b'.repeat(64)}`, verified: true }] }; } },
         snapshot: async () => firstBaseline,
         fixedBaseline: async () => ({ baseline: firstBaseline, identity: assertLinuxT4(firstBaseline, { platform: 'linux' }), verification: { released: true } }),
         strictRelease: async before => { assert.equal(before, firstBaseline); releaseCalls++;
@@ -186,13 +250,17 @@ async function test() {
           const result = measuredResult(args.users); result.records.forEach(args.onRecord); return result; },
       });
       assert.equal(report.formal_benchmark_eligible, false); assert.equal(report.c_slo, null);
+      assert.equal(report.gpu_mode, gpuMode || 'gpus');
+      assert.deepEqual(report.preparation_scope.image_ids.sort(), ['runner', 'vllm']);
+      assert.deepEqual(report.preparation_scope.model_ids, ['qwen3_4b_awq']);
       if (failCleanup) {
         assert.equal(report.status, 'cleanup_unverified'); assert.equal(launched, 1); assert.equal(stopped, 1);
         assert.equal(measured, 4); assert.equal(report.lock_retained, true); assert.equal(fs.existsSync(lockPath), true);
         assert.equal(report.candidates.length, 1); assert.equal(report.comparison.rows[0].best_http_rps, null);
       } else {
-        assert.equal(report.status, 'completed_exploration'); assert.equal(launched, 2); assert.equal(stopped, 2);
-        assert.equal(measured, 7); assert.equal(closed, 2); assert.equal(releaseCalls, 4);
+        assert.equal(report.status, 'completed_exploration'); assert.equal(launched, selected ? 1 : 2); assert.equal(stopped, selected ? 1 : 2);
+        assert.equal(measured, selected ? 4 : 7); assert.equal(closed, selected ? 1 : 2); assert.equal(releaseCalls, selected ? 2 : 4);
+        if (selected) assert.deepEqual(report.preparation_scope.candidate_ids, ['vllm_s8']);
         assert.equal(fs.existsSync(lockPath), false); assert.equal(report.lock_retained, false);
         for (const step of report.candidates.flatMap(value => value.steps)) {
           assert.equal(step.summary.transport_rps, 8); assert.equal(step.summary.target_reached, true);
@@ -201,7 +269,7 @@ async function test() {
         }
       }
     }
-    await runScenario('success', false); await runScenario('cleanup_failure', true);
+    await runScenario('success', false); await runScenario('cleanup_failure', true); await runScenario('selected_success', false, true, 'cdi');
   } finally {
     // Remove only the known temporary fixture tree created above.
     if (path.dirname(directory) !== RESULTS || !path.basename(directory).startsWith('cloud_runner_test_')) throw new Error('Invalid test cleanup path');

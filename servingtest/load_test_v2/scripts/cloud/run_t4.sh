@@ -23,18 +23,24 @@ esac
 DRY_RUN=false
 HAS_CONFIG=false
 HAS_MANIFEST=false
+GPU_MODE=gpus
+HAS_GPU_MODE=false
 NODE_ARGS=()
 while (($#)); do
   case "$1" in
     --dry-run)
       if [[ "$DRY_RUN" == true ]]; then printf '%s\n' 'Duplicate --dry-run.' >&2; exit 1; fi
       DRY_RUN=true; NODE_ARGS+=("$1"); shift ;;
+    --gpu-mode)
+      if [[ "$HAS_GPU_MODE" == true ]]; then printf '%s\n' 'Duplicate --gpu-mode.' >&2; exit 1; fi
+      if (($# < 2)) || [[ "$2" != gpus && "$2" != cdi ]]; then printf '%s\n' 'GPU mode must be gpus or cdi.' >&2; exit 1; fi
+      GPU_MODE="$2"; HAS_GPU_MODE=true; NODE_ARGS+=("$1" "$2"); shift 2 ;;
     --config|--manifest|--out|--candidate)
       if (($# < 2)) || [[ "$2" == --* ]]; then printf '%s\n' "Missing value for $1." >&2; exit 1; fi
       [[ "$1" != --config ]] || HAS_CONFIG=true
       [[ "$1" != --manifest ]] || HAS_MANIFEST=true
       NODE_ARGS+=("$1" "$2"); shift 2 ;;
-    *) printf '%s\n' 'Use run_t4.sh [--dry-run] [--config FILE] [--manifest FILE] [--out NEW_DIRECTORY] [--candidate ID].' >&2; exit 1 ;;
+    *) printf '%s\n' 'Use run_t4.sh [--dry-run] [--config FILE] [--manifest FILE] [--out NEW_DIRECTORY] [--candidate ID] [--gpu-mode gpus|cdi].' >&2; exit 1 ;;
   esac
 done
 [[ "$HAS_CONFIG" == true ]] || NODE_ARGS+=(--config "$PROJECT_ROOT/load_test_v2/config/http.t4.json")
@@ -90,9 +96,14 @@ if [[ "$DRY_RUN" == true ]]; then
   printf '%s\n' 'Dry run starts only the frozen wrapper: no GPU, Docker socket, or network is exposed; Node performs read-only validation.' >&2
 else
   [[ -S /var/run/docker.sock ]] || { printf '%s\n' 'A local /var/run/docker.sock is required.' >&2; exit 1; }
-  DOCKER_ARGS+=(--network host --pid host --gpus all -e NVIDIA_DRIVER_CAPABILITIES=utility
+  DOCKER_ARGS+=(--network host --pid host -e NVIDIA_DRIVER_CAPABILITIES=utility
     --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock
     --mount "type=bind,source=$PROJECT_ROOT,target=$PROJECT_ROOT")
+  if [[ "$GPU_MODE" == cdi ]]; then
+    DOCKER_ARGS+=(--device nvidia.com/gpu=all)
+  else
+    DOCKER_ARGS+=(--gpus all)
+  fi
 fi
 DOCKER_ARGS+=(--workdir "$PROJECT_ROOT" --entrypoint node "$RUNNER_IMAGE_ID"
   load_test_v2/scripts/cloud/run_http_exploration.js "${NODE_ARGS[@]}")

@@ -53,6 +53,38 @@ function syntheticFixture(t) {
     args: ['-B', script, '--root', root, '--lock', lockFile, '--cache-dir', cache, '--offline'] };
 }
 
+function syntheticAwqFixture(t, { mutateConfig, mutateExpected } = {}) {
+  const root = temporary(t);
+  const lock = clone(manifest);
+  lock.models = [lock.models[1]];
+  const model = lock.models[0];
+  if (mutateExpected) mutateExpected(model.metadata.quantization_config);
+  const config = { ...clone(model.metadata),
+    quantization_config: { ...clone(model.metadata.quantization_config), modules_to_not_convert: null } };
+  if (mutateConfig) mutateConfig(config);
+  const templateBytes = fs.readFileSync(verifyPinnedTemplate(ROOT, manifest).path);
+  const template = path.join(root, ...lock.template.workspace_relative_path.split('/'));
+  fs.mkdirSync(path.dirname(template), { recursive: true });
+  fs.writeFileSync(template, templateBytes);
+  const cache = path.join(root, 'cache');
+  const snapshot = path.join(cache, 'models--' + model.repository.replace('/', '--'), 'snapshots', model.revision);
+  const contents = new Map();
+  for (const file of model.files) {
+    const bytes = Buffer.from(file.path === 'config.json' ? JSON.stringify(config)
+      : file.path === 'tokenizer_config.json' ? JSON.stringify({ chat_template: templateBytes.toString('utf8') })
+      : `synthetic preparation fixture only: ${file.path}\n`);
+    file.sha256 = sha(bytes); file.bytes = bytes.length;
+    const source = path.join(snapshot, ...file.path.split('/'));
+    fs.mkdirSync(path.dirname(source), { recursive: true });
+    fs.writeFileSync(source, bytes); contents.set(file.path, bytes);
+  }
+  const lockFile = path.join(root, 'models.lock.json');
+  fs.writeFileSync(lockFile, JSON.stringify(lock));
+  return { root, lock, lockFile, cache, contents,
+    destination: portablePaths(root, lock).models[model.id].directory,
+    args: ['-B', script, '--root', root, '--lock', lockFile, '--cache-dir', cache, '--offline'] };
+}
+
 test('fixed manifest has two real artifacts and keeps exact conversion lineage pending', () => {
   assert.equal(manifest.upstream.revision, '1cfa9a7208912126459214e8b04321603b3df60c');
   assert.equal(manifest.upstream.conversion_commit_verified, false);
@@ -130,6 +162,55 @@ test('offline mismatched cache cannot publish a ready model directory', { skip: 
   assert.equal(stages.length, 1);
   assert.equal(JSON.parse(fs.readFileSync(path.join(portable, stages[0], '.failed.json'))).ready, false);
 });
+
+test('AWQ optional null metadata prepares and validates unchanged pinned file bytes', { skip: !python }, (t) => {
+  const fixture = syntheticAwqFixture(t);
+  const lockBytes = fs.readFileSync(fixture.lockFile);
+  const prepared = spawnSync(python, fixture.args, { windowsHide: true, encoding: 'utf8' });
+  assert.equal(prepared.status, 0, prepared.stderr);
+  assert.deepEqual(fs.readFileSync(fixture.lockFile), lockBytes);
+  assert.equal(Object.hasOwn(fixture.lock.models[0].metadata.quantization_config, 'modules_to_not_convert'), false);
+  for (const [file, bytes] of fixture.contents) {
+    assert.deepEqual(fs.readFileSync(path.join(fixture.destination, file)), bytes);
+  }
+  const receipt = JSON.parse(fs.readFileSync(path.join(fixture.destination, '.prepared.json')));
+  assert.equal(receipt.model_lock_sha256, sha(lockBytes));
+  assert.equal(receipt.files.length, 7);
+  assert.ok(receipt.files.every(file => file.actual_sha256 === file.sha256));
+  const validated = spawnSync(python, [...fixture.args, '--validate-only'], { windowsHide: true, encoding: 'utf8' });
+  assert.equal(validated.status, 0, validated.stderr);
+  assert.equal(JSON.parse(validated.stdout).status, 'validated');
+  // Keep size unchanged: the optional null exception cannot bypass the file SHA.
+  const configPath = path.join(fixture.destination, 'config.json');
+  const tampered = fixture.contents.get('config.json').toString().replace('"modules_to_not_convert":null', '"modules_to_not_convert":true');
+  assert.equal(Buffer.byteLength(tampered), fixture.contents.get('config.json').length);
+  fs.writeFileSync(configPath, tampered);
+  const rejected = spawnSync(python, [...fixture.args, '--validate-only'], { windowsHide: true, encoding: 'utf8' });
+  assert.notEqual(rejected.status, 0);
+  assert.match(rejected.stderr, /SHA-256 mismatch/);
+});
+
+test('AWQ metadata without the optional field retains exact-match validation', { skip: !python }, (t) => {
+  const fixture = syntheticAwqFixture(t, { mutateConfig: config => { delete config.quantization_config.modules_to_not_convert; } });
+  const prepared = spawnSync(python, fixture.args, { windowsHide: true, encoding: 'utf8' });
+  assert.equal(prepared.status, 0, prepared.stderr);
+});
+
+for (const [name, options] of [
+  ['non-null optional modules', { mutateConfig: config => { config.quantization_config.modules_to_not_convert = ['q_proj']; } }],
+  ['an unknown additional key beside optional null', { mutateConfig: config => { config.quantization_config.unpinned_backend = null; } }],
+  ['a changed declared value beside optional null', { mutateConfig: config => { config.quantization_config.group_size = 64; } }],
+  ['a missing declared value beside optional null', { mutateConfig: config => { delete config.quantization_config.zero_point; } }],
+  ['null replacing an explicitly declared module list', { mutateExpected: expected => { expected.modules_to_not_convert = ['q_proj']; } }],
+]) {
+  test(`AWQ metadata rejects ${name} even when every file SHA is pinned`, { skip: !python }, (t) => {
+    const fixture = syntheticAwqFixture(t, options);
+    const prepared = spawnSync(python, fixture.args, { windowsHide: true, encoding: 'utf8' });
+    assert.notEqual(prepared.status, 0);
+    assert.match(prepared.stderr, /Pinned metadata mismatch: qwen3_4b_awq\/quantization_config/);
+    assert.equal(fs.existsSync(fixture.destination), false);
+  });
+}
 
 test('tampered template is rejected before any portable preparation writes', { skip: !python }, (t) => {
   const fixture = syntheticFixture(t);

@@ -1,65 +1,60 @@
 # servingtest
 
-Ollama, llama.cpp, vLLM, SGLang을 같은 Qwen3-4B로 비교하는 서빙 실험이다. 현재 실행 대상은 **v2의 HTTP 완료 8 RPS 탐색**이며 지연·품질 합격 상한은 적용하지 않는다. Ollama를 기준으로 엔진 내부 병렬도와 클라이언트 동시 사용자 수를 탐색한다. GGUF Q4_K_M과 AWQ는 각 엔진에 맞춰 사용한다.
+Ubuntu 24.04 LTS와 NVIDIA Tesla T4 한 장에서 Ollama, llama.cpp, vLLM, SGLang을 순서대로 비교하는 LLM 서빙 부하 테스트다.
 
-기존 코드는 `load_test_v1/`, 새 실행기는 `load_test_v2/`로 구분한다. `results/20261002/`의 기존 T4 자료는 v1 측정 증거이며 이번 v2 Docker 묶음의 T4 실행 결과가 아니다. 루트의 기존 동명 스크립트와 문항 파일은 참고 사본이다.
+기존 실행 코드는 `load_test_v1/`에 보존돼 있다. 새 비교 기준의 실행기와 모의 검증은 [load_test_v2](load_test_v2/README.md)에 있다. 엔진 설치·모델 다운로드·드라이버 변경은 실행기가 하지 않는다.
 
-## GitHub에서 받기
+**HTTP 완료 8 RPS 탐색의 Docker 전달은 [v2 Docker 안내](load_test_v2/README.cloud.md), 실제 새 EC2 T4 결과는 [검증 기록](load_test_v2/VALIDATION.md)을 사용한다.** 아래 서버 명령은 기존 v1 기준이다. 새 Docker 전달 구성은 완성 이미지·모델 archive의 검증과 별도 Linux 실행기를 사용한다.
 
-아래는 이 구성을 `ureca-UBot/UBot-LLMTest`의 **`serving` 브랜치**에 반영한 이후의 명령이다. 로컬 파일 복사만으로 원격 저장소가 갱신되지는 않는다. 처음 받는 EC2에서는 다음을 실행한다.
+## 서버에서 실행
 
-```bash
-git clone --branch serving --single-branch https://github.com/ureca-UBot/UBot-LLMTest.git
-cd UBot-LLMTest/servingtest
-```
-
-기존 clone을 갱신할 때는 저장소 루트에서 다음을 실행한다. 로컬 변경이 있으면 먼저 보존한다.
+저장소를 내려받은 뒤 `servingtest` 폴더로 이동해 실행한다.
 
 ```bash
-git fetch origin serving
-git switch serving
-git pull --ff-only origin serving
 cd servingtest
-git rev-parse HEAD
-```
 
-아래 명령과 [Docker 전달 안내](load_test_v2/README.cloud.md)의 상대경로는 모두 **`UBot-LLMTest/servingtest`를 작업 디렉터리로 사용한다**. 실행기가 계산하는 snapshot 루트도 이 폴더다. 저장소 최상위에서 v2 명령을 실행하지 않는다.
-
-## Docker 묶음 준비와 확인
-
-Git에는 소스·Dockerfile·고정 이미지/모델 lock·템플릿·300문항만 포함한다. 약 **27.12 GiB**의 완성 이미지와 모델 tar는 별도로 EC2에 전달해야 한다. 로컬 묶음 위치는 `D:/finalproject/llm/docker_artifacts/frozen_20261002_01/`이며 EC2의 예시 경로는 `/data/frozen_20261002_01/`이다.
-
-EC2에는 Linux x86_64, NVIDIA T4 한 장, driver 580.95.05 이상, Docker Engine, NVIDIA Container Toolkit, Python 3이 필요하다. Node와 엔진 Python 환경은 고정 이미지 안에 있다. 이 소스를 복사하거나 pull하는 과정은 EC2 접속·드라이버 설치·실제 GPU 측정을 수행하지 않는다.
-
-```bash
-# UBot-LLMTest/servingtest에서, 전달 폴더 경로를 실제 위치로 지정
-python3 load_test_v2/scripts/cloud/bootstrap_images.py --bundle /data/frozen_20261002_01
-python3 load_test_v2/scripts/cloud/archive_models.py --import --bundle /data/frozen_20261002_01
-
-# 고정 source/config/문항 검사. 엔진 기동·GPU 측정 없음
-bash load_test_v2/scripts/cloud/run_t4.sh --dry-run
-```
-
-이미지 tar SHA와 실행 내용 지문, 모델 archive/member SHA, 소스 SHA를 검사한다. 수정된 고정 파일이나 다른 이미지·모델을 섞으면 실패한다. 기존 모델 경로를 덮어쓰지 않는다. 보조 `source.zip`을 쓰는 경우에도 **이 `servingtest/` 안에** 풀어야 한다.
-
-실제 실행 명령과 T4의 backend 제약은 [v2 Docker 전달 안내](load_test_v2/README.cloud.md)에 있다. 엔진은 하나씩 실행하고, 컨테이너·worker·포트와 GPU 메모리의 정리를 확인한 뒤 다음 엔진으로 넘어간다. Linux에서는 전체 실험 시작 때 고정한 VRAM 기준선으로 3회 연속 복귀해야 하며 허용치는 0 MiB다. 정리 실패 시 다음 엔진을 차단한다.
-
-Docker로 호스트 GPU·드라이버·커널까지 고정할 수는 없다. 현재 묶음은 로컬 저장·복원 및 모의 검증을 마쳤으며, 실제 T4 실행 성공과 성능은 아직 검증하지 않았다.
-
-## 문서와 v1 보존
-
-- [v2 실행기 및 모의 검증](load_test_v2/README.md)
-- [v2 비교 기준 설계](SERVING_BENCHMARK_V2_DESIGN.md)
-- [v2 검증 기록](load_test_v2/VALIDATION.md)
-- [모델 저장소 안내](model_assets/README.md)
-- [v1 엔진·모델 검사](load_test_v1/ENGINES.md)
-- [v1 측정 설정](load_test_v1/SETUP.md)
-- [기존 T4 결과](results/20261002/README.md)
-
-기존 v1의 설치 없는 계획 확인 명령은 아래와 같다. v1의 지연·실패율 기준과 기존 모델 구성은 v2의 HTTP 8 RPS 탐색 기준과 구분한다.
-
-```bash
+# 설치·다운로드·서버 기동 없이 계획 확인
 bash load_test_v1/scripts/run_t4_ubuntu.sh --dry-run
+
+# 엔진·모델 형식 확인만 수행
+bash load_test_v1/scripts/run_t4_ubuntu.sh --check-only
+
+# 설치 없이 전체 측정. SSH 연결 종료 후에도 계속 실행
+bash load_test_v1/scripts/run_t4_ubuntu.sh --background
 ```
 
-새 측정 결과·로그·서버별 설정·환경변수·캐시·가중치·이미지 tar는 `.gitignore`로 제외한다. 이미 버전 관리하던 v1 결과 파일은 보존한다. 새 v2 결과는 `load_test_v2/results/`, 준비된 클라우드 모델은 `model_assets/portable/`에 둔다.
+Ubuntu 24.04 x86_64, systemd, T4 한 장, 동작하는 NVIDIA 드라이버, Node.js 20 이상, Python 3, 비밀번호 없이 실행 가능한 `sudo`가 필요하다. `load_test_v1/scripts/config/engines.existing.example.json`을 `engines.local.json`으로 복사하고 엔진 실행 파일과 기존 모델 경로를 지정한다. 설정 방법은 [엔진 안내](load_test_v1/ENGINES.md)에 있다. `--check-only`는 메타데이터 확인을 위해 Ollama 서비스를 잠시 기동·중지한 뒤 원래 상태를 복원한다.
+
+기본 실행 순서는 Ollama → llama.cpp → vLLM → SGLang이다. 각 모델의 로딩 시간과 웜업 시간을 따로 기록하고, 웜업이 끝난 뒤 측정한다. 한 조합의 서버와 worker가 종료되고 GPU가 해제된 것을 확인해야 다음 조합을 시작한다.
+
+## 측정 조건과 기록
+
+- 모델: Gemma 3 4B, Qwen 3 4B·8B·14B.
+- 문항: 15개 항목별 20건, 총 300건의 고정 표본. 항목 비율과 난이도 비율을 유지한다.
+- 생성: context 4096, 출력 상한 512, temperature 0, Qwen thinking 비활성화.
+- 판정: 기존 E2E P95 5초 이하와 실패율 5% 이하를 유지한다.
+- 측정: 단계적 동시 사용자 증가, 스파이크, 도착률, 반복 측정. 답변 원문과 부분 답변도 저장한다.
+- 검증: 로컬 회귀 테스트 40개 통과. Ubuntu 24.04/Tesla T4에서 Ollama 4개 모델의 기동·웜업·순차 측정·종료를 실측했다. Python 엔진도 GGUF 로더와 로컬 토크나이저가 준비돼 있으면 기존 Ollama GGUF를 재사용한다. llama.cpp·vLLM·SGLang의 부하 실측은 각 실행 환경과 모델의 기동 검증 후 진행한다.
+
+기본 회차 결과는 `load_test_v1/try1/results/`, 전체 실행 로그는 `load_test_v1/automation_logs/`에 저장한다. 답변은 `raw/<run_id>/requests.jsonl`, 전체 상태는 `summary/automation_<날짜>_<profile>.json`, 성능 요약은 `all_summary.md`에서 확인한다. 모델·양자화·정밀도에 따라 실행 가능 여부가 달라지며 실패한 조합은 별도 상태로 기록한다.
+
+## 안내 문서
+
+- [기존 엔진·모델 검사와 순차 실행](load_test_v1/ENGINES.md)
+- [측정 설정과 Ollama 개별 실행](load_test_v1/SETUP.md)
+- [T4 벤치마크 설계](load_test_v1/aws_t4_llm_serving_benchmark_design.md)
+- [기존 엔진·모델 경로 설정 예시](load_test_v1/scripts/config/engines.existing.example.json)
+- [문항 추출 조건](load_test_v1/data/benchmark_prompt_sample.json)
+
+루트에 있는 동명 문서·스크립트·문항 파일은 복구한 참고용 사본이다. 실행할 때는 위 명령처럼 `load_test_v1/scripts/` 아래 파일을 사용한다. 3,000문항 엑셀 원본은 포함하지 않으며, 측정에 필요한 300문항 JSONL은 패키지에 포함돼 있다.
+
+검사 상태, 측정 결과, 로그, 로컬 엔진 설정, 환경변수 파일, ZIP은 `.gitignore`로 제외한다. GitHub에는 소스 코드, 설정 예시, 안내 문서와 고정 문항 데이터를 올린다.
+
+로컬 모델 저장소 `model_assets/`는 폴더 안내 `README.md`만 포함한다. BF16·AWQ·GGUF 가중치, Hugging Face·Ollama 캐시와 로컬 이동·검증 기록은 Git 추적에서 제외하며 실행 환경에서 별도로 준비한다. 폴더 구성과 실행기의 모델 경로 관리는 [모델 저장소 안내](model_assets/README.md)를 참고한다.
+## 새 비교 실행기
+
+기존 v1과 분리한 [load_test_v2](load_test_v2/README.md)는 공통 스트리밍·전송 조건, 고정 측정 구간, 유효 응답 처리량 및 품질 승인 gate를 구현한다. 비교 기준은 [v2 설계안](SERVING_BENCHMARK_V2_DESIGN.md)에 기록했다.
+
+2026-10-02 새 EC2 T4에서 HTTP 완료 탐색의 여섯 후보를 실제 실행했다. 각 U의 30초 창에서 최고 관측값은 vLLM 내부 상한 32의 1.9667 RPS와 SGLang 내부 상한 32의 1.9333 RPS였고, 목표 8 RPS에는 모두 미달했다. llama.cpp는 연결 재사용 실패 117건이 있어 안정적인 처리량으로 해석하지 않는다. 모든 엔진의 종료 후 VRAM 0 MiB·compute PID 없음·소유 컨테이너 제거를 확인했고 기존 네 서비스와 원격 clone을 보존했다. 세부 조건·실패·한계는 [검증 기록](load_test_v2/VALIDATION.md)에 있다.
+
+실측은 보존된 `docker_artifacts/on_demand_20261002_02` 소스로 수행했다. 후속 전달용 `on_demand_20261002_03`은 AWQ 준비 검사의 선택적 null 필드 처리만 수정하며, 22개 회귀 테스트와 실제 AWQ 파일의 읽기 전용 검증을 통과했다. 소스 ZIP·runner·이미지 전달 메타데이터는 모델 가중치·결과와 분리한다. 로컬 저장소 수정은 커밋·push하지 않았다.

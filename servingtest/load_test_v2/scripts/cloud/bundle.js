@@ -74,8 +74,28 @@ function validateProfile(config) {
   }
   return config;
 }
+function selectDependencies(config, manifest, modelManifest, candidateId) {
+  const selected = config.candidates.filter(candidate => candidateId == null || candidate.id === candidateId);
+  if (!selected.length) throw new Error('Unknown candidate ID.');
+  const engineImageIds = { ollama: 'ollama', 'llama.cpp': 'llamacpp', vllm: 'vllm', sglang: 'sglang' };
+  const imageIds = new Set(['runner']), modelIds = new Set();
+  for (const candidate of selected) {
+    const image = manifest.images.filter(item => item.reference === candidate.runtime.image);
+    if (image.length !== 1 || image[0].id !== engineImageIds[candidate.engine]) throw new Error(`Locked engine image missing or ambiguous: ${candidate.id}`);
+    imageIds.add(image[0].id);
+    const models = modelManifest.models.filter(model => model.engines.includes(candidate.engine));
+    if (models.length !== 1) throw new Error(`Locked engine model missing or ambiguous: ${candidate.id}`);
+    modelIds.add(models[0].id);
+  }
+  for (const id of imageIds) {
+    if (manifest.images.filter(item => item.id === id).length !== 1) throw new Error(`Locked image missing or ambiguous: ${id}`);
+  }
+  return { selected_candidates: selected,
+    required_images: candidateId == null ? manifest.images : manifest.images.filter(item => imageIds.has(item.id)),
+    required_models: candidateId == null ? modelManifest.models : modelManifest.models.filter(model => modelIds.has(model.id)) };
+}
 async function validateFrozenBundle({ configPath = path.join(ROOT, 'load_test_v2/config/http.t4.json'),
-  manifestPath = path.join(ROOT, 'load_test_v2/config/cloud.lock.json'), verifyModels = false, root = ROOT } = {}) {
+  manifestPath = path.join(ROOT, 'load_test_v2/config/cloud.lock.json'), verifyModels = false, candidateId, root = ROOT } = {}) {
   const manifest = readJSON(manifestPath), config = validateProfile(readJSON(configPath));
   if (manifest.schema_version !== 1 || manifest.platform !== 'linux/amd64' || !Array.isArray(manifest.files)
     || !Array.isArray(manifest.images) || manifest.images.length !== 5) throw new Error('Invalid frozen bundle manifest.');
@@ -84,14 +104,19 @@ async function validateFrozenBundle({ configPath = path.join(ROOT, 'load_test_v2
   for (const item of manifest.files) {
     if (!SHA.test(item.sha256 || '') || hashFileSync(safePath(root, item.path)) !== item.sha256) throw new Error(`Frozen source changed: ${item.path}`);
   }
+  const imageManifest = readJSON(safePath(root, 'load_test_v2/config/images.lock.json'));
+  if (imageManifest.schema_version !== 1 || imageManifest.platform !== manifest.platform
+    || hashObject(imageManifest.images) !== hashObject(manifest.images)) throw new Error('Image lock fingerprint differs from the frozen manifest.');
   const modelsPath = safePath(root, manifest.models_file);
   if (hashFileSync(modelsPath) !== manifest.models_sha256) throw new Error('Model lock fingerprint differs.');
   const modelManifest = loadModelManifest(modelsPath), locations = portablePaths(root, modelManifest);
   verifyPinnedTemplate(root, modelManifest);
-  const modelFiles = Object.values(locations.models).flatMap(model => model.files);
-  const readiness = { present: modelFiles.every(f => fs.existsSync(f.path)), sha256_verified: false };
+  const dependencies = selectDependencies(config, manifest, modelManifest, candidateId);
+  const models = dependencies.required_models.map(model => locations.models[model.id]);
+  const modelFiles = models.flatMap(model => model.files);
+  const readiness = { model_ids: models.map(model => model.id), present: modelFiles.every(f => fs.existsSync(f.path)), sha256_verified: false };
   if (verifyModels) {
-    for (const model of Object.values(locations.models)) assertArtifactDirectory(model);
+    for (const model of models) assertArtifactDirectory(model);
     for (const file of modelFiles) {
       const actual = await fingerprintFile(file.path);
       if (actual.bytes !== file.bytes || actual.sha256 !== file.sha256) throw new Error(`Model artifact differs: ${file.path}`);
@@ -107,12 +132,14 @@ async function validateFrozenBundle({ configPath = path.join(ROOT, 'load_test_v2
     resolved.runtime.mounts = c.runtime.mounts.map(m => ({ ...m, source: safePath(root, m.source) }));
     return resolved;
   });
-  return { root, config, candidates, manifest, model_files: modelFiles, model_readiness: readiness,
+  return { root, config, candidates, manifest, ...dependencies,
+    selected_candidates: candidates.filter(candidate => candidateId == null || candidate.id === candidateId),
+    model_files: modelFiles, model_readiness: readiness,
     workload: { path: workloadPath, sha256: config.workload.sha256, case_count: 300 } };
 }
 async function verifyDockerImages(bundle, { commandRunner = run } = {}) {
   const images = [];
-  for (const lock of bundle.manifest.images) {
+  for (const lock of bundle.required_images || bundle.manifest.images) {
     const result = await commandRunner('docker', ['image', 'inspect', lock.reference]);
     if (result.code !== 0) throw new Error(`Load the frozen image first: ${lock.reference}`);
     const info = JSON.parse(result.stdout)[0];
@@ -123,4 +150,4 @@ async function verifyDockerImages(bundle, { commandRunner = run } = {}) {
   return { verified: true, images };
 }
 module.exports = { ROOT, imageIdentity, imageFingerprint, safePath, readJSON, hashFileSync,
-  fingerprintFile, assertArtifactDirectory, validateProfile, validateFrozenBundle, verifyDockerImages };
+  fingerprintFile, assertArtifactDirectory, validateProfile, selectDependencies, validateFrozenBundle, verifyDockerImages };

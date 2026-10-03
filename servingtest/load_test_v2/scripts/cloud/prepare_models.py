@@ -119,7 +119,15 @@ def verify_files(directory, model, lock):
     if model.get("metadata"):
         config = json.loads((Path(directory) / "config.json").read_text(encoding="utf-8"))
         for key, expected in model["metadata"].items():
-            if config.get(key) != expected:
+            actual = config.get(key)
+            # Official AWQ artifacts may spell an omitted module exclusion as
+            # null. Only that undeclared null is equivalent; every other key
+            # and value remains exact, after all file fingerprints passed.
+            if (key == "quantization_config" and isinstance(actual, dict)
+                    and isinstance(expected, dict) and "modules_to_not_convert" not in expected
+                    and "modules_to_not_convert" in actual and actual["modules_to_not_convert"] is None):
+                actual = {name: value for name, value in actual.items() if name != "modules_to_not_convert"}
+            if actual != expected:
                 raise ValueError(f"Pinned metadata mismatch: {model['id']}/{key}")
     source = lock["template"]["source"]
     if source["repository"] == model["repository"] and source["revision"] == model["revision"]:
@@ -167,7 +175,7 @@ def materialize(root, lock, model, cache_dir, download=False, validate_only=Fals
             try:
                 from huggingface_hub import snapshot_download
             except ImportError as error:
-                raise ValueError("--download requires the prepared Docker image's huggingface_hub package") from error
+                raise ValueError("--download requires huggingface_hub in the preparation Python environment") from error
             snapshot_download(repo_id=model["repository"], revision=model["revision"],
                               allow_patterns=[file["path"] for file in model["files"]],
                               local_dir=str(staging), cache_dir=str(cache_dir) if cache_dir else None,
