@@ -9,3 +9,6 @@ model_test_v2/try2/results/summary/** -text
 # Keep the serving Docker snapshot source manifest identical on Windows and Linux.
 servingtest/.gitattributes text eol=lf
 servingtest/results/20261002/** text eol=lf
+# v4~ 데이터셋 CSV는 prepare_dataset.js가 CRLF로 쓰고 그 바이트의 SHA-256을 dataset_manifest.json과
+# run_info.json에 기록한다. 줄바꿈 변환을 막아 Windows·EC2(Linux)에서 같은 바이트를 받게 한다.
+data/eval_sets/test_set3/*.csv -text

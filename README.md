@@ -26,7 +26,7 @@
 
 - **임베딩 모델·벡터 검색은 평가 대상이 아닙니다.** 매칭된 FAQ(제공 Context)를 받아 LLM이 무엇을 하는지만 평가합니다.
 - **후보 모델은 로컬 전용입니다.** Ollama로 구동되는 무료/오픈소스 모델만 후보로 둡니다.
-- **채점(Judge)에는 외부 API 사용이 허용됩니다.** "외부 API 금지"는 서비스 품질을 결정하는 요소(후보 LLM)에만 적용되고, 품질을 판단만 하는 채점자는 예외입니다(v1: Claude Code 헤드리스, v2·v3: gpt-6-astra).
+- **채점(Judge)에는 외부 API 사용이 허용됩니다.** "외부 API 금지"는 서비스 품질을 결정하는 요소(후보 LLM)에만 적용되고, 품질을 판단만 하는 채점자는 예외입니다(v1: Claude Code 헤드리스, v2·v3: gpt-6-astra(Codex CLI), v4~: gpt-6-sol(Codex CLI, ChatGPT 구독 인증) — 2026-10-02).
 
 ## 2. 파일 구조
 
@@ -41,7 +41,15 @@ LLM_Test/
 │   ├── faq.csv · intent_guide.csv          # 마스터 FAQ(100건) · 의도 카테고리 정의
 │   └── eval_sets/
 │       ├── test_set1/                      # v1: faq_easy/medium/hard, rag_stability_small/medium/large, intent_classification, cluster_labeling
-│       └── test_set2/                      # v2·v3: cases.csv(380행), faq_master.csv, item_review.md(문항 적합성 검토)
+│       ├── test_set2/                      # v2·v3: cases.csv(380행), faq_master.csv, item_review.md(문항 적합성 검토)
+│       └── test_set3/                      # v4~: cases_fixed.csv(15개 항목×200=3,000행, 포함 최소 규모 컬럼), faq_master.csv(1,024건), dataset_manifest.json
+├── scripts/                                # ⭐ 공통 테스트 엔진 (v4부터 모든 버전이 공유) — scripts/README.md
+│   ├── run/ · score/ · judge/ · docgen/    # 실행 · 결정론 채점 · LLM Judge 판정 · 결과 문서 생성
+│   └── lib/                                # 공통 모듈 (profile·dataset·prompts 로더·judge provider 등)
+├── prompts/                                # ⭐ 모든 프롬프트 (버전 공통) — prompts/README.md
+│   ├── chatbot/                            # 후보 LLM(상담봇) 시스템 프롬프트 + variants.json
+│   ├── judge/                              # LLM Judge 루브릭 (판정 단계 전용)
+│   └── docgen/                             # 결과 문서 생성·정리용 (문서 생성 단계 전용)
 ├── model_test_v1/                          # 1차 테스트 (test1)
 │   ├── SETUP.md                            # 테스트 항목 · 라운드별 스크립트 · 테스트 순서
 │   ├── PATH_MAP.csv                        # 개편 전 → 개편 후 경로
@@ -57,10 +65,14 @@ LLM_Test/
 │   ├── scripts/                            # run_all_models · run_pipeline · score_* · LLM Judge · rounds/(13개 항목 + 반복)
 │   ├── try1/results/                       # all_summary.md · raw/(+scored/) · report/ · llm_judge/ · summary/
 │   └── try2/results/                       # 〃 (llm_judge/inputs · runs 포함)
-└── model_test_v3/                          # 3차 테스트 (test3, 같은 380건, EC2)
-    ├── SETUP.md · PATH_MAP.csv
-    ├── scripts/                            # v2 채점 스크립트 복사본 + run_round · run_think_ablation · run_temp_control · rounds/
-    └── try1/results/                       # all_summary.md · dashboard.html · raw/(+scored/, logs/) · report/ · llm_judge/ · summary/
+├── model_test_v3/                          # 3차 테스트 (test3, 같은 380건, EC2)
+│   ├── SETUP.md · PATH_MAP.csv
+│   ├── scripts/                            # v2 채점 스크립트 복사본 + run_round · run_think_ablation · run_temp_control · rounds/
+│   └── try1/results/                       # all_summary.md · dashboard.html · raw/(+scored/, logs/) · report/ · llm_judge/ · summary/
+└── model_test_v4/                          # 4차 테스트 (test4, 3,000건, 튜닝 기준선) — 스크립트 없음, 공통 엔진 사용
+    ├── test.config.js                      # 이 버전에서 바뀌는 값 전부(데이터·항목·모델·조건·프롬프트·Judge)
+    ├── SETUP.md
+    └── tryN/results/                       # (실행 후)
 ```
 
 ## 3. 테스트 이력 — 무엇을 테스트했고 결과는 어땠나
@@ -78,15 +90,17 @@ LLM_Test/
 
 | 상황 | 위치 |
 |---|---|
-| 데이터셋·평가 항목·채점 방식·실행 환경/생성 설정이 바뀜 | 새 버전 `model_test_v{N+1}/` (스크립트 복사 후 수정) |
-| 같은 버전의 스크립트·데이터로 다시 돌림(모델 교체·재실행·Judge 추가 등) | 같은 버전의 새 회차 `try{N+1}/` — 스크립트는 버전 단위로 공유 |
+| 데이터셋·평가 항목·채점 방식·실행 환경/생성 설정이 바뀜 | 새 버전 `model_test_v{N+1}/` — **`test.config.js`만 새로 쓴다(스크립트 복사 금지)** |
+| 같은 버전의 설정·데이터로 다시 돌림(모델 교체·재실행·Judge 추가 등) | 같은 버전의 새 회차 `try{N+1}/` (`--try try{N+1}`) |
+
+v4부터 스크립트는 저장소 루트 `scripts/`(공통 엔진) 하나만 쓴다. 버전마다 달라지는 값은 `model_test_vN/test.config.js`에 둔다. 엔진은 `--test`/`--try`로 대상을 고른다([scripts/README.md](scripts/README.md)). v1~v3는 기존처럼 각자의 `model_test_vN/scripts/`를 쓴다(결과 재현용, 수정하지 않음).
 
 ### 4-2. 폴더 구조와 파일명
 
 ```
 model_test_vN/
 ├── SETUP.md                     # 필수 (4-4절)
-├── scripts/                     # 필수 — 버전 단위, try끼리 공유 (4-3절)
+├── test.config.js               # 필수(v4~) — 공통 엔진이 읽는 버전 설정 (v1~v3는 scripts/ 폴더)
 └── tryM/results/
     ├── all_summary.md           # 필수 — 이름 고정 (4-5절)
     ├── raw/<run_id>/generation.jsonl        # 모델 원본 응답 — 생성 후 수정 금지
@@ -97,14 +111,29 @@ model_test_vN/
     └── summary/                 # 요약·비교 문서 (snake_case.md), 표 CSV, charts/
 ```
 
-- **run_id**: `<env>_<모델 태그의 :·.을 ->_<조건>_<YYYYMMDD>` — 예) `ec2-linux_qwen3-14b_t0_nothink_20260920`. 항목별 라운드는 끝에 `_<항목 코드>`를 붙인다(예: `_CE`).
-- **항목 코드**: SF · NC · MC · UI · CE · PI · SR · HR · EC · CF · MT · AD · AR (13개) + RP(반복). 항목별 세부 문서는 `report/faq_<코드 소문자>_results.md`.
-- 경로를 스크립트에 하드코딩하지 않는다 — v2·v3는 `scripts/lib/suite.js`, v1은 `scripts/lib/paths.js` 한 곳에서 해석하고 try는 `LLM_TEST_TRY` 환경변수로 고른다.
+- **run_id**: v4~ `<env>_<모델>_<조건>_<컨텍스트 방식>_n<항목당 건수>_<YYYYMMDD>[_<항목 코드>]` — 예) `local-win_qwen3-4b_t0_nothink_fixed_n200_20261001`. v2·v3는 `<env>_<모델>_<조건>_<YYYYMMDD>`(예: `ec2-linux_qwen3-14b_t0_nothink_20260920`). 모델 태그의 `:`·`.`은 `-`로 바꾼다. 항목별 라운드는 끝에 `_<항목 코드>`를 붙인다.
+- **항목 코드**: v4~ SF · NC · MC · UI · CE · PI · SR · HR · EC · CF · MT · AD · AR · PS(페르소나) · RT(반복 테스트) 15개. v2·v3는 앞의 13개 + RP(반복).
+- 경로를 스크립트에 하드코딩하지 않는다 — v4~는 `scripts/lib/profile.js`(설정은 `test.config.js`), v2·v3는 `model_test_vN/scripts/lib/suite.js`, v1은 `scripts/lib/paths.js` 한 곳에서 해석하고 try는 `LLM_TEST_TRY`(또는 `--try`)로 고른다.
 - 이미 커밋된 원본 응답·채점 결과·해시가 기록된 증거 파일(`*manifest*.json`, `validation*.json` 등)은 수정하지 않는다. 옮겨야 하면 `PATH_MAP.csv`에 대응을 남긴다.
 
 ### 4-3. 스크립트 종류
 
-`model_test_vN/scripts/`에는 아래 종류가 모두 있어야 한다(이름은 v2·v3 기준).
+**v4부터**는 루트 `scripts/`의 공통 엔진이 아래 종류를 모두 갖고 있다. 버전을 새로 만들 때 스크립트를 복사하지 않는다.
+
+| 종류 | v4~ 공통 엔진 (`scripts/`) |
+|---|---|
+| 환경 설치 | `run/setup_env.js` |
+| 데이터 준비 | `run/prepare_dataset.js` (설정의 xlsx → CSV + 50/100/150/200 중첩 서브셋) |
+| **전체 테스트** (모든 모델 × 모든 항목) | `run/run_all.js` |
+| **모델별 테스트** (모델 하나 × 모든 항목) | `run/run_model.js <model>` |
+| **항목별 테스트** (모델 하나 × 항목 하나) | `run/run_item.js <model> <CODE>` |
+| 파이프라인 단계 | `run/run_pipeline.js` → `run/run_generation.js` · `score/score_*.js` · `docgen/build_review_export.js` · `docgen/build_run_report.js` |
+| LLM Judge — 판정 | `judge/build_batch_manifest.js` · `judge/judge_prepare.js` · `judge/judge_run.js`(`--confirm-external`) |
+| 결과 문서 생성 | `docgen/judge_report.js` · `docgen/compare_runs.js` |
+| 설정·공통 모듈 | `model_test_vN/test.config.js` · `scripts/lib/` (`profile.js` 경로·설정, `dataset.js` 컬럼 매핑, `prompts.js`·`prompt_files.js` 프롬프트 로더) |
+| 프롬프트 | `prompts/chatbot/`(상담봇) · `prompts/judge/`(판정) · `prompts/docgen/`(문서 생성) — 스크립트에 프롬프트 원문을 두지 않는다 |
+
+v1~v3의 `model_test_vN/scripts/`에는 아래 종류가 있다(이름은 v2·v3 기준).
 
 | 종류 | 예 | 역할 |
 |---|---|---|
@@ -181,7 +210,7 @@ model_test_vN/
 ### 4-8. 그 밖의 주의
 
 - 외부 LLM Judge에 저장 답변을 보내기 전에 승인을 받는다.
-- 채점 로직을 고치면 같은 스크립트를 복사해 쓰는 다른 버전(현재 v2 ↔ v3)에도 반영 여부를 확인한다.
+- 채점 로직을 고치면 같은 스크립트를 복사해 쓰는 다른 버전(현재 v2 ↔ v3)에도 반영 여부를 확인한다. 공통 엔진(`scripts/`)을 고치면 v4 이후 모든 버전에 적용되므로, 이미 끝난 결과의 재현에 영향이 없는지 확인하고 Judge 루브릭·스키마를 바꿨다면 버전 문자열을 올린다.
 - 수치는 저장된 원본에서 다시 집계해 쓰고, 표본 검수와 전수 채점을 구분해 표기한다.
 
 ### 4-9. 평가 방식 (v4부터)
@@ -195,7 +224,7 @@ v2·v3의 결과론적 평가는 **임계값 기반 통과/실패**(예: 유사�
 | AI 재판단 필요 | `score_escalation.js`가 신호 불일치·경계값으로 재확인 대상을 표시 | **두지 않는다** (단계·컬럼 모두 제거) |
 | LLM Judge | try2부터 전수 채점을 추가로 붙임 | **항상 별도 단계로 전수 채점**. 결과론적 지표와 합치거나 서로 판정을 보정하지 않는다 |
 
-- 새 버전 스크립트를 v3에서 복사해 만들 때: `score_escalation.js` 단계와 `review.csv`의 재판단 컬럼을 빼고, `score_*`의 `pass` 판정·통과율 집계와 `config/thresholds.js`의 통과 임계값을 쓰지 않는다.
+- 공통 엔진(`scripts/`)은 이 방식으로 구현돼 있다. `score_escalation.js`와 통과 임계값(`thresholds.js`)이 없고, `score_*`는 `pass`/통과율 대신 평균·분포를 기록한다.
 - all_summary·summary 문서의 결과론적 표에는 통과율·"결합 통과" 열을 두지 않는다. 정확도 판단은 LLM Judge 절에서 하고, 결과론적 절은 유사도 등 측정값을 보여준다.
 - v2·v3 결과를 읽을 때는 위 "기존" 방식으로 채점됐다는 점을 감안한다(기존 결과와 스크립트는 그대로 둔다).
 
@@ -238,6 +267,8 @@ v2·v3의 결과론적 평가는 **임계값 기반 통과/실패**(예: 유사�
 | 9 | 클러스터 라벨링 | FAQ 부재 질문 묶음에 적절한 라벨/요약을 붙이는가? | 라벨 정확도(Judge), 라벨 환각 여부, 문자열 유사도 기반 라벨 구분력 | Judge + 결정론적 보조지표 |
 
 클러스터링(그룹 나누기) 자체는 임베딩이 담당하고, LLM은 이미 만들어진 그룹에 라벨/요약만 붙이는 역할로 한정합니다.
+
+> v4에서는 표현 품질의 전수 Judge 점수를 제외합니다. v3의 모델 평균은 4.23~4.79로 변별력이 낮았지만 개별 저품질 답변도 있었으므로, 표현 규칙 검사를 보조 지표로 유지합니다. 자연스러움 점수와 규칙 점수를 같은 지표로 해석하지 않습니다. 페르소나 요구 준수는 별도 Judge가 평가합니다.
 
 > 항목 4의 의도 카테고리는 `data/intent_guide.csv` 기준입니다: `FAQ_RAG`(등록 FAQ로 답변), `MAP_API`(위치·지도 데이터 필요), `UNREGISTERED`(FAQ 근거 부족, 답변 보류), `UNREGISTERED_CLUSTERING`(미등록 질의 중 클러스터링 대상으로 수집). 분류 채점 시 `UNREGISTERED_CLUSTERING`은 `UNREGISTERED`와 같은 클래스로 취급합니다(3-way 분류: FAQ_RAG/MAP_API/UNREGISTERED). `_CLUSTERING` 접미사는 해당 건이 항목 9(클러스터 라벨링) 데이터로도 쓰인다는 태그일 뿐입니다.
 
