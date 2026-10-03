@@ -1,0 +1,253 @@
+{
+  "users": 16,
+  "status": "completed",
+  "window": {
+    "startMs": 0.12185400002636015,
+    "endMs": 30000.121854000026
+  },
+  "warmup": {
+    "attempted": 16,
+    "completed": 16,
+    "reused": 8,
+    "quality_valid_reference": 14,
+    "passed": true
+  },
+  "raw_file": "/home/ubuntu/llm-bench/t4_http_20261002_01/source/load_test_v2/results/t4_ollama_p4_01/ollama_p4/u16_requests.jsonl",
+  "elapsed_ms": 47456.702332000015,
+  "drain_ms": 17456.551651999995,
+  "peak_inflight": 16,
+  "in_flight_samples": [
+    {
+      "at_ms": 0.028420999995432794,
+      "pending": 0
+    },
+    {
+      "at_ms": 999.288440000033,
+      "pending": 16
+    },
+    {
+      "at_ms": 1999.496409000014,
+      "pending": 16
+    },
+    {
+      "at_ms": 2999.9441649999935,
+      "pending": 16
+    },
+    {
+      "at_ms": 3999.812890000001,
+      "pending": 16
+    },
+    {
+      "at_ms": 4999.752150000015,
+      "pending": 16
+    },
+    {
+      "at_ms": 6000.203045000031,
+      "pending": 16
+    },
+    {
+      "at_ms": 7000.384782999987,
+      "pending": 16
+    },
+    {
+      "at_ms": 8001.166483999987,
+      "pending": 16
+    },
+    {
+      "at_ms": 9000.820516999986,
+      "pending": 16
+    },
+    {
+      "at_ms": 10001.202733999991,
+      "pending": 16
+    },
+    {
+      "at_ms": 11001.344156000006,
+      "pending": 16
+    },
+    {
+      "at_ms": 12001.434033000027,
+      "pending": 16
+    },
+    {
+      "at_ms": 13001.736430999998,
+      "pending": 16
+    },
+    {
+      "at_ms": 14001.548481000005,
+      "pending": 16
+    },
+    {
+      "at_ms": 15001.900999000005,
+      "pending": 16
+    },
+    {
+      "at_ms": 16002.13425100001,
+      "pending": 16
+    },
+    {
+      "at_ms": 17001.736604999984,
+      "pending": 16
+    },
+    {
+      "at_ms": 18001.79052500002,
+      "pending": 16
+    },
+    {
+      "at_ms": 19001.624112999998,
+      "pending": 16
+    },
+    {
+      "at_ms": 20002.09059799998,
+      "pending": 16
+    },
+    {
+      "at_ms": 21001.35349399998,
+      "pending": 16
+    },
+    {
+      "at_ms": 22002.130329000007,
+      "pending": 16
+    },
+    {
+      "at_ms": 23001.662868999992,
+      "pending": 16
+    },
+    {
+      "at_ms": 24001.341217999987,
+      "pending": 16
+    },
+    {
+      "at_ms": 25001.473888000008,
+      "pending": 16
+    },
+    {
+      "at_ms": 26002.20677400002,
+      "pending": 16
+    },
+    {
+      "at_ms": 27002.55272400001,
+      "pending": 16
+    },
+    {
+      "at_ms": 28002.915520999988,
+      "pending": 16
+    },
+    {
+      "at_ms": 29003.170045999985,
+      "pending": 16
+    },
+    {
+      "at_ms": 30002.991321999987,
+      "pending": 16
+    },
+    {
+      "at_ms": 31002.628732000012,
+      "pending": 14
+    },
+    {
+      "at_ms": 32002.591172999993,
+      "pending": 13
+    },
+    {
+      "at_ms": 33003.12172200001,
+      "pending": 12
+    },
+    {
+      "at_ms": 34002.928543000016,
+      "pending": 11
+    },
+    {
+      "at_ms": 35002.61579000001,
+      "pending": 11
+    },
+    {
+      "at_ms": 36002.696354000014,
+      "pending": 10
+    },
+    {
+      "at_ms": 37003.19271999999,
+      "pending": 8
+    },
+    {
+      "at_ms": 38004.22007600003,
+      "pending": 7
+    },
+    {
+      "at_ms": 39004.35507799999,
+      "pending": 7
+    },
+    {
+      "at_ms": 40004.66296799999,
+      "pending": 7
+    },
+    {
+      "at_ms": 41004.936606,
+      "pending": 7
+    },
+    {
+      "at_ms": 42004.32625700004,
+      "pending": 6
+    },
+    {
+      "at_ms": 43005.23308600002,
+      "pending": 5
+    },
+    {
+      "at_ms": 44005.63991899998,
+      "pending": 5
+    },
+    {
+      "at_ms": 45006.01592600002,
+      "pending": 4
+    },
+    {
+      "at_ms": 46005.350781999994,
+      "pending": 3
+    },
+    {
+      "at_ms": 47005.75477400003,
+      "pending": 1
+    },
+    {
+      "at_ms": 47456.68394900003,
+      "pending": 0
+    }
+  ],
+  "summary": {
+    "scope": "http_completion_diagnostic",
+    "criterion": "completed_2xx_http_streams_per_second",
+    "target_rps": 8,
+    "target_status": "below_target",
+    "target_reached": false,
+    "min_requests": 20,
+    "sample_sufficient": true,
+    "window_sec": 30,
+    "n_total": 38,
+    "n_http_complete": 38,
+    "n_http_complete_in_window": 22,
+    "n_http_complete_drain": 16,
+    "n_http_completion_fail": 0,
+    "http_completion_fail_rate": 0,
+    "transport_rps": 0.7333333333333333,
+    "e2e_p50_ms": 18105.364799000003,
+    "e2e_p95_ms": 22445.50042910002,
+    "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+    "latency_gate_applied": false,
+    "quality_gate_applied": false,
+    "timeouts": 0,
+    "fail_types": {},
+    "quality_reference": {
+      "n_valid": 38,
+      "n_valid_completed_in_window": 22,
+      "valid_rps": 0.7333333333333333,
+      "n_invalid_completed": 0,
+      "schema_failures": 0,
+      "evidence_failures": 0,
+      "truncations": 0,
+      "reasoning_leaks": 0
+    },
+    "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+  },
+  "output_tokens_avg_in_window": 123.36363636363636
+}

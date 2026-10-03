@@ -1,0 +1,303 @@
+{
+  "services": {
+    "ollama": {
+      "image": "ollama/ollama@sha256:684d8674b4315fa18f4f0e973a118ec2652ed96f67563277839985175858e0ba",
+      "platform": "linux/amd64",
+      "pull_policy": "never",
+      "profiles": [
+        "ollama"
+      ],
+      "init": true,
+      "restart": "no",
+      "stop_grace_period": "180s",
+      "ports": [
+        "127.0.0.1:${LLM_PORT:-19551}:11434"
+      ],
+      "environment": {
+        "HF_HUB_OFFLINE": "1",
+        "TRANSFORMERS_OFFLINE": "1",
+        "HF_HUB_DISABLE_TELEMETRY": "1",
+        "OLLAMA_HOST": "0.0.0.0:11434",
+        "OLLAMA_MODELS": "/models",
+        "OLLAMA_FLASH_ATTENTION": "true",
+        "OLLAMA_KV_CACHE_TYPE": "f16",
+        "OLLAMA_KEEP_ALIVE": "-1",
+        "OLLAMA_MAX_LOADED_MODELS": "1",
+        "OLLAMA_NUM_PARALLEL": "${OLLAMA_PARALLEL:-4}"
+      },
+      "labels": {
+        "io.ubot.llm.reproduction": "true"
+      },
+      "shm_size": "2gb",
+      "command": [
+        "serve"
+      ],
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "${LLM_WORKSPACE:?Use reproduce.py}/model_assets/portable/Qwen3-4B-GGUF",
+          "target": "/artifacts/gguf",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "volume",
+          "source": "ollama-models",
+          "target": "/models"
+        },
+        {
+          "type": "bind",
+          "source": "${LLM_WORKSPACE:?Use reproduce.py}/load_test_v2/docker/reproduce/Modelfile",
+          "target": "/repro/Modelfile",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ]
+    },
+    "llamacpp": {
+      "image": "ghcr.io/ggml-org/llama.cpp@sha256:6cdf9529493b9581c421fec5628dcd4b8dd7c09507fc7d27ad739cc9205d66f5",
+      "platform": "linux/amd64",
+      "pull_policy": "never",
+      "profiles": [
+        "llamacpp"
+      ],
+      "init": true,
+      "restart": "no",
+      "stop_grace_period": "180s",
+      "ports": [
+        "127.0.0.1:${LLM_PORT:-19551}:8080"
+      ],
+      "environment": {
+        "HF_HUB_OFFLINE": "1",
+        "TRANSFORMERS_OFFLINE": "1",
+        "HF_HUB_DISABLE_TELEMETRY": "1"
+      },
+      "labels": {
+        "io.ubot.llm.reproduction": "true"
+      },
+      "shm_size": "2gb",
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "${LLM_WORKSPACE:?Use reproduce.py}/model_assets/portable/Qwen3-4B-GGUF",
+          "target": "/artifacts/gguf",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${LLM_WORKSPACE:?Use reproduce.py}/load_test_v2/docker/templates/qwen3_base.jinja",
+          "target": "/templates/qwen3_base.jinja",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "command": [
+        "--model",
+        "/artifacts/gguf/Qwen3-4B-Q4_K_M.gguf",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8080",
+        "--alias",
+        "qwen3-4b-q4km",
+        "--parallel",
+        "${LLAMACPP_PARALLEL:-4}",
+        "--ctx-size",
+        "${LLAMACPP_CTX_SIZE:-16384}",
+        "--n-gpu-layers",
+        "99",
+        "--flash-attn",
+        "on",
+        "--chat-template-file",
+        "/templates/qwen3_base.jinja",
+        "--reasoning",
+        "off"
+      ]
+    },
+    "vllm": {
+      "image": "vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+      "platform": "linux/amd64",
+      "pull_policy": "never",
+      "profiles": [
+        "vllm"
+      ],
+      "init": true,
+      "restart": "no",
+      "stop_grace_period": "180s",
+      "ports": [
+        "127.0.0.1:${LLM_PORT:-19551}:8000"
+      ],
+      "environment": {
+        "HF_HUB_OFFLINE": "1",
+        "TRANSFORMERS_OFFLINE": "1",
+        "HF_HUB_DISABLE_TELEMETRY": "1"
+      },
+      "labels": {
+        "io.ubot.llm.reproduction": "true"
+      },
+      "shm_size": "2gb",
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "${LLM_WORKSPACE:?Use reproduce.py}/model_assets/portable/Qwen3-4B-AWQ",
+          "target": "/artifacts/awq",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "command": [
+        "/artifacts/awq",
+        "--dtype",
+        "half",
+        "--max-model-len",
+        "4096",
+        "--served-model-name",
+        "qwen3-4b-awq",
+        "--gpu-memory-utilization",
+        "0.8",
+        "--max-num-seqs",
+        "${VLLM_MAX_NUM_SEQS:-32}",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000",
+        "--revision",
+        "74d4bd2bd4bff9cafc9345221320bffb08b406a3"
+      ]
+    },
+    "sglang": {
+      "image": "lmsysorg/sglang@sha256:2ddbfb97fc8e40ad78df22b29cab0207818e03f68b2248a514e7eeefe62d188f",
+      "platform": "linux/amd64",
+      "pull_policy": "never",
+      "profiles": [
+        "sglang"
+      ],
+      "init": true,
+      "restart": "no",
+      "stop_grace_period": "180s",
+      "ports": [
+        "127.0.0.1:${LLM_PORT:-19551}:30000"
+      ],
+      "environment": {
+        "HF_HUB_OFFLINE": "1",
+        "TRANSFORMERS_OFFLINE": "1",
+        "HF_HUB_DISABLE_TELEMETRY": "1"
+      },
+      "labels": {
+        "io.ubot.llm.reproduction": "true"
+      },
+      "shm_size": "2gb",
+      "entrypoint": [
+        "python3",
+        "/repro/setup_sglang.py",
+        "--launch"
+      ],
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "${LLM_WORKSPACE:?Use reproduce.py}/load_test_v2/docker/reproduce",
+          "target": "/repro",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${LLM_WORKSPACE:?Use reproduce.py}/model_assets/portable/Qwen3-4B-AWQ",
+          "target": "/artifacts/awq",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "volume",
+          "source": "sglang-python",
+          "target": "/opt/ubot-venv",
+          "read_only": true
+        }
+      ],
+      "command": [
+        "--model-path",
+        "/artifacts/awq",
+        "--dtype",
+        "float16",
+        "--context-length",
+        "4096",
+        "--served-model-name",
+        "qwen3-4b-awq",
+        "--mem-fraction-static",
+        "0.7",
+        "--max-running-requests",
+        "${SGLANG_MAX_RUNNING_REQUESTS:-32}",
+        "--attention-backend",
+        "triton",
+        "--sampling-backend",
+        "pytorch",
+        "--cuda-graph-max-bs",
+        "${SGLANG_MAX_RUNNING_REQUESTS:-32}",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "30000",
+        "--revision",
+        "74d4bd2bd4bff9cafc9345221320bffb08b406a3"
+      ]
+    },
+    "sglang-prepare": {
+      "image": "lmsysorg/sglang@sha256:2ddbfb97fc8e40ad78df22b29cab0207818e03f68b2248a514e7eeefe62d188f",
+      "platform": "linux/amd64",
+      "pull_policy": "never",
+      "profiles": [
+        "prepare"
+      ],
+      "entrypoint": [
+        "python3",
+        "/repro/setup_sglang.py"
+      ],
+      "environment": {
+        "NVIDIA_VISIBLE_DEVICES": "void"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "${LLM_WORKSPACE:?Use reproduce.py}/load_test_v2/docker/reproduce",
+          "target": "/repro",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "volume",
+          "source": "sglang-python",
+          "target": "/opt/ubot-venv"
+        }
+      ],
+      "restart": "no",
+      "labels": {
+        "io.ubot.llm.reproduction": "true"
+      }
+    }
+  },
+  "volumes": {
+    "sglang-python": {
+      "name": "${LLM_REPRO_PROJECT:?Use reproduce.py}-sglang-python"
+    },
+    "ollama-models": {
+      "name": "${LLM_REPRO_PROJECT:?Use reproduce.py}-ollama-models"
+    }
+  }
+}

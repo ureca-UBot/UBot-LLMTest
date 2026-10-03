@@ -1,0 +1,193 @@
+{
+  "users": 4,
+  "status": "completed",
+  "window": {
+    "startMs": 0.3613399999740068,
+    "endMs": 30000.361339999974
+  },
+  "warmup": {
+    "attempted": 4,
+    "completed": 4,
+    "reused": 2,
+    "quality_valid_reference": 4,
+    "passed": true
+  },
+  "raw_file": "/home/ubuntu/llm-bench/t4_http_20261002_01/source/load_test_v2/results/t4_vllm_s8_01/vllm_s8/u4_requests.jsonl",
+  "elapsed_ms": 32159.324131,
+  "drain_ms": 2158.865974000015,
+  "peak_inflight": 4,
+  "in_flight_samples": [
+    {
+      "at_ms": 0.1392129999876488,
+      "pending": 0
+    },
+    {
+      "at_ms": 999.8380889999971,
+      "pending": 4
+    },
+    {
+      "at_ms": 2000.730211999995,
+      "pending": 4
+    },
+    {
+      "at_ms": 3000.2228829999804,
+      "pending": 4
+    },
+    {
+      "at_ms": 4000.426682999998,
+      "pending": 4
+    },
+    {
+      "at_ms": 5000.777382999979,
+      "pending": 4
+    },
+    {
+      "at_ms": 6000.5171599999885,
+      "pending": 4
+    },
+    {
+      "at_ms": 7000.985245999997,
+      "pending": 4
+    },
+    {
+      "at_ms": 8001.377503999975,
+      "pending": 4
+    },
+    {
+      "at_ms": 9001.705592999991,
+      "pending": 4
+    },
+    {
+      "at_ms": 10001.285841999983,
+      "pending": 4
+    },
+    {
+      "at_ms": 11002.063965999987,
+      "pending": 4
+    },
+    {
+      "at_ms": 12002.122359,
+      "pending": 4
+    },
+    {
+      "at_ms": 13002.738547999994,
+      "pending": 4
+    },
+    {
+      "at_ms": 14003.089171,
+      "pending": 4
+    },
+    {
+      "at_ms": 15003.400812999986,
+      "pending": 4
+    },
+    {
+      "at_ms": 16003.512384000001,
+      "pending": 4
+    },
+    {
+      "at_ms": 17004.760622,
+      "pending": 4
+    },
+    {
+      "at_ms": 18004.553197,
+      "pending": 4
+    },
+    {
+      "at_ms": 19004.783832999994,
+      "pending": 4
+    },
+    {
+      "at_ms": 20005.18078699999,
+      "pending": 4
+    },
+    {
+      "at_ms": 21005.20074999999,
+      "pending": 4
+    },
+    {
+      "at_ms": 22005.158245,
+      "pending": 4
+    },
+    {
+      "at_ms": 23005.773766999977,
+      "pending": 4
+    },
+    {
+      "at_ms": 24005.827800999978,
+      "pending": 4
+    },
+    {
+      "at_ms": 25005.81962199998,
+      "pending": 4
+    },
+    {
+      "at_ms": 26006.438677999977,
+      "pending": 4
+    },
+    {
+      "at_ms": 27007.118029999983,
+      "pending": 4
+    },
+    {
+      "at_ms": 28007.970258999994,
+      "pending": 4
+    },
+    {
+      "at_ms": 29007.927693999984,
+      "pending": 4
+    },
+    {
+      "at_ms": 30007.51542499999,
+      "pending": 4
+    },
+    {
+      "at_ms": 31007.210833999998,
+      "pending": 2
+    },
+    {
+      "at_ms": 32007.977250999975,
+      "pending": 1
+    },
+    {
+      "at_ms": 32159.272757999977,
+      "pending": 0
+    }
+  ],
+  "summary": {
+    "scope": "http_completion_diagnostic",
+    "criterion": "completed_2xx_http_streams_per_second",
+    "target_rps": 8,
+    "target_status": "below_target",
+    "target_reached": false,
+    "min_requests": 20,
+    "sample_sufficient": true,
+    "window_sec": 30,
+    "n_total": 33,
+    "n_http_complete": 33,
+    "n_http_complete_in_window": 29,
+    "n_http_complete_drain": 4,
+    "n_http_completion_fail": 0,
+    "http_completion_fail_rate": 0,
+    "transport_rps": 0.9666666666666667,
+    "e2e_p50_ms": 3315.8197010000004,
+    "e2e_p95_ms": 7636.194421599994,
+    "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+    "latency_gate_applied": false,
+    "quality_gate_applied": false,
+    "timeouts": 0,
+    "fail_types": {},
+    "quality_reference": {
+      "n_valid": 33,
+      "n_valid_completed_in_window": 29,
+      "valid_rps": 0.9666666666666667,
+      "n_invalid_completed": 0,
+      "schema_failures": 0,
+      "evidence_failures": 0,
+      "truncations": 0,
+      "reasoning_leaks": 0
+    },
+    "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+  },
+  "output_tokens_avg_in_window": 123.82758620689656
+}
