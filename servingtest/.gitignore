@@ -43,6 +43,9 @@ venv/
 .DS_Store
 Thumbs.db
 
+# Local source-workspace audit; not needed by the cloud runner.
+load_test_v2/v1_baseline.json
+
 # 저장소로 복사한 EC2 실험의 모델·실행 환경·전달 자산
 /llm-bench/**/model_assets/
 /llm-bench/**/prep-venv/

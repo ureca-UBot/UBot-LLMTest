@@ -1,0 +1,48 @@
+{
+  "candidate": "vllm_s8",
+  "image_id": "sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+  "removed_references": [
+    "llm-frozen/vllm:20261002-5bcee11334e5",
+    "vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+    "llm-frozen/vllm@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+    "vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90"
+  ],
+  "ownership": "image_absent_before_this_experiment_preparation",
+  "free_before_bytes": 7623581696,
+  "removal_commands": [
+    {
+      "reference": "llm-frozen/vllm:20261002-5bcee11334e5",
+      "exit_code": 0,
+      "output": "Untagged: llm-frozen/vllm:20261002-5bcee11334e5\n"
+    },
+    {
+      "reference": "vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+      "exit_code": 0,
+      "output": "Untagged: vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90\nDeleted: sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90\n"
+    }
+  ],
+  "exit_code": 0,
+  "absence_checks": [
+    {
+      "reference": "llm-frozen/vllm:20261002-5bcee11334e5",
+      "absent": true
+    },
+    {
+      "reference": "vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+      "absent": true
+    },
+    {
+      "reference": "llm-frozen/vllm@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+      "absent": true
+    },
+    {
+      "reference": "vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+      "absent": true
+    },
+    {
+      "reference": "sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+      "absent": true
+    }
+  ],
+  "free_after_bytes": 38353784832
+}
