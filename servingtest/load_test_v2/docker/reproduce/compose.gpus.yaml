@@ -1,0 +1,80 @@
+{
+  "services": {
+    "ollama": {
+      "deploy": {
+        "resources": {
+          "reservations": {
+            "devices": [
+              {
+                "driver": "nvidia",
+                "device_ids": [
+                  "${LLM_GPU_ID:-0}"
+                ],
+                "capabilities": [
+                  "gpu"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "llamacpp": {
+      "deploy": {
+        "resources": {
+          "reservations": {
+            "devices": [
+              {
+                "driver": "nvidia",
+                "device_ids": [
+                  "${LLM_GPU_ID:-0}"
+                ],
+                "capabilities": [
+                  "gpu"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "vllm": {
+      "deploy": {
+        "resources": {
+          "reservations": {
+            "devices": [
+              {
+                "driver": "nvidia",
+                "device_ids": [
+                  "${LLM_GPU_ID:-0}"
+                ],
+                "capabilities": [
+                  "gpu"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "sglang": {
+      "deploy": {
+        "resources": {
+          "reservations": {
+            "devices": [
+              {
+                "driver": "nvidia",
+                "device_ids": [
+                  "${LLM_GPU_ID:-0}"
+                ],
+                "capabilities": [
+                  "gpu"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

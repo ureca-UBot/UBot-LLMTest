@@ -1,0 +1,690 @@
+{
+  "schema_version": 1,
+  "scope": "cross_candidate_http_exploration_analysis",
+  "generated_at": "2026-10-02T08:57:25.166181+00:00",
+  "formal_benchmark_eligible": false,
+  "status": "comparison_available",
+  "c_slo": null,
+  "lambda_slo": null,
+  "identity": {
+    "source_zip_sha256": "9c07cdb67efc3bb90d6f47f9e785db9d56e018bbe8454be3850b90d8732d35ec",
+    "source_lock_sha256": "998b52644f29a2628d021f78191c363f513481714db92f6a7d3579feefeeffe7",
+    "models_lock_sha256": "d7634729d87da0556977f7322299da62406c773d5335a8e7d48ec700430b7c81",
+    "images_lock_sha256": "c1723f93ec715760b4389d5ffa8a6389bb59145d5f1f205e43c16210c67b6c90",
+    "profile_sha256": "201e43bbef27d414b0aeb672299e02f956a80234de086009f2684fa010f37ea2"
+  },
+  "baseline_report": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\t4_ollama_p4_01\\report.json",
+  "baseline_report_sha256": "59883478ef630f91a30700807d95bb3c083652904b7a74cbecff0bd762164ea1",
+  "baseline_best_tested_http_rps": 0.7333333333333333,
+  "comparison_pending_reasons": [],
+  "attempts": [
+    {
+      "report": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\t4_ollama_p4_01\\report.json",
+      "report_sha256": "59883478ef630f91a30700807d95bb3c083652904b7a74cbecff0bd762164ea1",
+      "evidence": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\evidence\\ollama_p4.json",
+      "evidence_sha256": "8cbfc45d30eabea9d8ec622c76816bb6d530754e9bdb42318ce0c0c413051ca0",
+      "candidate_id": "ollama_p4",
+      "report_status": "completed_exploration",
+      "run_exit_code": 0,
+      "candidate_status": "completed",
+      "error": null,
+      "comparison_eligible": true,
+      "exclusion_reasons": [],
+      "steps": [
+        {
+          "users": 1,
+          "http_rps": 0.36666666666666664,
+          "sample_sufficient": false,
+          "target_reached": null,
+          "n_complete_in_window": 11,
+          "n_complete_drain": 1,
+          "failure_rate": 0,
+          "drain_ms": 1367.1326880000124,
+          "p95_ms_reference": 5371.19932585,
+          "quality_valid_rps_reference": 0.3,
+          "output_tokens_avg_reference": 154.63636363636363
+        },
+        {
+          "users": 4,
+          "http_rps": 0.6666666666666666,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 20,
+          "n_complete_drain": 4,
+          "failure_rate": 0,
+          "drain_ms": 7995.647417,
+          "p95_ms_reference": 12025.284850100017,
+          "quality_valid_rps_reference": 0.6333333333333333,
+          "output_tokens_avg_reference": 134.9
+        },
+        {
+          "users": 8,
+          "http_rps": 0.7333333333333333,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 22,
+          "n_complete_drain": 8,
+          "failure_rate": 0,
+          "drain_ms": 9473.724661999993,
+          "p95_ms_reference": 19047.703872149967,
+          "quality_valid_rps_reference": 0.7333333333333333,
+          "output_tokens_avg_reference": 115.95454545454545
+        },
+        {
+          "users": 16,
+          "http_rps": 0.7333333333333333,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 22,
+          "n_complete_drain": 16,
+          "failure_rate": 0,
+          "drain_ms": 17456.551651999995,
+          "p95_ms_reference": 22445.50042910002,
+          "quality_valid_rps_reference": 0.7333333333333333,
+          "output_tokens_avg_reference": 123.36363636363636
+        },
+        {
+          "users": 32,
+          "http_rps": 0.7333333333333333,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 22,
+          "n_complete_drain": 32,
+          "failure_rate": 0,
+          "drain_ms": 33454.38134900003,
+          "p95_ms_reference": 39229.50495879998,
+          "quality_valid_rps_reference": 0.7333333333333333,
+          "output_tokens_avg_reference": 122.63636363636364
+        }
+      ],
+      "best_tested_http_rps": 0.7333333333333333,
+      "best_users": 8,
+      "ratio_to_ollama": 1.0,
+      "target_8rps_observed": false,
+      "minimum_tested_users_at_target": null,
+      "raw_step_statuses": [
+        {
+          "users": 1,
+          "status": "completed",
+          "sample_sufficient": false
+        },
+        {
+          "users": 4,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 8,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 16,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 32,
+          "status": "completed",
+          "sample_sufficient": true
+        }
+      ],
+      "gpu_identity": {
+        "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+        "name": "Tesla T4",
+        "memory_total_mib": 15360,
+        "driver_version": "595.91.07"
+      },
+      "gpu_mode": "cdi",
+      "engine": "ollama",
+      "internal_limit": 4,
+      "model_ids": [
+        "qwen3_4b_gguf_q4km"
+      ],
+      "image_fingerprint": "b3a38945364df58ae49dd835d861e139cdf1cad73f3c91ccce3538db123fe87f",
+      "tested_users": [
+        1,
+        4,
+        8,
+        16,
+        32
+      ]
+    },
+    {
+      "report": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\t4_llamacpp_p4_01\\report.json",
+      "report_sha256": "c2c6479f390ce80c7244853eb748d397ae694293401c7be3231898e36ef58eb4",
+      "evidence": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\llamacpp_p4.json",
+      "evidence_sha256": "0868d43352257fa5b6dd02496e2ded5b4ea13334e9b129ef149daabf94e1a66a",
+      "candidate_id": "llamacpp_p4",
+      "report_status": "completed_exploration",
+      "run_exit_code": 0,
+      "candidate_status": "completed",
+      "error": null,
+      "comparison_eligible": true,
+      "exclusion_reasons": [],
+      "steps": [
+        {
+          "users": 4,
+          "http_rps": 0.9,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 27,
+          "n_complete_drain": 4,
+          "failure_rate": 0.4745762711864407,
+          "drain_ms": 3831.094796000005,
+          "p95_ms_reference": 8273.606827999996,
+          "quality_valid_rps_reference": 0.9,
+          "output_tokens_avg_reference": 113.18518518518519
+        },
+        {
+          "users": 8,
+          "http_rps": 0.9666666666666667,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 29,
+          "n_complete_drain": 8,
+          "failure_rate": 0.44776119402985076,
+          "drain_ms": 7788.447767999984,
+          "p95_ms_reference": 10408.282166999988,
+          "quality_valid_rps_reference": 0.9666666666666667,
+          "output_tokens_avg_reference": 112.89655172413794
+        },
+        {
+          "users": 16,
+          "http_rps": 0.9666666666666667,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 29,
+          "n_complete_drain": 16,
+          "failure_rate": 0.4,
+          "drain_ms": 14055.038395999989,
+          "p95_ms_reference": 16901.627351200004,
+          "quality_valid_rps_reference": 0.9666666666666667,
+          "output_tokens_avg_reference": 107.41379310344827
+        },
+        {
+          "users": 32,
+          "http_rps": 0.9333333333333333,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 28,
+          "n_complete_drain": 32,
+          "failure_rate": 0.3258426966292135,
+          "drain_ms": 32885.654081999965,
+          "p95_ms_reference": 32788.45285810003,
+          "quality_valid_rps_reference": 0.9333333333333333,
+          "output_tokens_avg_reference": 114.89285714285714
+        }
+      ],
+      "best_tested_http_rps": 0.9666666666666667,
+      "best_users": 8,
+      "ratio_to_ollama": 1.3181818181818183,
+      "target_8rps_observed": false,
+      "minimum_tested_users_at_target": null,
+      "raw_step_statuses": [
+        {
+          "users": 4,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 8,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 16,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 32,
+          "status": "completed",
+          "sample_sufficient": true
+        }
+      ],
+      "gpu_identity": {
+        "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+        "name": "Tesla T4",
+        "memory_total_mib": 15360,
+        "driver_version": "595.91.07"
+      },
+      "gpu_mode": "cdi",
+      "engine": "llama.cpp",
+      "internal_limit": 4,
+      "model_ids": [
+        "qwen3_4b_gguf_q4km"
+      ],
+      "image_fingerprint": "bb4015809bc555b26eb3e70cbdb9074c2489c1a5625f7e5f5b14f4a00899e471",
+      "tested_users": [
+        4,
+        8,
+        16,
+        32
+      ]
+    },
+    {
+      "report": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\t4_vllm_s8_01\\report.json",
+      "report_sha256": "287d4739de02b20c856308a91b64027286280040cb1340000f9e9f5039629919",
+      "evidence": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\vllm_s8.json",
+      "evidence_sha256": "e1d5e1a6c83c614ba6066ed99c84ba9159738e84d8ecee3c7fd6ff64d9c487a1",
+      "candidate_id": "vllm_s8",
+      "report_status": "completed_exploration",
+      "run_exit_code": 0,
+      "candidate_status": "completed",
+      "error": null,
+      "comparison_eligible": true,
+      "exclusion_reasons": [],
+      "steps": [
+        {
+          "users": 4,
+          "http_rps": 0.9666666666666667,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 29,
+          "n_complete_drain": 4,
+          "failure_rate": 0,
+          "drain_ms": 2158.865974000015,
+          "p95_ms_reference": 7636.194421599994,
+          "quality_valid_rps_reference": 0.9666666666666667,
+          "output_tokens_avg_reference": 123.82758620689656
+        },
+        {
+          "users": 8,
+          "http_rps": 1.5333333333333334,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 46,
+          "n_complete_drain": 8,
+          "failure_rate": 0,
+          "drain_ms": 3792.4844630000007,
+          "p95_ms_reference": 8576.322787799978,
+          "quality_valid_rps_reference": 1.5333333333333334,
+          "output_tokens_avg_reference": 111.71739130434783
+        },
+        {
+          "users": 16,
+          "http_rps": 1.7666666666666666,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 53,
+          "n_complete_drain": 16,
+          "failure_rate": 0,
+          "drain_ms": 8631.105177999998,
+          "p95_ms_reference": 12220.101784200011,
+          "quality_valid_rps_reference": 1.7666666666666666,
+          "output_tokens_avg_reference": 111.50943396226415
+        },
+        {
+          "users": 32,
+          "http_rps": 1.8333333333333333,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 55,
+          "n_complete_drain": 32,
+          "failure_rate": 0,
+          "drain_ms": 20266.155931999965,
+          "p95_ms_reference": 21174.801021600015,
+          "quality_valid_rps_reference": 1.8333333333333333,
+          "output_tokens_avg_reference": 111.76363636363637
+        }
+      ],
+      "best_tested_http_rps": 1.8333333333333333,
+      "best_users": 32,
+      "ratio_to_ollama": 2.5,
+      "target_8rps_observed": false,
+      "minimum_tested_users_at_target": null,
+      "raw_step_statuses": [
+        {
+          "users": 4,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 8,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 16,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 32,
+          "status": "completed",
+          "sample_sufficient": true
+        }
+      ],
+      "gpu_identity": {
+        "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+        "name": "Tesla T4",
+        "memory_total_mib": 15360,
+        "driver_version": "595.91.07"
+      },
+      "gpu_mode": "cdi",
+      "engine": "vllm",
+      "internal_limit": 8,
+      "model_ids": [
+        "qwen3_4b_awq"
+      ],
+      "image_fingerprint": "5bcee11334e55e68bdf6d652d1f6ec2b382d6ad4ee6849e0ccb08e97e9af11fd",
+      "tested_users": [
+        4,
+        8,
+        16,
+        32
+      ]
+    },
+    {
+      "report": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\t4_vllm_s32_01\\report.json",
+      "report_sha256": "e2bd91e3f2ae0d8dd741214a6d381e3123dcfff566f926b859f97fe2338574ef",
+      "evidence": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\vllm_s32.json",
+      "evidence_sha256": "726de1bf441b4f0996dcd9e27549b8fbfc57c15238208dd71673b0dd81651bc0",
+      "candidate_id": "vllm_s32",
+      "report_status": "completed_exploration",
+      "run_exit_code": 0,
+      "candidate_status": "completed",
+      "error": null,
+      "comparison_eligible": true,
+      "exclusion_reasons": [],
+      "steps": [
+        {
+          "users": 16,
+          "http_rps": 1.4666666666666666,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 44,
+          "n_complete_drain": 16,
+          "failure_rate": 0,
+          "drain_ms": 4655.656555000023,
+          "p95_ms_reference": 14706.560186400002,
+          "quality_valid_rps_reference": 1.4666666666666666,
+          "output_tokens_avg_reference": 102.6590909090909
+        },
+        {
+          "users": 32,
+          "http_rps": 1.7666666666666666,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 53,
+          "n_complete_drain": 32,
+          "failure_rate": 0,
+          "drain_ms": 8900.64041599998,
+          "p95_ms_reference": 21893.356441199987,
+          "quality_valid_rps_reference": 1.7666666666666666,
+          "output_tokens_avg_reference": 103.20754716981132
+        },
+        {
+          "users": 64,
+          "http_rps": 1.9666666666666666,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 59,
+          "n_complete_drain": 64,
+          "failure_rate": 0,
+          "drain_ms": 26089.667724,
+          "p95_ms_reference": 39665.85990559996,
+          "quality_valid_rps_reference": 1.9666666666666666,
+          "output_tokens_avg_reference": 96.83050847457628
+        }
+      ],
+      "best_tested_http_rps": 1.9666666666666666,
+      "best_users": 64,
+      "ratio_to_ollama": 2.6818181818181817,
+      "target_8rps_observed": false,
+      "minimum_tested_users_at_target": null,
+      "raw_step_statuses": [
+        {
+          "users": 16,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 32,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 64,
+          "status": "completed",
+          "sample_sufficient": true
+        }
+      ],
+      "gpu_identity": {
+        "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+        "name": "Tesla T4",
+        "memory_total_mib": 15360,
+        "driver_version": "595.91.07"
+      },
+      "gpu_mode": "cdi",
+      "engine": "vllm",
+      "internal_limit": 32,
+      "model_ids": [
+        "qwen3_4b_awq"
+      ],
+      "image_fingerprint": "5bcee11334e55e68bdf6d652d1f6ec2b382d6ad4ee6849e0ccb08e97e9af11fd",
+      "tested_users": [
+        16,
+        32,
+        64
+      ]
+    },
+    {
+      "report": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\t4_sglang_r8_01\\report.json",
+      "report_sha256": "43ac5b25b68f7eb938544a0e77fe15dde1ffff42ec36abed2765e9343b5e19b2",
+      "evidence": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\sglang_r8.json",
+      "evidence_sha256": "94456d7acc896cb9f0908b2445cc379743d9e38fd8a3ca42535bafab6d70a87f",
+      "candidate_id": "sglang_r8",
+      "report_status": "completed_exploration",
+      "run_exit_code": 0,
+      "candidate_status": "completed",
+      "error": null,
+      "comparison_eligible": true,
+      "exclusion_reasons": [],
+      "steps": [
+        {
+          "users": 4,
+          "http_rps": 0.3,
+          "sample_sufficient": false,
+          "target_reached": null,
+          "n_complete_in_window": 9,
+          "n_complete_drain": 4,
+          "failure_rate": 0,
+          "drain_ms": 16671.787163,
+          "p95_ms_reference": 26170.921519399984,
+          "quality_valid_rps_reference": 0.3,
+          "output_tokens_avg_reference": 113
+        },
+        {
+          "users": 8,
+          "http_rps": 0.6333333333333333,
+          "sample_sufficient": false,
+          "target_reached": null,
+          "n_complete_in_window": 19,
+          "n_complete_drain": 8,
+          "failure_rate": 0,
+          "drain_ms": 9676.204499000014,
+          "p95_ms_reference": 23753.352844700003,
+          "quality_valid_rps_reference": 0.6333333333333333,
+          "output_tokens_avg_reference": 119.26315789473684
+        },
+        {
+          "users": 16,
+          "http_rps": 0.7,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 21,
+          "n_complete_drain": 16,
+          "failure_rate": 0,
+          "drain_ms": 24458.76349500002,
+          "p95_ms_reference": 25333.75121199998,
+          "quality_valid_rps_reference": 0.7,
+          "output_tokens_avg_reference": 103.57142857142857
+        },
+        {
+          "users": 32,
+          "http_rps": 0.7,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 21,
+          "n_complete_drain": 32,
+          "failure_rate": 0,
+          "drain_ms": 42548.33593199996,
+          "p95_ms_reference": 48244.43556159999,
+          "quality_valid_rps_reference": 0.7,
+          "output_tokens_avg_reference": 100.52380952380952
+        }
+      ],
+      "best_tested_http_rps": 0.7,
+      "best_users": 16,
+      "ratio_to_ollama": 0.9545454545454546,
+      "target_8rps_observed": false,
+      "minimum_tested_users_at_target": null,
+      "raw_step_statuses": [
+        {
+          "users": 4,
+          "status": "completed",
+          "sample_sufficient": false
+        },
+        {
+          "users": 8,
+          "status": "completed",
+          "sample_sufficient": false
+        },
+        {
+          "users": 16,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 32,
+          "status": "completed",
+          "sample_sufficient": true
+        }
+      ],
+      "gpu_identity": {
+        "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+        "name": "Tesla T4",
+        "memory_total_mib": 15360,
+        "driver_version": "595.91.07"
+      },
+      "gpu_mode": "cdi",
+      "engine": "sglang",
+      "internal_limit": 8,
+      "model_ids": [
+        "qwen3_4b_awq"
+      ],
+      "image_fingerprint": "f784a3df9ec07f4f504d38a030b20791d1a0eaffb845c1ac6a37843933e07dc9",
+      "tested_users": [
+        4,
+        8,
+        16,
+        32
+      ]
+    },
+    {
+      "report": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\t4_sglang_r32_01\\report.json",
+      "report_sha256": "9b8b9d8b6e46008ddd92656d599a9c22eeff85232454c043b64205ae52905540",
+      "evidence": "D:\\finalproject\\llm\\docker_artifacts\\cloud_runs\\t4_http_20261002_01\\raw\\sglang_r32.json",
+      "evidence_sha256": "50b02acd1c0c748bb07466b03ab2cb46d46b01a59b39ae7a7e1733403f109c0b",
+      "candidate_id": "sglang_r32",
+      "report_status": "completed_exploration",
+      "run_exit_code": 0,
+      "candidate_status": "completed",
+      "error": null,
+      "comparison_eligible": true,
+      "exclusion_reasons": [],
+      "steps": [
+        {
+          "users": 16,
+          "http_rps": 1.1333333333333333,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 34,
+          "n_complete_drain": 16,
+          "failure_rate": 0,
+          "drain_ms": 17079.049692000015,
+          "p95_ms_reference": 18833.84202259999,
+          "quality_valid_rps_reference": 1.1333333333333333,
+          "output_tokens_avg_reference": 102.82352941176471
+        },
+        {
+          "users": 32,
+          "http_rps": 1.9333333333333333,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 58,
+          "n_complete_drain": 32,
+          "failure_rate": 0,
+          "drain_ms": 21082.340483000007,
+          "p95_ms_reference": 22613.589793849987,
+          "quality_valid_rps_reference": 1.9333333333333333,
+          "output_tokens_avg_reference": 103.48275862068965
+        },
+        {
+          "users": 64,
+          "http_rps": 1.9333333333333333,
+          "sample_sufficient": true,
+          "target_reached": false,
+          "n_complete_in_window": 58,
+          "n_complete_drain": 64,
+          "failure_rate": 0,
+          "drain_ms": 31116.482939999987,
+          "p95_ms_reference": 36073.03075359997,
+          "quality_valid_rps_reference": 1.9333333333333333,
+          "output_tokens_avg_reference": 96.87931034482759
+        }
+      ],
+      "best_tested_http_rps": 1.9333333333333333,
+      "best_users": 32,
+      "ratio_to_ollama": 2.6363636363636367,
+      "target_8rps_observed": false,
+      "minimum_tested_users_at_target": null,
+      "raw_step_statuses": [
+        {
+          "users": 16,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 32,
+          "status": "completed",
+          "sample_sufficient": true
+        },
+        {
+          "users": 64,
+          "status": "completed",
+          "sample_sufficient": true
+        }
+      ],
+      "gpu_identity": {
+        "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+        "name": "Tesla T4",
+        "memory_total_mib": 15360,
+        "driver_version": "595.91.07"
+      },
+      "gpu_mode": "cdi",
+      "engine": "sglang",
+      "internal_limit": 32,
+      "model_ids": [
+        "qwen3_4b_awq"
+      ],
+      "image_fingerprint": "f784a3df9ec07f4f504d38a030b20791d1a0eaffb845c1ac6a37843933e07dc9",
+      "tested_users": [
+        16,
+        32,
+        64
+      ]
+    }
+  ],
+  "missing_candidates": [],
+  "limitations": [
+    "HTTP completion throughput from single 30-second closed-loop windows; not C_SLO or sustainable arrival capacity.",
+    "No latency, output-quality or failure-rate acceptance gate applies to the 8 RPS target.",
+    "GGUF/AWQ source conversion equivalence remains unverified; model formats intentionally differ by engine.",
+    "Operating services share host CPU/RAM/I/O. Unchanged container state does not prove absent service traffic.",
+    "Outer and runner snapshots cannot certify absence of other GPU activity between samples.",
+    "Repeated attempts remain separate; no automatic choice of the fastest retry."
+  ]
+}

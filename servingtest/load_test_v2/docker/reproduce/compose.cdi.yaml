@@ -1,0 +1,24 @@
+{
+  "services": {
+    "ollama": {
+      "devices": [
+        "${LLM_GPU_DEVICE:-nvidia.com/gpu=all}"
+      ]
+    },
+    "llamacpp": {
+      "devices": [
+        "${LLM_GPU_DEVICE:-nvidia.com/gpu=all}"
+      ]
+    },
+    "vllm": {
+      "devices": [
+        "${LLM_GPU_DEVICE:-nvidia.com/gpu=all}"
+      ]
+    },
+    "sglang": {
+      "devices": [
+        "${LLM_GPU_DEVICE:-nvidia.com/gpu=all}"
+      ]
+    }
+  }
+}
