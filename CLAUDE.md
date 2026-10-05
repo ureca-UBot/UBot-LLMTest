@@ -2,12 +2,12 @@
 
 이 프로젝트에서 다시 작업을 시작할 때 이 파일부터 읽으세요. 전체 방법론/설계 이유는 [`README.md`](README.md)에 있고, 이 파일은 **"지금 어디까지 했고 다음에 뭘 해야 하는지"**만 빠르게 파악하기 위한 진행 상황 스냅샷입니다.
 
-## 마지막 작업일: 2026-09-30
+## 마지막 작업일: 2026-10-06
 
 ## 저장소 구조 (2026-09-28 개편, 2026-09-30 공통 엔진 추가)
 
 ```
-data/                         # 버전 공통 데이터 (eval_sets/test_set1 = v1, test_set2 = v2·v3, test_set3 = v4~)
+data/                         # 버전 공통 데이터 (eval_sets/test_set1 = v1, test_set2 = v2·v3, test_set4 = v4~ — test_set3은 교체 전 v4 데이터)
 scripts/                      # ⭐ v4부터 모든 버전이 공유하는 공통 엔진(run·score·judge·docgen·lib) — scripts/README.md
 prompts/                      # ⭐ 모든 프롬프트(chatbot·judge·docgen) — prompts/README.md
 model_test_v4/test.config.js  # v4부터 버전별로 바뀌는 값은 이 파일 하나 (스크립트 복사 금지)
@@ -32,9 +32,9 @@ model_test_vN/                # (아래는 v1~v3 구조)
 ## 현재 상태 (2026-09-30)
 
 - v3 try1에서 **1차 MVP 모델로 `qwen3:14b` 추론 OFF(temperature 0)** 선정 (`model_test_v3/try1/results/summary/model_selection.md`). 최종 확정 아님.
-- **v4(test4) 준비 중 — 저급 모델 튜닝 전 기준선(레거시)**. 대상은 `qwen3:4b` OFF · `gemma3:4b`이고, 튜닝 한계가 확인되면 `qwen3:8b` OFF로 넘어간다. 데이터는 `test_set3`(15개 항목 × 200 = 3,000건, 50/100/150 중첩 서브셋)이고, 상담봇 프롬프트는 `v4_base`(**CLARIFY 상태 없음 — 되묻기는 ABSTAIN/PARTIAL 안에서, Judge가 asks_user로 건수만 집계**, `prompts/chatbot/` — 공통 문단 + 근거 기준 status 판정 + 출력 순서 `evidence_ids → status → answer`, 순서는 구조화 출력으로 강제)이다. Judge 루브릭 `v4-judge-4`: 정답률은 답변 문장만 보고 판정하고, 정답+상태·정답+근거·정답+근거+상태를 따로 집계한다. **Judge는 OpenAI API 호출**(`lib/judge/providers/openai.js`)이고 **판정 모델은 미정**(`judge.model: null` — 정하기 전엔 `judge_run.js`가 멈춤). **프롬프트는 모두 `prompts/`(chatbot·judge·docgen), 스크립트는 `scripts/`(run·score·judge·docgen·lib)에 용도별로 둔다** — 판정 단계와 문서 생성 단계는 스크립트·프롬프트를 섞지 않는다.
+- **v4(test4) 준비 중 — 저급 모델 튜닝 전 기준선(레거시)**. 대상은 `qwen3:4b` OFF · `gemma3:4b`이고, 튜닝 한계가 확인되면 `qwen3:8b` OFF로 넘어간다. 데이터는 `test_set4`(14개 항목 × 200 = 2,800건, FAQ 원문 1,000건, 50/100/150 중첩 서브셋 — 2026-10-06 `FAQ_RAG_2800건_의도균등FAQ_v4반영본.xlsx`로 교체, 평가 기준·방법은 그대로)이고, 상담봇 프롬프트는 `v4_base`(**CLARIFY 상태 없음 — 되묻기는 ABSTAIN/PARTIAL 안에서, Judge가 asks_user로 건수만 집계**, `prompts/chatbot/` — 공통 문단 + 근거 기준 status 판정 + 출력 순서 `evidence_ids → status → answer`, 순서는 구조화 출력으로 강제)이다. Judge 루브릭 `v4-judge-4`: 정답률은 답변 문장만 보고 판정하고, 정답+상태·정답+근거·정답+근거+상태를 따로 집계한다. **Judge는 OpenAI API 호출**(`lib/judge/providers/openai.js`)이고 **판정 모델은 미정**(`judge.model: null` — 정하기 전엔 `judge_run.js`가 멈춤). **프롬프트는 모두 `prompts/`(chatbot·judge·docgen), 스크립트는 `scripts/`(run·score·judge·docgen·lib)에 용도별로 둔다** — 판정 단계와 문서 생성 단계는 스크립트·프롬프트를 섞지 않는다.
   - 공통 엔진과 `model_test_v4/test.config.js` · `SETUP.md`는 작성 완료다. 스모크 테스트(생성 → 채점 → 보고서, Judge는 가짜 CLI로 배관만 검증)까지 확인했다. **본 라운드와 LLM Judge는 아직 실행하지 않았다.**
-  - 임베딩 검색 적용 테스트(`contextMode: 'retrieval'`, `FAQ_RAG_3000건_사전Context제거_*.xlsx`)는 미구현이다.
+  - 임베딩 검색 적용 테스트(`contextMode: 'retrieval'`, `FAQ_RAG_2800건_의도균등FAQ_v4_Context제거본.xlsx`)는 미구현이다.
   - 결정(2026-10-01): 표현 규칙(v4 공통 엔진)에서 "제공된 자료" 실격 패턴을 빼고, 질문 echo 실격은 질문 전체를 되풀이한 경우만으로 좁혔다. 근거 채택 주 기준은 "인용한 문서가 모두 정답 근거 문서이고 하나 이상"(전부 인용은 엄격 기준으로 따로). v2·v3 스크립트는 그대로.
 - 후속 과제 후보: 동시성 테스트, 프롬프트 비교 테스트, top-k 테스트(모두 v4 기준선과 비교). v2·v3용 `item_review.md` 수정 23문항과 Judge 채점 경계 통일은 test_set2 한정.
 

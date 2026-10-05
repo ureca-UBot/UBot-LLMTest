@@ -42,7 +42,8 @@ LLM_Test/
 │   └── eval_sets/
 │       ├── test_set1/                      # v1: faq_easy/medium/hard, rag_stability_small/medium/large, intent_classification, cluster_labeling
 │       ├── test_set2/                      # v2·v3: cases.csv(380행), faq_master.csv, item_review.md(문항 적합성 검토)
-│       └── test_set3/                      # v4~: cases_fixed.csv(15개 항목×200=3,000행, 포함 최소 규모 컬럼), faq_master.csv(1,024건), dataset_manifest.json
+│       ├── test_set3/                      # (v4 이전 데이터, 2026-10-06 교체됨) cases_fixed.csv(15개 항목×200=3,000행), faq_master.csv(1,024건)
+│       └── test_set4/                      # v4~: cases_fixed.csv(14개 항목×200=2,800행, 포함 최소 규모 컬럼), faq_master.csv(1,000건), dataset_manifest.json
 ├── scripts/                                # ⭐ 공통 테스트 엔진 (v4부터 모든 버전이 공유) — scripts/README.md
 │   ├── run/ · score/ · judge/ · docgen/    # 실행 · 결정론 채점 · LLM Judge 판정 · 결과 문서 생성
 │   └── lib/                                # 공통 모듈 (profile·dataset·prompts 로더·judge provider 등)
@@ -69,7 +70,7 @@ LLM_Test/
 │   ├── SETUP.md · PATH_MAP.csv
 │   ├── scripts/                            # v2 채점 스크립트 복사본 + run_round · run_think_ablation · run_temp_control · rounds/
 │   └── try1/results/                       # all_summary.md · dashboard.html · raw/(+scored/, logs/) · report/ · llm_judge/ · summary/
-└── model_test_v4/                          # 4차 테스트 (test4, 3,000건, 튜닝 기준선) — 스크립트 없음, 공통 엔진 사용
+└── model_test_v4/                          # 4차 테스트 (test4, 2,800건, 튜닝 기준선) — 스크립트 없음, 공통 엔진 사용
     ├── test.config.js                      # 이 버전에서 바뀌는 값 전부(데이터·항목·모델·조건·프롬프트·Judge)
     ├── SETUP.md
     └── tryN/results/                       # (실행 후)

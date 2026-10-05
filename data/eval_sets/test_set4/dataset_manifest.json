@@ -1,0 +1,666 @@
+{
+  "dataset": "test_set4",
+  "source": "data/raw/FAQ_RAG_2800건_의도균등FAQ_v4반영본.xlsx",
+  "source_sha256": "a69471a8bc324d831232e40c23fdaa7d43a8b8eabb68911e3fc9fccc360fcfe6",
+  "sheet": "테스트 3000건",
+  "rows": 2800,
+  "dropped_result_columns": [
+    "LLM evidence_ids (JSON)",
+    "LLM status",
+    "LLM answer",
+    "생성 상태",
+    "Judge 답변 정확도",
+    "Judge missing_required_facts (JSON)",
+    "Judge contradicted_facts (JSON)",
+    "Judge grounding_score (1~5)",
+    "Judge is_grounded (true/false)",
+    "Judge hallucinated_claims (JSON)",
+    "Judge minor_issues (JSON)",
+    "Judge content_stance",
+    "Judge content_sources (JSON)",
+    "Judge asks_user (true/false)",
+    "Judge reasoning",
+    "근거 채택 분류",
+    "근거 채택 (1/0)",
+    "정답 근거 전부 인용 (1/0)",
+    "Context 밖 인용 ID (JSON)",
+    "문서 외 인용 꼬리표 (JSON)",
+    "본문 근거 오류 (1/0)",
+    "출력 status·본문 불일치 (1/0)",
+    "인용·본문 출처 불일치 (1/0)",
+    "오답 주원인 (자동)",
+    "상태 엄격 판정 (자동)",
+    "상태 완화 판정 (자동)",
+    "허용 교차 유형 (자동)",
+    "생성 시간 (ms)",
+    "실행·평가 메모",
+    "Persona verdict",
+    "Persona role_tone_score (1~5)",
+    "Persona user_fit_score (1~5)",
+    "Persona violations (JSON)",
+    "Persona reasoning",
+    "Safety verdict",
+    "Safety resisted_injection (true/false)",
+    "Safety leaked_internal_info (true/false)",
+    "Safety fabricated_compliance (true/false)",
+    "Safety leaked_others_pii (true/false)",
+    "Safety answered_legitimate_part (true/false)",
+    "Safety reasoning",
+    "Judge 채점 상태"
+  ],
+  "cases_path": "data/eval_sets/test_set4/cases_fixed.csv",
+  "cases_sha256": "234780b776898d93d2fa950068504db352890604e94ddeda2b73a9d777c60145",
+  "faq_path": "data/eval_sets/test_set4/faq_master.csv",
+  "faq_sha256": "e260f6b51ca6d9073115053560dbcbd60a41ad5426c5a36fc1a36b0f4e40a7f6",
+  "subset_rule": {
+    "sizes": [
+      50,
+      100,
+      150,
+      200
+    ],
+    "full": 200,
+    "seed": "test_set4-v1",
+    "strata": [
+      "difficulty",
+      "personaSub"
+    ],
+    "unit": "originalId",
+    "note": "작은 규모는 큰 규모에 포함된다"
+  },
+  "subset_allocation": {
+    "NC": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "MC": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "UI": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "CE": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "PI": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "SR": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "HR": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "EC": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "CF": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "MT": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "AD": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "AR": {
+      "50": {
+        "Easy|": 15,
+        "Hard|": 15,
+        "Medium|": 20
+      },
+      "100": {
+        "Easy|": 30,
+        "Hard|": 30,
+        "Medium|": 40
+      },
+      "150": {
+        "Easy|": 45,
+        "Hard|": 45,
+        "Medium|": 60
+      }
+    },
+    "PS": {
+      "50": {
+        "Easy|사용자 특성에 맞춘 설명": 8,
+        "Easy|상담봇 역할·말투 유지": 8,
+        "Hard|사용자 특성에 맞춘 설명": 7,
+        "Hard|상담봇 역할·말투 유지": 7,
+        "Medium|사용자 특성에 맞춘 설명": 10,
+        "Medium|상담봇 역할·말투 유지": 10
+      },
+      "100": {
+        "Easy|사용자 특성에 맞춘 설명": 15,
+        "Easy|상담봇 역할·말투 유지": 15,
+        "Hard|사용자 특성에 맞춘 설명": 15,
+        "Hard|상담봇 역할·말투 유지": 15,
+        "Medium|사용자 특성에 맞춘 설명": 20,
+        "Medium|상담봇 역할·말투 유지": 20
+      },
+      "150": {
+        "Easy|사용자 특성에 맞춘 설명": 23,
+        "Easy|상담봇 역할·말투 유지": 23,
+        "Hard|사용자 특성에 맞춘 설명": 22,
+        "Hard|상담봇 역할·말투 유지": 22,
+        "Medium|사용자 특성에 맞춘 설명": 30,
+        "Medium|상담봇 역할·말투 유지": 30
+      }
+    },
+    "RT": {
+      "50": {
+        "Easy|": 2,
+        "Hard|": 1,
+        "Medium|": 2
+      },
+      "100": {
+        "Easy|": 3,
+        "Hard|": 3,
+        "Medium|": 4
+      },
+      "150": {
+        "Easy|": 5,
+        "Hard|": 4,
+        "Medium|": 6
+      }
+    }
+  },
+  "counts_by_size": {
+    "50": {
+      "NC": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "MC": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "UI": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "CE": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "PI": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "SR": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "HR": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "EC": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "CF": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "MT": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "AD": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "AR": {
+        "total": 50,
+        "Easy": 15,
+        "Medium": 20,
+        "Hard": 15
+      },
+      "PS": {
+        "total": 50,
+        "Easy": 16,
+        "Medium": 20,
+        "Hard": 14
+      },
+      "RT": {
+        "total": 50,
+        "Easy": 20,
+        "Medium": 20,
+        "Hard": 10
+      }
+    },
+    "100": {
+      "NC": {
+        "total": 100,
+        "Medium": 40,
+        "Easy": 30,
+        "Hard": 30
+      },
+      "MC": {
+        "total": 100,
+        "Medium": 40,
+        "Easy": 30,
+        "Hard": 30
+      },
+      "UI": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "CE": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "PI": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "SR": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "HR": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "EC": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "CF": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "MT": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "AD": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "AR": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "PS": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      },
+      "RT": {
+        "total": 100,
+        "Easy": 30,
+        "Medium": 40,
+        "Hard": 30
+      }
+    },
+    "150": {
+      "NC": {
+        "total": 150,
+        "Medium": 60,
+        "Easy": 45,
+        "Hard": 45
+      },
+      "MC": {
+        "total": 150,
+        "Medium": 60,
+        "Easy": 45,
+        "Hard": 45
+      },
+      "UI": {
+        "total": 150,
+        "Easy": 45,
+        "Medium": 60,
+        "Hard": 45
+      },
+      "CE": {
+        "total": 150,
+        "Easy": 45,
+        "Medium": 60,
+        "Hard": 45
+      },
+      "PI": {
+        "total": 150,
+        "Easy": 45,
+        "Medium": 60,
+        "Hard": 45
+      },
+      "SR": {
+        "total": 150,
+        "Easy": 45,
+        "Medium": 60,
+        "Hard": 45
+      },
+      "HR": {
+        "total": 150,
+        "Easy": 45,
+        "Medium": 60,
+        "Hard": 45
+      },
+      "EC": {
+        "total": 150,
+        "Easy": 45,
+        "Medium": 60,
+        "Hard": 45
+      },
+      "CF": {
+        "total": 150,
+        "Easy": 45,
+        "Medium": 60,
+        "Hard": 45
+      },
+      "MT": {
+        "total": 150,
+        "Easy": 45,
+        "Medium": 60,
+        "Hard": 45
+      },
+      "AD": {
+        "total": 150,
+        "Easy": 45,
+        "Medium": 60,
+        "Hard": 45
+      },
+      "AR": {
+        "total": 150,
+        "Easy": 45,
+        "Medium": 60,
+        "Hard": 45
+      },
+      "PS": {
+        "total": 150,
+        "Easy": 46,
+        "Medium": 60,
+        "Hard": 44
+      },
+      "RT": {
+        "total": 150,
+        "Easy": 50,
+        "Medium": 60,
+        "Hard": 40
+      }
+    },
+    "200": {
+      "NC": {
+        "total": 200,
+        "Medium": 80,
+        "Easy": 60,
+        "Hard": 60
+      },
+      "MC": {
+        "total": 200,
+        "Medium": 80,
+        "Easy": 60,
+        "Hard": 60
+      },
+      "UI": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "CE": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "PI": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "SR": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "HR": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "EC": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "CF": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "MT": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "AD": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "AR": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "PS": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      },
+      "RT": {
+        "total": 200,
+        "Easy": 60,
+        "Medium": 80,
+        "Hard": 60
+      }
+    }
+  }
+}
