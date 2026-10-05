@@ -107,7 +107,7 @@ node scripts/run/prepare_dataset.js --check || node scripts/run/prepare_dataset.
 
 # 2. 사전 점검
 node scripts/run/run_all.js --dry-run
-node scripts/run/run_item.js qwen3:4b SF --size 50 --limit 3 --try smoke   # 스모크 후 model_test_v4/smoke 삭제
+node scripts/run/run_item.js qwen3:4b NC --size 50 --limit 3 --try smoke   # 스모크 후 model_test_v4/smoke 삭제
 
 # 3. 라운드 — 셋 중 필요한 것
 node scripts/run/run_all.js [--size 200]                  # 모든 모델 × 모든 항목
