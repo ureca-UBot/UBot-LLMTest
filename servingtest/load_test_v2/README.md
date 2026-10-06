@@ -12,11 +12,11 @@
 - 공통 HTTP/1.1 스트리밍, keep-alive 정책, timeout, temperature 0, thinking off, context, 출력 상한, JSON Schema를 적용한다. Ollama NDJSON과 다른 엔진의 Chat SSE는 같은 논리적 출력 계약으로 해석한다. 재시도는 없다.
 - 같은 상위 모델 저장소와 고정 commit을 사용하되 GGUF·AWQ·FP16 형식과 엔진 설정은 후보마다 바꿀 수 있다. 가중치·토크나이저·템플릿의 SHA-256과 검토된 변환 계보를 요구한다. 기존 Thinking-2507 결과는 이 비교에 합치지 않는다.
 - 측정 시간 동안 신규 요청을 허용하고 종료 후 진행 중 요청을 drain한다. 처리량은 측정 구간 안에 완료한 유효 응답만 계산한다. 실패율·지연은 해당 구간에 시작한 요청을 drain까지 포함한다.
-- HTTP 성공과 JSON/근거 ID 계약 통과를 분리한다. 출력 절단, reasoning 노출, 입력 절단 및 입력+출력 예산 초과는 유효 처리량에서 제외한다. 근거 ID 존재 검사는 의미적 정답 판정이 아니다.
+- HTTP 성공과 JSON/근거 ID 계약 통과를 분리한다. 출력 절단, reasoning 노출, 입력 절단 및 입력+출력 예산 초과는 유효 처리량에서 제외한다. 근거 ID 존재 검사는 의미 정답 판정이 아니다.
 - TTFT는 첫 content chunk 기준이다. 네트워크 chunk 간격은 토큰 간격으로 부르지 않는다. 정확한 토큰별 timing과 서버 queue time을 얻지 못하면 `null`로 둔다. 출력 토큰 usage가 없으면 tok/s를 추정하지 않는다.
 - 처리량 정체·P95·실패율 때문에 U 증가를 멈추지 않는다. 프로세스 종료, 연속 timeout(기본 8건), 모니터 기록 실패, 사용자 중단만 안전 중단한다. 측정하지 못한 구간은 `not_measured`로 남긴다.
 
-잠정 기준은 유효 응답 E2E P95 5초 이하, 전체 요청 실패율 1% 이하이다. 운영 요구로 확정한 SLO가 아니다. `screen`은 후보를 좁히는 자료이며, `confirm`은 지정한 모든 U를 180초 × 3회, 회차별 유효 응답 100건 이상으로 확인한다. 의미 품질 자료가 없으면 `C_SLO=null`이다. 높은 U가 표본 부족이어도 낮은 U에서 반복 통과한 `c_performance_lower_bound`는 보존하며, 정확한 지정 구간 최대값은 확정하지 않는다.
+잠정 기준은 유효 응답 E2E P95 5초 이하, 전체 요청 실패율 1% 이하이다. 운영 요구로 확정한 SLO가 아니다. `screen`은 후보를 좁히는 자료이며 `confirm`은 지정한 모든 U를 180초 × 3회, 회차별 유효 응답 100건 이상으로 확인한다. 의미 품질 자료가 없으면 `C_SLO=null`이다. 높은 U가 표본 부족이어도 낮은 U에서 반복 통과한 `c_performance_lower_bound`는 보존하며 정확한 지정 구간 최대값은 확정하지 않는다.
 
 ## 모의 검증 실행
 
@@ -44,23 +44,23 @@ node load_test_v2/scripts/run_benchmark.js --config load_test_v2/results/my-mock
 
 후보·회차가 끝나면 신규 요청을 멈추고 진행 중 요청을 drain한 뒤 연결과 monitor를 닫는다. 소유 컨테이너를 종료·제거하고 Docker 조회에서 실제로 사라졌는지, 서버 포트를 다시 사용할 수 있는지 확인한다. 모의 서버는 소유한 프로세스 handle로 종료하고 exit를 확인한다.
 
-GPU 기준선은 전체 실험 시작 때 한 번 기록하며 매 엔진의 VRAM이 이 동일한 기준으로 복귀해야 한다. 매번 높아진 VRAM을 새 기준선으로 받아들이지 않는다. 단일 GPU의 UUID·이름·총 VRAM이 같고, GPU compute 프로세스가 없고, 사용 VRAM이 기준선 이하인 상태를 **연속 3회** 확인해야 다음 후보를 시작한다. 기본 허용 오차는 **0MiB**, 정리 제한 시간은 30초, 조회 간격은 500ms다. 드라이버의 기본 사용량은 시작 기준선에 포함한다. 초기 기준선은 기본 64MiB의 유휴 상한도 검사하며 `cleanup.max_idle_vram_mib`로 명시한다.
+GPU 기준선은 전체 실험 시작 때 한 번 기록하며 매 엔진의 VRAM이 이 동일한 기준으로 복귀해야 한다. 매번 높아진 VRAM을 새 기준선으로 받아들이지 않는다. 단일 GPU의 UUID·이름·총 VRAM이 같고 GPU compute 프로세스가 없고 사용 VRAM이 기준선 이하인 상태를 **연속 3회** 확인해야 다음 후보를 시작한다. 기본 허용 오차는 **0MiB**, 정리 제한 시간은 30초, 조회 간격은 500ms다. 드라이버의 기본 사용량은 시작 기준선에 포함한다. 초기 기준선은 기본 64MiB의 유휴 상한도 검사하며 `cleanup.max_idle_vram_mib`로 명시한다.
 
-조회 실패·N/A·GPU 식별 변경·남은 PID·VRAM 미복귀·포트 재점유·컨테이너 제거 미확인은 실패다. 해당 회차를 `cleanup_failed`로 바꾸고 성능/품질 합격 자료에서 제외하며 다음 엔진 실행을 중단한다. 확인이 실패한 잠금은 유지한다. 품질 report는 정리 결과를 붙인 뒤 최종 SHA-256을 계산하며, 정리 증거가 없는 기존 품질 승인과 confirm 결과는 재사용할 수 없다.
+조회 실패·N/A·GPU 식별 변경·남은 PID·VRAM 미복귀·포트 재점유·컨테이너 제거 미확인은 실패다. 해당 회차를 `cleanup_failed`로 바꾸고 성능/품질 합격 자료에서 제외하며 다음 엔진 실행을 중단한다. 확인이 실패한 잠금은 유지한다. 품질 report는 정리 결과를 붙인 뒤 최종 SHA-256을 계산하며 정리 증거가 없는 기존 품질 승인과 confirm 결과는 재사용할 수 없다.
 
-정리 대상은 엔진 프로세스에 속한 모델 가중치·KV 캐시·작업 버퍼와 worker 메모리다. RAM의 운영체제 파일 페이지 캐시와 GPU 드라이버 기본 메모리는 별도 항목이며, 프로세스의 모델 상주 상태와 구분한다. 모의 검증의 GPU 해제는 `scope: mock`으로 표시하고 실제 VRAM 검증 자료로 인정하지 않는다.
+정리 대상은 엔진 프로세스에 속한 모델 가중치·KV 캐시·작업 버퍼와 worker 메모리다. RAM의 운영체제 파일 페이지 캐시와 GPU 드라이버 기본 메모리는 별도 항목이며 프로세스의 모델 상주 상태와 구분한다. 모의 검증의 GPU 해제는 `scope: mock`으로 표시하고 실제 VRAM 검증 자료로 인정하지 않는다.
 
 ### Windows 로컬 종료 진단
 
-Windows WDDM은 프로세스별 GPU 메모리가 `N/A`일 수 있고, WSL의 compute 프로세스 조회도 제한된다. 이 환경에서 정식 실행기의 GPU 해제 검사를 통과시키기 위해 빈 PID 목록이나 `N/A`를 0으로 변환하지 않는다. [NVIDIA-SMI 문서](https://docs.nvidia.com/deploy/nvidia-smi/index.html), [CUDA on WSL 문서](https://docs.nvidia.com/cuda/wsl-user-guide/).
+Windows WDDM은 프로세스별 GPU 메모리가 `N/A`일 수 있고 WSL의 compute 프로세스 조회도 제한된다. 이 환경에서 정식 실행기의 GPU 해제 검사를 통과시키려고 빈 PID 목록이나 `N/A`를 0으로 변환하지 않는다. [NVIDIA-SMI 문서](https://docs.nvidia.com/deploy/nvidia-smi/index.html), [CUDA on WSL 문서](https://docs.nvidia.com/cuda/wsl-user-guide/).
 
-`scripts/dev/run_local_cleanup_probe.js`는 이 PC에 이미 준비된 네 엔진·모델을 하나씩 실행하는 별도 종료 진단이다. 실제 추론 2건, 실행 중 컨테이너 프로세스·RAM, Ollama의 `keep_alive=-1` 상주와 `keep_alive=0` unload, 소유 컨테이너 제거·포트 해제를 기록한다. 시작 시 총 VRAM 10개 표본의 범위를 고정하고, 각 엔진 종료 후 그 상한 이하를 3회 연속 관측해야 다음 엔진을 실행한다. 추가 VRAM 허용 오차나 다음 엔진별 기준선 재설정은 없다. 관측 실패는 다음 실행을 차단하고 잠금을 유지한다.
+`scripts/dev/run_local_cleanup_probe.js`는 이 PC에 이미 준비된 네 엔진·모델을 하나씩 실행하는 별도 종료 진단이다. 실제 추론 2건, 실행 중 컨테이너 프로세스·RAM, Ollama의 `keep_alive=-1` 상주와 `keep_alive=0` unload, 소유 컨테이너 제거·포트 해제를 기록한다. 시작 시 총 VRAM 10개 표본의 범위를 고정하고 각 엔진 종료 후 그 상한 이하를 3회 연속 관측해야 다음 엔진을 실행한다. 추가 VRAM 허용 오차나 다음 엔진별 기준선 재설정은 없다. 관측 실패는 다음 실행을 차단하고 잠금을 유지한다.
 
 ```powershell
 node load_test_v2/scripts/dev/run_local_cleanup_probe.js --out load_test_v2/results/새_로컬_종료_진단
 ```
 
-결과의 `lifecycle_verified`와 `vram_return_observed`는 제한적 관측이다. 화면·브라우저 사용량 변화가 잔류를 가릴 수 있어 `strict_gpu_release=unsupported`, `benchmark_eligible=false`를 항상 유지한다. 이 진단은 준비된 GGUF Thinking-2507과 AWQ Qwen3-4B를 사용하므로 엔진 성능 비교, 품질 승인, C_SLO 판정에 재사용하지 않는다. 다운로드·모델 등록·T4 접속은 수행하지 않는다.
+결과의 `lifecycle_verified`와 `vram_return_observed`는 제한된 관측이다. 화면·브라우저 사용량 변화가 잔류를 가릴 수 있어 `strict_gpu_release=unsupported`, `benchmark_eligible=false`를 항상 유지한다. 이 진단은 준비된 GGUF Thinking-2507과 AWQ Qwen3-4B를 사용하므로 엔진 성능 비교, 품질 승인, C_SLO 판정에 재사용하지 않는다. 다운로드·모델 등록·T4 접속은 수행하지 않는다.
 
 ### Ollama 기준 HTTP 완료 8 RPS 탐색
 
@@ -70,13 +70,13 @@ node load_test_v2/scripts/dev/run_local_cleanup_probe.js --out load_test_v2/resu
 
 전체 300문항의 원문과 지문·균형 seed 순환 풀을 사용하며 context 4096, 출력 상한 512, temperature 0, thinking off, 동일 JSON Schema·HTTP/1.1 스트리밍을 유지한다. Ollama·llama.cpp는 이미 캐시된 공식 Qwen3-4B GGUF, Python 엔진은 공식 Qwen3-4B AWQ다. 기존 Thinking-2507 모델 결과와 합치지 않는다. 공식 카드가 같은 base_model을 명시하지만 정확한 upstream 변환 commit의 동일성은 아직 검증되지 않아 정식 계보 승인은 하지 않는다. 가중치 실제 SHA-256은 실행 시 기록한다. [GGUF 공식 카드](https://huggingface.co/Qwen/Qwen3-4B-GGUF/raw/bc640142c66e1fdd12af0bd68f40445458f3869b/README.md), [AWQ 공식 카드](https://huggingface.co/Qwen/Qwen3-4B-AWQ).
 
-Ollama의 임시 태그는 소유 실험 컨테이너 내부에서만 생성하고, 실제 `think:false` 렌더와 적재 상태를 확인한다. 기존 11434 서비스·태그·캐시는 조회만 한다. 각 후보가 끝나면 연결·monitor·소유 컨테이너를 종료하고 컨테이너 제거·포트 반환을 확인한다. 같은 GPU에서 **최초 VRAM 범위의 상한 + 명시한 허용치 이하를 3회 연속** 관측해야 다음 후보를 시작한다. 허용치 기본값은 0 MiB이며, 사용자가 이번 로컬 HTTP 탐색에 승인한 값은 **64 MiB**다. 예를 들어 최초 상한 2252 MiB는 그대로 보존하고 판정 상한만 2316 MiB로 기록한다. 이후 관측값으로 기준선을 높이거나 엔진마다 허용치를 누적하지 않는다. 관측 실패는 잠금을 유지하고 다음 실행을 차단한다.
+Ollama의 임시 태그는 소유 실험 컨테이너 내부에서만 생성하고 실제 `think:false` 렌더와 적재 상태를 확인한다. 기존 11434 서비스·태그·캐시는 조회만 한다. 각 후보가 끝나면 연결·monitor·소유 컨테이너를 종료하고 컨테이너 제거·포트 반환을 확인한다. 같은 GPU에서 **최초 VRAM 범위의 상한 + 명시한 허용치 이하를 3회 연속** 관측해야 다음 후보를 시작한다. 허용치 기본값은 0 MiB이며 사용자가 이번 로컬 HTTP 탐색에 승인한 값은 **64 MiB**다. 예를 들어 최초 상한 2252 MiB는 그대로 보존하고 판정 상한만 2316 MiB로 기록한다. 이후 관측값으로 기준선을 높이거나 엔진마다 허용치를 누적하지 않는다. 관측 실패는 잠금을 유지하고 다음 실행을 차단한다.
 
 ```powershell
 node load_test_v2/scripts/dev/run_local_http_exploration.js --out load_test_v2/results/새_HTTP_8RPS_탐색 --vram-tolerance-mib 64
 ```
 
-정리 미확인으로 중단된 Ollama 측정을 재사용하려면 원래 `report.json`과 **새 결과 디렉터리**를 지정한다. 실행기는 이전 lock의 프로세스 종료, `llm.benchmark.session` label을 가진 모든 컨테이너의 부재, 실험 포트 반환을 확인하고 같은 최초 기준선과 지정 허용치로 새 복구 관측을 수행한다. workload·생성·전송 조건과 가중치 지문이 같고 복구 확인이 통과해야 완료된 Ollama 단계만 재사용해 나머지 후보를 진행한다. 원래 보고서·단계·응답 파일은 변경하지 않는다. 새 디렉터리에 원본 보고서 지문, 이전 lock, 복구 증거와 `original_cleanup_failure`를 보존한다.
+정리 미확인으로 중단된 Ollama 측정을 재사용하려면 원래 `report.json`과 **새 결과 디렉터리**를 지정한다. 실행기는 이전 lock의 프로세스 종료, `llm.benchmark.session` label이 붙은 모든 컨테이너의 부재, 실험 포트 반환을 확인하고 같은 최초 기준선과 지정 허용치로 새 복구 관측을 수행한다. workload·생성·전송 조건과 가중치 지문이 같고 복구 확인이 통과해야 완료된 Ollama 단계만 재사용해 나머지 후보를 진행한다. 원래 보고서·단계·응답 파일은 변경하지 않는다. 새 디렉터리에 원본 보고서 지문, 이전 lock, 복구 증거와 `original_cleanup_failure`를 보존한다.
 
 ```powershell
 node load_test_v2/scripts/dev/run_local_http_exploration.js --out load_test_v2/results/새_HTTP_8RPS_재개 --resume-report load_test_v2/results/http_8rps_20261002_02/report.json --vram-tolerance-mib 64
@@ -110,7 +110,7 @@ node load_test_v2/scripts/dev/run_local_http_exploration.js --out load_test_v2/r
 
 `quality`는 300문항의 답변 원문, 입력 토큰 예산, 스키마/근거/절단 검사를 저장한다. 결과 `quality_report.json`을 후보의 `quality_report:{path,sha256}`에 연결한다. 정식 실행은 전체 300개의 정확한 문항 ID, 요청 원문, 생성 조건, 답변 파일 지문과 통과율을 다시 확인한다. 입력 usage가 없어 전체 context fit을 확인할 수 없으면 품질 gate는 pending이다. 별도 tokenizer로 이를 대체하는 경로는 아직 지원하지 않는다.
 
-의미 검토 결과는 `semantic_gate:{path,sha256}`에 연결한다. 승인 JSON은 `workload_sha256`, `candidate_identity_sha256`, `quality_report_sha256`, `method`(`human` 또는 `gold_answers`), `reviewer`, `rubric`, `passed`, `evaluation:{path,sha256}`를 가진다. 실험 출력의 사실성·status 판단·정보 누락·주입 공격 등을 rubric에 따라 별도로 평가해야 한다. 모델 파일, P, 실행 인자, 공통 생성 조건이 바뀌면 승인 자료를 재사용할 수 없다.
+의미 검토 결과는 `semantic_gate:{path,sha256}`에 연결한다. 승인 JSON에는 `workload_sha256`, `candidate_identity_sha256`, `quality_report_sha256`, `method`(`human` 또는 `gold_answers`), `reviewer`, `rubric`, `passed`, `evaluation:{path,sha256}`가 들어간다. 실험 출력의 사실성·status 판단·정보 누락·주입 공격 등을 rubric에 따라 별도로 평가해야 한다. 모델 파일, P, 실행 인자, 공통 생성 조건이 바뀌면 승인 자료를 재사용할 수 없다.
 
 ```powershell
 node load_test_v2/scripts/run_benchmark.js --config load_test_v2/config/engines.local.json --phase screen
