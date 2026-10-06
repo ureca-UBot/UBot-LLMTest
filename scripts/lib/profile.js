@@ -8,7 +8,8 @@
 // 어떤 테스트·try를 쓸지는 환경변수로 고른다. 진입 스크립트는 --test/--try 인자를
 // 받아 applyCliSelectors()로 환경변수에 옮기고, 하위 프로세스는 그 값을 물려받는다.
 //
-//   LLM_TEST=v4 (또는 model_test_v4)   미설정 시 test.config.js가 있는 가장 높은 버전
+//   LLM_TEST=v4 (또는 model_test_v4, 또는 test.config.js가 있는 루트 폴더 이름)
+//                                      미설정 시 test.config.js가 있는 가장 높은 버전
 //   LLM_TEST_TRY=try1                  미설정 시 config.defaultTry
 //
 // 모든 결과 경로는 README 4-2절 구조를 따른다.
@@ -36,8 +37,11 @@ function versionDirs() {
 function resolveVersionDir() {
   const requested = process.env.LLM_TEST;
   if (requested) {
-    const name = requested.startsWith('model_test_') ? requested : `model_test_${requested}`;
-    assertSafe('LLM_TEST', name);
+    // 'v4' -> model_test_v4. 저장소 루트에 test.config.js가 있는 폴더 이름을 그대로 줘도 된다
+    // (예: --test tset_4_llm_test — 버전 설정을 상속한 별도 실험 폴더).
+    assertSafe('LLM_TEST', requested);
+    const asIs = fs.existsSync(path.join(ROOT, requested, CONFIG_NAME));
+    const name = asIs || requested.startsWith('model_test_') ? requested : `model_test_${requested}`;
     if (!fs.existsSync(path.join(ROOT, name, CONFIG_NAME))) {
       throw new Error(`${name}/${CONFIG_NAME}이 없습니다. 공통 엔진은 test.config.js가 있는 버전(v4~)만 실행합니다.`);
     }

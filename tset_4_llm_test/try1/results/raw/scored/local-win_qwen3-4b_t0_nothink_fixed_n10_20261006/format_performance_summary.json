@@ -1,0 +1,453 @@
+{
+  "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n10_20261006",
+  "all_rows": {
+    "n": 140,
+    "format_success_rate": 1,
+    "key_order_expected": [
+      "evidence_ids",
+      "status",
+      "answer"
+    ],
+    "key_order_rate": 1,
+    "key_order_counts": {
+      "evidence_ids>status>answer": 140
+    },
+    "generation_error_count": 0,
+    "timeout_count": 0,
+    "timeout_rate": 0,
+    "latency_ms": {
+      "avg": 1698.7714285714285,
+      "p50": 1388,
+      "p95": 3646,
+      "max": 6726
+    },
+    "tps_avg": 81.73620103960198,
+    "output_tokens_avg": 132.02857142857144,
+    "vram_mib": {
+      "avg": 4263.221428571429,
+      "max": 4324
+    }
+  },
+  "independent": {
+    "n": 130,
+    "format_success_rate": 1,
+    "key_order_expected": [
+      "evidence_ids",
+      "status",
+      "answer"
+    ],
+    "key_order_rate": 1,
+    "key_order_counts": {
+      "evidence_ids>status>answer": 130
+    },
+    "generation_error_count": 0,
+    "timeout_count": 0,
+    "timeout_rate": 0,
+    "latency_ms": {
+      "avg": 1731.5153846153846,
+      "p50": 1475,
+      "p95": 3646,
+      "max": 6726
+    },
+    "tps_avg": 81.62522250615406,
+    "output_tokens_avg": 134.33846153846153,
+    "vram_mib": {
+      "avg": 4259.138461538461,
+      "max": 4324
+    }
+  },
+  "by_item": {
+    "NC": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1525,
+        "p50": 1502,
+        "p95": 2727,
+        "max": 2727
+      },
+      "tps_avg": 80.40785557765334,
+      "output_tokens_avg": 114.7,
+      "vram_mib": {
+        "avg": 4164.6,
+        "max": 4166
+      }
+    },
+    "MC": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 2216.5,
+        "p50": 2132,
+        "p95": 3670,
+        "max": 3670
+      },
+      "tps_avg": 80.45043852866289,
+      "output_tokens_avg": 171.9,
+      "vram_mib": {
+        "avg": 4166,
+        "max": 4166
+      }
+    },
+    "UI": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 2617.2,
+        "p50": 2528,
+        "p95": 6726,
+        "max": 6726
+      },
+      "tps_avg": 81.77254765537354,
+      "output_tokens_avg": 205.9,
+      "vram_mib": {
+        "avg": 4229.7,
+        "max": 4272
+      }
+    },
+    "CE": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 2179,
+        "p50": 2057,
+        "p95": 5462,
+        "max": 5462
+      },
+      "tps_avg": 82.3603230360441,
+      "output_tokens_avg": 173.1,
+      "vram_mib": {
+        "avg": 4262.4,
+        "max": 4268
+      }
+    },
+    "PI": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1706.2,
+        "p50": 1524,
+        "p95": 3127,
+        "max": 3127
+      },
+      "tps_avg": 80.67436524087755,
+      "output_tokens_avg": 131.1,
+      "vram_mib": {
+        "avg": 4254,
+        "max": 4254
+      }
+    },
+    "SR": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1241.6,
+        "p50": 1269,
+        "p95": 2099,
+        "max": 2099
+      },
+      "tps_avg": 81.33318893484925,
+      "output_tokens_avg": 94.3,
+      "vram_mib": {
+        "avg": 4254,
+        "max": 4254
+      }
+    },
+    "HR": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1181.2,
+        "p50": 1133,
+        "p95": 1566,
+        "max": 1566
+      },
+      "tps_avg": 79.55132826982666,
+      "output_tokens_avg": 88.4,
+      "vram_mib": {
+        "avg": 4254.8,
+        "max": 4258
+      }
+    },
+    "EC": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1159.2,
+        "p50": 1181,
+        "p95": 1916,
+        "max": 1916
+      },
+      "tps_avg": 84.22358273888632,
+      "output_tokens_avg": 93.9,
+      "vram_mib": {
+        "avg": 4255.1,
+        "max": 4260
+      }
+    },
+    "CF": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 3271.5,
+        "p50": 3638,
+        "p95": 4165,
+        "max": 4165
+      },
+      "tps_avg": 81.19164432456127,
+      "output_tokens_avg": 255,
+      "vram_mib": {
+        "avg": 4296.4,
+        "max": 4324
+      }
+    },
+    "MT": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1555.8,
+        "p50": 1329,
+        "p95": 3157,
+        "max": 3157
+      },
+      "tps_avg": 82.80428582706818,
+      "output_tokens_avg": 121.9,
+      "vram_mib": {
+        "avg": 4309.8,
+        "max": 4313
+      }
+    },
+    "AD": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 985.7,
+        "p50": 1071,
+        "p95": 1307,
+        "max": 1307
+      },
+      "tps_avg": 81.95426803201539,
+      "output_tokens_avg": 74.5,
+      "vram_mib": {
+        "avg": 4305.8,
+        "max": 4308
+      }
+    },
+    "AR": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1643.8,
+        "p50": 1645,
+        "p95": 2635,
+        "max": 2635
+      },
+      "tps_avg": 81.95672962305858,
+      "output_tokens_avg": 127,
+      "vram_mib": {
+        "avg": 4307.4,
+        "max": 4310
+      }
+    },
+    "PS": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1227,
+        "p50": 1187,
+        "p95": 1763,
+        "max": 1763
+      },
+      "tps_avg": 82.44733479112543,
+      "output_tokens_avg": 94.7,
+      "vram_mib": {
+        "avg": 4308.8,
+        "max": 4310
+      }
+    },
+    "RT": {
+      "n": 10,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 10
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1273.1,
+        "p50": 1254,
+        "p95": 1367,
+        "max": 1367
+      },
+      "tps_avg": 83.1789219744248,
+      "output_tokens_avg": 102,
+      "vram_mib": {
+        "avg": 4316.3,
+        "max": 4319
+      }
+    }
+  }
+}
