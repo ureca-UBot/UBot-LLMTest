@@ -10,6 +10,8 @@
 | `ollama/thinking_2507/` | 이전 `qwen3:4b` Thinking-2507 Ollama 저장소 | 2.326 GiB |
 | `ollama/qwen3_4b_classic/` | Qwen3-4B classic GGUF를 등록했던 Ollama 실험 저장소 | 2.326 GiB |
 
+2026-10-06 모델 확장 측정에서 받은 EXAONE 3.5 7.8B(GGUF·AWQ)와 Gemma3 4B(GGUF·커뮤니티 AWQ 형식·비양자화 BF16) 파일은 `multimodel/`에 저장소별 폴더로 있다(약 24 GiB). Hub 캐시 구조가 아니라 파일을 그대로 둔 형태이고 저장소·revision·해시는 [로컬 모델 확장 결과지](../local/reports/LOCAL_MULTIMODEL_RESULTS_20261006.md)에 있다. Qwen3-8B·Qwen3-14B는 L4 서버에서만 받았고 측정 뒤 지웠다.
+
 Qwen3-4B classic과 Thinking-2507은 다른 체크포인트이므로 같은 성능 비교에 섞지 않는다. BF16·AWQ·GGUF는 캐시의 원래 하위 구조를 보존했다. Hugging Face의 `snapshots`와 저장소별 `blobs`에는 WSL 링크가 있으며 Windows에서 0바이트로 표시될 수 있다. 실제 데이터는 `huggingface/hub/blobs` 아래에 있다. 링크만 따로 옮기지 말고 캐시 전체를 유지해야 한다.
 
 실행 경로는 `load_test_v2/scripts/dev/model_assets.js`에서 관리한다. 후보의 host mount 원본만 새 경로로 바꿨으며 `/hf`, `/root/.cache/huggingface`, `/models` 같은 컨테이너 내부 경로는 기존 정의를 사용한다. HTTP 탐색의 임시 Ollama 모델은 계속 소유 컨테이너 내부에 생성한다.

@@ -1,22 +1,25 @@
 # LLM 서빙 엔진 실험
 
-로컬 RTX 3060, NVIDIA T4, NVIDIA L4에서 수행한 서빙 엔진 비교 자료다.
+로컬 RTX 3060, NVIDIA T4, NVIDIA L4에서 수행한 서빙 엔진 비교 자료다. 기준 모델은 Qwen3-4B이고 2026-10-06에 EXAONE 3.5 7.8B·Gemma3 4B·Qwen3-8B·Qwen3-14B를 같은 조건으로 추가했다.
 
 | 폴더 | 용도 |
 |---|---|
 | [local](local/README.md) | 로컬 실험·모의 검증 결과 |
 | [t4](t4/README.md) | T4 결과지·원시 로그·전달 자료 |
-| [l4](l4/README.md) | L4 기본 비교·상한 확대·질문 다양화 |
+| [l4](l4/README.md) | L4 기본 비교·상한 확대·질문 다양화·모델 확장 |
 | [tools](tools/README.md) | 분석·클라우드 준비·유지보수 도구 |
 | [docs](docs/README.md) | 실험 결론과 설계 문서 |
 | [load_test_v1](load_test_v1/ENGINES.md) | 보존한 기존 실행기 |
 | [load_test_v2](load_test_v2/README.md) | 공통 조건과 메모리 정리를 적용한 실행기 |
+| [load_test_multimodel](load_test_multimodel/run_local_multimodel.js) | v2 라이브러리로 다른 모델을 재는 탐색용 실행기 |
 | [model_assets](model_assets/README.md) | 모델 버전·캐시 메타데이터·정리 기록 |
 | [archive](archive/README.md) | 복구용 사본·저장소 백업·이전 정리 기록 |
 
 ## 바로 확인할 자료
 
 - [전체 실험 결론](docs/CONCLUSIONS.md)
+- [L4 모델 확장 결과: EXAONE·Gemma·Qwen3-8B·14B](l4/reports/L4_MULTIMODEL_RESULTS_20261006.md)
+- [로컬 모델 확장 결과: EXAONE·Gemma](local/reports/LOCAL_MULTIMODEL_RESULTS_20261006.md)
 - [최근 L4 상한 확대·질문 다양화 결과](l4/reports/L4_EXPANSION_RESULTS_20261003.md)
 - [L4 기본 비교 결과](l4/reports/L4_SERVING_RESULTS_20261003.md)
 - [T4 기본 비교 결과](t4/reports/T4_SERVING_RESULTS_20261002.md)
