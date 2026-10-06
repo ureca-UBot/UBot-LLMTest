@@ -8,7 +8,7 @@
 - 검증 폴더: `.repro-state/validation/20261003_script_only/workspace`.
 - 과거 고정 소스 47개와 새 재현 파일 10개만 복사했다. 시작 시 모델 폴더·TAR는 없었다.
 - `plan --engine all`, `doctor`, `prepare --engine all`을 순서대로 실제 실행했다.
-- 기존 Docker 이미지 레이어는 재사용됐다. 네 공개 digest의 레지스트리 조회와 `pull`은 성공했지만, 모든 레이어를 빈 Docker 저장소에 새로 다운로드하는 검증은 아니다.
+- 기존 Docker 이미지 레이어는 재사용됐다. 네 공개 digest의 레지스트리 조회와 `pull`은 성공했지만 모든 레이어를 빈 Docker 저장소에 새로 다운로드하는 검증은 아니다.
 
 ## 결과
 
@@ -49,7 +49,7 @@ vLLM은 GPU 없이 `--help`를 실행하면 장치 종류 추론에 실패했다
 
 ## 아직 확인하지 않은 범위
 
-Windows에서 `start --engine ollama --hardware local`은 Linux에서 실행하라는 오류로 시작 전에 거부됐고, 서버 활성 상태를 만들지 않았다. 현재 로컬 GPU는 다른 Windows 프로그램이 사용 중이며 0MiB 기준도 만족하지 않는다. Linux 호스트에서 실제 모델 로드·HTTP 응답·순차 시작/종료·동일 GPU UUID의 0MiB 및 compute PID 없음 3회 연속 확인은 후속 검증이 필요하다. 드라이버·NVIDIA Container Toolkit·Docker·Python이 없는 서버에 이 시스템 의존성까지 자동 설치한다는 뜻은 아니다.
+Windows에서 `start --engine ollama --hardware local`은 Linux에서 실행하라는 오류로 시작 전에 거부됐고 서버 활성 상태를 만들지 않았다. 현재 로컬 GPU는 다른 Windows 프로그램이 사용 중이며 0MiB 기준도 만족하지 않는다. Linux 호스트에서 실제 모델 로드·HTTP 응답·순차 시작/종료·동일 GPU UUID의 0MiB 및 compute PID 없음 3회 연속 확인은 후속 검증이 필요하다. 드라이버·NVIDIA Container Toolkit·Docker·Python이 없는 서버에 이 시스템 의존성까지 자동 설치한다는 뜻은 아니다.
 
 ## 증거 파일
 
@@ -64,4 +64,4 @@ Windows에서 `start --engine ollama --hardware local`은 Linux에서 실행하�
 
 ## 검증 이후 자산 정리 (2026-10-03)
 
-사용자 요청으로 이미지·모델 TAR와 캐시의 가중치, 검증용 다운로드 사본을 삭제했다. 이 문서의 성공 결과는 삭제 전 검증 시점의 기록이며, 검증 로그·패키지 inventory·SHA 영수증은 유지했다. 다운로드 모델의 설정·토크나이저·준비 영수증 사본은 `.repro-state/validation/20261003_script_only/model-metadata-after-cleanup`에 남겼다. 실제 가중치는 다시 `prepare --engine all`로 받아야 한다. 과거 완성 SGLang TAR도 삭제했으므로 부가 패키지 차이가 기록된 새 재현 환경을 사용한다.
+사용자 요청으로 이미지·모델 TAR와 캐시의 가중치, 검증용 다운로드 사본을 삭제했다. 이 문서의 성공 결과는 삭제 전 검증 시점의 기록이며 검증 로그·패키지 inventory·SHA 영수증은 유지했다. 다운로드 모델의 설정·토크나이저·준비 영수증 사본은 `.repro-state/validation/20261003_script_only/model-metadata-after-cleanup`에 남겼다. 실제 가중치는 다시 `prepare --engine all`로 받아야 한다. 과거 완성 SGLang TAR도 삭제했으므로 부가 패키지 차이가 기록된 새 재현 환경을 사용한다.

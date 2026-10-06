@@ -14,4 +14,4 @@ Qwen3-4B classic과 Thinking-2507은 다른 체크포인트이므로 같은 성�
 
 실행 경로는 `load_test_v2/scripts/dev/model_assets.js`에서 관리한다. 후보의 host mount 원본만 새 경로로 바꿨으며 `/hf`, `/root/.cache/huggingface`, `/models` 같은 컨테이너 내부 경로는 기존 정의를 사용한다. HTTP 탐색의 임시 Ollama 모델은 계속 소유 컨테이너 내부에 생성한다.
 
-이동 전후 경로와 파일별 크기·수정 시각·속성은 `relocation_manifest.json`에 기록했다. Linux에서의 링크·가중치 검사 결과는 `link_verification.json`이다. 과거 측정 결과와 보고서는 당시 경로·SHA-256을 유지하며, 현재 파일 위치를 찾을 때 이 이동 기록을 사용한다. 이 폴더의 Ollama 저장소에는 서버 식별 키가 포함돼 있으므로 소스 코드 공유용 파일 묶음에 포함하지 않는다.
+이동 전후 경로와 파일별 크기·수정 시각·속성은 `relocation_manifest.json`에 기록했다. Linux에서 한 링크·가중치 검사 결과는 `link_verification.json`이다. 과거 측정 결과와 보고서는 당시 경로·SHA-256을 유지하며 현재 파일 위치를 찾을 때 이 이동 기록을 사용한다. 이 폴더의 Ollama 저장소에는 서버 식별 키가 포함돼 있으므로 소스 코드 공유용 파일 묶음에 포함하지 않는다.

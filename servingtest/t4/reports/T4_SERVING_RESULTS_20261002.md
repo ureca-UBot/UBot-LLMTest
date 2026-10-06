@@ -19,7 +19,7 @@ vLLM P32와 SGLang P32는 같은 U64에서 59건과 58건을 완료했다. 평�
 
 llama.cpp의 실패 117건은 모두 재사용 소켓의 빠른 `socket hang up`이다. 현재 0.9667 RPS를 안정적인 성능 우위로 해석하지 않는다. 다른 후보의 HTTP 완료 실패는 0건이다.
 
-모든 엔진에서 소유 컨테이너·worker 종료와 포트 반환을 확인하고, 같은 GPU에서 처음 고정한 VRAM 0 MiB·오차 0·compute PID 없음 상태를 연속 3회 확인했다. 기존 네 서비스는 유지했고 Docker 재시작·디스크 포맷·Git 커밋·push는 하지 않았다.
+모든 엔진에서 소유 컨테이너·worker 종료와 포트 반환을 확인하고 같은 GPU에서 처음 고정한 VRAM 0 MiB·오차 0·compute PID 없음 상태를 연속 3회 확인했다. 기존 네 서비스는 유지했고 Docker 재시작·디스크 포맷·Git 커밋·push는 하지 않았다.
 
 이 결과는 관측한 여섯 설정의 HTTP 완료 탐색이다. 최적 설정·지속 도착률·SLO 동시성·정확한 GGUF/AWQ 변환 계보를 확정하지 않으며 `formal_benchmark_eligible=false`, `c_slo=null`, `lambda_slo=null`이다.
 

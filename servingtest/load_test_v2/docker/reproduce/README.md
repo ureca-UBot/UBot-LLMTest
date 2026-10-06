@@ -48,7 +48,7 @@ python3 load_test_v2/docker/reproduce/reproduce.py stop
 
 `--limit 32` 등으로 선택 엔진의 내부 상한만 바꾼다. llama.cpp의 전체 context는 상한 × 4096, SGLang CUDA graph max batch는 같은 상한으로 맞춘다. 기존 조건인 context 4096, AWQ FP16, vLLM VRAM 0.8, SGLang VRAM 0.7·Triton attention·PyTorch sampling을 사용한다. 프리셋은 관측한 후보 설정이며 모든 GPU에서 최적이라는 뜻은 아니다.
 
-스크립트는 한 엔진만 시작하고, 다른 활성 세션이나 GPU compute PID/VRAM 사용이 있으면 거부한다. 종료 시 이 프로젝트 소유 컨테이너만 제거하고 동일 GPU UUID의 **0MiB·compute PID 없음**을 연속 세 번 확인한다. 확인이 실패하면 활성 상태를 남겨 다음 시작을 막는다. 모델·이미지·Python named volume의 디스크 캐시는 유지한다.
+스크립트는 한 엔진만 시작하고 다른 활성 세션이나 GPU compute PID/VRAM 사용이 있으면 거부한다. 종료 시 이 프로젝트 소유 컨테이너만 제거하고 동일 GPU UUID의 **0MiB·compute PID 없음**을 연속 세 번 확인한다. 확인이 실패하면 활성 상태를 남겨 다음 시작을 막는다. 모델·이미지·Python named volume의 디스크 캐시는 유지한다.
 
 ## 구성과 기록
 

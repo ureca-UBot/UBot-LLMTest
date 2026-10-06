@@ -27,7 +27,7 @@
 
 ## 클라우드에서 환경 재현
 
-[서빙 환경 재현 안내](load_test_v2/docker/reproduce/README.md)에 공개 이미지 다운로드, 모델 준비, SGLang 의존성 설치와 네 엔진의 Compose 설정이 있다. Docker 이미지 빌드·TAR 없이 준비하고, 한 엔진씩 실행·종료하며 GPU 메모리 해제를 확인한다.
+[서빙 환경 재현 안내](load_test_v2/docker/reproduce/README.md)에 공개 이미지 다운로드, 모델 준비, SGLang 의존성 설치와 네 엔진의 Compose 설정이 있다. Docker 이미지 빌드·TAR 없이 준비하고 한 엔진씩 실행·종료하며 GPU 메모리 해제를 확인한다.
 
 [스크립트 실제 검증 결과](docs/SCRIPT_REPRODUCTION_VERIFICATION_20261003.md)에서 TAR·기존 모델 캐시 없는 준비 성공, 실제 의존성 버전 차이와 미검증 GPU 추론 범위를 확인할 수 있다.
 
