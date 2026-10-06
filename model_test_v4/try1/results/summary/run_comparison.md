@@ -1,7 +1,7 @@
 # run 비교 — model_test_v4/try1
 
 > 자동 생성(`scripts/docgen/compare_runs.js`) — 손으로 고치지 마세요. 전체 지표는 독립 표본(반복 항목 제외) 기준, 반복 항목은 별도 열.
-> 생성 2026-10-06T07:45:55.332Z · LLM Judge 배치: v4-try1-n200
+> 생성 2026-10-06T07:48:58.097Z · LLM Judge 배치: v4-try1-n200
 
 ## t0_nothink · fixed · 항목당 200건 · v4_base
 

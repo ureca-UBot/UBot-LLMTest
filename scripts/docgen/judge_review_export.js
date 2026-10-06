@@ -1,12 +1,20 @@
 'use strict';
-// LLM Judge 사람 검토용 문서: 문항 1개 = 블록 1개. 제공 내역(질문·대화 이력·Context·정답 예시·기대 상태) →
+// LLM Judge 검토 문서(review): 문항 1개 = 블록 1개. 제공 내역(질문·대화 이력·Context·정답 예시·기대 상태) →
 // 상담봇 답변(상태·근거·답변) → LLM Judge(판정·reason·특이사항)를 묶어 보여 주고, 사람 평가 칸을 붙인다.
-// 같은 문항의 accuracy·safety·persona 판정은 한 블록에 모은다. Judge 판정 자체를 평가할 때 쓴다.
+// 같은 문항의 accuracy·safety·persona 판정은 한 블록에 모은다. 모델 × 항목마다 파일 하나로 나눈다.
 // 판정 단계(judge_run.js)의 산출물을 읽기만 한다 — 판정 결과를 바꾸지 않는다.
 //
-//   llm_judge/<batch>_human_review.md
+//   llm_judge/review/<batch>/index.md                     모델 × 항목 목차(문항·정답·환각·status 불일치 수)
+//   llm_judge/review/<batch>/<모델>_<항목>_review.md       예) gemma3-4b_NC_review.md
+//   llm_judge/review/<batch>/<filter>/...                  --filter를 줬을 때(해당 문항만, 같은 구조)
 //
-// Usage: node scripts/docgen/judge_review_export.js --batch <id> [--test v4] [--try try1]
+// --filter
+//   correct-hallucinated  정확도 CORRECT인데 환각 주장(hallucinated_claims)이 있는 문항
+//                         (= 근거 점수 1~3 · is_grounded false — 스키마 교차 검증으로 셋이 같다)
+//   abstain-label-correct 상담봇 status 라벨은 ABSTAIN인데 본문은 답을 냈고(Judge content_stance ANSWER/PARTIAL)
+//                         정확도 CORRECT인 문항 — 라벨만 보류로 잘못 단 경우
+//
+// Usage: node scripts/docgen/judge_review_export.js --batch <id> [--filter <이름>] [--test v4] [--try try1]
 
 const fs = require('fs');
 const path = require('path');
@@ -18,6 +26,19 @@ const { readAll } = require('../lib/jsonl');
 const { loadCases, itemOrder, itemName } = require('../lib/dataset');
 
 const KINDS = ['accuracy', 'safety', 'persona'];
+
+// 문항 선택 필터: (판정 모음 judged.get(key), 채점 작업 job) -> boolean
+const FILTERS = {
+  'correct-hallucinated': {
+    label: '정답(CORRECT)인데 환각 주장이 있는 문항',
+    test: (j) => j.accuracy?.accuracy?.verdict === 'CORRECT' && j.accuracy.hallucination.hallucinated_claims.length > 0,
+  },
+  'abstain-label-correct': {
+    label: '상담봇 status는 ABSTAIN인데 본문은 실제로 답해(ANSWER/PARTIAL) 정답(CORRECT)인 문항',
+    test: (j, job) => job.response_status === 'ABSTAIN' && j.accuracy?.accuracy?.verdict === 'CORRECT'
+      && ['ANSWER', 'PARTIAL'].includes(j.accuracy.behavior.content_stance),
+  },
+};
 const KIND_LABEL = { accuracy: '정확도', safety: '안전성', persona: '페르소나' };
 
 // 코드 블록 안에 ```가 들어 있어도 깨지지 않도록 더 긴 펜스를 쓴다.
@@ -75,6 +96,8 @@ function judgeView(kind, r) {
 function main() {
   const { opts } = parseRunArgs(argv);
   if (!opts.batch) throw new Error('--batch <id>가 필요합니다.');
+  const filter = opts.filter ? FILTERS[opts.filter] : null;
+  if (opts.filter && !filter) throw new Error(`알 수 없는 --filter: ${opts.filter} (가능: ${Object.keys(FILTERS).join(', ')})`);
   const { paths, repoRel, label } = profile.load();
   const inputsDir = paths.judgeInputsDir(opts.batch);
   const manifest = JSON.parse(fs.readFileSync(path.join(inputsDir, 'manifest.json'), 'utf8'));
@@ -109,46 +132,74 @@ function main() {
   const order = itemOrder();
   // 아직 판정 결과가 하나도 없는 문항(Judge 진행 중·중단)은 뺀다 — 진행된 판정만 검토한다.
   const allKeys = [...cases.keys()];
-  const keys = allKeys.filter((k) => Object.keys(judged.get(k)).length).sort((a, b) => {
+  const judgedKeys = allKeys.filter((k) => Object.keys(judged.get(k)).length);
+  const keys = judgedKeys.filter((k) => !filter || filter.test(judged.get(k), cases.get(k))).sort((a, b) => {
     const ja = cases.get(a), jb = cases.get(b);
     return order.indexOf(ja.item) - order.indexOf(jb.item) || ja.model_tag.localeCompare(jb.model_tag) || ja.id.localeCompare(jb.id);
   });
   const models = [...new Set(keys.map((k) => cases.get(k).model_tag))].sort();
-  const pending = allKeys.length - keys.length;
-
-  const L = [];
-  L.push(`# LLM Judge 사람 검토 — 배치 \`${opts.batch}\``, '');
-  L.push(`> ${label} · 모델 ${models.join(', ')} · Judge ${manifest.judge.provider}/${manifest.judge.model} (${manifest.judge.reasoning_effort}) · 루브릭 ${manifest.rubric_version}`);
-  if (pending) L.push(`> **부분 결과**: 판정이 진행된 ${keys.length}문항만 싣는다(전체 ${allKeys.length}문항 중 ${pending}문항은 아직 판정 없음).`);
-  L.push('> 정확도 Judge는 **상담봇 답변 문장만** 보고 판정한다 — 상담봇의 상태·근거(evidence_ids)는 Judge에 주지 않았다(참고용으로만 표시).');
-  L.push('> 각 문항 끝의 "사람 평가"에 Judge 판정 동의 여부를 체크한다.', '');
-
-  // 목차: 항목 × 모델별 문항 수와 Judge 정답 수
-  L.push('## 목차', '', `| 항목 | ${models.map((m) => `${m} 문항 / Judge 정답`).join(' | ')} |`, `|---|${models.map(() => '---').join('|')}|`);
-  for (const code of order) {
-    const ks = keys.filter((k) => cases.get(k).item === code);
-    if (!ks.length) continue;
-    const cells = models.map((m) => {
-      const mk = ks.filter((k) => cases.get(k).model_tag === m);
-      const correct = mk.filter((k) => judged.get(k).accuracy?.accuracy?.verdict === 'CORRECT').length;
-      return mk.length ? `${mk.length} / ${correct}` : '-';
-    });
-    L.push(`| [${code} ${itemName(code)}](#${code.toLowerCase()}) | ${cells.join(' | ')} |`);
+  const pending = allKeys.length - judgedKeys.length;
+  const outDir = path.join(paths.llmJudgeDir, 'review', opts.batch, ...(filter ? [opts.filter] : []));
+  fs.mkdirSync(outDir, { recursive: true });
+  const header = (title) => {
+    const H = [`# ${title}`, ''];
+    H.push(`> ${label} · 배치 \`${opts.batch}\` · Judge ${manifest.judge.provider}/${manifest.judge.model} (${manifest.judge.reasoning_effort}) · 루브릭 ${manifest.rubric_version}`);
+    if (pending) H.push(`> **부분 결과**: 판정이 진행된 ${judgedKeys.length}문항 기준(전체 ${allKeys.length}문항 중 ${pending}문항은 아직 판정 없음).`);
+    if (filter) H.push(`> **필터**: ${filter.label}.`);
+    H.push('> 정확도 Judge는 **상담봇 답변 문장만** 보고 판정한다 — 상담봇의 상태·근거(evidence_ids)는 Judge에 주지 않았다(참고용으로만 표시).');
+    return H;
+  };
+  // 파일 묶음: 모델 × 항목 하나 = 파일 하나
+  const groups = [];
+  for (const m of models) {
+    for (const code of order) {
+      const ks = keys.filter((k) => cases.get(k).model_tag === m && cases.get(k).item === code);
+      if (ks.length) groups.push({ model: m, code, keys: ks, file: `${modelSlug(m)}_${code}_review.md` });
+    }
   }
-  L.push('');
+  const stat = (ks) => {
+    const acc = ks.map((k) => judged.get(k).accuracy).filter((r) => r && !r.error && !r.unscored);
+    return {
+      n: ks.length, scored: acc.length,
+      correct: acc.filter((r) => r.accuracy.verdict === 'CORRECT').length,
+      hallucinated: acc.filter((r) => r.hallucination.hallucinated_claims.length).length,
+      statusDiff: ks.filter((k) => { const g = generations.get(k); return g?.parsed?.status && g.parsed.status !== byId.get(cases.get(k).id).expectedStatus; }).length,
+    };
+  };
 
-  let currentItem = null;
-  for (const key of keys) {
+  // 목차 파일: 모델 × 항목 표와 파일 링크
+  const I = header(`LLM Judge 검토 목차${filter ? ` — ${filter.label}` : ''}`);
+  I.push('> 모델 × 항목마다 파일 하나다. 칸 = 문항 / Judge 정답 / 환각 / status가 기대와 다름.', '');
+  I.push(`| 항목 | ${models.join(' | ')} |`, `|---|${models.map(() => '---').join('|')}|`);
+  for (const code of order) {
+    const cells = models.map((m) => {
+      const gr = groups.find((x) => x.model === m && x.code === code);
+      if (!gr) return '-';
+      const s = stat(gr.keys);
+      return `[${s.n} / ${s.correct} / ${s.hallucinated} / ${s.statusDiff}](${gr.file})`;
+    });
+    if (cells.some((x) => x !== '-')) I.push(`| ${code} ${itemName(code)} | ${cells.join(' | ')} |`);
+  }
+  fs.writeFileSync(path.join(outDir, 'index.md'), I.join('\n') + '\n', 'utf8');
+
+  for (const gr of groups) {
+    const s = stat(gr.keys);
+    const L = header(`${gr.model} · ${gr.code} ${itemName(gr.code)} — review${filter ? ` (${opts.filter})` : ''}`);
+    L.push(`> 문항 ${s.n} · Judge 정답 ${s.correct}/${s.scored} · 환각 ${s.hallucinated} · status가 기대와 다름 ${s.statusDiff} · [목차](index.md)`);
+    L.push('> 각 문항 끝의 "사람 평가"에 Judge 판정 동의 여부를 체크한다.', '');
+    for (const key of gr.keys) L.push(...caseBlock(key));
+    fs.writeFileSync(path.join(outDir, gr.file), L.join('\n') + '\n', 'utf8');
+  }
+  console.log(`검토 문서 ${keys.length}문항 · ${groups.length}개 파일 -> ${repoRel(outDir)}/ (index.md)`);
+
+  function caseBlock(key) {
+    const L = [];
     const j = cases.get(key);
     const c = byId.get(j.id);
     const g = generations.get(key) || {};
-    if (j.item !== currentItem) {
-      currentItem = j.item;
-      L.push('---', '', `<a id="${j.item.toLowerCase()}"></a>`, `## ${j.item} ${itemName(j.item)}`, '');
-    }
     const roundTag = j.repeat ? ` · ${j.round}회차` : '';
     const accVerdict = judged.get(key).accuracy?.accuracy?.verdict;
-    L.push(`### ${j.id} · ${j.difficulty}${roundTag}${models.length > 1 ? ` · ${j.model_tag}` : ''}${accVerdict ? ` · Judge ${accVerdict}` : ''}`, '');
+    L.push('---', '', `### ${j.id} · ${j.difficulty}${roundTag}${accVerdict ? ` · Judge ${accVerdict}` : ''}`, '');
 
     // 제공 내역
     L.push('#### 제공 내역', '');
@@ -186,12 +237,11 @@ function main() {
     }
 
     L.push('#### 사람 평가', '', '- [ ] Judge 판정에 동의', '- [ ] 동의하지 않음 → 올바른 판정:', '- 메모:', '');
+    return L;
   }
-
-  const outPath = path.join(paths.llmJudgeDir, `${opts.batch}_human_review.md`);
-  fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  fs.writeFileSync(outPath, L.join('\n') + '\n', 'utf8');
-  console.log(`사람 검토 문서 ${keys.length}문항 -> ${repoRel(outPath)}`);
 }
+
+// 파일 이름용 모델 태그: qwen3:4b -> qwen3-4b
+const modelSlug = (tag) => tag.replace(/[:.]/g, '-');
 
 try { main(); } catch (e) { console.error(e.message); process.exit(1); }

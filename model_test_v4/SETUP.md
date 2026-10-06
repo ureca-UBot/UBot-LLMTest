@@ -4,7 +4,7 @@ v4는 **저급 모델 튜닝 전 기준선(레거시)**을 만드는 테스트�
 
 | try | 내용 | 결과 요약 |
 |---|---|---|
-| try1 | (예정) LLM 단독 · Context 고정 · `qwen3:4b` OFF · `gemma3:4b` · 항목당 200건 | `try1/results/all_summary.md` (실행 후 작성) |
+| try1 | 2026-10-05~06 · EC2 Tesla T4(생성) · LLM 단독 · Context 고정 · `qwen3:4b` OFF · `gemma3:4b` · 14개 항목 × 200건 = 5,600응답 · LLM Judge 6,398/6,400 | 정답률 gemma3 65.1% · qwen3 63.0%, 정답+근거+상태 44.4% · 31.3%, 환각률 24.1% · 22.0% — gemma3:4b를 우선 튜닝 후보로 판단. [all_summary](try1/results/all_summary.md) |
 
 ## 1. 테스트 목표와 이전 버전 대비 변경점
 

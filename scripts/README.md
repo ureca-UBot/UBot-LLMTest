@@ -6,8 +6,8 @@ v4부터 모든 테스트는 이 폴더의 스크립트를 공유한다. 버전�
 |---|---|---|
 | `run/` | 준비 · 실행 · 생성 | `setup_env` · `prepare_dataset` · `run_all` · `run_model` · `run_item` · `run_pipeline` · `run_generation` |
 | `score/` | 결정론 채점 | `score_format_performance` · `score_status` · `score_evidence` · `score_answer_similarity` · `score_rag_grounding` · `score_expression_rules` · `score_repeat_consistency` |
-| `judge/` | LLM Judge **판정** | `build_batch_manifest` · `judge_prepare` · `judge_run` |
-| `docgen/` | 결과 **문서 생성** | `build_review_export` · `build_run_report` · `judge_report` · `compare_runs` |
+| `judge/` | LLM Judge **판정** | `build_batch_manifest` · `judge_prepare` · `judge_run` · `merge_call_logs` |
+| `docgen/` | 결과 **문서 생성** | `build_review_export` · `build_run_report` · `judge_report` · `judge_review_export` · `compare_runs` · `build_result_entry` |
 | `lib/` | 공통 모듈 | 경로·설정(`profile`), 데이터(`dataset`), 프롬프트 로더(`prompts`·`prompt_files`), Judge 스키마·provider(`judge/`) 등 |
 
 프롬프트 원문은 스크립트에 두지 않고 저장소 루트 `prompts/`(chatbot·judge·docgen)에 둔다 — `prompts/README.md`.
@@ -72,7 +72,11 @@ node scripts/judge/build_batch_manifest.js --batch <id> [--size N]   # 완료된
 node scripts/judge/judge_prepare.js --batch <id>                     # 채점 입력(외부 호출 없음) -> llm_judge/inputs/<id>/
 node scripts/judge/judge_run.js --batch <id> --confirm-external [--concurrency 8]   # ⚠ 외부 전송(provider 설정에 따름 — v4는 Codex CLI) — 승인 후
 node scripts/docgen/judge_report.js --batch <id>                      # 집계 -> llm_judge/<id>_report.md
+node scripts/docgen/judge_review_export.js --batch <id> [--filter correct-hallucinated|abstain-label-correct]   # 검토 md -> llm_judge/review/<id>/[<filter>/]<모델>_<항목>_review.md + index.md
+node scripts/judge/merge_call_logs.js --batch <id> [--dry-run]       # 옛 형식(호출마다 파일 2개) Codex 호출 로그 -> calls/<kind>.calls.jsonl로 합침
 ```
+
+Codex 호출 로그는 배치·판정 종류마다 `llm_judge/runs/<id>/calls/<kind>.calls.jsonl` 한 파일에 호출 1번 = 1줄로 쌓인다(재개하면 이어 씀). 판정 결과의 `call_log`는 `<파일>#<call_id>`다.
 
 ### 판정 단계와 문서 생성 단계는 스크립트·프롬프트를 섞지 않는다
 
@@ -111,6 +115,7 @@ Judge 종류는 세 가지다.
 
 ```bash
 node scripts/docgen/compare_runs.js [--size N] [--batch <id>]   # -> summary/run_comparison.md · .csv
+node scripts/docgen/build_result_entry.js --batch <id> [--write]  # result.html 데이터셋 항목(<version>-<try>) 생성·갱신 — 지표 키는 v4_ 접두사
 ```
 
 ## 준비

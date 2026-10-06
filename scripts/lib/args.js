@@ -13,8 +13,9 @@ const VALUE_FLAGS = {
   '--kinds': 'kinds',
   '--concurrency': 'concurrency',
   '--runs': 'runs',
+  '--filter': 'filter',
 };
-const BOOL_FLAGS = { '--dry-run': 'dryRun', '--skip-model-check': 'skipModelCheck', '--confirm-external': 'confirmExternal' };
+const BOOL_FLAGS = { '--dry-run': 'dryRun', '--skip-model-check': 'skipModelCheck', '--confirm-external': 'confirmExternal', '--write': 'write' };
 const LIST_OPTS = new Set(['items', 'models', 'kinds', 'runs']);
 const INT_OPTS = new Set(['size', 'limit', 'concurrency']);
 
