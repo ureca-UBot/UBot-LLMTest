@@ -4,9 +4,12 @@
 // 만들지 않는다(README 4-5절). 모델 호출 없음.
 //
 // Usage:
-//   node scripts/docgen/compare_runs.js [--condition C] [--size N] [--runs id1,id2] [--batch <judge batch>]
+//   node scripts/docgen/compare_runs.js [--condition C] [--size N] [--runs id1,id2] [--batch <judge batch>[,<batch2>...]]
 //     [--test v4] [--try try1]
 //   기본: 이 try의 run 중 항목 제한이 없는 run 전부(조건·규모별로 묶어 표를 나눈다).
+//   --batch를 쉼표로 여러 개 주면 run마다 자기가 가진 배치를 쓴다(모델을 나중에 추가해 따로 채점한 경우 —
+//   예: v4-try1-n200,v4-try1-n200-instruct). 이때 배치끼리 루브릭·스키마·Judge 모델·데이터셋이 같아야 하며
+//   (llm_judge/inputs/<batch>/manifest.json으로 확인), 한 run이 지정한 배치를 둘 이상 가지면 멈춘다.
 
 const fs = require('fs');
 const path = require('path');
@@ -27,6 +30,23 @@ const runLabel = (r) => {
   return r.run_info.model_tag + (extra.length ? ` [${extra.join(' · ')}]` : '');
 };
 
+// 여러 배치를 한 표에 놓으려면 판정 조건이 같아야 한다. judge_prepare.js가 남긴 입력 매니페스트로 확인한다.
+function assertComparableBatches(batchIds, paths) {
+  const keyOf = (m) => JSON.stringify({
+    rubric: m.rubric_version, schema: m.schema_version, cases: m.cases_sha256,
+    judge: m.judge && { provider: m.judge.provider, model: m.judge.model, effort: m.judge.reasoning_effort },
+  });
+  const seen = batchIds.map((b) => {
+    const f = path.join(paths.judgeInputsDir(b), 'manifest.json');
+    if (!fs.existsSync(f)) throw new Error(`Judge 입력 매니페스트가 없습니다: ${b} (judge_prepare.js를 먼저 실행)`);
+    return [b, keyOf(JSON.parse(fs.readFileSync(f, 'utf8')))];
+  });
+  const diff = seen.filter(([, k]) => k !== seen[0][1]);
+  if (diff.length) {
+    throw new Error(`판정 조건이 다른 배치는 한 표에 합치지 않습니다:\n${seen.map(([b, k]) => `  ${b}: ${k}`).join('\n')}`);
+  }
+}
+
 function main() {
   const { opts } = parseRunArgs(argv);
   const { paths, config, repoRel, label } = profile.load();
@@ -39,16 +59,30 @@ function main() {
   // Judge 배치는 명시적으로 고른다. 배치가 하나뿐이면 그것을 쓰고, 여럿이면 --batch 없이는 멈춘다
   // (이름순 마지막이 최신이라는 보장이 없어서 엉뚱한 배치를 섞어 비교할 수 있다).
   const allBatches = [...new Set(runs.flatMap((r) => Object.keys(r.judge)))].sort();
-  if (opts.batch && !allBatches.includes(opts.batch)) throw new Error(`이 run들에 없는 Judge 배치: ${opts.batch} (있는 배치: ${allBatches.join(', ') || '없음'})`);
-  if (!opts.batch && allBatches.length > 1) throw new Error(`Judge 배치가 여러 개입니다. --batch로 하나를 고르세요: ${allBatches.join(', ')}`);
-  const batchId = opts.batch || allBatches[0] || null;
-  const judgeOf = (r) => (batchId ? r.judge[batchId] || null : null);
+  const wanted = opts.batch ? String(opts.batch).split(',').map((s) => s.trim()).filter(Boolean) : [];
+  for (const b of wanted) if (!allBatches.includes(b)) throw new Error(`이 run들에 없는 Judge 배치: ${b} (있는 배치: ${allBatches.join(', ') || '없음'})`);
+  if (!wanted.length && allBatches.length > 1) throw new Error(`Judge 배치가 여러 개입니다. --batch로 고르세요(쉼표로 여러 개 가능): ${allBatches.join(', ')}`);
+  const batchIds = wanted.length ? wanted : allBatches.slice(0, 1);
+  if (batchIds.length > 1) assertComparableBatches(batchIds, paths);
+  // run마다 지정한 배치 중 자기가 가진 것 하나를 쓴다.
+  const batchOfRun = new Map(runs.map((r) => {
+    const own = batchIds.filter((b) => r.judge[b]);
+    if (own.length > 1) throw new Error(`${r.run_id}가 지정한 배치를 둘 이상 가집니다(${own.join(', ')}). 하나만 지정하세요.`);
+    return [r.run_id, own[0] || null];
+  }));
+  const judgeOf = (r) => { const b = batchOfRun.get(r.run_id); return b ? r.judge[b] : null; };
+  const batchLabel = batchIds.length ? batchIds.join(', ') : '없음';
 
   const L = [];
   const csvRows = [];
   L.push(`# run 비교 — ${label}`, '');
   L.push('> 자동 생성(`scripts/docgen/compare_runs.js`) — 손으로 고치지 마세요. 전체 지표는 독립 표본(반복 항목 제외) 기준, 반복 항목은 별도 열.');
-  L.push(`> 생성 ${new Date().toISOString()} · LLM Judge 배치: ${batchId || '없음'}`, '');
+  L.push(`> 생성 ${new Date().toISOString()} · LLM Judge 배치: ${batchLabel}`, '');
+  if (batchIds.length > 1) {
+    L.push('> 배치를 여러 개 합쳐 비교한다(루브릭·스키마·Judge 모델·데이터셋이 같음을 확인). run별 배치:');
+    for (const r of runs) L.push(`> - ${runLabel(r)}: \`${batchOfRun.get(r.run_id) || '채점 안 됨'}\``);
+    L.push('');
+  }
 
   const groups = groupBy(runs, (r) => `${r.run_info.condition} · ${r.run_info.context_mode} · 항목당 ${r.run_info.selection.size}건 · ${r.run_info.prompt_variant}`);
   for (const [key, rs] of groups) {

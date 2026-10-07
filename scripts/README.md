@@ -117,7 +117,9 @@ Judge 종류는 세 가지다.
 ## 집계
 
 ```bash
-node scripts/docgen/compare_runs.js [--size N] [--batch <id>]   # -> summary/run_comparison.md · .csv
+node scripts/docgen/compare_runs.js [--size N] [--batch <id>[,<id2>...]]   # -> summary/run_comparison.md · .csv
+#   배치를 쉼표로 여러 개 주면 run마다 자기 배치를 쓴다(모델을 나중에 추가해 따로 채점한 경우).
+#   루브릭·스키마·Judge 모델·데이터셋이 다른 배치는 합치지 않고 멈춘다.
 node scripts/docgen/build_result_entry.js --batch <id> [--write]  # result.html 데이터셋 항목(<version>-<try>) 생성·갱신 — 지표 키는 v4_ 접두사
 node scripts/docgen/compare_variants.js --batch <id> [--base <안>] [--base-from <test>/<try>/<batch>]  # 프롬프트 안 짝 비교 -> llm_judge/<id>_variant_compare.md · .json
 ```
