@@ -1,0 +1,168 @@
+{
+  "batch_id": "v5-try1-n100",
+  "test": "model_test_v5",
+  "try": "try1",
+  "status": "completed",
+  "condition": "t0_nothink",
+  "size": 100,
+  "context_mode": "fixed",
+  "dataset": "test_set4",
+  "cases_sha256": "234780b776898d93d2fa950068504db352890604e94ddeda2b73a9d777c60145",
+  "source_commit": "0d8ee80c08463136205ba07afa4e2e234d68050b",
+  "created_at": "2026-10-07T18:52:23.718Z",
+  "runs": [
+    {
+      "run_id": "ec2-linux_gemma3-4b-it-qat_t0_nothink_fixed_n100_20261007",
+      "model": "gemma3:4b-it-qat",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": null,
+        "format": {
+          "type": "object",
+          "properties": {
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_ids",
+            "status",
+            "answer"
+          ]
+        }
+      },
+      "prompt_variant": "v4_base",
+      "selection": {
+        "size": 100,
+        "items": null,
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 0,
+      "source_path": "model_test_v5/try1/results/raw/ec2-linux_gemma3-4b-it-qat_t0_nothink_fixed_n100_20261007/generation.jsonl",
+      "source_sha256": "6052644f3439fbfa7c4265bb7440b543f0e4625a62d9e0083964a1720d5c5969"
+    },
+    {
+      "run_id": "ec2-linux_qwen3-4b-instruct-2507-q8_0_t0_nothink_fixed_n100_20261007",
+      "model": "qwen3:4b-instruct-2507-q8_0",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": null,
+        "format": {
+          "type": "object",
+          "properties": {
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_ids",
+            "status",
+            "answer"
+          ]
+        }
+      },
+      "prompt_variant": "v4_base",
+      "selection": {
+        "size": 100,
+        "items": null,
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 0,
+      "source_path": "model_test_v5/try1/results/raw/ec2-linux_qwen3-4b-instruct-2507-q8_0_t0_nothink_fixed_n100_20261007/generation.jsonl",
+      "source_sha256": "823eb2037426a8a67659aff5b13423b244686d63394a936276803fde610e6019"
+    },
+    {
+      "run_id": "ec2-linux_qwen3-4b-instruct_t0_nothink_fixed_n100_20261007",
+      "model": "qwen3:4b-instruct",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": null,
+        "format": {
+          "type": "object",
+          "properties": {
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_ids",
+            "status",
+            "answer"
+          ]
+        }
+      },
+      "prompt_variant": "v4_base",
+      "selection": {
+        "size": 100,
+        "items": null,
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 0,
+      "source_path": "model_test_v5/try1/results/raw/ec2-linux_qwen3-4b-instruct_t0_nothink_fixed_n100_20261007/generation.jsonl",
+      "source_sha256": "7219b12066008ac6b14db75d27498c34cf0350a327fe66b7f4536fe5e68e2006"
+    }
+  ]
+}
