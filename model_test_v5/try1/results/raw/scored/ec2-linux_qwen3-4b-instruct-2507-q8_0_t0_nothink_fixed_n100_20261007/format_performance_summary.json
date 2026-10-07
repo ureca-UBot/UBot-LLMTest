@@ -1,0 +1,453 @@
+{
+  "run_id": "ec2-linux_qwen3-4b-instruct-2507-q8_0_t0_nothink_fixed_n100_20261007",
+  "all_rows": {
+    "n": 1400,
+    "format_success_rate": 1,
+    "key_order_expected": [
+      "evidence_ids",
+      "status",
+      "answer"
+    ],
+    "key_order_rate": 0,
+    "key_order_counts": {
+      "answer>evidence_ids>status": 1400
+    },
+    "generation_error_count": 0,
+    "timeout_count": 0,
+    "timeout_rate": 0,
+    "latency_ms": {
+      "avg": 3487.0592857142856,
+      "p50": 3244,
+      "p95": 5976,
+      "max": 11915
+    },
+    "tps_avg": 45.70917575353067,
+    "output_tokens_avg": 151.20357142857142,
+    "vram_mib": {
+      "avg": 5089.872857142857,
+      "max": 10021
+    }
+  },
+  "independent": {
+    "n": 1300,
+    "format_success_rate": 1,
+    "key_order_expected": [
+      "evidence_ids",
+      "status",
+      "answer"
+    ],
+    "key_order_rate": 0,
+    "key_order_counts": {
+      "answer>evidence_ids>status": 1300
+    },
+    "generation_error_count": 0,
+    "timeout_count": 0,
+    "timeout_rate": 0,
+    "latency_ms": {
+      "avg": 3478.9476923076923,
+      "p50": 3272,
+      "p95": 6016,
+      "max": 11915
+    },
+    "tps_avg": 45.705385857230425,
+    "output_tokens_avg": 150.45307692307694,
+    "vram_mib": {
+      "avg": 5107.324615384616,
+      "max": 10021
+    }
+  },
+  "by_item": {
+    "NC": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 3093.53,
+        "p50": 2795,
+        "p95": 5328,
+        "max": 6277
+      },
+      "tps_avg": 45.88571573923146,
+      "output_tokens_avg": 133.14,
+      "vram_mib": {
+        "avg": 8039.22,
+        "max": 10021
+      }
+    },
+    "MC": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 3648.46,
+        "p50": 3432,
+        "p95": 5833,
+        "max": 7157
+      },
+      "tps_avg": 45.78766285317611,
+      "output_tokens_avg": 158.41,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "UI": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 4709.97,
+        "p50": 4339,
+        "p95": 7566,
+        "max": 11915
+      },
+      "tps_avg": 45.5225935193926,
+      "output_tokens_avg": 203.21,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "CE": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 4005.08,
+        "p50": 3859,
+        "p95": 6126,
+        "max": 6601
+      },
+      "tps_avg": 45.74771591172858,
+      "output_tokens_avg": 174.96,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "PI": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 3807.12,
+        "p50": 3819,
+        "p95": 5521,
+        "max": 6006
+      },
+      "tps_avg": 45.707707878668536,
+      "output_tokens_avg": 166.84,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "SR": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 3159.7,
+        "p50": 3077,
+        "p95": 4797,
+        "max": 5180
+      },
+      "tps_avg": 45.7089123805141,
+      "output_tokens_avg": 137.63,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "HR": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 2521.64,
+        "p50": 2559,
+        "p95": 3660,
+        "max": 4428
+      },
+      "tps_avg": 45.76539840196747,
+      "output_tokens_avg": 108.34,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "EC": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 2426.56,
+        "p50": 2297,
+        "p95": 4017,
+        "max": 4983
+      },
+      "tps_avg": 45.99374164273535,
+      "output_tokens_avg": 108.21,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "CF": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 5753.78,
+        "p50": 5181,
+        "p95": 9599,
+        "max": 10718
+      },
+      "tps_avg": 45.32633242416194,
+      "output_tokens_avg": 247.11,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "MT": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 3099.79,
+        "p50": 2721,
+        "p95": 5806,
+        "max": 6703
+      },
+      "tps_avg": 45.72289356071702,
+      "output_tokens_avg": 132.45,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "AD": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 2308.51,
+        "p50": 2198,
+        "p95": 3611,
+        "max": 4196
+      },
+      "tps_avg": 45.777957367313874,
+      "output_tokens_avg": 98.02,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "AR": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 3496.54,
+        "p50": 3527,
+        "p95": 5470,
+        "max": 6088
+      },
+      "tps_avg": 45.59975869824623,
+      "output_tokens_avg": 150.24,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "PS": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 3195.64,
+        "p50": 3008,
+        "p95": 5530,
+        "max": 7328
+      },
+      "tps_avg": 45.62362576614305,
+      "output_tokens_avg": 137.33,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    },
+    "RT": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 0,
+      "key_order_counts": {
+        "answer>evidence_ids>status": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 3592.51,
+        "p50": 3126,
+        "p95": 5476,
+        "max": 6009
+      },
+      "tps_avg": 45.75844440543388,
+      "output_tokens_avg": 160.96,
+      "vram_mib": {
+        "avg": 4863,
+        "max": 4863
+      }
+    }
+  }
+}
