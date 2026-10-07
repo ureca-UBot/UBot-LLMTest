@@ -48,7 +48,7 @@ function main() {
   steps.forEach(([file, name], idx) => {
     console.log(`\n=== ${idx + 1}/${steps.length} ${name} (${file}) ===`);
     const args = stepName(file) === 'run_generation'
-      ? [runId, modelTag, ...toArgs(opts, ['condition', 'size', 'items', 'difficulty', 'limit'])]
+      ? [runId, modelTag, ...toArgs(opts, ['condition', 'size', 'items', 'difficulty', 'limit', 'idsFile'])]
       : [runId];
     const res = spawnSync(process.execPath, [path.join(SCRIPTS_ROOT, file), ...args], { stdio: 'inherit', env });
     if (res.status !== 0) {

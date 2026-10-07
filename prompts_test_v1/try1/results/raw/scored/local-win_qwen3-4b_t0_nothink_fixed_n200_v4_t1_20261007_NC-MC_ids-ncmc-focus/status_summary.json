@@ -1,0 +1,221 @@
+{
+  "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1_20261007_NC-MC_ids-ncmc-focus",
+  "all_rows": {
+    "n": 200,
+    "status_match_rate": 0.89,
+    "label_direction_counts": {
+      "MATCH": 178,
+      "OVER": 0,
+      "UNDER": 22,
+      "CROSS": 0,
+      "NONE": 0
+    },
+    "missing_status_count": 0,
+    "recall_by_expected": {
+      "ANSWER": {
+        "n": 200,
+        "match": 178,
+        "rate": 0.89
+      }
+    },
+    "precision_by_predicted": {
+      "ANSWER": {
+        "n": 178,
+        "match": 178,
+        "rate": 1
+      },
+      "PARTIAL": {
+        "n": 21,
+        "match": 0,
+        "rate": 0
+      },
+      "ABSTAIN": {
+        "n": 1,
+        "match": 0,
+        "rate": 0
+      }
+    },
+    "confusion": {
+      "ANSWER": {
+        "ANSWER": 178,
+        "PARTIAL": 21,
+        "ABSTAIN": 1
+      }
+    },
+    "abstain_detection": {
+      "tp": 0,
+      "fp": 1,
+      "fn": 0,
+      "tn": 199,
+      "precision": 0,
+      "recall": null,
+      "f1": null
+    }
+  },
+  "independent": {
+    "n": 200,
+    "status_match_rate": 0.89,
+    "label_direction_counts": {
+      "MATCH": 178,
+      "OVER": 0,
+      "UNDER": 22,
+      "CROSS": 0,
+      "NONE": 0
+    },
+    "missing_status_count": 0,
+    "recall_by_expected": {
+      "ANSWER": {
+        "n": 200,
+        "match": 178,
+        "rate": 0.89
+      }
+    },
+    "precision_by_predicted": {
+      "ANSWER": {
+        "n": 178,
+        "match": 178,
+        "rate": 1
+      },
+      "PARTIAL": {
+        "n": 21,
+        "match": 0,
+        "rate": 0
+      },
+      "ABSTAIN": {
+        "n": 1,
+        "match": 0,
+        "rate": 0
+      }
+    },
+    "confusion": {
+      "ANSWER": {
+        "ANSWER": 178,
+        "PARTIAL": 21,
+        "ABSTAIN": 1
+      }
+    },
+    "abstain_detection": {
+      "tp": 0,
+      "fp": 1,
+      "fn": 0,
+      "tn": 199,
+      "precision": 0,
+      "recall": null,
+      "f1": null
+    }
+  },
+  "by_item": {
+    "NC": {
+      "n": 100,
+      "status_match_rate": 0.81,
+      "label_direction_counts": {
+        "MATCH": 81,
+        "OVER": 0,
+        "UNDER": 19,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ANSWER": {
+          "n": 100,
+          "match": 81,
+          "rate": 0.81
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 81,
+          "match": 81,
+          "rate": 1
+        },
+        "PARTIAL": {
+          "n": 18,
+          "match": 0,
+          "rate": 0
+        },
+        "ABSTAIN": {
+          "n": 1,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "confusion": {
+        "ANSWER": {
+          "ANSWER": 81,
+          "PARTIAL": 18,
+          "ABSTAIN": 1
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "tn": 99,
+        "precision": 0,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "MC": {
+      "n": 100,
+      "status_match_rate": 0.97,
+      "label_direction_counts": {
+        "MATCH": 97,
+        "OVER": 0,
+        "UNDER": 3,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ANSWER": {
+          "n": 100,
+          "match": 97,
+          "rate": 0.97
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 97,
+          "match": 97,
+          "rate": 1
+        },
+        "PARTIAL": {
+          "n": 3,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "confusion": {
+        "ANSWER": {
+          "ANSWER": 97,
+          "PARTIAL": 3
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 100,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      }
+    }
+  },
+  "independent_by_difficulty": {
+    "Medium": {
+      "n": 76,
+      "status_match_rate": 0.9473684210526315
+    },
+    "Easy": {
+      "n": 63,
+      "status_match_rate": 0.9365079365079365
+    },
+    "Hard": {
+      "n": 61,
+      "status_match_rate": 0.7704918032786885
+    }
+  }
+}

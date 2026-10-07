@@ -1,0 +1,733 @@
+{
+  "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1_20261007_PI-CE-UI-AR-AD-SR-HR-EC-CF",
+  "all_rows": {
+    "n": 900,
+    "status_match_rate": 0.6788888888888889,
+    "label_direction_counts": {
+      "MATCH": 611,
+      "OVER": 56,
+      "UNDER": 217,
+      "CROSS": 16,
+      "NONE": 0
+    },
+    "missing_status_count": 0,
+    "recall_by_expected": {
+      "ANSWER": {
+        "n": 318,
+        "match": 165,
+        "rate": 0.5188679245283019
+      },
+      "PARTIAL": {
+        "n": 161,
+        "match": 64,
+        "rate": 0.39751552795031053
+      },
+      "ABSTAIN": {
+        "n": 338,
+        "match": 314,
+        "rate": 0.9289940828402367
+      },
+      "CONFLICT": {
+        "n": 46,
+        "match": 31,
+        "rate": 0.6739130434782609
+      },
+      "OUT_OF_SCOPE": {
+        "n": 37,
+        "match": 37,
+        "rate": 1
+      }
+    },
+    "precision_by_predicted": {
+      "ANSWER": {
+        "n": 200,
+        "match": 165,
+        "rate": 0.825
+      },
+      "PARTIAL": {
+        "n": 156,
+        "match": 64,
+        "rate": 0.41025641025641024
+      },
+      "ABSTAIN": {
+        "n": 423,
+        "match": 314,
+        "rate": 0.7423167848699763
+      },
+      "CONFLICT": {
+        "n": 78,
+        "match": 31,
+        "rate": 0.3974358974358974
+      },
+      "OUT_OF_SCOPE": {
+        "n": 43,
+        "match": 37,
+        "rate": 0.8604651162790697
+      }
+    },
+    "confusion": {
+      "ANSWER": {
+        "ANSWER": 165,
+        "PARTIAL": 71,
+        "ABSTAIN": 45,
+        "CONFLICT": 37
+      },
+      "PARTIAL": {
+        "ABSTAIN": 64,
+        "PARTIAL": 64,
+        "ANSWER": 33
+      },
+      "ABSTAIN": {
+        "ABSTAIN": 314,
+        "PARTIAL": 8,
+        "OUT_OF_SCOPE": 6,
+        "CONFLICT": 10
+      },
+      "CONFLICT": {
+        "CONFLICT": 31,
+        "PARTIAL": 13,
+        "ANSWER": 2
+      },
+      "OUT_OF_SCOPE": {
+        "OUT_OF_SCOPE": 37
+      }
+    },
+    "abstain_detection": {
+      "tp": 314,
+      "fp": 109,
+      "fn": 24,
+      "tn": 453,
+      "precision": 0.7423167848699763,
+      "recall": 0.9289940828402367,
+      "f1": 0.8252299605781865
+    }
+  },
+  "independent": {
+    "n": 900,
+    "status_match_rate": 0.6788888888888889,
+    "label_direction_counts": {
+      "MATCH": 611,
+      "OVER": 56,
+      "UNDER": 217,
+      "CROSS": 16,
+      "NONE": 0
+    },
+    "missing_status_count": 0,
+    "recall_by_expected": {
+      "ANSWER": {
+        "n": 318,
+        "match": 165,
+        "rate": 0.5188679245283019
+      },
+      "PARTIAL": {
+        "n": 161,
+        "match": 64,
+        "rate": 0.39751552795031053
+      },
+      "ABSTAIN": {
+        "n": 338,
+        "match": 314,
+        "rate": 0.9289940828402367
+      },
+      "CONFLICT": {
+        "n": 46,
+        "match": 31,
+        "rate": 0.6739130434782609
+      },
+      "OUT_OF_SCOPE": {
+        "n": 37,
+        "match": 37,
+        "rate": 1
+      }
+    },
+    "precision_by_predicted": {
+      "ANSWER": {
+        "n": 200,
+        "match": 165,
+        "rate": 0.825
+      },
+      "PARTIAL": {
+        "n": 156,
+        "match": 64,
+        "rate": 0.41025641025641024
+      },
+      "ABSTAIN": {
+        "n": 423,
+        "match": 314,
+        "rate": 0.7423167848699763
+      },
+      "CONFLICT": {
+        "n": 78,
+        "match": 31,
+        "rate": 0.3974358974358974
+      },
+      "OUT_OF_SCOPE": {
+        "n": 43,
+        "match": 37,
+        "rate": 0.8604651162790697
+      }
+    },
+    "confusion": {
+      "ANSWER": {
+        "ANSWER": 165,
+        "PARTIAL": 71,
+        "ABSTAIN": 45,
+        "CONFLICT": 37
+      },
+      "PARTIAL": {
+        "ABSTAIN": 64,
+        "PARTIAL": 64,
+        "ANSWER": 33
+      },
+      "ABSTAIN": {
+        "ABSTAIN": 314,
+        "PARTIAL": 8,
+        "OUT_OF_SCOPE": 6,
+        "CONFLICT": 10
+      },
+      "CONFLICT": {
+        "CONFLICT": 31,
+        "PARTIAL": 13,
+        "ANSWER": 2
+      },
+      "OUT_OF_SCOPE": {
+        "OUT_OF_SCOPE": 37
+      }
+    },
+    "abstain_detection": {
+      "tp": 314,
+      "fp": 109,
+      "fn": 24,
+      "tn": 453,
+      "precision": 0.7423167848699763,
+      "recall": 0.9289940828402367,
+      "f1": 0.8252299605781865
+    }
+  },
+  "by_item": {
+    "UI": {
+      "n": 100,
+      "status_match_rate": 0.51,
+      "label_direction_counts": {
+        "MATCH": 51,
+        "OVER": 7,
+        "UNDER": 42,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ANSWER": {
+          "n": 60,
+          "match": 41,
+          "rate": 0.6833333333333333
+        },
+        "PARTIAL": {
+          "n": 40,
+          "match": 10,
+          "rate": 0.25
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 48,
+          "match": 41,
+          "rate": 0.8541666666666666
+        },
+        "PARTIAL": {
+          "n": 16,
+          "match": 10,
+          "rate": 0.625
+        },
+        "ABSTAIN": {
+          "n": 36,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "confusion": {
+        "ANSWER": {
+          "ANSWER": 41,
+          "PARTIAL": 6,
+          "ABSTAIN": 13
+        },
+        "PARTIAL": {
+          "ABSTAIN": 23,
+          "PARTIAL": 10,
+          "ANSWER": 7
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 36,
+        "fn": 0,
+        "tn": 64,
+        "precision": 0,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "CE": {
+      "n": 100,
+      "status_match_rate": 0.42,
+      "label_direction_counts": {
+        "MATCH": 42,
+        "OVER": 0,
+        "UNDER": 58,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ANSWER": {
+          "n": 100,
+          "match": 42,
+          "rate": 0.42
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 42,
+          "match": 42,
+          "rate": 1
+        },
+        "PARTIAL": {
+          "n": 49,
+          "match": 0,
+          "rate": 0
+        },
+        "ABSTAIN": {
+          "n": 9,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "confusion": {
+        "ANSWER": {
+          "PARTIAL": 49,
+          "ANSWER": 42,
+          "ABSTAIN": 9
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 9,
+        "fn": 0,
+        "tn": 91,
+        "precision": 0,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "PI": {
+      "n": 100,
+      "status_match_rate": 0.45,
+      "label_direction_counts": {
+        "MATCH": 45,
+        "OVER": 14,
+        "UNDER": 41,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "PARTIAL": {
+          "n": 100,
+          "match": 45,
+          "rate": 0.45
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 14,
+          "match": 0,
+          "rate": 0
+        },
+        "PARTIAL": {
+          "n": 45,
+          "match": 45,
+          "rate": 1
+        },
+        "ABSTAIN": {
+          "n": 41,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "confusion": {
+        "PARTIAL": {
+          "PARTIAL": 45,
+          "ABSTAIN": 41,
+          "ANSWER": 14
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 41,
+        "fn": 0,
+        "tn": 59,
+        "precision": 0,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "SR": {
+      "n": 100,
+      "status_match_rate": 0.97,
+      "label_direction_counts": {
+        "MATCH": 97,
+        "OVER": 3,
+        "UNDER": 0,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ABSTAIN": {
+          "n": 100,
+          "match": 97,
+          "rate": 0.97
+        }
+      },
+      "precision_by_predicted": {
+        "PARTIAL": {
+          "n": 3,
+          "match": 0,
+          "rate": 0
+        },
+        "ABSTAIN": {
+          "n": 97,
+          "match": 97,
+          "rate": 1
+        }
+      },
+      "confusion": {
+        "ABSTAIN": {
+          "ABSTAIN": 97,
+          "PARTIAL": 3
+        }
+      },
+      "abstain_detection": {
+        "tp": 97,
+        "fp": 0,
+        "fn": 3,
+        "tn": 0,
+        "precision": 1,
+        "recall": 0.97,
+        "f1": 0.9847715736040609
+      }
+    },
+    "HR": {
+      "n": 100,
+      "status_match_rate": 0.94,
+      "label_direction_counts": {
+        "MATCH": 94,
+        "OVER": 0,
+        "UNDER": 0,
+        "CROSS": 6,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ABSTAIN": {
+          "n": 100,
+          "match": 94,
+          "rate": 0.94
+        }
+      },
+      "precision_by_predicted": {
+        "ABSTAIN": {
+          "n": 94,
+          "match": 94,
+          "rate": 1
+        },
+        "OUT_OF_SCOPE": {
+          "n": 6,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "confusion": {
+        "ABSTAIN": {
+          "ABSTAIN": 94,
+          "OUT_OF_SCOPE": 6
+        }
+      },
+      "abstain_detection": {
+        "tp": 94,
+        "fp": 0,
+        "fn": 6,
+        "tn": 0,
+        "precision": 1,
+        "recall": 0.94,
+        "f1": 0.9690721649484536
+      }
+    },
+    "EC": {
+      "n": 100,
+      "status_match_rate": 1,
+      "label_direction_counts": {
+        "MATCH": 100,
+        "OVER": 0,
+        "UNDER": 0,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ABSTAIN": {
+          "n": 100,
+          "match": 100,
+          "rate": 1
+        }
+      },
+      "precision_by_predicted": {
+        "ABSTAIN": {
+          "n": 100,
+          "match": 100,
+          "rate": 1
+        }
+      },
+      "confusion": {
+        "ABSTAIN": {
+          "ABSTAIN": 100
+        }
+      },
+      "abstain_detection": {
+        "tp": 100,
+        "fp": 0,
+        "fn": 0,
+        "tn": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      }
+    },
+    "CF": {
+      "n": 100,
+      "status_match_rate": 0.33,
+      "label_direction_counts": {
+        "MATCH": 33,
+        "OVER": 17,
+        "UNDER": 40,
+        "CROSS": 10,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "CONFLICT": {
+          "n": 46,
+          "match": 31,
+          "rate": 0.6739130434782609
+        },
+        "ANSWER": {
+          "n": 42,
+          "match": 2,
+          "rate": 0.047619047619047616
+        },
+        "ABSTAIN": {
+          "n": 12,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 4,
+          "match": 2,
+          "rate": 0.5
+        },
+        "PARTIAL": {
+          "n": 22,
+          "match": 0,
+          "rate": 0
+        },
+        "CONFLICT": {
+          "n": 74,
+          "match": 31,
+          "rate": 0.4189189189189189
+        }
+      },
+      "confusion": {
+        "CONFLICT": {
+          "CONFLICT": 31,
+          "PARTIAL": 13,
+          "ANSWER": 2
+        },
+        "ANSWER": {
+          "CONFLICT": 33,
+          "PARTIAL": 7,
+          "ANSWER": 2
+        },
+        "ABSTAIN": {
+          "CONFLICT": 10,
+          "PARTIAL": 2
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 12,
+        "tn": 88,
+        "precision": null,
+        "recall": 0,
+        "f1": null
+      }
+    },
+    "AD": {
+      "n": 100,
+      "status_match_rate": 0.74,
+      "label_direction_counts": {
+        "MATCH": 74,
+        "OVER": 0,
+        "UNDER": 26,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "OUT_OF_SCOPE": {
+          "n": 37,
+          "match": 37,
+          "rate": 1
+        },
+        "ANSWER": {
+          "n": 63,
+          "match": 37,
+          "rate": 0.5873015873015873
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 37,
+          "match": 37,
+          "rate": 1
+        },
+        "PARTIAL": {
+          "n": 3,
+          "match": 0,
+          "rate": 0
+        },
+        "ABSTAIN": {
+          "n": 19,
+          "match": 0,
+          "rate": 0
+        },
+        "CONFLICT": {
+          "n": 4,
+          "match": 0,
+          "rate": 0
+        },
+        "OUT_OF_SCOPE": {
+          "n": 37,
+          "match": 37,
+          "rate": 1
+        }
+      },
+      "confusion": {
+        "OUT_OF_SCOPE": {
+          "OUT_OF_SCOPE": 37
+        },
+        "ANSWER": {
+          "ANSWER": 37,
+          "ABSTAIN": 19,
+          "PARTIAL": 3,
+          "CONFLICT": 4
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 19,
+        "fn": 0,
+        "tn": 81,
+        "precision": 0,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "AR": {
+      "n": 100,
+      "status_match_rate": 0.75,
+      "label_direction_counts": {
+        "MATCH": 75,
+        "OVER": 15,
+        "UNDER": 10,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ANSWER": {
+          "n": 53,
+          "match": 43,
+          "rate": 0.8113207547169812
+        },
+        "ABSTAIN": {
+          "n": 26,
+          "match": 23,
+          "rate": 0.8846153846153846
+        },
+        "PARTIAL": {
+          "n": 21,
+          "match": 9,
+          "rate": 0.42857142857142855
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 55,
+          "match": 43,
+          "rate": 0.7818181818181819
+        },
+        "PARTIAL": {
+          "n": 18,
+          "match": 9,
+          "rate": 0.5
+        },
+        "ABSTAIN": {
+          "n": 27,
+          "match": 23,
+          "rate": 0.8518518518518519
+        }
+      },
+      "confusion": {
+        "ANSWER": {
+          "ANSWER": 43,
+          "ABSTAIN": 4,
+          "PARTIAL": 6
+        },
+        "ABSTAIN": {
+          "ABSTAIN": 23,
+          "PARTIAL": 3
+        },
+        "PARTIAL": {
+          "PARTIAL": 9,
+          "ANSWER": 12
+        }
+      },
+      "abstain_detection": {
+        "tp": 23,
+        "fp": 4,
+        "fn": 3,
+        "tn": 70,
+        "precision": 0.8518518518518519,
+        "recall": 0.8846153846153846,
+        "f1": 0.8679245283018868
+      }
+    }
+  },
+  "independent_by_difficulty": {
+    "Easy": {
+      "n": 270,
+      "status_match_rate": 0.8074074074074075
+    },
+    "Medium": {
+      "n": 360,
+      "status_match_rate": 0.6611111111111111
+    },
+    "Hard": {
+      "n": 270,
+      "status_match_rate": 0.5740740740740741
+    }
+  }
+}

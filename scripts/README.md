@@ -4,10 +4,10 @@ v4부터 모든 테스트는 이 폴더의 스크립트를 공유한다. 버전�
 
 | 폴더 | 단계 | 스크립트 |
 |---|---|---|
-| `run/` | 준비 · 실행 · 생성 | `setup_env` · `prepare_dataset` · `run_all` · `run_model` · `run_item` · `run_pipeline` · `run_generation` |
+| `run/` | 준비 · 실행 · 생성 | `setup_env` · `prepare_dataset` · `run_all` · `run_model` · `run_item` · `run_pipeline` · `run_generation` · `build_case_set` |
 | `score/` | 결정론 채점 | `score_format_performance` · `score_status` · `score_evidence` · `score_answer_similarity` · `score_rag_grounding` · `score_expression_rules` · `score_repeat_consistency` |
 | `judge/` | LLM Judge **판정** | `build_batch_manifest` · `judge_prepare` · `judge_run` · `merge_call_logs` |
-| `docgen/` | 결과 **문서 생성** | `build_review_export` · `build_run_report` · `judge_report` · `judge_review_export` · `compare_runs` · `build_result_entry` |
+| `docgen/` | 결과 **문서 생성** | `build_review_export` · `build_run_report` · `judge_report` · `judge_review_export` · `compare_runs` · `compare_variants` · `build_result_entry` |
 | `lib/` | 공통 모듈 | 경로·설정(`profile`), 데이터(`dataset`), 프롬프트 로더(`prompts`·`prompt_files`), Judge 스키마·provider(`judge/`) 등 |
 
 프롬프트 원문은 스크립트에 두지 않고 저장소 루트 `prompts/`(chatbot·judge·docgen)에 둔다 — `prompts/README.md`.
@@ -16,8 +16,9 @@ v4부터 모든 테스트는 이 폴더의 스크립트를 공유한다. 버전�
 
 모든 스크립트는 `--test`/`--try` 인자(또는 `LLM_TEST`/`LLM_TEST_TRY` 환경변수)를 받는다.
 
-- `--test v4`를 생략하면 `test.config.js`가 있는 가장 높은 버전을 쓴다.
+- `--test v4`를 생략하면 `test.config.js`가 있는 가장 높은 버전을 쓴다. `--test prompts_test_v1`처럼 `test.config.js`가 있는 폴더 이름을 그대로 줄 수도 있다(프롬프트 튜닝 테스트 — `prompts_test_v1/SETUP.md`).
 - `--try try1`을 생략하면 `config.defaultTry`를 쓴다.
+- `--variant <안>`(`LLM_TEST_VARIANT`): 상담봇 프롬프트 안. 생략하면 `config.prompt.variant`. 기본과 다르면 run_id에 안 이름이 붙는다.
 
 결과 경로는 README 4-2절 구조(`model_test_vN/tryM/results/...`)를 따르며 `lib/profile.js` 한 곳에서 정해진다.
 
@@ -40,9 +41,11 @@ v4부터 모든 테스트는 이 폴더의 스크립트를 공유한다. 버전�
 - `--date YYYYMMDD`
 - `--dry-run`: 호출할 run만 출력
 - `--skip-model-check`
+- `--ids-file <파일>`: 케이스 ID 목록(한 줄에 하나, `#` 뒤는 주석)으로 `--size` 서브셋 안에서 다시 고른다. 목록 밖 ID가 섞이면 실행 전에 멈춘다. 목록은 `run/build_case_set.js`가 이전 Judge 결과로 만든다(오답 비율을 높인 짝 비교용).
 
-run_id 형식은 `<env>_<모델>_<조건>_<컨텍스트 방식>_n<항목당 건수>_<날짜>[_<항목 코드>]`이다.
-예) `local-win_qwen3-4b_t0_nothink_fixed_n200_20261001`.
+run_id 형식은 `<env>_<모델>_<조건>_<컨텍스트 방식>_n<항목당 건수>[_<프롬프트 안>]_<날짜>[_<항목 코드>][_ids-<목록 이름>]`이다.
+예) `local-win_qwen3-4b_t0_nothink_fixed_n200_20261001`, `local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1_20261007_PI-CE`.
+`run_info.json`의 `runtime`에 Ollama 버전·모델 digest·양자화를 기록한다(2026-10-07~). 같은 모델·temperature 0이어도 환경이 다르면 출력이 달라질 수 있어, 환경이 다른 run끼리 비교하기 전에 확인한다.
 
 재개 방법은 같은 명령을 다시 실행하는 것이다. 이미 생성된 케이스는 건너뛴다. 같은 run_id를 다른 설정(모델·조건·프롬프트·데이터·선택 범위)으로 이어 쓰려 하면 `run_info.json`과 비교해 멈춘다.
 
@@ -116,7 +119,10 @@ Judge 종류는 세 가지다.
 ```bash
 node scripts/docgen/compare_runs.js [--size N] [--batch <id>]   # -> summary/run_comparison.md · .csv
 node scripts/docgen/build_result_entry.js --batch <id> [--write]  # result.html 데이터셋 항목(<version>-<try>) 생성·갱신 — 지표 키는 v4_ 접두사
+node scripts/docgen/compare_variants.js --batch <id> [--base <안>] [--base-from <test>/<try>/<batch>]  # 프롬프트 안 짝 비교 -> llm_judge/<id>_variant_compare.md · .json
 ```
+
+`compare_variants.js`는 같은 배치에서 같은 모델·같은 케이스 ID끼리 기준 안과 새 안을 맞대어, 항목별 정답 전후·바뀐 건수(McNemar 정확검정)·환각·status 분포·본문 보류·되묻기·본문 FAQ ID 노출·안전성 판정을 낸다(`judge_report.js`를 먼저 실행).
 
 ## 준비
 
@@ -135,4 +141,4 @@ node scripts/run/prepare_dataset.js    # 원본 xlsx -> data/eval_sets/<set>/ (�
 
 ## 프롬프트
 
-상담봇 시스템 프롬프트 원문은 `prompts/chatbot/*.md`, 조합은 `prompts/chatbot/variants.json`에 있다(로더 `lib/prompts.js`·`lib/prompt_files.js`, 규칙은 `prompts/README.md`). `config.prompt.variant`로 안을 고르며, 지금 안은 `v4_base`(공통 문단 + 근거 기준 status 판정 + 출력 순서 evidence_ids → status → answer) 하나다. `config.generation.format: 'schema'`이면 `config.output.keyOrder` 순서의 JSON 스키마로 Ollama 구조화 출력을 켜서 순서·status enum을 강제하고, 포맷 채점이 실제 키 순서 준수율을 기록한다. 페르소나 지시는 시스템 영역 뒤에 붙고, 대화 이력은 JSON 배열과 "사용자:/상담봇:" 텍스트를 모두 받는다.
+상담봇 시스템 프롬프트 원문은 `prompts/chatbot/*.md`, 조합은 `prompts/chatbot/variants.json`에 있다(로더 `lib/prompts.js`·`lib/prompt_files.js`, 규칙은 `prompts/README.md`). `config.prompt.variant`(또는 `--variant`)로 안을 고른다. 기준은 `v4_base`(공통 문단 + 근거 기준 status 판정 + 출력 순서 evidence_ids → status → answer)이고, 튜닝 안 `v4_t1`~`v4_t3`은 `prompts_test_v1/SETUP.md`에 있다(`v4_t2`·`v4_t3`은 키 순서가 달라 아직 실행 불가). `config.generation.format: 'schema'`이면 `config.output.keyOrder` 순서의 JSON 스키마로 Ollama 구조화 출력을 켜서 순서·status enum을 강제하고, 포맷 채점이 실제 키 순서 준수율을 기록한다. 페르소나 지시는 시스템 영역 뒤에 붙고, 대화 이력은 JSON 배열과 "사용자:/상담봇:" 텍스트를 모두 받는다.

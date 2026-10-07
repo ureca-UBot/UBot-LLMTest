@@ -14,6 +14,7 @@ const VALUE_FLAGS = {
   '--concurrency': 'concurrency',
   '--runs': 'runs',
   '--filter': 'filter',
+  '--ids-file': 'idsFile', // 케이스 ID 목록 파일(한 줄에 하나, #은 주석) — --size 서브셋 안에서 다시 고른다
 };
 const BOOL_FLAGS = { '--dry-run': 'dryRun', '--skip-model-check': 'skipModelCheck', '--confirm-external': 'confirmExternal', '--write': 'write' };
 const LIST_OPTS = new Set(['items', 'models', 'kinds', 'runs']);

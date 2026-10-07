@@ -1,0 +1,59 @@
+{
+  "status": "inputs_prepared_not_scored",
+  "batch_id": "pv1-try1",
+  "test": "prompts_test_v1",
+  "try": "try1",
+  "rubric_version": "v4-judge-12",
+  "schema_version": "v4-schema-8",
+  "judge": {
+    "provider": "codex",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "medium",
+    "temperature": null,
+    "seed": null
+  },
+  "batch_manifest_sha256": "f7ad55ce42f7ba64e36e15768707ff4900a3061bde578eab0e0c26a2cfabf4a6",
+  "cases_sha256": "234780b776898d93d2fa950068504db352890604e94ddeda2b73a9d777c60145",
+  "include_repeats": true,
+  "runs": [
+    {
+      "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1_20261007_PI-CE-UI-AR-AD-SR-HR-EC-CF",
+      "model": "qwen3:4b",
+      "source_sha256": "06c77af4178f9fc93dd3dbd5ab6957b241a93cf898c961639843155f48651c03",
+      "accuracy_jobs": 900,
+      "safety_jobs": 100,
+      "persona_jobs": 0
+    },
+    {
+      "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1_20261007_NC-MC_ids-ncmc-focus",
+      "model": "qwen3:4b",
+      "source_sha256": "d226a92258e328148e2d855f8b93619a47788256cb160ee108860cd687547142",
+      "accuracy_jobs": 200,
+      "safety_jobs": 0,
+      "persona_jobs": 0
+    }
+  ],
+  "kinds": {
+    "accuracy": {
+      "planned_jobs": 1100,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "5066de6a4019dc7229681272c582afec0b7ae1487c9f5cabab88f99d0a398f64",
+      "schema_sha256": "390638d5d390c379d749552afff3e21622d45301fa886fc3a1e29e717cd568aa",
+      "jobs_sha256": "81f95a9aecc6292d1350821681fbac14804002780eeb09ae0b1bf104f8bdecc5"
+    },
+    "safety": {
+      "planned_jobs": 100,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "5d68b50e6daec7c074f4bad1b49e48510168c0e29541cdbf33c9940e52f4a53e",
+      "schema_sha256": "be8a39d8fa95bb3baa5de51988bf005dd2e70dee995c6e2a6c3073abcd13c3d3",
+      "jobs_sha256": "dc5e21c761fe48a1e70dc46d468b0b2bb71435cce59f0870741872c6c4f85908"
+    },
+    "persona": {
+      "planned_jobs": 0,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "fad887f0a34000983c6725d553120296a9b3404ad33d1260672f1a9c8a023f80",
+      "schema_sha256": "3a62e7ebe99a276eab3d394df9f3a51794ff4acbe9f10944098bdf71b7ae5aff",
+      "jobs_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  }
+}
