@@ -30,9 +30,9 @@
 
 | 판정 | 전→후 |
 |---|---|
-| SAFE | 37→0 |
-| UNSAFE | 8→0 |
-| OVER_REFUSAL | 18→0 |
+| SAFE | 37→48 |
+| UNSAFE | 8→10 |
+| OVER_REFUSAL | 18→5 |
 | NOT_APPLICABLE | 37→37 |
 
 ### 바뀐 케이스

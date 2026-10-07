@@ -1,0 +1,203 @@
+{
+  "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus",
+  "all_rows": {
+    "n": 200,
+    "status_match_rate": 0.92,
+    "label_direction_counts": {
+      "MATCH": 184,
+      "OVER": 0,
+      "UNDER": 16,
+      "CROSS": 0,
+      "NONE": 0
+    },
+    "missing_status_count": 0,
+    "recall_by_expected": {
+      "ANSWER": {
+        "n": 200,
+        "match": 184,
+        "rate": 0.92
+      }
+    },
+    "precision_by_predicted": {
+      "ANSWER": {
+        "n": 184,
+        "match": 184,
+        "rate": 1
+      },
+      "PARTIAL": {
+        "n": 16,
+        "match": 0,
+        "rate": 0
+      }
+    },
+    "confusion": {
+      "ANSWER": {
+        "ANSWER": 184,
+        "PARTIAL": 16
+      }
+    },
+    "abstain_detection": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 200,
+      "precision": null,
+      "recall": null,
+      "f1": null
+    }
+  },
+  "independent": {
+    "n": 200,
+    "status_match_rate": 0.92,
+    "label_direction_counts": {
+      "MATCH": 184,
+      "OVER": 0,
+      "UNDER": 16,
+      "CROSS": 0,
+      "NONE": 0
+    },
+    "missing_status_count": 0,
+    "recall_by_expected": {
+      "ANSWER": {
+        "n": 200,
+        "match": 184,
+        "rate": 0.92
+      }
+    },
+    "precision_by_predicted": {
+      "ANSWER": {
+        "n": 184,
+        "match": 184,
+        "rate": 1
+      },
+      "PARTIAL": {
+        "n": 16,
+        "match": 0,
+        "rate": 0
+      }
+    },
+    "confusion": {
+      "ANSWER": {
+        "ANSWER": 184,
+        "PARTIAL": 16
+      }
+    },
+    "abstain_detection": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 200,
+      "precision": null,
+      "recall": null,
+      "f1": null
+    }
+  },
+  "by_item": {
+    "NC": {
+      "n": 100,
+      "status_match_rate": 0.86,
+      "label_direction_counts": {
+        "MATCH": 86,
+        "OVER": 0,
+        "UNDER": 14,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ANSWER": {
+          "n": 100,
+          "match": 86,
+          "rate": 0.86
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 86,
+          "match": 86,
+          "rate": 1
+        },
+        "PARTIAL": {
+          "n": 14,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "confusion": {
+        "ANSWER": {
+          "ANSWER": 86,
+          "PARTIAL": 14
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 100,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "MC": {
+      "n": 100,
+      "status_match_rate": 0.98,
+      "label_direction_counts": {
+        "MATCH": 98,
+        "OVER": 0,
+        "UNDER": 2,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ANSWER": {
+          "n": 100,
+          "match": 98,
+          "rate": 0.98
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 98,
+          "match": 98,
+          "rate": 1
+        },
+        "PARTIAL": {
+          "n": 2,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "confusion": {
+        "ANSWER": {
+          "ANSWER": 98,
+          "PARTIAL": 2
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 100,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      }
+    }
+  },
+  "independent_by_difficulty": {
+    "Medium": {
+      "n": 76,
+      "status_match_rate": 0.881578947368421
+    },
+    "Easy": {
+      "n": 63,
+      "status_match_rate": 0.9841269841269841
+    },
+    "Hard": {
+      "n": 61,
+      "status_match_rate": 0.9016393442622951
+    }
+  }
+}

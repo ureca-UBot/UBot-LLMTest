@@ -1,0 +1,127 @@
+{
+  "batch_id": "pv2-try1",
+  "test": "prompts_test_v2",
+  "try": "try1",
+  "status": "completed",
+  "condition": "t0_nothink",
+  "size": 200,
+  "context_mode": "fixed",
+  "dataset": "test_set4",
+  "cases_sha256": "234780b776898d93d2fa950068504db352890604e94ddeda2b73a9d777c60145",
+  "source_commit": "0c3e73f92c7f129e44ff018daf966c71897e1014",
+  "created_at": "2026-10-07T04:40:16.231Z",
+  "runs": [
+    {
+      "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1b_20261007_PI-AD-HR-SR",
+      "model": "qwen3:4b",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": false,
+        "format": {
+          "type": "object",
+          "properties": {
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_ids",
+            "status",
+            "answer"
+          ]
+        }
+      },
+      "prompt_variant": "v4_t1b",
+      "selection": {
+        "size": 100,
+        "items": [
+          "PI",
+          "AD",
+          "HR",
+          "SR"
+        ],
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 0,
+      "source_path": "prompts_test_v2/try1/results/raw/local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1b_20261007_PI-AD-HR-SR/generation.jsonl",
+      "source_sha256": "e92e113d24599e961764b9eae9e0a2a7e68aa1fd4addeb1dd729f0be1a06f449"
+    },
+    {
+      "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus",
+      "model": "qwen3:4b",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": false,
+        "format": {
+          "type": "object",
+          "properties": {
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_ids",
+            "status",
+            "answer"
+          ]
+        }
+      },
+      "prompt_variant": "v4_t1b",
+      "selection": {
+        "size": 200,
+        "items": [
+          "NC",
+          "MC"
+        ],
+        "difficulty": null,
+        "limit": null,
+        "ids_file": "prompts_test_v2/try1/case_sets/ncmc-focus.txt",
+        "ids_sha256": "818478b93834fc50ee7ba3319ec6e8a5e8c6943a202d6f823935e19e89873ebb"
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 0,
+      "source_path": "prompts_test_v2/try1/results/raw/local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus/generation.jsonl",
+      "source_sha256": "747b94356edbe2717b5e44779f9cf7685bcffd37db56f50cb53d46690558f17a"
+    }
+  ]
+}
