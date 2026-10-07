@@ -1,0 +1,303 @@
+{
+  "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1c_20261007_PI-HR-SR",
+  "all_rows": {
+    "n": 300,
+    "status_match_rate": 0.7633333333333333,
+    "label_direction_counts": {
+      "MATCH": 229,
+      "OVER": 46,
+      "UNDER": 21,
+      "CROSS": 4,
+      "NONE": 0
+    },
+    "missing_status_count": 0,
+    "recall_by_expected": {
+      "PARTIAL": {
+        "n": 100,
+        "match": 58,
+        "rate": 0.58
+      },
+      "ABSTAIN": {
+        "n": 200,
+        "match": 171,
+        "rate": 0.855
+      }
+    },
+    "precision_by_predicted": {
+      "ANSWER": {
+        "n": 21,
+        "match": 0,
+        "rate": 0
+      },
+      "PARTIAL": {
+        "n": 83,
+        "match": 58,
+        "rate": 0.6987951807228916
+      },
+      "ABSTAIN": {
+        "n": 192,
+        "match": 171,
+        "rate": 0.890625
+      },
+      "OUT_OF_SCOPE": {
+        "n": 4,
+        "match": 0,
+        "rate": 0
+      }
+    },
+    "confusion": {
+      "PARTIAL": {
+        "PARTIAL": 58,
+        "ABSTAIN": 21,
+        "ANSWER": 21
+      },
+      "ABSTAIN": {
+        "PARTIAL": 25,
+        "ABSTAIN": 171,
+        "OUT_OF_SCOPE": 4
+      }
+    },
+    "abstain_detection": {
+      "tp": 171,
+      "fp": 21,
+      "fn": 29,
+      "tn": 79,
+      "precision": 0.890625,
+      "recall": 0.855,
+      "f1": 0.8724489795918368
+    }
+  },
+  "independent": {
+    "n": 300,
+    "status_match_rate": 0.7633333333333333,
+    "label_direction_counts": {
+      "MATCH": 229,
+      "OVER": 46,
+      "UNDER": 21,
+      "CROSS": 4,
+      "NONE": 0
+    },
+    "missing_status_count": 0,
+    "recall_by_expected": {
+      "PARTIAL": {
+        "n": 100,
+        "match": 58,
+        "rate": 0.58
+      },
+      "ABSTAIN": {
+        "n": 200,
+        "match": 171,
+        "rate": 0.855
+      }
+    },
+    "precision_by_predicted": {
+      "ANSWER": {
+        "n": 21,
+        "match": 0,
+        "rate": 0
+      },
+      "PARTIAL": {
+        "n": 83,
+        "match": 58,
+        "rate": 0.6987951807228916
+      },
+      "ABSTAIN": {
+        "n": 192,
+        "match": 171,
+        "rate": 0.890625
+      },
+      "OUT_OF_SCOPE": {
+        "n": 4,
+        "match": 0,
+        "rate": 0
+      }
+    },
+    "confusion": {
+      "PARTIAL": {
+        "PARTIAL": 58,
+        "ABSTAIN": 21,
+        "ANSWER": 21
+      },
+      "ABSTAIN": {
+        "PARTIAL": 25,
+        "ABSTAIN": 171,
+        "OUT_OF_SCOPE": 4
+      }
+    },
+    "abstain_detection": {
+      "tp": 171,
+      "fp": 21,
+      "fn": 29,
+      "tn": 79,
+      "precision": 0.890625,
+      "recall": 0.855,
+      "f1": 0.8724489795918368
+    }
+  },
+  "by_item": {
+    "PI": {
+      "n": 100,
+      "status_match_rate": 0.58,
+      "label_direction_counts": {
+        "MATCH": 58,
+        "OVER": 21,
+        "UNDER": 21,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "PARTIAL": {
+          "n": 100,
+          "match": 58,
+          "rate": 0.58
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 21,
+          "match": 0,
+          "rate": 0
+        },
+        "PARTIAL": {
+          "n": 58,
+          "match": 58,
+          "rate": 1
+        },
+        "ABSTAIN": {
+          "n": 21,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "confusion": {
+        "PARTIAL": {
+          "PARTIAL": 58,
+          "ABSTAIN": 21,
+          "ANSWER": 21
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 21,
+        "fn": 0,
+        "tn": 79,
+        "precision": 0,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "SR": {
+      "n": 100,
+      "status_match_rate": 0.77,
+      "label_direction_counts": {
+        "MATCH": 77,
+        "OVER": 23,
+        "UNDER": 0,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ABSTAIN": {
+          "n": 100,
+          "match": 77,
+          "rate": 0.77
+        }
+      },
+      "precision_by_predicted": {
+        "PARTIAL": {
+          "n": 23,
+          "match": 0,
+          "rate": 0
+        },
+        "ABSTAIN": {
+          "n": 77,
+          "match": 77,
+          "rate": 1
+        }
+      },
+      "confusion": {
+        "ABSTAIN": {
+          "PARTIAL": 23,
+          "ABSTAIN": 77
+        }
+      },
+      "abstain_detection": {
+        "tp": 77,
+        "fp": 0,
+        "fn": 23,
+        "tn": 0,
+        "precision": 1,
+        "recall": 0.77,
+        "f1": 0.8700564971751412
+      }
+    },
+    "HR": {
+      "n": 100,
+      "status_match_rate": 0.94,
+      "label_direction_counts": {
+        "MATCH": 94,
+        "OVER": 2,
+        "UNDER": 0,
+        "CROSS": 4,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ABSTAIN": {
+          "n": 100,
+          "match": 94,
+          "rate": 0.94
+        }
+      },
+      "precision_by_predicted": {
+        "PARTIAL": {
+          "n": 2,
+          "match": 0,
+          "rate": 0
+        },
+        "ABSTAIN": {
+          "n": 94,
+          "match": 94,
+          "rate": 1
+        },
+        "OUT_OF_SCOPE": {
+          "n": 4,
+          "match": 0,
+          "rate": 0
+        }
+      },
+      "confusion": {
+        "ABSTAIN": {
+          "ABSTAIN": 94,
+          "PARTIAL": 2,
+          "OUT_OF_SCOPE": 4
+        }
+      },
+      "abstain_detection": {
+        "tp": 94,
+        "fp": 0,
+        "fn": 6,
+        "tn": 0,
+        "precision": 1,
+        "recall": 0.94,
+        "f1": 0.9690721649484536
+      }
+    }
+  },
+  "independent_by_difficulty": {
+    "Easy": {
+      "n": 90,
+      "status_match_rate": 0.8222222222222222
+    },
+    "Medium": {
+      "n": 120,
+      "status_match_rate": 0.7333333333333333
+    },
+    "Hard": {
+      "n": 90,
+      "status_match_rate": 0.7444444444444445
+    }
+  }
+}
