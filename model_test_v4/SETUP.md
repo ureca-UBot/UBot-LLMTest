@@ -100,7 +100,7 @@ v4는 **저급 모델 튜닝 전 기준선(레거시)**을 만드는 테스트�
 
 ## 4. 테스트 순서
 
-모든 명령은 **저장소 루트**에서 실행한다(`--test v4`는 생략 가능).
+모든 명령은 **저장소 루트**에서 실행한다. `--test`를 생략하면 가장 높은 버전이 잡히므로 model_test_v5가 생긴 뒤(2026-10-07)에는 `--test v4`를 붙인다.
 
 ```bash
 # 0. 환경 (멱등)
@@ -162,6 +162,8 @@ node scripts/judge/build_batch_manifest.js --batch v4-try1-n200-instruct --runs 
 # 결과를 저장소로 (results/는 .gitignore 예외 — 로그 *.log는 제외됨)
 git add model_test_v4/try1/results && git commit -m "[Test] v4 try1 qwen3:4b-instruct 생성 결과" && git push
 ```
+
+**2026-10-07 변경: 이 run은 v4에서 Judge하지 않는다.** v5에서 100 서브셋(1,400건)만 가져와 v5 배치로 Judge한다([v5 SETUP](../model_test_v5/SETUP.md) 4-2절). 아래는 원래 계획이다.
 
 LLM Judge는 Judge를 돌리는 PC에서 pull 받은 뒤 실행한다(외부 전송 — 사용자 승인 필요).
 

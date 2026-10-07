@@ -1,0 +1,193 @@
+{
+  "users": 8,
+  "status": "completed",
+  "window": {
+    "startMs": 0.0737749999971129,
+    "endMs": 30000.073774999997
+  },
+  "warmup": {
+    "attempted": 8,
+    "completed": 8,
+    "reused": 2,
+    "quality_valid_reference": 8,
+    "passed": true
+  },
+  "raw_file": "/home/ubuntu/llm-bench/multimodel_20261006/local/results/multimodel/l4_qwen3_8b_20261006_03_limit16/sglang_r16/u8_requests.jsonl",
+  "elapsed_ms": 32345.559314000013,
+  "drain_ms": 2345.446785999986,
+  "peak_inflight": 8,
+  "in_flight_samples": [
+    {
+      "at_ms": 0.014260999974794686,
+      "pending": 0
+    },
+    {
+      "at_ms": 999.7608739999705,
+      "pending": 8
+    },
+    {
+      "at_ms": 1999.6003339999588,
+      "pending": 8
+    },
+    {
+      "at_ms": 3000.2576339999796,
+      "pending": 8
+    },
+    {
+      "at_ms": 4000.360779999988,
+      "pending": 8
+    },
+    {
+      "at_ms": 4999.969675,
+      "pending": 8
+    },
+    {
+      "at_ms": 5999.757120999973,
+      "pending": 8
+    },
+    {
+      "at_ms": 6999.650104,
+      "pending": 8
+    },
+    {
+      "at_ms": 8000.170955999987,
+      "pending": 8
+    },
+    {
+      "at_ms": 9000.158574000001,
+      "pending": 8
+    },
+    {
+      "at_ms": 10000.24213899998,
+      "pending": 8
+    },
+    {
+      "at_ms": 10999.875545999967,
+      "pending": 8
+    },
+    {
+      "at_ms": 12000.468741999997,
+      "pending": 8
+    },
+    {
+      "at_ms": 13000.641842000012,
+      "pending": 8
+    },
+    {
+      "at_ms": 14001.450621999975,
+      "pending": 8
+    },
+    {
+      "at_ms": 15001.654183999985,
+      "pending": 8
+    },
+    {
+      "at_ms": 16002.346106999961,
+      "pending": 8
+    },
+    {
+      "at_ms": 17001.902277999965,
+      "pending": 8
+    },
+    {
+      "at_ms": 18002.245798999968,
+      "pending": 8
+    },
+    {
+      "at_ms": 19002.162864000013,
+      "pending": 8
+    },
+    {
+      "at_ms": 20001.827481999993,
+      "pending": 8
+    },
+    {
+      "at_ms": 21001.641999999993,
+      "pending": 8
+    },
+    {
+      "at_ms": 22002.455740000005,
+      "pending": 8
+    },
+    {
+      "at_ms": 23003.427108999982,
+      "pending": 8
+    },
+    {
+      "at_ms": 24004.38224800001,
+      "pending": 8
+    },
+    {
+      "at_ms": 25004.11671099998,
+      "pending": 8
+    },
+    {
+      "at_ms": 26004.167873999977,
+      "pending": 8
+    },
+    {
+      "at_ms": 27003.695404,
+      "pending": 8
+    },
+    {
+      "at_ms": 28004.273464999977,
+      "pending": 8
+    },
+    {
+      "at_ms": 29004.12823199999,
+      "pending": 8
+    },
+    {
+      "at_ms": 30003.91349399998,
+      "pending": 8
+    },
+    {
+      "at_ms": 31004.447872999997,
+      "pending": 4
+    },
+    {
+      "at_ms": 32004.587816999992,
+      "pending": 1
+    },
+    {
+      "at_ms": 32345.527742000006,
+      "pending": 0
+    }
+  ],
+  "summary": {
+    "scope": "http_completion_diagnostic",
+    "criterion": "completed_2xx_http_streams_per_second",
+    "target_rps": 8,
+    "target_status": "below_target",
+    "target_reached": false,
+    "min_requests": 20,
+    "sample_sufficient": true,
+    "window_sec": 30,
+    "n_total": 79,
+    "n_http_complete": 79,
+    "n_http_complete_in_window": 71,
+    "n_http_complete_drain": 8,
+    "n_http_completion_fail": 0,
+    "http_completion_fail_rate": 0,
+    "transport_rps": 2.3666666666666667,
+    "e2e_p50_ms": 2954.7927659999696,
+    "e2e_p95_ms": 4592.520430700015,
+    "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+    "latency_gate_applied": false,
+    "quality_gate_applied": false,
+    "timeouts": 0,
+    "fail_types": {},
+    "quality_reference": {
+      "n_valid": 79,
+      "n_valid_completed_in_window": 71,
+      "valid_rps": 2.3666666666666667,
+      "n_invalid_completed": 0,
+      "schema_failures": 0,
+      "evidence_failures": 0,
+      "truncations": 0,
+      "reasoning_leaks": 0
+    },
+    "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+  },
+  "output_tokens_avg_in_window": 100.74647887323944
+}

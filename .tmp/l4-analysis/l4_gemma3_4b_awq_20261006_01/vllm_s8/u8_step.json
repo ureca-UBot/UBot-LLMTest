@@ -1,0 +1,189 @@
+{
+  "users": 8,
+  "status": "completed",
+  "window": {
+    "startMs": 0.0726639999775216,
+    "endMs": 30000.072663999978
+  },
+  "warmup": {
+    "attempted": 8,
+    "completed": 8,
+    "reused": 4,
+    "quality_valid_reference": 8,
+    "passed": true
+  },
+  "raw_file": "/home/ubuntu/llm-bench/multimodel_20261006/local/results/multimodel/l4_gemma3_4b_awq_20261006_01/vllm_s8/u8_requests.jsonl",
+  "elapsed_ms": 31370.851157999947,
+  "drain_ms": 1370.7315609999932,
+  "peak_inflight": 8,
+  "in_flight_samples": [
+    {
+      "at_ms": 0.012319999979808927,
+      "pending": 0
+    },
+    {
+      "at_ms": 999.2747039999813,
+      "pending": 8
+    },
+    {
+      "at_ms": 1999.324225999997,
+      "pending": 8
+    },
+    {
+      "at_ms": 3000.234810999944,
+      "pending": 8
+    },
+    {
+      "at_ms": 4000.848867999972,
+      "pending": 8
+    },
+    {
+      "at_ms": 5001.583342999918,
+      "pending": 8
+    },
+    {
+      "at_ms": 6002.9698370000115,
+      "pending": 8
+    },
+    {
+      "at_ms": 7003.802397000021,
+      "pending": 8
+    },
+    {
+      "at_ms": 8004.037619999959,
+      "pending": 8
+    },
+    {
+      "at_ms": 9005.050720999949,
+      "pending": 8
+    },
+    {
+      "at_ms": 10005.797343999962,
+      "pending": 8
+    },
+    {
+      "at_ms": 11005.670093999943,
+      "pending": 8
+    },
+    {
+      "at_ms": 12005.846652999986,
+      "pending": 8
+    },
+    {
+      "at_ms": 13006.139688999974,
+      "pending": 8
+    },
+    {
+      "at_ms": 14006.740463999915,
+      "pending": 8
+    },
+    {
+      "at_ms": 15006.783393999911,
+      "pending": 8
+    },
+    {
+      "at_ms": 16006.898487999919,
+      "pending": 8
+    },
+    {
+      "at_ms": 17007.00263299991,
+      "pending": 8
+    },
+    {
+      "at_ms": 18007.87916599994,
+      "pending": 8
+    },
+    {
+      "at_ms": 19008.278229999938,
+      "pending": 8
+    },
+    {
+      "at_ms": 20009.001412999933,
+      "pending": 8
+    },
+    {
+      "at_ms": 21008.309779000003,
+      "pending": 8
+    },
+    {
+      "at_ms": 22008.648028999916,
+      "pending": 8
+    },
+    {
+      "at_ms": 23008.407660999917,
+      "pending": 8
+    },
+    {
+      "at_ms": 24009.088652999955,
+      "pending": 8
+    },
+    {
+      "at_ms": 25008.838416000013,
+      "pending": 8
+    },
+    {
+      "at_ms": 26009.22020699992,
+      "pending": 8
+    },
+    {
+      "at_ms": 27010.296241999953,
+      "pending": 8
+    },
+    {
+      "at_ms": 28010.869225999922,
+      "pending": 8
+    },
+    {
+      "at_ms": 29011.159161999938,
+      "pending": 8
+    },
+    {
+      "at_ms": 30010.42553499993,
+      "pending": 8
+    },
+    {
+      "at_ms": 31011.021820999915,
+      "pending": 2
+    },
+    {
+      "at_ms": 31370.808175000013,
+      "pending": 0
+    }
+  ],
+  "summary": {
+    "scope": "http_completion_diagnostic",
+    "criterion": "completed_2xx_http_streams_per_second",
+    "target_rps": 8,
+    "target_status": "below_target",
+    "target_reached": false,
+    "min_requests": 20,
+    "sample_sufficient": true,
+    "window_sec": 30,
+    "n_total": 223,
+    "n_http_complete": 223,
+    "n_http_complete_in_window": 215,
+    "n_http_complete_drain": 8,
+    "n_http_completion_fail": 0,
+    "http_completion_fail_rate": 0,
+    "transport_rps": 7.166666666666667,
+    "e2e_p50_ms": 923.3418489999603,
+    "e2e_p95_ms": 2291.635229899978,
+    "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+    "latency_gate_applied": false,
+    "quality_gate_applied": false,
+    "timeouts": 0,
+    "fail_types": {},
+    "quality_reference": {
+      "n_valid": 219,
+      "n_valid_completed_in_window": 212,
+      "valid_rps": 7.066666666666666,
+      "n_invalid_completed": 4,
+      "schema_failures": 0,
+      "evidence_failures": 4,
+      "truncations": 0,
+      "reasoning_leaks": 0
+    },
+    "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+  },
+  "output_tokens_avg_in_window": 59.967441860465115
+}

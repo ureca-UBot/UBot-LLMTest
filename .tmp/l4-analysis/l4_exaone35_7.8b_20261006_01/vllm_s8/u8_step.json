@@ -1,0 +1,197 @@
+{
+  "users": 8,
+  "status": "completed",
+  "window": {
+    "startMs": 0.08505500003229827,
+    "endMs": 30000.085055000032
+  },
+  "warmup": {
+    "attempted": 8,
+    "completed": 8,
+    "reused": 4,
+    "quality_valid_reference": 8,
+    "passed": true
+  },
+  "raw_file": "/home/ubuntu/llm-bench/multimodel_20261006/local/results/multimodel/l4_exaone35_7.8b_20261006_01/vllm_s8/u8_requests.jsonl",
+  "elapsed_ms": 33138.66305199999,
+  "drain_ms": 3138.5361239999766,
+  "peak_inflight": 8,
+  "in_flight_samples": [
+    {
+      "at_ms": 0.01531100005377084,
+      "pending": 0
+    },
+    {
+      "at_ms": 1000.0812750000041,
+      "pending": 8
+    },
+    {
+      "at_ms": 2000.6068270000396,
+      "pending": 8
+    },
+    {
+      "at_ms": 2999.8527100000065,
+      "pending": 8
+    },
+    {
+      "at_ms": 3999.927893999964,
+      "pending": 8
+    },
+    {
+      "at_ms": 4999.890812000027,
+      "pending": 8
+    },
+    {
+      "at_ms": 6000.069241999998,
+      "pending": 8
+    },
+    {
+      "at_ms": 6999.914911999949,
+      "pending": 8
+    },
+    {
+      "at_ms": 8000.534288999974,
+      "pending": 8
+    },
+    {
+      "at_ms": 9001.363831000053,
+      "pending": 8
+    },
+    {
+      "at_ms": 10000.992326000007,
+      "pending": 8
+    },
+    {
+      "at_ms": 11001.485617000028,
+      "pending": 8
+    },
+    {
+      "at_ms": 12001.32449499995,
+      "pending": 8
+    },
+    {
+      "at_ms": 13001.956305,
+      "pending": 8
+    },
+    {
+      "at_ms": 14002.516739999992,
+      "pending": 8
+    },
+    {
+      "at_ms": 15003.736317000003,
+      "pending": 8
+    },
+    {
+      "at_ms": 16003.971340000047,
+      "pending": 8
+    },
+    {
+      "at_ms": 17004.73018700001,
+      "pending": 8
+    },
+    {
+      "at_ms": 18004.976771999965,
+      "pending": 8
+    },
+    {
+      "at_ms": 19005.68463699997,
+      "pending": 8
+    },
+    {
+      "at_ms": 20005.08553000004,
+      "pending": 8
+    },
+    {
+      "at_ms": 21005.274743000045,
+      "pending": 8
+    },
+    {
+      "at_ms": 22005.29132900003,
+      "pending": 8
+    },
+    {
+      "at_ms": 23005.466445000027,
+      "pending": 8
+    },
+    {
+      "at_ms": 24005.767718999996,
+      "pending": 8
+    },
+    {
+      "at_ms": 25006.058621000033,
+      "pending": 8
+    },
+    {
+      "at_ms": 26006.00198099995,
+      "pending": 8
+    },
+    {
+      "at_ms": 27006.315434999997,
+      "pending": 8
+    },
+    {
+      "at_ms": 28006.417875000043,
+      "pending": 8
+    },
+    {
+      "at_ms": 29005.769551999983,
+      "pending": 8
+    },
+    {
+      "at_ms": 30006.70868599997,
+      "pending": 8
+    },
+    {
+      "at_ms": 31006.94944700005,
+      "pending": 8
+    },
+    {
+      "at_ms": 32008.496509999968,
+      "pending": 4
+    },
+    {
+      "at_ms": 33007.944740999956,
+      "pending": 1
+    },
+    {
+      "at_ms": 33138.624700000044,
+      "pending": 0
+    }
+  ],
+  "summary": {
+    "scope": "http_completion_diagnostic",
+    "criterion": "completed_2xx_http_streams_per_second",
+    "target_rps": 8,
+    "target_status": "below_target",
+    "target_reached": false,
+    "min_requests": 20,
+    "sample_sufficient": true,
+    "window_sec": 30,
+    "n_total": 87,
+    "n_http_complete": 87,
+    "n_http_complete_in_window": 79,
+    "n_http_complete_drain": 8,
+    "n_http_completion_fail": 0,
+    "http_completion_fail_rate": 0,
+    "transport_rps": 2.6333333333333333,
+    "e2e_p50_ms": 2906.1996969999745,
+    "e2e_p95_ms": 5343.7668051000455,
+    "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+    "latency_gate_applied": false,
+    "quality_gate_applied": false,
+    "timeouts": 0,
+    "fail_types": {},
+    "quality_reference": {
+      "n_valid": 84,
+      "n_valid_completed_in_window": 76,
+      "valid_rps": 2.533333333333333,
+      "n_invalid_completed": 3,
+      "schema_failures": 0,
+      "evidence_failures": 3,
+      "truncations": 0,
+      "reasoning_leaks": 0
+    },
+    "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+  },
+  "output_tokens_avg_in_window": 126.56962025316456
+}

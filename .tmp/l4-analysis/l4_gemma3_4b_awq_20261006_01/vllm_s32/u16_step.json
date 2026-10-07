@@ -1,0 +1,189 @@
+{
+  "users": 16,
+  "status": "completed",
+  "window": {
+    "startMs": 0.042833000188693404,
+    "endMs": 30000.04283300019
+  },
+  "warmup": {
+    "attempted": 16,
+    "completed": 16,
+    "reused": 2,
+    "quality_valid_reference": 16,
+    "passed": true
+  },
+  "raw_file": "/home/ubuntu/llm-bench/multimodel_20261006/local/results/multimodel/l4_gemma3_4b_awq_20261006_01/vllm_s32/u16_requests.jsonl",
+  "elapsed_ms": 31245.293686000165,
+  "drain_ms": 1245.240272999974,
+  "peak_inflight": 16,
+  "in_flight_samples": [
+    {
+      "at_ms": 0.006280000088736415,
+      "pending": 0
+    },
+    {
+      "at_ms": 1000.4484710001852,
+      "pending": 16
+    },
+    {
+      "at_ms": 2000.506779000163,
+      "pending": 16
+    },
+    {
+      "at_ms": 3001.2122740000486,
+      "pending": 16
+    },
+    {
+      "at_ms": 4001.408168000169,
+      "pending": 16
+    },
+    {
+      "at_ms": 5000.983416000148,
+      "pending": 16
+    },
+    {
+      "at_ms": 6000.989589000121,
+      "pending": 16
+    },
+    {
+      "at_ms": 7000.632461000001,
+      "pending": 16
+    },
+    {
+      "at_ms": 8001.091661000159,
+      "pending": 16
+    },
+    {
+      "at_ms": 9001.162260000128,
+      "pending": 16
+    },
+    {
+      "at_ms": 10000.61830200022,
+      "pending": 16
+    },
+    {
+      "at_ms": 11001.325183000183,
+      "pending": 16
+    },
+    {
+      "at_ms": 12001.289779000217,
+      "pending": 16
+    },
+    {
+      "at_ms": 13000.972126000095,
+      "pending": 16
+    },
+    {
+      "at_ms": 14001.242391000036,
+      "pending": 16
+    },
+    {
+      "at_ms": 15000.581719000125,
+      "pending": 16
+    },
+    {
+      "at_ms": 16001.384477999993,
+      "pending": 16
+    },
+    {
+      "at_ms": 17001.52492300002,
+      "pending": 16
+    },
+    {
+      "at_ms": 18001.574118999997,
+      "pending": 16
+    },
+    {
+      "at_ms": 19002.05665000016,
+      "pending": 16
+    },
+    {
+      "at_ms": 20002.611887000035,
+      "pending": 16
+    },
+    {
+      "at_ms": 21002.872864000034,
+      "pending": 16
+    },
+    {
+      "at_ms": 22003.313064000104,
+      "pending": 16
+    },
+    {
+      "at_ms": 23003.883052000077,
+      "pending": 16
+    },
+    {
+      "at_ms": 24003.987081000116,
+      "pending": 16
+    },
+    {
+      "at_ms": 25004.27849100018,
+      "pending": 16
+    },
+    {
+      "at_ms": 26004.71362100006,
+      "pending": 16
+    },
+    {
+      "at_ms": 27004.876795000164,
+      "pending": 16
+    },
+    {
+      "at_ms": 28005.139904000098,
+      "pending": 16
+    },
+    {
+      "at_ms": 29005.171360000037,
+      "pending": 16
+    },
+    {
+      "at_ms": 30004.76954800007,
+      "pending": 16
+    },
+    {
+      "at_ms": 31005.179467000067,
+      "pending": 2
+    },
+    {
+      "at_ms": 31245.287656000117,
+      "pending": 0
+    }
+  ],
+  "summary": {
+    "scope": "http_completion_diagnostic",
+    "criterion": "completed_2xx_http_streams_per_second",
+    "target_rps": 8,
+    "target_status": "reached",
+    "target_reached": true,
+    "min_requests": 20,
+    "sample_sufficient": true,
+    "window_sec": 30,
+    "n_total": 313,
+    "n_http_complete": 313,
+    "n_http_complete_in_window": 297,
+    "n_http_complete_drain": 16,
+    "n_http_completion_fail": 0,
+    "http_completion_fail_rate": 0,
+    "transport_rps": 9.9,
+    "e2e_p50_ms": 1333.8334240000695,
+    "e2e_p95_ms": 3178.939848800003,
+    "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+    "latency_gate_applied": false,
+    "quality_gate_applied": false,
+    "timeouts": 0,
+    "fail_types": {},
+    "quality_reference": {
+      "n_valid": 309,
+      "n_valid_completed_in_window": 293,
+      "valid_rps": 9.766666666666667,
+      "n_invalid_completed": 4,
+      "schema_failures": 0,
+      "evidence_failures": 4,
+      "truncations": 0,
+      "reasoning_leaks": 0
+    },
+    "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+  },
+  "output_tokens_avg_in_window": 60.06734006734007
+}

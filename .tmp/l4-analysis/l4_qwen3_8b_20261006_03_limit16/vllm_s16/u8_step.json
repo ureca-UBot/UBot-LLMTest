@@ -1,0 +1,193 @@
+{
+  "users": 8,
+  "status": "completed",
+  "window": {
+    "startMs": 0.30944900000758935,
+    "endMs": 30000.309449000008
+  },
+  "warmup": {
+    "attempted": 8,
+    "completed": 8,
+    "reused": 2,
+    "quality_valid_reference": 8,
+    "passed": true
+  },
+  "raw_file": "/home/ubuntu/llm-bench/multimodel_20261006/local/results/multimodel/l4_qwen3_8b_20261006_03_limit16/vllm_s16/u8_requests.jsonl",
+  "elapsed_ms": 32013.205306000003,
+  "drain_ms": 2012.7425269999949,
+  "peak_inflight": 8,
+  "in_flight_samples": [
+    {
+      "at_ms": 0.12419699999736622,
+      "pending": 0
+    },
+    {
+      "at_ms": 1001.1696850000008,
+      "pending": 8
+    },
+    {
+      "at_ms": 2001.4117629999964,
+      "pending": 8
+    },
+    {
+      "at_ms": 3001.3155800000095,
+      "pending": 8
+    },
+    {
+      "at_ms": 4001.156234000009,
+      "pending": 8
+    },
+    {
+      "at_ms": 5001.300617000001,
+      "pending": 8
+    },
+    {
+      "at_ms": 6001.873485999997,
+      "pending": 8
+    },
+    {
+      "at_ms": 7001.697188999999,
+      "pending": 8
+    },
+    {
+      "at_ms": 8001.986799999999,
+      "pending": 8
+    },
+    {
+      "at_ms": 9001.992715,
+      "pending": 8
+    },
+    {
+      "at_ms": 10001.913003000009,
+      "pending": 8
+    },
+    {
+      "at_ms": 11001.801722999997,
+      "pending": 8
+    },
+    {
+      "at_ms": 12002.155610000002,
+      "pending": 8
+    },
+    {
+      "at_ms": 13002.28031300001,
+      "pending": 8
+    },
+    {
+      "at_ms": 14002.465329000013,
+      "pending": 8
+    },
+    {
+      "at_ms": 15003.786525999996,
+      "pending": 8
+    },
+    {
+      "at_ms": 16003.336533000009,
+      "pending": 8
+    },
+    {
+      "at_ms": 17004.09490499999,
+      "pending": 8
+    },
+    {
+      "at_ms": 18004.500045000008,
+      "pending": 8
+    },
+    {
+      "at_ms": 19005.69628399999,
+      "pending": 8
+    },
+    {
+      "at_ms": 20006.574062999993,
+      "pending": 8
+    },
+    {
+      "at_ms": 21007.16264499999,
+      "pending": 8
+    },
+    {
+      "at_ms": 22007.79862,
+      "pending": 8
+    },
+    {
+      "at_ms": 23007.936212999994,
+      "pending": 8
+    },
+    {
+      "at_ms": 24007.406464999993,
+      "pending": 8
+    },
+    {
+      "at_ms": 25007.611042999997,
+      "pending": 8
+    },
+    {
+      "at_ms": 26007.382694000014,
+      "pending": 8
+    },
+    {
+      "at_ms": 27007.805175,
+      "pending": 8
+    },
+    {
+      "at_ms": 28007.750407,
+      "pending": 8
+    },
+    {
+      "at_ms": 29007.866989000016,
+      "pending": 8
+    },
+    {
+      "at_ms": 30007.946589000014,
+      "pending": 8
+    },
+    {
+      "at_ms": 31008.161408,
+      "pending": 4
+    },
+    {
+      "at_ms": 32009.097601,
+      "pending": 1
+    },
+    {
+      "at_ms": 32013.12013000001,
+      "pending": 0
+    }
+  ],
+  "summary": {
+    "scope": "http_completion_diagnostic",
+    "criterion": "completed_2xx_http_streams_per_second",
+    "target_rps": 8,
+    "target_status": "below_target",
+    "target_reached": false,
+    "min_requests": 20,
+    "sample_sufficient": true,
+    "window_sec": 30,
+    "n_total": 85,
+    "n_http_complete": 85,
+    "n_http_complete_in_window": 77,
+    "n_http_complete_drain": 8,
+    "n_http_completion_fail": 0,
+    "http_completion_fail_rate": 0,
+    "transport_rps": 2.566666666666667,
+    "e2e_p50_ms": 2822.812995000015,
+    "e2e_p95_ms": 4297.2245625999985,
+    "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+    "latency_gate_applied": false,
+    "quality_gate_applied": false,
+    "timeouts": 0,
+    "fail_types": {},
+    "quality_reference": {
+      "n_valid": 85,
+      "n_valid_completed_in_window": 77,
+      "valid_rps": 2.566666666666667,
+      "n_invalid_completed": 0,
+      "schema_failures": 0,
+      "evidence_failures": 0,
+      "truncations": 0,
+      "reasoning_leaks": 0
+    },
+    "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+  },
+  "output_tokens_avg_in_window": 100.05194805194805
+}
