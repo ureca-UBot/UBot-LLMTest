@@ -1,0 +1,117 @@
+{
+  "batch_id": "v4-try1-n200",
+  "test": "model_test_v4",
+  "try": "try1",
+  "status": "completed",
+  "condition": "t0_nothink",
+  "size": 200,
+  "context_mode": "fixed",
+  "dataset": "test_set4",
+  "cases_sha256": "234780b776898d93d2fa950068504db352890604e94ddeda2b73a9d777c60145",
+  "source_commit": "6c7a9646e6e229e2de27dada788075c15904f96e",
+  "created_at": "2026-10-06T04:09:39.319Z",
+  "runs": [
+    {
+      "run_id": "ec2-linux_gemma3-4b_t0_nothink_fixed_n200_20261005",
+      "model": "gemma3:4b",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": null,
+        "format": {
+          "type": "object",
+          "properties": {
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_ids",
+            "status",
+            "answer"
+          ]
+        }
+      },
+      "prompt_variant": "v4_base",
+      "selection": {
+        "size": 200,
+        "items": null,
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 0,
+      "source_path": "model_test_v4/try1/results/raw/ec2-linux_gemma3-4b_t0_nothink_fixed_n200_20261005/generation.jsonl",
+      "source_sha256": "c1c76b8518f8cdb7dbe609944c0ca725509126c4a7ef413dc3fa2893f262ac91"
+    },
+    {
+      "run_id": "ec2-linux_qwen3-4b_t0_nothink_fixed_n200_20261005",
+      "model": "qwen3:4b",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": false,
+        "format": {
+          "type": "object",
+          "properties": {
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_ids",
+            "status",
+            "answer"
+          ]
+        }
+      },
+      "prompt_variant": "v4_base",
+      "selection": {
+        "size": 200,
+        "items": null,
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 0,
+      "source_path": "model_test_v4/try1/results/raw/ec2-linux_qwen3-4b_t0_nothink_fixed_n200_20261005/generation.jsonl",
+      "source_sha256": "0b630d335e548252ad3df2024c6d37cad809520bc9389285bfb2b731c8162d76"
+    }
+  ]
+}

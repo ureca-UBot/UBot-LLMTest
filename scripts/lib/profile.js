@@ -9,7 +9,10 @@
 // 받아 applyCliSelectors()로 환경변수에 옮기고, 하위 프로세스는 그 값을 물려받는다.
 //
 //   LLM_TEST=v4 (또는 model_test_v4)   미설정 시 test.config.js가 있는 가장 높은 버전
+//            prompts_test_v1 처럼 test.config.js가 있는 폴더 이름을 그대로 줄 수도 있다
 //   LLM_TEST_TRY=try1                  미설정 시 config.defaultTry
+//   LLM_TEST_VARIANT=v4_t1             미설정 시 config.prompt.variant (--variant). 기본과 다르면
+//                                      run_id에 안 이름이 붙는다 — 같은 try에서 프롬프트 안끼리 비교할 때.
 //
 // 모든 결과 경로는 README 4-2절 구조를 따른다.
 //   model_test_vN/tryM/results/{raw/<run_id>, raw/scored/<run_id>, report, llm_judge, summary}
@@ -36,7 +39,9 @@ function versionDirs() {
 function resolveVersionDir() {
   const requested = process.env.LLM_TEST;
   if (requested) {
-    const name = requested.startsWith('model_test_') ? requested : `model_test_${requested}`;
+    // 폴더 이름을 그대로 줄 수도 있다(예: prompts_test_v1 — 프롬프트 튜닝 테스트). 아니면 model_test_<값>.
+    const direct = SAFE_RE.test(requested) && fs.existsSync(path.join(ROOT, requested, CONFIG_NAME));
+    const name = direct || requested.startsWith('model_test_') ? requested : `model_test_${requested}`;
     assertSafe('LLM_TEST', name);
     if (!fs.existsSync(path.join(ROOT, name, CONFIG_NAME))) {
       throw new Error(`${name}/${CONFIG_NAME}이 없습니다. 공통 엔진은 test.config.js가 있는 버전(v4~)만 실행합니다.`);
@@ -54,6 +59,7 @@ function applyCliSelectors(argv) {
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--test') process.env.LLM_TEST = argv[++i];
     else if (argv[i] === '--try') process.env.LLM_TEST_TRY = argv[++i];
+    else if (argv[i] === '--variant') process.env.LLM_TEST_VARIANT = argv[++i];
     else rest.push(argv[i]);
   }
   return rest;
@@ -67,6 +73,7 @@ function load() {
   const versionDir = path.join(ROOT, versionDirName);
   const config = require(path.join(versionDir, CONFIG_NAME));
   const tryTag = assertSafe('LLM_TEST_TRY', process.env.LLM_TEST_TRY || config.defaultTry || 'try1');
+  const promptVariant = assertSafe('LLM_TEST_VARIANT', process.env.LLM_TEST_VARIANT || config.prompt.variant);
   const resultsDir = path.join(versionDir, tryTag, 'results');
   const fromRoot = (p) => path.join(ROOT, p);
 
@@ -96,6 +103,7 @@ function load() {
     version: config.version,
     versionDirName,
     tryTag,
+    promptVariant,
     label: `${versionDirName}/${tryTag}`,
     config,
     paths,
@@ -143,9 +151,11 @@ function generationParams(modelTag, conditionName) {
 }
 
 // --- run_id ----------------------------------------------------------------
-// <env>_<모델>_<조건>_<컨텍스트 방식>_n<항목당 건수>_<날짜>[_<항목 코드>]
+// <env>_<모델>_<조건>_<컨텍스트 방식>_n<항목당 건수>[_<프롬프트 안>]_<날짜>[_<항목 코드>]
 //   예) local-win_qwen3-4b_t0_nothink_fixed_n200_20261001
 //       local-win_gemma3-4b_t0_nothink_fixed_n50_20261001_CE-MT
+//       local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1_20261007   (--variant가 config 기본과 다를 때)
+//       local-win_qwen3-4b_t0_nothink_fixed_n200_20261007_NC-MC_ids-<파일 이름>   (--ids-file)
 function sanitizeTag(tag) {
   return tag.replace(/[:.]/g, '-');
 }
@@ -155,10 +165,13 @@ function todayStamp(date = new Date()) {
   return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}`;
 }
 
-function makeRunId({ model, conditionName, size, date = todayStamp(), items = null, env = envTag() }) {
-  const { config } = load();
-  const parts = [env, sanitizeTag(model), condition(conditionName).name, config.contextMode, `n${size}`, date];
+function makeRunId({ model, conditionName, size, date = todayStamp(), items = null, idsTag = null, env = envTag() }) {
+  const { config, promptVariant } = load();
+  const parts = [env, sanitizeTag(model), condition(conditionName).name, config.contextMode, `n${size}`];
+  if (promptVariant !== config.prompt.variant) parts.push(promptVariant);
+  parts.push(date);
   if (items && items.length) parts.push(items.join('-'));
+  if (idsTag) parts.push(`ids-${idsTag}`);
   return assertSafe('run_id', parts.join('_'));
 }
 

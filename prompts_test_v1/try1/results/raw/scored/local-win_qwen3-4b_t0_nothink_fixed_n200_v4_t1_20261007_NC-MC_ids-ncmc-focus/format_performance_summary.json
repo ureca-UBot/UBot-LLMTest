@@ -1,0 +1,117 @@
+{
+  "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1_20261007_NC-MC_ids-ncmc-focus",
+  "all_rows": {
+    "n": 200,
+    "format_success_rate": 1,
+    "key_order_expected": [
+      "evidence_ids",
+      "status",
+      "answer"
+    ],
+    "key_order_rate": 1,
+    "key_order_counts": {
+      "evidence_ids>status>answer": 200
+    },
+    "generation_error_count": 0,
+    "timeout_count": 0,
+    "timeout_rate": 0,
+    "latency_ms": {
+      "avg": 1647.4,
+      "p50": 1618,
+      "p95": 2514,
+      "max": 3273
+    },
+    "tps_avg": 78.01951275898327,
+    "output_tokens_avg": 122.015,
+    "vram_mib": {
+      "avg": 5456.685,
+      "max": 5608
+    }
+  },
+  "independent": {
+    "n": 200,
+    "format_success_rate": 1,
+    "key_order_expected": [
+      "evidence_ids",
+      "status",
+      "answer"
+    ],
+    "key_order_rate": 1,
+    "key_order_counts": {
+      "evidence_ids>status>answer": 200
+    },
+    "generation_error_count": 0,
+    "timeout_count": 0,
+    "timeout_rate": 0,
+    "latency_ms": {
+      "avg": 1647.4,
+      "p50": 1618,
+      "p95": 2514,
+      "max": 3273
+    },
+    "tps_avg": 78.01951275898327,
+    "output_tokens_avg": 122.015,
+    "vram_mib": {
+      "avg": 5456.685,
+      "max": 5608
+    }
+  },
+  "by_item": {
+    "NC": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1452.74,
+        "p50": 1416,
+        "p95": 2303,
+        "max": 3273
+      },
+      "tps_avg": 76.06351069460678,
+      "output_tokens_avg": 103.37,
+      "vram_mib": {
+        "avg": 5482.03,
+        "max": 5608
+      }
+    },
+    "MC": {
+      "n": 100,
+      "format_success_rate": 1,
+      "key_order_expected": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ],
+      "key_order_rate": 1,
+      "key_order_counts": {
+        "evidence_ids>status>answer": 100
+      },
+      "generation_error_count": 0,
+      "timeout_count": 0,
+      "timeout_rate": 0,
+      "latency_ms": {
+        "avg": 1842.06,
+        "p50": 1776,
+        "p95": 2682,
+        "max": 3012
+      },
+      "tps_avg": 79.97551482335982,
+      "output_tokens_avg": 140.66,
+      "vram_mib": {
+        "avg": 5431.34,
+        "max": 5438
+      }
+    }
+  }
+}

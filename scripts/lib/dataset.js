@@ -73,6 +73,19 @@ function selectCases({ size = null, items = null, difficulty = null, ids = null,
   return selected;
 }
 
+// --ids-file 읽기: 한 줄에 케이스 ID 하나, 빈 줄과 # 뒤는 무시한다. 없는 ID가 있으면 멈춘다.
+function readIdsFile(filePath) {
+  const ids = fs.readFileSync(filePath, 'utf8').split(/\r?\n/).map((l) => l.replace(/#.*/, '').trim()).filter(Boolean);
+  const { byId } = loadCases();
+  const unknown = ids.filter((id) => !byId.has(id));
+  if (unknown.length) throw new Error(`--ids-file에 데이터셋에 없는 ID가 있습니다: ${unknown.slice(0, 5).join(', ')}${unknown.length > 5 ? ' …' : ''}`);
+  return {
+    ids,
+    sha256: crypto.createHash('sha256').update(ids.join('\n')).digest('hex'),
+    tag: require('path').basename(filePath).replace(/\.[^.]+$/, '').replace(/[^A-Za-z0-9-]/g, '-'),
+  };
+}
+
 function itemOrder() {
   return profile.load().config.items.map((i) => i.code);
 }
@@ -82,4 +95,4 @@ function itemName(code) {
   return item ? item.name : code;
 }
 
-module.exports = { loadCases, selectCases, isRepeatCase, itemOrder, itemName };
+module.exports = { loadCases, selectCases, readIdsFile, isRepeatCase, itemOrder, itemName };

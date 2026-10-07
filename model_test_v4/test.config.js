@@ -13,12 +13,27 @@ module.exports = {
   contextMode: 'fixed',
 
   dataset: {
-    name: 'test_set3',
-    source: 'data/raw/FAQ_RAG_15개항목_각200건_총3000건_피드백수정본.xlsx',
+    // 2026-10-06: 테스트 FAQ를 의도 균등 FAQ v4 반영본(14항목 × 200 = 2,800건, FAQ 원문 1,000건)으로 교체했다.
+    // 평가 기준·방법은 그대로다. 이전 데이터셋(test_set3, 15항목·3,000건)은 data/eval_sets/test_set3에 남겨 둔다.
+    // 시트 이름은 원본 파일에서 바뀌지 않아 '테스트 3000건' 그대로다(실제 행은 2,800).
+    name: 'test_set4',
+    source: 'data/raw/FAQ_RAG_2800건_의도균등FAQ_v4반영본.xlsx',
     sheet: '테스트 3000건',
     faqSheet: 'FAQ 원문',
-    casesPath: 'data/eval_sets/test_set3/cases_fixed.csv',
-    faqPath: 'data/eval_sets/test_set3/faq_master.csv',
+    casesPath: 'data/eval_sets/test_set4/cases_fixed.csv',
+    faqPath: 'data/eval_sets/test_set4/faq_master.csv',
+    // 원본 테스트 시트에 같이 들어 있는 결과 기록용 빈 칸(LLM 출력·Judge·자동 판정 칸). 엔진은 결과를
+    // results/ 아래에 따로 쓰므로 cases CSV에는 넣지 않는다. prepare_dataset.js가 모두 비어 있는지 확인하고
+    // 값이 있으면 멈춘다(입력 데이터를 잘못 버리지 않도록).
+    resultColumns: {
+      prefixes: ['LLM ', 'Judge ', 'Persona ', 'Safety '],
+      names: [
+        '생성 상태', '근거 채택 분류', '근거 채택 (1/0)', '정답 근거 전부 인용 (1/0)', 'Context 밖 인용 ID (JSON)',
+        '문서 외 인용 꼬리표 (JSON)', '본문 근거 오류 (1/0)', '출력 status·본문 불일치 (1/0)', '인용·본문 출처 불일치 (1/0)',
+        '오답 주원인 (자동)', '상태 엄격 판정 (자동)', '상태 완화 판정 (자동)', '허용 교차 유형 (자동)',
+        '생성 시간 (ms)', '실행·평가 메모',
+      ],
+    },
     // 엔진이 쓰는 필드 이름 -> 데이터셋 컬럼 이름. 데이터 형식이 바뀌면 여기만 고친다.
     columns: {
       id: '실행 ID',
@@ -47,14 +62,13 @@ module.exports = {
     // 간이 테스트용 서브셋(항목당 건수). 작은 서브셋은 큰 서브셋에 항상 포함된다
     // (50 ⊂ 100 ⊂ 150 ⊂ 200). 난이도(+페르소나 하위 항목) 비율을 유지하고, 반복 항목은
     // 원본 질문 단위로 뽑아 10회 반복을 통째로 넣는다.
-    subset: { sizes: [50, 100, 150, 200], full: 200, seed: 'test_set3-v1', strata: ['difficulty', 'personaSub'] },
+    subset: { sizes: [50, 100, 150, 200], full: 200, seed: 'test_set4-v1', strata: ['difficulty', 'personaSub'] },
     defaultSize: 200,
   },
 
   // 14개 항목. 순서가 보고서의 항목 순서다.
   // SF(단일 FAQ 답변)는 뺐다(2026-10-02) — top-k를 3으로 고정해서 상담봇에 항상 FAQ 3개가 주어지므로
-  // "FAQ 1개만 주어짐" 상황 자체가 더 이상 발생하지 않는다. 데이터셋(test_set3/cases_fixed.csv)은 아직
-  // SF 200행을 포함한 15항목·3,000행 구조다 — 데이터셋을 다시 만들 때 이 설정에 맞춰 함께 뺀다.
+  // "FAQ 1개만 주어짐" 상황 자체가 더 이상 발생하지 않는다. test_set4는 원본부터 SF가 없다.
   items: [
     { code: 'NC', name: '유사 FAQ 구분·노이즈' },
     { code: 'MC', name: '다중 FAQ 조합' },

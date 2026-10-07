@@ -98,4 +98,22 @@ async function ensureModelAvailable(model) {
   return names.includes(model) || names.some((n) => n.startsWith(model.split(':')[0] + ':'));
 }
 
-module.exports = { chat, embed, ensureModelAvailable, withRetry, isTimeout, OLLAMA_HOST };
+// run_info에 남길 실행 환경. 같은 모델·temperature 0이어도 Ollama 버전·가중치(digest)·양자화가
+// 다르면 출력이 달라질 수 있어, 환경이 다른 run끼리 비교하기 전에 확인하는 용도다. 실패해도 생성은 계속한다.
+async function runtimeInfo(model) {
+  const get = async (p) => {
+    const res = await fetch(`${OLLAMA_HOST}${p}`, { signal: AbortSignal.timeout(10000) });
+    if (!res.ok) throw new Error(`${p} ${res.status}`);
+    return res.json();
+  };
+  const out = { ollama_host: OLLAMA_HOST, ollama_version: null, model_digest: null, quantization: null };
+  try { out.ollama_version = (await get('/api/version')).version ?? null; } catch (e) { out.error = e.message; }
+  try {
+    const tag = model.includes(':') ? model : `${model}:latest`;
+    const entry = (await get('/api/tags')).models.find((m) => m.name === tag);
+    if (entry) { out.model_digest = entry.digest; out.quantization = entry.details?.quantization_level ?? null; }
+  } catch (e) { out.error = e.message; }
+  return out;
+}
+
+module.exports = { chat, embed, ensureModelAvailable, withRetry, isTimeout, runtimeInfo, OLLAMA_HOST };

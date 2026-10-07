@@ -20,7 +20,7 @@ const ollama = require('../lib/ollama');
 const { readExistingIds, makeAppender } = require('../lib/jsonl');
 const { envTag } = require('../lib/platform');
 const { sampleVramMiB } = require('../lib/vram');
-const { loadCases, selectCases } = require('../lib/dataset');
+const { loadCases, selectCases, readIdsFile } = require('../lib/dataset');
 const { parseRunArgs } = require('../lib/args');
 
 const sha256 = (v) => crypto.createHash('sha256').update(v).digest('hex');
@@ -36,9 +36,10 @@ async function main() {
   profile.assertSafe('run_id', runId);
   const cond = profile.condition(opts.condition);
   const genParams = profile.generationParams(modelTag, cond.name);
-  const variant = config.prompt.variant;
+  const variant = profile.load().promptVariant;
   const size = opts.size || config.dataset.defaultSize;
-  const cases = selectCases({ size, items: opts.items, difficulty: opts.difficulty, limit: opts.limit });
+  const idsSel = opts.idsFile ? readIdsFile(opts.idsFile) : null;
+  const cases = selectCases({ size, items: opts.items, difficulty: opts.difficulty, limit: opts.limit, ids: idsSel?.ids });
   const { sha256: casesSha } = loadCases();
 
   // 이 run의 정체 — 재개 시 같은 설정인지 대조한다.
@@ -55,14 +56,25 @@ async function main() {
     system_prompt_sha256: sha256(systemPromptFor(variant)),
     dataset: config.dataset.name,
     cases_sha256: casesSha,
-    selection: { size, items: opts.items || null, difficulty: opts.difficulty || null, limit: opts.limit || null },
+    selection: {
+      size, items: opts.items || null, difficulty: opts.difficulty || null, limit: opts.limit || null,
+      ...(idsSel ? { ids_file: opts.idsFile.replace(/\\/g, '/'), ids_sha256: idsSel.sha256 } : {}),
+    },
     case_ids: cases.map((c) => c.id),
+    // 실행 환경(Ollama 버전·가중치 digest·양자화). 2026-10-07 추가 — 이전 run_info에는 없다.
+    runtime: await ollama.runtimeInfo(modelTag),
   };
   const infoPath = paths.runInfoPath(runId);
   if (fs.existsSync(infoPath)) {
     const prev = JSON.parse(fs.readFileSync(infoPath, 'utf8'));
     const keys = ['model_tag', 'condition', 'gen_params', 'context_mode', 'prompt_variant', 'system_prompt_sha256', 'cases_sha256', 'selection'];
     const diff = keys.filter((k) => JSON.stringify(prev[k]) !== JSON.stringify(runInfo[k]));
+    // 재개 중에 Ollama 버전이나 가중치가 바뀌면 한 run에 다른 환경의 답이 섞인다.
+    if (prev.runtime) {
+      for (const k of ['ollama_version', 'model_digest']) {
+        if (prev.runtime[k] && runInfo.runtime[k] && prev.runtime[k] !== runInfo.runtime[k]) diff.push(`runtime.${k}`);
+      }
+    }
     if (diff.length) {
       throw new Error(`같은 run_id(${runId})가 다른 설정으로 이미 있습니다: ${diff.join(', ')}\n새 run_id를 쓰거나 기존 폴더를 확인하세요: ${repoRel(paths.rawDir(runId))}`);
     }

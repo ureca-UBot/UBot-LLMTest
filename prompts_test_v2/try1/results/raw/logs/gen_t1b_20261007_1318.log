@@ -1,0 +1,148 @@
+
+===== 항목 라운드 (qwen3:4b × PI,AD,HR,SR) [prompts_test_v2/try1] =====
+조건 t0_nothink · 프롬프트 v4_t1b · 컨텍스트 fixed · 항목당 100건 · 항목 PI,AD,HR,SR · 모델당 400행
+  - qwen3:4b {"temperature":0,"seed":null,"think":false,"format":"schema(evidence_ids>status>answer)"} -> local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1b_20261007_PI-AD-HR-SR
+
+########## [1/1] qwen3:4b (local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1b_20261007_PI-AD-HR-SR) ##########
+파이프라인 [prompts_test_v2/try1] run_id=local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1b_20261007_PI-AD-HR-SR model=qwen3:4b
+
+=== 1/10 생성 (run/run_generation.js) ===
+[prompts_test_v2/try1] run_id=local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1b_20261007_PI-AD-HR-SR model=qwen3:4b env=local-win
+조건 t0_nothink {"temperature":0,"seed":null,"think":false,"format":"schema(evidence_ids>status>answer)"} · 프롬프트 v4_t1b · n100
+총 400건, 이미 완료 0건, 이번에 처리 400건 -> prompts_test_v2/try1/results/raw/local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1b_20261007_PI-AD-HR-SR/generation.jsonl
+  25/400 (성공 25, 실패 0, 경과 43s)
+  50/400 (성공 50, 실패 0, 경과 97s)
+  75/400 (성공 75, 실패 0, 경과 155s)
+  100/400 (성공 100, 실패 0, 경과 215s)
+  125/400 (성공 125, 실패 0, 경과 262s)
+  150/400 (성공 150, 실패 0, 경과 311s)
+  175/400 (성공 175, 실패 0, 경과 358s)
+  200/400 (성공 200, 실패 0, 경과 403s)
+  225/400 (성공 225, 실패 0, 경과 439s)
+  250/400 (성공 250, 실패 0, 경과 480s)
+  275/400 (성공 275, 실패 0, 경과 519s)
+  300/400 (성공 300, 실패 0, 경과 559s)
+  325/400 (성공 325, 실패 0, 경과 581s)
+  350/400 (성공 350, 실패 0, 경과 610s)
+  375/400 (성공 375, 실패 0, 경과 646s)
+  400/400 (성공 400, 실패 0, 경과 682s)
+완료. 성공 400, 실패 0
+
+=== 2/10 포맷·성능 (score/score_format_performance.js) ===
+포맷 준수 100.0% · 키 순서 준수 100.0% {"evidence_ids>status>answer":400} · 타임아웃 0건 · 지연 avg 1661ms / p95 2754ms · TPS 76.3 (전체 400행)
+
+=== 3/10 기대 상태 판단 (score/score_status.js) ===
+기대 상태 일치 73.3% (독립 표본 400행) · 부재 판단 F1 0.811
+
+=== 4/10 근거 채택(evidence_ids vs 정답 문서) (score/score_evidence.js) ===
+근거 채택률 47.9% (엄격 48.5%) · 정확 인용 46.6% · 정밀도 98.8% · 없는 ID 인용 0.0% · 사용자 정보/API 꼬리표 인용 0행 (독립 표본 대상 163/400행)
+답했는데 근거 미기재 66건 (44.6%, 답·부분 답·충돌 라벨 148행 중)
+
+=== 5/10 정답 유사도·키워드 (score/score_answer_similarity.js) ===
+유사도 대상 400건 (이미 완료 0건)
+  32/400
+  64/400
+  96/400
+  128/400
+  160/400
+  192/400
+  224/400
+  256/400
+  288/400
+  320/400
+  352/400
+  384/400
+  400/400
+정답 유사도 평균 81.2 · 키워드 포함률 42.8% (독립 표본 400행)
+
+=== 6/10 근거(NLI·숫자) — 참고 (score/score_rag_grounding.js) ===
+NLI 대상 148건, 쌍 1542개
+  NLI 1-500/1542
+  NLI 501-1000/1542
+  NLI 1001-1500/1542
+  NLI 1501-1542/1542
+NLI 지지율 평균 41.2% · 미확인 숫자 포함 15.5% (독립 표본 측정 148행)
+
+=== 7/10 표현 규칙 (score/score_expression_rules.js) ===
+표현 규칙 점수 평균 63.0 · 실격 32.0% (독립 표본 400행)
+
+=== 8/10 반복 일관성 (score/score_repeat_consistency.js) ===
+반복 일관성: 이 run에 RT 행이 없어 건너뜁니다.
+
+=== 9/10 통합 CSV (docgen/build_review_export.js) ===
+review.csv 400행 -> prompts_test_v2/try1/results/raw/scored/local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1b_20261007_PI-AD-HR-SR/review.csv
+
+=== 10/10 run 보고서 (docgen/build_run_report.js) ===
+보고서 -> prompts_test_v2/try1/results/report/local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1b_20261007_PI-AD-HR-SR_summary.md
+
+파이프라인 완료 (13.5분)
+
+===== 항목 라운드 (qwen3:4b × PI,AD,HR,SR) 요약 (13.5분) =====
+  OK   qwen3:4b (local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1b_20261007_PI-AD-HR-SR)
+
+===== 항목 라운드 (qwen3:4b × NC,MC) [prompts_test_v2/try1] =====
+조건 t0_nothink · 프롬프트 v4_t1b · 컨텍스트 fixed · 항목당 200건 · 항목 NC,MC · 모델당 200행
+  - qwen3:4b {"temperature":0,"seed":null,"think":false,"format":"schema(evidence_ids>status>answer)"} -> local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus
+
+########## [1/1] qwen3:4b (local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus) ##########
+파이프라인 [prompts_test_v2/try1] run_id=local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus model=qwen3:4b
+
+=== 1/10 생성 (run/run_generation.js) ===
+[prompts_test_v2/try1] run_id=local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus model=qwen3:4b env=local-win
+조건 t0_nothink {"temperature":0,"seed":null,"think":false,"format":"schema(evidence_ids>status>answer)"} · 프롬프트 v4_t1b · n200
+총 200건, 이미 완료 0건, 이번에 처리 200건 -> prompts_test_v2/try1/results/raw/local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus/generation.jsonl
+  25/200 (성공 25, 실패 0, 경과 51s)
+  50/200 (성공 50, 실패 0, 경과 90s)
+  75/200 (성공 75, 실패 0, 경과 122s)
+  100/200 (성공 100, 실패 0, 경과 156s)
+  125/200 (성공 125, 실패 0, 경과 200s)
+  150/200 (성공 150, 실패 0, 경과 242s)
+  175/200 (성공 175, 실패 0, 경과 287s)
+  200/200 (성공 200, 실패 0, 경과 349s)
+완료. 성공 200, 실패 0
+
+=== 2/10 포맷·성능 (score/score_format_performance.js) ===
+포맷 준수 100.0% · 키 순서 준수 100.0% {"evidence_ids>status>answer":200} · 타임아웃 0건 · 지연 avg 1698ms / p95 2621ms · TPS 78.3 (전체 200행)
+
+=== 3/10 기대 상태 판단 (score/score_status.js) ===
+기대 상태 일치 92.0% (독립 표본 200행) · 부재 판단 F1 N/A
+
+=== 4/10 근거 채택(evidence_ids vs 정답 문서) (score/score_evidence.js) ===
+근거 채택률 82.5% (엄격 88.5%) · 정확 인용 81.5% · 정밀도 91.2% · 없는 ID 인용 0.0% · 사용자 정보/API 꼬리표 인용 0행 (독립 표본 대상 200/200행)
+답했는데 근거 미기재 8건 (4.0%, 답·부분 답·충돌 라벨 200행 중)
+
+=== 5/10 정답 유사도·키워드 (score/score_answer_similarity.js) ===
+유사도 대상 200건 (이미 완료 0건)
+  32/200
+  64/200
+  96/200
+  128/200
+  160/200
+  192/200
+  200/200
+정답 유사도 평균 89.9 · 키워드 포함률 88.8% (독립 표본 200행)
+
+=== 6/10 근거(NLI·숫자) — 참고 (score/score_rag_grounding.js) ===
+NLI 대상 200건, 쌍 1938개
+  NLI 1-500/1938
+  NLI 501-1000/1938
+  NLI 1001-1500/1938
+  NLI 1501-1938/1938
+NLI 지지율 평균 78.3% · 미확인 숫자 포함 0.0% (독립 표본 측정 200행)
+
+=== 7/10 표현 규칙 (score/score_expression_rules.js) ===
+표현 규칙 점수 평균 84.1 · 실격 8.0% (독립 표본 200행)
+
+=== 8/10 반복 일관성 (score/score_repeat_consistency.js) ===
+반복 일관성: 이 run에 RT 행이 없어 건너뜁니다.
+
+=== 9/10 통합 CSV (docgen/build_review_export.js) ===
+review.csv 200행 -> prompts_test_v2/try1/results/raw/scored/local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus/review.csv
+
+=== 10/10 run 보고서 (docgen/build_run_report.js) ===
+보고서 -> prompts_test_v2/try1/results/report/local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus_summary.md
+
+파이프라인 완료 (8.0분)
+
+===== 항목 라운드 (qwen3:4b × NC,MC) 요약 (8.0분) =====
+  OK   qwen3:4b (local-win_qwen3-4b_t0_nothink_fixed_n200_v4_t1b_20261007_NC-MC_ids-ncmc-focus)

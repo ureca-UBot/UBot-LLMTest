@@ -42,7 +42,8 @@ LLM_Test/
 │   └── eval_sets/
 │       ├── test_set1/                      # v1: faq_easy/medium/hard, rag_stability_small/medium/large, intent_classification, cluster_labeling
 │       ├── test_set2/                      # v2·v3: cases.csv(380행), faq_master.csv, item_review.md(문항 적합성 검토)
-│       └── test_set3/                      # v4~: cases_fixed.csv(15개 항목×200=3,000행, 포함 최소 규모 컬럼), faq_master.csv(1,024건), dataset_manifest.json
+│       ├── test_set3/                      # (v4 이전 데이터, 2026-10-06 교체됨) cases_fixed.csv(15개 항목×200=3,000행), faq_master.csv(1,024건)
+│       └── test_set4/                      # v4~: cases_fixed.csv(14개 항목×200=2,800행, 포함 최소 규모 컬럼), faq_master.csv(1,000건), dataset_manifest.json
 ├── scripts/                                # ⭐ 공통 테스트 엔진 (v4부터 모든 버전이 공유) — scripts/README.md
 │   ├── run/ · score/ · judge/ · docgen/    # 실행 · 결정론 채점 · LLM Judge 판정 · 결과 문서 생성
 │   └── lib/                                # 공통 모듈 (profile·dataset·prompts 로더·judge provider 등)
@@ -69,7 +70,7 @@ LLM_Test/
 │   ├── SETUP.md · PATH_MAP.csv
 │   ├── scripts/                            # v2 채점 스크립트 복사본 + run_round · run_think_ablation · run_temp_control · rounds/
 │   └── try1/results/                       # all_summary.md · dashboard.html · raw/(+scored/, logs/) · report/ · llm_judge/ · summary/
-└── model_test_v4/                          # 4차 테스트 (test4, 3,000건, 튜닝 기준선) — 스크립트 없음, 공통 엔진 사용
+└── model_test_v4/                          # 4차 테스트 (test4, 2,800건, 튜닝 기준선) — 스크립트 없음, 공통 엔진 사용
     ├── test.config.js                      # 이 버전에서 바뀌는 값 전부(데이터·항목·모델·조건·프롬프트·Judge)
     ├── SETUP.md
     └── tryN/results/                       # (실행 후)
@@ -83,6 +84,7 @@ LLM_Test/
 | **v2 try1** (test2) | 2026-09-17 · 로컬 RTX 4070 Ti | 데이터셋을 **13개 항목 · 고유 300 + 반복 80 = 380건**으로 재설계, 응답에 기대 상태(status) 판단 추가. 9개 모델 3,420건 · 결정론 채점 + AI 표본 재판단 | `qwen3:4b`가 기대 상태 일치 83.0% · 부재 F1 0.795 · AI 재판단 96.2%로 1위(평균 9.5s). Gemma3 270M/1B는 포맷 성공률 25~36%로 탈락. **5개 모델 1차 선별** | [all_summary](model_test_v2/try1/results/all_summary.md) |
 | **v2 try2** (test2 V2) | 2026-09-18 · 로컬 RTX 4070 Ti | 선별 5개 모델(`qwen3:4b` `qwen3:8b` `exaone3.5:7.8b` `qwen3:1.7b` `gemma3:4b`) 재실행 + **LLM Judge 전수 채점**(내용 1,500 · 안전성 75) | `qwen3:4b` 정확도 72.0% · 근거율 86.0%로 1위지만 P95 29.2s. `exaone3.5:7.8b`는 정확도 51.7%인데 환각률 51.3%로 최고. 결정론 지표는 try1과 거의 같아 순위 재현 | [all_summary](model_test_v2/try2/results/all_summary.md) |
 | **v3 try1** (test3) | 2026-09-20 · EC2 Tesla T4 | 같은 380건 · **temperature 0** · 7개 모델(선별 5 + `gemma3:12b` `qwen3:14b`) + Qwen3 추론 OFF 4개 + temperature 0.8 대조군 · LLM Judge 전수 | **1차 MVP로 `qwen3:14b` 추론 OFF 선정**(정확도 70.7% · 근거율 76.3% · P95 8.1s). 정확도 1위 `qwen3:14b` ON 75.6%, 근거율 1위 `qwen3:4b` ON 86.3%(P95 47.6s). temperature 0으로 반복 일관성 대폭 개선 | [all_summary](model_test_v3/try1/results/all_summary.md) |
+| **v4 try1** (test4) | 2026-10-05~06 · EC2 Tesla T4(생성) · Judge 로컬 | **저급 모델 튜닝 전 기준선.** 데이터셋을 `test_set4` **14개 항목 × 200 = 2,800건**(의도 균등 FAQ 1,000건 기반, PS·RT 추가)으로 바꾸고 `gemma3:4b` · `qwen3:4b` 추론 OFF를 temperature 0 · Context 고정으로 측정 · 공통 엔진 `scripts/` · LLM Judge 전수(Codex `gpt-6-sol`, 답변 문장만 판정) | 정답률 `gemma3:4b` 65.1% · `qwen3:4b` OFF 63.0%로 비슷하지만 정답+근거+상태는 44.4% · 31.3%(qwen3가 status를 낮추고 근거를 비움). 환각률 24.1% · 22.0%, 약한 항목은 둘 다 PI·CE·UI·CF·AR. **gemma3:4b를 우선 튜닝 후보로 판단**(P95 3.3s). v3와는 데이터·정확도 정의가 달라 직접 비교하지 않음 | [all_summary](model_test_v4/try1/results/all_summary.md) |
 
 ## 4. 새 테스트를 진행할 때 지켜야 할 점
 
@@ -129,7 +131,7 @@ model_test_vN/
 | **항목별 테스트** (모델 하나 × 항목 하나) | `run/run_item.js <model> <CODE>` |
 | 파이프라인 단계 | `run/run_pipeline.js` → `run/run_generation.js` · `score/score_*.js` · `docgen/build_review_export.js` · `docgen/build_run_report.js` |
 | LLM Judge — 판정 | `judge/build_batch_manifest.js` · `judge/judge_prepare.js` · `judge/judge_run.js`(`--confirm-external`) |
-| 결과 문서 생성 | `docgen/judge_report.js` · `docgen/compare_runs.js` |
+| 결과 문서 생성 | `docgen/judge_report.js` · `docgen/judge_review_export.js`(사람 검토 md) · `docgen/compare_runs.js` · `docgen/build_result_entry.js`(result.html 항목) |
 | 설정·공통 모듈 | `model_test_vN/test.config.js` · `scripts/lib/` (`profile.js` 경로·설정, `dataset.js` 컬럼 매핑, `prompts.js`·`prompt_files.js` 프롬프트 로더) |
 | 프롬프트 | `prompts/chatbot/`(상담봇) · `prompts/judge/`(판정) · `prompts/docgen/`(문서 생성) — 스크립트에 프롬프트 원문을 두지 않는다 |
 

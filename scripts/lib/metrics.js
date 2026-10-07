@@ -55,9 +55,14 @@ function topLevelKeyOrder(rawContent, parsed) {
     .map((x) => x.k);
 }
 
-// "1. 사실 문장\n2. 사실 문장" 형태의 필수 사실 목록에서 번호를 떼어낸다.
+// 필수 사실 목록에서 번호("1. 사실 문장")와 줄 머리 꼬리표를 떼어낸다. test_set4는 번호 대신
+// "참고 사실·조건 (체크리스트 강제 채점 아님): …"·"표현 기준: …" 꼬리표를 붙인다 — 꼬리표 단어가
+// 키워드로 잡혀 포함률이 낮아지지 않도록 뺀다.
+const FACT_LABEL_RE = /^\s*(?:참고 사실·조건\s*(?:\([^)]*\))?|표현 기준)\s*:\s*/;
 function stripEnumeration(text) {
-  return (text || '').split('\n').map((line) => line.replace(/^\s*\d+[.)]\s*/, '')).join('\n');
+  return (text || '').split('\n')
+    .map((line) => line.replace(/^\s*\d+[.)]\s*/, '').replace(FACT_LABEL_RE, ''))
+    .join('\n');
 }
 
 // 필수 사실의 의미 있는 토큰(2자 이상) 중 답변에 부분 문자열로 들어 있는 비율.

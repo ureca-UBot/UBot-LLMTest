@@ -1,7 +1,7 @@
 'use strict';
 // 원본 xlsx -> 엔진이 읽는 CSV (test.config.js의 dataset 설정 기준).
 //
-//   <dataset.casesPath>            테스트 시트 전체 + '포함 최소 규모' 컬럼
+//   <dataset.casesPath>            테스트 시트(결과 기록용 빈 칸 dataset.resultColumns 제외) + '포함 최소 규모' 컬럼
 //   <dataset.faqPath>              FAQ 원문 시트
 //   <casesPath 폴더>/dataset_manifest.json   원본·결과 해시, 항목×규모×난이도 건수
 //
@@ -96,7 +96,15 @@ function main() {
   const rows = sheetToObjects(wb.sheets[ds.sheet]);
   if (!rows.length) throw new Error(`시트가 비어 있습니다: ${ds.sheet}`);
 
-  const header = Object.keys(rows[0]).filter((h) => h !== cols.subsetMin);
+  // 결과 기록용 빈 칸(dataset.resultColumns)은 버린다. 값이 하나라도 있으면 입력 데이터일 수 있으니 멈춘다.
+  const rc = ds.resultColumns || {};
+  const isResultColumn = (h) => (rc.names || []).includes(h) || (rc.prefixes || []).some((p) => h.startsWith(p));
+  const dropped = Object.keys(rows[0]).filter(isResultColumn);
+  for (const h of dropped) {
+    const filled = rows.filter((r) => String(r[h] ?? '').trim() !== '').length;
+    if (filled) throw new Error(`결과 칸으로 지정된 컬럼에 값이 있습니다(${filled}행): ${h}`);
+  }
+  const header = Object.keys(rows[0]).filter((h) => h !== cols.subsetMin && !isResultColumn(h));
   for (const [field, column] of Object.entries(cols)) {
     if (field !== 'subsetMin' && !header.includes(column)) throw new Error(`원본에 없는 컬럼(${field}): ${column}`);
   }
@@ -112,7 +120,7 @@ function main() {
 
   const { subsetMin, report } = assignSubsets(rows, cols, ds.subset);
   const out = rows.map((r) => ({
-    ...r,
+    ...Object.fromEntries(header.map((h) => [h, r[h]])),
     [cols.subsetMin]: subsetMin.get(r[cols.originalId] || r[cols.id]) || ds.subset.full,
   }));
   const casesCsv = toCsv(out, [...header, cols.subsetMin]);
@@ -143,6 +151,7 @@ function main() {
     source_sha256: sha256(fs.readFileSync(sourcePath)),
     sheet: ds.sheet,
     rows: out.length,
+    dropped_result_columns: dropped,
     cases_path: ds.casesPath,
     cases_sha256: sha256(Buffer.from(casesCsv, 'utf8')),
     faq_path: ds.faqPath || null,

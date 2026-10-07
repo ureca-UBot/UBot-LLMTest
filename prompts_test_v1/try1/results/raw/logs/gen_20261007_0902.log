@@ -1,0 +1,27 @@
+
+===== 항목 라운드 (qwen3:4b × PI,CE,UI,AR,AD,SR,HR,EC,CF) [prompts_test_v1/try1] =====
+조건 t0_nothink · 프롬프트 v4_base · 컨텍스트 fixed · 항목당 100건 · 항목 PI,CE,UI,AR,AD,SR,HR,EC,CF · 모델당 900행
+  - qwen3:4b {"temperature":0,"seed":null,"think":false,"format":"schema(evidence_ids>status>answer)"} -> local-win_qwen3-4b_t0_nothink_fixed_n100_20261007_PI-CE-UI-AR-AD-SR-HR-EC-CF
+
+########## [1/1] qwen3:4b (local-win_qwen3-4b_t0_nothink_fixed_n100_20261007_PI-CE-UI-AR-AD-SR-HR-EC-CF) ##########
+파이프라인 [prompts_test_v1/try1] run_id=local-win_qwen3-4b_t0_nothink_fixed_n100_20261007_PI-CE-UI-AR-AD-SR-HR-EC-CF model=qwen3:4b
+
+=== 1/10 생성 (run/run_generation.js) ===
+[prompts_test_v1/try1] run_id=local-win_qwen3-4b_t0_nothink_fixed_n100_20261007_PI-CE-UI-AR-AD-SR-HR-EC-CF model=qwen3:4b env=local-win
+조건 t0_nothink {"temperature":0,"seed":null,"think":false,"format":"schema(evidence_ids>status>answer)"} · 프롬프트 v4_base · n100
+총 900건, 이미 완료 0건, 이번에 처리 900건 -> prompts_test_v1/try1/results/raw/local-win_qwen3-4b_t0_nothink_fixed_n100_20261007_PI-CE-UI-AR-AD-SR-HR-EC-CF/generation.jsonl
+  25/900 (성공 25, 실패 0, 경과 69s)
+  50/900 (성공 50, 실패 0, 경과 142s)
+  75/900 (성공 75, 실패 0, 경과 196s)
+  100/900 (성공 100, 실패 0, 경과 251s)
+  125/900 (성공 125, 실패 0, 경과 310s)
+  150/900 (성공 150, 실패 0, 경과 366s)
+  175/900 (성공 175, 실패 0, 경과 418s)
+  200/900 (성공 200, 실패 0, 경과 492s)
+  225/900 (성공 225, 실패 0, 경과 533s)
+  250/900 (성공 250, 실패 0, 경과 570s)
+  275/900 (성공 275, 실패 0, 경과 615s)
+  300/900 (성공 300, 실패 0, 경과 669s)
+  325/900 (성공 325, 실패 0, 경과 706s)
+  350/900 (성공 350, 실패 0, 경과 742s)
+  375/900 (성공 375, 실패 0, 경과 776s)

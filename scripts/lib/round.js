@@ -6,7 +6,7 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 const profile = require('./profile');
 const { toArgs } = require('./args');
-const { selectCases } = require('./dataset');
+const { selectCases, readIdsFile } = require('./dataset');
 
 const PIPELINE = path.join(__dirname, '..', 'run', 'run_pipeline.js');
 
@@ -38,22 +38,28 @@ function runRound({ label, models, items = null, opts = {} }) {
   const cond = profile.condition(opts.condition);
   const size = opts.size || config.dataset.defaultSize;
   const date = opts.date || profile.todayStamp();
-  const nCases = selectCases({ size, items, difficulty: opts.difficulty, limit: opts.limit }).length;
+  const idsSel = opts.idsFile ? readIdsFile(opts.idsFile) : null;
+  const nCases = selectCases({ size, items, difficulty: opts.difficulty, limit: opts.limit, ids: idsSel?.ids }).length;
+  if (idsSel && nCases !== idsSel.ids.length) {
+    console.error(`[${label}] --ids-file의 ${idsSel.ids.length}건 중 ${nCases}건만 선택됩니다 — --size·항목 범위 밖 ID가 있습니다(--size 200으로 실행하세요).`);
+    process.exit(1);
+  }
+  require('./prompts').systemPromptFor(profile.load().promptVariant); // 없는 안이면 모델 호출 전에 멈춘다
 
   const plan = models.map((tag) => {
     profile.modelEntry(tag);
-    return { tag, runId: profile.makeRunId({ model: tag, conditionName: cond.name, size, date, items }) };
+    return { tag, runId: profile.makeRunId({ model: tag, conditionName: cond.name, size, date, items, idsTag: idsSel?.tag }) };
   });
 
   console.log(`\n===== ${label} [${suite}] =====`);
-  console.log(`조건 ${cond.name} · 프롬프트 ${config.prompt.variant} · 컨텍스트 ${config.contextMode} · 항목당 ${size}건 · ${items ? '항목 ' + items.join(',') : '전체 항목'} · 모델당 ${nCases}행`);
+  console.log(`조건 ${cond.name} · 프롬프트 ${profile.load().promptVariant} · 컨텍스트 ${config.contextMode} · 항목당 ${size}건 · ${items ? '항목 ' + items.join(',') : '전체 항목'} · 모델당 ${nCases}행`);
   const showParams = (gp) => JSON.stringify({ ...gp, format: typeof gp.format === 'object' ? `schema(${Object.keys(gp.format.properties).join('>')})` : gp.format });
   for (const p of plan) console.log(`  - ${p.tag} ${showParams(profile.generationParams(p.tag, cond.name))} -> ${p.runId}`);
   if (opts.dryRun) { console.log('\n[--dry-run] 모델 호출 없이 종료합니다.'); return []; }
   if (!opts.skipModelCheck) checkModels(plan.map((p) => p.tag));
 
   const env = { ...process.env, LLM_TEST: profile.load().versionDirName, LLM_TEST_TRY: profile.load().tryTag };
-  const passthrough = toArgs({ ...opts, condition: cond.name, size, items }, ['condition', 'size', 'items', 'difficulty', 'limit']);
+  const passthrough = toArgs({ ...opts, condition: cond.name, size, items }, ['condition', 'size', 'items', 'difficulty', 'limit', 'idsFile']);
   const results = [];
   const started = Date.now();
   for (const [i, p] of plan.entries()) {
