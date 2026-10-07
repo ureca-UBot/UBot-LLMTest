@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-10-02T08:57:13.738408+00:00",
+  "source02_files47_verified": true,
+  "source02_lock_sha256": "998b52644f29a2628d021f78191c363f513481714db92f6a7d3579feefeeffe7",
+  "production_before": [
+    {
+      "id": "218e6492756c89272fa64baec213564c8ead9496c6f18c048edfa99c6f04bebf",
+      "name": "/ubot-nginx",
+      "started_at": "2026-10-02T06:45:44.311884787Z",
+      "pid": 1309,
+      "running": true
+    },
+    {
+      "id": "25caeb33965cbcbb00371e971d7008995414327a7acf996856565aadbdf81085",
+      "name": "/ubot-ollama-1",
+      "started_at": "2026-10-02T06:45:44.296677462Z",
+      "pid": 1316,
+      "running": true
+    },
+    {
+      "id": "b40c248c5c49cda34b42b75d6e486ad25f31ef038f3c68fb0491b1d84f687a20",
+      "name": "/ubot-postgres-1",
+      "started_at": "2026-10-02T06:45:44.313839454Z",
+      "pid": 1323,
+      "running": true
+    },
+    {
+      "id": "c2093673c437a5e74d915db713551fe373b1c197c2e94200479cdb8ec8e375d2",
+      "name": "/ubot-backend",
+      "started_at": "2026-10-02T06:45:44.298567229Z",
+      "pid": 1325,
+      "running": true
+    }
+  ],
+  "production_after": [
+    {
+      "id": "218e6492756c89272fa64baec213564c8ead9496c6f18c048edfa99c6f04bebf",
+      "name": "/ubot-nginx",
+      "started_at": "2026-10-02T06:45:44.311884787Z",
+      "pid": 1309,
+      "running": true
+    },
+    {
+      "id": "25caeb33965cbcbb00371e971d7008995414327a7acf996856565aadbdf81085",
+      "name": "/ubot-ollama-1",
+      "started_at": "2026-10-02T06:45:44.296677462Z",
+      "pid": 1316,
+      "running": true
+    },
+    {
+      "id": "b40c248c5c49cda34b42b75d6e486ad25f31ef038f3c68fb0491b1d84f687a20",
+      "name": "/ubot-postgres-1",
+      "started_at": "2026-10-02T06:45:44.313839454Z",
+      "pid": 1323,
+      "running": true
+    },
+    {
+      "id": "c2093673c437a5e74d915db713551fe373b1c197c2e94200479cdb8ec8e375d2",
+      "name": "/ubot-backend",
+      "started_at": "2026-10-02T06:45:44.298567229Z",
+      "pid": 1325,
+      "running": true
+    }
+  ],
+  "production_state_unchanged": true,
+  "owned_experiment_containers": [],
+  "gpu_samples": [
+    {
+      "observed_at": "2026-10-02T08:57:11.551891+00:00",
+      "gpu": {
+        "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+        "name": "Tesla T4",
+        "memory_used_mib": 0,
+        "memory_total_mib": 15360,
+        "driver_version": "595.91.07"
+      },
+      "compute_pids": []
+    },
+    {
+      "observed_at": "2026-10-02T08:57:12.604885+00:00",
+      "gpu": {
+        "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+        "name": "Tesla T4",
+        "memory_used_mib": 0,
+        "memory_total_mib": 15360,
+        "driver_version": "595.91.07"
+      },
+      "compute_pids": []
+    },
+    {
+      "observed_at": "2026-10-02T08:57:13.657037+00:00",
+      "gpu": {
+        "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+        "name": "Tesla T4",
+        "memory_used_mib": 0,
+        "memory_total_mib": 15360,
+        "driver_version": "595.91.07"
+      },
+      "compute_pids": []
+    }
+  ],
+  "experiment_ports": [
+    {
+      "port": 19551,
+      "available": true
+    },
+    {
+      "port": 19552,
+      "available": true
+    },
+    {
+      "port": 19553,
+      "available": true
+    },
+    {
+      "port": 19554,
+      "available": true
+    },
+    {
+      "port": 19555,
+      "available": true
+    },
+    {
+      "port": 19556,
+      "available": true
+    }
+  ],
+  "benchmark_lock_present": false,
+  "toolkit_package_versions": {
+    "libnvidia-container1": "1.20.1-1",
+    "libnvidia-container-tools": "1.20.1-1",
+    "nvidia-container-toolkit-base": "1.20.1-1",
+    "nvidia-container-toolkit": "1.20.1-1"
+  },
+  "cdi_spec_sha256": "9a71c3c62b1d38e1125c69f36acfe6909dd78bc933736b83a6acedfeedf9b8ff",
+  "cdi_devices": "nvidia.com/gpu=0\nnvidia.com/gpu=GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065\nnvidia.com/gpu=all",
+  "original_clone_head": "9f837b36ac13cc7aee12a6d76648c4e629b1c980",
+  "original_clone_branch": "serving",
+  "original_clone_status": "",
+  "free_disk_gib": 11.434,
+  "reports": [
+    {
+      "candidate": "ollama_p4",
+      "report_sha256": "59883478ef630f91a30700807d95bb3c083652904b7a74cbecff0bd762164ea1",
+      "evidence_report_sha_matches": true,
+      "status": "completed_exploration",
+      "outer_exit_code": 0,
+      "production_state_unchanged": true,
+      "lock_retained": false
+    },
+    {
+      "candidate": "llamacpp_p4",
+      "report_sha256": "c2c6479f390ce80c7244853eb748d397ae694293401c7be3231898e36ef58eb4",
+      "evidence_report_sha_matches": true,
+      "status": "completed_exploration",
+      "outer_exit_code": 0,
+      "production_state_unchanged": true,
+      "lock_retained": false
+    },
+    {
+      "candidate": "vllm_s8",
+      "report_sha256": "287d4739de02b20c856308a91b64027286280040cb1340000f9e9f5039629919",
+      "evidence_report_sha_matches": true,
+      "status": "completed_exploration",
+      "outer_exit_code": 0,
+      "production_state_unchanged": true,
+      "lock_retained": false
+    },
+    {
+      "candidate": "sglang_r8",
+      "report_sha256": "43ac5b25b68f7eb938544a0e77fe15dde1ffff42ec36abed2765e9343b5e19b2",
+      "evidence_report_sha_matches": true,
+      "status": "completed_exploration",
+      "outer_exit_code": 0,
+      "production_state_unchanged": true,
+      "lock_retained": false
+    },
+    {
+      "candidate": "vllm_s32",
+      "report_sha256": "e2bd91e3f2ae0d8dd741214a6d381e3123dcfff566f926b859f97fe2338574ef",
+      "evidence_report_sha_matches": true,
+      "status": "completed_exploration",
+      "outer_exit_code": 0,
+      "production_state_unchanged": true,
+      "lock_retained": false
+    },
+    {
+      "candidate": "sglang_r32",
+      "report_sha256": "9b8b9d8b6e46008ddd92656d599a9c22eeff85232454c043b64205ae52905540",
+      "evidence_report_sha_matches": true,
+      "status": "completed_exploration",
+      "outer_exit_code": 0,
+      "production_state_unchanged": true,
+      "lock_retained": false
+    }
+  ],
+  "passed": true
+}

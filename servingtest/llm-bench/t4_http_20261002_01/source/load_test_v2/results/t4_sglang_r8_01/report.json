@@ -1,0 +1,1866 @@
+{
+  "schema_version": 2,
+  "scope": "cloud_http_capacity_exploration",
+  "mock": false,
+  "gpu_mode": "cdi",
+  "started_at": "2026-10-02T08:43:59.060Z",
+  "status": "completed_exploration",
+  "config": "/home/ubuntu/llm-bench/t4_http_20261002_01/source/load_test_v2/config/http.t4.json",
+  "frozen_manifest": "/home/ubuntu/llm-bench/t4_http_20261002_01/source/load_test_v2/config/cloud.lock.json",
+  "profile": {
+    "targetRps": 8,
+    "measureMs": 30000,
+    "minRequests": 20,
+    "timeoutMs": 120000,
+    "seed": 20261002
+  },
+  "generation": {
+    "context": 4096,
+    "max_tokens": 512,
+    "temperature": 0,
+    "thinking": false
+  },
+  "transport": {
+    "streaming": true,
+    "http_keep_alive": true,
+    "timeout_ms": 120000,
+    "retries": 0
+  },
+  "target": {
+    "http_completion_rps": 8,
+    "latency_limit_ms": null,
+    "quality_gate_applied": false,
+    "success_basis": "complete_2xx_http_stream_inside_fixed_window"
+  },
+  "workload": {
+    "source": "/home/ubuntu/llm-bench/t4_http_20261002_01/source/load_test_v2/data/benchmark_prompts.jsonl",
+    "sha256": "67ca43b2b901360cefde705a872e52441edc107abb4c19b202f746d923ea4122",
+    "case_count": 300,
+    "categories": {
+      "SF": 20,
+      "NC": 20,
+      "MC": 20,
+      "UI": 20,
+      "CE": 20,
+      "PI": 20,
+      "SR": 20,
+      "HR": 20,
+      "EC": 20,
+      "CF": 20,
+      "MT": 20,
+      "AD": 20,
+      "AR": 20,
+      "PS": 20,
+      "RT": 20
+    },
+    "seed": 20261002,
+    "ordering": "balanced_seeded_300_case_cyclic_pool"
+  },
+  "model_family": "Qwen/Qwen3-4B",
+  "model_readiness": {
+    "model_ids": [
+      "qwen3_4b_awq"
+    ],
+    "present": true,
+    "sha256_verified": true
+  },
+  "preparation_scope": {
+    "candidate_ids": [
+      "sglang_r8"
+    ],
+    "image_ids": [
+      "sglang",
+      "runner"
+    ],
+    "model_ids": [
+      "qwen3_4b_awq"
+    ]
+  },
+  "strict_gpu_release": "required",
+  "formal_benchmark_eligible": false,
+  "c_slo": null,
+  "lambda_slo": null,
+  "candidates": [
+    {
+      "id": "sglang_r8",
+      "candidate": {
+        "id": "sglang_r8",
+        "engine": "sglang",
+        "api_model": "qwen3-4b-awq",
+        "host": "http://127.0.0.1:19554",
+        "checkpoint": "Qwen/Qwen3-4B official GGUF/AWQ release",
+        "format": "Safetensors AWQ",
+        "internal_limit": 8,
+        "runtime": {
+          "mode": "docker",
+          "image": "sha256:7a3ee6e2b69e9149a008caf8217cc26c46c55315dc42cbc8e17b98609723860e",
+          "entrypoint": "python3",
+          "container_port": 30000,
+          "ready_timeout_ms": 600000,
+          "mounts": [
+            {
+              "source": "/home/ubuntu/llm-bench/t4_http_20261002_01/source/model_assets/portable/Qwen3-4B-AWQ",
+              "target": "/artifacts/awq",
+              "read_only": true
+            }
+          ],
+          "args": [
+            "-m",
+            "sglang.launch_server",
+            "--model-path",
+            "/artifacts/awq",
+            "--dtype",
+            "float16",
+            "--context-length",
+            "4096",
+            "--served-model-name",
+            "qwen3-4b-awq",
+            "--mem-fraction-static",
+            "0.7",
+            "--max-running-requests",
+            "8",
+            "--attention-backend",
+            "triton",
+            "--sampling-backend",
+            "pytorch",
+            "--cuda-graph-max-bs",
+            "8",
+            "--host",
+            "0.0.0.0",
+            "--port",
+            "30000",
+            "--revision",
+            "74d4bd2bd4bff9cafc9345221320bffb08b406a3"
+          ],
+          "env": {
+            "HF_HUB_OFFLINE": "1",
+            "TRANSFORMERS_OFFLINE": "1"
+          },
+          "image_reference": "llm-frozen/sglang:20261002-f784a3df9ec0"
+        },
+        "users": [
+          4,
+          8,
+          16,
+          32
+        ],
+        "model_family": "Qwen/Qwen3-4B",
+        "cpu_offload": "none",
+        "benchmark_eligible": false,
+        "lineage_limitation": "Exact source conversion commit equivalence remains unverified."
+      },
+      "status": "completed",
+      "steps": [
+        {
+          "users": 4,
+          "status": "completed",
+          "window": {
+            "startMs": 0.3363030000036815,
+            "endMs": 30000.336303000004
+          },
+          "warmup": {
+            "attempted": 4,
+            "completed": 4,
+            "reused": 2,
+            "quality_valid_reference": 4,
+            "passed": true
+          },
+          "raw_file": "/home/ubuntu/llm-bench/t4_http_20261002_01/source/load_test_v2/results/t4_sglang_r8_01/sglang_r8/u4_requests.jsonl",
+          "elapsed_ms": 46672.23522700001,
+          "drain_ms": 16671.787163,
+          "peak_inflight": 4,
+          "in_flight_samples": [
+            {
+              "at_ms": 0.11862100000143982,
+              "pending": 0
+            },
+            {
+              "at_ms": 1000.550099,
+              "pending": 4
+            },
+            {
+              "at_ms": 2000.5975770000077,
+              "pending": 4
+            },
+            {
+              "at_ms": 2999.895583000005,
+              "pending": 4
+            },
+            {
+              "at_ms": 4000.2668189999968,
+              "pending": 4
+            },
+            {
+              "at_ms": 5000.139425000001,
+              "pending": 4
+            },
+            {
+              "at_ms": 6000.147452999998,
+              "pending": 4
+            },
+            {
+              "at_ms": 7000.4619590000075,
+              "pending": 4
+            },
+            {
+              "at_ms": 7999.923307999998,
+              "pending": 4
+            },
+            {
+              "at_ms": 8999.955996999997,
+              "pending": 4
+            },
+            {
+              "at_ms": 10000.359226,
+              "pending": 4
+            },
+            {
+              "at_ms": 11000.496358000004,
+              "pending": 4
+            },
+            {
+              "at_ms": 12000.004788000006,
+              "pending": 4
+            },
+            {
+              "at_ms": 13000.785724999994,
+              "pending": 4
+            },
+            {
+              "at_ms": 14000.940637000007,
+              "pending": 4
+            },
+            {
+              "at_ms": 15001.788641000006,
+              "pending": 4
+            },
+            {
+              "at_ms": 16001.985835,
+              "pending": 4
+            },
+            {
+              "at_ms": 17002.155316999997,
+              "pending": 4
+            },
+            {
+              "at_ms": 18001.889779999998,
+              "pending": 4
+            },
+            {
+              "at_ms": 19002.299607000008,
+              "pending": 4
+            },
+            {
+              "at_ms": 20002.594274000003,
+              "pending": 4
+            },
+            {
+              "at_ms": 21002.44713,
+              "pending": 4
+            },
+            {
+              "at_ms": 22002.396670000002,
+              "pending": 4
+            },
+            {
+              "at_ms": 23002.073479,
+              "pending": 4
+            },
+            {
+              "at_ms": 24002.824106,
+              "pending": 4
+            },
+            {
+              "at_ms": 25002.99355,
+              "pending": 4
+            },
+            {
+              "at_ms": 26003.722934000005,
+              "pending": 4
+            },
+            {
+              "at_ms": 27003.548267000006,
+              "pending": 4
+            },
+            {
+              "at_ms": 28003.764446,
+              "pending": 4
+            },
+            {
+              "at_ms": 29003.234478,
+              "pending": 4
+            },
+            {
+              "at_ms": 30003.245532,
+              "pending": 4
+            },
+            {
+              "at_ms": 31003.588095,
+              "pending": 4
+            },
+            {
+              "at_ms": 32003.714411000008,
+              "pending": 3
+            },
+            {
+              "at_ms": 33003.371461999996,
+              "pending": 3
+            },
+            {
+              "at_ms": 34003.40158400001,
+              "pending": 3
+            },
+            {
+              "at_ms": 35003.211408999996,
+              "pending": 3
+            },
+            {
+              "at_ms": 36002.955806,
+              "pending": 2
+            },
+            {
+              "at_ms": 37002.915221,
+              "pending": 2
+            },
+            {
+              "at_ms": 38003.00614500001,
+              "pending": 2
+            },
+            {
+              "at_ms": 39003.515908,
+              "pending": 2
+            },
+            {
+              "at_ms": 40003.600879000005,
+              "pending": 2
+            },
+            {
+              "at_ms": 41003.103841000004,
+              "pending": 2
+            },
+            {
+              "at_ms": 42003.148923,
+              "pending": 2
+            },
+            {
+              "at_ms": 43003.24447799999,
+              "pending": 2
+            },
+            {
+              "at_ms": 44003.527153999996,
+              "pending": 2
+            },
+            {
+              "at_ms": 45003.768516,
+              "pending": 2
+            },
+            {
+              "at_ms": 46003.028038000004,
+              "pending": 2
+            },
+            {
+              "at_ms": 46672.167667999995,
+              "pending": 0
+            }
+          ],
+          "summary": {
+            "scope": "http_completion_diagnostic",
+            "criterion": "completed_2xx_http_streams_per_second",
+            "target_rps": 8,
+            "target_status": "insufficient_samples",
+            "target_reached": null,
+            "min_requests": 20,
+            "sample_sufficient": false,
+            "window_sec": 30,
+            "n_total": 13,
+            "n_http_complete": 13,
+            "n_http_complete_in_window": 9,
+            "n_http_complete_drain": 4,
+            "n_http_completion_fail": 0,
+            "http_completion_fail_rate": 0,
+            "transport_rps": 0.3,
+            "e2e_p50_ms": 10180.258761999998,
+            "e2e_p95_ms": 26170.921519399984,
+            "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+            "latency_gate_applied": false,
+            "quality_gate_applied": false,
+            "timeouts": 0,
+            "fail_types": {},
+            "quality_reference": {
+              "n_valid": 13,
+              "n_valid_completed_in_window": 9,
+              "valid_rps": 0.3,
+              "n_invalid_completed": 0,
+              "schema_failures": 0,
+              "evidence_failures": 0,
+              "truncations": 0,
+              "reasoning_leaks": 0
+            },
+            "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+          },
+          "output_tokens_avg_in_window": 113
+        },
+        {
+          "users": 8,
+          "status": "completed",
+          "window": {
+            "startMs": 0.15515700000105426,
+            "endMs": 30000.155157
+          },
+          "warmup": {
+            "attempted": 8,
+            "completed": 8,
+            "reused": 2,
+            "quality_valid_reference": 8,
+            "passed": true
+          },
+          "raw_file": "/home/ubuntu/llm-bench/t4_http_20261002_01/source/load_test_v2/results/t4_sglang_r8_01/sglang_r8/u8_requests.jsonl",
+          "elapsed_ms": 39676.39156700001,
+          "drain_ms": 9676.204499000014,
+          "peak_inflight": 8,
+          "in_flight_samples": [
+            {
+              "at_ms": 0.02886900000157766,
+              "pending": 0
+            },
+            {
+              "at_ms": 1000.1190979999956,
+              "pending": 8
+            },
+            {
+              "at_ms": 1999.7159450000036,
+              "pending": 8
+            },
+            {
+              "at_ms": 2999.3776859999925,
+              "pending": 8
+            },
+            {
+              "at_ms": 3999.3745939999935,
+              "pending": 8
+            },
+            {
+              "at_ms": 4999.584262999997,
+              "pending": 8
+            },
+            {
+              "at_ms": 5999.4582780000055,
+              "pending": 8
+            },
+            {
+              "at_ms": 6999.353050000005,
+              "pending": 8
+            },
+            {
+              "at_ms": 7999.368443000014,
+              "pending": 8
+            },
+            {
+              "at_ms": 8999.577464000002,
+              "pending": 8
+            },
+            {
+              "at_ms": 9999.34002600002,
+              "pending": 8
+            },
+            {
+              "at_ms": 11000.259109000006,
+              "pending": 8
+            },
+            {
+              "at_ms": 12001.274956000008,
+              "pending": 8
+            },
+            {
+              "at_ms": 13001.554613000015,
+              "pending": 8
+            },
+            {
+              "at_ms": 14002.249234999996,
+              "pending": 8
+            },
+            {
+              "at_ms": 15003.240657000017,
+              "pending": 8
+            },
+            {
+              "at_ms": 16003.794766000006,
+              "pending": 8
+            },
+            {
+              "at_ms": 17003.949758000002,
+              "pending": 8
+            },
+            {
+              "at_ms": 18004.12217400002,
+              "pending": 8
+            },
+            {
+              "at_ms": 19003.99311000001,
+              "pending": 8
+            },
+            {
+              "at_ms": 20003.37570200002,
+              "pending": 8
+            },
+            {
+              "at_ms": 21003.612800000003,
+              "pending": 8
+            },
+            {
+              "at_ms": 22003.987802000018,
+              "pending": 8
+            },
+            {
+              "at_ms": 23003.318033999996,
+              "pending": 8
+            },
+            {
+              "at_ms": 24003.57748400001,
+              "pending": 8
+            },
+            {
+              "at_ms": 25003.649925000005,
+              "pending": 8
+            },
+            {
+              "at_ms": 26003.873132000008,
+              "pending": 8
+            },
+            {
+              "at_ms": 27003.824072999996,
+              "pending": 8
+            },
+            {
+              "at_ms": 28003.788044999994,
+              "pending": 8
+            },
+            {
+              "at_ms": 29003.572442000004,
+              "pending": 8
+            },
+            {
+              "at_ms": 30003.38425100001,
+              "pending": 8
+            },
+            {
+              "at_ms": 31004.092577000003,
+              "pending": 8
+            },
+            {
+              "at_ms": 32004.04282999999,
+              "pending": 7
+            },
+            {
+              "at_ms": 33004.26454599999,
+              "pending": 6
+            },
+            {
+              "at_ms": 34004.844514,
+              "pending": 5
+            },
+            {
+              "at_ms": 35004.81460100002,
+              "pending": 5
+            },
+            {
+              "at_ms": 36005.25404900001,
+              "pending": 4
+            },
+            {
+              "at_ms": 37005.78661899999,
+              "pending": 4
+            },
+            {
+              "at_ms": 38005.76514600002,
+              "pending": 2
+            },
+            {
+              "at_ms": 39006.127408,
+              "pending": 1
+            },
+            {
+              "at_ms": 39676.370544000005,
+              "pending": 0
+            }
+          ],
+          "summary": {
+            "scope": "http_completion_diagnostic",
+            "criterion": "completed_2xx_http_streams_per_second",
+            "target_rps": 8,
+            "target_status": "insufficient_samples",
+            "target_reached": null,
+            "min_requests": 20,
+            "sample_sufficient": false,
+            "window_sec": 30,
+            "n_total": 27,
+            "n_http_complete": 27,
+            "n_http_complete_in_window": 19,
+            "n_http_complete_drain": 8,
+            "n_http_completion_fail": 0,
+            "http_completion_fail_rate": 0,
+            "transport_rps": 0.6333333333333333,
+            "e2e_p50_ms": 9923.508820999996,
+            "e2e_p95_ms": 23753.352844700003,
+            "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+            "latency_gate_applied": false,
+            "quality_gate_applied": false,
+            "timeouts": 0,
+            "fail_types": {},
+            "quality_reference": {
+              "n_valid": 27,
+              "n_valid_completed_in_window": 19,
+              "valid_rps": 0.6333333333333333,
+              "n_invalid_completed": 0,
+              "schema_failures": 0,
+              "evidence_failures": 0,
+              "truncations": 0,
+              "reasoning_leaks": 0
+            },
+            "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+          },
+          "output_tokens_avg_in_window": 119.26315789473684
+        },
+        {
+          "users": 16,
+          "status": "completed",
+          "window": {
+            "startMs": 0.10925199999473989,
+            "endMs": 30000.109251999995
+          },
+          "warmup": {
+            "attempted": 16,
+            "completed": 16,
+            "reused": 5,
+            "quality_valid_reference": 16,
+            "passed": true
+          },
+          "raw_file": "/home/ubuntu/llm-bench/t4_http_20261002_01/source/load_test_v2/results/t4_sglang_r8_01/sglang_r8/u16_requests.jsonl",
+          "elapsed_ms": 54458.93208399997,
+          "drain_ms": 24458.76349500002,
+          "peak_inflight": 16,
+          "in_flight_samples": [
+            {
+              "at_ms": 0.026043999998364598,
+              "pending": 0
+            },
+            {
+              "at_ms": 1000.3388929999783,
+              "pending": 16
+            },
+            {
+              "at_ms": 2000.7311049999844,
+              "pending": 16
+            },
+            {
+              "at_ms": 3000.8244790000026,
+              "pending": 16
+            },
+            {
+              "at_ms": 4001.3390359999903,
+              "pending": 16
+            },
+            {
+              "at_ms": 5001.401316999982,
+              "pending": 16
+            },
+            {
+              "at_ms": 6001.4214569999895,
+              "pending": 16
+            },
+            {
+              "at_ms": 7002.0110219999915,
+              "pending": 16
+            },
+            {
+              "at_ms": 8002.002543999988,
+              "pending": 16
+            },
+            {
+              "at_ms": 9001.472379999992,
+              "pending": 16
+            },
+            {
+              "at_ms": 10001.60735799998,
+              "pending": 16
+            },
+            {
+              "at_ms": 11001.801432999986,
+              "pending": 16
+            },
+            {
+              "at_ms": 12001.459583999997,
+              "pending": 16
+            },
+            {
+              "at_ms": 13001.892137999996,
+              "pending": 16
+            },
+            {
+              "at_ms": 14002.247837000003,
+              "pending": 16
+            },
+            {
+              "at_ms": 15002.10396399998,
+              "pending": 16
+            },
+            {
+              "at_ms": 16001.616921999987,
+              "pending": 16
+            },
+            {
+              "at_ms": 17001.520053999993,
+              "pending": 16
+            },
+            {
+              "at_ms": 18002.173081999994,
+              "pending": 16
+            },
+            {
+              "at_ms": 19001.791433000006,
+              "pending": 16
+            },
+            {
+              "at_ms": 20001.468118999997,
+              "pending": 16
+            },
+            {
+              "at_ms": 21002.078989,
+              "pending": 16
+            },
+            {
+              "at_ms": 22001.835280999978,
+              "pending": 16
+            },
+            {
+              "at_ms": 23001.829375,
+              "pending": 16
+            },
+            {
+              "at_ms": 24002.11857599998,
+              "pending": 16
+            },
+            {
+              "at_ms": 25001.583717,
+              "pending": 16
+            },
+            {
+              "at_ms": 26002.326486000005,
+              "pending": 16
+            },
+            {
+              "at_ms": 27002.819698999985,
+              "pending": 16
+            },
+            {
+              "at_ms": 28002.81081699999,
+              "pending": 16
+            },
+            {
+              "at_ms": 29002.590024999983,
+              "pending": 16
+            },
+            {
+              "at_ms": 30002.834791,
+              "pending": 16
+            },
+            {
+              "at_ms": 31002.428049999988,
+              "pending": 16
+            },
+            {
+              "at_ms": 32003.271596000006,
+              "pending": 14
+            },
+            {
+              "at_ms": 33003.113648,
+              "pending": 14
+            },
+            {
+              "at_ms": 34003.181704999995,
+              "pending": 13
+            },
+            {
+              "at_ms": 35002.721657999966,
+              "pending": 12
+            },
+            {
+              "at_ms": 36002.51669099997,
+              "pending": 12
+            },
+            {
+              "at_ms": 37003.092626,
+              "pending": 11
+            },
+            {
+              "at_ms": 38002.56680899998,
+              "pending": 9
+            },
+            {
+              "at_ms": 39002.55356500001,
+              "pending": 8
+            },
+            {
+              "at_ms": 40002.643444999994,
+              "pending": 5
+            },
+            {
+              "at_ms": 41003.08903099998,
+              "pending": 5
+            },
+            {
+              "at_ms": 42003.01700200001,
+              "pending": 5
+            },
+            {
+              "at_ms": 43002.588261,
+              "pending": 5
+            },
+            {
+              "at_ms": 44002.79473299999,
+              "pending": 5
+            },
+            {
+              "at_ms": 45002.455382000015,
+              "pending": 5
+            },
+            {
+              "at_ms": 46002.963462000014,
+              "pending": 5
+            },
+            {
+              "at_ms": 47003.00787999999,
+              "pending": 5
+            },
+            {
+              "at_ms": 48003.33989200002,
+              "pending": 5
+            },
+            {
+              "at_ms": 49004.12988799997,
+              "pending": 3
+            },
+            {
+              "at_ms": 50003.84648900002,
+              "pending": 3
+            },
+            {
+              "at_ms": 51003.485436999996,
+              "pending": 3
+            },
+            {
+              "at_ms": 52004.047936999996,
+              "pending": 2
+            },
+            {
+              "at_ms": 53003.68800999998,
+              "pending": 2
+            },
+            {
+              "at_ms": 54004.32808299997,
+              "pending": 2
+            },
+            {
+              "at_ms": 54458.884946000006,
+              "pending": 0
+            }
+          ],
+          "summary": {
+            "scope": "http_completion_diagnostic",
+            "criterion": "completed_2xx_http_streams_per_second",
+            "target_rps": 8,
+            "target_status": "below_target",
+            "target_reached": false,
+            "min_requests": 20,
+            "sample_sufficient": true,
+            "window_sec": 30,
+            "n_total": 37,
+            "n_http_complete": 37,
+            "n_http_complete_in_window": 21,
+            "n_http_complete_drain": 16,
+            "n_http_completion_fail": 0,
+            "http_completion_fail_rate": 0,
+            "transport_rps": 0.7,
+            "e2e_p50_ms": 18916.946015000023,
+            "e2e_p95_ms": 25333.75121199998,
+            "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+            "latency_gate_applied": false,
+            "quality_gate_applied": false,
+            "timeouts": 0,
+            "fail_types": {},
+            "quality_reference": {
+              "n_valid": 37,
+              "n_valid_completed_in_window": 21,
+              "valid_rps": 0.7,
+              "n_invalid_completed": 0,
+              "schema_failures": 0,
+              "evidence_failures": 0,
+              "truncations": 0,
+              "reasoning_leaks": 0
+            },
+            "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+          },
+          "output_tokens_avg_in_window": 103.57142857142857
+        },
+        {
+          "users": 32,
+          "status": "completed",
+          "window": {
+            "startMs": 0.11211700004059821,
+            "endMs": 30000.11211700004
+          },
+          "warmup": {
+            "attempted": 32,
+            "completed": 32,
+            "reused": 3,
+            "quality_valid_reference": 32,
+            "passed": true
+          },
+          "raw_file": "/home/ubuntu/llm-bench/t4_http_20261002_01/source/load_test_v2/results/t4_sglang_r8_01/sglang_r8/u32_requests.jsonl",
+          "elapsed_ms": 72548.52024000004,
+          "drain_ms": 42548.33593199996,
+          "peak_inflight": 32,
+          "in_flight_samples": [
+            {
+              "at_ms": 0.021342000050935894,
+              "pending": 0
+            },
+            {
+              "at_ms": 1000.7942270000349,
+              "pending": 32
+            },
+            {
+              "at_ms": 2000.8541380000534,
+              "pending": 32
+            },
+            {
+              "at_ms": 3001.2332980000065,
+              "pending": 32
+            },
+            {
+              "at_ms": 4001.420702000032,
+              "pending": 32
+            },
+            {
+              "at_ms": 5001.780726000026,
+              "pending": 32
+            },
+            {
+              "at_ms": 6001.02595900005,
+              "pending": 32
+            },
+            {
+              "at_ms": 7001.801142000011,
+              "pending": 32
+            },
+            {
+              "at_ms": 8001.617259000021,
+              "pending": 32
+            },
+            {
+              "at_ms": 9001.445058000041,
+              "pending": 32
+            },
+            {
+              "at_ms": 10001.091142999998,
+              "pending": 32
+            },
+            {
+              "at_ms": 11001.198864000035,
+              "pending": 32
+            },
+            {
+              "at_ms": 12001.798887000012,
+              "pending": 32
+            },
+            {
+              "at_ms": 13001.86874200002,
+              "pending": 32
+            },
+            {
+              "at_ms": 14002.660290000029,
+              "pending": 32
+            },
+            {
+              "at_ms": 15002.064516000042,
+              "pending": 32
+            },
+            {
+              "at_ms": 16002.485713000002,
+              "pending": 32
+            },
+            {
+              "at_ms": 17002.804300000018,
+              "pending": 32
+            },
+            {
+              "at_ms": 18002.24472300004,
+              "pending": 32
+            },
+            {
+              "at_ms": 19002.31818500004,
+              "pending": 32
+            },
+            {
+              "at_ms": 20002.45596000005,
+              "pending": 32
+            },
+            {
+              "at_ms": 21002.21306800004,
+              "pending": 32
+            },
+            {
+              "at_ms": 22002.461509000044,
+              "pending": 32
+            },
+            {
+              "at_ms": 23002.419260000053,
+              "pending": 32
+            },
+            {
+              "at_ms": 24002.542661000043,
+              "pending": 32
+            },
+            {
+              "at_ms": 25002.077998000022,
+              "pending": 32
+            },
+            {
+              "at_ms": 26002.03741400002,
+              "pending": 32
+            },
+            {
+              "at_ms": 27002.63854200003,
+              "pending": 32
+            },
+            {
+              "at_ms": 28002.68421700003,
+              "pending": 32
+            },
+            {
+              "at_ms": 29002.093455000024,
+              "pending": 32
+            },
+            {
+              "at_ms": 30002.148874000006,
+              "pending": 32
+            },
+            {
+              "at_ms": 31002.134500000044,
+              "pending": 32
+            },
+            {
+              "at_ms": 32002.797611000016,
+              "pending": 32
+            },
+            {
+              "at_ms": 33002.33622,
+              "pending": 31
+            },
+            {
+              "at_ms": 34002.793879000004,
+              "pending": 31
+            },
+            {
+              "at_ms": 35002.182551000034,
+              "pending": 30
+            },
+            {
+              "at_ms": 36002.490295000025,
+              "pending": 29
+            },
+            {
+              "at_ms": 37002.87723900005,
+              "pending": 28
+            },
+            {
+              "at_ms": 38003.07726000005,
+              "pending": 28
+            },
+            {
+              "at_ms": 39003.03256000002,
+              "pending": 27
+            },
+            {
+              "at_ms": 40003.260290000006,
+              "pending": 25
+            },
+            {
+              "at_ms": 41003.886866000015,
+              "pending": 25
+            },
+            {
+              "at_ms": 42004.24841300002,
+              "pending": 25
+            },
+            {
+              "at_ms": 43004.634974000044,
+              "pending": 25
+            },
+            {
+              "at_ms": 44004.55115500005,
+              "pending": 23
+            },
+            {
+              "at_ms": 45004.24462000001,
+              "pending": 23
+            },
+            {
+              "at_ms": 46004.34476300003,
+              "pending": 21
+            },
+            {
+              "at_ms": 47004.22621700005,
+              "pending": 20
+            },
+            {
+              "at_ms": 48004.714982000005,
+              "pending": 19
+            },
+            {
+              "at_ms": 49004.84559500002,
+              "pending": 19
+            },
+            {
+              "at_ms": 50005.29672700004,
+              "pending": 16
+            },
+            {
+              "at_ms": 51005.70780900004,
+              "pending": 16
+            },
+            {
+              "at_ms": 52005.33562200004,
+              "pending": 16
+            },
+            {
+              "at_ms": 53005.05253800005,
+              "pending": 16
+            },
+            {
+              "at_ms": 54005.31227600004,
+              "pending": 15
+            },
+            {
+              "at_ms": 55005.44157200004,
+              "pending": 14
+            },
+            {
+              "at_ms": 56005.35623600002,
+              "pending": 14
+            },
+            {
+              "at_ms": 57005.39564400003,
+              "pending": 12
+            },
+            {
+              "at_ms": 58005.73733600002,
+              "pending": 11
+            },
+            {
+              "at_ms": 59005.02892900002,
+              "pending": 11
+            },
+            {
+              "at_ms": 60005.178776000044,
+              "pending": 11
+            },
+            {
+              "at_ms": 61005.379464,
+              "pending": 9
+            },
+            {
+              "at_ms": 62005.47694900003,
+              "pending": 8
+            },
+            {
+              "at_ms": 63005.74485200003,
+              "pending": 7
+            },
+            {
+              "at_ms": 64005.053274000005,
+              "pending": 7
+            },
+            {
+              "at_ms": 65005.166975,
+              "pending": 7
+            },
+            {
+              "at_ms": 66005.34790800005,
+              "pending": 6
+            },
+            {
+              "at_ms": 67005.66373600002,
+              "pending": 4
+            },
+            {
+              "at_ms": 68005.26641700004,
+              "pending": 4
+            },
+            {
+              "at_ms": 69005.035011,
+              "pending": 4
+            },
+            {
+              "at_ms": 70005.46489,
+              "pending": 2
+            },
+            {
+              "at_ms": 71005.03838000004,
+              "pending": 1
+            },
+            {
+              "at_ms": 72005.79169600003,
+              "pending": 1
+            },
+            {
+              "at_ms": 72548.45810300001,
+              "pending": 0
+            }
+          ],
+          "summary": {
+            "scope": "http_completion_diagnostic",
+            "criterion": "completed_2xx_http_streams_per_second",
+            "target_rps": 8,
+            "target_status": "below_target",
+            "target_reached": false,
+            "min_requests": 20,
+            "sample_sufficient": true,
+            "window_sec": 30,
+            "n_total": 53,
+            "n_http_complete": 53,
+            "n_http_complete_in_window": 21,
+            "n_http_complete_drain": 32,
+            "n_http_completion_fail": 0,
+            "http_completion_fail_rate": 0,
+            "transport_rps": 0.7,
+            "e2e_p50_ms": 37024.34551499999,
+            "e2e_p95_ms": 48244.43556159999,
+            "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+            "latency_gate_applied": false,
+            "quality_gate_applied": false,
+            "timeouts": 0,
+            "fail_types": {},
+            "quality_reference": {
+              "n_valid": 53,
+              "n_valid_completed_in_window": 21,
+              "valid_rps": 0.7,
+              "n_invalid_completed": 0,
+              "schema_failures": 0,
+              "evidence_failures": 0,
+              "truncations": 0,
+              "reasoning_leaks": 0
+            },
+            "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+          },
+          "output_tokens_avg_in_window": 100.52380952380952
+        }
+      ],
+      "formal_benchmark_eligible": false,
+      "before": {
+        "status": "released",
+        "released": true,
+        "reason": "released",
+        "elapsed_ms": 1094.015707999999,
+        "stable_samples_required": 3,
+        "consecutive_stable_samples": 3,
+        "tolerance_mib": 0,
+        "baseline": {
+          "known": true,
+          "compute_processes": [],
+          "processes": [],
+          "gpus": [
+            {
+              "index": 0,
+              "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+              "name": "Tesla T4",
+              "memory_used_mib": 0,
+              "memory_total_mib": 15360,
+              "driver_version": "595.91.07"
+            }
+          ],
+          "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+          "errors": ""
+        },
+        "after": {
+          "known": true,
+          "compute_processes": [],
+          "processes": [],
+          "gpus": [
+            {
+              "index": 0,
+              "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+              "name": "Tesla T4",
+              "memory_used_mib": 0,
+              "memory_total_mib": 15360,
+              "driver_version": "595.91.07"
+            }
+          ],
+          "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+          "errors": ""
+        },
+        "checks": {
+          "same_gpu": true,
+          "no_compute_processes": true,
+          "memory_at_baseline": true,
+          "baseline_mib": 0,
+          "after_mib": 0,
+          "limit_mib": 0,
+          "tolerance_mib": 0
+        },
+        "samples": [
+          {
+            "at_ms": 30.460487999996985,
+            "snapshot": {
+              "known": true,
+              "compute_processes": [],
+              "processes": [],
+              "gpus": [
+                {
+                  "index": 0,
+                  "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+                  "name": "Tesla T4",
+                  "memory_used_mib": 0,
+                  "memory_total_mib": 15360,
+                  "driver_version": "595.91.07"
+                }
+              ],
+              "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+              "errors": ""
+            },
+            "check": {
+              "released": true,
+              "known": true,
+              "reason": "released",
+              "checks": {
+                "same_gpu": true,
+                "no_compute_processes": true,
+                "memory_at_baseline": true,
+                "baseline_mib": 0,
+                "after_mib": 0,
+                "limit_mib": 0,
+                "tolerance_mib": 0
+              }
+            }
+          },
+          {
+            "at_ms": 562.0996659999983,
+            "snapshot": {
+              "known": true,
+              "compute_processes": [],
+              "processes": [],
+              "gpus": [
+                {
+                  "index": 0,
+                  "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+                  "name": "Tesla T4",
+                  "memory_used_mib": 0,
+                  "memory_total_mib": 15360,
+                  "driver_version": "595.91.07"
+                }
+              ],
+              "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+              "errors": ""
+            },
+            "check": {
+              "released": true,
+              "known": true,
+              "reason": "released",
+              "checks": {
+                "same_gpu": true,
+                "no_compute_processes": true,
+                "memory_at_baseline": true,
+                "baseline_mib": 0,
+                "after_mib": 0,
+                "limit_mib": 0,
+                "tolerance_mib": 0
+              }
+            }
+          },
+          {
+            "at_ms": 1094.0069449999974,
+            "snapshot": {
+              "known": true,
+              "compute_processes": [],
+              "processes": [],
+              "gpus": [
+                {
+                  "index": 0,
+                  "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+                  "name": "Tesla T4",
+                  "memory_used_mib": 0,
+                  "memory_total_mib": 15360,
+                  "driver_version": "595.91.07"
+                }
+              ],
+              "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+              "errors": ""
+            },
+            "check": {
+              "released": true,
+              "known": true,
+              "reason": "released",
+              "checks": {
+                "same_gpu": true,
+                "no_compute_processes": true,
+                "memory_at_baseline": true,
+                "baseline_mib": 0,
+                "after_mib": 0,
+                "limit_mib": 0,
+                "tolerance_mib": 0
+              }
+            }
+          }
+        ]
+      },
+      "launch": {
+        "mode": "docker",
+        "session": "f7c74314-db17-4638-81ee-79074c7c2c61",
+        "owned_pid": null,
+        "owned_container": "llm-benchmark-v2-f7c74314-db17-4638-81ee-79074c7c2c61",
+        "load_ms": 32084.291134000003,
+        "load_basis": "owned_launch_to_api_model_ready"
+      },
+      "preload": {
+        "attempted": 2,
+        "completed": 2,
+        "reused": 0,
+        "quality_valid_reference": 2,
+        "passed": true
+      },
+      "loaded_gpu": {
+        "known": true,
+        "compute_processes": [
+          "94777, sglang::scheduler, 11142"
+        ],
+        "processes": [
+          {
+            "pid": 94777,
+            "name": "sglang::scheduler",
+            "used_memory_mib": 11142
+          }
+        ],
+        "gpus": [
+          {
+            "index": 0,
+            "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+            "name": "Tesla T4",
+            "memory_used_mib": 11145,
+            "memory_total_mib": 15360,
+            "driver_version": "595.91.07"
+          }
+        ],
+        "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 11145, 15360, 595.91.07",
+        "errors": ""
+      },
+      "runtime_cleanup": {
+        "owned_only": true,
+        "stopped": true,
+        "mode": "docker",
+        "process_exit_confirmed": true,
+        "port_released": true
+      },
+      "gpu_release": {
+        "status": "released",
+        "released": true,
+        "reason": "released",
+        "elapsed_ms": 1091.8079770000186,
+        "stable_samples_required": 3,
+        "consecutive_stable_samples": 3,
+        "tolerance_mib": 0,
+        "baseline": {
+          "known": true,
+          "compute_processes": [],
+          "processes": [],
+          "gpus": [
+            {
+              "index": 0,
+              "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+              "name": "Tesla T4",
+              "memory_used_mib": 0,
+              "memory_total_mib": 15360,
+              "driver_version": "595.91.07"
+            }
+          ],
+          "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+          "errors": ""
+        },
+        "after": {
+          "known": true,
+          "compute_processes": [],
+          "processes": [],
+          "gpus": [
+            {
+              "index": 0,
+              "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+              "name": "Tesla T4",
+              "memory_used_mib": 0,
+              "memory_total_mib": 15360,
+              "driver_version": "595.91.07"
+            }
+          ],
+          "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+          "errors": ""
+        },
+        "checks": {
+          "same_gpu": true,
+          "no_compute_processes": true,
+          "memory_at_baseline": true,
+          "baseline_mib": 0,
+          "after_mib": 0,
+          "limit_mib": 0,
+          "tolerance_mib": 0
+        },
+        "samples": [
+          {
+            "at_ms": 30.54798800003482,
+            "snapshot": {
+              "known": true,
+              "compute_processes": [],
+              "processes": [],
+              "gpus": [
+                {
+                  "index": 0,
+                  "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+                  "name": "Tesla T4",
+                  "memory_used_mib": 0,
+                  "memory_total_mib": 15360,
+                  "driver_version": "595.91.07"
+                }
+              ],
+              "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+              "errors": ""
+            },
+            "check": {
+              "released": true,
+              "known": true,
+              "reason": "released",
+              "checks": {
+                "same_gpu": true,
+                "no_compute_processes": true,
+                "memory_at_baseline": true,
+                "baseline_mib": 0,
+                "after_mib": 0,
+                "limit_mib": 0,
+                "tolerance_mib": 0
+              }
+            }
+          },
+          {
+            "at_ms": 560.9833920000237,
+            "snapshot": {
+              "known": true,
+              "compute_processes": [],
+              "processes": [],
+              "gpus": [
+                {
+                  "index": 0,
+                  "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+                  "name": "Tesla T4",
+                  "memory_used_mib": 0,
+                  "memory_total_mib": 15360,
+                  "driver_version": "595.91.07"
+                }
+              ],
+              "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+              "errors": ""
+            },
+            "check": {
+              "released": true,
+              "known": true,
+              "reason": "released",
+              "checks": {
+                "same_gpu": true,
+                "no_compute_processes": true,
+                "memory_at_baseline": true,
+                "baseline_mib": 0,
+                "after_mib": 0,
+                "limit_mib": 0,
+                "tolerance_mib": 0
+              }
+            }
+          },
+          {
+            "at_ms": 1091.798020999995,
+            "snapshot": {
+              "known": true,
+              "compute_processes": [],
+              "processes": [],
+              "gpus": [
+                {
+                  "index": 0,
+                  "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+                  "name": "Tesla T4",
+                  "memory_used_mib": 0,
+                  "memory_total_mib": 15360,
+                  "driver_version": "595.91.07"
+                }
+              ],
+              "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+              "errors": ""
+            },
+            "check": {
+              "released": true,
+              "known": true,
+              "reason": "released",
+              "checks": {
+                "same_gpu": true,
+                "no_compute_processes": true,
+                "memory_at_baseline": true,
+                "baseline_mib": 0,
+                "after_mib": 0,
+                "limit_mib": 0,
+                "tolerance_mib": 0
+              }
+            }
+          }
+        ]
+      },
+      "lifecycle_verified": true,
+      "gpu_released": true,
+      "cleanup_errors": []
+    }
+  ],
+  "limitations": [
+    "No latency, quality or failure-rate threshold is applied to the HTTP 8 RPS target.",
+    "30-second single exploratory windows do not establish sustainable open-loop arrival capacity.",
+    "GGUF/AWQ source conversion equivalence is not certified by Docker image or file fingerprints."
+  ],
+  "docker_images": {
+    "verified": true,
+    "images": [
+      {
+        "id": "sglang",
+        "reference": "llm-frozen/sglang:20261002-f784a3df9ec0",
+        "image_id": "sha256:7a3ee6e2b69e9149a008caf8217cc26c46c55315dc42cbc8e17b98609723860e",
+        "source_id": "sha256:754f054985fb313ff220a82b4989d6d1473d751e07c7ab9d3994935115ef53e6",
+        "config_fingerprint": "f784a3df9ec07f4f504d38a030b20791d1a0eaffb845c1ac6a37843933e07dc9",
+        "verified": true
+      },
+      {
+        "id": "runner",
+        "reference": "llm-frozen/runner:20261002-fbc595f78605",
+        "image_id": "sha256:d0d4f243dff3ae7a3fe008470e98e1279a2ffc88126961794b0fc1025360c737",
+        "source_id": "sha256:b2b9945781ba8f333c0d1e256c80b99d4362ea061e53ccac2844121bf4ab40d2",
+        "config_fingerprint": "fbc595f78605b3e986bf7e2905cf17217ce927eaaee5766facf194c4898133c3",
+        "verified": true
+      }
+    ]
+  },
+  "gpu_baseline": {
+    "known": true,
+    "compute_processes": [],
+    "processes": [],
+    "gpus": [
+      {
+        "index": 0,
+        "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+        "name": "Tesla T4",
+        "memory_used_mib": 0,
+        "memory_total_mib": 15360,
+        "driver_version": "595.91.07"
+      }
+    ],
+    "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+    "errors": ""
+  },
+  "gpu_identity": {
+    "gpu_uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+    "gpu_name": "Tesla T4",
+    "baseline_mib": 0,
+    "memory_total_mib": 15360,
+    "driver_version": "595.91.07"
+  },
+  "initial_baseline_verification": {
+    "status": "released",
+    "released": true,
+    "reason": "released",
+    "elapsed_ms": 1101.5675550000014,
+    "stable_samples_required": 3,
+    "consecutive_stable_samples": 3,
+    "tolerance_mib": 0,
+    "baseline": {
+      "known": true,
+      "compute_processes": [],
+      "processes": [],
+      "gpus": [
+        {
+          "index": 0,
+          "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+          "name": "Tesla T4",
+          "memory_used_mib": 0,
+          "memory_total_mib": 15360,
+          "driver_version": "595.91.07"
+        }
+      ],
+      "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+      "errors": ""
+    },
+    "after": {
+      "known": true,
+      "compute_processes": [],
+      "processes": [],
+      "gpus": [
+        {
+          "index": 0,
+          "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+          "name": "Tesla T4",
+          "memory_used_mib": 0,
+          "memory_total_mib": 15360,
+          "driver_version": "595.91.07"
+        }
+      ],
+      "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+      "errors": ""
+    },
+    "checks": {
+      "same_gpu": true,
+      "no_compute_processes": true,
+      "memory_at_baseline": true,
+      "baseline_mib": 0,
+      "after_mib": 0,
+      "limit_mib": 0,
+      "tolerance_mib": 0
+    },
+    "samples": [
+      {
+        "at_ms": 32.07311100000152,
+        "snapshot": {
+          "known": true,
+          "compute_processes": [],
+          "processes": [],
+          "gpus": [
+            {
+              "index": 0,
+              "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+              "name": "Tesla T4",
+              "memory_used_mib": 0,
+              "memory_total_mib": 15360,
+              "driver_version": "595.91.07"
+            }
+          ],
+          "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+          "errors": ""
+        },
+        "check": {
+          "released": true,
+          "known": true,
+          "reason": "released",
+          "checks": {
+            "same_gpu": true,
+            "no_compute_processes": true,
+            "memory_at_baseline": true,
+            "baseline_mib": 0,
+            "after_mib": 0,
+            "limit_mib": 0,
+            "tolerance_mib": 0
+          }
+        }
+      },
+      {
+        "at_ms": 565.1623269999982,
+        "snapshot": {
+          "known": true,
+          "compute_processes": [],
+          "processes": [],
+          "gpus": [
+            {
+              "index": 0,
+              "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+              "name": "Tesla T4",
+              "memory_used_mib": 0,
+              "memory_total_mib": 15360,
+              "driver_version": "595.91.07"
+            }
+          ],
+          "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+          "errors": ""
+        },
+        "check": {
+          "released": true,
+          "known": true,
+          "reason": "released",
+          "checks": {
+            "same_gpu": true,
+            "no_compute_processes": true,
+            "memory_at_baseline": true,
+            "baseline_mib": 0,
+            "after_mib": 0,
+            "limit_mib": 0,
+            "tolerance_mib": 0
+          }
+        }
+      },
+      {
+        "at_ms": 1101.4396840000009,
+        "snapshot": {
+          "known": true,
+          "compute_processes": [],
+          "processes": [],
+          "gpus": [
+            {
+              "index": 0,
+              "uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+              "name": "Tesla T4",
+              "memory_used_mib": 0,
+              "memory_total_mib": 15360,
+              "driver_version": "595.91.07"
+            }
+          ],
+          "gpu": "0, GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065, Tesla T4, 0, 15360, 595.91.07",
+          "errors": ""
+        },
+        "check": {
+          "released": true,
+          "known": true,
+          "reason": "released",
+          "checks": {
+            "same_gpu": true,
+            "no_compute_processes": true,
+            "memory_at_baseline": true,
+            "baseline_mib": 0,
+            "after_mib": 0,
+            "limit_mib": 0,
+            "tolerance_mib": 0
+          }
+        }
+      }
+    ]
+  },
+  "cleanup_policy": {
+    "fixed_baseline_mib": 0,
+    "tolerance_mib": 0,
+    "gpu_uuid": "GPU-8ef9c6ba-71c3-2bf1-3fd6-a4b1ed5d0065",
+    "consecutive_samples_required": 3,
+    "compute_processes_required": 0,
+    "lifecycle_cleanup_required": true
+  },
+  "hardware_policy": {
+    "platform": "linux",
+    "gpu_count": 1,
+    "gpu_model": "NVIDIA T4",
+    "minimum_driver_version": "580.95.05"
+  },
+  "comparison": {
+    "target_rps": 8,
+    "baseline_candidate": "ollama_p4",
+    "baseline_best_http_rps": null,
+    "rows": [
+      {
+        "candidate_id": "sglang_r8",
+        "internal_limit": 8,
+        "best_http_rps": 0.7,
+        "best_users": 16,
+        "ratio_to_ollama": null,
+        "target_8rps_observed": false,
+        "minimum_tested_users_at_target": null,
+        "latency_gate_applied": false,
+        "quality_gate_applied": false,
+        "formal_benchmark_eligible": false
+      }
+    ],
+    "limitation": "Single 30-second closed-loop exploration; sustainable arrival capacity and quality/SLO capacity are not certified."
+  },
+  "finished_at": "2026-10-02T08:50:37.271Z",
+  "lock_retained": false
+}

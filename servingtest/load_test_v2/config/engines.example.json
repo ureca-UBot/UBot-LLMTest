@@ -1,0 +1,80 @@
+{
+  "schema_version": 2,
+  "mock": false,
+  "environment": { "scope": "local" },
+  "comparison": {
+    "upstream_repository": "Qwen/Qwen3-4B",
+    "upstream_revision": "1cfa9a7208912126459214e8b04321603b3df60c"
+  },
+  "workload": {
+    "file": "../data/benchmark_prompts.jsonl",
+    "sha256": "67ca43b2b901360cefde705a872e52441edc107abb4c19b202f746d923ea4122"
+  },
+  "transport": { "keep_alive": true, "timeout_ms": 60000 },
+  "generation": { "context": 4096, "max_tokens": 512, "temperature": 0, "thinking": false },
+  "slo": { "e2e_p95_ms": 5000, "fail_rate": 0.01, "provisional": true },
+  "safety": { "consecutive_timeouts": 8 },
+  "cleanup": { "timeout_ms": 30000, "poll_interval_ms": 500, "stable_samples": 3, "vram_tolerance_mib": 0, "max_idle_vram_mib": 64 },
+  "preflight_requests": 100,
+  "arrival": { "duration_ms": 300000, "max_in_flight": 10000 },
+  "candidates": [
+    {
+      "id": "ollama_gguf_p4", "engine": "ollama", "enabled": false,
+      "engine_version": "REPLACE", "api_model": "REPLACE", "host": "http://127.0.0.1:19441",
+      "internal_limit": 4,
+      "settings": { "context_per_request": 4096, "flash_attention": true, "kv_cache_type": "f16" },
+      "provenance": {
+        "upstream_repository": "Qwen/Qwen3-4B", "upstream_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+        "artifact_repository": "Qwen/Qwen3-4B-GGUF", "artifact_revision": "REPLACE",
+        "weight_format": "GGUF", "quantization": "Q4_K_M",
+        "files": [ { "role": "weight", "path": "REPLACE", "sha256": "REPLACE" }, { "role": "tokenizer", "path": "REPLACE", "sha256": "REPLACE" }, { "role": "chat_template", "path": "REPLACE", "sha256": "REPLACE" } ],
+        "lineage": { "path": "REPLACE", "sha256": "REPLACE" }
+      },
+      "runtime": { "mode": "docker", "image": "REPLACE", "container_port": 11434, "args": ["serve"], "mounts": [],
+        "env": { "OLLAMA_HOST": "0.0.0.0:11434", "OLLAMA_NUM_PARALLEL": "4", "OLLAMA_FLASH_ATTENTION": "1", "OLLAMA_KV_CACHE_TYPE": "f16" },
+        "attestation": { "kind": "command", "inside_container": true, "command": ["REPLACE"] } }
+    },
+    {
+      "id": "llamacpp_gguf_p4", "engine": "llama.cpp", "enabled": false,
+      "engine_version": "REPLACE", "api_model": "REPLACE", "host": "http://127.0.0.1:19442", "internal_limit": 4,
+      "settings": { "context_per_request": 4096, "flash_attention": true, "kv_cache_type": "f16", "template": "official_Qwen3" },
+      "provenance": {
+        "upstream_repository": "Qwen/Qwen3-4B", "upstream_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+        "artifact_repository": "Qwen/Qwen3-4B-GGUF", "artifact_revision": "REPLACE", "weight_format": "GGUF", "quantization": "Q4_K_M",
+        "files": [ { "role": "weight", "path": "REPLACE", "sha256": "REPLACE" }, { "role": "tokenizer", "path": "REPLACE", "sha256": "REPLACE" }, { "role": "chat_template", "path": "REPLACE", "sha256": "REPLACE" } ],
+        "lineage": { "path": "REPLACE", "sha256": "REPLACE" }
+      },
+      "runtime": { "mode": "docker", "image": "REPLACE", "container_port": 8080, "mounts": [],
+        "args": ["--host", "0.0.0.0", "--port", "8080", "--model", "REPLACE", "--parallel", "4", "--ctx-size", "16384", "--n-gpu-layers", "99", "--chat-template-file", "REPLACE"],
+        "attestation": { "kind": "command", "inside_container": true, "command": ["REPLACE"] } }
+    },
+    {
+      "id": "vllm_awq_s8", "engine": "vllm", "enabled": false,
+      "engine_version": "REPLACE", "api_model": "REPLACE", "host": "http://127.0.0.1:19443", "internal_limit": 8,
+      "settings": { "context_per_request": 4096, "quantization_backend": "awq_marlin", "prefix_cache": true, "chunked_prefill": true, "cuda_graph": true },
+      "provenance": {
+        "upstream_repository": "Qwen/Qwen3-4B", "upstream_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+        "artifact_repository": "Qwen/Qwen3-4B-AWQ", "artifact_revision": "REPLACE", "weight_format": "Safetensors", "quantization": "AWQ",
+        "files": [ { "role": "weight", "path": "REPLACE", "sha256": "REPLACE" }, { "role": "tokenizer", "path": "REPLACE", "sha256": "REPLACE" }, { "role": "chat_template", "path": "REPLACE", "sha256": "REPLACE" } ],
+        "lineage": { "path": "REPLACE", "sha256": "REPLACE" }
+      },
+      "runtime": { "mode": "docker", "image": "REPLACE", "container_port": 8000, "mounts": [],
+        "args": ["--model", "REPLACE", "--host", "0.0.0.0", "--port", "8000", "--max-num-seqs", "8", "--max-model-len", "4096", "--quantization", "awq_marlin", "--gpu-memory-utilization", "0.8"],
+        "attestation": { "kind": "command", "inside_container": true, "command": ["REPLACE"] } }
+    },
+    {
+      "id": "sglang_awq_r8", "engine": "sglang", "enabled": false,
+      "engine_version": "REPLACE", "api_model": "REPLACE", "host": "http://127.0.0.1:19444", "internal_limit": 8,
+      "settings": { "context_per_request": 4096, "radix_cache": true, "cuda_graph": true, "quantization_backend": "awq_marlin" },
+      "provenance": {
+        "upstream_repository": "Qwen/Qwen3-4B", "upstream_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+        "artifact_repository": "Qwen/Qwen3-4B-AWQ", "artifact_revision": "REPLACE", "weight_format": "Safetensors", "quantization": "AWQ",
+        "files": [ { "role": "weight", "path": "REPLACE", "sha256": "REPLACE" }, { "role": "tokenizer", "path": "REPLACE", "sha256": "REPLACE" }, { "role": "chat_template", "path": "REPLACE", "sha256": "REPLACE" } ],
+        "lineage": { "path": "REPLACE", "sha256": "REPLACE" }
+      },
+      "runtime": { "mode": "docker", "image": "REPLACE", "container_port": 30000, "mounts": [],
+        "args": ["--model-path", "REPLACE", "--host", "0.0.0.0", "--port", "30000", "--max-running-requests", "8", "--context-length", "4096", "--quantization", "awq_marlin", "--mem-fraction-static", "0.8"],
+        "attestation": { "kind": "command", "inside_container": true, "command": ["REPLACE"] } }
+    }
+  ]
+}

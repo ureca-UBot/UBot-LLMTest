@@ -1,0 +1,447 @@
+{
+  "detail_json_sha256": "8196d4bdcc921feab99d3cf66270d74bec29626312571bfe812edb8886b0d3ce",
+  "observations": [
+    {
+      "scope": "cap_expansion",
+      "candidate": "ollama_p8",
+      "requests": 158,
+      "http_failures": 0,
+      "failure_percent": 0.0,
+      "unique_questions": 79,
+      "question_categories_observed": [
+        "AD",
+        "AR",
+        "CE",
+        "CF",
+        "EC",
+        "HR",
+        "MC",
+        "MT",
+        "NC",
+        "PI",
+        "PS",
+        "RT",
+        "SF",
+        "SR",
+        "UI"
+      ],
+      "failures_by_cause": [],
+      "effective_llamacpp_slots_log": [
+        "srv    load_model: initializing, n_slots = 8, n_ctx_slot = 4096, kv_unified = 'false'"
+      ],
+      "server_log_sha256": "bee7d3f813839127aa71ad583374c8e6ae5ad09fef31e00a2e374a9a457b03f1"
+    },
+    {
+      "scope": "cap_expansion",
+      "candidate": "ollama_p16",
+      "requests": 213,
+      "http_failures": 0,
+      "failure_percent": 0.0,
+      "unique_questions": 123,
+      "question_categories_observed": [
+        "AD",
+        "AR",
+        "CE",
+        "CF",
+        "EC",
+        "HR",
+        "MC",
+        "MT",
+        "NC",
+        "PI",
+        "PS",
+        "RT",
+        "SF",
+        "SR",
+        "UI"
+      ],
+      "failures_by_cause": [],
+      "effective_llamacpp_slots_log": [
+        "srv    load_model: initializing, n_slots = 16, n_ctx_slot = 4096, kv_unified = 'false'"
+      ],
+      "server_log_sha256": "3af3b4bfee22ca9a05e517de162e1626f80660643eaee9ac3664dd8a64d911a6"
+    },
+    {
+      "scope": "cap_expansion",
+      "candidate": "ollama_p32",
+      "requests": 289,
+      "http_failures": 0,
+      "failure_percent": 0.0,
+      "unique_questions": 175,
+      "question_categories_observed": [
+        "AD",
+        "AR",
+        "CE",
+        "CF",
+        "EC",
+        "HR",
+        "MC",
+        "MT",
+        "NC",
+        "PI",
+        "PS",
+        "RT",
+        "SF",
+        "SR",
+        "UI"
+      ],
+      "failures_by_cause": [],
+      "effective_llamacpp_slots_log": [
+        "srv    load_model: initializing, n_slots = 32, n_ctx_slot = 4096, kv_unified = 'false'"
+      ],
+      "server_log_sha256": "a9c717754b0e13cf8c9a99a6532997be3887e0b525cf34550f7cf3b8b1891021"
+    },
+    {
+      "scope": "cap_expansion",
+      "candidate": "llamacpp_p8",
+      "requests": 377,
+      "http_failures": 176,
+      "failure_percent": 46.684350132625994,
+      "unique_questions": 157,
+      "question_categories_observed": [
+        "AD",
+        "AR",
+        "CE",
+        "CF",
+        "EC",
+        "HR",
+        "MC",
+        "MT",
+        "NC",
+        "PI",
+        "PS",
+        "RT",
+        "SF",
+        "SR",
+        "UI"
+      ],
+      "failures_by_cause": [
+        {
+          "error_type": "network",
+          "error_msg": "socket hang up",
+          "socket_reused": true,
+          "count": 176
+        }
+      ],
+      "effective_llamacpp_slots_log": [
+        "0.01.586.257 I srv    load_model: initializing, n_slots = 8, n_ctx_slot = 4096, kv_unified = 'false'"
+      ],
+      "server_log_sha256": "13d8d60dc5caf9b70757fe24fd844924a954ca53d4399f44872432711a053a79"
+    },
+    {
+      "scope": "cap_expansion",
+      "candidate": "llamacpp_p16",
+      "requests": 491,
+      "http_failures": 219,
+      "failure_percent": 44.602851323828915,
+      "unique_questions": 213,
+      "question_categories_observed": [
+        "AD",
+        "AR",
+        "CE",
+        "CF",
+        "EC",
+        "HR",
+        "MC",
+        "MT",
+        "NC",
+        "PI",
+        "PS",
+        "RT",
+        "SF",
+        "SR",
+        "UI"
+      ],
+      "failures_by_cause": [
+        {
+          "error_type": "network",
+          "error_msg": "socket hang up",
+          "socket_reused": true,
+          "count": 219
+        }
+      ],
+      "effective_llamacpp_slots_log": [
+        "0.01.365.644 I srv    load_model: initializing, n_slots = 16, n_ctx_slot = 4096, kv_unified = 'false'"
+      ],
+      "server_log_sha256": "0ce0a3e2915973970b25ba2fb4230d6b95634debf3ab9038bbf03f7407387a44"
+    },
+    {
+      "scope": "cap_expansion",
+      "candidate": "llamacpp_p32",
+      "requests": 579,
+      "http_failures": 235,
+      "failure_percent": 40.58721934369603,
+      "unique_questions": 267,
+      "question_categories_observed": [
+        "AD",
+        "AR",
+        "CE",
+        "CF",
+        "EC",
+        "HR",
+        "MC",
+        "MT",
+        "NC",
+        "PI",
+        "PS",
+        "RT",
+        "SF",
+        "SR",
+        "UI"
+      ],
+      "failures_by_cause": [
+        {
+          "error_type": "network",
+          "error_msg": "socket hang up",
+          "socket_reused": true,
+          "count": 235
+        }
+      ],
+      "effective_llamacpp_slots_log": [
+        "0.01.555.749 I srv    load_model: initializing, n_slots = 32, n_ctx_slot = 4096, kv_unified = 'false'"
+      ],
+      "server_log_sha256": "8ae25dcf6e306a51bf7ad438e67a1a30b2a1cd347659c28e7c67d43a796b06e7"
+    },
+    {
+      "scope": "cap_expansion",
+      "candidate": "vllm_s64",
+      "requests": 976,
+      "http_failures": 0,
+      "failure_percent": 0.0,
+      "unique_questions": 300,
+      "question_categories_observed": [
+        "AD",
+        "AR",
+        "CE",
+        "CF",
+        "EC",
+        "HR",
+        "MC",
+        "MT",
+        "NC",
+        "PI",
+        "PS",
+        "RT",
+        "SF",
+        "SR",
+        "UI"
+      ],
+      "failures_by_cause": [],
+      "effective_llamacpp_slots_log": [],
+      "server_log_sha256": "43c60f3dea18a03581259af06fff0a8fa9f431101d6352dc6fc56f61ff085f88"
+    },
+    {
+      "scope": "cap_expansion",
+      "candidate": "vllm_s128",
+      "requests": 1150,
+      "http_failures": 1,
+      "failure_percent": 0.08695652173913043,
+      "unique_questions": 300,
+      "question_categories_observed": [
+        "AD",
+        "AR",
+        "CE",
+        "CF",
+        "EC",
+        "HR",
+        "MC",
+        "MT",
+        "NC",
+        "PI",
+        "PS",
+        "RT",
+        "SF",
+        "SR",
+        "UI"
+      ],
+      "failures_by_cause": [
+        {
+          "error_type": "network",
+          "error_msg": "socket hang up",
+          "socket_reused": true,
+          "count": 1
+        }
+      ],
+      "effective_llamacpp_slots_log": [],
+      "server_log_sha256": "ddb0925de51f4d5f4b89bebdc94f70c5b4e6ccf9750cf004a51398bd32fac60b"
+    },
+    {
+      "scope": "cap_expansion",
+      "candidate": "sglang_r64",
+      "requests": 938,
+      "http_failures": 0,
+      "failure_percent": 0.0,
+      "unique_questions": 300,
+      "question_categories_observed": [
+        "AD",
+        "AR",
+        "CE",
+        "CF",
+        "EC",
+        "HR",
+        "MC",
+        "MT",
+        "NC",
+        "PI",
+        "PS",
+        "RT",
+        "SF",
+        "SR",
+        "UI"
+      ],
+      "failures_by_cause": [],
+      "effective_llamacpp_slots_log": [],
+      "server_log_sha256": "07164caf67ea4d395e7bebb0b25632c6a52b91eebb61d58dabc6570e7713359e"
+    },
+    {
+      "scope": "cap_expansion",
+      "candidate": "sglang_r128",
+      "requests": 1188,
+      "http_failures": 0,
+      "failure_percent": 0.0,
+      "unique_questions": 300,
+      "question_categories_observed": [
+        "AD",
+        "AR",
+        "CE",
+        "CF",
+        "EC",
+        "HR",
+        "MC",
+        "MT",
+        "NC",
+        "PI",
+        "PS",
+        "RT",
+        "SF",
+        "SR",
+        "UI"
+      ],
+      "failures_by_cause": [],
+      "effective_llamacpp_slots_log": [],
+      "server_log_sha256": "1563a24449618074bb30a918589b8829bc11ef1a5e07e42d2c0e400f4b924e64"
+    },
+    {
+      "scope": "question_diversity",
+      "candidate": "ollama_p16",
+      "requests": 202,
+      "http_failures": 0,
+      "failure_percent": 0.0,
+      "unique_questions": 112,
+      "question_categories_observed": [
+        "ambiguity_conflict",
+        "calculation",
+        "conversation_correction",
+        "long_context",
+        "multi_evidence",
+        "short_lookup"
+      ],
+      "failures_by_cause": [],
+      "effective_llamacpp_slots_log": [
+        "srv    load_model: initializing, n_slots = 16, n_ctx_slot = 4096, kv_unified = 'false'"
+      ],
+      "server_log_sha256": "de35be6acd1d52f743eda6de7717ac4c875ef60e2c012bad2d2735f5f9e454a4"
+    },
+    {
+      "scope": "question_diversity",
+      "candidate": "llamacpp_p16",
+      "requests": 415,
+      "http_failures": 181,
+      "failure_percent": 43.6144578313253,
+      "unique_questions": 187,
+      "question_categories_observed": [
+        "ambiguity_conflict",
+        "calculation",
+        "conversation_correction",
+        "long_context",
+        "multi_evidence",
+        "short_lookup"
+      ],
+      "failures_by_cause": [
+        {
+          "error_type": "network",
+          "error_msg": "socket hang up",
+          "socket_reused": true,
+          "count": 181
+        }
+      ],
+      "effective_llamacpp_slots_log": [
+        "0.01.363.430 I srv    load_model: initializing, n_slots = 16, n_ctx_slot = 4096, kv_unified = 'false'"
+      ],
+      "server_log_sha256": "b74105fff84f915854d997cb5c4addbccc2d7f905c7c844060e301bb862b5c4a"
+    },
+    {
+      "scope": "question_diversity",
+      "candidate": "vllm_s64",
+      "requests": 901,
+      "http_failures": 2,
+      "failure_percent": 0.22197558268590456,
+      "unique_questions": 300,
+      "question_categories_observed": [
+        "ambiguity_conflict",
+        "calculation",
+        "conversation_correction",
+        "long_context",
+        "multi_evidence",
+        "short_lookup"
+      ],
+      "failures_by_cause": [
+        {
+          "error_type": "network",
+          "error_msg": "socket hang up",
+          "socket_reused": true,
+          "count": 2
+        }
+      ],
+      "effective_llamacpp_slots_log": [],
+      "server_log_sha256": "e8c2867e07e95019e31b8076a2e1934417568807349bec3fd0c4becaa2eb571a"
+    },
+    {
+      "scope": "question_diversity",
+      "candidate": "sglang_r64",
+      "requests": 867,
+      "http_failures": 0,
+      "failure_percent": 0.0,
+      "unique_questions": 300,
+      "question_categories_observed": [
+        "ambiguity_conflict",
+        "calculation",
+        "conversation_correction",
+        "long_context",
+        "multi_evidence",
+        "short_lookup"
+      ],
+      "failures_by_cause": [],
+      "effective_llamacpp_slots_log": [],
+      "server_log_sha256": "8da3afb446d4ba4d84e3760b1cb6ecc078572be9323e99a60edc3149cfb5f81c"
+    }
+  ],
+  "image_operations": {
+    "vllm_remove_image.json": {
+      "sha256": "188f539ad2d937900e577ae8387618cf92957b334113a8f9a19dc0d636666db8",
+      "status": "verified",
+      "error": null,
+      "image_id": "sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+      "production_state_unchanged": true
+    },
+    "sglang_restore_image.json": {
+      "sha256": "12141f30413ceb58941a3a5cbad8272b6d6dcd17c8e22e388ea693cf1f67e1f0",
+      "status": "failed",
+      "error": "TimeoutExpired: Command '['docker', '--host', 'unix:///var/run/docker.sock', 'image', 'load', '--input', '/home/ubuntu/llm-bench/l4_http_20261003_03/transfer/sglang.tar.gz']' timed out after 29.99999247999949 seconds",
+      "image_id": null,
+      "production_state_unchanged": true
+    },
+    "sglang_restore_image_retry01.json": {
+      "sha256": "74618f8828d615e1ea74845c30d24ece8f7b44a6ee3d7ab96aefd4affbf9a558",
+      "status": "verified",
+      "error": null,
+      "image_id": "sha256:7a3ee6e2b69e9149a008caf8217cc26c46c55315dc42cbc8e17b98609723860e",
+      "production_state_unchanged": true
+    }
+  },
+  "notes": [
+    "A 300-question pool does not mean every question was admitted within the short measured stages.",
+    "llama.cpp HTTP failures are all socket hang up on reused sockets; this experiment does not isolate GPU capacity.",
+    "Image-load timeout recovery changed only external image-import operations, not sealed inference parameters."
+  ]
+}

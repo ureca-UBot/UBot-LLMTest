@@ -1,0 +1,387 @@
+{
+  "schema_version": 1,
+  "scope": "t4_http_capacity_exploration",
+  "hardware": {
+    "gpu_count": 1,
+    "gpu": "Tesla T4",
+    "min_linux_driver": "580.95.05",
+    "backend_policy": "Keep image/settings fixed; inspect actual backend on target GPU. Local FlashAttention2 is not T4 compatible."
+  },
+  "profile": {
+    "target_rps": 8,
+    "measure_ms": 30000,
+    "min_requests": 20,
+    "timeout_ms": 120000,
+    "seed": 20261002
+  },
+  "generation": {
+    "context": 4096,
+    "max_tokens": 512,
+    "temperature": 0,
+    "thinking": false
+  },
+  "transport": {
+    "streaming": true,
+    "keep_alive": true,
+    "timeout_ms": 120000,
+    "retries": 0
+  },
+  "workload": {
+    "file": "load_test_v2/data/benchmark_prompts.jsonl",
+    "sha256": "67ca43b2b901360cefde705a872e52441edc107abb4c19b202f746d923ea4122",
+    "case_count": 300
+  },
+  "candidates": [
+    {
+      "id": "ollama_p4",
+      "engine": "ollama",
+      "api_model": "qwen3-baseline:4b",
+      "host": "http://127.0.0.1:19551",
+      "checkpoint": "Qwen/Qwen3-4B official GGUF/AWQ release",
+      "format": "GGUF Q4_K_M",
+      "internal_limit": 4,
+      "runtime": {
+        "mode": "docker",
+        "image": "llm-frozen/ollama:20261002-b3a38945364d",
+        "container_port": 11434,
+        "ready_timeout_ms": 180000,
+        "args": [
+          "serve"
+        ],
+        "mounts": [
+          {
+            "source": "model_assets/portable/Qwen3-4B-GGUF",
+            "target": "/artifacts/gguf",
+            "read_only": true
+          }
+        ],
+        "env": {
+          "OLLAMA_MODELS": "/models",
+          "OLLAMA_HOST": "0.0.0.0:11434",
+          "OLLAMA_FLASH_ATTENTION": "true",
+          "OLLAMA_KV_CACHE_TYPE": "f16",
+          "OLLAMA_NUM_PARALLEL": "4",
+          "OLLAMA_MAX_LOADED_MODELS": "1",
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1",
+          "OLLAMA_KEEP_ALIVE": "-1"
+        }
+      },
+      "users": [
+        1,
+        4,
+        8,
+        16,
+        32
+      ],
+      "model_family": "Qwen/Qwen3-4B",
+      "cpu_offload": "none",
+      "benchmark_eligible": false,
+      "lineage_limitation": "Exact source conversion commit equivalence remains unverified.",
+      "import_model": {
+        "from": "/artifacts/gguf/Qwen3-4B-Q4_K_M.gguf"
+      }
+    },
+    {
+      "id": "llamacpp_p4",
+      "engine": "llama.cpp",
+      "api_model": "qwen3-4b-q4km",
+      "host": "http://127.0.0.1:19552",
+      "checkpoint": "Qwen/Qwen3-4B official GGUF/AWQ release",
+      "format": "GGUF Q4_K_M",
+      "internal_limit": 4,
+      "runtime": {
+        "mode": "docker",
+        "image": "llm-frozen/llamacpp:20261002-bb4015809bc5",
+        "container_port": 8080,
+        "ready_timeout_ms": 360000,
+        "mounts": [
+          {
+            "source": "model_assets/portable/Qwen3-4B-GGUF",
+            "target": "/artifacts/gguf",
+            "read_only": true
+          },
+          {
+            "source": "load_test_v2/docker/templates/qwen3_base.jinja",
+            "target": "/templates/qwen3_base.jinja",
+            "read_only": true
+          }
+        ],
+        "args": [
+          "--model",
+          "/artifacts/gguf/Qwen3-4B-Q4_K_M.gguf",
+          "--host",
+          "0.0.0.0",
+          "--port",
+          "8080",
+          "--alias",
+          "qwen3-4b-q4km",
+          "--parallel",
+          "4",
+          "--ctx-size",
+          "16384",
+          "--n-gpu-layers",
+          "99",
+          "--flash-attn",
+          "on",
+          "--chat-template-file",
+          "/templates/qwen3_base.jinja",
+          "--reasoning",
+          "off"
+        ],
+        "env": {
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1"
+        }
+      },
+      "users": [
+        4,
+        8,
+        16,
+        32
+      ],
+      "model_family": "Qwen/Qwen3-4B",
+      "cpu_offload": "none",
+      "benchmark_eligible": false,
+      "lineage_limitation": "Exact source conversion commit equivalence remains unverified."
+    },
+    {
+      "id": "vllm_s8",
+      "engine": "vllm",
+      "api_model": "qwen3-4b-awq",
+      "host": "http://127.0.0.1:19553",
+      "checkpoint": "Qwen/Qwen3-4B official GGUF/AWQ release",
+      "format": "Safetensors AWQ",
+      "internal_limit": 8,
+      "runtime": {
+        "mode": "docker",
+        "image": "llm-frozen/vllm:20261002-5bcee11334e5",
+        "container_port": 8000,
+        "ready_timeout_ms": 600000,
+        "mounts": [
+          {
+            "source": "model_assets/portable/Qwen3-4B-AWQ",
+            "target": "/artifacts/awq",
+            "read_only": true
+          }
+        ],
+        "args": [
+          "/artifacts/awq",
+          "--dtype",
+          "half",
+          "--max-model-len",
+          "4096",
+          "--served-model-name",
+          "qwen3-4b-awq",
+          "--gpu-memory-utilization",
+          "0.8",
+          "--max-num-seqs",
+          "8",
+          "--host",
+          "0.0.0.0",
+          "--port",
+          "8000",
+          "--revision",
+          "74d4bd2bd4bff9cafc9345221320bffb08b406a3"
+        ],
+        "env": {
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1"
+        }
+      },
+      "users": [
+        4,
+        8,
+        16,
+        32
+      ],
+      "model_family": "Qwen/Qwen3-4B",
+      "cpu_offload": "none",
+      "benchmark_eligible": false,
+      "lineage_limitation": "Exact source conversion commit equivalence remains unverified."
+    },
+    {
+      "id": "sglang_r8",
+      "engine": "sglang",
+      "api_model": "qwen3-4b-awq",
+      "host": "http://127.0.0.1:19554",
+      "checkpoint": "Qwen/Qwen3-4B official GGUF/AWQ release",
+      "format": "Safetensors AWQ",
+      "internal_limit": 8,
+      "runtime": {
+        "mode": "docker",
+        "image": "llm-frozen/sglang:20261002-f784a3df9ec0",
+        "entrypoint": "python3",
+        "container_port": 30000,
+        "ready_timeout_ms": 600000,
+        "mounts": [
+          {
+            "source": "model_assets/portable/Qwen3-4B-AWQ",
+            "target": "/artifacts/awq",
+            "read_only": true
+          }
+        ],
+        "args": [
+          "-m",
+          "sglang.launch_server",
+          "--model-path",
+          "/artifacts/awq",
+          "--dtype",
+          "float16",
+          "--context-length",
+          "4096",
+          "--served-model-name",
+          "qwen3-4b-awq",
+          "--mem-fraction-static",
+          "0.7",
+          "--max-running-requests",
+          "8",
+          "--attention-backend",
+          "triton",
+          "--sampling-backend",
+          "pytorch",
+          "--cuda-graph-max-bs",
+          "8",
+          "--host",
+          "0.0.0.0",
+          "--port",
+          "30000",
+          "--revision",
+          "74d4bd2bd4bff9cafc9345221320bffb08b406a3"
+        ],
+        "env": {
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1"
+        }
+      },
+      "users": [
+        4,
+        8,
+        16,
+        32
+      ],
+      "model_family": "Qwen/Qwen3-4B",
+      "cpu_offload": "none",
+      "benchmark_eligible": false,
+      "lineage_limitation": "Exact source conversion commit equivalence remains unverified."
+    },
+    {
+      "id": "vllm_s32",
+      "engine": "vllm",
+      "api_model": "qwen3-4b-awq",
+      "host": "http://127.0.0.1:19555",
+      "checkpoint": "Qwen/Qwen3-4B official GGUF/AWQ release",
+      "format": "Safetensors AWQ",
+      "internal_limit": 32,
+      "runtime": {
+        "mode": "docker",
+        "image": "llm-frozen/vllm:20261002-5bcee11334e5",
+        "container_port": 8000,
+        "ready_timeout_ms": 600000,
+        "mounts": [
+          {
+            "source": "model_assets/portable/Qwen3-4B-AWQ",
+            "target": "/artifacts/awq",
+            "read_only": true
+          }
+        ],
+        "args": [
+          "/artifacts/awq",
+          "--dtype",
+          "half",
+          "--max-model-len",
+          "4096",
+          "--served-model-name",
+          "qwen3-4b-awq",
+          "--gpu-memory-utilization",
+          "0.8",
+          "--max-num-seqs",
+          "32",
+          "--host",
+          "0.0.0.0",
+          "--port",
+          "8000",
+          "--revision",
+          "74d4bd2bd4bff9cafc9345221320bffb08b406a3"
+        ],
+        "env": {
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1"
+        }
+      },
+      "users": [
+        16,
+        32,
+        64
+      ],
+      "model_family": "Qwen/Qwen3-4B",
+      "cpu_offload": "none",
+      "benchmark_eligible": false,
+      "lineage_limitation": "Exact source conversion commit equivalence remains unverified."
+    },
+    {
+      "id": "sglang_r32",
+      "engine": "sglang",
+      "api_model": "qwen3-4b-awq",
+      "host": "http://127.0.0.1:19556",
+      "checkpoint": "Qwen/Qwen3-4B official GGUF/AWQ release",
+      "format": "Safetensors AWQ",
+      "internal_limit": 32,
+      "runtime": {
+        "mode": "docker",
+        "image": "llm-frozen/sglang:20261002-f784a3df9ec0",
+        "entrypoint": "python3",
+        "container_port": 30000,
+        "ready_timeout_ms": 600000,
+        "mounts": [
+          {
+            "source": "model_assets/portable/Qwen3-4B-AWQ",
+            "target": "/artifacts/awq",
+            "read_only": true
+          }
+        ],
+        "args": [
+          "-m",
+          "sglang.launch_server",
+          "--model-path",
+          "/artifacts/awq",
+          "--dtype",
+          "float16",
+          "--context-length",
+          "4096",
+          "--served-model-name",
+          "qwen3-4b-awq",
+          "--mem-fraction-static",
+          "0.7",
+          "--max-running-requests",
+          "32",
+          "--attention-backend",
+          "triton",
+          "--sampling-backend",
+          "pytorch",
+          "--cuda-graph-max-bs",
+          "32",
+          "--host",
+          "0.0.0.0",
+          "--port",
+          "30000",
+          "--revision",
+          "74d4bd2bd4bff9cafc9345221320bffb08b406a3"
+        ],
+        "env": {
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1"
+        }
+      },
+      "users": [
+        16,
+        32,
+        64
+      ],
+      "model_family": "Qwen/Qwen3-4B",
+      "cpu_offload": "none",
+      "benchmark_eligible": false,
+      "lineage_limitation": "Exact source conversion commit equivalence remains unverified."
+    }
+  ]
+}
