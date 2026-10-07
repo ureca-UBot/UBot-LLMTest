@@ -50,6 +50,8 @@ load_test_v2/.benchmark.lock*
 !prompts_test_v*/*/results/
 # v4 기준선 결과도 같은 이유(EC2 생성 → 다른 PC에서 Judge). try1은 이 규칙 전에 커밋됐다.
 !model_test_v4/*/results/
+# v5도 같은 이유(EC2 T4 생성 → 다른 PC에서 Judge, v4 run에서 가져온 결과 포함).
+!model_test_v5/*/results/
 **/automation_logs/
 *.log
 
