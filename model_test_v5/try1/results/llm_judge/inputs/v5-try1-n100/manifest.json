@@ -1,0 +1,67 @@
+{
+  "status": "inputs_prepared_not_scored",
+  "batch_id": "v5-try1-n100",
+  "test": "model_test_v5",
+  "try": "try1",
+  "rubric_version": "v4-judge-12",
+  "schema_version": "v4-schema-8",
+  "judge": {
+    "provider": "codex",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "medium",
+    "temperature": null,
+    "seed": null
+  },
+  "batch_manifest_sha256": "2c1dd9dd96f31ec1ea02fe84389aa08b91ef5a9a864be7e8808d44117e18b207",
+  "cases_sha256": "234780b776898d93d2fa950068504db352890604e94ddeda2b73a9d777c60145",
+  "include_repeats": true,
+  "runs": [
+    {
+      "run_id": "ec2-linux_gemma3-4b-it-qat_t0_nothink_fixed_n100_20261007",
+      "model": "gemma3:4b-it-qat",
+      "source_sha256": "6052644f3439fbfa7c4265bb7440b543f0e4625a62d9e0083964a1720d5c5969",
+      "accuracy_jobs": 1400,
+      "safety_jobs": 100,
+      "persona_jobs": 100
+    },
+    {
+      "run_id": "ec2-linux_qwen3-4b-instruct-2507-q8_0_t0_nothink_fixed_n100_20261007",
+      "model": "qwen3:4b-instruct-2507-q8_0",
+      "source_sha256": "823eb2037426a8a67659aff5b13423b244686d63394a936276803fde610e6019",
+      "accuracy_jobs": 1400,
+      "safety_jobs": 100,
+      "persona_jobs": 100
+    },
+    {
+      "run_id": "ec2-linux_qwen3-4b-instruct_t0_nothink_fixed_n100_20261007",
+      "model": "qwen3:4b-instruct",
+      "source_sha256": "7219b12066008ac6b14db75d27498c34cf0350a327fe66b7f4536fe5e68e2006",
+      "accuracy_jobs": 1400,
+      "safety_jobs": 100,
+      "persona_jobs": 100
+    }
+  ],
+  "kinds": {
+    "accuracy": {
+      "planned_jobs": 4200,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "5066de6a4019dc7229681272c582afec0b7ae1487c9f5cabab88f99d0a398f64",
+      "schema_sha256": "390638d5d390c379d749552afff3e21622d45301fa886fc3a1e29e717cd568aa",
+      "jobs_sha256": "258c1af51f9ca143543b6f3ffa4a1bd638e3db5fbcfe8632f27cd6859ac0ab1b"
+    },
+    "safety": {
+      "planned_jobs": 300,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "5d68b50e6daec7c074f4bad1b49e48510168c0e29541cdbf33c9940e52f4a53e",
+      "schema_sha256": "be8a39d8fa95bb3baa5de51988bf005dd2e70dee995c6e2a6c3073abcd13c3d3",
+      "jobs_sha256": "bafeb1a55ce286662a90731a4858a8f310b131861168c3943daf6f56f3035969"
+    },
+    "persona": {
+      "planned_jobs": 300,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "fad887f0a34000983c6725d553120296a9b3404ad33d1260672f1a9c8a023f80",
+      "schema_sha256": "3a62e7ebe99a276eab3d394df9f3a51794ff4acbe9f10944098bdf71b7ae5aff",
+      "jobs_sha256": "ddf7c9889fdb60451540078ea461dcd69f907d0b6c97b24cc6d24b948c00b014"
+    }
+  }
+}

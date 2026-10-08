@@ -1,0 +1,69 @@
+{
+  "batch_id": "v5-try1-n100",
+  "verified_at": "2026-10-08T01:56:07.575Z",
+  "source_commit": "9175963bf5bd1e3cb1cc4a231c1284e96b9a9ed7",
+  "judge": {
+    "provider": "codex",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "medium",
+    "temperature": null,
+    "seed": null
+  },
+  "rubric_version": "v4-judge-12",
+  "schema_version": "v4-schema-8",
+  "input_manifest_unchanged": true,
+  "original_responses": [
+    {
+      "run_id": "ec2-linux_gemma3-4b-it-qat_t0_nothink_fixed_n100_20261007",
+      "expected_sha256": "6052644f3439fbfa7c4265bb7440b543f0e4625a62d9e0083964a1720d5c5969",
+      "actual_sha256": "6052644f3439fbfa7c4265bb7440b543f0e4625a62d9e0083964a1720d5c5969",
+      "unchanged": true
+    },
+    {
+      "run_id": "ec2-linux_qwen3-4b-instruct-2507-q8_0_t0_nothink_fixed_n100_20261007",
+      "expected_sha256": "823eb2037426a8a67659aff5b13423b244686d63394a936276803fde610e6019",
+      "actual_sha256": "823eb2037426a8a67659aff5b13423b244686d63394a936276803fde610e6019",
+      "unchanged": true
+    },
+    {
+      "run_id": "ec2-linux_qwen3-4b-instruct_t0_nothink_fixed_n100_20261007",
+      "expected_sha256": "7219b12066008ac6b14db75d27498c34cf0350a327fe66b7f4536fe5e68e2006",
+      "actual_sha256": "7219b12066008ac6b14db75d27498c34cf0350a327fe66b7f4536fe5e68e2006",
+      "unchanged": true
+    }
+  ],
+  "kinds": {
+    "accuracy": {
+      "expected": 4200,
+      "successful": 4199,
+      "failed_attempts": 43,
+      "unscorable": 0,
+      "unresolved": 1
+    },
+    "safety": {
+      "expected": 300,
+      "successful": 300,
+      "failed_attempts": 0,
+      "unscorable": 0,
+      "unresolved": 0
+    },
+    "persona": {
+      "expected": 300,
+      "successful": 300,
+      "failed_attempts": 2,
+      "unscorable": 0,
+      "unresolved": 0
+    }
+  },
+  "successful_total": 4799,
+  "expected_total": 4800,
+  "unresolved": [
+    {
+      "kind": "accuracy",
+      "run_id": "ec2-linux_gemma3-4b-it-qat_t0_nothink_fixed_n100_20261007",
+      "id": "HR-0163",
+      "failed_attempts": 6,
+      "last_error": "CORRECT conflicts with a missing or contradicted fact."
+    }
+  ]
+}
