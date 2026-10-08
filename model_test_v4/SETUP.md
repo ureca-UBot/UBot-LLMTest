@@ -5,6 +5,7 @@ v4는 **저급 모델 튜닝 전 기준선(레거시)**을 만드는 테스트�
 | try | 내용 | 결과 요약 |
 |---|---|---|
 | try1 | 2026-10-05~06 · EC2 Tesla T4(생성) · LLM 단독 · Context 고정 · `qwen3:4b` OFF · `gemma3:4b` · 14개 항목 × 200건 = 5,600응답 · LLM Judge 6,398/6,400 | 정답률 gemma3 65.1% · qwen3 63.0%, 정답+근거+상태 44.4% · 31.3%, 환각률 24.1% · 22.0% — gemma3:4b를 우선 튜닝 후보로 판단. [all_summary](try1/results/all_summary.md) |
+| try1 추가 | (예정) EC2 · 같은 조건 · **`qwen3:4b-instruct`**(Qwen3-4B-Instruct-2507) 2,800건 — 기존 두 모델은 다시 돌리지 않는다(4-1절) | |
 
 ## 1. 테스트 목표와 이전 버전 대비 변경점
 
@@ -34,11 +35,14 @@ v4는 **저급 모델 튜닝 전 기준선(레거시)**을 만드는 테스트�
 
 ## 2. 대상 모델
 
-| 모델 | 추론 | 기본 실행(`run_all.js`) |
-|---|---|---|
-| `qwen3:4b` | OFF | ✅ |
-| `gemma3:4b` | 없음 | ✅ |
-| `qwen3:8b` | OFF | ⬜ (4b 튜닝 한계 확인 후 `run_model.js`로) |
+| 모델 | 실제 모델 (Ollama digest) | 추론 | 기본 실행(`run_all.js`) |
+|---|---|---|---|
+| `qwen3:4b` | **Qwen3-4B-Thinking-2507** Q4_K_M (`359d7dd4bcda`) | 추론 전용 모델을 OFF로 사용 | ✅ (try1 완료) |
+| `gemma3:4b` | Gemma 3 4B IT (`a2af6cc3eb7f`) | 없음 | ✅ (try1 완료) |
+| `qwen3:4b-instruct` | **Qwen3-4B-Instruct-2507** Q4_K_M (`0edcdef34593`, = `qwen3:4b-instruct-2507-q4_K_M`) | 없음(추론 없는 전용) | ⬜ `run_model.js`로 (4-1절) |
+| `qwen3:8b` | 원래 Qwen3-8B (`500a1f067a9f`, 2507 업데이트 없음) | OFF | ⬜ (4b 튜닝 한계 확인 후 `run_model.js`로) |
+
+**2026-10-07 확인: `qwen3:4b`는 추론 전용 모델이다.** Ollama 라이브러리에서 `qwen3:4b`의 digest(`359d7dd4bcda`)가 `qwen3:4b-thinking-2507-q4_K_M`과 같다(컨텍스트 256K도 2507 계열의 값). 모델 카드는 "이 모델은 추론 모드만 지원한다"고 적는다. 그래서 try1의 `qwen3:4b` OFF와 프롬프트 튜닝 1~3차(`prompts_test_v1~v3`)는 모두 추론 전용 모델을 추론을 끈 채 잰 값이다. 같은 크기의 추론 없는 전용 모델 Qwen3-4B-Instruct-2507을 같은 조건으로 추가해, 지금까지의 문제(과잉 보류·값 단정·근거 필드 무시)가 프롬프트 탓인지 모델 사용 방식 탓인지 가른다. 모델 카드 기준(추론 OFF): IFEval 83.4 · MMLU-Pro 69.6 · GPQA 62.0 · MMMLU 64.9 · Arena-Hard v2 43.4.
 
 ## 3. 테스트 항목
 
@@ -96,7 +100,7 @@ v4는 **저급 모델 튜닝 전 기준선(레거시)**을 만드는 테스트�
 
 ## 4. 테스트 순서
 
-모든 명령은 **저장소 루트**에서 실행한다(`--test v4`는 생략 가능).
+모든 명령은 **저장소 루트**에서 실행한다. `--test`를 생략하면 가장 높은 버전이 잡히므로 model_test_v5가 생긴 뒤(2026-10-07)에는 `--test v4`를 붙인다.
 
 ```bash
 # 0. 환경 (멱등)
@@ -130,6 +134,52 @@ node scripts/docgen/compare_runs.js --size 200 --batch v4-try1-n200
 ```
 
 긴 라운드는 로그를 남긴다. 예: `node scripts/run/run_all.js 2>&1 | tee -a model_test_v4/try1/results/raw/logs/round_$(date +%Y%m%d).log`
+
+### 4-1. 모델 추가: `qwen3:4b-instruct` (EC2, try1에 추가)
+
+try1의 `qwen3:4b`·`gemma3:4b`는 끝났으므로 다시 돌리지 않는다. 새 모델은 `runByDefault: false`라 `run_all.js`에 잡히지 않고 `run_model.js`로만 실행한다. 조건(temperature 0 · `v4_base` · 구조화 출력 · 2,800건)은 try1과 같고, run_id만 모델 이름으로 갈린다(예: `ec2-linux_qwen3-4b-instruct_t0_nothink_fixed_n200_<날짜>`). 추론이 없는 모델이라 think 옵션은 보내지 않는다(`thinkCapable: false`).
+
+```bash
+# EC2, 저장소 루트
+git pull                                              # test.config.js에 qwen3:4b-instruct가 있어야 한다
+ollama pull qwen3:4b-instruct                         # 2.5GB. digest 0edcdef34593인지 확인: ollama list
+ollama pull bge-m3                                    # 정답 유사도 채점용(try1 때 받았으면 그대로 — 없을 때만 받는다)
+node scripts/run/setup_env.js --skip-models           # 환경만 확인(모델 일괄 pull 생략 — qwen3:8b 5.2GB까지 받지 않게)
+node scripts/run/prepare_dataset.js --check           # 데이터셋이 try1과 같은지(SHA) 확인
+
+# 사전 점검 — 스모크 3건 후 삭제
+node scripts/run/run_model.js qwen3:4b-instruct --size 200 --dry-run
+node scripts/run/run_item.js qwen3:4b-instruct NC --size 50 --limit 3 --try smoke && rm -rf model_test_v4/smoke
+
+# 생성 2,800건 (T4 기준 qwen3:4b와 비슷한 시간 예상). 끊기면 같은 명령으로 이어서 한다(끝난 케이스는 건너뜀)
+nohup node scripts/run/run_model.js qwen3:4b-instruct --size 200 \
+  > model_test_v4/try1/results/raw/logs/round_instruct_$(date +%Y%m%d_%H%M).log 2>&1 &
+
+# 배치 매니페스트(로컬 작업, 루브릭 미포함) — 기존 배치 v4-try1-n200과 섞지 않고 새 배치로
+RUN=$(ls model_test_v4/try1/results/raw | grep '^ec2-linux_qwen3-4b-instruct_t0_nothink_fixed_n200_')
+node scripts/judge/build_batch_manifest.js --batch v4-try1-n200-instruct --runs $RUN
+
+# 결과를 저장소로 (results/는 .gitignore 예외 — 로그 *.log는 제외됨)
+git add model_test_v4/try1/results && git commit -m "[Test] v4 try1 qwen3:4b-instruct 생성 결과" && git push
+```
+
+**2026-10-07 변경: 이 run은 v4에서 Judge하지 않는다.** v5에서 100 서브셋(1,400건)만 가져와 v5 배치로 Judge한다([v5 SETUP](../model_test_v5/SETUP.md) 4-2절). 아래는 원래 계획이다.
+
+LLM Judge는 Judge를 돌리는 PC에서 pull 받은 뒤 실행한다(외부 전송 — 사용자 승인 필요).
+
+```bash
+node scripts/judge/judge_prepare.js --batch v4-try1-n200-instruct
+node scripts/judge/judge_run.js --batch v4-try1-n200-instruct --confirm-external --concurrency 8
+node scripts/docgen/judge_report.js --batch v4-try1-n200-instruct
+node scripts/docgen/build_run_report.js $RUN
+```
+
+- 기존 두 모델과 한 표로 비교: `compare_runs.js`에 배치를 쉼표로 함께 준다. run마다 자기가 가진 배치를 쓰고, 두 배치의 루브릭·스키마·Judge 모델·데이터셋이 다르면 멈춘다(그래서 Judge는 try1과 같은 루브릭 `v4-judge-12`로 준비해야 한다).
+
+  ```bash
+  node scripts/docgen/compare_runs.js --size 200 --batch v4-try1-n200,v4-try1-n200-instruct   # -> try1/results/summary/run_comparison.md
+  ```
+- EC2 Ollama가 `qwen3:4b-instruct`를 처음 받는 경우 `ollama list`의 ID가 `0edcdef34593`인지 확인한다. 다르면 태그가 다른 모델을 가리키는 것이므로 `qwen3:4b-instruct-2507-q4_K_M`으로 받는다.
 
 ## 5. 라운드별 스크립트
 

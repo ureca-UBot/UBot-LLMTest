@@ -65,12 +65,17 @@ async function main() {
     runtime: await ollama.runtimeInfo(modelTag),
   };
   const infoPath = paths.runInfoPath(runId);
+  const outPath = paths.generationPath(runId);
+  const alreadyDone = readExistingIds(outPath, 'id');
+  const todo = cases.filter((c) => !alreadyDone.has(c.id));
   if (fs.existsSync(infoPath)) {
     const prev = JSON.parse(fs.readFileSync(infoPath, 'utf8'));
     const keys = ['model_tag', 'condition', 'gen_params', 'context_mode', 'prompt_variant', 'system_prompt_sha256', 'cases_sha256', 'selection'];
     const diff = keys.filter((k) => JSON.stringify(prev[k]) !== JSON.stringify(runInfo[k]));
-    // 재개 중에 Ollama 버전이나 가중치가 바뀌면 한 run에 다른 환경의 답이 섞인다.
-    if (prev.runtime) {
+    // 재개 중에 Ollama 버전이나 가중치가 바뀌면 한 run에 다른 환경의 답이 섞인다. 새로 생성할 케이스가
+    // 없으면 섞일 답이 없으므로 검사하지 않는다 — 다른 서버에서 생성한 run(import_run_subset.js로 가져온
+    // run 포함)을 이 PC에서 채점만 할 때 생성 단계가 통과하도록.
+    if (prev.runtime && todo.length) {
       for (const k of ['ollama_version', 'model_digest']) {
         if (prev.runtime[k] && runInfo.runtime[k] && prev.runtime[k] !== runInfo.runtime[k]) diff.push(`runtime.${k}`);
       }
@@ -82,10 +87,6 @@ async function main() {
     fs.mkdirSync(paths.rawDir(runId), { recursive: true });
     fs.writeFileSync(infoPath, JSON.stringify({ ...runInfo, created_at: new Date().toISOString() }, null, 2) + '\n', 'utf8');
   }
-
-  const outPath = paths.generationPath(runId);
-  const alreadyDone = readExistingIds(outPath, 'id');
-  const todo = cases.filter((c) => !alreadyDone.has(c.id));
 
   console.log(`[${label}] run_id=${runId} model=${modelTag} env=${envTag()}`);
   const fmtLabel = typeof genParams.format === 'object' ? `schema(${Object.keys(genParams.format.properties).join('>')})` : genParams.format;

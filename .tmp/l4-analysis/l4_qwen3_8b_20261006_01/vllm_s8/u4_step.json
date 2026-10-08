@@ -1,0 +1,193 @@
+{
+  "users": 4,
+  "status": "completed",
+  "window": {
+    "startMs": 0.10155600006692111,
+    "endMs": 30000.101556000067
+  },
+  "warmup": {
+    "attempted": 4,
+    "completed": 4,
+    "reused": 2,
+    "quality_valid_reference": 4,
+    "passed": true
+  },
+  "raw_file": "/home/ubuntu/llm-bench/multimodel_20261006/local/results/multimodel/l4_qwen3_8b_20261006_01/vllm_s8/u4_requests.jsonl",
+  "elapsed_ms": 32231.377377000055,
+  "drain_ms": 2231.2338890000246,
+  "peak_inflight": 4,
+  "in_flight_samples": [
+    {
+      "at_ms": 0.026501000043936074,
+      "pending": 0
+    },
+    {
+      "at_ms": 1000.4914940000745,
+      "pending": 4
+    },
+    {
+      "at_ms": 2001.185530000017,
+      "pending": 4
+    },
+    {
+      "at_ms": 3001.1688210000284,
+      "pending": 4
+    },
+    {
+      "at_ms": 4002.5437890000176,
+      "pending": 4
+    },
+    {
+      "at_ms": 5002.58621400001,
+      "pending": 4
+    },
+    {
+      "at_ms": 6003.154811999993,
+      "pending": 4
+    },
+    {
+      "at_ms": 7003.268109000055,
+      "pending": 4
+    },
+    {
+      "at_ms": 8002.911837000051,
+      "pending": 4
+    },
+    {
+      "at_ms": 9003.10441400006,
+      "pending": 4
+    },
+    {
+      "at_ms": 10002.964563000016,
+      "pending": 4
+    },
+    {
+      "at_ms": 11002.885244000005,
+      "pending": 4
+    },
+    {
+      "at_ms": 12002.878746000002,
+      "pending": 4
+    },
+    {
+      "at_ms": 13003.49946000008,
+      "pending": 4
+    },
+    {
+      "at_ms": 14004.126615000074,
+      "pending": 4
+    },
+    {
+      "at_ms": 15004.4479400001,
+      "pending": 4
+    },
+    {
+      "at_ms": 16004.655614000047,
+      "pending": 4
+    },
+    {
+      "at_ms": 17004.904621000052,
+      "pending": 4
+    },
+    {
+      "at_ms": 18006.073087000055,
+      "pending": 4
+    },
+    {
+      "at_ms": 19006.59602200007,
+      "pending": 4
+    },
+    {
+      "at_ms": 20006.6321990001,
+      "pending": 4
+    },
+    {
+      "at_ms": 21007.371313000098,
+      "pending": 4
+    },
+    {
+      "at_ms": 22008.24811600009,
+      "pending": 4
+    },
+    {
+      "at_ms": 23007.98239800008,
+      "pending": 4
+    },
+    {
+      "at_ms": 24008.221750000026,
+      "pending": 4
+    },
+    {
+      "at_ms": 25007.992925000028,
+      "pending": 4
+    },
+    {
+      "at_ms": 26008.144183000084,
+      "pending": 4
+    },
+    {
+      "at_ms": 27007.826173000038,
+      "pending": 4
+    },
+    {
+      "at_ms": 28008.3890480001,
+      "pending": 4
+    },
+    {
+      "at_ms": 29007.84119200008,
+      "pending": 4
+    },
+    {
+      "at_ms": 30008.026885000058,
+      "pending": 4
+    },
+    {
+      "at_ms": 31007.877006000024,
+      "pending": 3
+    },
+    {
+      "at_ms": 32007.913875000086,
+      "pending": 1
+    },
+    {
+      "at_ms": 32231.34513500007,
+      "pending": 0
+    }
+  ],
+  "summary": {
+    "scope": "http_completion_diagnostic",
+    "criterion": "completed_2xx_http_streams_per_second",
+    "target_rps": 8,
+    "target_status": "below_target",
+    "target_reached": false,
+    "min_requests": 20,
+    "sample_sufficient": true,
+    "window_sec": 30,
+    "n_total": 49,
+    "n_http_complete": 49,
+    "n_http_complete_in_window": 45,
+    "n_http_complete_drain": 4,
+    "n_http_completion_fail": 0,
+    "http_completion_fail_rate": 0,
+    "transport_rps": 1.5,
+    "e2e_p50_ms": 2332.854629999958,
+    "e2e_p95_ms": 4008.5022555999644,
+    "latency_cohort": "admitted_completed_2xx_streams_including_drain",
+    "latency_gate_applied": false,
+    "quality_gate_applied": false,
+    "timeouts": 0,
+    "fail_types": {},
+    "quality_reference": {
+      "n_valid": 49,
+      "n_valid_completed_in_window": 45,
+      "valid_rps": 1.5,
+      "n_invalid_completed": 0,
+      "schema_failures": 0,
+      "evidence_failures": 0,
+      "truncations": 0,
+      "reasoning_leaks": 0
+    },
+    "limitation": "HTTP 완료 처리량 탐색값입니다. 지연·출력 품질·지속 가능한 도착률·SLO 동시성을 인증하지 않습니다."
+  },
+  "output_tokens_avg_in_window": 96.66666666666667
+}

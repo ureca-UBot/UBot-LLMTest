@@ -114,9 +114,16 @@ module.exports = {
 
   // runByDefault=false인 모델은 run_all.js가 건너뛴다(run_model/run_item으로는 실행 가능).
   // 4b 두 개를 먼저 튜닝하고, 튜닝 한계·트레이드오프가 확인되면 qwen3:8b로 넘어간다.
+  //
+  // 2026-10-07: Ollama `qwen3:4b`(digest 359d7dd4bcda)는 원래 Qwen3-4B가 아니라 **Qwen3-4B-Thinking-2507**(추론 전용)이다
+  // (ollama.com/library/qwen3/tags에서 `qwen3:4b-thinking-2507-q4_K_M`과 digest가 같음). try1의 qwen3:4b OFF는 추론 전용
+  // 모델을 추론을 끈 채 돌린 결과다. 같은 크기의 추론 없는 전용 모델 Qwen3-4B-Instruct-2507을 추가한다 — try1 두 모델은
+  // 이미 끝났으므로 runByDefault=false로 두고 run_model.js로 이것만 실행한다(SETUP 4-1절). 추론이 없는 모델이라
+  // thinkCapable=false(think 옵션을 보내지 않음).
   models: [
     { tag: 'qwen3:4b', thinkCapable: true, runByDefault: true },
     { tag: 'gemma3:4b', thinkCapable: false, runByDefault: true },
+    { tag: 'qwen3:4b-instruct', thinkCapable: false, runByDefault: false }, // = qwen3:4b-instruct-2507-q4_K_M (digest 0edcdef34593)
     { tag: 'qwen3:8b', thinkCapable: true, runByDefault: false },
   ],
 

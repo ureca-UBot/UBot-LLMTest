@@ -44,10 +44,7 @@ load_test_v2/.benchmark.lock*
 /model_assets/*
 !/model_assets/README.md
 
-# 측정 결과와 실행 로그
-**/results/
-# 프롬프트 튜닝 결과는 다른 PC에서 LLM Judge를 돌리려면 저장소에 있어야 한다(생성 결과·배치 매니페스트).
-!prompts_test_v*/*/results/
+# 실행 로그 (측정 결과 results/는 버전 관리한다 — 생성한 서버와 다른 PC에서 Judge·집계를 하려면 저장소에 있어야 한다)
 **/automation_logs/
 *.log
 
@@ -85,5 +82,3 @@ load_test_v2/v1_baseline.json
 *.tar.zst
 *.whl
 
-# 복사한 T4 측정 JSON·JSONL은 버전 관리 (기존 다른 results 제외는 유지)
-!/llm-bench/**/source/load_test_v2/results/
