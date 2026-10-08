@@ -515,6 +515,7 @@ v4는 환각 원인 분류 문서(`hallucination_cause.md`)를 따로 만들지 
 |---|---|
 | [v4-try1-n200_report.md](llm_judge/v4-try1-n200_report.md) | Judge 보고서 — 대표 지표, 환각 종류, 되묻기, 정합, 결과 조합, 오답 이유, 항목별, 기대 상태별, 안전성·페르소나, 공통 오답 후보 398건 |
 | [v4-try1-n200_metrics.json](llm_judge/v4-try1-n200_metrics.json) | 보고서 원자료 |
+| [v4-try1-n100_report.md](llm_judge/v4-try1-n100_report.md) · `v4-try1-n100_metrics.json` | (2026-10-08 추가) 두 모델을 v5와 같은 항목당 100건으로 재집계한 보고서. n200 run에서 100 서브셋을 원본 그대로 가져온 run(`ec2-linux_<모델>_t0_nothink_fixed_n100_20261005`)에 v4-try1-n200 판정 중 입력 해시가 같은 것만 옮겼다(Judge 재호출 없음). v5와의 비교는 [v5 v4_comparison](../../../model_test_v5/try1/results/summary/v4_comparison.md). 이 문서의 수치는 n200 기준 그대로다 |
 | [review/v4-try1-n200/](llm_judge/review/v4-try1-n200/index.md) | 검토 문서 — 모델 × 항목마다 파일 하나(`<모델>_<항목>_review.md`, 28개). 문항마다 제공 내역 · 상담봇 답변 · Judge 판정 · 사람 평가 칸. `index.md`에 문항·정답·환각·status 불일치 수 |
 | [review/v4-try1-n200/correct-hallucinated/](llm_judge/review/v4-try1-n200/correct-hallucinated/index.md) | 같은 구조 — 정답인데 환각 주장이 있는 389문항 |
 | [review/v4-try1-n200/abstain-label-correct/](llm_judge/review/v4-try1-n200/abstain-label-correct/index.md) | 같은 구조 — status는 ABSTAIN인데 본문은 실제로 답해 정답인 282문항 |

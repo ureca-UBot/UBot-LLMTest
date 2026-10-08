@@ -6,7 +6,7 @@ v4부터 모든 테스트는 이 폴더의 스크립트를 공유한다. 버전�
 |---|---|---|
 | `run/` | 준비 · 실행 · 생성 | `setup_env` · `prepare_dataset` · `run_all` · `run_model` · `run_item` · `run_pipeline` · `run_generation` · `build_case_set` · `import_run_subset` |
 | `score/` | 결정론 채점 | `score_format_performance` · `score_status` · `score_evidence` · `score_answer_similarity` · `score_rag_grounding` · `score_expression_rules` · `score_repeat_consistency` |
-| `judge/` | LLM Judge **판정** | `build_batch_manifest` · `judge_prepare` · `judge_run` · `merge_call_logs` |
+| `judge/` | LLM Judge **판정** | `build_batch_manifest` · `judge_prepare` · `judge_run` · `merge_call_logs` · `reuse_judgments` |
 | `docgen/` | 결과 **문서 생성** | `build_review_export` · `build_run_report` · `judge_report` · `judge_review_export` · `compare_runs` · `compare_variants` · `build_result_entry` |
 | `lib/` | 공통 모듈 | 경로·설정(`profile`), 데이터(`dataset`), 프롬프트 로더(`prompts`·`prompt_files`), Judge 스키마·provider(`judge/`) 등 |
 
@@ -46,6 +46,8 @@ v4부터 모든 테스트는 이 폴더의 스크립트를 공유한다. 버전�
 run_id 형식은 `<env>_<모델>_<조건>_<컨텍스트 방식>_n<항목당 건수>[_<프롬프트 안>]_<날짜>[_<항목 코드>][_ids-<목록 이름>]`이다.
 
 다른 테스트에서 이미 생성한 run을 다시 생성하지 않고 쓰려면 `run/import_run_subset.js <원본 run_id> --from-test v4 [--from-try try1] [--size 100]`로 작은 서브셋만 현재 테스트의 run으로 가져온다. 모델·생성 파라미터·프롬프트 SHA·데이터셋 SHA가 현재 config와 같고 원본이 서브셋 제한 없는 run일 때만 가져오며, 원본 경로·SHA-256은 `run_info.json`의 `imported_from`에 남는다. 가져온 뒤 `run_pipeline.js`로 채점하면 생성 단계는 끝난 케이스라 건너뛴다(모델이 Ollama에 없어도 됨).
+
+이미 채점한 run을 작은 규모로 다시 집계할 때는 `--keep-records`로 행을 바이트 그대로 가져온 뒤, `build_batch_manifest.js` → `judge_prepare.js` → `judge/reuse_judgments.js --batch <새 배치> --from-batch <원래 배치>`로 원래 판정을 옮긴다. 입력 해시(user_text·원본 응답)·루브릭·Judge 모델이 같은 판정만 옮기므로 Judge를 다시 호출하지 않는다(2026-10-08 v4 `v4-try1-n100`). 결정론 채점의 행별 값도 원래 run과 같으므로 다시 돌리지 않고 해당 행만 잘라 써도 된다.
 예) `local-win_qwen3-4b_t0_nothink_fixed_n200_20261001`, `local-win_qwen3-4b_t0_nothink_fixed_n100_v4_t1_20261007_PI-CE`.
 `run_info.json`의 `runtime`에 Ollama 버전·모델 digest·양자화를 기록한다(2026-10-07~). 같은 모델·temperature 0이어도 환경이 다르면 출력이 달라질 수 있어, 환경이 다른 run끼리 비교하기 전에 확인한다.
 

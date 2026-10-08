@@ -17,8 +17,10 @@ const VALUE_FLAGS = {
   '--ids-file': 'idsFile', // 케이스 ID 목록 파일(한 줄에 하나, #은 주석) — --size 서브셋 안에서 다시 고른다
   '--from-test': 'fromTest', // import_run_subset.js — 가져올 run이 있는 테스트(예: v4)
   '--from-try': 'fromTry',
+  '--from-batch': 'fromBatch', // reuse_judgments.js — 판정을 가져올 원래 배치
 };
-const BOOL_FLAGS = { '--dry-run': 'dryRun', '--skip-model-check': 'skipModelCheck', '--confirm-external': 'confirmExternal', '--write': 'write' };
+const BOOL_FLAGS = { '--dry-run': 'dryRun', '--skip-model-check': 'skipModelCheck', '--confirm-external': 'confirmExternal', '--write': 'write',
+  '--keep-records': 'keepRecords' }; // import_run_subset.js — 원본 행을 바이트 그대로 둔다(run_id도 원본 값)
 const LIST_OPTS = new Set(['items', 'models', 'kinds', 'runs']);
 const INT_OPTS = new Set(['size', 'limit', 'concurrency']);
 

@@ -14,7 +14,9 @@
 // 건너뛴다)·Judge 배치(build_batch_manifest --size)·집계가 일반 run과 똑같이 잡는다.
 //
 // Usage:
-//   node scripts/run/import_run_subset.js <원본 run_id> --from-test v4 [--from-try try1] [--size 100] [--test v5] [--try try1] [--dry-run]
+//   node scripts/run/import_run_subset.js <원본 run_id> --from-test v4 [--from-try try1] [--size 100] [--test v5] [--try try1]
+//     [--keep-records] [--dry-run]
+//   --keep-records: 행을 바꾸지 않고 그대로 옮긴다 — 원본 배치의 Judge 판정을 재사용할 때(reuse_judgments.js).
 
 const fs = require('fs');
 const path = require('path');
@@ -87,7 +89,9 @@ function main() {
   const date = (srcRunId.match(/_n\d+_(\d{8})/) || [])[1];
   if (!date) throw new Error(`원본 run_id에서 날짜를 찾지 못했습니다: ${srcRunId}`);
   const runId = profile.makeRunId({ model: info.model_tag, conditionName: info.condition, size, date, env: info.env });
-  const rows = cases.map((c) => ({ ...byId.get(c.id), run_id: runId, source_run_id: srcRunId }));
+  // --keep-records: 원본 행을 그대로 둔다(run_id도 원본 값). 행이 바이트 단위로 같아야 원본 run의 Judge 판정을
+  // 입력 해시 검사(source_record_sha256)를 통과시켜 재사용할 수 있다(scripts/judge/reuse_judgments.js).
+  const rows = cases.map((c) => (opts.keepRecords ? byId.get(c.id) : { ...byId.get(c.id), run_id: runId, source_run_id: srcRunId }));
   const errors = rows.filter((r) => r.error_type);
 
   console.log(`[import ${label}] ${src.name}/${fromTry}/${srcRunId}`);
@@ -112,13 +116,20 @@ function main() {
       rows_imported: rows.length,
       run_info_sha256: sha256(srcInfoBytes),
       generation_sha256: sha256(srcGenBytes),
-      note: '원본 행에서 run_id만 새 값으로 바꾸고 source_run_id를 붙였다. 나머지 필드는 원본 그대로.',
+      records: opts.keepRecords ? 'unchanged' : 'run_id_rewritten',
+      note: opts.keepRecords
+        ? '원본 행을 그대로 옮겼다(행 안의 run_id도 원본 run의 값).'
+        : '원본 행에서 run_id만 새 값으로 바꾸고 source_run_id를 붙였다. 나머지 필드는 원본 그대로.',
       imported_at: new Date().toISOString(),
     },
   };
   fs.mkdirSync(paths.rawDir(runId), { recursive: true });
   fs.writeFileSync(paths.runInfoPath(runId), JSON.stringify(runInfo, null, 2) + '\n', 'utf8');
-  fs.writeFileSync(paths.generationPath(runId), rows.map((r) => JSON.stringify(r)).join('\n') + '\n', 'utf8');
+  // --keep-records면 원본 파일의 해당 줄을 그대로 쓴다(JSON 재직렬화로 바이트가 달라지지 않게).
+  const rawLines = opts.keepRecords ? new Map(srcGenBytes.toString('utf8').split('\n').filter(Boolean)
+    .map((l) => { try { return [JSON.parse(l).id, l]; } catch { return [null, null]; } })) : null;
+  const out = opts.keepRecords ? cases.map((c) => rawLines.get(c.id)) : rows.map((r) => JSON.stringify(r));
+  fs.writeFileSync(paths.generationPath(runId), out.join('\n') + '\n', 'utf8');
   console.log(`완료. 다음 — 결정론 채점·보고서(생성 단계는 끝난 케이스라 건너뜀, 모델이 Ollama에 없어도 됨):`);
   console.log(`  node scripts/run/run_pipeline.js ${runId} ${info.model_tag} --test ${versionDirName} --try ${tryTag} --size ${size}`);
 }

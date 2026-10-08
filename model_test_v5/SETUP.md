@@ -4,7 +4,7 @@ v5는 v4와 **같은 평가 기준·항목·데이터셋·프롬프트·Judge**�
 
 | try | 내용 | 결과 요약 |
 |---|---|---|
-| try1 | 2026-10-07 EC2 T4 · Ollama 0.34.2 순차 생성 · LLM 단독 · Context 고정 · 모델 3개 × 14개 항목 × 100건 = 4,200응답 (그중 Q4_K_M 1,400건은 v4 try1에서 가져옴) · 오류 0 · 배치 매니페스트 `v5-try1-n100` | Judge 전 |
+| try1 | 2026-10-07 EC2 T4 · Ollama 0.34.2 순차 생성 · LLM 단독 · Context 고정 · 모델 3개 × 14개 항목 × 100건 = 4,200응답 (그중 Q4_K_M 1,400건은 v4 try1에서 가져옴) · 오류 0 · Judge `v5-try1-n100` 4,799/4,800 (2026-10-08) | 정답률 Instruct Q8_0 78.8% · Q4_K_M 77.5%(차이 유의하지 않음) · Gemma QAT 67.0%. Instruct는 스키마 키 순서를 따르지 않음. [all_summary](try1/results/all_summary.md) · [판단](try1/results/summary/quantization_decision.md) |
 
 ## 1. 목표와 v4 대비 변경점
 
