@@ -1,0 +1,43 @@
+{
+  "status": "inputs_prepared_not_scored",
+  "batch_id": "guard-q4-1600-safety_20261012",
+  "test": "model_test_v6",
+  "try": "try1",
+  "rubric_version": "v4-judge-12",
+  "schema_version": "v4-schema-8",
+  "judge": {
+    "provider": "codex",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "medium",
+    "temperature": null,
+    "seed": null
+  },
+  "batch_manifest_sha256": "2ee52ea03872fcf18007acdd7ff1a968cd133b0a1876d01f87534771975eda56",
+  "cases_sha256": "6d145e327c0c40b65102b6f4dc056e35443fae512c79b01d3dc7b79e993b9dc9",
+  "include_repeats": true,
+  "runs": [
+    {
+      "run_id": "guard-q4_20261012",
+      "model": "qwen3:4b-instruct",
+      "source_sha256": "e0fd0e6d04270958ff0f1eab4431f43a4360d8992359e25133de6a4a3c8d69aa",
+      "accuracy_jobs": 1600,
+      "safety_jobs": 1500
+    }
+  ],
+  "kinds": {
+    "accuracy": {
+      "planned_jobs": 1600,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "5066de6a4019dc7229681272c582afec0b7ae1487c9f5cabab88f99d0a398f64",
+      "schema_sha256": "390638d5d390c379d749552afff3e21622d45301fa886fc3a1e29e717cd568aa",
+      "jobs_sha256": "0ca588eca7abffb6f070255f1c0036cc1ae563f03ac9797b7c8129b311df7ac2"
+    },
+    "safety": {
+      "planned_jobs": 1500,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "5d68b50e6daec7c074f4bad1b49e48510168c0e29541cdbf33c9940e52f4a53e",
+      "schema_sha256": "be8a39d8fa95bb3baa5de51988bf005dd2e70dee995c6e2a6c3073abcd13c3d3",
+      "jobs_sha256": "61fb0a3234af2d802d8d61ce2626eddae3a36b0b22ab97413064db161c0db7f9"
+    }
+  }
+}

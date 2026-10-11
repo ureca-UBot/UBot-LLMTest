@@ -76,7 +76,7 @@ LLM_Test/
     └── tryN/results/                       # (실행 후)
 ```
 
-이번 `test/faq-guard` 브랜치의 추가 자료는 `model_test_v6/`(설정·SETUP·try1 결과), `data/eval_sets/test_set5/`(1,600문항·준비 매니페스트), `data/raw/guard1600/`(결과 엑셀)입니다. FAQ 1,000건과 기존 실행·평가 코드는 재사용했습니다. [v6 전체 요약](model_test_v6/try1/results/all_summary.md) · [안전성 평가 설명](model_test_v6/try1/results/summary/safety_evaluation.md). 응답 생성 완료이며 안전성·정상 동작 평가는 미실시입니다.
+이번 `test/faq-guard` 브랜치의 추가 자료는 `model_test_v6/`(설정·SETUP·try1 결과), `data/eval_sets/test_set5/`(1,600문항·준비 매니페스트), `data/raw/guard1600/`(결과 엑셀)입니다. FAQ 1,000건과 기존 실행·평가 코드는 재사용했습니다. [v6 전체 요약](model_test_v6/try1/results/all_summary.md) · [안전성 평가 설명](model_test_v6/try1/results/summary/safety_evaluation.md). 응답 생성과 공격 1,500건의 안전성 Judge를 완료했습니다. SAFE 1381 / UNSAFE 63 / OVER 32 / NA 24. 정상 대조군 정확도·유용성은 미실시이며 기존 루브릭 범위의 판정입니다.
 
 ## 3. 테스트 이력 — 무엇을 테스트했고 결과는 어땠나
 
@@ -87,7 +87,7 @@ LLM_Test/
 | **v2 try2** (test2 V2) | 2026-09-18 · 로컬 RTX 4070 Ti | 선별 5개 모델(`qwen3:4b` `qwen3:8b` `exaone3.5:7.8b` `qwen3:1.7b` `gemma3:4b`) 재실행 + **LLM Judge 전수 채점**(내용 1,500 · 안전성 75) | `qwen3:4b` 정확도 72.0% · 근거율 86.0%로 1위지만 P95 29.2s. `exaone3.5:7.8b`는 정확도 51.7%인데 환각률 51.3%로 최고. 결정론 지표는 try1과 거의 같아 순위 재현 | [all_summary](model_test_v2/try2/results/all_summary.md) |
 | **v3 try1** (test3) | 2026-09-20 · EC2 Tesla T4 | 같은 380건 · **temperature 0** · 7개 모델(선별 5 + `gemma3:12b` `qwen3:14b`) + Qwen3 추론 OFF 4개 + temperature 0.8 대조군 · LLM Judge 전수 | **1차 MVP로 `qwen3:14b` 추론 OFF 선정**(정확도 70.7% · 근거율 76.3% · P95 8.1s). 정확도 1위 `qwen3:14b` ON 75.6%, 근거율 1위 `qwen3:4b` ON 86.3%(P95 47.6s). temperature 0으로 반복 일관성 대폭 개선 | [all_summary](model_test_v3/try1/results/all_summary.md) |
 | **v4 try1** (test4) | 2026-10-05~06 · EC2 Tesla T4(생성) · Judge 로컬 | **저급 모델 튜닝 전 기준선.** 데이터셋을 `test_set4` **14개 항목 × 200 = 2,800건**(의도 균등 FAQ 1,000건 기반, PS·RT 추가)으로 바꾸고 `gemma3:4b` · `qwen3:4b` 추론 OFF를 temperature 0 · Context 고정으로 측정 · 공통 엔진 `scripts/` · LLM Judge 전수(Codex `gpt-6-sol`, 답변 문장만 판정) | 정답률 `gemma3:4b` 65.1% · `qwen3:4b` OFF 63.0%로 비슷하지만 정답+근거+상태는 44.4% · 31.3%(qwen3가 status를 낮추고 근거를 비움). 환각률 24.1% · 22.0%, 약한 항목은 둘 다 PI·CE·UI·CF·AR. **gemma3:4b를 우선 튜닝 후보로 판단**(P95 3.3s). v3와는 데이터·정확도 정의가 달라 직접 비교하지 않음 | [all_summary](model_test_v4/try1/results/all_summary.md) |
-| **v6 try1** (FAQ 가드) | 2026-10-11~12 · EC2 Ollama / Windows 실행기 | FAQ 기반 공격 15항목 × 100 + 정상 100 = 1,600건. BGE-M3 top-1 > 0.75 확인 후 `qwen3:4b-instruct` Q4_K_M 단독 응답 생성 | 1,600응답·호출 오류 0. **안전성·정상 답변 유용성 평가 미실시**; JSON 정상 여부는 공격 차단 결과가 아님 | [all_summary](model_test_v6/try1/results/all_summary.md) |
+| **v6 try1** (FAQ 가드) | 2026-10-11~12 · EC2 Ollama / Windows 실행기 | FAQ 기반 공격 15항목 × 100 + 정상 100 = 1,600건. BGE-M3 top-1 > 0.75 확인 후 `qwen3:4b-instruct` Q4_K_M 단독 응답 생성 | 1,600응답·호출 오류 0. **안전성 1,500건 판정 완료**: SAFE 1381, UNSAFE 63, OVER 32, NA 24. 정상 대조군 유용성 미실시; G09~G14 추가 검토 필요 | [all_summary](model_test_v6/try1/results/all_summary.md) |
 
 ## 4. 새 테스트를 진행할 때 지켜야 할 점
 

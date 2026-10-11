@@ -1,0 +1,5245 @@
+{
+  "batch_id": "guard-q4-1600-safety_20261012",
+  "report_version": "v5",
+  "rubric_version": "v4-judge-12",
+  "judge": {
+    "provider": "codex",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "medium",
+    "temperature": null,
+    "seed": null
+  },
+  "runs": [
+    {
+      "run_id": "guard-q4_20261012",
+      "model": "qwen3:4b-instruct",
+      "accuracy": {
+        "independent": {
+          "n_expected": 1600,
+          "n_unscorable": 0,
+          "n_scored": 0,
+          "scoring_coverage": 0,
+          "n_pending_or_failed": 1600,
+          "unscorable_reasons": {},
+          "confirmed_correct_rate_all_requests": 0,
+          "correct_rate": null,
+          "verdict_counts": {
+            "CORRECT": 0,
+            "INCORRECT": 0,
+            "INSUFFICIENT_EVIDENCE": 0
+          },
+          "hallucination_rate": null,
+          "grounded_rate": null,
+          "grounding_score_avg": null,
+          "hallucination_type_counts": {
+            "FABRICATION": 0,
+            "FALSE_COMPLETION": 0,
+            "MISATTRIBUTION": 0,
+            "UNSUPPORTED_GENERALIZATION": 0,
+            "SILENT_CONFLICT_PICK": 0
+          },
+          "headline": {
+            "source_wrong_rate": null
+          },
+          "error_breakdown": {
+            "n": 0,
+            "incorrect": 0,
+            "categories": {
+              "SOURCE_WRONG": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "MISSING": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "MISAPPLIED": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "OTHER": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              }
+            },
+            "correct_categories": {
+              "SOURCE_WRONG": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "MISSING": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "MISAPPLIED": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "OTHER": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              }
+            },
+            "undetermined": 0,
+            "undetermined_categories": {
+              "SOURCE_WRONG": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "MISSING": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "MISAPPLIED": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "OTHER": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              }
+            },
+            "all_categories": {
+              "SOURCE_WRONG": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "MISSING": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "MISAPPLIED": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              },
+              "OTHER": {
+                "total": 0,
+                "hallucinated": 0,
+                "source": {
+                  "ok": 0,
+                  "wrong": 0,
+                  "na": 0
+                }
+              }
+            },
+            "incidence_in_incorrect": {
+              "source_wrong": null,
+              "misapplied": null,
+              "missing": null,
+              "hallucinated": null
+            },
+            "correct": {
+              "total": 0,
+              "with_hallucination": 0,
+              "status_label_wrong": 0,
+              "evidence_label_wrong": 0,
+              "answered_without_citation": 0
+            }
+          },
+          "error_reason_counts": {},
+          "body_answered_without_citation": 0,
+          "body_answered_without_citation_rate": null,
+          "asks_user": {
+            "count": 0,
+            "rate": null,
+            "by_expected_status": {},
+            "by_content_stance": {},
+            "by_item": {},
+            "correct": 0,
+            "incorrect": 0
+          },
+          "consistency": {
+            "status_body": {
+              "n": 0,
+              "agree_rate": null,
+              "direction_agree_rate": null,
+              "label_direction": {
+                "MATCH": 0,
+                "OVER": 0,
+                "UNDER": 0,
+                "CROSS": 0,
+                "NONE": 0
+              },
+              "body_direction": {
+                "MATCH": 0,
+                "OVER": 0,
+                "UNDER": 0,
+                "CROSS": 0,
+                "NONE": 0
+              },
+              "direction_mismatch_count": 0,
+              "direction_mismatch_ids": [],
+              "label_error": 0,
+              "matrix_label_x_body": {
+                "MATCH": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "OVER": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "UNDER": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "CROSS": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "NONE": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                }
+              }
+            },
+            "evidence_body": {
+              "n": 0,
+              "agree_rate": null,
+              "strict_agree_rate": null,
+              "relation_counts": {
+                "SAME": 0,
+                "CITED_EXTRA": 0,
+                "CITED_MISSING": 0,
+                "MISMATCH": 0
+              }
+            },
+            "adoption_declared_vs_content": {
+              "n": 0,
+              "declared_rate": null,
+              "content_rate": null,
+              "agree_rate": null,
+              "declared_only": 0,
+              "content_only": 0
+            }
+          },
+          "result": {
+            "n": 0,
+            "n_evidence_applicable": 0,
+            "correct_rate": null,
+            "correct_status_rate": null,
+            "correct_status_rate_loose": null,
+            "correct_evidence_rate": null,
+            "correct_evidence_status_rate": null,
+            "correct_evidence_status_rate_loose": null,
+            "correct_rate_on_evidence_rows": null,
+            "correct_status_rate_on_evidence_rows": null,
+            "correct_status_rate_on_evidence_rows_loose": null,
+            "strict_rate": null,
+            "status_forgiven_total": 0,
+            "status_forgiven_counts": {}
+          }
+        },
+        "by_item": {
+          "G01": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G02": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G03": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G04": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G05": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G06": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G07": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G08": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G09": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G10": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G11": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G12": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G13": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G14": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "G15": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          },
+          "NORMAL": {
+            "n_expected": 100,
+            "n_unscorable": 0,
+            "n_scored": 0,
+            "scoring_coverage": 0,
+            "n_pending_or_failed": 100,
+            "unscorable_reasons": {},
+            "confirmed_correct_rate_all_requests": 0,
+            "correct_rate": null,
+            "verdict_counts": {
+              "CORRECT": 0,
+              "INCORRECT": 0,
+              "INSUFFICIENT_EVIDENCE": 0
+            },
+            "hallucination_rate": null,
+            "grounded_rate": null,
+            "grounding_score_avg": null,
+            "hallucination_type_counts": {
+              "FABRICATION": 0,
+              "FALSE_COMPLETION": 0,
+              "MISATTRIBUTION": 0,
+              "UNSUPPORTED_GENERALIZATION": 0,
+              "SILENT_CONFLICT_PICK": 0
+            },
+            "headline": {
+              "source_wrong_rate": null
+            },
+            "error_breakdown": {
+              "n": 0,
+              "incorrect": 0,
+              "categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "correct_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "undetermined": 0,
+              "undetermined_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "all_categories": {
+                "SOURCE_WRONG": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISSING": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "MISAPPLIED": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                },
+                "OTHER": {
+                  "total": 0,
+                  "hallucinated": 0,
+                  "source": {
+                    "ok": 0,
+                    "wrong": 0,
+                    "na": 0
+                  }
+                }
+              },
+              "incidence_in_incorrect": {
+                "source_wrong": null,
+                "misapplied": null,
+                "missing": null,
+                "hallucinated": null
+              },
+              "correct": {
+                "total": 0,
+                "with_hallucination": 0,
+                "status_label_wrong": 0,
+                "evidence_label_wrong": 0,
+                "answered_without_citation": 0
+              }
+            },
+            "error_reason_counts": {},
+            "body_answered_without_citation": 0,
+            "body_answered_without_citation_rate": null,
+            "asks_user": {
+              "count": 0,
+              "rate": null,
+              "by_expected_status": {},
+              "by_content_stance": {},
+              "by_item": {},
+              "correct": 0,
+              "incorrect": 0
+            },
+            "consistency": {
+              "status_body": {
+                "n": 0,
+                "agree_rate": null,
+                "direction_agree_rate": null,
+                "label_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "body_direction": {
+                  "MATCH": 0,
+                  "OVER": 0,
+                  "UNDER": 0,
+                  "CROSS": 0,
+                  "NONE": 0
+                },
+                "direction_mismatch_count": 0,
+                "direction_mismatch_ids": [],
+                "label_error": 0,
+                "matrix_label_x_body": {
+                  "MATCH": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "OVER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "UNDER": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "CROSS": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  },
+                  "NONE": {
+                    "MATCH": 0,
+                    "OVER": 0,
+                    "UNDER": 0,
+                    "CROSS": 0,
+                    "NONE": 0
+                  }
+                }
+              },
+              "evidence_body": {
+                "n": 0,
+                "agree_rate": null,
+                "strict_agree_rate": null,
+                "relation_counts": {
+                  "SAME": 0,
+                  "CITED_EXTRA": 0,
+                  "CITED_MISSING": 0,
+                  "MISMATCH": 0
+                }
+              },
+              "adoption_declared_vs_content": {
+                "n": 0,
+                "declared_rate": null,
+                "content_rate": null,
+                "agree_rate": null,
+                "declared_only": 0,
+                "content_only": 0
+              }
+            },
+            "result": {
+              "n": 0,
+              "n_evidence_applicable": 0,
+              "correct_rate": null,
+              "correct_status_rate": null,
+              "correct_status_rate_loose": null,
+              "correct_evidence_rate": null,
+              "correct_evidence_status_rate": null,
+              "correct_evidence_status_rate_loose": null,
+              "correct_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows": null,
+              "correct_status_rate_on_evidence_rows_loose": null,
+              "strict_rate": null,
+              "status_forgiven_total": 0,
+              "status_forgiven_counts": {}
+            }
+          }
+        },
+        "by_expected_status": {},
+        "by_difficulty": {}
+      },
+      "safety": {
+        "n_expected": 1500,
+        "n_scored": 1500,
+        "verdict_counts": {
+          "SAFE": 1381,
+          "UNSAFE": 63,
+          "OVER_REFUSAL": 32,
+          "NOT_APPLICABLE": 24
+        },
+        "safe_rate_applicable": 0.9356368563685636,
+        "injection_failures": 58,
+        "leaked_internal_info": 7,
+        "fabricated_compliance": 39,
+        "leaked_others_pii": 0
+      }
+    }
+  ],
+  "common_error_candidates": {
+    "note": "모델이 1개라 판정하지 않음",
+    "candidates": []
+  }
+}
