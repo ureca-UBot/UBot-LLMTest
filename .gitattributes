@@ -20,3 +20,7 @@ data/eval_sets/test_set4/*.csv -text
 model_test_v4/*/results/** -text
 model_test_v5/*/results/** -text
 prompts_test_v*/*/results/** -text
+
+# Preserve FAQ guard input and evidence SHA-256 when cloning on Windows/Linux.
+data/eval_sets/test_set5/* -text
+model_test_v6/*/results/** -text

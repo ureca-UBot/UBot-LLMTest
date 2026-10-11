@@ -1,0 +1,144 @@
+{
+  "checks": [
+    {
+      "id": "G09-085",
+      "batched": 0.7502491291948179,
+      "single": 0.7502491291948176,
+      "max_difference": 3.3306690738754696e-16,
+      "top1": "FAQ-900"
+    },
+    {
+      "id": "G08-073",
+      "batched": 0.750446678365169,
+      "single": 0.7504466783651692,
+      "max_difference": 2.220446049250313e-16,
+      "top1": "FAQ-921"
+    },
+    {
+      "id": "G05-096",
+      "batched": 0.7506068152355446,
+      "single": 0.7506068152355442,
+      "max_difference": 4.440892098500626e-16,
+      "top1": "FAQ-1009"
+    },
+    {
+      "id": "G08-057",
+      "batched": 0.7509723369216045,
+      "single": 0.7509723369216045,
+      "max_difference": 0.0,
+      "top1": "FAQ-642"
+    },
+    {
+      "id": "G02-090",
+      "batched": 0.7509844761267852,
+      "single": 0.750984476126785,
+      "max_difference": 2.220446049250313e-16,
+      "top1": "FAQ-106"
+    },
+    {
+      "id": "G03-066",
+      "batched": 0.7511832167494246,
+      "single": 0.7511832167494247,
+      "max_difference": 1.1102230246251565e-16,
+      "top1": "FAQ-1385"
+    },
+    {
+      "id": "G13-094",
+      "batched": 0.7513118302271188,
+      "single": 0.7513118302271186,
+      "max_difference": 2.220446049250313e-16,
+      "top1": "FAQ-1011"
+    },
+    {
+      "id": "G09-053",
+      "batched": 0.7518513718986173,
+      "single": 0.7518513718986177,
+      "max_difference": 4.440892098500626e-16,
+      "top1": "FAQ-516"
+    },
+    {
+      "id": "G08-037",
+      "batched": 0.7519745347996778,
+      "single": 0.7519745347996776,
+      "max_difference": 2.220446049250313e-16,
+      "top1": "FAQ-1151"
+    },
+    {
+      "id": "G14-072",
+      "batched": 0.7519978040958933,
+      "single": 0.7519978040958931,
+      "max_difference": 2.220446049250313e-16,
+      "top1": "FAQ-074"
+    },
+    {
+      "id": "G07-001",
+      "batched": 0.8969961963528401,
+      "single": 0.8969961963528406,
+      "max_difference": 4.440892098500626e-16,
+      "top1": "FAQ-1604"
+    },
+    {
+      "id": "G07-002",
+      "batched": 0.9066043161080025,
+      "single": 0.9066043161080022,
+      "max_difference": 3.3306690738754696e-16,
+      "top1": "FAQ-1364"
+    }
+  ],
+  "meta": {
+    "ollama_version": "0.34.2",
+    "model": {
+      "name": "bge-m3:latest",
+      "model": "bge-m3:latest",
+      "modified_at": "2026-09-20T11:05:47.040788165Z",
+      "size": 1157672605,
+      "digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "bert",
+        "families": [
+          "bert"
+        ],
+        "parameter_size": "566.70M",
+        "quantization_level": "F16",
+        "context_length": 8192,
+        "embedding_length": 1024
+      },
+      "capabilities": [
+        "embedding"
+      ]
+    },
+    "num_ctx": 4096,
+    "keep_alive": "30m",
+    "endpoint": "/api/embed",
+    "threshold": 0.75,
+    "top_k": 3,
+    "measured_at": "2026-10-11T11:02:41.463214+00:00",
+    "search_corpus": "첨부 FAQ 1,000건의 질문; 로컬 메모리에서 전체 cosine 검색",
+    "score_method": "1 - cosine distance; float32 벡터를 float64로 정규화하여 계산",
+    "llm_executed": false,
+    "server_code_or_configuration_modified": false
+  },
+  "source_unchanged": true,
+  "counts": {
+    "1": 100,
+    "2": 100,
+    "3": 100,
+    "4": 100,
+    "5": 100,
+    "6": 100,
+    "7": 100,
+    "8": 100,
+    "9": 100,
+    "10": 100,
+    "11": 100,
+    "12": 100,
+    "13": 100,
+    "14": 100,
+    "15": 100,
+    "16": 100
+  },
+  "case_sha256": "a8ec22ded5b3197394ffa18aeef80fc531924224a1931043a1a21ca45a7d4645",
+  "result_sha256": "f6713b021deff2d0933dc3d38af960eef3fe923f33f4b43ede61eebbb716aa7a"
+}
