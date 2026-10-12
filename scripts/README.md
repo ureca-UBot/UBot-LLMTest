@@ -4,7 +4,7 @@ v4부터 모든 테스트는 이 폴더의 스크립트를 공유한다. 버전�
 
 | 폴더 | 단계 | 스크립트 |
 |---|---|---|
-| `run/` | 준비 · 실행 · 생성 | `setup_env` · `prepare_dataset` · `run_all` · `run_model` · `run_item` · `run_pipeline` · `run_generation` · `build_case_set` · `import_run_subset` |
+| `run/` | 준비 · 실행 · 생성 | `setup_env` · `prepare_dataset` · `run_all` · `run_model` · `run_item` · `run_pipeline` · `run_generation` · `build_case_set` · `import_run_subset` · `build_test_set4r` |
 | `score/` | 결정론 채점 | `score_format_performance` · `score_status` · `score_evidence` · `score_answer_similarity` · `score_rag_grounding` · `score_expression_rules` · `score_repeat_consistency` |
 | `judge/` | LLM Judge **판정** | `build_batch_manifest` · `judge_prepare` · `judge_run` · `merge_call_logs` · `reuse_judgments` |
 | `docgen/` | 결과 **문서 생성** | `build_review_export` · `build_run_report` · `judge_report` · `judge_review_export` · `compare_runs` · `compare_variants` · `build_result_entry` |
@@ -44,6 +44,8 @@ v4부터 모든 테스트는 이 폴더의 스크립트를 공유한다. 버전�
 - `--ids-file <파일>`: 케이스 ID 목록(한 줄에 하나, `#` 뒤는 주석)으로 `--size` 서브셋 안에서 다시 고른다. 목록 밖 ID가 섞이면 실행 전에 멈춘다. 목록은 `run/build_case_set.js`가 이전 Judge 결과로 만든다(오답 비율을 높인 짝 비교용).
 
 run_id 형식은 `<env>_<모델>_<조건>_<컨텍스트 방식>_n<항목당 건수>[_<프롬프트 안>]_<날짜>[_<항목 코드>][_ids-<목록 이름>]`이다.
+
+파생 데이터셋 `test_set4r`(test_set4의 사람 검토 수정본 — AR·UI 조회 결과를 "라벨 = 값" 문장으로 바꾸고, FAQ 3건·정답 예시·AR·UI 질문을 고침)은 xlsx가 아니라 `run/build_test_set4r.js`로 만든다(수정 규칙이 이 파일에 있고, 변경 내역은 `data/eval_sets/test_set4r/changes.csv`). 조회 결과 변환은 `lib/user_info_text.js`. config의 `dataset.derivedBy`가 있으면 `prepare_dataset.js`는 멈춘다.
 
 다른 테스트에서 이미 생성한 run을 다시 생성하지 않고 쓰려면 `run/import_run_subset.js <원본 run_id> --from-test v4 [--from-try try1] [--size 100]`로 작은 서브셋만 현재 테스트의 run으로 가져온다. 모델·생성 파라미터·프롬프트 SHA·데이터셋 SHA가 현재 config와 같고 원본이 서브셋 제한 없는 run일 때만 가져오며, 원본 경로·SHA-256은 `run_info.json`의 `imported_from`에 남는다. 가져온 뒤 `run_pipeline.js`로 채점하면 생성 단계는 끝난 케이스라 건너뛴다(모델이 Ollama에 없어도 됨).
 

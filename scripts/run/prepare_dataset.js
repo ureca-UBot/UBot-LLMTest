@@ -90,6 +90,8 @@ function main() {
   const cols = ds.columns;
   const sourcePath = path.join(paths.root, ds.source);
   const check = argv.includes('--check');
+  // 다른 데이터셋을 고쳐 만든 파생 데이터셋(예: test_set4r)은 xlsx에서 다시 만들면 수정이 사라진다.
+  if (ds.derivedBy) throw new Error(`${ds.name}은 파생 데이터셋입니다. 다시 만들려면: node ${ds.derivedBy}`);
 
   console.log(`[${profile.load().label}] 원본: ${ds.source}`);
   const wb = readWorkbook(sourcePath, [ds.sheet, ds.faqSheet].filter(Boolean));

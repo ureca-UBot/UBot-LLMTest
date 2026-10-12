@@ -1,0 +1,78 @@
+{
+  "batch_id": "pv4-try1",
+  "test": "prompts_test_v4",
+  "try": "try1",
+  "status": "completed",
+  "condition": "t0_nothink",
+  "size": 100,
+  "context_mode": "fixed",
+  "dataset": "test_set4",
+  "cases_sha256": "234780b776898d93d2fa950068504db352890604e94ddeda2b73a9d777c60145",
+  "source_commit": "15d60299e1804c32bd1333687cf97f006e2221ed",
+  "created_at": "2026-10-11T22:40:23.199Z",
+  "runs": [
+    {
+      "run_id": "local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i1_20261012_PI-CE-UI-AR-CF-SR-HR-AD-NC-MC-MT",
+      "model": "qwen3:4b-instruct",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": null,
+        "format": {
+          "type": "object",
+          "properties": {
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_ids",
+            "status",
+            "answer"
+          ]
+        }
+      },
+      "prompt_variant": "v5_i1",
+      "selection": {
+        "size": 100,
+        "items": [
+          "PI",
+          "CE",
+          "UI",
+          "AR",
+          "CF",
+          "SR",
+          "HR",
+          "AD",
+          "NC",
+          "MC",
+          "MT"
+        ],
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 0,
+      "source_path": "prompts_test_v4/try1/results/raw/local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i1_20261012_PI-CE-UI-AR-CF-SR-HR-AD-NC-MC-MT/generation.jsonl",
+      "source_sha256": "8faf7924f8026f87a844eb070e5f35c6fc7d5d60b324e2e04975e9165180456f"
+    }
+  ]
+}
