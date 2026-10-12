@@ -1,0 +1,107 @@
+{
+  "date_kst": "2026-10-12",
+  "publication_base_commit": "64c05e4cc15e6f80edc5dfcc2f17d51ddd3c1361",
+  "reference_dataset_sha256": "6d145e327c0c40b65102b6f4dc056e35443fae512c79b01d3dc7b79e993b9dc9",
+  "reference_embedding_results_sha256": "f6713b021deff2d0933dc3d38af960eef3fe923f33f4b43ede61eebbb716aa7a",
+  "reference_llm_generation_sha256": "e0fd0e6d04270958ff0f1eab4431f43a4360d8992359e25133de6a4a3c8d69aa",
+  "reference_safety_judge_sha256": "a235fdbce6e70e97f613170694394cf7587c47f08fe3291ee7980ab13aea0ab0",
+  "local_evidence_sha256": {
+    "input-guard-baseline-20261012/results.csv": "4d4dcb21e84f92e813a29efdb08176fd7cd245c2f46b9cfe8b1b6a8d0bd3d2c5",
+    "input-guard-expanded-20261012/comparison.csv": "addc704948e8d8d5cc750104b2b4ab64268f22f3b5036caa6f80b5e8f056ed01",
+    "input-guard-bad-boundary-20261012/comparison.json": "e04f2c3d32d1fa61f810b079e1516e7340869c300a14a80523e792cd1101587a",
+    "input-guard-bad-boundary-20261012/test_results.csv": "775842cd3560675481817bdc8c24206337969a968421538ebf71d74ee7fcb417",
+    "input-guard-bad-boundary-20261012/unit.log": "41f6d4f1fa737a5a6706e17259488590eb1012f7db85fc3fddb210f23196adcb",
+    "input-guard-bad-boundary-20261012/installed_verification.json": "63bd2d867ff3497f2be7c900c9f59a597345e7f1f744997237d39700e3eb8912",
+    "input-guard-expanded-20261012/words_after.b64": "d0e90c36b1480a82d71108dfea238f9bfb8a97fcbb9101ee3e9bcbb566f3fe34",
+    "input-guard-final-review-20261012/normal_probes.tsv": "526afaa4f0edc14a2f33eb6fa7369f17c62c4408a8b9f9222504e759cdfd96ab"
+  },
+  "tested_local_source_sha256": {
+    "src/main/java/com/ubot/chat/service/ChatPromptInjectionService.java": "241f6631587b75595295a17d05d5a91fbabfbab39bae4d406f2589cd3110bef5",
+    "src/test/java/com/ubot/chat/service/ChatPromptInjectionServiceTest.java": "c09e12d1a43880dc13d959c8829d53e5dc3595fda064f5b0a66b0ac49e6e90a4",
+    "src/main/java/com/ubot/forbiddenword/service/ForbiddenWordFilterService.java": "0b58e97f8e1961770355aac3094f16437f0dab9f876a548fdde7d432414e7a13",
+    "src/test/java/com/ubot/forbiddenword/service/ForbiddenWordFilterServiceTest.java": "3ee8e034185035a6e9dc67b01226524108add20531031682f0799504b39837fc"
+  },
+  "source_not_uploaded": true,
+  "verification_at_publication": {
+    "questions_ids_preserved": 1600,
+    "current_sts_four_source_test_fingerprints_match": true,
+    "summary_reconciled": true,
+    "saved_judge_deduplicated_complete": 1500,
+    "additional_determinate_matches": 750
+  },
+  "recorded_last_install_scope": {
+    "production_files_changed": 1,
+    "existing_word_guard_test_files_changed": 1,
+    "changed_paths": [
+      "src\\main\\java\\com\\ubot\\forbiddenword\\service\\ForbiddenWordFilterService.java",
+      "src\\test\\java\\com\\ubot\\forbiddenword\\service\\ForbiddenWordFilterServiceTest.java"
+    ],
+    "other_backend_files_unchanged": 322,
+    "frontend_files_unchanged": 128,
+    "prompt_guard_unchanged": true,
+    "git_refs_unchanged": true,
+    "database_connections": 0,
+    "git_operations": 0,
+    "llm_calls": 0,
+    "embedding_calls": 0,
+    "judge_calls": 0,
+    "compiled": true,
+    "unit_tests_passed": 1052,
+    "candidate_bytes_equal_installed": true,
+    "installed_source_sha256": {
+      "src\\main\\java\\com\\ubot\\forbiddenword\\service\\ForbiddenWordFilterService.java": "0b58e97f8e1961770355aac3094f16437f0dab9f876a548fdde7d432414e7a13",
+      "src\\test\\java\\com\\ubot\\forbiddenword\\service\\ForbiddenWordFilterServiceTest.java": "3ee8e034185035a6e9dc67b01226524108add20531031682f0799504b39837fc"
+    }
+  },
+  "recorded_last_static_checks": {
+    "same_word_guard_methods": [
+      "initializeForbiddenWordCache",
+      "onForbiddenWordChanged",
+      "refreshForbiddenWordCache",
+      "validateForbiddenWord",
+      "normalizeForInspection",
+      "containsSpacedVariant"
+    ],
+    "normalization_unchanged": true,
+    "cache_and_events_unchanged": true,
+    "prompt_guard_and_prompt_tests_unchanged": true,
+    "new_services": 0,
+    "existing_unit_cases_preserved": true,
+    "additional_nonduplicated_unit_cases": 34,
+    "new_test_methods": [
+      "allowsEnglishWordsAndHttpErrorNames",
+      "blocksForbiddenWordsMixedWithNormalExpressions"
+    ]
+  },
+  "recorded_last_test_overlap_check": {
+    "duplicate_added_inputs_removed": [
+      "b a day plan",
+      "BAD",
+      "ＢＡＤ",
+      "bAd",
+      "B​ a D"
+    ],
+    "existing_inputs_preserved": true,
+    "new_unit_cases": 34
+  },
+  "historical_word_registration_verification": {
+    "saved_xlsx_verified": true,
+    "exact_case_rows": 1600,
+    "added_words_verified": 36,
+    "active_db_words_verified": 38,
+    "old_db_records_preserved": 2,
+    "source_files_unchanged": 324,
+    "formula_errors": 0,
+    "summary_reconciles": true,
+    "output_sha256": "b4c900128beafbd822b2ba85e78be31f7cab1a4ee62807370e312e5bf32c1ec0",
+    "llm_calls": 0,
+    "git_operations": 0
+  },
+  "limitations": [
+    "오프라인 메모리 저장소에 저장된 38단어 스냅샷 공급; 현행 DB·서버 캐시 재조회 없음",
+    "저장된 LLM·Judge를 ID로 교차 비교; 결합 파이프라인 재실행 없음",
+    "G15는 사용자 입력 밖 검색 Context 공격; 질문 검사 수치로 문서 가드 성능을 주장하지 않음",
+    "750확정 기대 사례 일치와 3REVIEW를 구분; 753전수 정책 완료로 해석하지 않음",
+    "1052 단위 사례와 2353 오프라인 행은 겹치는 검증 축이며 합산하지 않음"
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "report_date_kst": "2026-10-12",
+  "evaluation": "offline_input_guard_saved_results",
+  "new_execution_this_publication": false,
+  "target_repository": "ureca-UBot/UBot-LLMTest",
+  "target_branch": "test/faq-guard",
+  "code_uploaded": false,
+  "fixed_cases": 1600,
+  "direct_input_attacks": 1400,
+  "context_only_attacks": 100,
+  "normal_control": 100,
+  "baseline_2word_blocked": 85,
+  "expanded_38word_blocked": 145,
+  "final_blocked": 814,
+  "final_word_first": 70,
+  "final_prompt_first": 744,
+  "direct_input_attacks_passed": 586,
+  "direct_input_block_rate": 0.5814285714285714,
+  "all_attack_observed_input_block_ratio": 0.5426666666666666,
+  "normal100_false_positive": 0,
+  "normal62_passed": 62,
+  "normal62_false_positive": 0,
+  "additional_cases_total_includes_normal62": 753,
+  "additional_determinate_cases": 750,
+  "additional_determinate_matches": 750,
+  "additional_policy_review": 3,
+  "additional_expected_counts": {
+    "PASS": 371,
+    "CHAT-020": 359,
+    "REVIEW": 3,
+    "FW-003": 20
+  },
+  "units_successful": 1052,
+  "prompt_guard_unit_cases": 958,
+  "word_guard_unit_cases": 94,
+  "last_added_unique_word_unit_cases": 34,
+  "last_change_fixed_result_changes": 0,
+  "last_change_previous_blocks_lost": 0,
+  "saved_llm_unsafe_cases": 63,
+  "saved_llm_unsafe_blocked_by_input": 59,
+  "saved_llm_unsafe_remaining": 4,
+  "saved_direct_input_llm_unsafe_cases": 59,
+  "saved_direct_input_llm_unsafe_blocked": 59,
+  "saved_llm_judge_counts": {
+    "SAFE": 1381,
+    "UNSAFE": 63,
+    "OVER_REFUSAL": 32,
+    "NOT_APPLICABLE": 24
+  },
+  "saved_judge_crosscheck": [
+    {
+      "saved_verdict": "SAFE",
+      "cases": 1381,
+      "final_blocked": 720,
+      "final_passed": 661,
+      "final_word_first": 47,
+      "final_prompt_first": 673
+    },
+    {
+      "saved_verdict": "UNSAFE",
+      "cases": 63,
+      "final_blocked": 59,
+      "final_passed": 4,
+      "final_word_first": 2,
+      "final_prompt_first": 57
+    },
+    {
+      "saved_verdict": "OVER_REFUSAL",
+      "cases": 32,
+      "final_blocked": 19,
+      "final_passed": 13,
+      "final_word_first": 7,
+      "final_prompt_first": 12
+    },
+    {
+      "saved_verdict": "NOT_APPLICABLE",
+      "cases": 24,
+      "final_blocked": 16,
+      "final_passed": 8,
+      "final_word_first": 14,
+      "final_prompt_first": 2
+    }
+  ],
+  "new_llm_calls": 0,
+  "new_embedding_calls": 0,
+  "new_judge_calls": 0,
+  "new_database_connections": 0,
+  "word_snapshot": {
+    "active_words": 38,
+    "existing_test_words": 2,
+    "public_added_words": 36,
+    "new_live_db_verification": false
+  },
+  "output_guard_implemented": false,
+  "output_guard_decision": "출력 차단 시 질문 종료·안내, 동일 질문 자동 재시도 없음"
+}
