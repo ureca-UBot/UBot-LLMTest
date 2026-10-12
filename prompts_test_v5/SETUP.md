@@ -7,9 +7,9 @@ v5 try1 오답 사람 검토([human_review_issues](../model_test_v5/try1/results
   - 길이 제한: 질문 하나당 50자
   - "사용자는 자료를 볼 수 없다"
 
-2026-10-12 재실행 전에는 `base_i2`에 답변 전체의 일반 지식·추측 보충 금지를 명시하고, `status_rules_i2` 주의 1·3에 확정·계산 가능 및 적용 불가 확정과 정보 부족의 구분을 반영했다. `try1`은 수정 전 1,051/1,100건에서, `try2`는 위 보완 후 200/1,100건에서 사용자 요청으로 취소했으며 둘 다 Judge는 실행하지 않았다. `try2` 취소 후 `output_order_t1b`로 교체하고 `base_i2`의 evidence_ids 정의도 이에 맞췄다. **본 테스트는 `try3`에서 두 안을 처음부터 생성한다.** 프롬프트 안 이름은 `v5_i2`를 유지하고, 실행별 시스템 프롬프트 SHA-256으로 수정 전후를 구분한다.
+2026-10-12 재실행 전에는 `base_i2`에 답변 전체의 일반 지식·추측 보충 금지를 명시하고, `status_rules_i2` 주의 1·3에 확정·계산 가능 및 적용 불가 확정과 정보 부족의 구분을 반영했다. `try1`은 수정 전 1,051/1,100건에서 사용자 요청으로 취소했고 Judge는 실행하지 않았다. 그 뒤 보완한 안으로 200/1,100건까지 생성한 실행(옛 `try2`, `output_order` 사용)도 취소했고, `output_order_t1b`로 교체하고 `base_i2`의 evidence_ids 정의도 이에 맞췄다. 이 취소 실행은 쓰지 않으므로 지웠고(git 기록에만 남음), 그 다음 실행(옛 `try3`)을 `try2`로 옮겼다. 프롬프트 안 이름은 `v5_i2`를 유지하고, 실행별 시스템 프롬프트 SHA-256으로 수정 전후를 구분한다.
 
-현재 `try3`는 사용자 요청에 따라 **같은 모델·이 PC·같은 test_set4r 1,100건으로 `v4_base`와 수정한 `v5_i2`를 각각 한 번 생성**한다(총 2,200건). **Judge는 실행하지 않는다.** 생성 → 결정론 채점 → CSV·run 보고서·run 비교까지만 진행한다. 실행할 때 `--test prompts_test_v5 --try try3`를 준다. 두 안의 실제 시스템 프롬프트는 `try3/results/summary/*_system_prompt.md`에 보존한다.
+**본 테스트는 `try2`**다. **같은 모델·이 PC·같은 test_set4r 1,100건으로 `v4_base`와 수정한 `v5_i2`를 각각 한 번 생성**했다(총 2,200건, 2026-10-12, 오류·포맷 실패 0). 결정론 채점·run 보고서·run 비교·배치 매니페스트(`pv5-try2`)·Judge 입력 준비(정확도 2,200 · 안전성 200)까지 끝났고, **남은 것은 Judge 실행부터**다(6절 4번). 실행할 때 `--test prompts_test_v5 --try try2`를 준다(`defaultTry`도 `try2`). 두 안의 실제 시스템 프롬프트는 `try2/results/summary/*_system_prompt.md`에 보존한다.
 
 ## 1. 목표
 
@@ -20,13 +20,13 @@ v5 try1 오답 사람 검토([human_review_issues](../model_test_v5/try1/results
   - AR·UI·CF 정답률(is_open·오래된 정보·인증 실패·시행 기간).
   - FAQ ID·항목 이름 노출이 줄어드는지.
 
-위 정확도·환각·필수 사실 누락은 품질 검토 목표이며, 현재 try3에서는 Judge 없이 생성 결과를 보존한다. 자동 집계는 포맷·기대 상태·근거 채택·표현 규칙·지연 시간만 산출하며 이를 정답률·환각률로 해석하지 않는다.
+정확도·환각·필수 사실 누락은 Judge로 판정한다. 결정론 집계(포맷·기대 상태·근거 채택·표현 규칙·지연 시간)는 정답률·환각률로 해석하지 않는다.
 
 ## 2. 프롬프트 안 (`prompts/chatbot/variants.json`)
 
 | 안 | 구성 |
 |---|---|
-| `v4_base` (기준, try3에서 새로 생성) | base · status_rules · output_order |
+| `v4_base` (기준, try2에서 새로 생성) | base · status_rules · output_order |
 | `v5_i2` | **base_i2** · **status_rules_i2** · **output_order_t1b** |
 
 `base_i2`가 `base`와 다른 점(파일 머리 주석에 이유):
@@ -56,7 +56,7 @@ v5 try1 오답 사람 검토([human_review_issues](../model_test_v5/try1/results
 
 `node scripts/run/build_test_set4r.js`로 만든다. xlsx에서 만들지 않으며, `prepare_dataset.js`는 멈춘다. 수정 규칙은 스크립트 안에 있고, 변경 내역은 `data/eval_sets/test_set4r/changes.csv`다. 요약은 [human_review_issues 6절](../model_test_v5/try1/results/summary/human_review_issues.md)에 있다. 문항 ID·서브셋은 test_set4와 같고 제외 문항은 없다.
 
-## 4. 테스트 항목 (try3)
+## 4. 테스트 항목 (try2)
 
 PI · CE · UI · AR · CF · SR · HR · AD · NC · MC · MT, 항목당 100건 = **프롬프트당 1,100건 · 두 안 합계 2,200건**. prompts_test_v4와 같은 11항목이다.
 
@@ -66,7 +66,7 @@ PI · CE · UI · AR · CF · SR · HR · AD · NC · MC · MT, 항목당 100건
 
 ### 현재 두 안의 비교 범위
 
-try3의 `v4_base`와 `v5_i2`는 입력·정답·문항 ID·모델·생성 환경을 동일하게 맞추므로 1,100건 전체를 짝지을 수 있다. 프롬프트만 다르다. 현재는 Judge를 실행하지 않으므로 내용 정답 전후·환각 전후 판정은 하지 않는다.
+try2의 `v4_base`와 `v5_i2`는 입력·정답·문항 ID·모델·생성 환경을 동일하게 맞추므로 1,100건 전체를 짝지을 수 있다. 프롬프트만 다르다. 두 run이 같은 배치 `pv5-try2`에 있으므로 짝 비교에 `--base-from`이 필요 없다.
 
 ### 과거 EC2 기준선과의 비교 범위 (참고)
 
@@ -79,7 +79,7 @@ try3의 `v4_base`와 `v5_i2`는 입력·정답·문항 ID·모델·생성 환경
 | 입력이 바뀜 | 340 | AR 100 · UI 100 · CF 100 · FAQ 수정 문항 40 | 기준선 답변이 다른 입력에 대한 것 — **짝 비교 불가** |
 
 - 정답만 바뀐 306건(대부분 "확인해야 합니다" 안내 문장 제거)은 기준선에 불리한 쪽이 아니다. 옛 정답이 더 많은 걸 요구했으므로, 새 안이 이 문항에서 좋아 보이는 차이 일부는 정답 변경 때문일 수 있다.
-- 위 제한은 과거 EC2 결과와 비교할 때 적용된다. 현재 try3의 두 안은 변경된 340건을 포함해 모두 같은 입력과 환경으로 새로 생성한다.
+- 위 제한은 과거 EC2 결과와 비교할 때 적용된다. try2의 두 안은 변경된 340건을 포함해 모두 같은 입력과 환경으로 새로 생성한다.
 
 ## 5. 수정 전 스모크 (`smoke/`, 2026-10-12, Judge 없음)
 
@@ -101,23 +101,32 @@ try3의 `v4_base`와 `v5_i2`는 입력·정답·문항 ID·모델·생성 환경
 ## 6. 실행 순서
 
 ```powershell
-$T = @('--test', 'prompts_test_v5', '--try', 'try3')
+$T = @('--test', 'prompts_test_v5', '--try', 'try2')
+$BASE = 'local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_20261012_PI-CE-UI-AR-CF-SR-HR-AD-NC-MC-MT'
+$I2   = 'local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i2_20261012_PI-CE-UI-AR-CF-SR-HR-AD-NC-MC-MT'
 
-# 1. 기준 프롬프트 생성 → 결정론 채점 → CSV·run 보고서 (1,100건)
+# 1. (완료) 기준 프롬프트 생성 → 결정론 채점 → CSV·run 보고서 (1,100건)
 node scripts/run/run_item.js qwen3:4b-instruct 'PI,CE,UI,AR,CF,SR,HR,AD,NC,MC,MT' --size 100 @T --variant v4_base
 
-# 2. 수정 프롬프트 생성 → 결정론 채점 → CSV·run 보고서 (1,100건). 기준 실행이 끝난 뒤 순차 실행한다
+# 2. (완료) 수정 프롬프트 생성 → 결정론 채점 → CSV·run 보고서 (1,100건)
 node scripts/run/run_item.js qwen3:4b-instruct 'PI,CE,UI,AR,CF,SR,HR,AD,NC,MC,MT' --size 100 @T --variant v5_i2
 
-# 3. 결과론적 지표·계측 비교 (항목 제한 run이므로 두 run_id를 명시)
-node scripts/docgen/compare_runs.js --size 100 @T --runs '<base_run_id>,<i2_run_id>'
-```
+# 3. (완료) run 비교 · 배치 매니페스트 · Judge 입력 준비(외부 호출 없음)
+node scripts/docgen/compare_runs.js --size 100 @T --runs "$BASE,$I2"
+node scripts/judge/build_batch_manifest.js --batch pv5-try2 --size 100 @T --runs "$BASE,$I2"
+node scripts/judge/judge_prepare.js --batch pv5-try2 @T
 
-사용자 요청으로 Judge 배치·입력 준비·Judge 호출은 하지 않는다. `compare_variants.js`의 정답·환각 짝 비교는 Judge 결과가 필요하므로 이번 실행에서 제외한다.
+# 4. LLM Judge (외부 전송). 이 PC는 PATH에 codex가 없다 — Codex 앱 CLI를 지정한다(해시 폴더는 앱 업데이트 때 바뀐다)
+$env:LLM_JUDGE_CODEX_BIN = 'C:\Users\pc\AppData\Local\OpenAI\Codex\bin\9691020b546a15b2\codex.exe'
+node scripts/judge/judge_run.js --batch pv5-try2 @T --confirm-external --concurrency 8
+node scripts/docgen/judge_report.js --batch pv5-try2 @T
+
+# 5. 짝 비교 (같은 배치 안의 v4_base ↔ v5_i2)
+node scripts/docgen/compare_variants.js --batch pv5-try2 @T --base v4_base
+```
 
 ## 7. 알려진 한계
 
-- **Judge 미실행**: 현재 try3에서는 내용 정답률·환각률·필수 사실 누락을 자동 판정하지 않는다.
-- 과거 EC2 기준선과의 데이터·환경 차이는 4절을 참고한다. 현재 try3의 두 안은 동일 데이터·환경으로 생성한다.
+- 과거 EC2 기준선과의 데이터·환경 차이는 4절을 참고한다. try2의 두 안은 동일 데이터·환경으로 생성한다.
 - 50자 기준은 정답 예시 길이와 맞지 않는 문항이 많다(정답 예시 중 50자 이내는 1,400건 중 194건). 누락이 늘면 이 기준 때문일 수 있다.
 - 항목당 100건이라 100문항당 ±2건 정도의 판정 노이즈보다 작은 변화는 판단하지 않는다.

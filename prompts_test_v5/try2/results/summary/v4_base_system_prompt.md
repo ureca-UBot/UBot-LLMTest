@@ -1,4 +1,4 @@
-# v4_base — try3 실제 시스템 프롬프트
+# v4_base — try2 실제 시스템 프롬프트
 
 SHA-256: `c9c583f14e66c48c119af35dc5c1d079a1758e99842b2909a6dcdf816c82085d`
 
