@@ -1,0 +1,66 @@
+{
+  "publication_scope": "Kakao GPU-only try2 results; other models and try1 evidence retained",
+  "branch": "test/ai-guard-input",
+  "base_commit": "f16c7ea800af7a2f61bf7dabecfbd112c59aed87",
+  "source_dataset_sha256": "6d145e327c0c40b65102b6f4dc056e35443fae512c79b01d3dc7b79e993b9dc9",
+  "reference_results": "Qwen/Samsung/IBM remain try1; latest comparison changes Kakao fields only",
+  "previous_manifest_scope_note": "try1 publish_manifest is a snapshot at f16c7ea. Shared version SETUP has an appended try2 entry; its original hash remains verifiable at that commit. All try1 result files and original workbook retain their bytes.",
+  "files": [
+    {
+      "path": "data/raw/ai_guard_input_20261013/AI_입력가드_4모델_카카오GPU반영_1600개_결과.xlsx",
+      "bytes": 338662,
+      "sha256": "116f9c97e794524a79eed1e87c2278f02c373288d7d087a28dae0ed69a5d3ed3"
+    },
+    {
+      "path": "model_test_v7/try2/results/all_summary.md",
+      "bytes": 5369,
+      "sha256": "9f520f9ce7c51837aa9f06f9595b03bc5ca9bfca24a96ce275ff6b3779a2e085"
+    },
+    {
+      "path": "model_test_v7/try2/results/raw/ec2-linux_kanana-safeguard-8b_bf16_gpu-full_question_n100_20261013/observations.jsonl",
+      "bytes": 614602,
+      "sha256": "646d2ae61a9b8807dce61c6804b4322909aaa2a1b44733be92b819062b005350"
+    },
+    {
+      "path": "model_test_v7/try2/results/report/benchmark_manifest.json",
+      "bytes": 2501,
+      "sha256": "8b31f1cc230cc197bc4ed178b327f4f3d403c2cd6578bb48dea1283af5d3425d"
+    },
+    {
+      "path": "model_test_v7/try2/results/report/ec2-linux_kanana-safeguard-8b_bf16_gpu-full_question_n100_20261013_summary.md",
+      "bytes": 2622,
+      "sha256": "9fe7f63c89da04cd5d5b9dac9627a24f117bf5325a26fc8c61edccc42a75bbb8"
+    },
+    {
+      "path": "model_test_v7/try2/results/report/run_summary.json",
+      "bytes": 6828,
+      "sha256": "365f33e8bbf514735d87b0d7b809f6ab19c8739afab993447e62b8ea83bdfd2e"
+    },
+    {
+      "path": "model_test_v7/try2/results/report/service_restoration_check.json",
+      "bytes": 669,
+      "sha256": "e5ff9d32e60c9e13d5b2a0946549b70a00b3c96658506e0da42acf94a14a7c24"
+    },
+    {
+      "path": "model_test_v7/try2/results/summary/gpu_retest_comparison.md",
+      "bytes": 2615,
+      "sha256": "0f945ceaf3bdd1894f65c0a7e6bf5d47ceec20d46e5ba20720aaa3481d96a52f"
+    },
+    {
+      "path": "model_test_v7/try2/results/summary/kakao_gpu_predictions.csv",
+      "bytes": 367003,
+      "sha256": "31e05be4ef235fe9bae1cc4bd11e89f7d1a53fff5b103a7027b34b3b25ba5fe5"
+    },
+    {
+      "path": "model_test_v7/try2/results/summary/latest_model_comparison.csv",
+      "bytes": 1096,
+      "sha256": "9ef3e6a3cc259460182f62e9300162532669d07e42c6b25de94f8f113c9fdf93"
+    },
+    {
+      "path": "model_test_v7/try2/results/summary/latest_question_predictions.csv",
+      "bytes": 1015994,
+      "sha256": "29cac7591df94d5375e3443b3e3b7971272512d86c918f6c0d2b246d00eb5a94"
+    }
+  ],
+  "excludes_self": true
+}

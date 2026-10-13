@@ -7,6 +7,7 @@
 | 회차 | 날짜 | 환경 | 내용 | 결과 |
 |---|---|---|---|---|
 | try1 | 2026-10-13 | EC2 g6.2xlarge · NVIDIA L4 | 모델당 1,600문항, 총 6,400개 입력 판정 | [전체 요약](try1/results/all_summary.md) |
+| try2 | 2026-10-13 | NVIDIA L4 전체 GPU | 카카오만 신규 1,600개 판정, CPU 오프로딩 없음 | [전체 요약](try2/results/all_summary.md) |
 
 ## 2. 목표와 이전 버전 대비 변경점
 
@@ -100,3 +101,7 @@ data/raw/ai_guard_input_20261013/AI_입력가드_4모델_1600개_결과.xlsx
 ## 8. 한계
 
 카카오는 일부 가중치를 CPU에 보관하고 GPU 연산 때 가져오는 오프로딩 조건입니다. 전체 GPU 상주 시간으로 비교하면 안 됩니다. G15 문서 공격 탐지, 출력 가드, IBM custom risk/jailbreak, 카카오 Prompt 전용 모델, 모델별 정책 튜닝, 코드+AI 조합은 미실행입니다. 시작 과정의 호환·예열 재시도는 있었지만 최종 6,400개 문항 결과에는 오류·누락이 없습니다. 자세한 기준과 측정 범위는 [방법과 한계](try1/results/summary/methodology_and_limits.md)에 있습니다.
+
+## 9. 카카오 전체 GPU 재측정 (try2)
+
+같은 1,600개를 카카오만 다시 측정했고 전체 가중치 GPU 배치를 확인했습니다. 기존 LLM·임베딩 GPU 서비스 두 개만 사용자 승인으로 잠시 중단한 후 원래 컨테이너로 복구하고 API 준비 상태를 확인했습니다. [try2 비교와 한계](try2/results/summary/gpu_retest_comparison.md). 다른 세 모델은 try1 값을 참조하며, 최신 비교표·엑셀에서는 카카오 열만 try2 결과입니다. try1 원문·해시는 보존했습니다.

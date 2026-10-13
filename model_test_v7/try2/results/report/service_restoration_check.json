@@ -1,0 +1,21 @@
+{
+  "restored": true,
+  "other_services_unchanged": true,
+  "health_checks": {
+    "ubot-vllm-1": {
+      "health_endpoint_ready": true,
+      "request_type": "GET /health; no generation or embedding call"
+    },
+    "ubot-vllm-embedding-1": {
+      "health_endpoint_ready": true,
+      "request_type": "GET /health; no generation or embedding call"
+    }
+  },
+  "restored_services": [
+    "ubot-vllm-1",
+    "ubot-vllm-embedding-1"
+  ],
+  "configuration_preserved": "Only docker stop/start used on original container IDs; no recreate or settings changes.",
+  "errors": [],
+  "source_record_sha256": "fe30cabe63f7f2900f70f35981b697e4f30fccd83745d7d5bcac0abecfd16dcd"
+}
