@@ -15,17 +15,28 @@
 //   6. 제외 문항(EXCLUDE) — 고쳐도 의미가 없는 문항. 지금은 없다
 //
 // 출력: data/eval_sets/test_set4r/{cases_fixed.csv, faq_master.csv, dataset_manifest.json, changes.csv}
-// Usage: node scripts/run/build_test_set4r.js [--check]
+// Usage: node scripts/run/build_test_set4r.js [--check] [--user-info-format text|json|json-readable]
+//   --user-info-format(입력 형식 비교용, input_format_test): 5번만 바꾼다. 나머지 수정은 같다.
+//     text(기본) -> test_set4r · json(옛 JSON 그대로) -> test_set4r_json · json-readable(JSON 구조, 값만 풀어 씀) -> test_set4r_jsonr
 
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { parseCsv, parseCsvObjects, toCsv } = require('../lib/csv');
-const { userInfoToText } = require('../lib/user_info_text');
+const { userInfoToText, userInfoToJson } = require('../lib/user_info_text');
 
 const ROOT = path.join(__dirname, '..', '..');
 const SRC = path.join(ROOT, 'data/eval_sets/test_set4');
-const OUT = path.join(ROOT, 'data/eval_sets/test_set4r');
+const FORMATS = {
+  text: { name: 'test_set4r', convert: userInfoToText, change: '조회 결과 문장화' },
+  json: { name: 'test_set4r_json', convert: (raw) => userInfoToJson(raw), change: '조회 결과 필드 정리(JSON 그대로)' },
+  'json-readable': { name: 'test_set4r_jsonr', convert: (raw) => userInfoToJson(raw, { readable: true }), change: '조회 결과 값 풀어 쓰기(JSON 구조)' },
+};
+const fmtArg = process.argv.indexOf('--user-info-format');
+const FORMAT = fmtArg > 0 ? process.argv[fmtArg + 1] : 'text';
+if (!FORMATS[FORMAT]) throw new Error(`--user-info-format은 ${Object.keys(FORMATS).join('|')} 중 하나입니다: ${FORMAT}`);
+const { name: DATASET, convert: convertUserInfo, change: USER_INFO_CHANGE } = FORMATS[FORMAT];
+const OUT = path.join(ROOT, 'data/eval_sets', DATASET);
 const sha256 = (v) => crypto.createHash('sha256').update(v).digest('hex');
 
 const C = {
@@ -302,14 +313,14 @@ function main() {
     if (!c[C.gold].trim()) throw new Error(`${id}: 정리 후 정답 예시가 비었습니다`);
 
     // 5. 조회 결과 문장화
-    if (USER_INFO_TEXT_ITEMS.has(item) && (c[C.userInfo] || '').trim()) c[C.userInfo] = userInfoToText(c[C.userInfo]);
+    if (USER_INFO_TEXT_ITEMS.has(item) && (c[C.userInfo] || '').trim()) c[C.userInfo] = convertUserInfo(c[C.userInfo]);
 
     if (c[C.context] !== before[C.context]) c[C.contextSha] = sha256(c[C.context]);
 
     for (const col of [C.question, C.context, C.gold, C.required, C.fail]) {
       if (c[col] !== before[col]) log(id, item, c.__why || (col === C.context ? 'FAQ 문구 수정' : '정답 예시 정리'), col, before[col], c[col]);
     }
-    if (c[C.userInfo] !== before[C.userInfo]) log(id, item, '조회 결과 문장화', C.userInfo, '', '');
+    if (c[C.userInfo] !== before[C.userInfo]) log(id, item, USER_INFO_CHANGE, C.userInfo, '', '');
     delete c.__why;
     out.push(c);
   }
@@ -338,18 +349,19 @@ function main() {
     }
   }
   const manifest = {
-    dataset: 'test_set4r',
+    dataset: DATASET,
     derived_from: 'test_set4',
     derived_by: 'scripts/run/build_test_set4r.js',
     source_cases_sha256: sha256(fs.readFileSync(path.join(SRC, 'cases_fixed.csv'))),
     source_faq_sha256: sha256(fs.readFileSync(path.join(SRC, 'faq_master.csv'))),
     rows: out.length,
     excluded: EXCLUDE,
-    cases_path: 'data/eval_sets/test_set4r/cases_fixed.csv',
+    cases_path: `data/eval_sets/${DATASET}/cases_fixed.csv`,
     cases_sha256: sha256(Buffer.from(casesCsv, 'utf8')),
-    faq_path: 'data/eval_sets/test_set4r/faq_master.csv',
+    faq_path: `data/eval_sets/${DATASET}/faq_master.csv`,
     faq_sha256: sha256(Buffer.from(faqCsv, 'utf8')),
     user_info_text_items: [...USER_INFO_TEXT_ITEMS],
+    user_info_format: FORMAT,
     changed_ids_by_kind: Object.fromEntries(Object.entries(kinds).map(([k, v]) => [k, v.size])),
     counts_by_size: counts,
     note: '문항 ID·포함 최소 규모는 test_set4와 같다. 변경 내역은 changes.csv.',
@@ -357,7 +369,7 @@ function main() {
 
   if (check) {
     const same = fs.existsSync(path.join(OUT, 'cases_fixed.csv')) && fs.readFileSync(path.join(OUT, 'cases_fixed.csv'), 'utf8') === casesCsv;
-    console.log(same ? '기존 test_set4r과 같습니다.' : '기존 test_set4r과 다릅니다(또는 없음).');
+    console.log(same ? `기존 ${DATASET}과 같습니다.` : `기존 ${DATASET}과 다릅니다(또는 없음).`);
     process.exitCode = same ? 0 : 1;
     return;
   }
@@ -367,7 +379,7 @@ function main() {
   fs.writeFileSync(path.join(OUT, 'changes.csv'), changesCsv, 'utf8');
   fs.writeFileSync(path.join(OUT, 'dataset_manifest.json'), JSON.stringify(manifest, null, 2) + '\n', 'utf8');
 
-  console.log(`cases ${out.length}행 · 변경 ${changes.length}건 -> data/eval_sets/test_set4r/`);
+  console.log(`cases ${out.length}행 · 변경 ${changes.length}건 -> data/eval_sets/${DATASET}/`);
   for (const [k, v] of Object.entries(manifest.changed_ids_by_kind)) console.log(`  ${k}: ${v}`);
   if (leftover.length) {
     console.log(`\n안내 문장이 남은 정답 예시 ${leftover.length}건 (확인 필요):`);

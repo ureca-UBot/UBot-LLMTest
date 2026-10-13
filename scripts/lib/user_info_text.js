@@ -138,10 +138,8 @@ function storeLines(stores) {
   return out;
 }
 
-// raw: 데이터셋의 "사용자 정보·API (JSON)" 문자열. 비어 있으면 그대로 돌려준다.
-function userInfoToText(raw) {
-  const s = (raw || '').trim();
-  if (!s) return raw;
+// 넘길 필드 — 인증 실패 응답의 개인 값, 실패한 조회의 정보 시점·기준 시각을 뺀다(모든 형식 공통).
+function parseAndFilter(s) {
   const d = JSON.parse(s);
   const unknown = Object.keys(d).filter((k) => !SPECIAL.has(k) && !FIELDS[k]);
   if (unknown.length) throw new Error(`user_info_text: 모르는 필드 ${unknown.join(', ')}`);
@@ -153,6 +151,14 @@ function userInfoToText(raw) {
   const keys = [...HEAD.filter((k) => k in d), ...Object.keys(d).filter((k) => !HEAD.includes(k))]
     .filter((k) => !unauthorized || META.has(k))
     .filter((k) => !failed || (k !== 'freshness' && k !== 'as_of'));
+  return { d, keys };
+}
+
+// raw: 데이터셋의 "사용자 정보·API (JSON)" 문자열. 비어 있으면 그대로 돌려준다.
+function userInfoToText(raw) {
+  const s = (raw || '').trim();
+  if (!s) return raw;
+  const { d, keys } = parseAndFilter(s);
 
   const out = [];
   for (const k of keys) {
@@ -184,4 +190,55 @@ function userInfoToText(raw) {
   return out.join('\n');
 }
 
-module.exports = { userInfoToText };
+// 입력 형식 비교용(input_format_test, 2026-10-13). JSON 구조·영어 키는 그대로 두고 넘길 필드는 userInfoToText와 같다.
+//   readable=false: 값도 원래 그대로(옛 test_set4 형식)
+//   readable=true : 값만 userInfoToText와 같은 말로 바꾼다("영업 중 아님", "오래된 정보(…)", "200m" …).
+//                   "라벨 = 값" 형식에만 있던 정보(현재 위치 확인)도 같은 키 이름 규칙으로 넣는다.
+function userInfoToJson(raw, { readable = false } = {}) {
+  const s = (raw || '').trim();
+  if (!s) return raw;
+  const { d, keys } = parseAndFilter(s);
+  const o = {};
+  for (const k of keys) {
+    const v = d[k];
+    if (!readable) { o[k] = v; continue; }
+    if (k === 'fixture') continue;
+    if (k === 'kind') { o.kind = KIND[v] === null ? undefined : KIND[v] || v; continue; }
+    if (k === 'status' || k === 'lookup_status') {
+      o[k] = STATUS[v] || v;
+      if (d.kind === 'MAP_API' && (v === 'success' || v === 'partial')) o.location_confirmed = '됨';
+      continue;
+    }
+    if (k === 'line_id') {
+      const same = !d.requested_line_id || d.requested_line_id === v;
+      o.line_id = lineName(v) + (same ? '' : '(요청한 회선과 다름)');
+      continue;
+    }
+    if (k === 'field_definitions') { o[k] = v; continue; }
+    if (k === 'request_filter') {
+      o[k] = {};
+      if ('radius_m' in v) o[k].radius_m = `${Number(v.radius_m).toLocaleString('en-US')}m`;
+      if ('requested_service' in v) o[k].requested_service = `${v.requested_service} 업무를 하는 매장`;
+      continue;
+    }
+    if (k === 'stores') { o.stores = v === null ? '결과를 받지 못함' : v.map(storeJson); continue; }
+    o[k] = v === null ? UNKNOWN : FIELDS[k][1](v);
+  }
+  return JSON.stringify(o);
+}
+
+function storeJson(s) {
+  const o = {};
+  for (const [k, v] of Object.entries(s)) {
+    if (k === 'name' || k === 'note') o[k] = v;
+    else if (k === 'address') o[k] = v ?? UNKNOWN;
+    else if (k === 'distance_m') o[k] = v === null ? '정보 없음' : `${Number(v).toLocaleString('en-US')}m`;
+    else if (k === 'is_open') o[k] = v === null ? '영업 여부 확인 안 됨' : v ? '영업 중' : '영업 중 아님';
+    else if (k === 'services') o[k] = v.join(', ');
+    else if (k === 'parking') o[k] = v === null ? UNKNOWN : v ? '가능' : '불가';
+    else throw new Error(`매장 결과에 모르는 필드: ${k}`);
+  }
+  return o;
+}
+
+module.exports = { userInfoToText, userInfoToJson };
