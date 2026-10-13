@@ -1,0 +1,25 @@
+{
+  "scope": "IBM groundedness 63 saved answers",
+  "image": "sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+  "model_revision": "81145486e85c6c82c01e759c0356d9d6da4d21a5",
+  "successful_execution_exit_code": 0,
+  "existing_service_state_and_start_time_diff_exit_code": 0,
+  "existing_services_stopped": 0,
+  "services_checked": [
+    "ubot-nginx-1",
+    "ubot-backend-1",
+    "ubot-vllm-embedding-1",
+    "ubot-vllm-1",
+    "ubot-prometheus-1",
+    "ubot-redis-1",
+    "ubot-postgres-1"
+  ],
+  "gpu_before_and_after": "NVIDIA L4, 23034 MiB total, 15178 MiB used, 7388 MiB free",
+  "model_gpu_memory_gib": 4.74,
+  "cpu_weight_offload_gb": 0,
+  "initial_failure": "Temporary test container cache could not map an executable shared library. No case classification completed in that attempt.",
+  "successful_retry_change": "Only temporary test container /tmp and /root tmpfs mounts allowed execution of runtime cache shared libraries; production container/configuration/permissions unchanged.",
+  "success_log_sha256": "9aa53f3712ab6f4ae442fcc1386b86a9c5c4ad4ef263166f1c65cbdab445b6f4",
+  "failure_log_sha256": "2eed0a662dfa83817402a7afcf4b2a8ad8e2700b9e2041dfc13ba32a640c550e",
+  "logs_not_published": "Local SSH/execution logs remain outside the repository; no keys or credential files included."
+}

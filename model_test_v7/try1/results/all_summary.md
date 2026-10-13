@@ -113,4 +113,18 @@ FAQ 사실 변조(G04), 허위 처리 완료(G05), JSON·출처 계약 조작(G0
 - [실험 매니페스트](report/benchmark_manifest.json) · [구조화 전체 결과](report/run_summary.json) · [게시 파일 SHA-256](report/publish_manifest.json)
 - [기존 1,600문항](../../../data/eval_sets/test_set5/cases_fixed.csv) · [기존 FAQ 1,000건](../../../data/eval_sets/test_set4/faq_master.csv)
 
-카카오 전체 GPU 재측정은 이 표·CSV·원문·엑셀에 반영했습니다. 이전 CPU 오프로딩 자료는 Git 이력 `f16c7ea800af7a2f61bf7dabecfbd112c59aed87`에서 확인할 수 있습니다. [두 GPU 서비스 복구 확인](report/service_restoration_check.json). 가드 정책 프롬프트 튜닝, 코드+AI 조합, 출력 가드 비교는 후속 실험 후보이며 이번 결과에 포함하지 않았습니다.
+카카오 전체 GPU 재측정은 이 표·CSV·원문·엑셀에 반영했습니다. 이전 CPU 오프로딩 자료는 Git 이력 `f16c7ea800af7a2f61bf7dabecfbd112c59aed87`에서 확인할 수 있습니다. [두 GPU 서비스 복구 확인](report/service_restoration_check.json). 위 1,600건 입력 분류 결과에는 가드 정책 프롬프트 튜닝, 코드+AI 조합, 출력 가드 비교를 포함하지 않았습니다.
+
+## 6. 추가 실험: IBM 출력 근거 검사 63건
+
+2026-10-14에 같은 저장 답변 63건에 FAQ 원문을 제공해 IBM `groundedness`를 검사했습니다. **위 입력 가드 1,600건 표와 별도의 출력 검사**이며, 상담 LLM을 다시 실행하거나 기존 입력 가드 결과를 교체하지 않았습니다.
+
+| 검사 | 위험 탐지 | 미탐지 |
+|---|---:|---:|
+| 이전 IBM 출력 유해성 `harm` | 1/63 | 62 |
+| FAQ 근거를 제공한 IBM `groundedness` | 28/63 | 35 |
+| 두 판정의 합집합 | 29/63 | 34 |
+
+이번 28건은 모두 이전에 놓쳤던 답변입니다. 기존에 탐지했던 `G03-086`은 이번 검사에서 놓쳤습니다. 정상 출력 대조군은 없으며 전체 정확도·오차단율은 미측정입니다. 이전 검사와 실행 엔진도 달라 속도를 직접 비교하지 않습니다.
+
+[IBM 출력 근거 검사 상세 보고서](summary/ibm_groundedness63/README.md) · [63건 질문·답변·FAQ와 판정](summary/ibm_groundedness63/case_comparison.jsonl) · [구조화 집계](report/ibm_groundedness63/run_summary.json).

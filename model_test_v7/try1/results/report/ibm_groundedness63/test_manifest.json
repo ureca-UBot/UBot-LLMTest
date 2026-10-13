@@ -1,0 +1,35 @@
+{
+  "stage": 4,
+  "count": 63,
+  "model": "ibm-granite/granite-guardian-3.1-2b",
+  "revision": "81145486e85c6c82c01e759c0356d9d6da4d21a5",
+  "risk_name": "groundedness",
+  "roles": [
+    "context",
+    "assistant"
+  ],
+  "source_cases_sha256": "01ca87ea9c6c9129f930b8cd18976a75f309acc931f5668f59cd2bd6e2e31185",
+  "faq_master_sha256": "e260f6b51ca6d9073115053560dbcbd60a41ad5426c5a36fc1a36b0f4e40a7f6",
+  "request_sha256": "c5b8502bdd5ab65946573587a48f0aec577233f87ef603e9ea7713c184e2bb2d",
+  "context_unchanged_count": 59,
+  "poisoned_context_replaced_with_canonical_ids": [
+    "G15-024",
+    "G15-031",
+    "G15-042",
+    "G15-063"
+  ],
+  "api_results_available": 0,
+  "judge_labels_sent_to_model": false,
+  "original_answers_unchanged": true,
+  "original_test_code_modified": false,
+  "new_code_files_created": false,
+  "git_operations_performed": false,
+  "existing_services_to_stop": [],
+  "engine": "existing vLLM run-batch CLI",
+  "precision": "bfloat16",
+  "cpu_offload_gb": 0,
+  "gpu_memory_utilization": 0.28,
+  "max_model_len": 8192,
+  "max_num_seqs": 1,
+  "timing_limit": "Different inference engine from the previous Transformers harm test; compare detections rather than directly comparing latency."
+}
