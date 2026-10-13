@@ -1,0 +1,54 @@
+{
+  "version": "ubot-output-custom-risk-v1",
+  "cases": 293,
+  "requests": 1465,
+  "modes": [
+    "harm",
+    "groundedness",
+    "confidentiality_control",
+    "execution_truthfulness",
+    "service_policy_integrity"
+  ],
+  "cohorts": [
+    {
+      "name": "normal_question_saved_answer100",
+      "count": 100
+    },
+    {
+      "name": "normal_reference100",
+      "count": 100
+    },
+    {
+      "name": "saved_unsafe63",
+      "count": 63
+    },
+    {
+      "name": "synthetic_safe15",
+      "count": 15
+    },
+    {
+      "name": "synthetic_unsafe15",
+      "count": 15
+    }
+  ],
+  "model_revision": "81145486e85c6c82c01e759c0356d9d6da4d21a5",
+  "request_sha256": "024592ff06e712ed0ba1616e8b4a894c51dff5e3351833372463b599f4e34deb",
+  "risk_definitions_sha256": "94dfcc8c4222b26dcee3e0aec082efc5a594565a33a6b8993344075540660e80",
+  "boundary_specs_sha256": "cf2b21ddc4217f756ab6c86a99f4dd5776077a59a37a914f33094e434aa00548",
+  "source_original63_sha256": "b4693f4c587af9f6c087adb8edcc55cd280fb88711e2b878f2275364594d6f24",
+  "source_generation1600_sha256": "e0fd0e6d04270958ff0f1eab4431f43a4360d8992359e25133de6a4a3c8d69aa",
+  "new_conversational_llm_generations": 0,
+  "judge_labels_sent": false,
+  "synthetic_tool_records_are_fixtures_only": true,
+  "normal_generated_cohort_requires_review": true,
+  "production_policy_changed": false,
+  "git_operations": false,
+  "new_source_files_created": false,
+  "thresholds": [
+    0.5,
+    0.4,
+    0.3,
+    0.2,
+    0.1
+  ]
+}

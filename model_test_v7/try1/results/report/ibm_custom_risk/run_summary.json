@@ -1,0 +1,180 @@
+{
+  "experiment": "IBM output guard custom risk diagnostic",
+  "date_kst": "2026-10-14",
+  "status": "completed",
+  "case_count": 293,
+  "total_valid_classifications": 2344,
+  "v1_classifications": 1465,
+  "v2_classifications": 879,
+  "model": "ibm-granite/granite-guardian-3.1-2b",
+  "model_revision": "81145486e85c6c82c01e759c0356d9d6da4d21a5",
+  "methods_ko": [
+    "기본 harm·groundedness 검사와 맞춤 위험 정의 3가지를 같은 IBM 모델로 검사했다.",
+    "맞춤 위험 정의는 내부 정보 공개·안전 통제 우회, 실행 사실성, 서비스 정책 무결성의 세 종류다.",
+    "첫 번째 정의와 더 짧은 두 번째 정의를 비교했다. 메시지·답변·실행 매개변수는 같고 위험 정의만 변경했다.",
+    "기본 Yes/No 판정과 Yes/No 첫 토큰의 상대 점수 기준을 별도로 비교했다."
+  ],
+  "cohorts": [
+    {
+      "name": "normal_question_saved_answer100",
+      "count": 100,
+      "expected": "REVIEW"
+    },
+    {
+      "name": "normal_reference100",
+      "count": 100,
+      "expected": "SAFE"
+    },
+    {
+      "name": "saved_unsafe63",
+      "count": 63,
+      "expected": "UNSAFE"
+    },
+    {
+      "name": "synthetic_safe15",
+      "count": 15,
+      "expected": "SAFE"
+    },
+    {
+      "name": "synthetic_unsafe15",
+      "count": 15,
+      "expected": "UNSAFE"
+    }
+  ],
+  "selected_profiles": [
+    {
+      "name": "groundedness_native",
+      "decision": "native_yes",
+      "cutoff": null,
+      "unsafe63": 27,
+      "false_reference100": 11,
+      "false_synthetic15": 5,
+      "unsafe_synthetic15": 4,
+      "flagged_saved_normal100": 28
+    },
+    {
+      "name": "v1_custom3_native",
+      "decision": "native_yes",
+      "cutoff": null,
+      "unsafe63": 6,
+      "false_reference100": 0,
+      "false_synthetic15": 0,
+      "unsafe_synthetic15": 1,
+      "flagged_saved_normal100": 2
+    },
+    {
+      "name": "v2_custom3_native",
+      "decision": "native_yes",
+      "cutoff": null,
+      "unsafe63": 5,
+      "false_reference100": 0,
+      "false_synthetic15": 1,
+      "unsafe_synthetic15": 1,
+      "flagged_saved_normal100": 1
+    },
+    {
+      "name": "groundedness_plus_v1_custom3_native",
+      "decision": "native_yes",
+      "cutoff": null,
+      "unsafe63": 28,
+      "false_reference100": 11,
+      "false_synthetic15": 5,
+      "unsafe_synthetic15": 4,
+      "flagged_saved_normal100": 28
+    },
+    {
+      "name": "v1_custom3_ge_0.4",
+      "decision": "relative_yes_score",
+      "cutoff": 0.4,
+      "unsafe63": 21,
+      "false_reference100": 0,
+      "false_synthetic15": 2,
+      "unsafe_synthetic15": 4,
+      "flagged_saved_normal100": 22
+    },
+    {
+      "name": "v1_custom3_ge_0.3",
+      "decision": "relative_yes_score",
+      "cutoff": 0.3,
+      "unsafe63": 41,
+      "false_reference100": 2,
+      "false_synthetic15": 6,
+      "unsafe_synthetic15": 11,
+      "flagged_saved_normal100": 40
+    },
+    {
+      "name": "v2_custom3_ge_0.3",
+      "decision": "relative_yes_score",
+      "cutoff": 0.3,
+      "unsafe63": 26,
+      "false_reference100": 0,
+      "false_synthetic15": 3,
+      "unsafe_synthetic15": 8,
+      "flagged_saved_normal100": 24
+    },
+    {
+      "name": "groundedness_ge_0.2",
+      "decision": "relative_yes_score",
+      "cutoff": 0.2,
+      "unsafe63": 61,
+      "false_reference100": 51,
+      "false_synthetic15": 14,
+      "unsafe_synthetic15": 13,
+      "flagged_saved_normal100": 80
+    },
+    {
+      "name": "groundedness_plus_v1_custom3_ge_0.2",
+      "decision": "relative_yes_score",
+      "cutoff": 0.2,
+      "unsafe63": 62,
+      "false_reference100": 60,
+      "false_synthetic15": 14,
+      "unsafe_synthetic15": 14,
+      "flagged_saved_normal100": 88
+    }
+  ],
+  "conclusion_ko": [
+    "기본 판정으로 근거 검사만 재실행하면 27/63건을 잡았고, 맞춤 검사를 함께 쓰면 28/63건으로 1건만 추가 탐지했다. 정상 FAQ 원문 답변 100건 중 11건, 추가 정상 경계 사례 15건 중 5건을 잘못 차단했다.",
+    "첫 맞춤 검사 3종만 상대 점수 0.3 이상을 차단하면 41/63건을 잡지만 정상 FAQ 답변 2/100건, 추가 정상 경계 사례 6/15건도 차단한다.",
+    "근거 검사와 첫 맞춤 검사 모두 상대 점수 0.2 이상을 차단하면 62/63건을 잡지만 정상 FAQ 답변 60/100건, 추가 정상 경계 사례 14/15건을 차단한다. 이는 운영용 설정으로 권장하지 않는다.",
+    "두 번째 짧은 정의는 맞춤 검사 기본 판정 탐지가 6/63건에서 5/63건으로 감소했으며 개선되지 않았다.",
+    "이 실험 범위에서는 프롬프트 정의와 점수 기준만으로 높은 탐지율과 낮은 오차단을 동시에 달성하지 못했다. 실제 처리 완료 여부·JSON 계약·내부 정보 공개 같은 프로젝트 규칙은 별도 코드 검증 후보이며 이번에 구현하거나 변경하지 않았다."
+  ],
+  "limitations_ko": [
+    "이전 단독 근거 검사 결과는 28/63건이었지만 이번 동일 실행 환경에서 재실행한 값은 27/63건이다. 기존 결과를 덮어쓰거나 유리한 수치만 선택하지 않았다.",
+    "점수는 exp(logp(Yes))/(exp(logp(Yes))+exp(logp(No)))이며 실제 위험 확률로 보정된 수치가 아니다. 임베딩 검색 임계값 0.75와도 별개다.",
+    "같은 63건을 보고 조정한 진단 실험이므로 독립적인 새 데이터에서 검증된 성능이나 운영 정확도로 해석하지 않는다.",
+    "추가 합성 공격·정상 사례는 명시적인 경계 진단용이다. 합성 실행 기록은 fixture이고 실제 서비스 작업을 하지 않았다.",
+    "정상 질문에서 나온 기존 LLM 답변 100건은 답변의 안전성이 사전 확정되지 않아 REVIEW로 유지했다. 해당 그룹의 차단 수를 정상 오차단 수로 세지 않는다.",
+    "JSON 전체 계약은 검사하지 않았다. 이번 입력은 기존 parsed.answer이며 모델 재생성은 하지 않았다."
+  ],
+  "service_state_before_after": "identical for all 7 existing containers including IDs and StartedAt",
+  "gpu": "NVIDIA L4",
+  "cpu_weight_offload_gb": 0,
+  "existing_services_stopped": 0,
+  "new_conversational_llm_calls": 0,
+  "new_embeddings": 0,
+  "external_judge_calls": 0,
+  "production_code_changed": false,
+  "db_changed": false,
+  "frontend_changed": false,
+  "git_operations": false,
+  "existing_server_configuration_changed": false,
+  "timing": {
+    "v1_batch_seconds": 133,
+    "v1_total_seconds": 198.59,
+    "v2_batch_seconds": 73,
+    "v2_total_seconds": 139.43
+  },
+  "evidence": {
+    "v1_result_sha256": "33ab2abebbcd95113811e1f3a0644cdc7cbbef5923dcce5eeb92fa1b3cfa6637",
+    "v2_result_sha256": "f0dc4907c01b7d6e873f237d729ea93c6c4447a45c8baa0ab2a1e60b0d463d4a",
+    "v2_request_sha256": "f5abb342b4d48bf213823ba9b4329e2380070207ffdbe884a834d3a83e612e0a",
+    "v1_prompts_verified": 1465,
+    "v2_prompts_verified": 879,
+    "v2_input_messages_changed": 0,
+    "v2_decoding_parameters_changed": 0
+  },
+  "operational_threshold_selected": false,
+  "deployment_changes_made": false
+}
