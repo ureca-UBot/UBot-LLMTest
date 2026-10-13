@@ -1,0 +1,47 @@
+{
+  "result_date_kst": "2026-10-14",
+  "publication_branch": "test/faq-guard",
+  "publication_base_commit": "fefea7ec5b115a438af156ffd4161d986cc5da12",
+  "previous_result_directory": "../20261014-final",
+  "test_mode": "OFFLINE_REPLAY_OF_SAVED_ANSWERS_AND_MOCK_TESTS",
+  "llm_run_id": "guard-q4_20261012",
+  "saved_judge_batch_id": "guard-q4-1600-safety_20261012",
+  "model_of_saved_answers": "qwen3:4b-instruct Q4_K_M",
+  "new_model_calls": 0,
+  "new_judge_calls": 0,
+  "new_embedding_calls": 0,
+  "database_connections": 0,
+  "source_hashes_only_no_source_upload": {
+    "src/main/java/com/ubot/ai/service/AiOutputGuardService.java": "17c69195baac50d27d46f89754a47f8ddf3e44e8c09c96748da81eca166ff80c",
+    "src/test/java/com/ubot/ai/service/AiOutputGuardServiceTest.java": "74e967f92b69eba87421e735f03b6d6fd0efaccb21174aedbcd4370c15111e28",
+    "src/main/java/com/ubot/ai/service/AiService.java": "b5e78d15c85b6b17eccf4dc95311e5a35482085d0e03779114ce9431da8d5af3",
+    "src/test/java/com/ubot/ai/service/AiServiceTest.java": "ac67d4134a3f46b6af8fa41893fe290b0d14ed4a9f0c04fac53f0ffefd5e277b",
+    "src/test/java/com/ubot/chat/service/ChatServiceTest.java": "1e7ddb569cd708feae2b6d0c2a68b7e4998ff9d696b6eae9d553e318f43cf752"
+  },
+  "reused_source_artifacts": {
+    "data/eval_sets/test_set5/cases_fixed.csv": "6d145e327c0c40b65102b6f4dc056e35443fae512c79b01d3dc7b79e993b9dc9",
+    "model_test_v6/try1/results/raw/guard-q4_20261012/generation.jsonl": "e0fd0e6d04270958ff0f1eab4431f43a4360d8992359e25133de6a4a3c8d69aa",
+    "model_test_v6/try1/results/raw/scored/guard-q4_20261012/llm_judge/guard-q4-1600-safety_20261012/safety.jsonl": "a235fdbce6e70e97f613170694394cf7587c47f08fe3291ee7980ab13aea0ab0"
+  },
+  "previous_results_sha256": "08a99d7993d1af404ae02fa391bbe434d31b3647fde6c3b9b6cf8eb8615b3715",
+  "copied_result_artifacts": {
+    "summary.json": "253971eda7fabebce34b916b11b7f064e661c865dc479c4e988805434f93db35",
+    "code_review.json": "55ddce22046b1803c6abcba3a2b01a0e3cea95ed401d6944f0530103ed2f0a85",
+    "targeted_cases2.json": "b51974ab01be8191099b6f25acd974b1f9b22cd236b70b5a48358c61c70e6618",
+    "detailed_results.jsonl": "7c009ee2e0047d70e804ff894ea411b83de640cf9c08f87235b306b44f5b5b27",
+    "scope_verification.json": "3d56e3736a0dcc77da0727e96088371804ef5d41f1d5b26ef399b4b39de92eb5"
+  },
+  "unit_test_xml_sha256": {
+    "TEST-com.ubot.ai.service.AiOutputGuardServiceTest.xml": "53ea5c5297be3744c05a520da3f3c5ce297647cacbd7186199c5981d833300b4",
+    "TEST-com.ubot.ai.service.AiServiceTest.xml": "7f03d7ea3d4a15f48a029271441599840542119efae23adf41d33c47bed96bbd",
+    "TEST-com.ubot.chat.service.ChatServiceTest.xml": "dd1e6f4f7d8e0fb1129a0b361490dc537731d59f6ce9c92a133967db41c6afd0",
+    "TEST-com.ubot.prompt.format.FaqAnswerFormatTest.xml": "c3e0bb72faa0efe692c2cb1df22769e265d51be9ba6379e4b98daf74e33e6188"
+  },
+  "replay_inputs_sha256": "d8c2cc92a8b64d834073dfc068fcf13cc5ea2dbd6af8da9521a2a0666065a171",
+  "word_snapshot_sha256": "d0e90c36b1480a82d71108dfea238f9bfb8a97fcbb9101ee3e9bcbb566f3fe34",
+  "word_snapshot_count": 38,
+  "live_db_word_list_read_again": false,
+  "records_matched_original_id_and_question": 1600,
+  "code_scripts_diffs_uploaded": false,
+  "scope_verification_meaning": "scope_verification과 summary의 Git 명령 0회는 테스트 시점 기록이며, 이후 결과를 이 브랜치에 공개하는 커밋·푸시 작업과 구분한다."
+}

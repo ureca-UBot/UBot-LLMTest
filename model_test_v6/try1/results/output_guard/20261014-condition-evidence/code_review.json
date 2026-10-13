@@ -1,0 +1,15 @@
+{
+  "scope": "기존 출력 가드, AiService의 근거 전달 연결과 해당 기존 테스트 3개 파일",
+  "new_services_parsers_dtos_caches_or_pipelines": [],
+  "observed_duplicate_or_unnecessary_code_findings": [],
+  "observed_convention_findings": [],
+  "existing_condition_loss_reused": true,
+  "existing_LLM006_and_retry_rejection_reused": true,
+  "existing_json_parser_unchanged": true,
+  "runtime_changes": [
+    "AiOutputGuardService의 기존 CONDITION에 확정적인 법정대리인·보호자 동행·동반 표현을 추가했다. 조건이 들어 있는 문제 문장을 제거하면 기존 문단 상실 처리로 안내를 반환한다.",
+    "근거 번호 검사는 기존 파서의 결과만 받는다. 이번에 제공한 FAQ 번호와 숫자·FAQ- 접두사·앞자리 0 표기를 비교하며 목록 미기입은 허용한다.",
+    "AiService에서 파싱 직후 검사를 한 번 호출한다. 기존 파서·프롬프트·모델 호출·도구·반환 DTO·오류·재시도 흐름을 다시 만들지 않았다."
+  ],
+  "test_fixture_update": "기존 AiService의 정상 파싱 테스트는 제공한 FAQ가 1인데 112를 적던 상태였다. 정상 사례는 실제 제공한 1로 맞추고, 112는 새 거절 사례에서 별도로 확인했다."
+}
