@@ -1,5 +1,4 @@
 {
-  "run_id": "ubot-guard-input-20261013-side-df570a09-r5",
   "cases": 1600,
   "category_counts": {
     "G01": 100,
@@ -47,7 +46,7 @@
     "ibm": "native guardian_config risk_name=harm; Yes unsafe, No safe; English-only official training/testing limitation recorded",
     "kakao": "native question plus empty assistant message; SAFE or UNSAFE-S category token"
   },
-  "resource_conditions": "Original bfloat16 weights; temporary offline container; existing services retained; up to 5.5 GiB GPU for weights, 4 CPU cores; 16 GiB container RAM for Qwen/Samsung/IBM, 18 GiB for Kakao; CPU offloading separately recorded; 180s warmup limit and 60s case timeout.",
+  "resource_conditions": "Qwen/Samsung/IBM: original GPU-resident run with services retained and 5.5 GiB weight budget. Kakao: fresh all-GPU retest with the two approved serving services temporarily paused and restored; 18 GiB host RAM limit, 4 CPU cores. Original bfloat16, batch 1, native templates.",
   "version": "model_test_v7",
   "try": "try1",
   "date": "2026-10-13",
@@ -90,7 +89,43 @@
       "bytes": 16077986901,
       "tokens": 1,
       "run_id": "ec2-linux_kanana-safeguard-8b_bf16_question_n100_20261013",
-      "url": "https://huggingface.co/kakaocorp/kanana-safeguard-8b/tree/2f4a68641d818caf873e21badcdc161928b0fcbf"
+      "url": "https://huggingface.co/kakaocorp/kanana-safeguard-8b/tree/2f4a68641d818caf873e21badcdc161928b0fcbf",
+      "source_run_id": "ec2-linux_kanana-safeguard-8b_bf16_gpu-full_question_n100_20261013",
+      "controller_run_id": "ubot-kakao-full-gpu-20261013-side-afee9060",
+      "device_map": {
+        "": "cuda:0"
+      },
+      "cpu_weight_offload": false,
+      "placement_evidence": [
+        {
+          "event": "loaded",
+          "model": "kakao",
+          "phase": "pilot",
+          "load_seconds": 3.4209692610020284,
+          "device_map": {
+            "": "cuda:0"
+          },
+          "cpu_weight_offload": false,
+          "torch_version": "2.13.0+cu130",
+          "cuda_version": "13.0",
+          "gpu": "NVIDIA L4",
+          "allocated_bytes": 16060654592
+        },
+        {
+          "event": "loaded",
+          "model": "kakao",
+          "phase": "full",
+          "load_seconds": 3.057390670001041,
+          "device_map": {
+            "": "cuda:0"
+          },
+          "cpu_weight_offload": false,
+          "torch_version": "2.13.0+cu130",
+          "cuda_version": "13.0",
+          "gpu": "NVIDIA L4",
+          "allocated_bytes": 16060654592
+        }
+      ]
     }
   },
   "generation": {
@@ -105,9 +140,6 @@
     "instance_type": "g6.2xlarge",
     "gpu": "NVIDIA L4",
     "total_vram_mib": 23034,
-    "existing_services_vram_mib": 15100,
-    "free_vram_mib": 7466,
-    "gpu_weight_budget_bytes": 5905580032,
     "container_cpu_cores": 4,
     "container_ram_gib": {
       "qwen": 16,
@@ -123,9 +155,47 @@
       "qwen": "GPU resident",
       "samsung": "GPU resident",
       "ibm": "GPU resident",
-      "kakao": "GPU + CPU weight offload; GPU forward via Accelerate hooks"
+      "kakao": "All model parameters cuda:0; CPU weight offload false"
     },
-    "existing_services_unchanged": true
+    "original_qwen_samsung_ibm_resource_conditions": {
+      "existing_services_vram_mib": 15100,
+      "free_vram_mib": 7466,
+      "gpu_weight_budget_bytes": 5905580032
+    },
+    "service_conditions": {
+      "qwen_samsung_ibm": "Existing services retained during the original measurements",
+      "kakao": "ubot-vllm-1 and ubot-vllm-embedding-1 temporarily paused with user approval; original containers and health restored; other services unchanged"
+    },
+    "kakao_placement_evidence": [
+      {
+        "event": "loaded",
+        "model": "kakao",
+        "phase": "pilot",
+        "load_seconds": 3.4209692610020284,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "cpu_weight_offload": false,
+        "torch_version": "2.13.0+cu130",
+        "cuda_version": "13.0",
+        "gpu": "NVIDIA L4",
+        "allocated_bytes": 16060654592
+      },
+      {
+        "event": "loaded",
+        "model": "kakao",
+        "phase": "full",
+        "load_seconds": 3.057390670001041,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "cpu_weight_offload": false,
+        "torch_version": "2.13.0+cu130",
+        "cuda_version": "13.0",
+        "gpu": "NVIDIA L4",
+        "allocated_bytes": 16060654592
+      }
+    ]
   },
   "accounting": {
     "unique_questions": 1600,
@@ -135,22 +205,26 @@
     "g15_benign_query_denominator": 100,
     "pilot_per_model": 16,
     "new_full_per_model": 1584,
-    "pilot_results_reused": true,
     "warmups_excluded": true,
     "external_judge_calls": 0,
     "chat_llm_calls": 0,
     "embedding_calls_this_run": 0,
     "final_dataset_invalid": 0,
-    "final_run_controller_wall_seconds": 3081.16864,
-    "case_inference_seconds_sum": 2837.092301869,
-    "setup_retries_excluded_from_wall_seconds": true
+    "pilot_results_reused_by_model": {
+      "qwen": true,
+      "samsung": true,
+      "ibm": true,
+      "kakao": false
+    },
+    "timing_note": "Per-model timings come from the listed source runs. No combined 4-model wall time is asserted.",
+    "combined_case_seconds_sum_across_source_runs": 1180.8839942629002
   },
   "limitations": [
     "G15 retrieved-context injection not tested in question-only input.",
     "Dataset-specific project blocking coverage, not vendor universal safety accuracy.",
-    "Kakao timing uses CPU weight offload and is not an all-GPU comparison.",
     "No output guard, custom-risk tuning, code+AI hybrid or service integration tested.",
-    "Existing conversational runner/judge sources and configs are unchanged; this is not a runnable common-engine generation profile."
+    "Existing conversational runner/judge sources and configs are unchanged; this is not a runnable common-engine generation profile.",
+    "All models are GPU resident, but Kakao serving-service occupancy differs from Qwen/Samsung/IBM. Load/warmup excluded; production simultaneous-serving latency is not established."
   ],
   "local_test_helper_provenance": [
     {
@@ -162,6 +236,31 @@
       "name": "controller.template.py",
       "sha256": "c91949bff5cd352587a1413d6488ef5c86c77f569367636796f1de94dd88a0bf",
       "published": false
+    },
+    {
+      "name": "kakao_gpu_retest_run_guard.py",
+      "sha256": "012291e0541d489d395baa145c145effc09dfdfcfb340dccc19906b0a4396b15",
+      "published": false
+    },
+    {
+      "name": "kakao_approved_pause_controller.py",
+      "sha256": "97fb5301063a6756bb886f3272f2a78408b3a0e8906da50f5c22ec9d1a97c59b",
+      "published": false
     }
-  ]
+  ],
+  "result_group": "model_test_v7/try1",
+  "source_runs": {
+    "qwen": "ubot-guard-input-20261013-side-df570a09-r5",
+    "samsung": "ubot-guard-input-20261013-side-df570a09-r5",
+    "ibm": "ubot-guard-input-20261013-side-df570a09-r5",
+    "kakao": "ubot-kakao-full-gpu-20261013-side-afee9060"
+  },
+  "replacement_provenance": {
+    "replaced_model": "kakao",
+    "native_label_changes": 0,
+    "previous_cpu_offload_evidence_commit": "f16c7ea800af7a2f61bf7dabecfbd112c59aed87",
+    "consolidation_parent_commit": "4d0bdb9fc609f427c2bd8e7347ff9e93eeef91f4",
+    "same_dataset": true,
+    "service_restoration": "service_restoration_check.json"
+  }
 }

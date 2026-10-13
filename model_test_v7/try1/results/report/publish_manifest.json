@@ -1,25 +1,32 @@
 {
-  "publication_scope": "completed native input guard results and documentation only",
-  "base_commit": "0cd2577b0231ea4f02b8263e23385fe0db835ecc",
+  "publication_scope": "Existing try1 results consolidated; Kakao replaced with full-GPU records only",
   "branch": "test/ai-guard-input",
+  "consolidation_parent_commit": "4d0bdb9fc609f427c2bd8e7347ff9e93eeef91f4",
+  "previous_cpu_offload_evidence_commit": "f16c7ea800af7a2f61bf7dabecfbd112c59aed87",
   "source_dataset_sha256": "6d145e327c0c40b65102b6f4dc056e35443fae512c79b01d3dc7b79e993b9dc9",
-  "raw_preservation": "per-model original UTF-8 lines preserved byte-for-byte",
-  "copied_workbook_sha256": "b187fd40d3eea1b2caa5e85f2b8bfa27a15a94e17ea01b59a0b56e0f130687cc",
+  "other_models_preserved": [
+    "model_test_v7/try1/results/raw/ec2-linux_granite-guardian-3-1-2b_bf16_question_n100_20261013/observations.jsonl",
+    "model_test_v7/try1/results/raw/ec2-linux_qwen3guard-0-6b_bf16_question_n100_20261013/observations.jsonl",
+    "model_test_v7/try1/results/raw/ec2-linux_sguard-2b_bf16_question_n100_20261013/observations.jsonl",
+    "model_test_v7/try1/results/report/ec2-linux_granite-guardian-3-1-2b_bf16_question_n100_20261013_summary.md",
+    "model_test_v7/try1/results/report/ec2-linux_qwen3guard-0-6b_bf16_question_n100_20261013_summary.md",
+    "model_test_v7/try1/results/report/ec2-linux_sguard-2b_bf16_question_n100_20261013_summary.md"
+  ],
   "files": [
     {
       "path": "data/raw/ai_guard_input_20261013/AI_입력가드_4모델_1600개_결과.xlsx",
-      "bytes": 339530,
-      "sha256": "b187fd40d3eea1b2caa5e85f2b8bfa27a15a94e17ea01b59a0b56e0f130687cc"
+      "bytes": 338660,
+      "sha256": "e60fc7306fbfdd0f0952f2627ad94be0db6aeef63583e32ceddcfd3c615b9d7a"
     },
     {
       "path": "model_test_v7/SETUP.md",
-      "bytes": 7590,
-      "sha256": "b71041cfcf32b45b72b2dbbf59297f2b55c603c97980e6ec1b218cb5aae2b55e"
+      "bytes": 8481,
+      "sha256": "865270b75a5b36b7fc0c5c9fd341b779ceeccba28e9d52640df36f32e2ce47aa"
     },
     {
       "path": "model_test_v7/try1/results/all_summary.md",
-      "bytes": 10780,
-      "sha256": "94e013abe34d888c6a61d02dc155747f27ac9ddf32015c0718b29193ddb7d33b"
+      "bytes": 11420,
+      "sha256": "e026fe2c5a11d467ef032bcf592b76ed721f262b324dcd0be5f48dfd8b4cde19"
     },
     {
       "path": "model_test_v7/try1/results/raw/ec2-linux_granite-guardian-3-1-2b_bf16_question_n100_20261013/observations.jsonl",
@@ -28,8 +35,8 @@
     },
     {
       "path": "model_test_v7/try1/results/raw/ec2-linux_kanana-safeguard-8b_bf16_question_n100_20261013/observations.jsonl",
-      "bytes": 631735,
-      "sha256": "de70f3aa2ca76ea31886dd1159d51603e7e42090df62ea47953a0d8ec5f7087c"
+      "bytes": 614602,
+      "sha256": "646d2ae61a9b8807dce61c6804b4322909aaa2a1b44733be92b819062b005350"
     },
     {
       "path": "model_test_v7/try1/results/raw/ec2-linux_qwen3guard-0-6b_bf16_question_n100_20261013/observations.jsonl",
@@ -43,8 +50,8 @@
     },
     {
       "path": "model_test_v7/try1/results/report/benchmark_manifest.json",
-      "bytes": 6435,
-      "sha256": "55858a31beba551c1b7c7511175efc57befb7a3ea1f2542e856af53adbd944dc"
+      "bytes": 9801,
+      "sha256": "b66f21d19e7ff1e58b4da20b1cfbed0beb0f846d619ee35cf5a0cafd5759dda9"
     },
     {
       "path": "model_test_v7/try1/results/report/ec2-linux_granite-guardian-3-1-2b_bf16_question_n100_20261013_summary.md",
@@ -53,8 +60,8 @@
     },
     {
       "path": "model_test_v7/try1/results/report/ec2-linux_kanana-safeguard-8b_bf16_question_n100_20261013_summary.md",
-      "bytes": 2902,
-      "sha256": "e0889734b7fe23eb641812d098b6df064f822a869e422293d6425869c524ba04"
+      "bytes": 3473,
+      "sha256": "afd262d8f1faa747fc4b601f49f7d6044f1bdfa7b15f2aef58b4b424baa8f488"
     },
     {
       "path": "model_test_v7/try1/results/report/ec2-linux_qwen3guard-0-6b_bf16_question_n100_20261013_summary.md",
@@ -68,33 +75,38 @@
     },
     {
       "path": "model_test_v7/try1/results/report/run_summary.json",
-      "bytes": 10276,
-      "sha256": "0578f4bdeac349c9f5bae30b198c340346e854309f61065d8eaa6d7183aede51"
+      "bytes": 10873,
+      "sha256": "f31bb81fd7f0f1e5385a526dfcb618e9da41df62a87f8720447ba3fc66acb3bf"
+    },
+    {
+      "path": "model_test_v7/try1/results/report/service_restoration_check.json",
+      "bytes": 669,
+      "sha256": "e5ff9d32e60c9e13d5b2a0946549b70a00b3c96658506e0da42acf94a14a7c24"
     },
     {
       "path": "model_test_v7/try1/results/summary/category_comparison.csv",
-      "bytes": 6412,
-      "sha256": "6e446cf1b47726d80da0102c45780b79ee6d1d64fe2ad50b2134aa726ceff566"
+      "bytes": 6446,
+      "sha256": "0c1530a1172b06e6ddc6edde100521139218f8cd14639ae70a159332b8ab579c"
     },
     {
       "path": "model_test_v7/try1/results/summary/methodology_and_limits.md",
-      "bytes": 6974,
-      "sha256": "d009bac58366569019fe38a9d9aec5d0abc7236e9a5b8d067a480c3aac8add5c"
+      "bytes": 7724,
+      "sha256": "2fc4958e5f585f839fad3e771986f60cc722600755c8da14ff7e272ab51aff1a"
     },
     {
       "path": "model_test_v7/try1/results/summary/model_comparison.csv",
-      "bytes": 1092,
-      "sha256": "9c7bf00492b7f2348636877a3d6b722c7b96c3265fe0e2cca7c53e2e1ad7c6fc"
+      "bytes": 1096,
+      "sha256": "9ef3e6a3cc259460182f62e9300162532669d07e42c6b25de94f8f113c9fdf93"
     },
     {
       "path": "model_test_v7/try1/results/summary/question_predictions.csv",
-      "bytes": 1015830,
-      "sha256": "83118609fa72c9fe18fe7264f2d331accad5a26af1ae8b03b0eed1b874bc4331"
+      "bytes": 1015994,
+      "sha256": "29cac7591df94d5375e3443b3e3b7971272512d86c918f6c0d2b246d00eb5a94"
     },
     {
       "path": "model_test_v7/try1/results/summary/review.csv",
-      "bytes": 1002145,
-      "sha256": "c956996308c27ae6a8189fd47e11c935628a88068652f0e43fd104e8f0550687"
+      "bytes": 1003065,
+      "sha256": "6831b7b1015f8222d193ead110d6781e4cd1ff3dc551e6b3544eb16f0bfabb39"
     },
     {
       "path": "model_test_v7/try1/results/summary/review_index.md",

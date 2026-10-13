@@ -6,8 +6,7 @@
 
 | 회차 | 날짜 | 환경 | 내용 | 결과 |
 |---|---|---|---|---|
-| try1 | 2026-10-13 | EC2 g6.2xlarge · NVIDIA L4 | 모델당 1,600문항, 총 6,400개 입력 판정 | [전체 요약](try1/results/all_summary.md) |
-| try2 | 2026-10-13 | NVIDIA L4 전체 GPU | 카카오만 신규 1,600개 판정, CPU 오프로딩 없음 | [전체 요약](try2/results/all_summary.md) |
+| try1 | 2026-10-13 | EC2 g6.2xlarge · NVIDIA L4 | 모델당 1,600문항, 총 6,400개 입력 판정 · 카카오는 전체 GPU 재측정 반영 | [전체 요약](try1/results/all_summary.md) |
 
 ## 2. 목표와 이전 버전 대비 변경점
 
@@ -56,12 +55,12 @@
 
 G01~G14의 1,400건은 프로젝트의 입력 차단 정책에 따른 공격 질문입니다. NORMAL 100건과 G15의 정상 질문 100건은 서로 분리해 오차단을 집계합니다. 원본 CSV의 상담 답변용 기대 상태를 입력 분류 정답으로 사용하지 않았습니다. 이 정책 라벨은 각 공급자가 정의한 위험 범주와 일치하지 않을 수 있습니다.
 
-각 모델은 항목별 1개씩 선정한 16개 예비 판정과 나머지 1,584개 전체 판정을 합쳐 1,600개의 고유 ID를 갖습니다. 예비 결과를 재사용했으며 같은 문항을 중복 집계하지 않았습니다.
+각 모델은 항목별 1개씩 선정한 16개 예비 판정과 나머지 1,584개 전체 판정을 합쳐 1,600개의 고유 ID를 갖습니다. Qwen·삼성·IBM의 예비 결과는 기존 기록을 재사용했고, 카카오는 예비 16건과 전체 1,584건 모두 새로 측정했습니다. 같은 문항을 중복 집계하지 않았습니다.
 
 ## 5. 실제 테스트 순서
 
 1. 기존 CSV·SHA-256과 질문 ID를 확인하고 질문만 추출했습니다. 임베딩 점수는 v6 사전 결과를 재사용했으며 이번에는 임베딩을 다시 호출하지 않았습니다.
-2. 다운로드된 모델 revision과 GPU 여유 공간·실행 환경을 확인했습니다. 기존 서비스는 유지했습니다.
+2. 다운로드된 모델 revision과 GPU 여유 공간·실행 환경을 확인했습니다. Qwen·삼성·IBM은 기존 서비스를 유지했고, 카카오 전체 GPU 재측정 때는 승인받은 GPU 서빙 서비스 두 개를 잠시 중단한 후 복구했습니다.
 3. 네트워크 없는 임시 컨테이너에서 공급자의 tokenizer chat template과 native 출력을 사용했습니다.
 4. 모델별 16개 예비 판정 후 나머지 1,584개를 순차 실행했습니다. 예열은 문항 수·평균 시간에서 제외했습니다.
 5. 저장된 native 결과를 ID로 원본 질문과 결합하고 공격 차단·정상 오차단·논쟁적 판정·지연을 집계했습니다.
@@ -86,6 +85,7 @@ model_test_v7/
     report/benchmark_manifest.json
     report/run_summary.json
     report/publish_manifest.json
+    report/service_restoration_check.json
     report/<run_id>_summary.md
     summary/model_comparison.csv
     summary/category_comparison.csv
@@ -96,12 +96,8 @@ model_test_v7/
 data/raw/ai_guard_input_20261013/AI_입력가드_4모델_1600개_결과.xlsx
 ```
 
-`run_id`는 `ec2-linux_<모델>_bf16_question_n100_20261013`입니다. `n100`은 항목별 문항 수이며 모델당 합계는 1,600입니다. 원문 파일은 UTF-8 인코딩과 수집된 줄바꿈 바이트(CRLF 포함)를 유지했습니다. [게시 파일 해시](try1/results/report/publish_manifest.json)로 확인할 수 있습니다.
+`run_id`는 `ec2-linux_<모델>_bf16_question_n100_20261013`입니다. `n100`은 항목별 문항 수이며 모델당 합계는 1,600입니다. 원문 파일은 Qwen·삼성·IBM의 기존 바이트(CRLF 포함)를 유지하고 카카오는 신규 전체 GPU worker 기록(UTF-8/LF)으로 교체했습니다. 실제 카카오 source run ID와 컨트롤러 ID·장치 배치 증거는 매니페스트에 기록했습니다. [게시 파일 해시](try1/results/report/publish_manifest.json)로 확인할 수 있습니다.
 
 ## 8. 한계
 
-카카오는 일부 가중치를 CPU에 보관하고 GPU 연산 때 가져오는 오프로딩 조건입니다. 전체 GPU 상주 시간으로 비교하면 안 됩니다. G15 문서 공격 탐지, 출력 가드, IBM custom risk/jailbreak, 카카오 Prompt 전용 모델, 모델별 정책 튜닝, 코드+AI 조합은 미실행입니다. 시작 과정의 호환·예열 재시도는 있었지만 최종 6,400개 문항 결과에는 오류·누락이 없습니다. 자세한 기준과 측정 범위는 [방법과 한계](try1/results/summary/methodology_and_limits.md)에 있습니다.
-
-## 9. 카카오 전체 GPU 재측정 (try2)
-
-같은 1,600개를 카카오만 다시 측정했고 전체 가중치 GPU 배치를 확인했습니다. 기존 LLM·임베딩 GPU 서비스 두 개만 사용자 승인으로 잠시 중단한 후 원래 컨테이너로 복구하고 API 준비 상태를 확인했습니다. [try2 비교와 한계](try2/results/summary/gpu_retest_comparison.md). 다른 세 모델은 try1 값을 참조하며, 최신 비교표·엑셀에서는 카카오 열만 try2 결과입니다. try1 원문·해시는 보존했습니다.
+카카오는 전체 가중치를 GPU에 올려 1,600건을 재측정했고 이 폴더의 카카오 결과만 교체했습니다. 판정 변경은 0건, 평균 0.080405초입니다. Qwen·삼성·IBM과 달리 카카오 측정 때는 승인받은 두 GPU 서빙 서비스를 임시 중단했습니다. 복구와 두 API health를 확인했으며 운영 서비스와 동시 실행하는 조건의 지연을 측정한 것은 아닙니다. 이전 CPU 오프로딩 자료는 Git 이력 `f16c7ea800af7a2f61bf7dabecfbd112c59aed87`에 보존합니다. G15 문서 공격 탐지, 출력 가드, IBM custom risk/jailbreak, 카카오 Prompt 전용 모델, 모델별 정책 튜닝, 코드+AI 조합은 미실행입니다. 시작 과정의 호환·예열 재시도는 있었지만 최종 6,400개 문항 결과에는 오류·누락이 없습니다. 자세한 기준과 측정 범위는 [방법과 한계](try1/results/summary/methodology_and_limits.md)에 있습니다.

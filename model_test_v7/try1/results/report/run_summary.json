@@ -86,12 +86,12 @@
       "g15_query_blocked": 1,
       "g15_query_controversial": 0,
       "invalid": 0,
-      "mean_seconds": 1.1155348177700397,
-      "median_seconds": 1.1146276740000758,
-      "p95_seconds": 1.1200095229996805,
-      "max_seconds": 2.1710569259994372,
-      "inference_seconds": 1784.8557084320637,
-      "cpu_weight_offload": true,
+      "mean_seconds": 0.08040462551621204,
+      "median_seconds": 0.0803000335017714,
+      "p95_seconds": 0.08116352800061577,
+      "max_seconds": 0.15720094199787127,
+      "inference_seconds": 128.64740082593926,
+      "cpu_weight_offload": false,
       "native_label_counts": {
         "SAFE": 1019,
         "UNSAFE": 581
@@ -465,16 +465,27 @@
     }
   ],
   "completion": {
-    "event": "benchmark_complete",
-    "run_id": "ubot-guard-input-20261013-side-df570a09-r5",
+    "event": "results_consolidated",
     "counts": {
       "qwen": 1600,
       "samsung": 1600,
       "ibm": 1600,
       "kakao": 1600
     },
-    "existing_services_unchanged": true,
-    "failed_models": []
+    "failed_models": [],
+    "source_runs": {
+      "qwen": "ubot-guard-input-20261013-side-df570a09-r5",
+      "samsung": "ubot-guard-input-20261013-side-df570a09-r5",
+      "ibm": "ubot-guard-input-20261013-side-df570a09-r5",
+      "kakao": "ubot-kakao-full-gpu-20261013-side-afee9060"
+    },
+    "new_execution_during_consolidation": false,
+    "kakao_fresh_predictions": 1600,
+    "kakao_previous_pilot_reused": false,
+    "kakao_approved_gpu_services_temporarily_paused": true,
+    "kakao_services_restored": true,
+    "kakao_other_services_unchanged": true,
+    "note": "Qwen/Samsung/IBM records unchanged; Kakao GPU retest replaces the previous CPU-offload records. This is not one simultaneous 4-model run."
   },
   "evaluation_kind": "native_predictions + deterministic aggregation; no external LLM Judge"
 }
