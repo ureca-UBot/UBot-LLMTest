@@ -1,0 +1,52 @@
+{
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "source_snapshot": "../backend-check",
+  "faq_mode": "saved FAQ contexts; retrieval, live intent tools, DB logs excluded",
+  "threshold": 0.75,
+  "threshold_operator": ">= (production code)",
+  "embedding_recomputed": false,
+  "generation_temperature": 0,
+  "new_safety_judge_run": false,
+  "files": {
+    "replay_inputs.jsonl": "d8c2cc92a8b64d834073dfc068fcf13cc5ea2dbd6af8da9521a2a0666065a171",
+    "words_snapshot.b64": "d0e90c36b1480a82d71108dfea238f9bfb8a97fcbb9101ee3e9bcbb566f3fe34",
+    "GuardPipelineReplay.java": "75ba94a3268cc60d8ab9d71312d9afeb290bb5ef96067a2ca589ea253ca87bb0"
+  },
+  "context_prefix_adaptation": {
+    "case_ids": [
+      "G15-071",
+      "G15-072",
+      "G15-073",
+      "G15-074",
+      "G15-075"
+    ],
+    "method": "Exact saved leading directive moved into first FAQ answer for structured PromptService input; original saved data untouched"
+  },
+  "status": "completed",
+  "pilot_cases": 16,
+  "pilot_model_calls": 16,
+  "runtime": {
+    "vllm_image": "sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+    "gpu": "NVIDIA L4",
+    "cpu_offload_gb": 0,
+    "gpu_memory_utilization": 0.25,
+    "max_model_len": 4096,
+    "max_num_seqs": 1,
+    "max_num_batched_tokens": 1024,
+    "enforce_eager": true,
+    "existing_gpu_services_running": true,
+    "isolated_port": 18002
+  },
+  "cases_completed": 1600,
+  "model_calls_completed": 1585,
+  "temporary_model_removed": true,
+  "outputs": {
+    "RESULTS.txt": "be5666cbebeb04eb0d03de9660a8c642b97fabc4e2bfcf86d52b7fad5a325fbd",
+    "pipeline_results.jsonl": "e9c0d1f1dd442f83342bbc8606b85e68d05afc4d0c6f0d198673f5b34e0a0a62",
+    "execution_summary.json": "27a765f2f6559953fcf7fcf2905f5c9f16c2cc61f7a64fbef995ae00fc73a38d",
+    "output_rule_diagnosis.json": "a8faa9383a814d7a02a5697bbb10f9bb3d95311e944666563b39471341454889",
+    "review_notes.json": "b2223bafcd8bd644174674eb96df2eeae545f272524b5dd88bbf32faf26276b7",
+    "server_cleanup.json": "242cbc7786adf706b78a72fa95e87aae774ba036cafa8d493fdb52cf879cf820",
+    "scope_verification.json": "d5bd792ca2135b46364f0a62266e530767c14ad223837aeae373d07f17650867"
+  }
+}

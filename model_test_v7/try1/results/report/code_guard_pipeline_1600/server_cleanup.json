@@ -1,0 +1,107 @@
+{
+  "phase": "finished",
+  "before": {
+    "ubot-vllm-1": {
+      "id": "5ca58cb1f1a1a4b1c8e78fc3d8f330e052d60702cb590250f8ec53c6146559ae",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.085033253Z"
+    },
+    "ubot-vllm-embedding-1": {
+      "id": "747196ad2d319ca4c5be3e5e16124ea1a54bf1152ef73b84e925c1cb8a7771a9",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.087793675Z"
+    },
+    "ubot-backend-1": {
+      "id": "1c7b8e10567f7155ba031ba923e664e9420be749a2809cf1bac4b3c2463a4978",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.003834745Z"
+    },
+    "ubot-postgres-1": {
+      "id": "dcaa49380fab60949a7c6b776a9d1d7ef4bade614ced482563ac9e29b2345ec3",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.021739798Z"
+    },
+    "ubot-redis-1": {
+      "id": "64fa3ceb3001181b8d5698821ea75ad09af9e792384bf762ac4d2b00bd93744e",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.002015344Z"
+    },
+    "ubot-nginx-1": {
+      "id": "20f60c8ee218745cd5a83ab63e263b64101cda1ac9a88543147f3468ff3bd9ed",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.01380109Z"
+    },
+    "ubot-prometheus-1": {
+      "id": "f926e0da4e864f8e3a1e346b27a1a4d9450bc837adb17ede0917519f097847d7",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.017624966Z"
+    }
+  },
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "container": "19e70e015a5226df85ae130c714a48d9b4cd05c0e2bfd600ad224ed77da03886",
+  "models": [
+    {
+      "id": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+      "object": "model",
+      "created": 1791945612,
+      "owned_by": "vllm",
+      "root": "/model",
+      "parent": null,
+      "max_model_len": 4096,
+      "permission": [
+        {
+          "id": "modelperm-b71df768e7917f27",
+          "object": "model_permission",
+          "created": 1791945612,
+          "allow_create_engine": false,
+          "allow_sampling": true,
+          "allow_logprobs": true,
+          "allow_search_indices": false,
+          "allow_view": true,
+          "allow_fine_tuning": false,
+          "organization": "*",
+          "group": null,
+          "is_blocking": false
+        }
+      ]
+    }
+  ],
+  "existing_services_unchanged": true,
+  "after": {
+    "ubot-vllm-1": {
+      "id": "5ca58cb1f1a1a4b1c8e78fc3d8f330e052d60702cb590250f8ec53c6146559ae",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.085033253Z"
+    },
+    "ubot-vllm-embedding-1": {
+      "id": "747196ad2d319ca4c5be3e5e16124ea1a54bf1152ef73b84e925c1cb8a7771a9",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.087793675Z"
+    },
+    "ubot-backend-1": {
+      "id": "1c7b8e10567f7155ba031ba923e664e9420be749a2809cf1bac4b3c2463a4978",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.003834745Z"
+    },
+    "ubot-postgres-1": {
+      "id": "dcaa49380fab60949a7c6b776a9d1d7ef4bade614ced482563ac9e29b2345ec3",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.021739798Z"
+    },
+    "ubot-redis-1": {
+      "id": "64fa3ceb3001181b8d5698821ea75ad09af9e792384bf762ac4d2b00bd93744e",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.002015344Z"
+    },
+    "ubot-nginx-1": {
+      "id": "20f60c8ee218745cd5a83ab63e263b64101cda1ac9a88543147f3468ff3bd9ed",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.01380109Z"
+    },
+    "ubot-prometheus-1": {
+      "id": "f926e0da4e864f8e3a1e346b27a1a4d9450bc837adb17ede0917519f097847d7",
+      "running": true,
+      "started_at": "2026-10-14T01:11:51.017624966Z"
+    }
+  }
+}

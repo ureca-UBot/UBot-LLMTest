@@ -145,3 +145,10 @@ FAQ 사실 변조(G04), 허위 처리 완료(G05), JSON·출처 계약 조작(G0
 앞선 단독 groundedness 28/63 결과와 이번 재실행 27/63 결과는 각각 보존했습니다. 같은 사례로 기준을 조정한 진단 실험이므로 전체 서비스 정확도나 새 문항 성능으로 일반화하지 않습니다. 정상 질문의 기존 생성 답변 100개는 답변 안전성이 확정되지 않아 REVIEW로 유지하고 오차단 분모에서 제외했습니다.
 
 [IBM 맞춤 위험 기준 상세 보고서](summary/ibm_custom_risk/README.md) · [293개 문항별 비교](summary/ibm_custom_risk/case_comparison.jsonl) · [기존 문제 답변 63개 비교](summary/ibm_custom_risk/unsafe63_comparison.jsonl) · [구조화 집계](report/ibm_custom_risk/run_summary.json).
+
+
+## 8. 추가 실험: 기존 코드 가드와 RedHatAI 모델의 1,600문항 종합 실행
+
+2026-10-14에 기존 STS 입력 가드 → EC2 RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16 → 기존 STS 출력 가드로 1,600문항을 실행했습니다. 입력 전체 차단 15, 출력 전체 차단 8, 출력 부분 제거 242, 출력 유지 1,335건이며 실행·파싱 오류는 0건입니다. 이 집계는 SAFE/UNSAFE 판정이 아닙니다. 게시 시점의 전수 안전성 평가는 대기 중입니다. 앞선 네 AI 입력 모델 비교와는 별도 실험입니다.
+
+[종합 실행 결과·범위·오차단 의심 사례](summary/code_guard_pipeline_1600/README.md) · [실제 요청·모델 답변·최종 답변](raw/ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_guard-pipeline_n100_20261014/pipeline_results.jsonl). 기존 소스·DB·프론트·서버 서비스를 보존했고 결과·문서만 게시했습니다.
