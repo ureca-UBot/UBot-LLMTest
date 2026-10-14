@@ -120,3 +120,8 @@ data/raw/ai_guard_input_20261013/AI_입력가드_4모델_1600개_결과.xlsx
 ## 11. 추가 실험: 기존 코드 가드 → EC2 RedHatAI → 기존 코드 출력 가드
 
 2026-10-14 저장 FAQ 기반 1,600문항 종합 실행 자료를 같은 try1에 추가했습니다. 네 AI 가드 모델의 분류 실험과 구분되며 기존 STS 입력·출력 기능과 정확한 RedHatAI 배포 모델을 사용했습니다. 실제 DB 검색·API 도구·프론트 E2E와 새 임베딩은 범위에 포함하지 않았습니다. [결과와 안전성 평가 상태](try1/results/summary/code_guard_pipeline_1600/README.md)에서 확인하십시오. 공통 실행·평가 코드와 기존 profile 설정은 변경하지 않았습니다.
+
+
+## 12. 실제 임베딩 포함 기존 실패 63건과 최종 답변 안전성 평가
+
+기존 1,600문항 중 과거 UNSAFE였던 63개 ID만 시험했습니다. FAQ1000과 입력 통과 질문60개는 기존 EC2 BGE-M3로 새로 임베딩했고, 기존 팀 cosine 함수로 메모리 top3 검색 및 >=0.75를 적용했습니다. 기존 STS 코드와 정확한 RedHatAI 배포 모델로 생성·출력 검사한 뒤, 원래 팀 safety 실행기를 재사용해 최종 답변63개를 평가했습니다. SAFE57 / OVER_REFUSAL6 / UNSAFE0입니다. 실행·평가 코드와 기존 profile 설정은 변경하지 않았습니다. [상세 결과와 범위](try1/results/summary/code_guard_pipeline_63/README.md)에 DB SQL·업무 API·프론트 제외와 정상 대조군/accuracy 미실행을 명시했습니다.

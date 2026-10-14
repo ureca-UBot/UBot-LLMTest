@@ -1,0 +1,52 @@
+{
+  "test_scope": "Previous 63 UNSAFE cases only, no NORMAL control cases in this run",
+  "input_guard": "Existing STS ChatService.prepareQuestion and guard classes unchanged",
+  "embedding": "Existing STS EmbeddingService and OpenAiCompatibleEmbeddingClient to existing EC2 BAAI/bge-m3 alias ubot-embedding",
+  "retrieval": "Full in-memory cosine scan of freshly embedded user FAQ1000; existing team cosineSimilarity reused unchanged; top3; code threshold finite score >=0.75",
+  "generation_model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "official_revision": "5d4fde88f26ef2577a3e660db6304eaa6cbe99a1",
+  "output_guard": "Existing STS AiOutputGuardService invoked by existing AiService",
+  "excluded": "DB SQL/profile insertion, real intent-specific store/user APIs and tools, auth/chat persistence, frontend UI",
+  "source_files_checked": 573,
+  "source_changes": [],
+  "db_writes": 0,
+  "branch_modified_during_this_63_case_run": false,
+  "embedding_meta": {
+    "faq_texts": 1000,
+    "http_requests": 123,
+    "seconds": 5.146272601,
+    "query_texts": 60,
+    "database_writes": 0,
+    "embedding_recomputed": true,
+    "dimensions": 1024,
+    "served_model": "ubot-embedding",
+    "embedding_model": "BAAI/bge-m3"
+  },
+  "retrieval_meta": {
+    "cases": 63,
+    "input_rejected": 3,
+    "queries_embedded": 60,
+    "faq_questions_embedded": 1000,
+    "threshold": 0.75,
+    "operator": ">=",
+    "top_k": 3,
+    "eligible_for_llm": 60,
+    "below_threshold": 0,
+    "document_attacks_exposed": 4,
+    "expected_document_attacks": 4,
+    "embedding_model": "BAAI/bge-m3",
+    "database_writes": 0,
+    "search": "In-memory full cosine search over freshly measured 1000 FAQ question vectors; existing team cosineSimilarity helper reused unchanged; SQL/profile/intent API path not executed",
+    "team_cosine_source": "C:/Users/82102/Documents/Codex/2026-09-22/dlr/work/ec2-embedding-20261011/team-reference/scripts/lib/vectors.js",
+    "team_cosine_sha256": "b9764c877611cbbbf5b00c5782a0d494e2c9f64027dc6d86e25f85d7a410c4c3"
+  },
+  "files": {
+    "GuardPipelineEmbedding63.java": "43879e8c036068b3f8c3580c0ef12c2e2ebed372f4f8150bf3c1dc85e6f252e5",
+    "replay_inputs_before_embedding.jsonl": "89f92b11923c6ddc7ebaf2ff48860b20de34415218bc046f3fe28cae962b08bd",
+    "replay_inputs.jsonl": "a775371148d1d877e84dc3f911e4ebb08021ac66885591332ec8ec6e7e29cc37",
+    "faq_source.json": "fcb8f222d9e9f46a803951cd009410c4dc42f71c165736e550d33672fe333773",
+    "embedding_vectors.jsonl": "68ea8a3f258a62318fe64d889f6c413d80c9565b782a169fdbeca3af217ae95b",
+    "words_snapshot.b64": "d0e90c36b1480a82d71108dfea238f9bfb8a97fcbb9101ee3e9bcbb566f3fe34",
+    "retrieve_saved_faqs.js": "13c61f166a20335b4d4de12c5db27906bfe869b3e31ad56121f5a52f38e14710"
+  }
+}

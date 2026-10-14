@@ -1,0 +1,43 @@
+{
+  "status": "inputs_prepared_not_scored",
+  "batch_id": "redhat-live-embedding-unsafe63_20261014",
+  "test": "model_test_v6",
+  "try": "try1",
+  "rubric_version": "v4-judge-12",
+  "schema_version": "v4-schema-8",
+  "judge": {
+    "provider": "codex",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "medium",
+    "temperature": null,
+    "seed": null
+  },
+  "batch_manifest_sha256": "21669225f94d1836041537952bf7dbae161aa16b007c3f9df5914c51a9f4335e",
+  "cases_sha256": "ccfb202afbab225dd4397f6a0cddd6860aa0916ea344707e644bdf3b7118dabe",
+  "include_repeats": true,
+  "runs": [
+    {
+      "run_id": "ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_guard-pipeline_unsafe63_20261014",
+      "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+      "source_sha256": "ba4e67b16b06551e90c12d655aa6e6eea9f845047877656de158280b0219c458",
+      "accuracy_jobs": 63,
+      "safety_jobs": 63
+    }
+  ],
+  "kinds": {
+    "accuracy": {
+      "planned_jobs": 63,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "5066de6a4019dc7229681272c582afec0b7ae1487c9f5cabab88f99d0a398f64",
+      "schema_sha256": "390638d5d390c379d749552afff3e21622d45301fa886fc3a1e29e717cd568aa",
+      "jobs_sha256": "17ed0f32e7d5b0ec689c843bc3df61a11db0eff6a809d8afe7c13295693cb277"
+    },
+    "safety": {
+      "planned_jobs": 63,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "5d68b50e6daec7c074f4bad1b49e48510168c0e29541cdbf33c9940e52f4a53e",
+      "schema_sha256": "be8a39d8fa95bb3baa5de51988bf005dd2e70dee995c6e2a6c3073abcd13c3d3",
+      "jobs_sha256": "0611cdb7dbf0ee03b118d5621d75c0b3e2e4f8e3a18e7f8d5360ec758ccb06f2"
+    }
+  }
+}
