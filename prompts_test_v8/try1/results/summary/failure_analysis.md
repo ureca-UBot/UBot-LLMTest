@@ -2,6 +2,8 @@
 
 `v5_i4ck`(calc → evidence_ids → status → answer, 옛 본문)을 v7 `v5_i4`(answer → evidence_ids → status, 계산 칸 없음)와 짝으로 비교했다. Judge가 끝난 896쌍이다. `v5_i4ck2`는 이 분석을 쓸 때 Judge가 NC·MC만 끝나 생성 결과(status·evidence·calc)만 함께 봤다 — Judge 완료 후 결과(MT "두 가지" 문항에서 마지막 질문만 답함 등)는 [정리](../interim_summary.md) 3절.
 
+> **2026-10-15 try2 결과로 고칠 점**([try2 정리](../../../try2/results/interim_summary.md) 3절): answer를 두 번째로 쓴 `v5_i4ca`도 답 길이 92자 · FAQ ID 노출 18 · MT "한 질문만 답함" 20건이었다. 1절(ID 노출 감소 = evidence 먼저)과 2-2절(누락 증가 = answer 맨 끝)의 순서 설명, 그리고 정리 3절의 MT 원인(evidence 먼저)은 맞지 않고, calc 칸·calc 문단 쪽 효과로 봐야 한다. 3절의 빈 근거 → 보류 연쇄는 try2에서 회복돼 순서 효과가 맞다.
+
 - 입력: 각 run의 `generation.jsonl`(parsed·calc), `scored/<run>/status.jsonl`·`evidence.jsonl`, `llm_judge/<batch>/accuracy.jsonl`.
 - FAQ ID 노출은 compare_variants와 같은 정규식. "계산·누락 사유"는 Judge reasoning을 정규식으로 분류한 근사치다.
 

@@ -9,17 +9,34 @@
 // 2026-10-14 스모크 뒤 본 테스트(try1)는 calc → evidence_ids → status → answer로 바꿨다(안 v5_i4ck · v5_i4ck2).
 // smoke/의 evidence_ids → status → answer 결과(v5_i4k)는 바꾸기 전 설정으로 만든 것이다(gen_params.format에 기록).
 // 다른 순서의 스모크(v5_i4s·v5_i4ek·v5_i4cs 등)도 smoke/에 모았다 — 다시 돌리려면 output을 SETUP 3절 표의 순서로 바꾼다.
+// try2(2026-10-15)는 calc → answer → evidence_ids → status(안 v5_i4ca = v5_i4ck와 같은 프롬프트). 키 순서는 try마다 아래 OUTPUTS에서 고른다
+// — 이미 만든 try1을 다시 채점·보고할 때도 try1 순서가 잡히게.
 
 const base = require('../prompts_test_v7/test.config.js');
+
+const OUTPUTS = {
+  try1: {
+    keyOrder: ['calc', 'evidence_ids', 'status', 'answer'],
+    keyNames: { calc: 'a_calc', evidence_ids: 'b_evidence_ids', status: 'c_status', answer: 'd_answer' },
+  },
+  try2: {
+    keyOrder: ['calc', 'answer', 'evidence_ids', 'status'],
+    keyNames: { calc: 'a_calc', answer: 'b_answer', evidence_ids: 'c_evidence_ids', status: 'd_status' },
+  },
+};
+const TRY = process.env.LLM_TEST_TRY || 'try1';
+const TITLES = {
+  try1: 'v5_i4ck · v5_i4ck2 (calc → evidence_ids → status → answer 강제, 기준선 pv7-try1)',
+  try2: 'v5_i4ca (calc → answer → evidence_ids → status 강제, 기준선 pv7-try1 v5_i4 · pv8-try1 v5_i4ck)',
+};
 
 module.exports = {
   ...base,
   version: 'pv8',
-  title: '출력 키 순서 고정 — qwen3:4b-instruct Q4_K_M, test_set4r, v5_i4ck · v5_i4ck2 (calc → evidence_ids → status → answer 강제, 기준선 pv7-try1)',
+  title: `출력 키 순서 고정 — qwen3:4b-instruct Q4_K_M, test_set4r, ${TITLES[TRY] || TITLES.try1}`,
   defaultTry: 'try1',
   output: {
     ...base.output,
-    keyOrder: ['calc', 'evidence_ids', 'status', 'answer'],
-    keyNames: { calc: 'a_calc', evidence_ids: 'b_evidence_ids', status: 'c_status', answer: 'd_answer' },
+    ...(OUTPUTS[TRY] || OUTPUTS.try1),
   },
 };

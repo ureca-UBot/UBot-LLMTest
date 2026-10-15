@@ -164,6 +164,29 @@ node scripts/docgen/compare_variants.js --batch pv8-try1 @T --base v5_i4ck
 
 compare_variants는 실행할 때마다 같은 파일(`llm_judge/pv8-try1_variant_compare.md`·`.json`)에 쓰므로, v7처럼 실행마다 `_vs_<기준안>`으로 이름을 바꾼다.
 
+## 5-1. try2 — calc → answer → evidence_ids → status (2026-10-15)
+
+try1 원인 분석(failure_analysis 4절 1안): 손해는 evidence·status를 answer보다 먼저 쓰는 순서에서 났고, calc 효과는 가를 수 없었다. 기준선 순서(answer → evidence_ids → status) 앞에 calc만 붙인다.
+
+- 안 `v5_i4ca` = base_i4 · status_rules_i4 · output_order_i4 · calc_i4 — **`v5_i4ck`와 프롬프트가 같고 키 순서만 다르다.** 그래서 v7 `v5_i4` 대비 = calc 칸(+ 키 접두어) 효과, try1 `v5_i4ck` 대비 = 순서 효과만 남는다. 본문 순서 설명("먼저 evidence_ids")은 기준선 `v5_i4`처럼 실제 순서와 어긋난 채 둔다(기준선과 같은 조건).
+- 키: `a_calc · b_answer · c_evidence_ids · d_status`. `test.config.js`가 `LLM_TEST_TRY`로 try마다 키 순서를 고른다(try1을 다시 채점해도 try1 순서).
+- 같은 9항목 × 100 = 900건, 이 PC. **Ollama가 0.40.3 → 0.40.4로 올라갔다**(모델 digest `0edcdef34593` 같음).
+
+```powershell
+$T = @('--test', 'prompts_test_v8', '--try', 'try2')
+$CA = 'local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i4ca_20261015_PI-CE-UI-AR-SR-HR-NC-MC-MT'
+node scripts/run/run_item.js qwen3:4b-instruct 'PI,CE,UI,AR,SR,HR,NC,MC,MT' --size 100 @T --variant v5_i4ca
+node scripts/judge/build_batch_manifest.js --batch pv8-try2 --size 100 @T --runs "$CA"
+node scripts/judge/judge_prepare.js --batch pv8-try2 @T
+$env:LLM_JUDGE_CODEX_BIN = 'C:\Users\pc\AppData\Local\OpenAI\Codex\bin\9614f1d9b40d9c4f\codex.exe'   # 2026-10-15 경로
+node scripts/judge/judge_run.js --batch pv8-try2 @T --confirm-external --concurrency 8
+node scripts/docgen/judge_report.js --batch pv8-try2 @T
+node scripts/docgen/compare_variants.js --batch pv8-try2 @T --base v5_i4 --base-from prompts_test_v7/try1/pv7-try1
+node scripts/docgen/compare_variants.js --batch pv8-try2 @T --base v5_i4ck --base-from prompts_test_v8/try1/pv8-try1
+```
+
+결과(2026-10-15, Judge 900/900): 정답 v5_i4 698 → **640**(p<0.001), ck 632 → 640(p=0.69) — 채택 안 함. MT 86 → 72(두 질문 중 마지막만 답함, calc 빈칸인데도), AR 66 → 49(calc에서 비교하고 answer에서 거리 누락). 빈 근거 연쇄(PI·HR)는 회복, FAQ ID 노출 77 → 18. Ollama 0.40.4 효과는 v5_i4 AR·MT 재실행(`prompts_test_v7/envcheck_0404`, 배치 `pv7-envcheck`)으로 확인 — MT 86 → 87 · AR 66 → 61로 하락의 주원인이 아니다. [정리](try2/results/interim_summary.md).
+
 ## 6. 알려진 한계
 
 - 키 이름(접두어)도 함께 바뀐다. 순서 효과와 키 이름 효과는 가를 수 없다(키 이름만 바꾸고 순서는 그대로 두는 방법이 이 모델에는 없다).
