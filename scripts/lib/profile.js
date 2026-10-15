@@ -140,7 +140,7 @@ function generationParams(modelTag, conditionName) {
   let format = mode;
   if (mode === 'schema') {
     if (!config.output || !config.output.keyOrder) throw new Error("generation.format='schema'이면 output.keyOrder가 필요합니다.");
-    format = require('./prompts').outputSchema(config.output.keyOrder);
+    format = require('./prompts').outputSchema(config.output.keyOrder, config.output.keyNames);
   }
   return {
     temperature: cond.temperature ?? null,

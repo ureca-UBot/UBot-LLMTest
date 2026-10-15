@@ -1,0 +1,145 @@
+{
+  "batch_id": "pv8-try1",
+  "test": "prompts_test_v8",
+  "try": "try1",
+  "status": "completed",
+  "condition": "t0_nothink",
+  "size": 100,
+  "context_mode": "fixed",
+  "dataset": "test_set4r",
+  "cases_sha256": "44468e0c392eff4719c1c94e6366c1aafa6ff227442e43aed458130691b26838",
+  "source_commit": "97f3660a2845e9310150d25fa8fd8555859dddf5",
+  "created_at": "2026-10-14T08:01:44.573Z",
+  "runs": [
+    {
+      "run_id": "local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i4ck_20261014_PI-CE-UI-AR-SR-HR-NC-MC-MT",
+      "model": "qwen3:4b-instruct",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": null,
+        "format": {
+          "type": "object",
+          "properties": {
+            "a_calc": {
+              "type": "string"
+            },
+            "b_evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "c_status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "d_answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "a_calc",
+            "b_evidence_ids",
+            "c_status",
+            "d_answer"
+          ]
+        }
+      },
+      "prompt_variant": "v5_i4ck",
+      "selection": {
+        "size": 100,
+        "items": [
+          "PI",
+          "CE",
+          "UI",
+          "AR",
+          "SR",
+          "HR",
+          "NC",
+          "MC",
+          "MT"
+        ],
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 4,
+      "source_path": "prompts_test_v8/try1/results/raw/local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i4ck_20261014_PI-CE-UI-AR-SR-HR-NC-MC-MT/generation.jsonl",
+      "source_sha256": "44f47933ec5ee1ca7ddea0fa2f25930c23195fa71dff273636508f6ccc3a09ad"
+    },
+    {
+      "run_id": "local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i4ck2_20261014_PI-CE-UI-AR-SR-HR-NC-MC-MT",
+      "model": "qwen3:4b-instruct",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": null,
+        "format": {
+          "type": "object",
+          "properties": {
+            "a_calc": {
+              "type": "string"
+            },
+            "b_evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "c_status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "d_answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "a_calc",
+            "b_evidence_ids",
+            "c_status",
+            "d_answer"
+          ]
+        }
+      },
+      "prompt_variant": "v5_i4ck2",
+      "selection": {
+        "size": 100,
+        "items": [
+          "PI",
+          "CE",
+          "UI",
+          "AR",
+          "SR",
+          "HR",
+          "NC",
+          "MC",
+          "MT"
+        ],
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 1,
+      "source_path": "prompts_test_v8/try1/results/raw/local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i4ck2_20261014_PI-CE-UI-AR-SR-HR-NC-MC-MT/generation.jsonl",
+      "source_sha256": "cd9a36a8f81caf99395e97dfc7602468434264deb923aed920b315478f457fa7"
+    }
+  ]
+}

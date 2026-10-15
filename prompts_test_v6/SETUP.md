@@ -31,7 +31,7 @@ PI · CE · UI · SR · NC · MC · MT, 항목당 100건 = **700건**. Judge 비
 |---|---|---|
 | 변경이 직접 겨냥 | MC · MT · PI · NC · UI · CE | pv5-try2에서 누락으로 떨어진 항목(정답→오답 48 · 31 · 33 · 21 · 22 · 16) |
 | 부작용 감시 | SR | 50자를 빼면 꼬리 문장이 돌아오는지(v4_base → v5_i2 환각 28 → 13) |
-| 제외 | CF · AR · HR · AD(+안전성) | CF·AR 오답은 날짜 비교·충돌 처리·표 필터링 실패로 이번 변경과 무관하다. HR은 대부분 ABSTAIN이라 영향이 작다. AD는 안전 문장을 바꾸지 않았다. pv5-try2 v5_i2의 AR·AD는 아직 Judge 전이다. |
+| 제외 | CF · AR · HR · AD(+안전성) | CF·AR 오답은 날짜 비교·충돌 처리·표 필터링 실패로 이번 변경과 무관하다. HR은 대부분 ABSTAIN이라 영향이 작다. AD는 안전 문장을 바꾸지 않았다. |
 
 건너뛰는 결정론 단계는 prompts_test_v5와 같다(정답 유사도 · NLI 근거 · 반복 일관성).
 
@@ -49,14 +49,16 @@ node scripts/judge/build_batch_manifest.js --batch pv6-try1 --size 100 @T --runs
 node scripts/judge/judge_prepare.js --batch pv6-try1 @T
 
 # 3. LLM Judge (외부 전송). 이 PC는 PATH에 codex가 없다 — Codex 앱 CLI를 지정한다(해시 폴더는 앱 업데이트 때 바뀐다)
-$env:LLM_JUDGE_CODEX_BIN = 'C:\Users\pc\AppData\Local\OpenAI\Codex\bin\9691020b546a15b2\codex.exe'
+$env:LLM_JUDGE_CODEX_BIN = 'C:\Users\pc\AppData\Local\OpenAI\Codex\bin\2e5e00daee91c61d\codex.exe'
 node scripts/judge/judge_run.js --batch pv6-try1 @T --confirm-external --concurrency 8
 node scripts/docgen/judge_report.js --batch pv6-try1 @T
 
-# 4. 짝 비교 — 기준 안마다 한 번씩(같은 파일에 쓰므로 첫 결과는 이름을 바꿔 둔다)
+# 4. 짝 비교 — 기준 안마다 한 번씩(같은 파일에 쓰므로 실행할 때마다 _vs_<기준안>으로 이름을 바꾼다)
 node scripts/docgen/compare_variants.js --batch pv6-try1 @T --base v5_i2 --base-from prompts_test_v5/try2/pv5-try2
 node scripts/docgen/compare_variants.js --batch pv6-try1 @T --base v4_base --base-from prompts_test_v5/try2/pv5-try2
 ```
+
+2026-10-14 전 단계 완료(정확도 699/699, UI-0093은 생성 타임아웃). 결과는 [중간 정리](try1/results/interim_summary.md). Judge를 두 배치에서 동시에 돌리면 판정 파일 열기 오류가 날 수 있으니 하나씩 돌린다(10-13 밤 pv5-try2와 같이 돌렸다가 NC-0134가 `accuracy.schema.json` 열기 실패).
 
 ## 5. 알려진 한계
 

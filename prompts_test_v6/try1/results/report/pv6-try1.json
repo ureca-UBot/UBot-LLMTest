@@ -1,0 +1,74 @@
+{
+  "batch_id": "pv6-try1",
+  "test": "prompts_test_v6",
+  "try": "try1",
+  "status": "completed",
+  "condition": "t0_nothink",
+  "size": 100,
+  "context_mode": "fixed",
+  "dataset": "test_set4r",
+  "cases_sha256": "44468e0c392eff4719c1c94e6366c1aafa6ff227442e43aed458130691b26838",
+  "source_commit": "97f3660a2845e9310150d25fa8fd8555859dddf5",
+  "created_at": "2026-10-13T12:58:40.989Z",
+  "runs": [
+    {
+      "run_id": "local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i3_20261013_PI-CE-UI-SR-NC-MC-MT",
+      "model": "qwen3:4b-instruct",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": null,
+        "format": {
+          "type": "object",
+          "properties": {
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_ids",
+            "status",
+            "answer"
+          ]
+        }
+      },
+      "prompt_variant": "v5_i3",
+      "selection": {
+        "size": 100,
+        "items": [
+          "PI",
+          "CE",
+          "UI",
+          "SR",
+          "NC",
+          "MC",
+          "MT"
+        ],
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 1,
+      "source_path": "prompts_test_v6/try1/results/raw/local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i3_20261013_PI-CE-UI-SR-NC-MC-MT/generation.jsonl",
+      "source_sha256": "4252043cbf6dcb43e37257d1c9a602a578c26212d983164ec7f660610dbc1ece"
+    }
+  ]
+}

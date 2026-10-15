@@ -1,0 +1,76 @@
+{
+  "batch_id": "pv7-try1",
+  "test": "prompts_test_v7",
+  "try": "try1",
+  "status": "completed",
+  "condition": "t0_nothink",
+  "size": 100,
+  "context_mode": "fixed",
+  "dataset": "test_set4r",
+  "cases_sha256": "44468e0c392eff4719c1c94e6366c1aafa6ff227442e43aed458130691b26838",
+  "source_commit": "97f3660a2845e9310150d25fa8fd8555859dddf5",
+  "created_at": "2026-10-14T02:38:41.694Z",
+  "runs": [
+    {
+      "run_id": "local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i4_20261014_PI-CE-UI-AR-SR-HR-NC-MC-MT",
+      "model": "qwen3:4b-instruct",
+      "condition": "t0_nothink",
+      "gen_params": {
+        "temperature": 0,
+        "seed": null,
+        "think": null,
+        "format": {
+          "type": "object",
+          "properties": {
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ANSWER",
+                "PARTIAL",
+                "ABSTAIN",
+                "CONFLICT",
+                "OUT_OF_SCOPE"
+              ]
+            },
+            "answer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "evidence_ids",
+            "status",
+            "answer"
+          ]
+        }
+      },
+      "prompt_variant": "v5_i4",
+      "selection": {
+        "size": 100,
+        "items": [
+          "PI",
+          "CE",
+          "UI",
+          "AR",
+          "SR",
+          "HR",
+          "NC",
+          "MC",
+          "MT"
+        ],
+        "difficulty": null,
+        "limit": null
+      },
+      "status": "completed",
+      "missing_cases": 0,
+      "generation_errors": 0,
+      "source_path": "prompts_test_v7/try1/results/raw/local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i4_20261014_PI-CE-UI-AR-SR-HR-NC-MC-MT/generation.jsonl",
+      "source_sha256": "9f1e47a407f61ee50ed40301922621101519980ff780cafbe721ba29d5c5e9e6"
+    }
+  ]
+}

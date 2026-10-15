@@ -117,13 +117,15 @@ node scripts/judge/build_batch_manifest.js --batch pv5-try2 --size 100 @T --runs
 node scripts/judge/judge_prepare.js --batch pv5-try2 @T
 
 # 4. LLM Judge (외부 전송). 이 PC는 PATH에 codex가 없다 — Codex 앱 CLI를 지정한다(해시 폴더는 앱 업데이트 때 바뀐다)
-$env:LLM_JUDGE_CODEX_BIN = 'C:\Users\pc\AppData\Local\OpenAI\Codex\bin\9691020b546a15b2\codex.exe'
+$env:LLM_JUDGE_CODEX_BIN = 'C:\Users\pc\AppData\Local\OpenAI\Codex\bin\2e5e00daee91c61d\codex.exe'
 node scripts/judge/judge_run.js --batch pv5-try2 @T --confirm-external --concurrency 8
 node scripts/docgen/judge_report.js --batch pv5-try2 @T
 
 # 5. 짝 비교 (같은 배치 안의 v4_base ↔ v5_i2)
 node scripts/docgen/compare_variants.js --batch pv5-try2 @T --base v4_base
 ```
+
+2026-10-14 전 단계 완료(정확도 2,200/2,200 · 안전성 200/200). 결과는 [중간 정리](try2/results/interim_summary.md)와 [원인 분석](try2/results/summary/failure_analysis.md).
 
 ## 7. 알려진 한계
 

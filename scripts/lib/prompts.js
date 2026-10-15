@@ -104,13 +104,19 @@ const OUTPUT_STATUSES = ['ANSWER', 'PARTIAL', 'ABSTAIN', 'CONFLICT', 'OUT_OF_SCO
 
 // Ollama 구조화 출력(format에 JSON 스키마)용 스키마. 생성 문법이 properties에 적은 순서대로 키를
 // 강제한다 — 프롬프트 지시만으로는 gemma3:4b가 순서를 거의 지키지 않았다(스모크 20건 중 2건).
-function outputSchema(keyOrder) {
+// keyNames(선택): 표준 키 → 실제로 출력할 키 이름. qwen3:4b-instruct는 Ollama가 키를 알파벳순으로
+// 내보내 properties 순서를 무시한다(2026-10-13) — 'a_evidence_ids'·'b_status'·'c_answer'처럼 이름을 바꾸면
+// 그 순서를 따른다. 파싱할 때 lib/metrics.js가 표준 키로 되돌린다.
+// calc(선택): 계산·비교 메모 칸. 사용자에게 보이지 않는 칸이라 출력 계약(lib/metrics.js 필수 키)에는 넣지 않는다.
+function outputSchema(keyOrder, keyNames = {}) {
   const props = {
+    calc: { type: 'string' },
     evidence_ids: { type: 'array', items: { type: 'string' } },
     status: { type: 'string', enum: OUTPUT_STATUSES },
     answer: { type: 'string' },
   };
-  return { type: 'object', properties: Object.fromEntries(keyOrder.map((k) => [k, props[k]])), required: keyOrder };
+  const name = (k) => keyNames[k] || k;
+  return { type: 'object', properties: Object.fromEntries(keyOrder.map((k) => [name(k), props[k]])), required: keyOrder.map(name) };
 }
 
 module.exports = {

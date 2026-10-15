@@ -1,0 +1,223 @@
+{
+  "run_id": "local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i4ck_20261014_CE-UI-PI-NC-SR-MC-MT_ids-ids",
+  "definition": "채택률 = 인용한 문서가 모두 정답 근거 문서이고 하나 이상 인용한 비율(틀린 문서 없음). 엄격 채택률 = 정답 근거 문서를 모두 인용한 비율. 대상 행 기준. 정답 근거가 없는 행, 제외 항목, 대상 외 기대 상태는 빼고 excluded_by에 사유를 남긴다.",
+  "scope": {
+    "exclude_items": [
+      "AR"
+    ],
+    "expected_statuses": [
+      "ANSWER",
+      "PARTIAL",
+      "CONFLICT"
+    ]
+  },
+  "all_rows": {
+    "n": 22,
+    "n_applicable": 19,
+    "adoption_rate": 0.8421052631578947,
+    "adoption_strict_rate": 0.7368421052631579,
+    "exact_rate": 0.7368421052631579,
+    "gold_recall_avg": 0.7894736842105263,
+    "precision_avg": 1,
+    "category_counts": {
+      "EXACT": 14,
+      "WITH_EXTRA": 0,
+      "PARTIAL": 2,
+      "WRONG": 0,
+      "NONE": 3
+    },
+    "invalid_citation_rate": 0,
+    "non_doc_label_rows": 0,
+    "non_doc_label_rate": 0,
+    "answering_rows": 18,
+    "answered_without_citation": 2,
+    "answered_without_citation_rate": 0.1111111111111111,
+    "not_applicable_citing_rate": 0
+  },
+  "independent": {
+    "n": 22,
+    "n_applicable": 19,
+    "adoption_rate": 0.8421052631578947,
+    "adoption_strict_rate": 0.7368421052631579,
+    "exact_rate": 0.7368421052631579,
+    "gold_recall_avg": 0.7894736842105263,
+    "precision_avg": 1,
+    "category_counts": {
+      "EXACT": 14,
+      "WITH_EXTRA": 0,
+      "PARTIAL": 2,
+      "WRONG": 0,
+      "NONE": 3
+    },
+    "invalid_citation_rate": 0,
+    "non_doc_label_rows": 0,
+    "non_doc_label_rate": 0,
+    "answering_rows": 18,
+    "answered_without_citation": 2,
+    "answered_without_citation_rate": 0.1111111111111111,
+    "not_applicable_citing_rate": 0
+  },
+  "by_item": {
+    "NC": {
+      "n": 3,
+      "n_applicable": 3,
+      "adoption_rate": 0.3333333333333333,
+      "adoption_strict_rate": 0.3333333333333333,
+      "exact_rate": 0.3333333333333333,
+      "gold_recall_avg": 0.3333333333333333,
+      "precision_avg": 1,
+      "category_counts": {
+        "EXACT": 1,
+        "WITH_EXTRA": 0,
+        "PARTIAL": 0,
+        "WRONG": 0,
+        "NONE": 2
+      },
+      "invalid_citation_rate": 0,
+      "non_doc_label_rows": 0,
+      "non_doc_label_rate": 0,
+      "answering_rows": 3,
+      "answered_without_citation": 2,
+      "answered_without_citation_rate": 0.6666666666666666,
+      "not_applicable_citing_rate": null
+    },
+    "MC": {
+      "n": 1,
+      "n_applicable": 1,
+      "adoption_rate": 1,
+      "adoption_strict_rate": 1,
+      "exact_rate": 1,
+      "gold_recall_avg": 1,
+      "precision_avg": 1,
+      "category_counts": {
+        "EXACT": 1,
+        "WITH_EXTRA": 0,
+        "PARTIAL": 0,
+        "WRONG": 0,
+        "NONE": 0
+      },
+      "invalid_citation_rate": 0,
+      "non_doc_label_rows": 0,
+      "non_doc_label_rate": 0,
+      "answering_rows": 1,
+      "answered_without_citation": 0,
+      "answered_without_citation_rate": 0,
+      "not_applicable_citing_rate": null
+    },
+    "UI": {
+      "n": 4,
+      "n_applicable": 4,
+      "adoption_rate": 1,
+      "adoption_strict_rate": 0.5,
+      "exact_rate": 0.5,
+      "gold_recall_avg": 0.75,
+      "precision_avg": 1,
+      "category_counts": {
+        "EXACT": 2,
+        "WITH_EXTRA": 0,
+        "PARTIAL": 2,
+        "WRONG": 0,
+        "NONE": 0
+      },
+      "invalid_citation_rate": 0,
+      "non_doc_label_rows": 0,
+      "non_doc_label_rate": 0,
+      "answering_rows": 4,
+      "answered_without_citation": 0,
+      "answered_without_citation_rate": 0,
+      "not_applicable_citing_rate": null
+    },
+    "CE": {
+      "n": 5,
+      "n_applicable": 5,
+      "adoption_rate": 1,
+      "adoption_strict_rate": 1,
+      "exact_rate": 1,
+      "gold_recall_avg": 1,
+      "precision_avg": 1,
+      "category_counts": {
+        "EXACT": 5,
+        "WITH_EXTRA": 0,
+        "PARTIAL": 0,
+        "WRONG": 0,
+        "NONE": 0
+      },
+      "invalid_citation_rate": 0,
+      "non_doc_label_rows": 0,
+      "non_doc_label_rate": 0,
+      "answering_rows": 5,
+      "answered_without_citation": 0,
+      "answered_without_citation_rate": 0,
+      "not_applicable_citing_rate": null
+    },
+    "PI": {
+      "n": 5,
+      "n_applicable": 5,
+      "adoption_rate": 0.8,
+      "adoption_strict_rate": 0.8,
+      "exact_rate": 0.8,
+      "gold_recall_avg": 0.8,
+      "precision_avg": 1,
+      "category_counts": {
+        "EXACT": 4,
+        "WITH_EXTRA": 0,
+        "PARTIAL": 0,
+        "WRONG": 0,
+        "NONE": 1
+      },
+      "invalid_citation_rate": 0,
+      "non_doc_label_rows": 0,
+      "non_doc_label_rate": 0,
+      "answering_rows": 4,
+      "answered_without_citation": 0,
+      "answered_without_citation_rate": 0,
+      "not_applicable_citing_rate": null
+    },
+    "SR": {
+      "n": 3,
+      "n_applicable": 0,
+      "adoption_rate": null,
+      "adoption_strict_rate": null,
+      "exact_rate": null,
+      "gold_recall_avg": null,
+      "precision_avg": null,
+      "category_counts": {
+        "EXACT": 0,
+        "WITH_EXTRA": 0,
+        "PARTIAL": 0,
+        "WRONG": 0,
+        "NONE": 0
+      },
+      "invalid_citation_rate": 0,
+      "non_doc_label_rows": 0,
+      "non_doc_label_rate": 0,
+      "answering_rows": 0,
+      "answered_without_citation": 0,
+      "answered_without_citation_rate": null,
+      "not_applicable_citing_rate": 0
+    },
+    "MT": {
+      "n": 1,
+      "n_applicable": 1,
+      "adoption_rate": 1,
+      "adoption_strict_rate": 1,
+      "exact_rate": 1,
+      "gold_recall_avg": 1,
+      "precision_avg": 1,
+      "category_counts": {
+        "EXACT": 1,
+        "WITH_EXTRA": 0,
+        "PARTIAL": 0,
+        "WRONG": 0,
+        "NONE": 0
+      },
+      "invalid_citation_rate": 0,
+      "non_doc_label_rows": 0,
+      "non_doc_label_rate": 0,
+      "answering_rows": 1,
+      "answered_without_citation": 0,
+      "answered_without_citation_rate": 0,
+      "not_applicable_citing_rate": null
+    }
+  }
+}

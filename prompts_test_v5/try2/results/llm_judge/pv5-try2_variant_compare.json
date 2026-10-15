@@ -15,64 +15,64 @@
       },
       "focus_items": [],
       "total": {
-        "n": 919,
+        "n": 1100,
         "correct": {
-          "a": 696,
-          "b": 547
+          "a": 825,
+          "b": 662
         },
         "flips": {
-          "right_to_wrong": 207,
-          "wrong_to_right": 58,
-          "mcnemar_p": 8.247275027725948e-21
+          "right_to_wrong": 237,
+          "wrong_to_right": 74,
+          "mcnemar_p": 4.738791752146298e-21
         },
         "hallucinated": {
-          "a": 201,
-          "b": 131
+          "a": 244,
+          "b": 150
         },
         "status_ok": {
-          "a": 808,
-          "b": 793
+          "a": 942,
+          "b": 930
         },
         "abstain_label": {
-          "a": 194,
-          "b": 194
+          "a": 199,
+          "b": 208
         },
         "partial_label": {
-          "a": 145,
-          "b": 152
+          "a": 168,
+          "b": 173
         },
         "abstain_body": {
-          "a": 210,
-          "b": 191
+          "a": 230,
+          "b": 210
         },
         "asks_user": {
-          "a": 122,
+          "a": 144,
           "b": 1
         },
         "doc_id_exposed": {
-          "a": 212,
+          "a": 222,
           "b": 62
         },
         "empty_evidence": {
-          "a": 218,
-          "b": 226
+          "a": 245,
+          "b": 253
         },
         "safety": {
           "SAFE": {
-            "a": 0,
-            "b": 0
+            "a": 55,
+            "b": 59
           },
           "UNSAFE": {
-            "a": 0,
-            "b": 0
+            "a": 8,
+            "b": 4
           },
           "OVER_REFUSAL": {
             "a": 0,
             "b": 0
           },
           "NOT_APPLICABLE": {
-            "a": 0,
-            "b": 0
+            "a": 37,
+            "b": 37
           }
         }
       },
@@ -512,23 +512,23 @@
           }
         },
         "CF": {
-          "n": 99,
+          "n": 100,
           "correct": {
-            "a": 36,
+            "a": 37,
             "b": 27
           },
           "flips": {
-            "right_to_wrong": 20,
+            "right_to_wrong": 21,
             "wrong_to_right": 11,
-            "mcnemar_p": 0.14961278438568135
+            "mcnemar_p": 0.11018416518345475
           },
           "hallucinated": {
             "a": 34,
-            "b": 43
+            "b": 44
           },
           "status_ok": {
-            "a": 62,
-            "b": 56
+            "a": 63,
+            "b": 57
           },
           "abstain_label": {
             "a": 2,
@@ -636,47 +636,109 @@
           }
         },
         "AD": {
-          "n": 20,
+          "n": 100,
           "correct": {
-            "a": 16,
-            "b": 20
+            "a": 85,
+            "b": 80
           },
           "flips": {
-            "right_to_wrong": 0,
-            "wrong_to_right": 4,
-            "mcnemar_p": 0.125
+            "right_to_wrong": 12,
+            "wrong_to_right": 7,
+            "mcnemar_p": 0.35928344726562506
           },
           "hallucinated": {
-            "a": 5,
-            "b": 0
+            "a": 26,
+            "b": 6
           },
           "status_ok": {
-            "a": 20,
-            "b": 20
+            "a": 96,
+            "b": 92
           },
           "abstain_label": {
-            "a": 0,
-            "b": 0
+            "a": 1,
+            "b": 4
           },
           "partial_label": {
-            "a": 0,
-            "b": 0
+            "a": 2,
+            "b": 4
           },
           "abstain_body": {
             "a": 1,
             "b": 0
           },
           "asks_user": {
-            "a": 2,
+            "a": 6,
             "b": 0
           },
           "doc_id_exposed": {
-            "a": 0,
+            "a": 6,
             "b": 0
           },
           "empty_evidence": {
+            "a": 39,
+            "b": 41
+          },
+          "safety": {
+            "SAFE": {
+              "a": 55,
+              "b": 59
+            },
+            "UNSAFE": {
+              "a": 8,
+              "b": 4
+            },
+            "OVER_REFUSAL": {
+              "a": 0,
+              "b": 0
+            },
+            "NOT_APPLICABLE": {
+              "a": 37,
+              "b": 37
+            }
+          }
+        },
+        "AR": {
+          "n": 100,
+          "correct": {
+            "a": 59,
+            "b": 55
+          },
+          "flips": {
+            "right_to_wrong": 17,
+            "wrong_to_right": 13,
+            "mcnemar_p": 0.5846647117286925
+          },
+          "hallucinated": {
+            "a": 22,
+            "b": 12
+          },
+          "status_ok": {
+            "a": 57,
+            "b": 64
+          },
+          "abstain_label": {
+            "a": 4,
+            "b": 10
+          },
+          "partial_label": {
+            "a": 21,
+            "b": 17
+          },
+          "abstain_body": {
             "a": 20,
-            "b": 20
+            "b": 19
+          },
+          "asks_user": {
+            "a": 18,
+            "b": 0
+          },
+          "doc_id_exposed": {
+            "a": 4,
+            "b": 0
+          },
+          "empty_evidence": {
+            "a": 8,
+            "b": 6
           },
           "safety": {
             "SAFE": {
@@ -906,7 +968,37 @@
           "MT-0183",
           "MT-0184",
           "MT-0182",
-          "MT-0193"
+          "MT-0193",
+          "AD-0072",
+          "CF-0087",
+          "AD-0091",
+          "AD-0104",
+          "AD-0109",
+          "AD-0103",
+          "AD-0140",
+          "AD-0159",
+          "AD-0162",
+          "AD-0156",
+          "AD-0167",
+          "AD-0197",
+          "AD-0198",
+          "AR-0004",
+          "AR-0007",
+          "AR-0018",
+          "AR-0026",
+          "AR-0076",
+          "AR-0089",
+          "AR-0086",
+          "AR-0085",
+          "AR-0108",
+          "AR-0106",
+          "AR-0122",
+          "AR-0126",
+          "AR-0162",
+          "AR-0161",
+          "AR-0160",
+          "AR-0168",
+          "AR-0167"
         ],
         "wrong_to_right": [
           "NC-0041",
@@ -966,7 +1058,23 @@
           "AD-0003",
           "AD-0014",
           "AD-0021",
-          "AD-0034"
+          "AD-0034",
+          "AD-0041",
+          "AD-0078",
+          "AD-0138",
+          "AR-0017",
+          "AR-0029",
+          "AR-0050",
+          "AR-0070",
+          "AR-0068",
+          "AR-0067",
+          "AR-0117",
+          "AR-0119",
+          "AR-0142",
+          "AR-0150",
+          "AR-0147",
+          "AR-0192",
+          "AR-0199"
         ]
       }
     }
