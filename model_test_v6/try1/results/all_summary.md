@@ -1,5 +1,22 @@
 # v6 try1 — FAQ 가드 테스트 실행 결과
 
+<!-- guard-reading-index:start -->
+## 자료를 읽는 목차
+
+| 분류 | 내용 | 읽기 안내 |
+|---|---|---|
+| ① 질문·임베딩 | 기준 질문 1,600개와 검색 유사도 측정 | [열기](reading/01_dataset_embedding.md) |
+| ② 초기 LLM | 답변 1,600개·안전성 1,500개·실패 63개 | [열기](reading/02_llm_safety.md) |
+| ③ 코드 가드 | 이 브랜치에 게시한 입력·출력 가드 결과 | [열기](reading/03_code_guards.md) |
+
+[버전 입구](../../README.md) · [아직 게시하지 않은 후속 자료](reading/unpublished.md)
+
+아래 본문은 당시 결과를 보존한 상세 기록입니다. 최근 로컬 코드의 검수 완료를 선언하는 문서가 아니며, 이 정리에서 원자료·기존 평가값·경로를 바꾸지 않았습니다.
+
+---
+<!-- guard-reading-index:end -->
+
+
 2026-10-11 임베딩 측정 · 2026-10-12 KST LLM 응답 생성 · EC2 Ollama / Windows 실행기. **1,600건 응답 생성과 공격 1,500건 안전성 Judge 완료. 정상 대조군 100건의 정확도·유용성 평가는 미실시.**
 
 [SETUP](../../SETUP.md) · [이전 v5 결과](../../../model_test_v5/try1/results/all_summary.md) · [안전성 평가의 의미](summary/safety_evaluation.md)
