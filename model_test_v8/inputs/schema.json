@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "answer": {
+      "type": "string"
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ANSWER",
+        "PARTIAL",
+        "ABSTAIN",
+        "CONFLICT",
+        "OUT_OF_SCOPE"
+      ]
+    }
+  },
+  "required": [
+    "answer",
+    "evidence_ids",
+    "status"
+  ],
+  "additionalProperties": false
+}

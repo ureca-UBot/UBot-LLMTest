@@ -1,0 +1,142 @@
+{
+  "version": "model_test_v8",
+  "try": "try1",
+  "run_id": "ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_t0_question-retrieval_core1000_20261016",
+  "date": "2026-10-16",
+  "repository": "ureca-UBot/UBot-LLMTest",
+  "publication_branch": "test/ai-guard-input",
+  "publication_parent_commit": "661ed9661ff077e25b1d9689e0d5d591e6c8e237",
+  "source_repository": "ureca-UBot/UBot-BE",
+  "source_branch": "develop",
+  "source_commit": "797c68eb85d2729ed8526b6022c3a8ad73bd0c22",
+  "llm": {
+    "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+    "revision": "5d4fde88f26ef2577a3e660db6304eaa6cbe99a1",
+    "sha256": {
+      "model.safetensors": "b4394f5b0e1f20e9b96d00706d496b87fb29c3f258a4509109aa5c6a1e4cd648",
+      "tokenizer.json": "b7a6a993d40b42d517297bb247ff66679e5bc9dd7a5143be0620faf210b42861",
+      "config.json": "e63111aa34373389b4f5d61f075721651f3a60c0aeead924c3e45722eaba2121",
+      "tokenizer_config.json": "4b5f2f80f84faefe8420e1616671adb1dd3d7e632038d34b1f0e3a1363a51059"
+    }
+  },
+  "embedding": {
+    "model": "BAAI/bge-m3",
+    "dimensions": 1024,
+    "fresh_corpus": 5170,
+    "fresh_queries": 1000
+  },
+  "search": {
+    "vector_type": "QUESTION",
+    "top_k": 3,
+    "threshold": 0.75,
+    "threshold_operator": ">=",
+    "rerank_enabled": false,
+    "search_adapter": "NumPy float64 exact cosine; group best variant per FAQ; tie variant_id then faq_id; team SQL semantics"
+  },
+  "scope": {
+    "questions": 1000,
+    "source_faqs": 1034,
+    "source_variants": 5170,
+    "input_guard": false,
+    "output_guard": false,
+    "personal_store_api": false,
+    "production_application_started": false,
+    "live_database_path": false
+  },
+  "evaluation": {
+    "semantic_accuracy_evaluated": false,
+    "external_judge_calls": 0,
+    "format_observation_only": true,
+    "internal_faq_marker_cases": 78
+  },
+  "source_copies": {
+    "inputs/dataset.json": {
+      "source_path": "dataset.json",
+      "sha256": "e65fa579ccf35d2fe88923b11eb34f1700ef1cc0807787cbab507a49984056cd"
+    },
+    "inputs/faq-system.txt": {
+      "source_path": "faq-system.txt",
+      "sha256": "5ecd1552a24a01b429ed62e63e9f1a73294778b31ae71d9b66c3f35c913d696c"
+    },
+    "inputs/faq-user.txt": {
+      "source_path": "faq-user.txt",
+      "sha256": "7c867e9d40b8b853f77ad8a1cfc21f60015c0734a1c248b7f56006148fadab11"
+    },
+    "inputs/schema.json": {
+      "source_path": "schema.json",
+      "sha256": "50fa3c6a18e341c3ca35119d3690f18210018d538e919dca810c305440060b3e"
+    },
+    "try1/results/report/test_config.json": {
+      "source_path": "test_config.json",
+      "sha256": "f09803d3ae55e16d1d95a0de5a2d4bd0d385980a99fe07f263495c31f455d6e3"
+    },
+    "try1/results/report/source_manifest.json": {
+      "source_path": "source_manifest.json",
+      "sha256": "02298d0b2fff9e944b18da2f786d7abe2fafe92f4e3ec8efcf8cbd8908db8dc9"
+    },
+    "try1/results/report/model_verification.json": {
+      "source_path": "model_verification.json",
+      "sha256": "d87ae469d7b9d5d9c2a03904a1fa51a75713c6e6426195bae4f4bf079f89af2e"
+    },
+    "try1/results/report/execution_verification.json": {
+      "source_path": "verification.json",
+      "sha256": "626d8218fba78c5cf370d60a69b512eec0051e0c6ddc999bf654d65ce92f8c23"
+    },
+    "try1/results/report/session_result.json": {
+      "source_path": "session_result.json",
+      "sha256": "cb9018d8da84d6d213280cd580565950fd1b0f8530e5ccb6defb0a2211c8f8be"
+    },
+    "try1/results/report/existing_services_before.json": {
+      "source_path": "existing_services_before.json",
+      "sha256": "027f1a9a41f368f2a2a1516f0ee9882dc51ebb360513d0741f56692f4c4bb91f"
+    },
+    "try1/results/report/existing_services_after.json": {
+      "source_path": "existing_services_after.json",
+      "sha256": "027f1a9a41f368f2a2a1516f0ee9882dc51ebb360513d0741f56692f4c4bb91f"
+    },
+    "try1/results/report/run_summary.json": {
+      "source_path": "results/summary.json",
+      "sha256": "95551809963aa02004afecfccb3a3e85d83cfca0d7320ae82aea86c5cb79241c"
+    },
+    "try1/results/summary/answers.md": {
+      "source_path": "results/answers.md",
+      "sha256": "f54cdd714e674f4af1612001b8719303e2fa84eb5c9559f9eccce3df71c4d066"
+    },
+    "try1/results/summary/answers.csv": {
+      "source_path": "results/answers.csv",
+      "sha256": "3a39d79752a78d00e8a1265acff61418b6294776af37a6b20f4fbe622088f8a7"
+    },
+    "try1/results/raw/ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_t0_question-retrieval_core1000_20261016/results.jsonl": {
+      "source_path": "results/results.jsonl",
+      "sha256": "64ccf880b3308426f016928b1725bdcd8b44d464147ac3fa2628db1fcb2a609d"
+    },
+    "try1/results/raw/ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_t0_question-retrieval_core1000_20261016/llm_requests.jsonl": {
+      "source_path": "results/llm_requests.jsonl",
+      "sha256": "fa80cfcc656e7ce750dc9ac974eba904ff873474d970894ab681a7859b57d3a3"
+    },
+    "try1/results/raw/ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_t0_question-retrieval_core1000_20261016/embedding/corpus_embedding_metadata.json": {
+      "source_path": "results/corpus_embedding_metadata.json",
+      "sha256": "67396190005441866c42639d003dd35e92306ae1807cb35f5a1d9cf9180ab9f1"
+    },
+    "try1/results/raw/ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_t0_question-retrieval_core1000_20261016/embedding/queries_embedding_metadata.json": {
+      "source_path": "results/queries_embedding_metadata.json",
+      "sha256": "8dffeab2711288077ad583466a33801195072ed3155075e79ea68ab363aade29"
+    }
+  },
+  "vector_archive": {
+    "path": "try1/results/raw/ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_t0_question-retrieval_core1000_20261016/embedding/vectors.zip",
+    "sha256": "99a3e2a04c863587f40da5261c2d9151d6179144f3350778da763338d6cc87ac",
+    "original_files": {
+      "corpus_vectors.npy": {
+        "bytes": 42352768,
+        "sha256": "7fed61b981ae6c9a27a95dc2108286992b6c34eb117f3ea8ac17f453260201d4"
+      },
+      "queries_vectors.npy": {
+        "bytes": 8192128,
+        "sha256": "5f08e4bf8b44fbea4b2a7930d3b2d132aa02dee8d6b6fc968832f633691caa40"
+      }
+    }
+  },
+  "publication_note": "Result archive only. No application/guard sources, executable helpers, credentials, model weights, database or server configuration changes are published.",
+  "historical_config_label_note": "test_config session label says r3; actual completed artifacts are r5/attempt-001. Original evidence bytes are preserved."
+}

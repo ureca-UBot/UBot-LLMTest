@@ -1,0 +1,190 @@
+{
+  "phase": "test_complete",
+  "attempt": 1,
+  "remote_directory": "/home/ubuntu/llm-bench/faq_core1000_baseline_20261016_r5/attempt-001",
+  "input_guard": false,
+  "output_guard": false,
+  "pilot": false,
+  "gpu": {
+    "name": "NVIDIA L4",
+    "driver_version": "580.178.04",
+    "total_mib": 23034,
+    "used_mib": 15184,
+    "free_mib": 7380
+  },
+  "existing_services": {
+    "ubot-nginx-1": {
+      "id": "20f60c8ee218745cd5a83ab63e263b64101cda1ac9a88543147f3468ff3bd9ed",
+      "running": true,
+      "started_at": "2026-10-16T00:34:32.993912301Z"
+    },
+    "ubot-backend-1": {
+      "id": "1c7b8e10567f7155ba031ba923e664e9420be749a2809cf1bac4b3c2463a4978",
+      "running": true,
+      "started_at": "2026-10-16T00:34:32.98233368Z"
+    },
+    "ubot-vllm-embedding-1": {
+      "id": "747196ad2d319ca4c5be3e5e16124ea1a54bf1152ef73b84e925c1cb8a7771a9",
+      "running": true,
+      "started_at": "2026-10-16T00:34:33.062856563Z"
+    },
+    "ubot-vllm-1": {
+      "id": "5ca58cb1f1a1a4b1c8e78fc3d8f330e052d60702cb590250f8ec53c6146559ae",
+      "running": true,
+      "started_at": "2026-10-16T00:34:33.064745106Z"
+    },
+    "ubot-prometheus-1": {
+      "id": "f926e0da4e864f8e3a1e346b27a1a4d9450bc837adb17ede0917519f097847d7",
+      "running": true,
+      "started_at": "2026-10-16T00:34:32.995745572Z"
+    },
+    "ubot-redis-1": {
+      "id": "64fa3ceb3001181b8d5698821ea75ad09af9e792384bf762ac4d2b00bd93744e",
+      "running": true,
+      "started_at": "2026-10-16T00:34:32.986190277Z"
+    },
+    "ubot-postgres-1": {
+      "id": "dcaa49380fab60949a7c6b776a9d1d7ef4bade614ced482563ac9e29b2345ec3",
+      "running": true,
+      "started_at": "2026-10-16T00:34:33.002511834Z"
+    },
+    "ubot-ollama-init-1": {
+      "id": "a610809c7901a03b2225d20e61e5664fa04e9c362041e1737adff04fabd73254",
+      "running": false,
+      "started_at": "2026-10-09T02:03:27.347678439Z"
+    },
+    "ubot-ollama-1": {
+      "id": "5b7a0b6dc49f4d257781c0f340696cf389885164ae19772eb956ec7ed19f36f5",
+      "running": false,
+      "started_at": "2026-10-09T05:17:22.876000922Z"
+    }
+  },
+  "initial_gpu": {
+    "name": "NVIDIA L4",
+    "driver_version": "580.178.04",
+    "total_mib": 23034,
+    "used_mib": 15184,
+    "free_mib": 7380
+  },
+  "model_services": {
+    "ubot-vllm-1": {
+      "id": "5ca58cb1f1a1a4b1c8e78fc3d8f330e052d60702cb590250f8ec53c6146559ae",
+      "running": true,
+      "image": "sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+      "model": "Qwen/Qwen3-4B-AWQ",
+      "served_alias": "ubot-chat"
+    },
+    "ubot-vllm-embedding-1": {
+      "id": "747196ad2d319ca4c5be3e5e16124ea1a54bf1152ef73b84e925c1cb8a7771a9",
+      "running": true,
+      "image": "sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+      "model": "BAAI/bge-m3",
+      "served_alias": "ubot-embedding"
+    }
+  },
+  "embedding_model": "BAAI/bge-m3",
+  "embedding_port": 8001,
+  "embed_job": "5ac26d460d523204c8df54dfce81bc653383d54608fbe43137cc9412adc151ad",
+  "llm_service": "isolated",
+  "llm_model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "llm_alias": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "llm_port": 18042,
+  "llm_job": "8af42926947b286021589360c0bbac12d0444d9507df9dd79f84dba62fb18b54",
+  "summary": {
+    "cases": 1000,
+    "corpus_faqs": 1034,
+    "corpus_variants": 5170,
+    "fresh_corpus_embeddings": 5170,
+    "fresh_query_embeddings": 1000,
+    "source_faq_top1": 1000,
+    "source_faq_top3": 1000,
+    "threshold_eligible": 1000,
+    "outcomes": {
+      "ANSWERED": 1000
+    },
+    "status_counts": {
+      "ANSWER": 672,
+      "PARTIAL": 320,
+      "ABSTAIN": 8
+    },
+    "by_intent": {
+      "GENERAL": {
+        "ANSWERED": 334
+      },
+      "STORE_DATA": {
+        "ANSWERED": 333
+      },
+      "USER_DATA": {
+        "ANSWERED": 333
+      }
+    },
+    "by_category": {
+      "가입/개통": {
+        "ANSWERED": 36
+      },
+      "가입/번호이동": {
+        "ANSWERED": 21
+      },
+      "결합상품": {
+        "ANSWERED": 39
+      },
+      "고객지원/기타": {
+        "ANSWERED": 25
+      },
+      "단말기": {
+        "ANSWERED": 25
+      },
+      "데이터/속도": {
+        "ANSWERED": 60
+      },
+      "매장/위치": {
+        "ANSWERED": 349
+      },
+      "멤버십/포인트": {
+        "ANSWERED": 47
+      },
+      "보안/개인정보": {
+        "ANSWERED": 17
+      },
+      "부가서비스": {
+        "ANSWERED": 38
+      },
+      "분실/도난": {
+        "ANSWERED": 22
+      },
+      "약정/해지": {
+        "ANSWERED": 51
+      },
+      "요금/청구": {
+        "ANSWERED": 95
+      },
+      "요금제": {
+        "ANSWERED": 54
+      },
+      "유심/eSIM": {
+        "ANSWERED": 25
+      },
+      "통화/문자": {
+        "ANSWERED": 48
+      },
+      "해외 로밍": {
+        "ANSWERED": 48
+      }
+    },
+    "llm_latency_mean_seconds": 2.697350079169001,
+    "llm_latency_p50_seconds": 2.520152438999844,
+    "llm_latency_p95_seconds": 4.3826728606000325,
+    "total_elapsed_seconds": 2701.401854885,
+    "semantic_accuracy_evaluated": false,
+    "notes": [
+      "Baseline embedding + LLM only, no input or output guard",
+      "Production prompt and JSON schema preserved including answer-first schema property order",
+      "In-memory exact cosine search mirrors team SQL, no live PostgreSQL path",
+      "No personal/store API data or store tool available: individualized values cannot be treated as known",
+      "Original FAQ answers are source references, not universal gold answers for missing personal/store data"
+    ]
+  },
+  "existing_container_ids_and_running_states_preserved": true,
+  "existing_services_exact_state_unchanged": true,
+  "own_containers_remaining": []
+}
