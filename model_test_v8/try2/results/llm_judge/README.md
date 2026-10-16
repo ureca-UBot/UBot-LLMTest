@@ -1,7 +1,13 @@
-# try2 최종 답변 내용 평가 — 아직 미실행
+# try2 최종 답변 내용 평가 — 1,000건 완료
 
-현재 게시 자료는 실행 결과와 선정 사례의 FAQ 대조 메모입니다. **새 최종 답변 1,000건에 대한 전수 LLM Judge는 실행하지 않았습니다.** 이 폴더에는 새 판정 JSONL이나 새 정답률이 없습니다.
+기존 팀 Judge와 try1 기준점의 같은 루브릭·실행 조건 부칙으로 저장된 출력 가드 최종 답변을 전수 평가했습니다. **정답 614건·오답 386건·근거 이탈 161건**입니다.
 
-try1의 기존 판정은 [기준점 평가 보고서](../../../try1/results/llm_judge/core1000-accuracy-context-v1_20261016/evaluation_report.md)에 있습니다. 저장된 기준점 본문을 현재 가드에 재검사할 때 참고 분류로만 사용했습니다.
+1. [평가 보고서](core1000-guard-final-accuracy-context-v1_20261016/evaluation_report.md)
+2. [질문·최종 답변·실제 FAQ 1,000건](core1000-guard-final-accuracy-context-v1_20261016/cases/README.md)
+3. [선정 사례 FAQ 대조 의견](core1000-guard-final-accuracy-context-v1_20261016/selected_review.md)
+4. [전체 판정 CSV](core1000-guard-final-accuracy-context-v1_20261016/case_results.csv) · [전후 비교 CSV](core1000-guard-final-accuracy-context-v1_20261016/paired_comparison.csv)
+5. [평가 입력·루브릭](core1000-guard-final-accuracy-context-v1_20261016/inputs/manifest.json) · [실행 검증](core1000-guard-final-accuracy-context-v1_20261016/evaluation_verification.json)
 
-[이번 실행 요약](../all_summary.md) · [정상 오차단·남은 문제](../summary/review_findings.md) · [비교 방법](../summary/baseline_comparison.md).
+Judge 원판정은 `accuracy.jsonl`, 선정 재검토 의견은 `assistant_review.jsonl`입니다. 사람의 확정 정답표나 전수 재검토로 표현하지 않았습니다. 이전 실행 시점의 “평가 전” 기록은 원자료 증거로 보존합니다.
+
+[실행 요약](../all_summary.md) · [가드 없는 try1](../../../try1/results/llm_judge/core1000-accuracy-context-v1_20261016/evaluation_report.md).

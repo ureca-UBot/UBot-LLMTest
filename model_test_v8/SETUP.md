@@ -5,7 +5,7 @@
 | 회차 | 날짜·환경 | 내용 | 결과 |
 |---|---|---|---|
 | try1 | 2026-10-16 · EC2 g6.2xlarge · NVIDIA L4 | 실제 임베딩 → FAQ 검색 → RedHatAI LLM, 가드 미적용 | [전체 요약](try1/results/all_summary.md) |
-| try2 | 2026-10-16 · EC2 g6.2xlarge · NVIDIA L4 | 현재 STS 입력·출력 가드와 실제 임베딩·같은 RedHatAI LLM 적용, 새 내용 Judge 미실행 | [가드 비교 요약](try2/results/all_summary.md) |
+| try2 | 2026-10-16 · EC2 g6.2xlarge · NVIDIA L4 | 현재 STS 입력·출력 가드와 실제 임베딩·같은 RedHatAI LLM 적용, 최종 답변 Judge 1,000건 완료 | [가드 비교 요약](try2/results/all_summary.md) |
 
 이 버전은 완료한 독립 실행의 **결과 보관본**입니다. 기존 공통 실행·평가 엔진의 코드를 변경하거나 복사하지 않았으며, 공통 엔진용 실행 profile로 등록한 버전이 아닙니다. 아래 설정 파일은 당시 값의 증거이며 실행 명령이 아닙니다.
 
@@ -74,4 +74,4 @@ model_test_v8/
 
 ## 8. try2 가드 적용 비교
 
-입력·출력 가드만 추가한 후속 실행입니다. 같은 데이터·프롬프트·모델·schema·온도 0을 사용하고, 입력 준비 후 질문을 새 임베딩했습니다. 리랭커·직접 반환 캐시는 OFF이며 개인·매장 API 자료는 없습니다. 현재 가드 코드와 실행기를 게시하거나 수정한 회차가 아닙니다. [실행 상세](try2/results/report/execution_report.md) · [비교 방법](try2/results/summary/baseline_comparison.md) · [새 내용 평가 미실시](try2/results/llm_judge/README.md).
+입력·출력 가드만 추가한 후속 실행입니다. 같은 데이터·프롬프트·모델·schema·온도 0을 사용하고, 입력 준비 후 질문을 새 임베딩했습니다. 리랭커·직접 반환 캐시는 OFF이며 개인·매장 API 자료는 없습니다. 현재 가드 코드와 실행기를 게시하거나 수정한 회차가 아닙니다. [실행 상세](try2/results/report/execution_report.md) · [비교 방법](try2/results/summary/baseline_comparison.md) · [최종 답변 평가 완료](try2/results/llm_judge/README.md).

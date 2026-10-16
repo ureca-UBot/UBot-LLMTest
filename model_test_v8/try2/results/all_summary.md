@@ -6,9 +6,21 @@
 
 정상 원본 FAQ 질문 1,000개에 **현재 STS 입력 가드 → 실제 BGE-m3 임베딩 → FAQ 검색 → RedHatAI LLM → 현재 STS 출력 가드**를 적용했습니다. 현재 Java 가드·프롬프트·클라이언트를 프로젝트 밖에 복사해 EC2에서 실행했으며 기존 프로젝트·DB·Git·서버 설정은 수정하지 않았습니다.
 
-**새 최종 답변 1,000건의 내용 Judge는 아직 실행하지 않았습니다.** 아래 건수는 가드 처리·실행 결과이며 정답률·방어율이 아닙니다. 정상 질문이라도 잘못된 LLM 답변을 내면 출력 차단이 적절할 수 있어 전체 차단 51건을 모두 오차단으로 세지 않습니다.
+**새 최종 답변 1,000건의 전수 Judge 평가를 완료했습니다. 정답 614건(61.4%)·오답 386건·근거 이탈 161건(16.1%)입니다.** 가드 없는 try1과 같은 평가 기준을 적용했고 최종 차단 안내도 채점했습니다. [상세 평가 보고서](llm_judge/core1000-guard-final-accuracy-context-v1_20261016/evaluation_report.md). 아래 처리 건수는 정답률·공격 방어율과 다릅니다.
 
 ## 1. 전체 결과
+
+| 내용 Judge · 분모 1,000 | try1 가드 없음 | try2 가드 적용 |
+|---|---:|---:|
+| 정답 | 633 (63.3%) | 614 (61.4%) |
+| 오답 | 367 | 386 |
+| 근거 이탈 | 256 (25.6%) | 161 (16.1%) |
+
+동일한 Judge 원판정끼리 비교했습니다. try1 보조 재검토 정답 702건과 이번 원판정을 섞지 않았습니다. 평가 입력이 같은 704건에서도 정확도 판정 24건이 달라져, 전후 차이를 모두 가드 효과로 단정하지 않습니다. [평가 전후 문항별 비교](llm_judge/core1000-guard-final-accuracy-context-v1_20261016/paired_comparison.csv).
+
+모든 문항의 질문·최종 답변·실제 FAQ·판정은 [평가 사례 1,000건](llm_judge/core1000-guard-final-accuracy-context-v1_20261016/cases/README.md)에 있습니다. 정상 안내 삭제와 남은 잘못된 제한은 [선정 사례 대조 의견](llm_judge/core1000-guard-final-accuracy-context-v1_20261016/selected_review.md)으로 구분했습니다.
+
+### 실행·가드 처리 결과
 
 | 항목 · 분모 | 결과 |
 |---|---:|
@@ -33,7 +45,7 @@
 - **근거 있는 조건 삭제:** [CORE-0067](summary/answers/0001-0100.md#core-0067)의 월 1회 요금제 변경 조건 등, 실제 FAQ에 있는 정상 조건이 사라진 사례가 있습니다.
 - **남은 오류:** [CORE-0074](summary/answers/0001-0100.md#core-0074)는 일부 문장을 제거한 뒤에도 근거 없는 청소년 매장 가입 제한이 남았습니다.
 - 별도 경계 사례 4건 중 2건은 기대와 달랐습니다. 정상 고객센터 안내까지 함께 제거하는 기존 문제가 재현됐습니다.
-- 이 선정 사례 검토와 기존 평가 참고 분류를 새 전수 정확도 평가로 표현하지 않았습니다. [상세 검토](summary/review_findings.md).
+- 이 항목은 실행 시점의 선정 사례 메모입니다. 후속 [최종 답변 전수 평가](llm_judge/core1000-guard-final-accuracy-context-v1_20261016/evaluation_report.md)와 구분해서 읽어 주세요. [상세 검토](summary/review_findings.md).
 
 ## 3. try1 기준점과 비교
 
@@ -49,7 +61,7 @@
 
 ## 4. FAQ 분류별 가드 처리
 
-내용 정확도 평가는 미실시입니다. 아래는 처리 경로 건수만 보여 줍니다.
+아래는 처리 경로 건수입니다. 별도의 [FAQ 분류별 내용 판정](llm_judge/core1000-guard-final-accuracy-context-v1_20261016/category_metrics.csv)에서 정답·근거 이탈을 확인할 수 있습니다.
 
 | FAQ 분류 | 질문 | 그대로 통과 | 내용 정리 | 전체 차단 |
 |---|---:|---:|---:|---:|
@@ -81,7 +93,7 @@
 | [기준점 비교](summary/baseline_comparison.md) | 새 실행과 저장된 답변 재검사를 구분 |
 | [전체 답변 CSV](summary/answers.csv) · [기준점 비교 CSV](summary/case_comparison.csv) | 표로 검색·필터링 |
 | [실행 상세](report/execution_report.md) | 재사용 코드·모델·검색·제외 범위·검증 |
-| [새 Judge 상태](llm_judge/README.md) | 평가 미실시 상태 확인 |
+| [최종 답변 Judge 평가](llm_judge/README.md) | 원판정·FAQ 대조 의견·기준점 비교 |
 | [실제 응답](raw/ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_t0_question-retrieval_core1000_guard_20261016/results.jsonl) · [실제 요청](raw/ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_t0_question-retrieval_core1000_guard_20261016/llm_requests.jsonl) | 원자료 |
 | [임베딩 원자료](raw/ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_t0_question-retrieval_core1000_guard_20261016/embedding/README.md) | 벡터 ZIP·질문 매핑·해시 |
 

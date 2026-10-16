@@ -5,9 +5,9 @@
 | 회차 | 조건 | 읽기 시작점 |
 |---|---|---|
 | try1 | 임베딩·LLM 기준점, 가드 없음, 내용 Judge 완료 | [기준점 요약](try1/results/all_summary.md) |
-| try2 | 현재 STS 입력·출력 가드 적용, 새 내용 Judge 미실행 | [가드 비교 요약](try2/results/all_summary.md) · [1,000건 최종 답변](try2/results/summary/answers/README.md) · [오차단 사례](try2/results/summary/review_findings.md) |
+| try2 | 현재 STS 입력·출력 가드 적용, 최종 답변 Judge 1,000건 완료 — 정답 614·근거 이탈 161 | [가드 비교 요약](try2/results/all_summary.md) · [1,000건 최종 답변](try2/results/summary/answers/README.md) · [오차단 사례](try2/results/summary/review_findings.md) |
 
-이번 가드 적용 결과는 try2에 구분해 보관했습니다. 기존 기준점과 평가 원자료는 try1에 그대로 있습니다.
+이번 가드 적용 결과와 [최종 답변 평가](try2/results/llm_judge/core1000-guard-final-accuracy-context-v1_20261016/evaluation_report.md)는 try2에 구분해 보관했습니다. 기존 기준점과 평가 원자료는 try1에 그대로 있습니다.
 
 ## try1 기준점 기록
 

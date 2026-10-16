@@ -1,0 +1,777 @@
+{
+  "batch_id": "core1000-guard-final-accuracy-context-v1_20261016",
+  "primary_metric": "unchanged_team_judge_raw_on_final_answer",
+  "answer_field": "final_answer",
+  "all": {
+    "n": 1000,
+    "accuracy": {
+      "CORRECT": 614,
+      "INCORRECT": 386
+    },
+    "grounded": 839,
+    "ungrounded": 161,
+    "baseline_accuracy": {
+      "CORRECT": 633,
+      "INCORRECT": 367
+    },
+    "baseline_ungrounded": 256,
+    "accuracy_transitions": {
+      "CORRECT->CORRECT": 592,
+      "INCORRECT->INCORRECT": 345,
+      "INCORRECT->CORRECT": 22,
+      "CORRECT->INCORRECT": 41
+    },
+    "grounding_transitions": {
+      "GROUNDED->GROUNDED": 728,
+      "UNGROUNDED->UNGROUNDED": 145,
+      "UNGROUNDED->GROUNDED": 111,
+      "GROUNDED->UNGROUNDED": 16
+    }
+  },
+  "baseline_raw": {
+    "accuracy": {
+      "CORRECT": 633,
+      "INCORRECT": 367
+    },
+    "ungrounded": 256
+  },
+  "by_intent": {
+    "GENERAL": {
+      "n": 334,
+      "accuracy": {
+        "CORRECT": 292,
+        "INCORRECT": 42
+      },
+      "grounded": 312,
+      "ungrounded": 22,
+      "baseline_accuracy": {
+        "CORRECT": 303,
+        "INCORRECT": 31
+      },
+      "baseline_ungrounded": 25,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 289,
+        "INCORRECT->INCORRECT": 28,
+        "INCORRECT->CORRECT": 3,
+        "CORRECT->INCORRECT": 14
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 307,
+        "UNGROUNDED->UNGROUNDED": 20,
+        "UNGROUNDED->GROUNDED": 5,
+        "GROUNDED->UNGROUNDED": 2
+      }
+    },
+    "STORE_DATA": {
+      "n": 333,
+      "accuracy": {
+        "INCORRECT": 252,
+        "CORRECT": 81
+      },
+      "grounded": 226,
+      "ungrounded": 107,
+      "baseline_accuracy": {
+        "INCORRECT": 246,
+        "CORRECT": 87
+      },
+      "baseline_ungrounded": 181,
+      "accuracy_transitions": {
+        "INCORRECT->INCORRECT": 234,
+        "CORRECT->CORRECT": 69,
+        "CORRECT->INCORRECT": 18,
+        "INCORRECT->CORRECT": 12
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 139,
+        "UNGROUNDED->GROUNDED": 87,
+        "UNGROUNDED->UNGROUNDED": 94,
+        "GROUNDED->UNGROUNDED": 13
+      }
+    },
+    "USER_DATA": {
+      "n": 333,
+      "accuracy": {
+        "CORRECT": 241,
+        "INCORRECT": 92
+      },
+      "grounded": 301,
+      "ungrounded": 32,
+      "baseline_accuracy": {
+        "CORRECT": 243,
+        "INCORRECT": 90
+      },
+      "baseline_ungrounded": 50,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 234,
+        "INCORRECT->INCORRECT": 83,
+        "INCORRECT->CORRECT": 7,
+        "CORRECT->INCORRECT": 9
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 282,
+        "UNGROUNDED->GROUNDED": 19,
+        "UNGROUNDED->UNGROUNDED": 31,
+        "GROUNDED->UNGROUNDED": 1
+      }
+    }
+  },
+  "by_category": {
+    "가입/개통": {
+      "n": 36,
+      "accuracy": {
+        "CORRECT": 25,
+        "INCORRECT": 11
+      },
+      "grounded": 35,
+      "ungrounded": 1,
+      "baseline_accuracy": {
+        "CORRECT": 25,
+        "INCORRECT": 11
+      },
+      "baseline_ungrounded": 3,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 25,
+        "INCORRECT->INCORRECT": 11
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 33,
+        "UNGROUNDED->GROUNDED": 2,
+        "UNGROUNDED->UNGROUNDED": 1
+      }
+    },
+    "가입/번호이동": {
+      "n": 21,
+      "accuracy": {
+        "CORRECT": 19,
+        "INCORRECT": 2
+      },
+      "grounded": 19,
+      "ungrounded": 2,
+      "baseline_accuracy": {
+        "CORRECT": 20,
+        "INCORRECT": 1
+      },
+      "baseline_ungrounded": 2,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 19,
+        "INCORRECT->INCORRECT": 1,
+        "CORRECT->INCORRECT": 1
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 19,
+        "UNGROUNDED->UNGROUNDED": 2
+      }
+    },
+    "결합상품": {
+      "n": 39,
+      "accuracy": {
+        "CORRECT": 35,
+        "INCORRECT": 4
+      },
+      "grounded": 36,
+      "ungrounded": 3,
+      "baseline_accuracy": {
+        "CORRECT": 36,
+        "INCORRECT": 3
+      },
+      "baseline_ungrounded": 4,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 35,
+        "INCORRECT->INCORRECT": 3,
+        "CORRECT->INCORRECT": 1
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 35,
+        "UNGROUNDED->UNGROUNDED": 3,
+        "UNGROUNDED->GROUNDED": 1
+      }
+    },
+    "고객지원/기타": {
+      "n": 25,
+      "accuracy": {
+        "CORRECT": 20,
+        "INCORRECT": 5
+      },
+      "grounded": 22,
+      "ungrounded": 3,
+      "baseline_accuracy": {
+        "CORRECT": 22,
+        "INCORRECT": 3
+      },
+      "baseline_ungrounded": 2,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 20,
+        "CORRECT->INCORRECT": 2,
+        "INCORRECT->INCORRECT": 3
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 22,
+        "GROUNDED->UNGROUNDED": 1,
+        "UNGROUNDED->UNGROUNDED": 2
+      }
+    },
+    "단말기": {
+      "n": 25,
+      "accuracy": {
+        "CORRECT": 20,
+        "INCORRECT": 5
+      },
+      "grounded": 24,
+      "ungrounded": 1,
+      "baseline_accuracy": {
+        "CORRECT": 21,
+        "INCORRECT": 4
+      },
+      "baseline_ungrounded": 1,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 20,
+        "CORRECT->INCORRECT": 1,
+        "INCORRECT->INCORRECT": 4
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 24,
+        "UNGROUNDED->UNGROUNDED": 1
+      }
+    },
+    "데이터/속도": {
+      "n": 60,
+      "accuracy": {
+        "CORRECT": 47,
+        "INCORRECT": 13
+      },
+      "grounded": 55,
+      "ungrounded": 5,
+      "baseline_accuracy": {
+        "CORRECT": 50,
+        "INCORRECT": 10
+      },
+      "baseline_ungrounded": 6,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 45,
+        "INCORRECT->INCORRECT": 8,
+        "INCORRECT->CORRECT": 2,
+        "CORRECT->INCORRECT": 5
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 53,
+        "UNGROUNDED->UNGROUNDED": 4,
+        "GROUNDED->UNGROUNDED": 1,
+        "UNGROUNDED->GROUNDED": 2
+      }
+    },
+    "매장/위치": {
+      "n": 349,
+      "accuracy": {
+        "CORRECT": 96,
+        "INCORRECT": 253
+      },
+      "grounded": 241,
+      "ungrounded": 108,
+      "baseline_accuracy": {
+        "CORRECT": 101,
+        "INCORRECT": 248
+      },
+      "baseline_ungrounded": 183,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 83,
+        "INCORRECT->CORRECT": 13,
+        "INCORRECT->INCORRECT": 235,
+        "CORRECT->INCORRECT": 18
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 153,
+        "UNGROUNDED->UNGROUNDED": 95,
+        "UNGROUNDED->GROUNDED": 88,
+        "GROUNDED->UNGROUNDED": 13
+      }
+    },
+    "멤버십/포인트": {
+      "n": 47,
+      "accuracy": {
+        "CORRECT": 35,
+        "INCORRECT": 12
+      },
+      "grounded": 47,
+      "ungrounded": 0,
+      "baseline_accuracy": {
+        "CORRECT": 36,
+        "INCORRECT": 11
+      },
+      "baseline_ungrounded": 4,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 35,
+        "CORRECT->INCORRECT": 1,
+        "INCORRECT->INCORRECT": 11
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 43,
+        "UNGROUNDED->GROUNDED": 4
+      }
+    },
+    "보안/개인정보": {
+      "n": 17,
+      "accuracy": {
+        "CORRECT": 11,
+        "INCORRECT": 6
+      },
+      "grounded": 15,
+      "ungrounded": 2,
+      "baseline_accuracy": {
+        "CORRECT": 11,
+        "INCORRECT": 6
+      },
+      "baseline_ungrounded": 4,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 11,
+        "INCORRECT->INCORRECT": 6
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 13,
+        "UNGROUNDED->UNGROUNDED": 2,
+        "UNGROUNDED->GROUNDED": 2
+      }
+    },
+    "부가서비스": {
+      "n": 38,
+      "accuracy": {
+        "CORRECT": 28,
+        "INCORRECT": 10
+      },
+      "grounded": 37,
+      "ungrounded": 1,
+      "baseline_accuracy": {
+        "CORRECT": 29,
+        "INCORRECT": 9
+      },
+      "baseline_ungrounded": 4,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 28,
+        "INCORRECT->INCORRECT": 9,
+        "CORRECT->INCORRECT": 1
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 34,
+        "UNGROUNDED->GROUNDED": 3,
+        "UNGROUNDED->UNGROUNDED": 1
+      }
+    },
+    "분실/도난": {
+      "n": 22,
+      "accuracy": {
+        "CORRECT": 19,
+        "INCORRECT": 3
+      },
+      "grounded": 21,
+      "ungrounded": 1,
+      "baseline_accuracy": {
+        "CORRECT": 19,
+        "INCORRECT": 3
+      },
+      "baseline_ungrounded": 2,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 18,
+        "INCORRECT->INCORRECT": 2,
+        "INCORRECT->CORRECT": 1,
+        "CORRECT->INCORRECT": 1
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 20,
+        "UNGROUNDED->UNGROUNDED": 1,
+        "UNGROUNDED->GROUNDED": 1
+      }
+    },
+    "약정/해지": {
+      "n": 51,
+      "accuracy": {
+        "CORRECT": 43,
+        "INCORRECT": 8
+      },
+      "grounded": 47,
+      "ungrounded": 4,
+      "baseline_accuracy": {
+        "CORRECT": 44,
+        "INCORRECT": 7
+      },
+      "baseline_ungrounded": 5,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 43,
+        "INCORRECT->INCORRECT": 7,
+        "CORRECT->INCORRECT": 1
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 46,
+        "UNGROUNDED->UNGROUNDED": 4,
+        "UNGROUNDED->GROUNDED": 1
+      }
+    },
+    "요금/청구": {
+      "n": 95,
+      "accuracy": {
+        "CORRECT": 76,
+        "INCORRECT": 19
+      },
+      "grounded": 85,
+      "ungrounded": 10,
+      "baseline_accuracy": {
+        "CORRECT": 76,
+        "INCORRECT": 19
+      },
+      "baseline_ungrounded": 14,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 72,
+        "INCORRECT->INCORRECT": 15,
+        "INCORRECT->CORRECT": 4,
+        "CORRECT->INCORRECT": 4
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 81,
+        "UNGROUNDED->UNGROUNDED": 10,
+        "UNGROUNDED->GROUNDED": 4
+      }
+    },
+    "요금제": {
+      "n": 54,
+      "accuracy": {
+        "CORRECT": 44,
+        "INCORRECT": 10
+      },
+      "grounded": 50,
+      "ungrounded": 4,
+      "baseline_accuracy": {
+        "CORRECT": 44,
+        "INCORRECT": 10
+      },
+      "baseline_ungrounded": 5,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 43,
+        "INCORRECT->INCORRECT": 9,
+        "CORRECT->INCORRECT": 1,
+        "INCORRECT->CORRECT": 1
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 49,
+        "UNGROUNDED->UNGROUNDED": 4,
+        "UNGROUNDED->GROUNDED": 1
+      }
+    },
+    "유심/eSIM": {
+      "n": 25,
+      "accuracy": {
+        "CORRECT": 19,
+        "INCORRECT": 6
+      },
+      "grounded": 20,
+      "ungrounded": 5,
+      "baseline_accuracy": {
+        "CORRECT": 20,
+        "INCORRECT": 5
+      },
+      "baseline_ungrounded": 5,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 19,
+        "INCORRECT->INCORRECT": 5,
+        "CORRECT->INCORRECT": 1
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 20,
+        "UNGROUNDED->UNGROUNDED": 5
+      }
+    },
+    "통화/문자": {
+      "n": 48,
+      "accuracy": {
+        "CORRECT": 36,
+        "INCORRECT": 12
+      },
+      "grounded": 41,
+      "ungrounded": 7,
+      "baseline_accuracy": {
+        "CORRECT": 39,
+        "INCORRECT": 9
+      },
+      "baseline_ungrounded": 6,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 36,
+        "INCORRECT->INCORRECT": 9,
+        "CORRECT->INCORRECT": 3
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 41,
+        "UNGROUNDED->UNGROUNDED": 6,
+        "GROUNDED->UNGROUNDED": 1
+      }
+    },
+    "해외 로밍": {
+      "n": 48,
+      "accuracy": {
+        "CORRECT": 41,
+        "INCORRECT": 7
+      },
+      "grounded": 44,
+      "ungrounded": 4,
+      "baseline_accuracy": {
+        "CORRECT": 40,
+        "INCORRECT": 8
+      },
+      "baseline_ungrounded": 6,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 40,
+        "INCORRECT->INCORRECT": 7,
+        "INCORRECT->CORRECT": 1
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 42,
+        "UNGROUNDED->GROUNDED": 2,
+        "UNGROUNDED->UNGROUNDED": 4
+      }
+    }
+  },
+  "by_guard_outcome": {
+    "ANSWERED": {
+      "n": 711,
+      "accuracy": {
+        "CORRECT": 526,
+        "INCORRECT": 185
+      },
+      "grounded": 593,
+      "ungrounded": 118,
+      "baseline_accuracy": {
+        "CORRECT": 523,
+        "INCORRECT": 188
+      },
+      "baseline_ungrounded": 120,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 512,
+        "INCORRECT->INCORRECT": 174,
+        "INCORRECT->CORRECT": 14,
+        "CORRECT->INCORRECT": 11
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 576,
+        "UNGROUNDED->UNGROUNDED": 103,
+        "UNGROUNDED->GROUNDED": 17,
+        "GROUNDED->UNGROUNDED": 15
+      }
+    },
+    "OUTPUT_FILTERED": {
+      "n": 238,
+      "accuracy": {
+        "CORRECT": 88,
+        "INCORRECT": 150
+      },
+      "grounded": 195,
+      "ungrounded": 43,
+      "baseline_accuracy": {
+        "CORRECT": 104,
+        "INCORRECT": 134
+      },
+      "baseline_ungrounded": 95,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 80,
+        "INCORRECT->INCORRECT": 126,
+        "CORRECT->INCORRECT": 24,
+        "INCORRECT->CORRECT": 8
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 142,
+        "UNGROUNDED->UNGROUNDED": 42,
+        "UNGROUNDED->GROUNDED": 53,
+        "GROUNDED->UNGROUNDED": 1
+      }
+    },
+    "OUTPUT_BLOCKED": {
+      "n": 51,
+      "accuracy": {
+        "INCORRECT": 51
+      },
+      "grounded": 51,
+      "ungrounded": 0,
+      "baseline_accuracy": {
+        "CORRECT": 6,
+        "INCORRECT": 45
+      },
+      "baseline_ungrounded": 41,
+      "accuracy_transitions": {
+        "CORRECT->INCORRECT": 6,
+        "INCORRECT->INCORRECT": 45
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 10,
+        "UNGROUNDED->GROUNDED": 41
+      }
+    }
+  },
+  "paired": {
+    "identical_judge_input": {
+      "n": 704,
+      "accuracy": {
+        "CORRECT": 519,
+        "INCORRECT": 185
+      },
+      "grounded": 586,
+      "ungrounded": 118,
+      "baseline_accuracy": {
+        "CORRECT": 517,
+        "INCORRECT": 187
+      },
+      "baseline_ungrounded": 118,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 506,
+        "INCORRECT->INCORRECT": 174,
+        "INCORRECT->CORRECT": 13,
+        "CORRECT->INCORRECT": 11
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 571,
+        "UNGROUNDED->UNGROUNDED": 103,
+        "UNGROUNDED->GROUNDED": 15,
+        "GROUNDED->UNGROUNDED": 15
+      }
+    },
+    "changed_judge_input": {
+      "n": 296,
+      "accuracy": {
+        "CORRECT": 95,
+        "INCORRECT": 201
+      },
+      "grounded": 253,
+      "ungrounded": 43,
+      "baseline_accuracy": {
+        "CORRECT": 116,
+        "INCORRECT": 180
+      },
+      "baseline_ungrounded": 138,
+      "accuracy_transitions": {
+        "CORRECT->CORRECT": 86,
+        "INCORRECT->INCORRECT": 171,
+        "CORRECT->INCORRECT": 30,
+        "INCORRECT->CORRECT": 9
+      },
+      "grounding_transitions": {
+        "GROUNDED->GROUNDED": 157,
+        "UNGROUNDED->UNGROUNDED": 42,
+        "UNGROUNDED->GROUNDED": 96,
+        "GROUNDED->UNGROUNDED": 1
+      }
+    },
+    "same_context_prefix_cases": 999,
+    "identical_input_accuracy_changes": [
+      "CORE-0026",
+      "CORE-0076",
+      "CORE-0231",
+      "CORE-0259",
+      "CORE-0279",
+      "CORE-0348",
+      "CORE-0464",
+      "CORE-0480",
+      "CORE-0495",
+      "CORE-0508",
+      "CORE-0509",
+      "CORE-0519",
+      "CORE-0592",
+      "CORE-0597",
+      "CORE-0610",
+      "CORE-0659",
+      "CORE-0693",
+      "CORE-0738",
+      "CORE-0829",
+      "CORE-0867",
+      "CORE-0895",
+      "CORE-0903",
+      "CORE-0921",
+      "CORE-0932"
+    ],
+    "identical_input_grounding_changes": [
+      "CORE-0030",
+      "CORE-0087",
+      "CORE-0167",
+      "CORE-0253",
+      "CORE-0259",
+      "CORE-0337",
+      "CORE-0348",
+      "CORE-0373",
+      "CORE-0383",
+      "CORE-0416",
+      "CORE-0425",
+      "CORE-0433",
+      "CORE-0455",
+      "CORE-0460",
+      "CORE-0462",
+      "CORE-0464",
+      "CORE-0495",
+      "CORE-0508",
+      "CORE-0509",
+      "CORE-0512",
+      "CORE-0536",
+      "CORE-0592",
+      "CORE-0615",
+      "CORE-0617",
+      "CORE-0624",
+      "CORE-0634",
+      "CORE-0636",
+      "CORE-0640",
+      "CORE-0714",
+      "CORE-0809"
+    ]
+  },
+  "judgment_flags": 408,
+  "grounding_score": {
+    "5": 832,
+    "1": 47,
+    "3": 100,
+    "4": 7,
+    "2": 14
+  },
+  "minor_issue_cases": 7,
+  "claim_types": {
+    "FABRICATION": 157,
+    "MISATTRIBUTION": 15,
+    "UNSUPPORTED_GENERALIZATION": 10
+  },
+  "selected_review": {
+    "cases": 80,
+    "flagged_rechecked": 69,
+    "flagged_not_rechecked": 339,
+    "by_intent": {
+      "GENERAL": 49,
+      "STORE_DATA": 17,
+      "USER_DATA": 14
+    },
+    "by_guard_outcome": {
+      "ANSWERED": 44,
+      "OUTPUT_FILTERED": 29,
+      "OUTPUT_BLOCKED": 7
+    },
+    "accuracy_disagreements": 13,
+    "grounding_disagreements": 2,
+    "not_full_manual_review": true,
+    "human_gold": false,
+    "review_verdict": {
+      "INCORRECT": 51,
+      "CORRECT": 29
+    },
+    "review_grounding": {
+      "UNGROUNDED": 29,
+      "GROUNDED": 50,
+      "GROUNDED_MINOR": 1
+    }
+  },
+  "execution": {
+    "calls": 1000,
+    "successful_cases": 1000,
+    "retry_calls": 0,
+    "failed_cases": 0,
+    "tool_calls": 0,
+    "elapsed_seconds": 1463.064,
+    "mean_judge_seconds": 11.649748,
+    "transport_fallback_calls": 0
+  },
+  "limits": [
+    "Normal core FAQ questions only, no attack recall measurement.",
+    "No actual user/store API results or service integration.",
+    "AI Judge is not human gold. Selected assistant reviews are separate opinions, not a rescored full cohort.",
+    "Same Judge inputs can receive different labels between calls; paired changes are not all guard effects.",
+    "Seven whitespace preparations and one FAQ third-result change exist in generation.",
+    "Original source questions appear in corpus; top1 self-match is not held-out retrieval accuracy."
+  ]
+}

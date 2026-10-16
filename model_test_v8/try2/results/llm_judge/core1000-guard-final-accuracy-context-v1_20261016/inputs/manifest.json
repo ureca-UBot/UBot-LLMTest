@@ -1,0 +1,47 @@
+{
+  "batch_id": "core1000-guard-final-accuracy-context-v1_20261016",
+  "cases": 1000,
+  "source_run_id": "ec2-linux_redhat-qwen3-4b-instruct-2507-w4a16_t0_question-retrieval_core1000_guard_20261016",
+  "source_raw_sha256": "57e7ce10546d6ec63cdcf1675d6a9c6bd04afe95845c06b6a58592852f460edd",
+  "source_prompt_commit": "797c68eb85d2729ed8526b6022c3a8ad73bd0c22",
+  "source_publication_commit": "94cdb53f900a0a13c1fa2ec24d9914af9712ac14",
+  "source_answer_field": "final_answer",
+  "guard_outcome_labels_sent": false,
+  "base_rubric_version": "v4-judge-12",
+  "rubric_version": "v4-judge-12+core1000-context-v1",
+  "schema_version": "v4-schema-8",
+  "base_rubric_sha256": "5066de6a4019dc7229681272c582afec0b7ae1487c9f5cabab88f99d0a398f64",
+  "cohort_addendum_sha256": "34694317b96749103c5da01b3fe2beafa959a206946ce78067e58bc290f271a7",
+  "effective_rubric_sha256": "d261b9c536977c72a0abf53c68c1d217f80db38520c4c0408186c28471af5005",
+  "schema_sha256": "390638d5d390c379d749552afff3e21622d45301fa886fc3a1e29e717cd568aa",
+  "jobs_sha256": "e4c386227073b017909b47c288f9602665c3b292fc8dcb1e2caf7d7319eb94d2",
+  "engine_hashes": {
+    "scripts/lib/judge/prompts.js": "38c08e7bb70434715ca4682e99427c678c66d454248ce9081025c22c699fccd8",
+    "scripts/lib/judge/schema.js": "1b008e6b5f43716ce19226d697f45d018929d15657bb12e414f991743823cafb",
+    "scripts/lib/judge/providers/index.js": "265a3673da4ce1293bad9a71610e07df11a48572307dc8d18086795520f6dbef",
+    "scripts/lib/judge/providers/codex.js": "6ce58932d1f6b1b607547677bf92df414b451d1e23dd7c49c8dfe7ba836368d4",
+    "scripts/lib/prompt_files.js": "66f6edcea38045a8904b769da8788258bca2c0f02be9d95880dbd4a83f061f6a",
+    "prompts/judge/accuracy.md": "ca82a33612b5db85d17f9df2bab9b381aeadbd92f7538877463ebbcc1846b6b4",
+    "prompts/judge/common_guard.md": "a8fc2f1e0d93a79bdf53b3fdce767d0f1d6bcb3ef5fc2182b11c9742983e4da6"
+  },
+  "judge": {
+    "provider": "codex",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "medium",
+    "concurrency": 8,
+    "timeout_ms": 180000,
+    "attempts_per_case": 2
+  },
+  "classification_only": true,
+  "judge_tools_disabled": true,
+  "source_response_labels_sent": false,
+  "reference_answer_policy": "Original FAQ source text is a non-prescriptive reference; no fixed gold status, no user/store API data.",
+  "authorization_basis": "User explicitly requested evaluation and publication of the completed guarded final responses, following the previously authorized existing-team Codex(OpenAI) Judge method.",
+  "external_transmission_categories": [
+    "question",
+    "actually provided FAQ text",
+    "saved chatbot answer",
+    "source reference answer",
+    "test conditions"
+  ]
+}

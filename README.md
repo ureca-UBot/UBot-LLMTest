@@ -92,7 +92,7 @@ LLM_Test/
 | **v6 try1** (FAQ 가드) | 2026-10-11~12 · EC2 Ollama / Windows 실행기 | FAQ 기반 공격 15항목 × 100 + 정상 100 = 1,600건. BGE-M3 top-1 > 0.75 확인 후 `qwen3:4b-instruct` Q4_K_M 단독 응답 생성 | 1,600응답·호출 오류 0. **안전성 1,500건 판정 완료**: SAFE 1381, UNSAFE 63, OVER 32, NA 24. 정상 대조군 유용성 미실시; G09~G14 추가 검토 필요 | [all_summary](model_test_v6/try1/results/all_summary.md) |
 | **v7 try1** (AI 입력 가드) | 2026-10-13 · EC2 NVIDIA L4 | 같은 질문 1,600개 × Qwen·삼성·IBM·카카오 = 6,400개 native 판정. 질문만 전달, G15 문서 공격은 제외 | 입력 공격 1,400건 중 UNSAFE 376·523·523·578건. NORMAL 오차단 3·11·7·2건. 카카오는 전체 GPU 재측정 반영(평균 0.080초, 판정 변경 0건), 다른 세 모델 유지. 외부 Judge·출력·조합 테스트 없음 | [all_summary](model_test_v7/try1/results/all_summary.md) |
 | **v8 try1** (정상 FAQ 기준점) | 2026-10-16 · EC2 NVIDIA L4 | 코어 원본 질문 1,000개 · 실제 BGE-m3 검색 · 최신 develop 프롬프트 · RedHatAI 4B · 가드 없음 | 생성 1,000·실행 오류 0. 원본 FAQ top1 1,000, 평균 2.697초. **Judge 정답 633/1000·근거 이탈 256/1000**. Codex 재검토 의견 정답 702/1000·근거 이탈 303/1000은 별도. FAQ 표시는 기존 패턴 78건/확장 84건 | [all_summary](model_test_v8/try1/results/all_summary.md) |
-| **v8 try2** (정상 FAQ 가드 적용) | 2026-10-16 · EC2 NVIDIA L4 | 같은 코어 1,000개 · 현재 STS 입력 가드 → 실제 임베딩·RedHatAI → 출력 가드 | 그대로 711·정리 238·전체 차단 51. 정상 오차단·과도 제거 확인. **새 내용 Judge 미실행** | [all_summary](model_test_v8/try2/results/all_summary.md) |
+| **v8 try2** (정상 FAQ 가드 적용) | 2026-10-16 · EC2 NVIDIA L4 | 같은 코어 1,000개 · 현재 STS 입력 가드 → 실제 임베딩·RedHatAI → 출력 가드 | 그대로 711·정리 238·전체 차단 51. **최종 답변 Judge 완료: 정답 614·근거 이탈 161**. 정상 안내 손실·기준점과의 차이 함께 기록 | [all_summary](model_test_v8/try2/results/all_summary.md) |
 
 이번 `test/ai-guard-input` 브랜치의 결과는 `model_test_v7/`와 `data/raw/ai_guard_input_20261013/`에 있습니다. 기존 `test_set5` 질문을 재사용하며 실행·평가 코드는 변경하지 않았습니다. v7은 native 분류 결과 보관용으로 공통 상담 엔진의 실행 profile이 아닙니다. [설정·범위](model_test_v7/SETUP.md) · [방법과 한계](model_test_v7/try1/results/summary/methodology_and_limits.md).
 
@@ -566,3 +566,7 @@ node model_test_v1/scripts/aggregate_rag_stability_round.js small          # 4. 
 - [ ] 의도 판단 라운드(항목 3·4) 9개 모델 실행 및 결과 문서 채우기
 - [ ] 클러스터 라벨링 라운드(항목 9) 9개 모델 실행 및 결과 문서 채우기
 - [ ] Easy/Medium/Hard `사람평가`/`사람 총평` 칸 검토 및 채우기
+
+## FAQ 코어 1,000건 가드 최종 답변 평가 — 2026-10-16
+
+v8 try2의 출력 가드 최종 답변 1,000건을 같은 팀 Judge 기준으로 평가했습니다. 원판정 정답 614건·근거 이탈 161건이며, [평가 보고서](model_test_v8/try2/results/llm_judge/core1000-guard-final-accuracy-context-v1_20261016/evaluation_report.md)에서 가드 없는 기준점과 정상 안내 손실을 함께 볼 수 있습니다. [전체 사례](model_test_v8/try2/results/llm_judge/core1000-guard-final-accuracy-context-v1_20261016/cases/README.md).
