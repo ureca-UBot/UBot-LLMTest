@@ -1,4 +1,15 @@
-# v8 — FAQ 코어 1,000건 임베딩·LLM 기준점
+# v8 — FAQ 코어 1,000건 기준점과 가드 적용 비교
+
+## 회차별로 읽기
+
+| 회차 | 조건 | 읽기 시작점 |
+|---|---|---|
+| try1 | 임베딩·LLM 기준점, 가드 없음, 내용 Judge 완료 | [기준점 요약](try1/results/all_summary.md) |
+| try2 | 현재 STS 입력·출력 가드 적용, 새 내용 Judge 미실행 | [가드 비교 요약](try2/results/all_summary.md) · [1,000건 최종 답변](try2/results/summary/answers/README.md) · [오차단 사례](try2/results/summary/review_findings.md) |
+
+이번 가드 적용 결과는 try2에 구분해 보관했습니다. 기존 기준점과 평가 원자료는 try1에 그대로 있습니다.
+
+## try1 기준점 기록
 
 2026-10-16 EC2에서 **입력·출력 가드 없이** 실제 BGE-m3 임베딩, FAQ 검색, 지정 RedHatAI LLM을 실행한 결과입니다. 조현빈님이 develop에 반영한 프롬프트를 고정해 사용했습니다.
 

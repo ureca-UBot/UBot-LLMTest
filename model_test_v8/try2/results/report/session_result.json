@@ -1,0 +1,56 @@
+{
+  "phase": "test_complete",
+  "input_guard": true,
+  "output_guard": true,
+  "rerank_enabled": false,
+  "faq_cache_enabled": false,
+  "execution_host": "EC2",
+  "guard_host": "EC2",
+  "remote_directory": "/home/ubuntu/llm-bench/faq_core1000_guard_20261016_r1",
+  "gpu": {
+    "name": "NVIDIA L4",
+    "driver_version": "580.178.04",
+    "total_mib": 23034,
+    "used_mib": 15184,
+    "free_mib": 7380
+  },
+  "guard_bridge": {
+    "database_writes": 0,
+    "llm_model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+    "active_words": 38,
+    "guard_host": "EC2",
+    "ready": true
+  },
+  "embed_job": "cd790a326fcf87470b9dac902243093ffcc464ab44ffcddc3dae1023c9c78fd8",
+  "replay_job": "bdf1456b7b6df4b2ab4da39b17bddf1a11b3fb1b534eae471cdb90c570e0e2e7",
+  "llm_model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "llm_alias": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "llm_port": 18042,
+  "llm_job": "88e88d7d352067dc3381af7df9b056235a7d7aa0dc87257fa7c9e1a79c83ffed",
+  "summary": {
+    "cases": 1000,
+    "outcomes": {
+      "ANSWERED": 711,
+      "OUTPUT_FILTERED": 238,
+      "OUTPUT_BLOCKED": 51
+    },
+    "input_guard_changed_questions": 7,
+    "llm_calls": 1000,
+    "output_guard_calls": 1000,
+    "source_faq_top1": 1000,
+    "latency_mean_seconds": 2.7463124823449725,
+    "latency_p95_seconds": 4.4341331423995145,
+    "live_pipeline_elapsed_seconds": 2750.6980013969987,
+    "semantic_accuracy_evaluated": false,
+    "execution_host": "EC2",
+    "guards_host": "EC2",
+    "rerank_enabled": false,
+    "faq_cache_enabled": false,
+    "database_writes": 0,
+    "project_source_changes": 0,
+    "git_commands": 0,
+    "real_user_store_api": false
+  },
+  "existing_services_exact_state_unchanged": true,
+  "own_containers_remaining": []
+}

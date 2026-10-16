@@ -1,0 +1,2076 @@
+{
+  "rows": 1000,
+  "unique_cases": 1000,
+  "outcomes": {
+    "ANSWERED": 711,
+    "OUTPUT_FILTERED": 238,
+    "OUTPUT_BLOCKED": 51
+  },
+  "input_question_changed": 7,
+  "live_llm_requests": 1000,
+  "live_answer_same_as_baseline": 993,
+  "live_answer_different_from_baseline": 7,
+  "baseline_replay_outcomes": {
+    "UNCHANGED": 710,
+    "FILTERED": 239,
+    "BLOCKED": 51
+  },
+  "request_bodies_equal_to_baseline": 992,
+  "request_messages_equal_to_baseline": 992,
+  "request_non_messages_equal_to_baseline": 1000,
+  "truncated": 0,
+  "known_boundary_matches": 2,
+  "known_boundary_total": 4,
+  "baseline_replay_by_saved_previous_verdict": [
+    {
+      "saved_previous_verdict": "CORRECT",
+      "current_guard": "BLOCKED",
+      "cases": 7
+    },
+    {
+      "saved_previous_verdict": "CORRECT",
+      "current_guard": "FILTERED",
+      "cases": 123
+    },
+    {
+      "saved_previous_verdict": "CORRECT",
+      "current_guard": "UNCHANGED",
+      "cases": 572
+    },
+    {
+      "saved_previous_verdict": "INCORRECT",
+      "current_guard": "BLOCKED",
+      "cases": 44
+    },
+    {
+      "saved_previous_verdict": "INCORRECT",
+      "current_guard": "FILTERED",
+      "cases": 116
+    },
+    {
+      "saved_previous_verdict": "INCORRECT",
+      "current_guard": "UNCHANGED",
+      "cases": 138
+    }
+  ],
+  "same_prior_correct_answer_and_context_now_blocked": [
+    "CORE-0168",
+    "CORE-0563",
+    "CORE-0628",
+    "CORE-0643",
+    "CORE-0661",
+    "CORE-0852",
+    "CORE-0977"
+  ],
+  "same_prior_incorrect_answer_and_context_still_unchanged": [
+    "CORE-0015",
+    "CORE-0026",
+    "CORE-0030",
+    "CORE-0052",
+    "CORE-0076",
+    "CORE-0130",
+    "CORE-0139",
+    "CORE-0162",
+    "CORE-0167",
+    "CORE-0187",
+    "CORE-0188",
+    "CORE-0208",
+    "CORE-0225",
+    "CORE-0253",
+    "CORE-0260",
+    "CORE-0267",
+    "CORE-0312",
+    "CORE-0332",
+    "CORE-0334",
+    "CORE-0335",
+    "CORE-0337",
+    "CORE-0344",
+    "CORE-0354",
+    "CORE-0361",
+    "CORE-0367",
+    "CORE-0368",
+    "CORE-0374",
+    "CORE-0375",
+    "CORE-0377",
+    "CORE-0388",
+    "CORE-0391",
+    "CORE-0394",
+    "CORE-0397",
+    "CORE-0399",
+    "CORE-0401",
+    "CORE-0405",
+    "CORE-0408",
+    "CORE-0410",
+    "CORE-0416",
+    "CORE-0420",
+    "CORE-0425",
+    "CORE-0426",
+    "CORE-0431",
+    "CORE-0435",
+    "CORE-0438",
+    "CORE-0443",
+    "CORE-0446",
+    "CORE-0449",
+    "CORE-0453",
+    "CORE-0455",
+    "CORE-0460",
+    "CORE-0461",
+    "CORE-0462",
+    "CORE-0464",
+    "CORE-0465",
+    "CORE-0473",
+    "CORE-0494",
+    "CORE-0496",
+    "CORE-0500",
+    "CORE-0512",
+    "CORE-0513",
+    "CORE-0516",
+    "CORE-0522",
+    "CORE-0526",
+    "CORE-0531",
+    "CORE-0532",
+    "CORE-0536",
+    "CORE-0537",
+    "CORE-0542",
+    "CORE-0543",
+    "CORE-0547",
+    "CORE-0548",
+    "CORE-0556",
+    "CORE-0557",
+    "CORE-0558",
+    "CORE-0560",
+    "CORE-0561",
+    "CORE-0564",
+    "CORE-0566",
+    "CORE-0570",
+    "CORE-0572",
+    "CORE-0573",
+    "CORE-0579",
+    "CORE-0582",
+    "CORE-0586",
+    "CORE-0593",
+    "CORE-0594",
+    "CORE-0599",
+    "CORE-0604",
+    "CORE-0615",
+    "CORE-0617",
+    "CORE-0618",
+    "CORE-0620",
+    "CORE-0623",
+    "CORE-0624",
+    "CORE-0627",
+    "CORE-0631",
+    "CORE-0633",
+    "CORE-0634",
+    "CORE-0636",
+    "CORE-0639",
+    "CORE-0640",
+    "CORE-0646",
+    "CORE-0650",
+    "CORE-0651",
+    "CORE-0652",
+    "CORE-0655",
+    "CORE-0656",
+    "CORE-0657",
+    "CORE-0658",
+    "CORE-0667",
+    "CORE-0672",
+    "CORE-0683",
+    "CORE-0685",
+    "CORE-0695",
+    "CORE-0713",
+    "CORE-0715",
+    "CORE-0718",
+    "CORE-0738",
+    "CORE-0742",
+    "CORE-0755",
+    "CORE-0767",
+    "CORE-0771",
+    "CORE-0789",
+    "CORE-0825",
+    "CORE-0827",
+    "CORE-0829",
+    "CORE-0830",
+    "CORE-0839",
+    "CORE-0841",
+    "CORE-0860",
+    "CORE-0890",
+    "CORE-0895",
+    "CORE-0905",
+    "CORE-0906",
+    "CORE-0922",
+    "CORE-0945",
+    "CORE-0966"
+  ],
+  "previous_verdict_limitation": "Reference labels from the saved Judge plus assistant review, not human gold; no new Judge run and no inferred verdict for changed answers.",
+  "existing_services_unchanged": true,
+  "own_containers_remaining": [],
+  "source_snapshot_checks": [
+    {
+      "path": "src/main/java/com/ubot/UbotBeApplication.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/ApiResponse.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/ErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/GlobalException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/GlobalExceptionHandler.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/OpenApiConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/PageResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/SchedulerConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/controller/AddonServiceController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/controller/AdminAddonServiceController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/entity/AddonService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/exception/AddonServiceErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/exception/AddonServiceException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/repository/AddonServiceRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/service/AddonCatalogService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/service/AdminAddonService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/dto/request/AdminAddonServiceCreateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/dto/request/AdminAddonServiceUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/dto/response/AddonServiceResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/addon/dto/response/AdminAddonServiceResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/config/AiEngine.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/config/AiMode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/config/AiRuntimeConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/config/AiRuntimeProperties.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/dto/AiAnswer.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/dto/AnswerMaterials.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/dto/ContextSection.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/dto/Location.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/dto/StoreMapResult.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/progress/AnswerProgress.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/service/AiOutputGuardService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/service/AiService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/tool/AiTool.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/tool/AiToolRegistry.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/tool/NearbyStoreSearcher.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/tool/StoreSearchRecorder.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ai/tool/StoreTools.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/config/CustomUserDetails.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/config/JwtAccessDeniedHandler.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/config/JwtAuthenticationEntryPoint.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/config/JwtAuthenticationFilter.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/config/SecurityConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/controller/AuthController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/entity/RefreshToken.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/exception/AuthErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/exception/AuthException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/exception/JwtErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/exception/MyJwtException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/repository/RefreshTokenRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/service/AccessTokenRevocationService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/service/AuthService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/service/LoginAttemptService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/service/RefreshTokenService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/util/JwtUtil.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/util/RefreshTokenGenerator.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/dto/request/LoginRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/dto/request/RefreshTokenRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/dto/request/SignupRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/auth/dto/response/LoginResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/billing/controller/BillingController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/billing/entity/BillingRecord.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/billing/enums/PaymentMethod.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/billing/enums/PaymentStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/billing/repository/BillingRecordRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/billing/service/BillingService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/billing/dto/response/BillingRecordResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/controller/AdminBundleProductController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/controller/BundleProductController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/entity/BundleProduct.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/exception/BundleProductErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/exception/BundleProductException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/repository/BundleProductRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/service/AdminBundleProductService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/service/BundleProductService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/dto/request/AdminBundleProductCreateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/dto/request/AdminBundleProductUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/dto/response/AdminBundleProductResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/bundle/dto/response/BundleProductResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/config/GeoIpConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/context/ChatContext.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/context/ChatContextCollector.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/context/GeneralIntentHandler.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/context/IntentHandler.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/context/StoreIntentHandler.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/context/UserIntentHandler.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/controller/ChatController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/entity/AnswerAttemptsHistory.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/entity/QuestionLog.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/exception/ChatErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/exception/ChatException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/repository/AnswerAttemptsHistoryRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/repository/QuestionLogRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/service/ChatAnswerProcessor.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/service/ChatAnswerResult.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/service/ChatAttemptsService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/service/ChatInputGuardService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/service/ChatJobOutcome.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/service/ChatJobProcessor.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/service/ChatPromptInjectionService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/service/ChatService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/service/QuestionLogService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/util/ClientIpResolver.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/util/IpRegionResolver.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/dto/request/ChatRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/dto/request/ChatResearchRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/dto/response/ChatStoreDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/entity/converter/AnswerAttemptErrorCodeConverter.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/dto/ChatJobResult.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/dto/ChatRequestContext.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/entity/ChatJob.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/entity/ChatJobStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/repository/ChatJobQueueRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/repository/ChatJobRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/service/ChatJobCompletionService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/service/ChatJobQueryService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/service/ChatSubmissionService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/stream/ChatJobMessage.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/stream/ChatJobResultStore.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/stream/ChatJobStream.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/stream/PendingChatJob.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/stream/ReceivedChatJob.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/worker/ChatJobWorker.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/worker/ChatWorkerConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/worker/ChatWorkerProperties.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/dto/response/ChatJobStatusResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/chat/job/dto/response/ChatJobSubmissionResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/entity/AdminManagedEntity.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/entity/BusinessEntity.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/enums/MasterStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/exception/CommonErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/repository/ProductSpecification.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/repository/ProductSubscriptionRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/repository/ProductWriteSupport.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/dto/request/ProductStatusUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/common/dto/response/AdminMetadataResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/contract/controller/ContractController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/contract/entity/SubscriptionContract.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/contract/enums/ContractStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/contract/enums/ContractType.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/contract/enums/InstallmentStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/contract/repository/SubscriptionContractRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/contract/service/ContractService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/contract/dto/response/InstallmentResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/contract/dto/response/SubscriptionContractResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/conversation/controller/ConversationController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/conversation/entity/Conversation.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/conversation/enums/ConversationType.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/conversation/exception/ConversationErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/conversation/exception/ConversationException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/conversation/repository/ConversationRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/conversation/service/ConversationService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/conversation/dto/response/ConversationMessageResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/conversation/dto/response/ConversationResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/direction/client/KakaoDirectionsClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/direction/dto/DirectionsMode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/direction/dto/DirectionsResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/direction/exception/DirectionsErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/direction/exception/DirectionsException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/direction/service/DirectionsService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/backfill/EmbeddingBackfillRunConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/backfill/EmbeddingBackfillRunner.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/client/EmbeddingClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/client/EmbeddingVectors.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/client/OllamaEmbeddingClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/client/OpenAiCompatibleEmbeddingClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/config/EmbeddingClientFactory.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/config/EmbeddingConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/exception/EmbeddingErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/exception/EmbeddingException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/repository/EmbeddingProfileRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/service/EmbeddingProfileService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/embedding/service/EmbeddingService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/cache/FaqCacheDecision.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/cache/FaqCacheProperties.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/cache/FaqSemanticCacheService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/controller/AdminFaqController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/entity/Faq.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/entity/FaqCategory.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/entity/FaqLog.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/entity/FaqQuestionVariant.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/entity/OldFaq.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/enums/FaqVectorType.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/enums/Intent.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/exception/FaqErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/exception/FaqException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/repository/FaqCategoryRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/repository/FaqLogRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/repository/FaqQuestionVariantRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/repository/FaqRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/repository/FaqVectorRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/repository/OldFaqRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/DenseFaqCandidates.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/FaqRetrievalConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/FaqRetrievalProperties.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/FaqRetrievalService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/RetrievalOutcome.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/service/FaqCategoryService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/service/FaqEmbeddingBackfillService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/service/FaqLogService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/service/FaqService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/service/FaqSimilarQuestionService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/service/FaqVectorService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/service/OldFaqService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/dto/request/FaqCategoryCreateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/dto/request/FaqCategoryUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/dto/request/FaqCreateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/dto/request/FaqRestoreRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/dto/request/FaqUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/dto/response/FaqCategoryResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/dto/response/FaqLogResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/dto/response/FaqResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/dto/response/FaqSearchResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/dto/response/OldFaqResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/entity/id/OldFaqId.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/rerank/FaqRerankService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/rerank/HttpRerankerClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/rerank/RerankCallGuard.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/rerank/RerankedFaq.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/rerank/RerankerClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/rerank/RerankException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/faq/retrieval/rerank/RerankSkippedException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/controller/AdminForbiddenWordController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/entity/ForbiddenWord.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/enums/ForbiddenWordStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/exception/ForbiddenWordErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/exception/ForbiddenWordException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/repository/ForbiddenWordRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/service/ForbiddenWordChangedEvent.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/service/ForbiddenWordFilterService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/service/ForbiddenWordService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/dto/request/ForbiddenWordCreateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/dto/request/ForbiddenWordStatusUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/dto/request/ForbiddenWordUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/forbiddenword/dto/response/ForbiddenWordResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/global/config/AppRole.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/global/config/WorkerActuatorOnlyFilter.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/guest/controller/AdminGuestChatSettingsController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/guest/entity/GuestChatSettings.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/guest/repository/GuestChatSettingsRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/guest/service/GuestChatSettingsService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/guest/session/GuestConversationService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/guest/session/GuestSessionService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/guest/session/GuestSessionState.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/guest/dto/request/GuestChatSettingsUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/guest/dto/response/GuestChatSettingsResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/client/LlmClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/client/OllamaClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/client/OpenAiCompatibleLlmClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/config/LlmClientFactory.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/config/LlmConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/enums/LlmMessageRole.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/exception/LlmErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/exception/LlmException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/service/LlmService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/dto/request/LlmMessageRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/dto/request/LlmRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/llm/dto/response/LlmResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/location/client/KakaoLocalClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/location/controller/LocationController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/location/dto/LocationSearchResponse.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/location/service/LocationService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/operationmonitoring/PrometheusQueryClient.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/operationmonitoring/ServiceMonitoringRange.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/controller/FaqMonitoringController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/repository/FaqMonitoringDetailQueryRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/repository/FaqMonitoringImprovementQueryRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/repository/FaqMonitoringRankingQueryRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/service/FaqMonitoringService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/UnansweredQuestionSummary.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/response/FaqDetailResponse.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/response/FaqImprovementResponse.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/response/FaqMonitoringResponse.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/detail/CooccurringFaqItem.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/detail/FaqBasicInfo.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/detail/FaqSimilaritySummary.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/detail/FaqTop1Summary.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/detail/FaqTopGapSummary.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/detail/FaqTrendWindow.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/detail/FaqUsageTrend.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/detail/FaqUsageTrendPeriod.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/detail/FaqUsageTrendPoint.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/improvelayer/FaqImprovementItem.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/improvelayer/FaqImprovementMetric.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/improvelayer/FaqImprovementType.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/similaritylayer/FaqSimilarityByIntent.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/similaritylayer/FaqSimilarityItem.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/similaritylayer/FaqSimilarityRanking.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/usagelayer/FaqUsageByIntent.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/usagelayer/FaqUsageItem.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/faqmonitoring/dto/model/usagelayer/FaqUsageRanking.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/operationmonitoring/controller/ServiceOperationMonitoringController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/operationmonitoring/dto/EndpointMonitoringResponse.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/operationmonitoring/dto/MetricPoint.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/operationmonitoring/dto/ServiceMonitoringOverviewResponse.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/operationmonitoring/exception/OperationMonitoringErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/operationmonitoring/exception/OperationMonitoringException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/monitoring/operationmonitoring/service/ServiceOperationMonitoringService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/controller/AdminNoticeController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/controller/NoticeController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/entity/Notice.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/enums/NoticeType.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/exception/NoticeErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/exception/NoticeException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/repository/NoticeRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/repository/NoticeSpecification.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/service/AdminNoticeService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/service/NoticeService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/dto/request/AdminNoticeRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/dto/response/AdminNoticeResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/dto/response/NoticeBannerResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/dto/response/NoticeResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notice/dto/response/NoticeSummaryResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/controller/NotificationController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/entity/Notification.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/enums/NotificationType.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/enums/ReservationReminderStage.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/exception/NotificationErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/exception/NotificationException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/reminder/BillingReminderService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/reminder/NotificationReminderScheduler.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/reminder/ReservationReminderService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/repository/NotificationRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/service/NotificationService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/dto/response/NotificationResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/dto/response/ReadAllResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/notification/dto/response/UnreadCountResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/controller/AdminPlanController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/controller/PlanController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/entity/Plan.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/enums/NetworkType.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/enums/PlanTargetGroup.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/exception/PlanErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/exception/PlanException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/repository/PlanRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/service/AdminPlanService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/service/PlanService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/dto/request/AdminPlanCreateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/dto/request/AdminPlanStatusUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/dto/request/AdminPlanUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/dto/response/AdminPlanResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/dto/response/PlanDetailResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/plan/dto/response/PlanSummaryResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/prompt/exception/PromptErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/prompt/exception/PromptException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/prompt/format/FaqAnswerFormat.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/prompt/service/PromptService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/controller/RankingController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/entity/RegionalTrendRankingPolicy.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/enums/RegionSido.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/repository/RankingQueryRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/repository/RankingRedisRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/repository/RegionalTrendRankingPolicyRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/scheduler/RankingScheduler.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/service/RankingService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/dto/model/PopularRankingItem.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/dto/model/PopularRankingSnapshot.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/dto/model/RankingRedisKey.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/dto/model/RankingSnapshot.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/dto/model/TrendRankingItem.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/dto/model/TrendRankingSnapshot.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/ranking/dto/response/RankingResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/redis/config/RedisConfig.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/controller/AdminReservationController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/controller/ReservationController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/entity/StoreReservation.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/enums/ReservationPurpose.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/enums/ReservationStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/exception/ReservationErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/exception/ReservationException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/repository/StoreReservationRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/service/ReservationService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/dto/request/ReservationCreateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/dto/request/ReservationStatusUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/dto/response/ReservationResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/reservation/dto/response/ReservationSlotResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/retention/scheduler/DataRetentionScheduler.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/controller/AdminRoamingProductController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/controller/RoamingProductController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/entity/RoamingProduct.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/exception/RoamingProductErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/exception/RoamingProductException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/repository/RoamingProductRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/service/AdminRoamingProductService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/service/RoamingCatalogService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/dto/request/AdminRoamingProductCreateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/dto/request/AdminRoamingProductUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/dto/response/AdminRoamingProductResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/roaming/dto/response/RoamingProductResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/controller/AdminStoreController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/controller/StoreController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/dto/MapClusterResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/dto/MapStoreResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/dto/NearbyStoreResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/dto/StoreDetailResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/dto/StoreListResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/entity/ServiceType.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/entity/Store.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/exception/StoreErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/exception/StoreException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/repository/AdminStoreSpecification.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/repository/ServiceTypeJpaRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/repository/StoreJpaRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/repository/StoreRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/service/AdminStoreService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/service/StoreService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/dto/request/AdminStoreCreateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/dto/request/AdminStoreUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/store/dto/response/AdminStoreResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/controller/SubscriptionController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/entity/Subscription.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/entity/SubscriptionAddon.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/entity/SubscriptionBundle.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/entity/SubscriptionRoaming.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/enums/SimStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/enums/SimType.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/enums/SubscriptionAddonStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/enums/SubscriptionBundleStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/enums/SubscriptionRoamingStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/enums/SubscriptionStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/exception/SubscriptionErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/exception/SubscriptionException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/repository/SubscriptionAddonRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/repository/SubscriptionBundleRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/repository/SubscriptionRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/repository/SubscriptionRoamingRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/service/SubscriptionAccessService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/service/SubscriptionService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/dto/response/SubscriptionAddonResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/dto/response/SubscriptionBundleResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/dto/response/SubscriptionResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/subscription/dto/response/SubscriptionRoamingResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/controller/AdminUnansweredGroupController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/entity/UnansweredQuestion.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/entity/UnansweredQuestionGroup.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/enums/UnansweredGroupStatus.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/enums/UnansweredReason.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/exception/UnansweredErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/exception/UnansweredException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/repository/UnansweredQuestionGroupRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/repository/UnansweredQuestionRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/repository/UnansweredQuestionVectorRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/service/UnansweredEmbeddingBackfillService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/service/UnansweredGroupService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/service/UnansweredQuestionService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/dto/request/UnansweredGroupFaqCreateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/dto/request/UnansweredGroupStatusUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/dto/response/UnansweredGroupDetailResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/dto/response/UnansweredGroupResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/unanswered/dto/response/UnansweredQuestionResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/usage/controller/UsageController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/usage/entity/UsageRecord.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/usage/repository/UsageRecordRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/usage/service/UsageService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/usage/dto/response/UsageAllowanceResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/usage/dto/response/UsageRecordResponseDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/user/controller/UserController.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/user/entity/User.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/user/enums/Gender.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/user/enums/UserRole.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/user/exception/UserErrorCode.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/user/exception/UserException.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/user/repository/UserRepository.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/user/service/UserService.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/user/dto/request/UserUpdateRequestDto.java",
+      "matched": true
+    },
+    {
+      "path": "src/main/java/com/ubot/user/dto/response/UserResponseDto.java",
+      "matched": true
+    }
+  ],
+  "prompt_sha256_matching_baseline": {
+    "faq-system.txt": "5ecd1552a24a01b429ed62e63e9f1a73294778b31ae71d9b66c3f35c913d696c",
+    "faq-user.txt": "7c867e9d40b8b853f77ad8a1cfc21f60015c0734a1c248b7f56006148fadab11"
+  },
+  "semantic_accuracy_evaluated": false,
+  "scope": "Fixed FAQ corpus, actual EC2 embeddings and model, current Java guards; no real user/store APIs or application HTTP/DB integration."
+}
