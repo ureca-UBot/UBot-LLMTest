@@ -1,0 +1,18 @@
+[
+ {"id":"CORE-0373","review_verdict":"CORRECT","review_grounding":"GROUNDED","decision":"OVERTURN_ACCURACY","faq_ids":[373,340,374],"reason":"앱 매장 찾기 기능을 사용해 매장 정보에서 주차 여부를 확인하는 조건부 기능 안내다. 사용자가 직접 확인할 수 있는 경로이며 실제 주차 값을 단정하지 않아, 반드시 모른다 문구가 있어야 한다는 Judge 판정을 정정한다."},
+ {"id":"CORE-0374","review_verdict":"INCORRECT","review_grounding":"UNGROUNDED","decision":"KEEP","faq_ids":[374,340,482],"reason":"주차 가능한 근처 매장 목록 없이 직접 골라 안내한다는 문장만 제공했다. 위치와 실제 조회 기능이 없는 상태의 약속으로 핵심 결과와 한계 고지가 모두 없다."},
+ {"id":"CORE-0375","review_verdict":"INCORRECT","review_grounding":"UNGROUNDED","decision":"KEEP","faq_ids":[375,371,360],"reason":"요청 조건을 반복하고 직접 주변 매장을 추천한다고 했지만 실제 위치·조회 결과가 없다. 일반 조건 설명과 실제 추천의 차이를 밝히지 않았다."},
+ {"id":"CORE-0376","review_verdict":"CORRECT","review_grounding":"GROUNDED","decision":"OVERTURN_ACCURACY","faq_ids":[376,340,373],"reason":"앱 매장 찾기와 매장 정보에서 주차 여부를 확인하는 구체적인 대체 경로다. 실제 매장을 조회했다고 하거나 값을 만들지 않아 적절한 직접 확인 안내로 인정한다."},
+ {"id":"CORE-0377","review_verdict":"INCORRECT","review_grounding":"UNGROUNDED","decision":"KEEP","faq_ids":[377,381,385],"reason":"명의 변경 서류는 맞으나 가장 가까운 주차 매장은 알려주지 않았다. 위치·조회 결과 없이 직접 추천하겠다는 약속이 포함된다."},
+ {"id":"CORE-0378","review_verdict":"CORRECT","review_grounding":"UNGROUNDED","decision":"OVERTURN_ACCURACY","faq_ids":[378,340,347],"reason":"주소가 없음을 드러내고 앱에서 주소로 검색해 직접 매장 정보를 확인하는 방법을 안내해 핵심 해결 경로는 적절하다. 동시에 주소를 받으면 자신이 매장을 조회해 주겠다는 약속은 실제 조회 기능 부재 때문에 별도 근거 이탈로 유지한다."},
+ {"id":"CORE-0379","review_verdict":"INCORRECT","review_grounding":"UNGROUNDED","decision":"KEEP","faq_ids":[379,442,445],"reason":"인터넷 결합 상담·주차 조건의 실제 매장 결과나 위치 없이 직접 찾아 정보를 제공하겠다는 문장만 있어 핵심 요청을 충족하지 못한다."},
+ {"id":"CORE-0380","review_verdict":"CORRECT","review_grounding":"UNGROUNDED","decision":"OVERTURN_ACCURACY","faq_ids":[380,372,340],"reason":"매장 정보에서 주차 여부를 직접 확인하는 대체 안내는 FAQ에 있고 사용자의 주차 요구 해결에 해당한다. 다만 앞의 현재 위치 주변 매장을 자신이 찾아주겠다는 약속은 실제 조회 수단이 없어 별도 근거 문제로 유지한다."},
+ {"id":"CORE-0381","review_verdict":"INCORRECT","review_grounding":"UNGROUNDED","decision":"KEEP","faq_ids":[381,377,386],"reason":"명의 변경 준비 서류와 일반 서비스 설명만 있고 구체적 매장은 없다. 실제 주어지지 않은 매장 조회 도구로 확인할 수 있다는 설명도 부가적인 근거 이탈이다."},
+ {"id":"CORE-0382","review_verdict":"INCORRECT","review_grounding":"UNGROUNDED","decision":"KEEP","faq_ids":[382,377,584],"reason":"두 주소가 필요하다는 정보는 맞지만 주소를 받으면 직접 중간 지역 매장을 찾겠다는 약속은 조회 도구가 없는 실행에서 수행할 수 없다."},
+ {"id":"CORE-0383","review_verdict":"CORRECT","review_grounding":"GROUNDED","decision":"OVERTURN_ACCURACY","faq_ids":[383,387,412],"reason":"질문은 토요일 명의 변경 취급 매장의 일반적인 존재 여부이며 특정 위치나 매장 명칭을 묻지 않았다. 제공 FAQ는 해당 취급 매장과 17시 마감·서류 준비를 설명하므로 동일 일반 안내에 특정 매장 조회 불가 고지를 강제한 판정은 과도하다."},
+ {"id":"CORE-0384","review_verdict":"INCORRECT","review_grounding":"UNGROUNDED","decision":"KEEP","faq_ids":[384,381,424],"reason":"명의 변경 방문 준비는 근거에 있다. 그러나 아버지 댁 주소와 매장 결과가 없는데 주변 매장을 직접 찾겠다는 약속만 하고 요청한 매장을 제시하지 못했다."},
+ {"id":"CORE-0387","review_verdict":"CORRECT","review_grounding":"GROUNDED","decision":"OVERTURN_ACCURACY","faq_ids":[387,385,383],"reason":"질문은 저녁까지 명의 변경을 처리하는 매장의 일반적인 존재·시간에 관한 것이다. 20시 운영과 마감 직전 접수 주의는 FAQ에 직접 있어, 질문에 없는 현재 위치 특정까지 의무로 만든 Judge 판정을 정정한다."},
+ {"id":"CORE-0388","review_verdict":"INCORRECT","review_grounding":"UNGROUNDED","decision":"KEEP","faq_ids":[388,377,385],"reason":"두 업무를 함께 처리할 매장이 사용자 근처에 있다는 핵심 결론은 위치·실제 매장 데이터 없이 확정할 수 없다. 서류 안내의 정확성과 분리한다."},
+ {"id":"CORE-0389","review_verdict":"INCORRECT","review_grounding":"GROUNDED","decision":"KEEP","faq_ids":[389,393,570],"reason":"미성년자 가입 서류와 동행 조건은 맞지만 구체적 가까운 매장이나 직접 확인 경로 없이 서비스 존재만 설명했다. 조회 완료나 구체적인 매장 창작으로 확대하지 않는다."},
+ {"id":"CORE-0390","review_verdict":"INCORRECT","review_grounding":"UNGROUNDED","decision":"KEEP","faq_ids":[390,74,929],"reason":"학교 주소를 받으면 직접 주변 매장을 찾아주겠다는 조건부 약속은 실제 매장 조회 도구가 없는 실행에서 이행할 수 없다. 법정대리인 동행 조건 자체는 근거에 맞다."}
+]

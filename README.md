@@ -78,7 +78,7 @@ LLM_Test/
 
 이번 `test/faq-guard` 브랜치의 추가 자료는 `model_test_v6/`(설정·SETUP·try1 결과), `data/eval_sets/test_set5/`(1,600문항·준비 매니페스트), `data/raw/guard1600/`(결과 엑셀)입니다. FAQ 1,000건과 기존 실행·평가 코드는 재사용했습니다. [v6 전체 요약](model_test_v6/try1/results/all_summary.md) · [안전성 평가 설명](model_test_v6/try1/results/summary/safety_evaluation.md). 응답 생성과 공격 1,500건의 안전성 Judge를 완료했습니다. SAFE 1381 / UNSAFE 63 / OVER 32 / NA 24. 정상 대조군 정확도·유용성은 미실시이며 기존 루브릭 범위의 판정입니다.
 
-이번 `test/ai-guard-input` 브랜치의 새 기준점은 `model_test_v8/`입니다. **정상 FAQ 코어 1,000개를 가드 없이 실제 임베딩·검색·RedHatAI LLM으로 실행**했고 develop 프롬프트를 고정했습니다. 내용 정확도·환각 평가는 아직 하지 않았습니다. [v8 입구](model_test_v8/README.md) · [전체 실행 요약](model_test_v8/try1/results/all_summary.md).
+이번 `test/ai-guard-input` 브랜치의 새 기준점은 `model_test_v8/`입니다. **정상 FAQ 코어 1,000개를 가드 없이 실제 임베딩·검색·RedHatAI LLM으로 실행**했고 develop 프롬프트를 고정했습니다. 내용 Judge 1,000건 완료: 원판정 정답 633건·근거 이탈 256건, Codex 근거 재검토 의견은 별도 보관합니다. [내용 평가 보고서](model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/evaluation_report.md) · [v8 입구](model_test_v8/README.md) · [전체 실행 요약](model_test_v8/try1/results/all_summary.md).
 
 ## 3. 테스트 이력 — 무엇을 테스트했고 결과는 어땠나
 
@@ -91,7 +91,7 @@ LLM_Test/
 | **v4 try1** (test4) | 2026-10-05~06 · EC2 Tesla T4(생성) · Judge 로컬 | **저급 모델 튜닝 전 기준선.** 데이터셋을 `test_set4` **14개 항목 × 200 = 2,800건**(의도 균등 FAQ 1,000건 기반, PS·RT 추가)으로 바꾸고 `gemma3:4b` · `qwen3:4b` 추론 OFF를 temperature 0 · Context 고정으로 측정 · 공통 엔진 `scripts/` · LLM Judge 전수(Codex `gpt-6-sol`, 답변 문장만 판정) | 정답률 `gemma3:4b` 65.1% · `qwen3:4b` OFF 63.0%로 비슷하지만 정답+근거+상태는 44.4% · 31.3%(qwen3가 status를 낮추고 근거를 비움). 환각률 24.1% · 22.0%, 약한 항목은 둘 다 PI·CE·UI·CF·AR. **gemma3:4b를 우선 튜닝 후보로 판단**(P95 3.3s). v3와는 데이터·정확도 정의가 달라 직접 비교하지 않음 | [all_summary](model_test_v4/try1/results/all_summary.md) |
 | **v6 try1** (FAQ 가드) | 2026-10-11~12 · EC2 Ollama / Windows 실행기 | FAQ 기반 공격 15항목 × 100 + 정상 100 = 1,600건. BGE-M3 top-1 > 0.75 확인 후 `qwen3:4b-instruct` Q4_K_M 단독 응답 생성 | 1,600응답·호출 오류 0. **안전성 1,500건 판정 완료**: SAFE 1381, UNSAFE 63, OVER 32, NA 24. 정상 대조군 유용성 미실시; G09~G14 추가 검토 필요 | [all_summary](model_test_v6/try1/results/all_summary.md) |
 | **v7 try1** (AI 입력 가드) | 2026-10-13 · EC2 NVIDIA L4 | 같은 질문 1,600개 × Qwen·삼성·IBM·카카오 = 6,400개 native 판정. 질문만 전달, G15 문서 공격은 제외 | 입력 공격 1,400건 중 UNSAFE 376·523·523·578건. NORMAL 오차단 3·11·7·2건. 카카오는 전체 GPU 재측정 반영(평균 0.080초, 판정 변경 0건), 다른 세 모델 유지. 외부 Judge·출력·조합 테스트 없음 | [all_summary](model_test_v7/try1/results/all_summary.md) |
-| **v8 try1** (정상 FAQ 기준점) | 2026-10-16 · EC2 NVIDIA L4 | 코어 원본 질문 1,000개 · 실제 BGE-m3 검색 · 최신 develop 프롬프트 · RedHatAI 4B · 가드 없음 | 생성 1,000·실행 오류 0. 원본 FAQ top1 1,000, 평균 2.697초. **내용 평가 전**, FAQ 표시 78건은 형식 관찰 | [all_summary](model_test_v8/try1/results/all_summary.md) |
+| **v8 try1** (정상 FAQ 기준점) | 2026-10-16 · EC2 NVIDIA L4 | 코어 원본 질문 1,000개 · 실제 BGE-m3 검색 · 최신 develop 프롬프트 · RedHatAI 4B · 가드 없음 | 생성 1,000·실행 오류 0. 원본 FAQ top1 1,000, 평균 2.697초. **Judge 정답 633/1000·근거 이탈 256/1000**. Codex 재검토 의견 정답 702/1000·근거 이탈 303/1000은 별도. FAQ 표시는 기존 패턴 78건/확장 84건 | [all_summary](model_test_v8/try1/results/all_summary.md) |
 
 이번 `test/ai-guard-input` 브랜치의 결과는 `model_test_v7/`와 `data/raw/ai_guard_input_20261013/`에 있습니다. 기존 `test_set5` 질문을 재사용하며 실행·평가 코드는 변경하지 않았습니다. v7은 native 분류 결과 보관용으로 공통 상담 엔진의 실행 profile이 아닙니다. [설정·범위](model_test_v7/SETUP.md) · [방법과 한계](model_test_v7/try1/results/summary/methodology_and_limits.md).
 

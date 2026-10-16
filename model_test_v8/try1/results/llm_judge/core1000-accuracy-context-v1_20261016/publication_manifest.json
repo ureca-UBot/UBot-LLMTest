@@ -1,0 +1,302 @@
+{
+  "repository": "ureca-UBot/UBot-LLMTest",
+  "branch": "test/ai-guard-input",
+  "parent_commit": "6dbabc43ef948df70c2e4b5a2329f4153d584d70",
+  "type": "saved-answer-evaluation-only",
+  "baseline_evidence_files_verified_unchanged": 38,
+  "baseline_manifest_scope": "The original artifact_manifest.json describes baseline commit 6dbabc4. Original readable documents also retained under this evaluation inputs/baseline_navigation_at_6dbabc4/.",
+  "primary_metric": "Original team Judge; 633 correct, 367 incorrect, 256 ungrounded",
+  "secondary_metric": "Assistant evidence review opinion; 702 correct, 298 incorrect, 303 ungrounded; not human gold",
+  "artifact_hashes": {
+    "README.md": {
+      "bytes": 59056,
+      "sha256": "36163c6380c2e5a383f5f942cfe45c04693105625e16c0e5f5c3e8f3e8253dc4"
+    },
+    "model_test_v8/README.md": {
+      "bytes": 1470,
+      "sha256": "c3d357e90d31fdfd1ae2f021ddfe584e322e097ecd5ce817b0a4d93832092664"
+    },
+    "model_test_v8/SETUP.md": {
+      "bytes": 5531,
+      "sha256": "33bf1cb812187d2d5c43c65e4e8fa7bf8b7e29c716f0fee774b8ff5e490aff04"
+    },
+    "model_test_v8/try1/results/all_summary.md": {
+      "bytes": 7720,
+      "sha256": "d10d6b8c5846e4acfc7c5cc35c961785abb00d77dfc826b928b3248543c270c3"
+    },
+    "model_test_v8/try1/results/llm_judge/README.md": {
+      "bytes": 1219,
+      "sha256": "8c0c5bdee6218c7af9b76a3200cecbda144762196ba7c4669ae34df3a3d22d53"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/README.md": {
+      "bytes": 1931,
+      "sha256": "7fcc6f3d20d9f302923521192cb4b57617d5e4506249262ac91fae7c262b3f8f"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/accuracy.jsonl": {
+      "bytes": 1664805,
+      "sha256": "c5f741e50369ca416e13c34597f7b7cad1d34eb7e82f1079f5b502ea7eed1bd9"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/artifact_manifest.json": {
+      "bytes": 9956,
+      "sha256": "692bab9daa0280cb40edd0d05ca35103b7c6a47ec4334258c1fda31c00e5d66b"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/assistant_review.jsonl": {
+      "bytes": 321477,
+      "sha256": "1c6db85ffdd08f3b52ab9097b5960755f1225b39e92d1843ccc03e330a6e9fd3"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/case_results.csv": {
+      "bytes": 1004776,
+      "sha256": "98ad8ae598b494a044bb34daa633ce7032a575f0e3c2f88c2fec3549de8913df"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/category_metrics.csv": {
+      "bytes": 687,
+      "sha256": "8c12a5a1c2f197b2cc63343545ecc0f984622bb719c7ec4b547326b6e5191339"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/evaluation_report.md": {
+      "bytes": 11235,
+      "sha256": "4e3d6ea26231de6eb090d921b9f516a8d0c74efec586e97471711448a902bb8a"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/evaluation_verification.json": {
+      "bytes": 872,
+      "sha256": "a62e10407eb298a32b15968c2b0c6b5c9a594d73101681451106e65ea6bcda03"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/format_findings.csv": {
+      "bytes": 35195,
+      "sha256": "6844b47bf177c4ea6fefc0e147c7d8ce855f5230a68851e3d57c59fd36302b8c"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/format_observations.json": {
+      "bytes": 748,
+      "sha256": "a7f0846be366ca72c92a1e7a0dcedaa1bc7fb636db509857654a4ad9e16b1a03"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/accuracy.schema.json": {
+      "bytes": 3525,
+      "sha256": "f079679fe0c2b5a505d00f8fb87b8a2475bd4198f14e01ff09b78cdbcf31e3f4"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/accuracy_jobs.jsonl": {
+      "bytes": 2404563,
+      "sha256": "1c4356acc83d1d318f24b16fc041c5ee5bfb9eea79266a864066a24da9499963"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/accuracy_system_prompt.txt": {
+      "bytes": 13245,
+      "sha256": "fc2f7222d94e7a49d45ebf0206b3a12420cfdf46354fbb0db4a41382658de77d"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/base_accuracy_rubric.txt": {
+      "bytes": 9366,
+      "sha256": "a116279a4b3c65f4cc1757475d45525220e3ab3024b7083b12e10f3be1ac8908"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/baseline_navigation_at_6dbabc4/README.md": {
+      "bytes": 1059,
+      "sha256": "7d2688e4074cfa418ac2bc64327ef11c24a1384055fd0be9ee34825bdaf0d9c0"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/baseline_navigation_at_6dbabc4/SETUP.md": {
+      "bytes": 5217,
+      "sha256": "a1c85d57b7eb709fa283cabbaf70814e0ccec9d262eda1856221f0d656b1f0ba"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/baseline_navigation_at_6dbabc4/try1/results/all_summary.md": {
+      "bytes": 5759,
+      "sha256": "82e56b9aa4a28b3050798c51ff2e0f59371b573360183ef2be222c66080106a5"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/baseline_navigation_at_6dbabc4/try1/results/llm_judge/README.md": {
+      "bytes": 639,
+      "sha256": "63956474a085944e9aa0f9637b002a0755bcd39ca5c0156ce8f592986215ccb1"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/baseline_navigation_at_6dbabc4/try1/results/summary/evaluation_criteria.md": {
+      "bytes": 2364,
+      "sha256": "80e98825d1edbecd27c4bf8a01f1965e6c0e917e734cd6575873dac38549c7f5"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/cohort_addendum.txt": {
+      "bytes": 3878,
+      "sha256": "f81fee15ef0f1405a6862a04fa76affda8c69827afaea969e89b62c6c8570c20"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/inputs/manifest.json": {
+      "bytes": 2545,
+      "sha256": "938b7792b266d917723debd36af02a86b771570b615212ad3e159ea643196a5f"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/intent_metrics.csv": {
+      "bytes": 211,
+      "sha256": "612cbb6465730135838343366a70822c92de8d05bd68f8e5dca38c3178652466"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/metrics.json": {
+      "bytes": 19985,
+      "sha256": "2943809edf1a03c11c76b8fef388e717706dc8cb9c12498ff0b6ad7909aa8a9e"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/progress.json": {
+      "bytes": 384,
+      "sha256": "a626d5eb8514b3b708c08e5a946be23f352f205bed6104c12a3ae5d4c52ee452"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/README.md": {
+      "bytes": 1119,
+      "sha256": "86d3bc69e69f72246a8d817ff4a6d9a35c20f35460060fbf87d68277e47abb33"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/part-01.md": {
+      "bytes": 77359,
+      "sha256": "d182d8976e18d4de917d6c19dd4f0b58d85ea48ce5e249c5a450c936befd978c"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/part-02.md": {
+      "bytes": 82321,
+      "sha256": "e7de95a2b86a8fa5df51dc66cf9e54f0f048582a00abb1caf14ad9dcfd46a3c5"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/part-03.md": {
+      "bytes": 88847,
+      "sha256": "8c2648259b92028f7fffe0eff13d7dd608bc7387460e147b9a6a93b728781430"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/part-04.md": {
+      "bytes": 84825,
+      "sha256": "f349c01bd219dd34fa0e5938628495c9f53167f2fe7567df91e0eda188db14f9"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/part-05.md": {
+      "bytes": 81903,
+      "sha256": "b1e0de1e84ee214cf63959567e2665e25b70591a167f445b8be9f4de273b7f42"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/part-06.md": {
+      "bytes": 84173,
+      "sha256": "c563f77a7cfff3434bf875f83709d9157733dc16bf34dfe6a998cc7995df2c20"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/part-07.md": {
+      "bytes": 78621,
+      "sha256": "c6eb6d2c1b38327817fdd3c0fa72b3b85132d2956e24280d397ed7d9223c098f"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/part-08.md": {
+      "bytes": 79010,
+      "sha256": "37244643f761740faa8ba0bd424d2382367a7def4b32f2f0850bea14b2a57c6e"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/part-09.md": {
+      "bytes": 79236,
+      "sha256": "74fb716e0fb8aa2406a539e7e7a4ef1fa5bd2bee7947f1c7e22e27598421d33c"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/part-10.md": {
+      "bytes": 76407,
+      "sha256": "7a4d769f5dd16e15ac824c55f4fb026918738b8f3bd732f8202063309dd0e321"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_changes.csv": {
+      "bytes": 149011,
+      "sha256": "b027d234d56878cf13a137b1b739ee6006da670c47eeb5f5139add37cc783073"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch02_reviews.json": {
+      "bytes": 3791,
+      "sha256": "2841962cb009bc61932a291e5c22bc3f45703b31c8a1032adf2fc3200a0c5b24"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch03_reviews.json": {
+      "bytes": 2955,
+      "sha256": "11d5cb26d55dbfa95c37ba12aa0f0ed4c08531aa234673a4956b24a4935f43dc"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch04_reviews.json": {
+      "bytes": 2272,
+      "sha256": "eb85aa549ec0e5ecf1080c944c163e36d3398a65ad2314d2e8fbf8e568a21842"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch05_reviews.json": {
+      "bytes": 1275,
+      "sha256": "aec0f9d7006bf788917c2ad83a625d73485c2454320037a6645e3d58c79586bf"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch06_reviews.json": {
+      "bytes": 5131,
+      "sha256": "1d208715a409c73ab793ca5c0ccf1d7bb79155a9487c9ceeca6ff7c62e4718d9"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch07_reviews.json": {
+      "bytes": 5348,
+      "sha256": "fc1cdde58996743d0e192a4cddecf1963d80b548c447f7b5ce9262c81e0f4663"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch08_reviews.json": {
+      "bytes": 5924,
+      "sha256": "7483d6d3bca1fa75b83120fdc7c0c05de6ad76d831d0dab89e3d437f1b6644ca"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch09_reviews.json": {
+      "bytes": 7195,
+      "sha256": "8b93a85f485f20f46249adbd7f78602186f19054f968768115e933f9e831550e"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch10_reviews.json": {
+      "bytes": 10971,
+      "sha256": "2e923dbcb53c25797e6939db851d6818f4f45d2b7f506506d4eb714063323ac2"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch11_reviews.json": {
+      "bytes": 9345,
+      "sha256": "d8d4cd09094f985f1e889421d4d2505d3c1756aebb33bcf26441cdf329f4aa91"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch12_reviews.json": {
+      "bytes": 9386,
+      "sha256": "3e78aaff720cd28ef45d9d5165472c595de8d93cde9976816189869c12252384"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch13_reviews.json": {
+      "bytes": 10002,
+      "sha256": "8c630487c153f02abdaf58b25e1196620ad4f6fa5a19f1df768e0f1a24273529"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch14_reviews.json": {
+      "bytes": 9758,
+      "sha256": "d27563e337bf1a89f2f6f59c7ae44c963d3936b27270066d453afe6844d39c79"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch15_reviews.json": {
+      "bytes": 10347,
+      "sha256": "617727065913ac4640c4e9dcd74d79d42b1b42a6a9ade1519b8671905d87dd6d"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch16_reviews.json": {
+      "bytes": 10388,
+      "sha256": "90cd14d9f085735fd39131b4f9015724d3266e324f3ba7e378e0cbad78fe1dce"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch17_reviews.json": {
+      "bytes": 9249,
+      "sha256": "90d28c6825238da6a57421789f742b71b007dec9d9584a8dcee4cc7e3cd3388f"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch18_reviews.json": {
+      "bytes": 9616,
+      "sha256": "da10c14397898157f669685cb5fe0a358aa25a2d57c06ef0090dbe58505b8f0c"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch19_reviews.json": {
+      "bytes": 9589,
+      "sha256": "6e36ea540a7da1433199057218d3f20d86ab8b98ce20ce2e78255ffed800eed7"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch20_reviews.json": {
+      "bytes": 10215,
+      "sha256": "966b4ddbbe34a6654da0b833cd0033ee3b7d6e3c943b7b470077c18dd593c83f"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch21_reviews.json": {
+      "bytes": 9754,
+      "sha256": "7e6dd4347ca1582a0f0f28231817a4a9384f5c9e2412099cc247f5c103b75ab7"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch22_reviews.json": {
+      "bytes": 10310,
+      "sha256": "ddb879f172cc157256b22ff2b3dd4bfc4041454f6f6e0fe00ed070eb82e4dabd"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch23_reviews.json": {
+      "bytes": 10414,
+      "sha256": "7a719dfb4f7f9ad70ca53e82d310cee997cd176b17ce1d10da30a09e7812ddab"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/batch24_reviews.json": {
+      "bytes": 7618,
+      "sha256": "d0c1cb5e8bb3012bff2e036c092b989c74dc881ad45e12898ce1c1da47702f12"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/control_abstain_reviews.json": {
+      "bytes": 4093,
+      "sha256": "d89d0f99325323e1718ca8738da5b9b8a3929d91904a6e821ffc5f50336b782d"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review_source/initial_reviews.json": {
+      "bytes": 3223,
+      "sha256": "9fa5b61ee6b10dbdb6e8ac6ccb4c8820e74c1c7f156324d4e21403c5aa9bfc59"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/runs/accuracy.instructions.txt": {
+      "bytes": 13593,
+      "sha256": "15af332df9969379e131312478501ff6e235c4b672f595212907f68568a1e156"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/runs/accuracy.schema.json": {
+      "bytes": 3525,
+      "sha256": "f079679fe0c2b5a505d00f8fb87b8a2475bd4198f14e01ff09b78cdbcf31e3f4"
+    },
+    "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/runs/calls/accuracy.calls.jsonl": {
+      "bytes": 1786148,
+      "sha256": "92358bb4af0a58db9a1f6e1a029acffe42eecae36448443fead652016ca54740"
+    },
+    "model_test_v8/try1/results/summary/evaluation_criteria.md": {
+      "bytes": 2710,
+      "sha256": "7b6d1dffb9d2240da9d1c589ab648c0c4e8a1e5dc6bbc223bcbefa0d218fa047"
+    },
+    "result.html": {
+      "bytes": 424804,
+      "sha256": "7df8eb52451fbec00c1985f6e918b4de6af8190b1ac5cb5e6fc2b7c5fa703f39"
+    }
+  },
+  "self_excluded": "model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/publication_manifest.json",
+  "application_code_changed": false,
+  "shared_evaluator_code_changed": false,
+  "database_changed": false,
+  "server_configuration_changed": false,
+  "pr_created": false
+}

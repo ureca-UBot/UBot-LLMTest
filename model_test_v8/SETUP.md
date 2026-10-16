@@ -19,7 +19,7 @@
 | 프롬프트 출처 | UBot-BE develop `797c68eb85d2729ed8526b6022c3a8ad73bd0c22` |
 | 출처 변경 | FAQ 답변 프롬프트 튜닝 7차(v5_i4b), PR #213 |
 | 가드 | 입력·출력 모두 미실행 |
-| 평가 | 본문 정확도·환각 Judge 미실시, 실행 검증과 형식 관찰만 완료 |
+| 평가 | 후속 내용 Judge 1,000건 완료. 원판정과 Codex 근거 재검토 의견을 분리해 보관 |
 
 ## 3. 모델과 검색 설정
 
@@ -36,7 +36,7 @@
 
 17개 FAQ 분류의 정상 원문 질문 1,000개입니다. 분류 수를 인위적으로 균등화하지 않았습니다. GENERAL 334개, STORE_DATA 333개, USER_DATA 333개라는 seed intent는 API 호출 성공이나 실제 조회 데이터 제공을 뜻하지 않습니다.
 
-내용 정확성, 근거 없는 추가, 질문 충족·누락, 정보 부족 대응을 실제 제공 FAQ와 비교할 예정입니다. status·evidence_ids와 형식 위반은 분리합니다. [상세 평가 기준](try1/results/summary/evaluation_criteria.md).
+내용 정확성, 근거 없는 추가, 질문 충족·누락, 정보 부족 대응을 실제 제공 FAQ와 비교했습니다. [평가 결과](try1/results/llm_judge/core1000-accuracy-context-v1_20261016/evaluation_report.md). status·evidence_ids와 형식 위반은 분리합니다. [상세 평가 기준](try1/results/summary/evaluation_criteria.md).
 
 ## 5. 실제 실행 순서와 보관 범위
 
@@ -45,7 +45,8 @@
 3. 제공 FAQ를 top-k·임계값 조건으로 구성.
 4. 별도 임시 vLLM에 지정 RedHatAI 모델을 실행하고, 고정 프롬프트·스키마로 1,000번 요청.
 5. 응답·요청·벡터·시간을 보관하고 기존 서비스 상태 및 임시 컨테이너 제거 확인.
-6. 완료한 자료만 로컬에 수집·검증해 게시. 내용 Judge와 가드 비교는 아직 수행하지 않음.
+6. 완료한 실행 자료를 로컬에 수집·검증해 최초 게시.
+7. 저장된 답변 1,000건에 기존 팀 Judge를 적용하고, 실행 조건 부칙과 원판정·Codex 근거 재검토 의견을 별도 보관. 가드 비교는 아직 미실행.
 
 프로젝트 소스, 기존 실행·평가 스크립트, 가드, DB, 서버 설정을 게시하거나 수정한 회차가 아닙니다. 기존 서비스의 컨테이너 ID·실행 여부·시작 시각은 전후 동일했습니다. 재실행으로 기존 원자료를 덮어쓰면 안 됩니다.
 
@@ -62,7 +63,8 @@ model_test_v8/
       results.jsonl               # 실제 응답 원본
       llm_requests.jsonl          # 실제 요청 원본
       embedding/                  # 새 벡터 ZIP·메타데이터
-    llm_judge/README.md            # 평가 전 상태와 후속 저장 원칙
+    llm_judge/README.md            # 평가 입구
+    llm_judge/core1000-accuracy-context-v1_20261016/ # 원판정·재검토·보고서·해시
 ```
 
 ## 7. 알려진 한계

@@ -1,0 +1,18 @@
+{
+  "source_sha256": "64ccf880b3308426f016928b1725bdcd8b44d464147ac3fa2628db1fcb2a609d",
+  "cases": 1000,
+  "legacy_bracket_pattern_cases": 78,
+  "broader_explicit_faq_number_cases": 84,
+  "newly_detected_cases": [
+    "CORE-0114",
+    "CORE-0628",
+    "CORE-0730",
+    "CORE-0899",
+    "CORE-0901",
+    "CORE-0982"
+  ],
+  "semantic_accuracy_inferred": false,
+  "note": "The earlier 78 count used only [FAQ ID: 123]-like markers. This separate observation also catches FAQ [123], FAQ 123 etc. Original published results are not rewritten.",
+  "legacy_regex": "\\[\\s*FAQ\\s*(?:ID)?\\s*[:：#]?\\s*\\d+",
+  "broader_regex": "(?:\\[\\s*FAQ\\s*(?:ID)?\\s*[:：#]?\\s*\\d+|\\bFAQ\\s*(?:ID|번호)?\\s*[:：#]?\\s*[\\[（(]?\\s*\\d+)"
+}
