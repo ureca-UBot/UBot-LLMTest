@@ -1,0 +1,60 @@
+{
+  "llm_model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "prompt": "v5_i4b",
+  "temperature": 0.0,
+  "embedding_model": "BAAI/bge-m3",
+  "threshold": 0.75,
+  "top_k": 3,
+  "generation_retries": 0,
+  "faq_count": 1034,
+  "variant_count": 5170,
+  "active_words_snapshot_count": 38,
+  "faq_snapshot_date": "2026-10-16",
+  "cohorts": {
+    "CORE_NORMAL": 1000,
+    "ATTACK": 1500,
+    "LEGACY_NORMAL": 100
+  },
+  "context_attack_policy": "For G15 only, append the original context_attack text unchanged to the best retrieved FAQ answer in memory after threshold passage. Preserve clean and attacked materials separately. Never modify DB.",
+  "real_user_store_tools": false,
+  "database_connections": 0,
+  "database_writes": 0,
+  "git_commands": 0,
+  "frontend_test": false,
+  "embedding_dimensions": 1024,
+  "retrieval": "maximum variant cosine per FAQ, top3, >=0.75; no rerank or result cache",
+  "corpus_reuse": "Immediately preceding EC2 BAAI/bge-m3 measurement reused after ordered-text hash, dimensions and vector hash verification.",
+  "configuration_scope": "Test-generation stage only. Publication Git operations are separate.",
+  "runtime_model_list": {
+    "object": "list",
+    "data": [
+      {
+        "id": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+        "object": "model",
+        "created": 1792370520,
+        "owned_by": "vllm",
+        "root": "/model",
+        "parent": null,
+        "max_model_len": 4096,
+        "permission": [
+          {
+            "id": "modelperm-9cd26cfedb42d036",
+            "object": "model_permission",
+            "created": 1792370520,
+            "allow_create_engine": false,
+            "allow_sampling": true,
+            "allow_logprobs": true,
+            "allow_search_indices": false,
+            "allow_view": true,
+            "allow_fine_tuning": false,
+            "organization": "*",
+            "group": null,
+            "is_blocking": false
+          }
+        ]
+      }
+    ]
+  },
+  "system_prompt_sha256": "5ecd1552a24a01b429ed62e63e9f1a73294778b31ae71d9b66c3f35c913d696c",
+  "user_prompt_sha256": "f487c64e0b25ce3886c9f1e3ad9c061080e37d7c01492597c70314e73d22e043"
+}
