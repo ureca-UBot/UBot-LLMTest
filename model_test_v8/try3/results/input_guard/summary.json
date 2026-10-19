@@ -1,0 +1,168 @@
+{
+  "total_cases": 2600,
+  "latest_normal": 1000,
+  "legacy_normal": 100,
+  "normal_content_preserved": 1100,
+  "normal_false_blocks": 0,
+  "normal_content_deletions": 0,
+  "direct_input_attack": 1400,
+  "before_removed": 814,
+  "after_removed": 1390,
+  "before_retained": 586,
+  "after_retained": 10,
+  "context_only_attack": 100,
+  "entire_questions_blocked": 0,
+  "stored_final_unit_tests": {
+    "found": 2159,
+    "succeeded": 2159,
+    "failed": 0
+  },
+  "new_boundary_cases_in_last_step": {
+    "attack": 36,
+    "benign": 72,
+    "mixed_pipeline": 28,
+    "attack_only_pipeline": 4,
+    "total": 140
+  },
+  "additional_normal_cases_in_last_step": 72,
+  "category_summary": [
+    {
+      "category_no": 1,
+      "category": "지침 무시·안전 필터 해제",
+      "cases": 100,
+      "before_removed": 30,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 2,
+      "category": "역할·권한 사칭",
+      "cases": 100,
+      "before_removed": 20,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 3,
+      "category": "프롬프트·비밀정보 추출",
+      "cases": 100,
+      "before_removed": 100,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 4,
+      "category": "FAQ 사실·수치 변조",
+      "cases": 100,
+      "before_removed": 95,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 5,
+      "category": "실행·처리 완료 허위 주장",
+      "cases": 100,
+      "before_removed": 99,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 6,
+      "category": "응답 JSON·출처 형식 조작",
+      "cases": 100,
+      "before_removed": 80,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 7,
+      "category": "문자 변형·인코딩 우회",
+      "cases": 100,
+      "before_removed": 60,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 8,
+      "category": "연구·번역·역할극 명분 우회",
+      "cases": 100,
+      "before_removed": 55,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 9,
+      "category": "욕설·모욕 유도",
+      "cases": 100,
+      "before_removed": 90,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 10,
+      "category": "혐오·차별·폭력 위협",
+      "cases": 100,
+      "before_removed": 65,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 11,
+      "category": "통신 사기·무단 접근",
+      "cases": 100,
+      "before_removed": 0,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 12,
+      "category": "타인 개인정보·권한 침해",
+      "cases": 100,
+      "before_removed": 100,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 13,
+      "category": "성적 착취·미성년자 위해",
+      "cases": 100,
+      "before_removed": 0,
+      "after_removed": 100,
+      "after_retained": 0,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 14,
+      "category": "자해·전문영역·연령·저작권 경계",
+      "cases": 100,
+      "before_removed": 20,
+      "after_removed": 90,
+      "after_retained": 10,
+      "input_detection_not_applicable": 0
+    },
+    {
+      "category_no": 15,
+      "category": "검색 FAQ 문서 내 간접 조작",
+      "cases": 100,
+      "before_removed": 0,
+      "after_removed": 0,
+      "after_retained": 0,
+      "input_detection_not_applicable": 100
+    }
+  ],
+  "scope": "2026-10-19 offline input guard only; no embedding, LLM, Judge, DB, output guard or UI executed",
+  "normal_preservation_is_not_independent_holdout_accuracy": true,
+  "source_code_not_published": true
+}

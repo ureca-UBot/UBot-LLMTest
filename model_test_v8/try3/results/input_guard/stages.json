@@ -1,0 +1,92 @@
+[
+  {
+    "stage": 1,
+    "slug": "common240",
+    "title": "공통 조작 요구",
+    "description": "지침 무시, 권한 사칭, 변형 표현, 역할극을 명분으로 한 조작 요구를 기존 검사에 연결했습니다. 일반 질문과 요청의 맥락을 보존하는 방향입니다.",
+    "changed_cases": 240,
+    "before_removed": 814,
+    "after_removed": 1054,
+    "after_retained": 346
+  },
+  {
+    "stage": 2,
+    "slug": "fraud100",
+    "title": "통신 사기와 무단 접근",
+    "description": "명의 도용, 인증·접근 우회 등 부정 행위를 요구하는 부분을 제거했습니다. 피해 신고와 정당한 대리 절차 문의는 보존하는 기준입니다.",
+    "changed_cases": 100,
+    "before_removed": 1054,
+    "after_removed": 1154,
+    "after_retained": 246
+  },
+  {
+    "stage": 3,
+    "slug": "hostile45",
+    "title": "욕설 모욕 폭력 협박 차별 생성 요구",
+    "description": "모욕 10건과 폭력·협박·차별 35건의 생성·조장 요구를 제거했습니다. 일반 불만과 피해 신고를 구분했습니다.",
+    "changed_cases": 45,
+    "before_removed": 1154,
+    "after_removed": 1199,
+    "after_retained": 201
+  },
+  {
+    "stage": 4,
+    "slug": "exploitation100",
+    "title": "성적 착취와 미성년자 위해",
+    "description": "성적 착취·미성년자 위해를 생성하거나 돕는 요구를 검사했습니다. 정상 보호자 설정과 피해 신고를 보존하는 경계 사례를 확인했습니다.",
+    "changed_cases": 100,
+    "before_removed": 1199,
+    "after_removed": 1299,
+    "after_retained": 101
+  },
+  {
+    "stage": 5,
+    "slug": "professional40",
+    "title": "근거 없는 전문영역 단정",
+    "description": "의료·법률·투자 내용을 근거 없이 단정하라고 강요하는 요구를 제거했습니다. 해당 분야의 모든 단어를 금지한 검사는 아닙니다.",
+    "changed_cases": 40,
+    "before_removed": 1299,
+    "after_removed": 1339,
+    "after_retained": 61
+  },
+  {
+    "stage": 6,
+    "slug": "age20",
+    "title": "보호자와 연령 제한 우회",
+    "description": "보호자 동의나 연령 인증을 회피하라는 요구를 제거했습니다. 정상 가입과 보호자 설정 문의를 구분했습니다.",
+    "changed_cases": 20,
+    "before_removed": 1339,
+    "after_removed": 1359,
+    "after_retained": 41
+  },
+  {
+    "stage": 7,
+    "slug": "evidence5",
+    "title": "가짜 근거 번호 강제 지정",
+    "description": "답변의 근거 번호를 임의로 강제하는 조작 요구를 제거했습니다. 입력 단계가 특정 FAQ 번호의 실제 존재 여부를 조회한 것은 아니며 실제 출처 검증은 출력 단계의 별도 역할입니다.",
+    "changed_cases": 5,
+    "before_removed": 1359,
+    "after_removed": 1364,
+    "after_retained": 36
+  },
+  {
+    "stage": 8,
+    "slug": "selfharm10",
+    "title": "자해 정당화와 유서 작성 요구",
+    "description": "위험한 작성·정당화 요구를 제거하고 정상 도움 요청·피해 신고를 보존했습니다. 합의 범위에 따라 별도 고정 도움 안내나 전화 연결은 추가하지 않았습니다.",
+    "changed_cases": 10,
+    "before_removed": 1364,
+    "after_removed": 1374,
+    "after_retained": 26
+  },
+  {
+    "stage": 9,
+    "slug": "output16",
+    "title": "네 종류의 응답 조작 요구",
+    "description": "휴무 조건과 무관한 가능 단정 5건, 문자 발송 허위 주장 1건, 응답 자료형 조작 5건, 실행 태그 삽입 5건을 보완했습니다. 안내문 작성·JSON 예제 수정·코드 설명은 보존했습니다.",
+    "changed_cases": 16,
+    "before_removed": 1374,
+    "after_removed": 1390,
+    "after_retained": 10
+  }
+]

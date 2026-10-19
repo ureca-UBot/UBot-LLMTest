@@ -1,0 +1,85 @@
+{
+  "connection_interruption": [
+    {
+      "reason": "SSH connection closed by remote host; both forwarding ports unavailable. Not scored as model quality.",
+      "confirmed_prefix_cases": 863,
+      "excluded_connection_affected_records": 68,
+      "first_affected_faq_id": 1478,
+      "resume_cases": 137,
+      "completed_prefix_outcomes": {
+        "ANSWERED": 833,
+        "ADAPTER_OR_SCOPE_ERROR": 12,
+        "RETRIEVAL_FAILED": 18
+      },
+      "production_code_changed": false,
+      "server_changes": false
+    }
+  ],
+  "recovery": {
+    "cause_confirmed_by_user": "Teammate stopped the EC2 instance unintentionally; user restarted it.",
+    "preserved_prefix_cases": 863,
+    "resume_first_faq_id": 1478,
+    "remaining_cases": 137,
+    "target_weights_unchanged": true,
+    "target_image_unchanged": "sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+    "inference_params": [
+      "--model",
+      "/model",
+      "--served-model-name",
+      "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "18042",
+      "--max-model-len",
+      "4096",
+      "--gpu-memory-utilization",
+      "0.25",
+      "--max-num-seqs",
+      "1",
+      "--max-num-batched-tokens",
+      "1024",
+      "--enforce-eager",
+      "--enable-auto-tool-choice",
+      "--tool-call-parser",
+      "hermes",
+      "--cpu-offload-gb",
+      "0",
+      "--no-enable-log-requests"
+    ],
+    "existing_services_started_after_external_reboot": {
+      "ubot-nginx-1": "2026-10-19T16:49:21.783461115Z",
+      "ubot-backend-1": "2026-10-19T16:49:21.773755526Z",
+      "ubot-vllm-embedding-1": "2026-10-19T16:49:21.846189631Z",
+      "ubot-vllm-1": "2026-10-19T16:49:21.848251479Z",
+      "ubot-prometheus-1": "2026-10-19T16:49:21.785386101Z",
+      "ubot-redis-1": "2026-10-19T16:49:21.775649371Z",
+      "ubot-postgres-1": "2026-10-19T16:49:21.78969703Z",
+      "ubot-ollama-init-1": "2026-10-09T02:03:27.347678439Z",
+      "ubot-ollama-1": "2026-10-09T05:17:22.876000922Z"
+    },
+    "production_code_modified": false,
+    "old_temporary_container_removed_on_external_shutdown": true,
+    "new_temporary_container_id": "8d4e0f52d46222e615ba37f1eeaa496e81f37b69c720217998e4978ee4ebb8a4",
+    "startup_diagnostic": "Triton shared object could not map from noexec temporary filesystem; fixed only the temporary container tmpfs mount.",
+    "inference_params_unchanged": true
+  },
+  "adapter_preflight_excluded": [
+    {
+      "reason": "Test adapter did not initially decode HTTP chunked transfer. These records are not valid model-quality results.",
+      "affected_rows": 364,
+      "outcomes": {
+        "ADAPTER_OR_SCOPE_ERROR": 364
+      },
+      "preflight_llm_requests": 43,
+      "valid_corpus_and_original_question_embeddings_reused": true
+    },
+    {
+      "reason": "Adapter vocabulary snapshot was extended to include FAQ variants exactly as current FaqRepository query. Preliminary generated answers excluded from final 1000-run.",
+      "rows": 28,
+      "llm_calls": 30
+    }
+  ],
+  "valid_final_cases": 1000,
+  "resume_prefix_preserved": 863
+}

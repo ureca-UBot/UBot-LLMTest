@@ -1,0 +1,32 @@
+{
+  "created_date_kst": "2026-10-20",
+  "source_commit": "cd87fc293b957b947abef9ac5aaf406100064aff",
+  "dataset_sha256": "45c2460e186993b2df7c9811f3cc86fe2fdc74063f087079c89fea74ae584570",
+  "cases": 1000,
+  "faq_corpus": 1688,
+  "variants": 8443,
+  "input_guard": false,
+  "output_guard": false,
+  "latest_question_preparation": true,
+  "latest_multiturn_code": true,
+  "history_per_case": 0,
+  "question_similarity_threshold": 0.75,
+  "answer_sentence_threshold": 0.6,
+  "faq_cache": false,
+  "reranker": false,
+  "llm_model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "embedding_model": "BAAI/bge-m3",
+  "no_database_connections": true,
+  "storage_adapter": "In-memory cosine search mirrors distinct FAQ/variant sorting; current production routing/planner/filter/prompt/parser/client reused.",
+  "personal_data": "No live personal data; guest context via actual UserIntentHandler.",
+  "scope_note": "1000 independent official FAQ questions, not paraphrase/generalization or multi-turn conversational quality evaluation.",
+  "source_files_snapshotted": 999,
+  "test_adapter_only": true,
+  "production_code_modified": false,
+  "prompt_sha256": {
+    "faq-system.txt": "5ecd1552a24a01b429ed62e63e9f1a73294778b31ae71d9b66c3f35c913d696c",
+    "faq-user.txt": "f487c64e0b25ce3886c9f1e3ad9c061080e37d7c01492597c70314e73d22e043",
+    "sub-question-system.txt": "37b00a840a632450c99696ed7f76cb71bf01bdffa539826a537999ad6dcec75d",
+    "sub-question-user.txt": "7f7b0942acb50fe7d50abc2ac792d95a03a12a817adde85dad5f870ead5d1fde"
+  }
+}
