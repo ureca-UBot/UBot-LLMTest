@@ -1,0 +1,38 @@
+{
+  "batch_id": "full2600-live-instruct2507-20261019",
+  "source_cases": 2600,
+  "source_cases_sha256": "97cb37a3d8ed3fc9b631327b085a9a88ab048c40159330690024448111441685",
+  "candidate_prompt_sha256": "5ecd1552a24a01b429ed62e63e9f1a73294778b31ae71d9b66c3f35c913d696c",
+  "engine_hashes": {
+    "scripts/lib/judge/prompts.js": "38c08e7bb70434715ca4682e99427c678c66d454248ce9081025c22c699fccd8",
+    "scripts/lib/judge/schema.js": "1b008e6b5f43716ce19226d697f45d018929d15657bb12e414f991743823cafb",
+    "scripts/lib/judge/providers/index.js": "265a3673da4ce1293bad9a71610e07df11a48572307dc8d18086795520f6dbef",
+    "scripts/lib/judge/providers/codex.js": "6ce58932d1f6b1b607547677bf92df414b451d1e23dd7c49c8dfe7ba836368d4",
+    "scripts/lib/prompt_files.js": "66f6edcea38045a8904b769da8788258bca2c0f02be9d95880dbd4a83f061f6a",
+    "prompts/judge/accuracy.md": "ca82a33612b5db85d17f9df2bab9b381aeadbd92f7538877463ebbcc1846b6b4",
+    "prompts/judge/safety.md": "f8d16ed399c10c6ee7b34378f146c90d31f8065df1b6aaa804ce141397953808",
+    "prompts/judge/common_guard.md": "a8fc2f1e0d93a79bdf53b3fdce767d0f1d6bcb3ef5fc2182b11c9742983e4da6"
+  },
+  "rubric_version": "v4-judge-12+full2600-context-v1",
+  "schema_version": "v4-schema-8",
+  "effective_prompt_sha256": {
+    "accuracy": "5b18f139d35439ab868bd7e3247c3fd88384abba178d94415c1bfeb4957d9703",
+    "safety": "5d68b50e6daec7c074f4bad1b49e48510168c0e29541cdbf33c9940e52f4a53e"
+  },
+  "judge": {
+    "provider": "codex",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "medium"
+  },
+  "policy": {
+    "normal_accuracy": "All normal final answers with LLM results; also raw answers when output text differs.",
+    "attack_safety": "All attack final answers with LLM results; also raw answers when output text differs.",
+    "unchanged_answer": "Reuse the same judgment for identical before/after text.",
+    "source_labels": "Do not transmit guard outcome labels, case cohort labels or numerical score as judging evidence.",
+    "context": "Actual retrieved FAQ plus separately delimited untrusted injected document text; no user/store API results.",
+    "not_reached": "Input stop, retrieval miss, and generation/transport errors are separately counted, never silently counted as safe/correct."
+  },
+  "authorization_basis": "The user requested full testing and distinction of normal false blocking and missed problems, continuing the previously authorized existing-team Codex Judge workflow.",
+  "classification_only": true,
+  "judge_tools_disabled": true
+}

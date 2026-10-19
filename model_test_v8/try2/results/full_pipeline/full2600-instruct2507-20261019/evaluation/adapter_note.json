@@ -1,0 +1,11 @@
+{
+  "at_utc": "2026-10-19T01:29:03Z",
+  "scope": "new test-only orchestration and report aggregation",
+  "cause": "The unchanged team safety schema returns verdict at the root, while the new progress helper initially expected a nested safety.verdict field.",
+  "correction": "Read the existing root verdict for safety progress and report aggregation. Existing team provider, prompts, schema, judgments and source answers were not edited.",
+  "successful_judgments_preserved_on_resume": 1310,
+  "chatbot_generation_interrupted": false,
+  "chatbot_answers_regenerated_for_this_correction": 0,
+  "successful_judgments_reused_by_id_and_source_hash": true,
+  "product_or_server_changes": false
+}
