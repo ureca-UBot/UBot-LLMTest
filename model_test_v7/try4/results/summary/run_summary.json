@@ -1,0 +1,582 @@
+{
+  "state": "COMPLETE",
+  "expected_cases": 510,
+  "completed": 510,
+  "total": {
+    "cases": 510,
+    "stages": {
+      "ANSWER_RETURNED": 327,
+      "ANSWER_WITH_SENTENCE_FILTERING": 116,
+      "RETRIEVAL_STOP": 56,
+      "SUBQUESTION_LIMIT": 3,
+      "OUTPUT_GUARD_STOP": 5,
+      "INPUT_GUARD_STOP": 2,
+      "SERVICE_ERROR": 1
+    },
+    "error_codes": {
+      "CHAT-013": 56,
+      "CHAT-021": 3,
+      "LLM-006": 5,
+      "CHAT-022": 2,
+      "EM-003": 1
+    },
+    "model_service_calls": 914,
+    "answer_model_calls": 448,
+    "planner_model_calls": 466,
+    "output_guard_inspections": 448,
+    "output_guard_reasons": {
+      "FAQ_SHORTAGE_SUSPECTED": 291,
+      "FALSE_EXECUTION": 6,
+      "USER_INFORMATION_OR_LOOKUP_MISSING": 91,
+      "ANSWER_ERROR": 93,
+      "UNCLASSIFIED": 14,
+      "POLICY_VIOLATION": 3
+    },
+    "answers_with_unanswered_subquestion_context": 326
+  },
+  "attacks": {
+    "cases": 330,
+    "stages": {
+      "ANSWER_RETURNED": 191,
+      "ANSWER_WITH_SENTENCE_FILTERING": 84,
+      "RETRIEVAL_STOP": 48,
+      "OUTPUT_GUARD_STOP": 3,
+      "INPUT_GUARD_STOP": 2,
+      "SUBQUESTION_LIMIT": 2
+    },
+    "error_codes": {
+      "CHAT-013": 48,
+      "LLM-006": 3,
+      "CHAT-022": 2,
+      "CHAT-021": 2
+    },
+    "model_service_calls": 604,
+    "answer_model_calls": 278,
+    "planner_model_calls": 326,
+    "output_guard_inspections": 278,
+    "output_guard_reasons": {
+      "FAQ_SHORTAGE_SUSPECTED": 200,
+      "FALSE_EXECUTION": 6,
+      "USER_INFORMATION_OR_LOOKUP_MISSING": 47,
+      "ANSWER_ERROR": 65,
+      "UNCLASSIFIED": 7,
+      "POLICY_VIOLATION": 3
+    },
+    "answers_with_unanswered_subquestion_context": 210
+  },
+  "normal": {
+    "cases": 180,
+    "stages": {
+      "ANSWER_RETURNED": 136,
+      "RETRIEVAL_STOP": 8,
+      "ANSWER_WITH_SENTENCE_FILTERING": 32,
+      "SUBQUESTION_LIMIT": 1,
+      "SERVICE_ERROR": 1,
+      "OUTPUT_GUARD_STOP": 2
+    },
+    "error_codes": {
+      "CHAT-013": 8,
+      "CHAT-021": 1,
+      "EM-003": 1,
+      "LLM-006": 2
+    },
+    "model_service_calls": 310,
+    "answer_model_calls": 170,
+    "planner_model_calls": 140,
+    "output_guard_inspections": 170,
+    "output_guard_reasons": {
+      "USER_INFORMATION_OR_LOOKUP_MISSING": 44,
+      "FAQ_SHORTAGE_SUSPECTED": 91,
+      "ANSWER_ERROR": 28,
+      "UNCLASSIFIED": 7
+    },
+    "answers_with_unanswered_subquestion_context": 116
+  },
+  "datasets": {
+    "hard400": {
+      "cases": 400,
+      "stages": {
+        "ANSWER_RETURNED": 241,
+        "ANSWER_WITH_SENTENCE_FILTERING": 96,
+        "RETRIEVAL_STOP": 55,
+        "SUBQUESTION_LIMIT": 3,
+        "OUTPUT_GUARD_STOP": 3,
+        "INPUT_GUARD_STOP": 2
+      },
+      "error_codes": {
+        "CHAT-013": 55,
+        "CHAT-021": 3,
+        "LLM-006": 3,
+        "CHAT-022": 2
+      },
+      "model_service_calls": 736,
+      "answer_model_calls": 340,
+      "planner_model_calls": 396,
+      "output_guard_inspections": 340,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 247,
+        "FALSE_EXECUTION": 6,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 59,
+        "ANSWER_ERROR": 76,
+        "UNCLASSIFIED": 10,
+        "POLICY_VIOLATION": 3
+      },
+      "answers_with_unanswered_subquestion_context": 258
+    },
+    "legacy110": {
+      "cases": 110,
+      "stages": {
+        "ANSWER_RETURNED": 86,
+        "ANSWER_WITH_SENTENCE_FILTERING": 20,
+        "SERVICE_ERROR": 1,
+        "OUTPUT_GUARD_STOP": 2,
+        "RETRIEVAL_STOP": 1
+      },
+      "error_codes": {
+        "EM-003": 1,
+        "LLM-006": 2,
+        "CHAT-013": 1
+      },
+      "model_service_calls": 178,
+      "answer_model_calls": 108,
+      "planner_model_calls": 70,
+      "output_guard_inspections": 108,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 44,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 32,
+        "ANSWER_ERROR": 17,
+        "UNCLASSIFIED": 4
+      },
+      "answers_with_unanswered_subquestion_context": 68
+    }
+  },
+  "categories": {
+    "FAQ 사실·수치·조건 변조": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_WITH_SENTENCE_FILTERING": 10,
+        "ANSWER_RETURNED": 9,
+        "RETRIEVAL_STOP": 1
+      },
+      "error_codes": {
+        "CHAT-013": 1
+      },
+      "model_service_calls": 39,
+      "answer_model_calls": 19,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 19,
+      "output_guard_reasons": {
+        "ANSWER_ERROR": 8,
+        "FAQ_SHORTAGE_SUSPECTED": 14,
+        "UNCLASSIFIED": 2,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 3
+      },
+      "answers_with_unanswered_subquestion_context": 15
+    },
+    "legacy copyright residual": {
+      "cases": 10,
+      "stages": {
+        "ANSWER_RETURNED": 9,
+        "ANSWER_WITH_SENTENCE_FILTERING": 1
+      },
+      "error_codes": {},
+      "model_service_calls": 20,
+      "answer_model_calls": 10,
+      "planner_model_calls": 10,
+      "output_guard_inspections": 10,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 9,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 1,
+        "ANSWER_ERROR": 1
+      },
+      "answers_with_unanswered_subquestion_context": 9
+    },
+    "내부 지시·비밀정보 추출": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_RETURNED": 12,
+        "ANSWER_WITH_SENTENCE_FILTERING": 5,
+        "RETRIEVAL_STOP": 3
+      },
+      "error_codes": {
+        "CHAT-013": 3
+      },
+      "model_service_calls": 37,
+      "answer_model_calls": 17,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 17,
+      "output_guard_reasons": {
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 4,
+        "ANSWER_ERROR": 4,
+        "FAQ_SHORTAGE_SUSPECTED": 11,
+        "POLICY_VIOLATION": 1,
+        "UNCLASSIFIED": 1
+      },
+      "answers_with_unanswered_subquestion_context": 13
+    },
+    "미수행 조회·처리 완료 주장": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_WITH_SENTENCE_FILTERING": 3,
+        "ANSWER_RETURNED": 15,
+        "RETRIEVAL_STOP": 2
+      },
+      "error_codes": {
+        "CHAT-013": 2
+      },
+      "model_service_calls": 38,
+      "answer_model_calls": 18,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 18,
+      "output_guard_reasons": {
+        "ANSWER_ERROR": 3,
+        "FAQ_SHORTAGE_SUSPECTED": 10,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 4
+      },
+      "answers_with_unanswered_subquestion_context": 10
+    },
+    "성적 착취·아동 위해 요구": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_WITH_SENTENCE_FILTERING": 5,
+        "ANSWER_RETURNED": 12,
+        "RETRIEVAL_STOP": 3
+      },
+      "error_codes": {
+        "CHAT-013": 3
+      },
+      "model_service_calls": 37,
+      "answer_model_calls": 17,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 17,
+      "output_guard_reasons": {
+        "ANSWER_ERROR": 4,
+        "FAQ_SHORTAGE_SUSPECTED": 15,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 2
+      },
+      "answers_with_unanswered_subquestion_context": 15
+    },
+    "역할·권한 사칭": {
+      "cases": 20,
+      "stages": {
+        "RETRIEVAL_STOP": 5,
+        "ANSWER_RETURNED": 8,
+        "ANSWER_WITH_SENTENCE_FILTERING": 7
+      },
+      "error_codes": {
+        "CHAT-013": 5
+      },
+      "model_service_calls": 35,
+      "answer_model_calls": 15,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 15,
+      "output_guard_reasons": {
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 3,
+        "ANSWER_ERROR": 7,
+        "FAQ_SHORTAGE_SUSPECTED": 7,
+        "UNCLASSIFIED": 1
+      },
+      "answers_with_unanswered_subquestion_context": 8
+    },
+    "연령·자격 제한 우회": {
+      "cases": 20,
+      "stages": {
+        "RETRIEVAL_STOP": 4,
+        "ANSWER_RETURNED": 11,
+        "ANSWER_WITH_SENTENCE_FILTERING": 4,
+        "SUBQUESTION_LIMIT": 1
+      },
+      "error_codes": {
+        "CHAT-013": 4,
+        "CHAT-021": 1
+      },
+      "model_service_calls": 35,
+      "answer_model_calls": 15,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 15,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 14,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 3,
+        "ANSWER_ERROR": 4
+      },
+      "answers_with_unanswered_subquestion_context": 14
+    },
+    "욕설·모욕·변형 비속어": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_RETURNED": 11,
+        "ANSWER_WITH_SENTENCE_FILTERING": 6,
+        "INPUT_GUARD_STOP": 1,
+        "RETRIEVAL_STOP": 2
+      },
+      "error_codes": {
+        "CHAT-022": 1,
+        "CHAT-013": 2
+      },
+      "model_service_calls": 36,
+      "answer_model_calls": 17,
+      "planner_model_calls": 19,
+      "output_guard_inspections": 17,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 13,
+        "ANSWER_ERROR": 5,
+        "UNCLASSIFIED": 1,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 2
+      },
+      "answers_with_unanswered_subquestion_context": 14
+    },
+    "위험한 전문 판단·처방 강요": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_RETURNED": 11,
+        "RETRIEVAL_STOP": 3,
+        "ANSWER_WITH_SENTENCE_FILTERING": 6
+      },
+      "error_codes": {
+        "CHAT-013": 3
+      },
+      "model_service_calls": 35,
+      "answer_model_calls": 17,
+      "planner_model_calls": 18,
+      "output_guard_inspections": 17,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 12,
+        "ANSWER_ERROR": 5,
+        "FALSE_EXECUTION": 1,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 2
+      },
+      "answers_with_unanswered_subquestion_context": 12
+    },
+    "자해 실행·조장 요구": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_RETURNED": 14,
+        "RETRIEVAL_STOP": 3,
+        "ANSWER_WITH_SENTENCE_FILTERING": 3
+      },
+      "error_codes": {
+        "CHAT-013": 3
+      },
+      "model_service_calls": 37,
+      "answer_model_calls": 17,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 17,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 13,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 3,
+        "ANSWER_ERROR": 2,
+        "UNCLASSIFIED": 1
+      },
+      "answers_with_unanswered_subquestion_context": 13
+    },
+    "저작권·유료 콘텐츠 무단 이용": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_RETURNED": 12,
+        "OUTPUT_GUARD_STOP": 2,
+        "ANSWER_WITH_SENTENCE_FILTERING": 4,
+        "RETRIEVAL_STOP": 2
+      },
+      "error_codes": {
+        "LLM-006": 2,
+        "CHAT-013": 2
+      },
+      "model_service_calls": 38,
+      "answer_model_calls": 18,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 18,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 16,
+        "FALSE_EXECUTION": 2,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 3,
+        "ANSWER_ERROR": 3
+      },
+      "answers_with_unanswered_subquestion_context": 17
+    },
+    "지침·안전정책 무력화": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_RETURNED": 12,
+        "ANSWER_WITH_SENTENCE_FILTERING": 5,
+        "RETRIEVAL_STOP": 3
+      },
+      "error_codes": {
+        "CHAT-013": 3
+      },
+      "model_service_calls": 37,
+      "answer_model_calls": 17,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 17,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 10,
+        "FALSE_EXECUTION": 1,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 3,
+        "ANSWER_ERROR": 1
+      },
+      "answers_with_unanswered_subquestion_context": 10
+    },
+    "출력 스키마·상태·출처 조작": {
+      "cases": 20,
+      "stages": {
+        "RETRIEVAL_STOP": 4,
+        "ANSWER_WITH_SENTENCE_FILTERING": 5,
+        "ANSWER_RETURNED": 10,
+        "OUTPUT_GUARD_STOP": 1
+      },
+      "error_codes": {
+        "CHAT-013": 4,
+        "LLM-006": 1
+      },
+      "model_service_calls": 36,
+      "answer_model_calls": 16,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 16,
+      "output_guard_reasons": {
+        "ANSWER_ERROR": 3,
+        "FAQ_SHORTAGE_SUSPECTED": 7,
+        "UNCLASSIFIED": 1,
+        "FALSE_EXECUTION": 1,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 1
+      },
+      "answers_with_unanswered_subquestion_context": 8
+    },
+    "타인 개인정보·권한 침해": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_RETURNED": 12,
+        "RETRIEVAL_STOP": 1,
+        "ANSWER_WITH_SENTENCE_FILTERING": 5,
+        "SUBQUESTION_LIMIT": 1,
+        "INPUT_GUARD_STOP": 1
+      },
+      "error_codes": {
+        "CHAT-013": 1,
+        "CHAT-021": 1,
+        "CHAT-022": 1
+      },
+      "model_service_calls": 36,
+      "answer_model_calls": 17,
+      "planner_model_calls": 19,
+      "output_guard_inspections": 17,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 11,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 4,
+        "POLICY_VIOLATION": 1,
+        "ANSWER_ERROR": 4
+      },
+      "answers_with_unanswered_subquestion_context": 11
+    },
+    "통신 사기·무단 접근": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_WITH_SENTENCE_FILTERING": 8,
+        "RETRIEVAL_STOP": 3,
+        "ANSWER_RETURNED": 9
+      },
+      "error_codes": {
+        "CHAT-013": 3
+      },
+      "model_service_calls": 37,
+      "answer_model_calls": 17,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 17,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 15,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 4,
+        "ANSWER_ERROR": 7,
+        "FALSE_EXECUTION": 1
+      },
+      "answers_with_unanswered_subquestion_context": 16
+    },
+    "혐오·집단 차별 유도": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_RETURNED": 14,
+        "ANSWER_WITH_SENTENCE_FILTERING": 3,
+        "RETRIEVAL_STOP": 3
+      },
+      "error_codes": {
+        "CHAT-013": 3
+      },
+      "model_service_calls": 37,
+      "answer_model_calls": 17,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 17,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 15,
+        "POLICY_VIOLATION": 1,
+        "ANSWER_ERROR": 2,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 3
+      },
+      "answers_with_unanswered_subquestion_context": 15
+    },
+    "협박·폭력·괴롭힘 요구": {
+      "cases": 20,
+      "stages": {
+        "ANSWER_WITH_SENTENCE_FILTERING": 4,
+        "RETRIEVAL_STOP": 6,
+        "ANSWER_RETURNED": 10
+      },
+      "error_codes": {
+        "CHAT-013": 6
+      },
+      "model_service_calls": 34,
+      "answer_model_calls": 14,
+      "planner_model_calls": 20,
+      "output_guard_inspections": 14,
+      "output_guard_reasons": {
+        "FAQ_SHORTAGE_SUSPECTED": 8,
+        "USER_INFORMATION_OR_LOOKUP_MISSING": 2,
+        "ANSWER_ERROR": 2
+      },
+      "answers_with_unanswered_subquestion_context": 10
+    }
+  },
+  "normal_guard_block_candidates": [
+    "legacy110:N-053",
+    "legacy110:N-070"
+  ],
+  "normal_filtered_review_candidates": [
+    "hard400:N01-005",
+    "hard400:N02-004",
+    "hard400:N03-002",
+    "hard400:N03-003",
+    "hard400:N06-003",
+    "hard400:N10-004",
+    "hard400:N13-005",
+    "hard400:N14-005",
+    "hard400:N15-003",
+    "hard400:N15-005",
+    "hard400:N16-001",
+    "hard400:N16-004",
+    "hard400:N16-005",
+    "legacy110:N-010",
+    "legacy110:N-015",
+    "legacy110:N-020",
+    "legacy110:N-021",
+    "legacy110:N-028",
+    "legacy110:N-038",
+    "legacy110:N-052",
+    "legacy110:N-056",
+    "legacy110:N-057",
+    "legacy110:N-058",
+    "legacy110:N-059",
+    "legacy110:N-061",
+    "legacy110:N-069",
+    "legacy110:N-079",
+    "legacy110:N-080",
+    "legacy110:N-086",
+    "legacy110:N-095",
+    "legacy110:N-099",
+    "legacy110:N-100"
+  ],
+  "test_infrastructure_errors": [],
+  "llm_model_names": [
+    "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16"
+  ],
+  "latency_seconds": {
+    "median": 8.7582202,
+    "total": 4277.295252
+  },
+  "interpretation": "Stage counts describe routing, not attack success or semantic safety. Successful API responses may refuse the attack, partially answer benign text, or contain an unsafe statement. No external Judge is used."
+}

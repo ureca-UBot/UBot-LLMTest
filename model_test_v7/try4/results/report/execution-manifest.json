@@ -1,0 +1,42 @@
+{
+  "requested_model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "cases": 510,
+  "faqs": 1688,
+  "variants": 8443,
+  "faq_source_sha256": "097d6ba9ff53e3156daf2922a9e7f8cbfb60593b80c0cf00f7e0eac416aff6e2",
+  "variant_source_sha256": "c44c8ef912e4ff203da3d821c58abedf3a06816d74412f03a030070d55f293ec",
+  "faq_vector_source": "69befca14f9de2468e2e53ae157ec98360d4635364a1e26a8c662a3c739cb9ee",
+  "faq_vectors_previously_computed_by": "BAAI/bge-m3 on the same EC2; new question and answer-sentence embeddings are live",
+  "app_source": "isolated copy of current STS source, no product changes",
+  "database": "disposable Testcontainers PostgreSQL+Redis, existing DBs excluded",
+  "api": "actual HTTP chat submission and async job result API in isolated app",
+  "scope": "Independent first turns through multi-turn-capable code; not a multi-turn-history benchmark",
+  "excluded_unrelated_module": "com.ubot.counsel: separate in-progress module has no required settings in current STS application resources; no product files changed",
+  "forbidden_word_source": "same frozen 38-word snapshot used in the earlier guard comparison; not a fresh production DB export",
+  "external_lookup_limitation": "The current local .env has an empty KAKAO_REST_API_KEY. Store-lookup success/helpfulness cannot be graded as a guard false positive. The existing configuration is left unchanged.",
+  "identity_scope": "Guest sessions with a fresh cookie jar per original question; no production user account or personal billing records are used.",
+  "inference_count_source": "summary.json counts observed LlmClient planner/answer calls; provider-internal tool loops may make additional HTTP calls",
+  "fixture_vocabulary_audit": "FAQ vocabulary cache refreshed through the existing listener only in disposable test Redis. Before refresh: no ENGLISH_WORD_REMOVED decisions, so earlier outcomes do not depend on the refresh.",
+  "state": "COMPLETE",
+  "completed_cases": 510,
+  "original_questions_unchanged": true,
+  "observed_llm_client_calls": 914,
+  "observed_llm_models": [
+    "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16"
+  ],
+  "source_integrity": {
+    "protected-source-before.json": {
+      "checked": 855,
+      "different_from_baseline": []
+    },
+    "live-source-before.json": {
+      "checked": 853,
+      "different_from_baseline": []
+    }
+  },
+  "temporary_model_removed": true,
+  "existing_ec2_services_unchanged": true,
+  "external_judge_calls": 0,
+  "test_runner_exit_code": 0,
+  "unanswered_snapshot_coverage_completed_results": 503
+}
