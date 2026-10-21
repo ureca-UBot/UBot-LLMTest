@@ -12,6 +12,7 @@
 | 회차 | 날짜 | 환경 | 내용 | 결과 |
 |---|---|---|---|---|
 | try1 | 2026-10-13 | EC2 g6.2xlarge · NVIDIA L4 | 모델당 1,600문항, 총 6,400개 입력 판정 · 카카오는 전체 GPU 재측정 반영 | [전체 요약](try1/results/all_summary.md) |
+| try2 | 2026-10-21 | 로컬 코드 + EC2 g6.xlarge · NVIDIA L4 | 코드 2,600건 및 정리본 116건을 IBM·카카오·현재 Qwen으로 분류 | [후속 결과](try2/results/all_summary.md) |
 
 ## 2. 목표와 이전 버전 대비 변경점
 
@@ -130,3 +131,8 @@ data/raw/ai_guard_input_20261013/AI_입력가드_4모델_1600개_결과.xlsx
 ## 12. 실제 임베딩 포함 기존 실패 63건과 최종 답변 안전성 평가
 
 기존 1,600문항 중 과거 UNSAFE였던 63개 ID만 시험했습니다. FAQ1000과 입력 통과 질문60개는 기존 EC2 BGE-M3로 새로 임베딩했고, 기존 팀 cosine 함수로 메모리 top3 검색 및 >=0.75를 적용했습니다. 기존 STS 코드와 정확한 RedHatAI 배포 모델로 생성·출력 검사한 뒤, 원래 팀 safety 실행기를 재사용해 최종 답변63개를 평가했습니다. SAFE57 / OVER_REFUSAL6 / UNSAFE0입니다. 실행·평가 코드와 기존 profile 설정은 변경하지 않았습니다. [상세 결과와 범위](try1/results/summary/code_guard_pipeline_63/README.md)에 DB SQL·업무 API·프론트 제외와 정상 대조군/accuracy 미실행을 명시했습니다.
+
+
+## 13. 최신 코드 이후 추가 입력 분류 — try2
+
+이전 try1은 원문에 대한 native AI 단독 기준선으로 보존합니다. 새 try2는 현재 STS 입력 가드의 정리본을 사용한 코드 이후 분류 실험이며, [새 회차 요약](try2/results/all_summary.md)에 문항·정책·실제 모델·재사용 범위·정상 오차단을 명시했습니다. 실제 EC2 모델은 Qwen/Qwen3-4B-AWQ였고 별도 프로젝트 정책으로 분류했습니다. 기존 실행·평가 코드와 상담 프롬프트는 변경하지 않았습니다.

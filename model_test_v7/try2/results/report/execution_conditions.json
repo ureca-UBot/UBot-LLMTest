@@ -1,0 +1,76 @@
+{
+  "date_kst": "2026-10-21",
+  "ec2_instance_type": "g6.xlarge",
+  "gpu": "NVIDIA L4",
+  "code_stage": {
+    "java": "JDK 22, --release 21",
+    "spring_boot_started": false,
+    "word_snapshot_count": 38
+  },
+  "native_classifiers": {
+    "dtype": "bfloat16",
+    "quantization": false,
+    "placement": "all parameters cuda:0",
+    "threads_and_container_cpus": 2,
+    "batch_size": 1,
+    "sampling": false,
+    "ibm": {
+      "mode": "harm",
+      "label_mapping": {
+        "Yes": "UNSAFE",
+        "No": "SAFE"
+      },
+      "pilot_cases": 6,
+      "full_remaining_cases": 110,
+      "warmups_excluded": 2,
+      "container_ram_limit": "5g"
+    },
+    "kakao": {
+      "template": "user input + empty assistant",
+      "label_mapping": "SAFE or UNSAFE-S token",
+      "full_cases": 116,
+      "warmups_excluded": 1,
+      "container_ram_limit": "6g"
+    },
+    "weights": "Reuse existing cached vendor weights. Full weight-file hashes were not recalculated for this rerun."
+  },
+  "application_llm_classifier": {
+    "model": "ubot-chat",
+    "available_model_ids": [
+      "ubot-chat"
+    ],
+    "safe_runtime_arguments": {
+      "--model": "Qwen/Qwen3-4B-AWQ",
+      "--served-model-name": "ubot-chat"
+    },
+    "model_roots": [
+      "Qwen/Qwen3-4B-AWQ"
+    ],
+    "prompt_sha256": "b6c4501ce4ecba5ca649e5092a069a4d358426fad4127b0280fac0d9740f1d56",
+    "temperature": 0.0,
+    "max_tokens": 180,
+    "concurrency": 1,
+    "policy": "project-specific classification instructions; not the application answer prompt"
+  },
+  "answer_generation_llm_calls": 0,
+  "classification_case_judgments": 348,
+  "embedding_calls": 0,
+  "database_queries": 0,
+  "external_judge_calls": 0,
+  "native_safety_judge_not_used": true,
+  "approved_temporary_service_stop": "ubot-vllm-1 only, during Kakao test",
+  "answer_model_restored": true,
+  "answer_model_health_http_200": true,
+  "container_ids_and_configuration_unchanged": true,
+  "other_services_kept_running": [
+    "embedding",
+    "backend",
+    "database",
+    "redis",
+    "nginx",
+    "prometheus"
+  ],
+  "qwen_test_services_unchanged": true,
+  "backend_files_verified_unchanged": 860,
+  "frontend_files_verified_unchanged": 332
+}
