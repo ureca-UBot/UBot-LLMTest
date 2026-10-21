@@ -1,5 +1,7 @@
 # LLM_Test — FAQ 챗봇용 로컬 LLM 선정 테스트
 
+> 2026-10-22 코드 출력 가드 대체 비교: [v7 try6 — 저장 답변448건·23건 상세 비교](model_test_v7/try6/results/all_summary.md). LLM 단독 ALLOW237/BLOCK52/형식미달155/REVIEW4. 기존23건 중 유효 차단10은 문제9+정상 오차단1이며, 실제 문제를 짚은 차단은8건입니다. 전체 안전성 정확도는 미확정입니다.
+
 > 2026-10-22 후단 LLM 가드 프롬프트 비교: [v7 try5 — 추가 해결 질문·미탐지·오차단·v3 중단 기록](model_test_v7/try5/results/all_summary.md). 기존 문제15건 실제 탐지7→9, 정상·형식 실패와 새 정상 거절 오차단도 함께 보관했습니다. 제품 적용 완료가 아닙니다.
 
 > 2026-10-21 실제 채팅 흐름 추가: [하드400+이전110 = 510건·23건 상세 엑셀 — v7 try4](model_test_v7/try4/results/all_summary.md). 검색 직후 미응답 처리와 출력 가드 이후 처리를 구분하고, 공격 유도 문장 잔존9·정상 핵심/조건 삭제6 등 확인된23건과 남은 한계를 정리했습니다. 정식 안전성 Judge 점수는 아닙니다.
@@ -102,6 +104,7 @@ LLM_Test/
 | **v8 try1** (정상 FAQ 기준점) | 2026-10-16 · EC2 NVIDIA L4 | 코어 원본 질문 1,000개 · 실제 BGE-m3 검색 · 최신 develop 프롬프트 · RedHatAI 4B · 가드 없음 | 생성 1,000·실행 오류 0. 원본 FAQ top1 1,000, 평균 2.697초. **Judge 정답 633/1000·근거 이탈 256/1000**. Codex 재검토 의견 정답 702/1000·근거 이탈 303/1000은 별도. FAQ 표시는 기존 패턴 78건/확장 84건 | [all_summary](model_test_v8/try1/results/all_summary.md) |
 | **v8 try2** (정상 FAQ 가드 적용) | 2026-10-16 · EC2 NVIDIA L4 | 같은 코어 1,000개 · 현재 STS 입력 가드 → 실제 임베딩·RedHatAI → 출력 가드 | 그대로 711·정리 238·전체 차단 51. **최종 답변 Judge 완료: 정답 614·근거 이탈 161**. 정상 안내 손실·기준점과의 차이 함께 기록 | [all_summary](model_test_v8/try2/results/all_summary.md) |
 | **v7 try3** (하드 입력·별도 임베딩) | 2026-10-21 · 로컬/EC2 NVIDIA L4 | 공격320·정상80 코드 검사 후 같은398개를 Qwen·IBM·카카오 분류; 이전 공격10개 별도 BGE-M3 검색 | 코드 위험 처리7·잔존313, AI 추가256·172·193, 정상 오차단16·13·1. 이전10개 전체 정리본 모두 검색0.75 이상; 답변 생성·Judge 없음 | [all_summary](model_test_v7/try3/results/all_summary.md) |
+| **v7 try6** (출력 가드 대체 비교) | 2026-10-22 · EC2 NVIDIA L4 | 저장 답변448건에 RedHat v2 LLM 가드만 적용, 코드 가드 저장 결과와 비교 | ALLOW237/BLOCK52/형식미달155/REVIEW4. 기존23건의 유효 차단10=문제9+정상1, 실제 문제 탐지8. 외부 Judge 없음 | [all_summary](model_test_v7/try6/results/all_summary.md) |
 
 이번 `test/ai-guard-input` 브랜치의 결과는 `model_test_v7/`와 `data/raw/ai_guard_input_20261013/`에 있습니다. 기존 `test_set5` 질문을 재사용하며 실행·평가 코드는 변경하지 않았습니다. v7은 native 분류 결과 보관용으로 공통 상담 엔진의 실행 profile이 아닙니다. [설정·범위](model_test_v7/SETUP.md) · [방법과 한계](model_test_v7/try1/results/summary/methodology_and_limits.md).
 

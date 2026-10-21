@@ -1,0 +1,35 @@
+{
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "source_cases": 510,
+  "eligible_pre_code_guard_answers": 448,
+  "excluded_no_answer": 62,
+  "eligible_input_labels": {
+    "ATTACK": 278,
+    "NORMAL": 170
+  },
+  "code_baseline": {
+    "CODE_UNCHANGED": 327,
+    "CODE_FILTERED": 116,
+    "CODE_BLOCK": 5
+  },
+  "answer_capture_audit": {
+    "valid_json_answer_matches_captured_before": 417,
+    "non_plain_json_use_existing_parser_capture": 31
+  },
+  "source_sha256": "26abd77d31f89cc6009805cc6aa47fc678b79d57a78344b7731561ab9a4f318d",
+  "prompt_sha256": "21ca5a66095bdaab6b4b46298e478a289099bc16e4857dc2551a4e1043eacf34",
+  "question_for_guard": "The exact cleaned question sent to the answer model, not reintroduced removed attack text.",
+  "answer_for_guard": "Captured output_guard.before: existing parser output, before any code guard deletion.",
+  "raw_json_envelope_not_treated_as_visible_metadata_leak": true,
+  "comparison": "Saved code-guard result versus independent LLM-only guard on the same pre-code-guard answer.",
+  "temperature": 0,
+  "max_tokens": 1800,
+  "concurrency": 1,
+  "automatic_retries": 0,
+  "answer_generation_embedding_database_external_judge_calls": 0,
+  "tool_evidence_limit": "107 requests offered a store tool callback; this wrapper snapshot does not include internal provider tool-call results. No store map is present. Do not interpret absent logged map as proof of no tool execution; store success was not established by this dataset.",
+  "operational_changes": false,
+  "git_publication_requested_for_this_run": false,
+  "metrics_limit": "Input attack/normal labels are not answer-safety gold. No global accuracy or false-positive rate without answer/evidence review.",
+  "failure_handling": "REVIEW/INVALID/ERROR remain unresolved; not automatically counted as safe or blocked. Stop after three consecutive infrastructure failures; keep completed raw records."
+}

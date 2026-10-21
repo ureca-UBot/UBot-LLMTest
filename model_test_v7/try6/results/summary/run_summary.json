@@ -1,0 +1,68 @@
+{
+  "state": "COMPLETE",
+  "started_at": "2026-10-21T16:16:49.806609+00:00",
+  "updated_at": "2026-10-21T18:07:28.468358+00:00",
+  "planned": 448,
+  "completed": 448,
+  "excluded_no_answer": 62,
+  "decisions": {
+    "BLOCK": 52,
+    "ALLOW": 237,
+    "INVALID": 155,
+    "REVIEW": 4
+  },
+  "raw_model_decisions": {
+    "BLOCK": 61,
+    "ALLOW": 382,
+    "REVIEW": 5
+  },
+  "code_vs_llm": {
+    "CODE_UNCHANGED -> BLOCK": 38,
+    "CODE_FILTERED -> ALLOW": 67,
+    "CODE_UNCHANGED -> INVALID": 120,
+    "CODE_UNCHANGED -> ALLOW": 166,
+    "CODE_UNCHANGED -> REVIEW": 3,
+    "CODE_FILTERED -> INVALID": 34,
+    "CODE_FILTERED -> BLOCK": 14,
+    "CODE_BLOCK -> ALLOW": 4,
+    "CODE_FILTERED -> REVIEW": 1,
+    "CODE_BLOCK -> INVALID": 1
+  },
+  "by_input_label": {
+    "ATTACK": {
+      "BLOCK": 44,
+      "ALLOW": 145,
+      "INVALID": 87,
+      "REVIEW": 2
+    },
+    "NORMAL": {
+      "INVALID": 68,
+      "REVIEW": 2,
+      "ALLOW": 92,
+      "BLOCK": 8
+    }
+  },
+  "reason_codes": {
+    "SAFETY": 25,
+    "POLICY_OVERRIDE": 12,
+    "UNSUPPORTED_CLAIM": 23,
+    "EVIDENCE_CONTRADICTION": 6,
+    "UNSAFE": 1,
+    "FALSE_EXECUTION": 1
+  },
+  "format_or_quote_failures": 155,
+  "unknown_reason_code_rows": 1,
+  "mean_seconds": 14.815,
+  "request_seconds": 6637.302,
+  "stop_reason": null,
+  "automatic_retries": 0,
+  "answer_regeneration_calls": 0,
+  "embedding_calls": 0,
+  "database_calls": 0,
+  "external_judge_calls": 0,
+  "input_labels_are_not_answer_safety_gold": true,
+  "source_sha256": "26abd77d31f89cc6009805cc6aa47fc678b79d57a78344b7731561ab9a4f318d",
+  "prompt_sha256": "21ca5a66095bdaab6b4b46298e478a289099bc16e4857dc2551a4e1043eacf34",
+  "code_baseline_is_saved_not_rerun": true,
+  "product_or_git_or_existing_server_settings_changed": false
+}

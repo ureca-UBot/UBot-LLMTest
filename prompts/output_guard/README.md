@@ -13,3 +13,7 @@
 [전체 결과](../../model_test_v7/try5/results/all_summary.md) · [해결 질문 원문](../../model_test_v7/try5/results/report/solved_questions.md) · [모든 질문별 기록](../../model_test_v7/try5/results/report/question_results.md)
 
 실제 모델에는 v1/v2 frozen 자료의 `comparison_data`, v3의 `input`만 전달했습니다. `review_only`·기대 라벨·검토 메모는 전달하지 않았습니다. [요청 조건](../../model_test_v7/try5/results/summary/request_contract.json)
+
+## 같은v2의 교체 비교 — v7 try6
+
+[저장 답변448건 LLM 단독 결과](../../model_test_v7/try6/results/all_summary.md). v2 원문을 변경하지 않고 재사용했습니다. try5는 코드 필터 후 답변, try6는 필터 전 답변을 검사하므로 두 결과를 섞지 않습니다. 기존23건 중 유효 차단10에는 정상 오차단1이 포함되며 실제 문제를 올바르게 짚은 차단은8건입니다.
