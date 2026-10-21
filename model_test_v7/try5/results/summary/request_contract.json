@@ -1,0 +1,76 @@
+{
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "system_prompt_files": {
+    "v1": "prompts/output_guard/redhat4b_output_guard_20261021_v1.txt",
+    "v2": "prompts/output_guard/redhat4b_output_guard_20261022_v2.txt",
+    "v3": "prompts/output_guard/redhat4b_output_guard_20261022_v3.txt"
+  },
+  "temperature": 0,
+  "concurrency": 1,
+  "automatic_retries": 0,
+  "v1": {
+    "user_content": "Only comparison_data JSON from each reached_output_guard case or paired_safe_control. Do not transmit review_only or expected labels.",
+    "max_tokens": 900,
+    "response_format": {
+      "type": "json_object"
+    },
+    "completed": 44
+  },
+  "v2": {
+    "user_content": "Same comparison_data for the 44 regression rows plus 16 additional_boundary_cases. No review_only labels.",
+    "max_tokens": 1800,
+    "response_format": {
+      "type": "json_object"
+    },
+    "completed": 60
+  },
+  "v3": {
+    "user_content": "Only the input field from v3_frozen_inputs.json; answer_units already contains exact unit_id/text mapping.",
+    "max_tokens": 500,
+    "response_format_type": "json_schema",
+    "strict": true,
+    "fields": [
+      "decision",
+      "issues",
+      "quality_warnings",
+      "explanation"
+    ],
+    "decisions": [
+      "ALLOW",
+      "BLOCK",
+      "REVIEW"
+    ],
+    "issues_max_items": 4,
+    "issue_fields": [
+      "unit_id",
+      "code",
+      "reason"
+    ],
+    "unit_id_enum": "exactly the unit_id values of answer_units for that row",
+    "reason_codes": [
+      "SAFETY",
+      "POLICY_OVERRIDE",
+      "FALSE_EXECUTION",
+      "UNSUPPORTED_CLAIM",
+      "EVIDENCE_CONTRADICTION",
+      "WRONG_TASK_OR_TARGET",
+      "INTERNAL_METADATA"
+    ],
+    "required_all_fields": true,
+    "additional_properties": false,
+    "completed": 34,
+    "planned": 60,
+    "stopped_early": true,
+    "inflight_completion_unknown_maximum": 1
+  },
+  "validation": {
+    "block_requires_actual_answer_quote": true,
+    "v3_quotes_are_resolved_from_exact_answer_unit_ids": true,
+    "model_verdict_not_equal_to_verified_issue_detection": true,
+    "review_invalid_error_not_counted_as_blocks": true,
+    "raw_rows_never_rewritten": true
+  },
+  "model_calls_during_this_publication": 0,
+  "product_integration": false,
+  "fixture_scope": "Synthetic benchmark questions and saved answers with team FAQ excerpts; no live user information or production database query."
+}

@@ -33,3 +33,7 @@
 ## judge
 
 `accuracy.md`(정확도·환각·본문 행동·본문 출처) · `safety.md` · `persona.md`, 공통 안내는 `common_guard.md`이다. 출력 스키마는 `scripts/lib/judge/schema.js`에 있다. 루브릭을 고치면 `scripts/lib/judge/prompts.js`의 `RUBRIC_VERSION`을 올리고 새 배치 ID로 준비한다. 표현 품질 점수는 전수 accuracy Judge에서 제외하며 표현 규칙 검사와 별도 페르소나 판정은 유지한다.
+
+## output_guard — 제품 미연결 실험 원문
+
+[RedHat 후단 출력 가드 v1·v2·v3](output_guard/README.md)는 저장 답변 분류용 실험 원문입니다. 답변 생성/기존 Judge 프롬프트나 공통 로더 설정을 수정하지 않았습니다. [v7 try5 결과](../model_test_v7/try5/results/all_summary.md)에 실제 질문·추가 탐지·미탐지·오차단·형식 실패·중단 사유를 기록했습니다.
