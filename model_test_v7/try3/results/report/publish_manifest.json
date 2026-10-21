@@ -1,0 +1,238 @@
+{
+  "repository": "ureca-UBot/UBot-LLMTest",
+  "branch": "test/ai-guard-input",
+  "base_commit": "dd269c926736bb1129fa692c62807f42ffb8ce09",
+  "date_kst": "2026-10-21",
+  "round": "model_test_v7/try3",
+  "purpose": "Publish completed hard400 classification and separate prior residual10 embedding evidence.",
+  "models_rerun_during_publication": false,
+  "existing_execution_evaluation_code_changed": false,
+  "product_source_files_uploaded": 0,
+  "original_artifacts_copied_byte_for_byte_except_documented_derived_metadata": true,
+  "source_artifacts": [
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/summary.json",
+      "bytes": 33958,
+      "sha256": "21313b9ace874466c883b0e534e9a808bbe53e15feb84271e5dbdf9ac06520ae"
+    },
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/comparison_400.json",
+      "bytes": 1444374,
+      "sha256": "4ab1bfc81a08ef6d498b307a7fcd9b53d49b652fd80c78bfe2e1ad69e38f989f"
+    },
+    {
+      "artifact": "outputs/embedding-residual10-20261021-side/summary.json",
+      "bytes": 9237,
+      "sha256": "0dade77187a83c72e3d999f8981c283919c3e2ba215a6a3f5eafe3491b4b84b0"
+    },
+    {
+      "artifact": "outputs/embedding-residual10-20261021-side/results_30queries.json",
+      "bytes": 58057,
+      "sha256": "547c13281fef77c45cf427581fd8deaefe234bbd3c56a9d47f319fee9b005659"
+    },
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/questions_400.jsonl",
+      "bytes": 332594,
+      "sha256": "0948dc7ac97c58fbcd5e0565ef9561a488ffbfd39493be731cab1d6bcf6c5dce"
+    },
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/input_guard_results.json",
+      "bytes": 840335,
+      "sha256": "70e82c96db011a481e2a34505662aeca329fa5d9a9997d5ec0659eb24eadf17b"
+    },
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/qwen_398_results.jsonl",
+      "bytes": 293904,
+      "sha256": "6914b16d2131a0e567940a339589a7d7e8bd4bfce16522f40f9721001e27cfc7"
+    },
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/ibm_398_results.jsonl",
+      "bytes": 95573,
+      "sha256": "feb2a985d91753b372d83239f1888587307d4ae6786977b886fd177d0b60117c"
+    },
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/kakao_398_results.jsonl",
+      "bytes": 91992,
+      "sha256": "533c81bf3ed068a76e1e125aa57963fc644acea4fa886621dc817ea3fb97642e"
+    },
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/dataset_manifest.json",
+      "bytes": 5447,
+      "sha256": "5b6af19440a23b6f13bdfea37aee2de4ef08bd0502c901740d7f5ae0fcea9283"
+    },
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/scope_and_restoration.json",
+      "bytes": 2666,
+      "sha256": "ebf8c97d2574888158bf2be8a4183dd5135e7c020fc9b6ce268cbb6c2a218d7d"
+    },
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/비교결과_400개.html",
+      "bytes": 830682,
+      "sha256": "dbb08fce57b2076aea9b9e58e12042eef8848446e1aa68e22fb0f2008fbf0474"
+    },
+    {
+      "artifact": "outputs/hard-input-guard-400-20261021-side/질문지_400개.html",
+      "bytes": 198135,
+      "sha256": "a66072e98bc63111d169d42fde82ae59153dd1bed570341b93c302756e07d8d2"
+    },
+    {
+      "artifact": "work/hard-input-guard-400-20261021-side/ai-tests/cases.jsonl",
+      "bytes": 296169,
+      "sha256": "72905f0f056de35c9d9a281a95016f88d5279c09f4daedc1346008ab17ac6b36"
+    },
+    {
+      "artifact": "outputs/embedding-residual10-20261021-side/이전공격10건_임베딩검사.html",
+      "bytes": 42652,
+      "sha256": "c34ecade27f622ef148103f8842f8cb8eed88aa775dbe15b3940ae64f6c92b44"
+    },
+    {
+      "artifact": "outputs/hard400-review-20261021-side/이번테스트_400건_공격탐지_정상오차단.xlsx",
+      "bytes": 103709,
+      "sha256": "cf8391a21577171fbdd19e9bd9f2c2b8abf1c4098387803e7dcd1d3cdb1ce61d"
+    }
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 61078,
+      "sha256": "2b456b11b8d5034f46cfb9a51d1e887b6931e79f1fa221c9f19d838c21ba48ef"
+    },
+    {
+      "path": "model_test_v7/README.md",
+      "bytes": 2504,
+      "sha256": "20471ea069a88fb32b1ca8b9ea386098352950a3de2347acfd50077f18815211"
+    },
+    {
+      "path": "model_test_v7/SETUP.md",
+      "bytes": 14680,
+      "sha256": "47e170151085d01593c477fdfdd0d3e4b1359f8785367fcd589b955aec53d403"
+    },
+    {
+      "path": "model_test_v7/try3/README.md",
+      "bytes": 443,
+      "sha256": "1585bf0124e09c55a3b6d09e81c06dba4e6b55f4ebd921e7aa63eb9a675c8d8d"
+    },
+    {
+      "path": "model_test_v7/try3/results/all_summary.md",
+      "bytes": 7426,
+      "sha256": "e1af2cdcccc8aea030609063f7524cde8ab7f72802fc957070d4e9a29aafaa25"
+    },
+    {
+      "path": "model_test_v7/try3/results/raw/classifier_inputs_398.jsonl",
+      "bytes": 296169,
+      "sha256": "72905f0f056de35c9d9a281a95016f88d5279c09f4daedc1346008ab17ac6b36"
+    },
+    {
+      "path": "model_test_v7/try3/results/raw/comparison_400.json",
+      "bytes": 1444374,
+      "sha256": "4ab1bfc81a08ef6d498b307a7fcd9b53d49b652fd80c78bfe2e1ad69e38f989f"
+    },
+    {
+      "path": "model_test_v7/try3/results/raw/embedding_30queries.json",
+      "bytes": 58057,
+      "sha256": "547c13281fef77c45cf427581fd8deaefe234bbd3c56a9d47f319fee9b005659"
+    },
+    {
+      "path": "model_test_v7/try3/results/raw/ibm_398.jsonl",
+      "bytes": 95573,
+      "sha256": "feb2a985d91753b372d83239f1888587307d4ae6786977b886fd177d0b60117c"
+    },
+    {
+      "path": "model_test_v7/try3/results/raw/input_guard_400.json",
+      "bytes": 840335,
+      "sha256": "70e82c96db011a481e2a34505662aeca329fa5d9a9997d5ec0659eb24eadf17b"
+    },
+    {
+      "path": "model_test_v7/try3/results/raw/kakao_398.jsonl",
+      "bytes": 91992,
+      "sha256": "533c81bf3ed068a76e1e125aa57963fc644acea4fa886621dc817ea3fb97642e"
+    },
+    {
+      "path": "model_test_v7/try3/results/raw/questions_400.jsonl",
+      "bytes": 332594,
+      "sha256": "0948dc7ac97c58fbcd5e0565ef9561a488ffbfd39493be731cab1d6bcf6c5dce"
+    },
+    {
+      "path": "model_test_v7/try3/results/raw/qwen_398.jsonl",
+      "bytes": 293904,
+      "sha256": "6914b16d2131a0e567940a339589a7d7e8bd4bfce16522f40f9721001e27cfc7"
+    },
+    {
+      "path": "model_test_v7/try3/results/report/dataset_manifest.json",
+      "bytes": 5447,
+      "sha256": "5b6af19440a23b6f13bdfea37aee2de4ef08bd0502c901740d7f5ae0fcea9283"
+    },
+    {
+      "path": "model_test_v7/try3/results/report/embedding_residual10.html",
+      "bytes": 42652,
+      "sha256": "c34ecade27f622ef148103f8842f8cb8eed88aa775dbe15b3940ae64f6c92b44"
+    },
+    {
+      "path": "model_test_v7/try3/results/report/embedding_summary.json",
+      "bytes": 8948,
+      "sha256": "14bcbbe5ce3a8026bb18705ba122f8ce1269c4a5c46ecb8e472d19ef36ab8eeb"
+    },
+    {
+      "path": "model_test_v7/try3/results/report/execution_conditions.json",
+      "bytes": 6156,
+      "sha256": "8889f3c3973b143d7a8c83710648ba4bace1c1630579678bd8c2d8b32d77808f"
+    },
+    {
+      "path": "model_test_v7/try3/results/report/hard400_comparison.html",
+      "bytes": 830682,
+      "sha256": "dbb08fce57b2076aea9b9e58e12042eef8848446e1aa68e22fb0f2008fbf0474"
+    },
+    {
+      "path": "model_test_v7/try3/results/report/hard400_questions.html",
+      "bytes": 198135,
+      "sha256": "a66072e98bc63111d169d42fde82ae59153dd1bed570341b93c302756e07d8d2"
+    },
+    {
+      "path": "model_test_v7/try3/results/report/hard400_review.xlsx",
+      "bytes": 103709,
+      "sha256": "cf8391a21577171fbdd19e9bd9f2c2b8abf1c4098387803e7dcd1d3cdb1ce61d"
+    },
+    {
+      "path": "model_test_v7/try3/results/report/hard400_scope_and_restoration.json",
+      "bytes": 2666,
+      "sha256": "ebf8c97d2574888158bf2be8a4183dd5135e7c020fc9b6ce268cbb6c2a218d7d"
+    },
+    {
+      "path": "model_test_v7/try3/results/report/hard400_summary.json",
+      "bytes": 33958,
+      "sha256": "21313b9ace874466c883b0e534e9a808bbe53e15feb84271e5dbdf9ac06520ae"
+    },
+    {
+      "path": "model_test_v7/try3/results/summary/category_comparison.md",
+      "bytes": 3256,
+      "sha256": "3967fdb9c5f34d136da33caf7f33d8f798b36e9267962d9557d6d8f74bd41e1a"
+    },
+    {
+      "path": "model_test_v7/try3/results/summary/embedding_residual10.md",
+      "bytes": 4537,
+      "sha256": "8b3440ab59aa9816b0b34bc8ac4a8a22865902a1f9d00474b6d0a7adf3409e60"
+    },
+    {
+      "path": "model_test_v7/try3/results/summary/false_positives_and_uncertain.md",
+      "bytes": 28695,
+      "sha256": "b505dae080f6466fe63df8bb9054d4364b2fb932d13d5b9fa804aece31cad164"
+    },
+    {
+      "path": "model_test_v7/try3/results/summary/methodology_and_limits.md",
+      "bytes": 5495,
+      "sha256": "8cedab325a9006e6d62c0f1ecec96be2fa122c33547649e411c8bb910cdaa504"
+    },
+    {
+      "path": "model_test_v7/try3/results/summary/remaining_attacks.md",
+      "bytes": 22933,
+      "sha256": "27a4a19d879d4b7746494cf13fcc28711f6837b849c39a060da6be233c01548d"
+    },
+    {
+      "path": "result.html",
+      "bytes": 429319,
+      "sha256": "41c2f5660867452c21e3cc8a6652a64e197741343c8135bd3fe3d6572c2244e2"
+    }
+  ],
+  "manifest_self_excluded": true,
+  "other_branch_writes_authorized": false
+}

@@ -1,0 +1,160 @@
+{
+  "date_kst": "2026-10-21",
+  "published_branch": "test/ai-guard-input",
+  "hard400": {
+    "sequence": [
+      "frozen questions",
+      "local current input guard",
+      "same prepared 398 inputs to each classifier"
+    ],
+    "runtime": {
+      "qwen": {
+        "event": "preflight",
+        "model": "ubot-chat",
+        "available_model_ids": [
+          "ubot-chat"
+        ],
+        "safe_runtime_arguments": {
+          "--model": "Qwen/Qwen3-4B-AWQ",
+          "--served-model-name": "ubot-chat"
+        },
+        "model_roots": [
+          "Qwen/Qwen3-4B-AWQ"
+        ],
+        "cases": 398,
+        "prompt_sha256": "b6c4501ce4ecba5ca649e5092a069a4d358426fad4127b0280fac0d9740f1d56",
+        "temperature": 0.0,
+        "max_tokens": 180,
+        "concurrency": 1,
+        "actual_retrieval": false,
+        "policy": "project-specific classification instructions; not the application answer prompt"
+      },
+      "native_loaded_events": [
+        {
+          "event": "loaded",
+          "model": "ibm",
+          "phase": "full",
+          "load_seconds": 38.59498898599986,
+          "device_map": {
+            "": "cuda:0"
+          },
+          "cpu_weight_offload": false,
+          "torch_version": "2.13.0+cu130",
+          "cuda_version": "13.0",
+          "gpu": "NVIDIA L4",
+          "allocated_bytes": 5067064320
+        },
+        {
+          "event": "loaded",
+          "model": "kakao",
+          "phase": "full",
+          "load_seconds": 123.7163007600002,
+          "device_map": {
+            "": "cuda:0"
+          },
+          "cpu_weight_offload": false,
+          "torch_version": "2.13.0+cu130",
+          "cuda_version": "13.0",
+          "gpu": "NVIDIA L4",
+          "allocated_bytes": 16060654592
+        }
+      ]
+    },
+    "input_guard_word_snapshot_count": 38,
+    "live_database_queries": 0,
+    "embedding_calls": 0,
+    "answer_generation_calls": 0,
+    "external_judge_calls": 0,
+    "native_ibm": {
+      "model": "ibm-granite/granite-guardian-3.1-2b",
+      "risk_name": "harm",
+      "dtype": "bfloat16",
+      "max_new_tokens": 20,
+      "do_sample": false,
+      "batch_size": 1
+    },
+    "native_kakao": {
+      "model": "kakaocorp/kanana-safeguard-8b",
+      "template": "user + empty assistant",
+      "dtype": "bfloat16",
+      "max_new_tokens": 1,
+      "do_sample": false,
+      "batch_size": 1
+    },
+    "qwen": {
+      "model": "Qwen/Qwen3-4B-AWQ",
+      "role": "input classifier, not answer generator",
+      "temperature": 0,
+      "max_tokens": 180,
+      "concurrency": 1,
+      "response_format": "json_object",
+      "policy_path": "prompts/input_guard/qwen3_4b_awq_classifier_20261021.txt",
+      "policy_sha256": "b6c4501ce4ecba5ca649e5092a069a4d358426fad4127b0280fac0d9740f1d56",
+      "user_message": "JSON object containing only the actual prepared input string under input"
+    },
+    "model_weight_hashes_recalculated": false,
+    "policy_comparability": "IBM native harm / Kakao native policy / Qwen unchanged project classifier prompt",
+    "service_restore_verified": true,
+    "answer_service_health_http_200": true,
+    "compiled_source_hashes": {
+      "src/main/java/com/ubot/chat/service/ChatInputGuardService.java": "e4de9758ad0a76e67124c8a713beb25b5078610c49a71a1cdcfb94d62a0f054c",
+      "src/main/java/com/ubot/chat/service/ChatPromptInjectionService.java": "3cdfd5af55526897bff446c5b47ca5b0afdff448edac28b61edec388cddaa2eb",
+      "src/main/java/com/ubot/chat/service/ChatService.java": "d6d3cb714b251198bd9c60f6c0a7e207c7d539475e4680e76fe0294f43d82949",
+      "src/main/java/com/ubot/forbiddenword/service/ForbiddenWordFilterService.java": "0b58e97f8e1961770355aac3094f16437f0dab9f876a548fdde7d432414e7a13",
+      "src/main/java/com/ubot/chat/exception/ChatErrorCode.java": "5a21bc16c793a91464e8864a36789278e77bb59f77f9a17cf9078e4a6fb6c96d",
+      "src/main/java/com/ubot/chat/exception/ChatException.java": "f450b5da8d59ba301524952605f3c133cf7fb257801b4c26c56fb5f3dc2ddd2c",
+      "src/main/java/com/ubot/common/ErrorCode.java": "020e83f9c22c1efa692744d657b45baedfe5450b5d417d5582d3b4819b090164",
+      "src/main/java/com/ubot/common/GlobalException.java": "2f9f9fa6fe9c61d538848aec0565aa492bf4751d24f3dbeb30d4ea05c9e53fbe",
+      "src/main/java/com/ubot/ai/dto/ConversationTurn.java": "89016baf44be95af04d4852426bf5ff707e02b0a1c8f049394657c6394bce4d6"
+    }
+  },
+  "embedding10": {
+    "model": "BAAI/bge-m3",
+    "served_model": "ubot-embedding",
+    "dimensions": 1024,
+    "new_query_texts": 30,
+    "fresh_cache_sentinels": 3,
+    "request_batch_size": 33,
+    "variant_count": 8443,
+    "faq_count": 1688,
+    "threshold": 0.75,
+    "top_k_distinct_faqs": 3,
+    "comparison": "local float64 cosine; best variant per FAQ; similarity DESC, FAQ ID ASC",
+    "live_database_used_for_final_seed_test": false,
+    "preliminary_database_metadata_check": "Earlier read-only default-container check did not establish production FAQ DB identity or synchronization. Final experiment used canonical team seed files.",
+    "llm_calls": 0,
+    "guard_model_calls": 0,
+    "sentence_filter_executed": false,
+    "subquestion_planner_executed": false,
+    "cache_sentinels": [
+      {
+        "id": "CACHE-1",
+        "text": "휴대폰 신규 가입은 어떻게 하나요?",
+        "cosine": 0.9999995105346428,
+        "max_abs_difference": 0.00015070289373397827
+      },
+      {
+        "id": "CACHE-4222",
+        "text": "찾은 휴대폰의 정지를 풀었는데 정상 이용 상태인가요?",
+        "cosine": 1.0,
+        "max_abs_difference": 0.0
+      },
+      {
+        "id": "CACHE-8443",
+        "text": "아직 약정 중인데 요금제 변경이 가능한가요?",
+        "cosine": 0.9999996017264137,
+        "max_abs_difference": 0.0001160353422164917
+      }
+    ],
+    "cache_file_sha256": "69befca14f9de2468e2e53ae157ec98360d4635364a1e26a8c662a3c739cb9ee",
+    "services_unchanged": true
+  },
+  "publication": {
+    "model_reruns": 0,
+    "product_source_files_uploaded": 0,
+    "existing_execution_evaluation_code_changed": false,
+    "existing_rounds_modified": false,
+    "issue_created": false,
+    "merge_requested": false
+  }
+}

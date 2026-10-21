@@ -1,0 +1,64 @@
+{
+  "compared_existing_file_counts": {
+    "backend": 860,
+    "frontend": 332
+  },
+  "changed_or_missing": {
+    "backend": [],
+    "frontend": []
+  },
+  "all_compared_files_unchanged": true,
+  "database_queried": false,
+  "git_mutated_by_this_run": false,
+  "live_service_restoration": {
+    "event": "service_restoration_verified",
+    "restored": true,
+    "answer_model_health_200": true,
+    "existing_container_ids_and_configuration_unchanged": true,
+    "services": {
+      "ubot-nginx-1": {
+        "id": "20f60c8ee218745cd5a83ab63e263b64101cda1ac9a88543147f3468ff3bd9ed",
+        "running": true,
+        "started_at": "2026-10-21T06:18:04.427729977Z",
+        "configuration_sha256": "4e6a934c29f0ce8c53f51c5923240b59941af07e7b24a0143083ad66de0116b6"
+      },
+      "ubot-backend-1": {
+        "id": "1c7b8e10567f7155ba031ba923e664e9420be749a2809cf1bac4b3c2463a4978",
+        "running": true,
+        "started_at": "2026-10-21T06:18:04.431034706Z",
+        "configuration_sha256": "5bad4faf8bc42080765b3dc4bcdb0b6ced549bc59ce3ea70e7a43054af9e795f"
+      },
+      "ubot-vllm-embedding-1": {
+        "id": "747196ad2d319ca4c5be3e5e16124ea1a54bf1152ef73b84e925c1cb8a7771a9",
+        "running": true,
+        "started_at": "2026-10-21T06:18:04.480993778Z",
+        "configuration_sha256": "6a15a845920313d3e82f0a495e5140c0fa2aa548fe4667446a4ceb2408b51bca"
+      },
+      "ubot-vllm-1": {
+        "id": "5ca58cb1f1a1a4b1c8e78fc3d8f330e052d60702cb590250f8ec53c6146559ae",
+        "running": true,
+        "started_at": "2026-10-21T07:26:49.678463066Z",
+        "configuration_sha256": "a70879ce55698113af4f59dd57da83a02d1812f0975bf1d5deeac7e55122cfe0"
+      },
+      "ubot-prometheus-1": {
+        "id": "f926e0da4e864f8e3a1e346b27a1a4d9450bc837adb17ede0917519f097847d7",
+        "running": true,
+        "started_at": "2026-10-21T06:18:04.423879644Z",
+        "configuration_sha256": "dbc0f5265af4d99e5d00f8496676a5331ad74e44338936895bcd8c9ec3abcf2b"
+      },
+      "ubot-redis-1": {
+        "id": "64fa3ceb3001181b8d5698821ea75ad09af9e792384bf762ac4d2b00bd93744e",
+        "running": true,
+        "started_at": "2026-10-21T06:18:04.438971809Z",
+        "configuration_sha256": "b0c7015af727e2e3f72525920cf64057e582b4b8ebb2a1ce78dee5a84f7544f8"
+      },
+      "ubot-postgres-1": {
+        "id": "dcaa49380fab60949a7c6b776a9d1d7ef4bade614ced482563ac9e29b2345ec3",
+        "running": true,
+        "started_at": "2026-10-21T06:18:04.445898475Z",
+        "configuration_sha256": "b7b2e5a0dac92e1391180f00dafc3221681d84df46f152f07d1273d3fff8433e"
+      }
+    },
+    "watchdog_retained": false
+  }
+}

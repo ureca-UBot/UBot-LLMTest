@@ -1733,7 +1733,161 @@
   ]
 }
 ,
-{"id":"v8-try1","short":"v8 try1","color":"#0f766e","env":"EC2 g6.2xlarge · NVIDIA L4","judge":"Codex gpt-6-sol · medium · v4-judge-12 + 실행 조건 부칙","cond":"원본 QUESTION · top3 · cosine≥0.75 · 최신 develop prompt · temperature 0 · 가드 없음","label":"v8 · try1 — 코어 FAQ 1,000건 임베딩·LLM 기준점","pill":"v8 try1 · 2026.10.16 · 내용 Judge 완료","title":"정상 FAQ 기준점 — 가드 미적용","sub":"저장 답변 1000건 전수 Judge. 일반 FAQ 334·매장333·개인333; 조회 API 자료 없음. 원판정과 Codex 근거 재검토 의견 분리.","provenance":["\u003ca href=\"model_test_v8/try1/results/all_summary.md\">전체 요약\u003c/a>","\u003ca href=\"model_test_v8/SETUP.md\">실행 조건\u003c/a>","\u003ca href=\"model_test_v8/try1/results/summary/evaluation_criteria.md\">평가 기준\u003c/a>"],"cards":[{"label":"Judge 내용 정답","value":"633","unit":"/1000","sub":"원판정 63.3% · 오답367"},{"label":"Judge 근거 이탈","value":"256","unit":"/1000","sub":"원판정 25.6% · 정확도와 별도"},{"label":"재검토 정답 의견","value":"702","unit":"/1000","sub":"Codex 근거 대조 · 사람 정답 아님"},{"label":"재검토 근거 이탈","value":"303","unit":"/1000","sub":"직접 조회 약속 등 추가 기록"}],"models":[{"tag":"RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16","label":"RedHatAI Qwen3 4B Instruct 2507 W4A16","idx":1,"latency":2.697350079169001,"p95":4.3826728606000325,"vals":{"core1000_source_top1":1000,"core1000_generated":1000,"core1000_faq_marker":78,"core1000_judge_acc":63.3,"core1000_judge_ung":25.6,"core1000_review_acc":70.2,"core1000_review_ung":30.3,"core1000_faq_broader":84},"subs":{"core1000_source_top1":"1000건 · 자체 일치","core1000_generated":"1000/1000 · 생성 완료","core1000_faq_marker":"78/1000 · 형식 관찰","core1000_judge_acc":"633/1000 · 원판정","core1000_judge_ung":"256/1000 · 원판정","core1000_review_acc":"702/1000 · Codex 의견","core1000_review_ung":"303/1000 · Codex 의견","core1000_faq_broader":"84/1000 · 별도 패턴 확장"}}],"metrics":[{"key":"core1000_judge_acc","name":"Judge 본문 정답률","unit":"%","max":100,"digits":1,"group":"judge","lower":false,"note":"원판정. 조회 자료 없는 개인·매장 질문 포함."},{"key":"core1000_judge_ung","name":"Judge 근거 이탈률","unit":"%","max":100,"digits":1,"group":"judge","lower":true,"note":"원판정. 정확도와 별도의 축."},{"key":"core1000_review_acc","name":"재검토 정답 의견","unit":"%","max":100,"digits":1,"group":"judge","lower":false,"note":"Codex 근거 대조 의견. 사람 정답 라벨 아님."},{"key":"core1000_review_ung","name":"재검토 근거 이탈 의견","unit":"%","max":100,"digits":1,"group":"judge","lower":true,"note":"불가능한 직접 조회 약속 등을 추가. 원판정 보존."},{"key":"core1000_source_top1","name":"원본 FAQ 1위 건수","unit":"건","max":1000,"digits":0,"group":"det","note":"원본 질문이 검색 자료에도 있는 자체 일치 검사. 일반 검색 정답률 아님."},{"key":"core1000_generated","name":"LLM 생성 완료","unit":"건","max":1000,"digits":0,"group":"measure","note":"실행 완료 건수. 정답 판정 아님."},{"key":"core1000_faq_marker","name":"내부 FAQ 번호 표시","unit":"건","max":1000,"digits":0,"group":"det","lower":true,"note":"답변의 FAQ 번호 표시 정규식 관찰. 내용 오답과 분리."},{"key":"core1000_faq_broader","name":"확장 FAQ 번호 표시","unit":"건","max":1000,"digits":0,"group":"det","lower":true,"note":"기존 좁은 패턴78건과 별도. FAQ [901] 등도 포함하면84건."}],"speedNote":"LLM 순차 요청만의 시간. 모델 로딩·임베딩 제외. 실제 API·DB·가드 서비스 경로는 호출하지 않음.","itemMetrics":[],"itemSets":[],"links":[{"label":"내용 평가 보고서","href":"model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/evaluation_report.md"},{"label":"근거 재검토400건","href":"model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/README.md"},{"label":"전체 실행 요약","href":"model_test_v8/try1/results/all_summary.md"},{"label":"질문·FAQ·답변 1000건","href":"model_test_v8/try1/results/summary/answers/README.md"},{"label":"평가 기준","href":"model_test_v8/try1/results/summary/evaluation_criteria.md"}],"notes":[["판정","원판정 정답633·근거 이탈256. Codex 재검토 의견 정답702·근거 이탈303. 사람 검수가 아니며 원판정을 덮어쓰지 않음."],["분모","GENERAL334: 원판정 정답303. STORE333/USER333에는 실제 조회 자료가 없음. 배포된 조회 기능 정확도 아님."],["한계","정상 원본 질문만. 검색 자체 일치·응답 생성은 정답률 아님. 입출력 가드·공격 방어 미평가."]]}]
+{"id":"v8-try1","short":"v8 try1","color":"#0f766e","env":"EC2 g6.2xlarge · NVIDIA L4","judge":"Codex gpt-6-sol · medium · v4-judge-12 + 실행 조건 부칙","cond":"원본 QUESTION · top3 · cosine≥0.75 · 최신 develop prompt · temperature 0 · 가드 없음","label":"v8 · try1 — 코어 FAQ 1,000건 임베딩·LLM 기준점","pill":"v8 try1 · 2026.10.16 · 내용 Judge 완료","title":"정상 FAQ 기준점 — 가드 미적용","sub":"저장 답변 1000건 전수 Judge. 일반 FAQ 334·매장333·개인333; 조회 API 자료 없음. 원판정과 Codex 근거 재검토 의견 분리.","provenance":["\u003ca href=\"model_test_v8/try1/results/all_summary.md\">전체 요약\u003c/a>","\u003ca href=\"model_test_v8/SETUP.md\">실행 조건\u003c/a>","\u003ca href=\"model_test_v8/try1/results/summary/evaluation_criteria.md\">평가 기준\u003c/a>"],"cards":[{"label":"Judge 내용 정답","value":"633","unit":"/1000","sub":"원판정 63.3% · 오답367"},{"label":"Judge 근거 이탈","value":"256","unit":"/1000","sub":"원판정 25.6% · 정확도와 별도"},{"label":"재검토 정답 의견","value":"702","unit":"/1000","sub":"Codex 근거 대조 · 사람 정답 아님"},{"label":"재검토 근거 이탈","value":"303","unit":"/1000","sub":"직접 조회 약속 등 추가 기록"}],"models":[{"tag":"RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16","label":"RedHatAI Qwen3 4B Instruct 2507 W4A16","idx":1,"latency":2.697350079169001,"p95":4.3826728606000325,"vals":{"core1000_source_top1":1000,"core1000_generated":1000,"core1000_faq_marker":78,"core1000_judge_acc":63.3,"core1000_judge_ung":25.6,"core1000_review_acc":70.2,"core1000_review_ung":30.3,"core1000_faq_broader":84},"subs":{"core1000_source_top1":"1000건 · 자체 일치","core1000_generated":"1000/1000 · 생성 완료","core1000_faq_marker":"78/1000 · 형식 관찰","core1000_judge_acc":"633/1000 · 원판정","core1000_judge_ung":"256/1000 · 원판정","core1000_review_acc":"702/1000 · Codex 의견","core1000_review_ung":"303/1000 · Codex 의견","core1000_faq_broader":"84/1000 · 별도 패턴 확장"}}],"metrics":[{"key":"core1000_judge_acc","name":"Judge 본문 정답률","unit":"%","max":100,"digits":1,"group":"judge","lower":false,"note":"원판정. 조회 자료 없는 개인·매장 질문 포함."},{"key":"core1000_judge_ung","name":"Judge 근거 이탈률","unit":"%","max":100,"digits":1,"group":"judge","lower":true,"note":"원판정. 정확도와 별도의 축."},{"key":"core1000_review_acc","name":"재검토 정답 의견","unit":"%","max":100,"digits":1,"group":"judge","lower":false,"note":"Codex 근거 대조 의견. 사람 정답 라벨 아님."},{"key":"core1000_review_ung","name":"재검토 근거 이탈 의견","unit":"%","max":100,"digits":1,"group":"judge","lower":true,"note":"불가능한 직접 조회 약속 등을 추가. 원판정 보존."},{"key":"core1000_source_top1","name":"원본 FAQ 1위 건수","unit":"건","max":1000,"digits":0,"group":"det","note":"원본 질문이 검색 자료에도 있는 자체 일치 검사. 일반 검색 정답률 아님."},{"key":"core1000_generated","name":"LLM 생성 완료","unit":"건","max":1000,"digits":0,"group":"measure","note":"실행 완료 건수. 정답 판정 아님."},{"key":"core1000_faq_marker","name":"내부 FAQ 번호 표시","unit":"건","max":1000,"digits":0,"group":"det","lower":true,"note":"답변의 FAQ 번호 표시 정규식 관찰. 내용 오답과 분리."},{"key":"core1000_faq_broader","name":"확장 FAQ 번호 표시","unit":"건","max":1000,"digits":0,"group":"det","lower":true,"note":"기존 좁은 패턴78건과 별도. FAQ [901] 등도 포함하면84건."}],"speedNote":"LLM 순차 요청만의 시간. 모델 로딩·임베딩 제외. 실제 API·DB·가드 서비스 경로는 호출하지 않음.","itemMetrics":[],"itemSets":[],"links":[{"label":"내용 평가 보고서","href":"model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/evaluation_report.md"},{"label":"근거 재검토400건","href":"model_test_v8/try1/results/llm_judge/core1000-accuracy-context-v1_20261016/review/README.md"},{"label":"전체 실행 요약","href":"model_test_v8/try1/results/all_summary.md"},{"label":"질문·FAQ·답변 1000건","href":"model_test_v8/try1/results/summary/answers/README.md"},{"label":"평가 기준","href":"model_test_v8/try1/results/summary/evaluation_criteria.md"}],"notes":[["판정","원판정 정답633·근거 이탈256. Codex 재검토 의견 정답702·근거 이탈303. 사람 검수가 아니며 원판정을 덮어쓰지 않음."],["분모","GENERAL334: 원판정 정답303. STORE333/USER333에는 실제 조회 자료가 없음. 배포된 조회 기능 정확도 아님."],["한계","정상 원본 질문만. 검색 자체 일치·응답 생성은 정답률 아님. 입출력 가드·공격 방어 미평가."]]},
+{
+  "id": "v7-try3",
+  "short": "v7 try3",
+  "color": "#7c3aed",
+  "env": "로컬 입력 코드 / EC2 g6.xlarge · NVIDIA L4",
+  "judge": "외부 Judge 미실시 · 모델 자체 입력 분류",
+  "cond": "입력 코드400개 선검사 → 같은398개 × Qwen/IBM/카카오 · 이전10개 임베딩 별도",
+  "label": "v7 · try3 — 하드 입력400건·이전10건 임베딩",
+  "pill": "v7 try3 · 2026.10.21 · 분류·검색 완료",
+  "title": "새 말투 입력 가드·AI 비교",
+  "sub": "공격320·정상80. 분류 정책이 달라 공정한 모델 순위 아님. 답변 생성·출력 가드·Judge 없음.",
+  "provenance": [
+    "<a href=\"model_test_v7/try3/results/all_summary.md\">전체 요약</a>",
+    "<a href=\"model_test_v7/try3/results/summary/methodology_and_limits.md\">방법과 한계</a>"
+  ],
+  "cards": [
+    {
+      "label": "코드 후 공격 잔존",
+      "value": "313",
+      "unit": "/320",
+      "sub": "공격 제거5 · 전체 차단2"
+    },
+    {
+      "label": "코드 정상 보존",
+      "value": "80",
+      "unit": "/80",
+      "sub": "차단·내용 삭제0"
+    },
+    {
+      "label": "AI 입력/모델",
+      "value": "398",
+      "unit": "건",
+      "sub": "잔존313 + 정상80 + 정리본5"
+    },
+    {
+      "label": "이전10건 검색≥0.75",
+      "value": "10",
+      "unit": "/10",
+      "sub": "안전성 판정 아님"
+    }
+  ],
+  "models": [
+    {
+      "tag": "Qwen/Qwen3-4B-AWQ",
+      "label": "현재 Qwen 4B AWQ",
+      "idx": 1,
+      "latency": 0.7131088455552649,
+      "vals": {
+        "hard400_residual_unsafe_n313": 256,
+        "hard400_normal_unsafe_n80": 16,
+        "hard400_attack_uncertain_n313": 35,
+        "hard400_normal_uncertain_n80": 14
+      },
+      "subs": {}
+    },
+    {
+      "tag": "ibm-granite/granite-guardian-3.1-2b",
+      "label": "IBM Granite Guardian 3.1 2B",
+      "idx": 2,
+      "latency": 0.07501805695226689,
+      "vals": {
+        "hard400_residual_unsafe_n313": 172,
+        "hard400_normal_unsafe_n80": 13
+      },
+      "subs": {}
+    },
+    {
+      "tag": "kakaocorp/kanana-safeguard-8b",
+      "label": "카카오 Kanana Safeguard 8B",
+      "idx": 3,
+      "latency": 0.0849282210401725,
+      "vals": {
+        "hard400_residual_unsafe_n313": 193,
+        "hard400_normal_unsafe_n80": 1
+      },
+      "subs": {}
+    }
+  ],
+  "metrics": [
+    {
+      "key": "hard400_residual_unsafe_n313",
+      "name": "잔존 공격 UNSAFE",
+      "unit": "건",
+      "max": 313,
+      "digits": 0,
+      "group": "det",
+      "note": "코드 후 공격313개. UNCERTAIN 제외, 최종 답변 안전성 아님."
+    },
+    {
+      "key": "hard400_normal_unsafe_n80",
+      "name": "정상 UNSAFE 오차단",
+      "unit": "건",
+      "max": 80,
+      "digits": 0,
+      "group": "det",
+      "lower": true,
+      "note": "정상80개. 공급자·프로젝트 정책이 다름."
+    },
+    {
+      "key": "hard400_attack_uncertain_n313",
+      "name": "공격 판단 보류",
+      "unit": "건",
+      "max": 313,
+      "digits": 0,
+      "group": "det",
+      "note": "Qwen만 해당; Native 모델은 해당 라벨 없음."
+    },
+    {
+      "key": "hard400_normal_uncertain_n80",
+      "name": "정상 판단 보류",
+      "unit": "건",
+      "max": 80,
+      "digits": 0,
+      "group": "det",
+      "note": "Qwen만 해당. 정상 통과로 계산하지 않음."
+    }
+  ],
+  "speedNote": "Native 분류 토큰과 Qwen JSON 이유 출력의 조건이 다름. 로딩 제외 요청 시간으로 속도 순위에 사용하지 않음.",
+  "itemMetrics": [],
+  "itemSets": [],
+  "links": [
+    {
+      "label": "400건 전체 비교",
+      "href": "model_test_v7/try3/results/report/hard400_comparison.html"
+    },
+    {
+      "label": "결과 엑셀",
+      "href": "model_test_v7/try3/results/report/hard400_review.xlsx"
+    },
+    {
+      "label": "16항목별 결과",
+      "href": "model_test_v7/try3/results/summary/category_comparison.md"
+    },
+    {
+      "label": "이전10건 임베딩",
+      "href": "model_test_v7/try3/results/summary/embedding_residual10.md"
+    }
+  ],
+  "notes": [
+    [
+      "평가 범위",
+      "외부 Judge 없음. 입력 분류 결과를 실제 LLM 공격 수행이나 최종 답변 안전성과 구분."
+    ],
+    [
+      "정책 차이",
+      "Qwen 프로젝트 정책 / IBM harm / 카카오 native."
+    ],
+    [
+      "임베딩",
+      "400건 전체가 아닌 이전10개만 검색. FAQ seed와 운영 DB의 동기화는 미확인."
+    ]
+  ]
+}
+]
 </script>
 <script>
 'use strict';
