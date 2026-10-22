@@ -1,0 +1,29 @@
+{
+  "cases": 100,
+  "mixed_answers": 60,
+  "normal_answers": 40,
+  "domains": 10,
+  "families": 10,
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "temperature": 0,
+  "max_tokens": 850,
+  "prompt_sha256": "386c1f04f14c969e995067d3b472d349582b488fcf2f85a48cb10013053001b5",
+  "prompt_frozen_before_dataset": true,
+  "retune_after_test": false,
+  "faq_source_sha256": "097d6ba9ff53e3156daf2922a9e7f8cbfb60593b80c0cf00f7e0eac416aff6e2",
+  "gold_labels_sent_to_model": false,
+  "code_deletions_sent_to_model": false,
+  "actual_guard_calls_planned": 100,
+  "answer_generator_calls": 0,
+  "embedding_calls": 0,
+  "additional_judge_calls": 0,
+  "llm_only_and_code_then_llm_reuse_same_original_context_verdict": true,
+  "old_code_unmappable_cases": [],
+  "limitations": [
+    "Hand-authored synthetic domain-by-family matrix, not 100 independent attack families",
+    "Prompt revised on prior 20 cases; new 100 are development checks, not a blind production benchmark",
+    "Expected labels are manually authored; no independent Judge or human second reviewer",
+    "No restoration of code-deleted normal sentences"
+  ],
+  "production_code_and_3000_run_settings_changed": false
+}

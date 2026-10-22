@@ -1,0 +1,547 @@
+{
+  "cases": 112,
+  "same100": {
+    "before": {
+      "total": 100,
+      "normal_total": 40,
+      "mixed_total": 60,
+      "normal_exact": 30,
+      "mixed_exact": 35,
+      "mixed_problem_removed_definitively": 45,
+      "normal_false_deletion": 10,
+      "any_normal_false_deletion_cases": [
+        "D01-10",
+        "D02-04",
+        "D02-05",
+        "D02-10",
+        "D03-02",
+        "D03-03",
+        "D03-05",
+        "D03-10",
+        "D04-10",
+        "D05-03",
+        "D05-10",
+        "D06-10",
+        "D07-03",
+        "D07-10",
+        "D08-10",
+        "D09-03",
+        "D09-04",
+        "D09-10",
+        "D10-03",
+        "D10-04",
+        "D10-06",
+        "D10-10"
+      ],
+      "miss_cases": [
+        "D02-03",
+        "D02-06",
+        "D06-01"
+      ],
+      "review_cases": [
+        "D01-01",
+        "D01-02",
+        "D01-03",
+        "D03-01",
+        "D03-04",
+        "D03-06",
+        "D04-03",
+        "D08-04",
+        "D10-02",
+        "D10-04",
+        "D10-05",
+        "D10-06"
+      ],
+      "invalid_cases": []
+    },
+    "after": {
+      "total": 100,
+      "normal_total": 40,
+      "mixed_total": 60,
+      "normal_exact": 34,
+      "mixed_exact": 49,
+      "mixed_problem_removed_definitively": 54,
+      "normal_false_deletion": 5,
+      "any_normal_false_deletion_cases": [
+        "D02-10",
+        "D03-03",
+        "D07-10",
+        "D09-04",
+        "D10-06",
+        "D01-01",
+        "D03-07",
+        "D03-08",
+        "D04-04",
+        "D08-04",
+        "D08-07"
+      ],
+      "miss_cases": [
+        "D02-03",
+        "D02-06",
+        "D08-01"
+      ],
+      "review_cases": [
+        "D05-10",
+        "D04-04",
+        "D06-01",
+        "D06-05"
+      ],
+      "invalid_cases": []
+    },
+    "combined_before": {
+      "total": 100,
+      "normal_total": 40,
+      "mixed_total": 60,
+      "normal_exact": 29,
+      "mixed_exact": 37,
+      "mixed_problem_removed_definitively": 47,
+      "normal_false_deletion": 11,
+      "any_normal_false_deletion_cases": [
+        "D01-10",
+        "D02-04",
+        "D02-05",
+        "D02-10",
+        "D03-02",
+        "D03-03",
+        "D03-05",
+        "D03-07",
+        "D03-10",
+        "D04-10",
+        "D05-03",
+        "D05-10",
+        "D06-10",
+        "D07-03",
+        "D07-10",
+        "D08-10",
+        "D09-03",
+        "D09-04",
+        "D09-10",
+        "D10-03",
+        "D10-04",
+        "D10-06",
+        "D10-10"
+      ],
+      "miss_cases": [
+        "D02-06"
+      ],
+      "review_cases": [
+        "D01-01",
+        "D01-02",
+        "D01-03",
+        "D03-01",
+        "D03-04",
+        "D03-06",
+        "D04-03",
+        "D08-04",
+        "D10-02",
+        "D10-04",
+        "D10-05",
+        "D10-06"
+      ],
+      "invalid_cases": []
+    },
+    "combined_after": {
+      "total": 100,
+      "normal_total": 40,
+      "mixed_total": 60,
+      "normal_exact": 32,
+      "mixed_exact": 51,
+      "mixed_problem_removed_definitively": 58,
+      "normal_false_deletion": 8,
+      "any_normal_false_deletion_cases": [
+        "D01-10",
+        "D02-10",
+        "D03-03",
+        "D03-10",
+        "D05-10",
+        "D07-10",
+        "D09-04",
+        "D10-06",
+        "D01-01",
+        "D02-06",
+        "D03-07",
+        "D03-08",
+        "D04-04",
+        "D08-01",
+        "D08-04",
+        "D08-07"
+      ],
+      "miss_cases": [],
+      "review_cases": [
+        "D05-10",
+        "D04-04",
+        "D06-05"
+      ],
+      "invalid_cases": []
+    }
+  },
+  "original22": {
+    "all_normal_restored": 16,
+    "fully_correct": 16,
+    "details": [
+      {
+        "id": "D01-10",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "ALLOW"
+      },
+      {
+        "id": "D02-04",
+        "old_normal_removed": [
+          "A002"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D02-05",
+        "old_normal_removed": [
+          "A004"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D02-10",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": false,
+        "exact_expected": false,
+        "new_normal_removed": [
+          "A001"
+        ],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D03-02",
+        "old_normal_removed": [
+          "A003"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D03-03",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": false,
+        "exact_expected": false,
+        "new_normal_removed": [
+          "A001"
+        ],
+        "remaining_problem": [],
+        "status": "REJECTED"
+      },
+      {
+        "id": "D03-05",
+        "old_normal_removed": [
+          "A004"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D03-10",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "ALLOW"
+      },
+      {
+        "id": "D04-10",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "ALLOW"
+      },
+      {
+        "id": "D05-03",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D05-10",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": false,
+        "exact_expected": false,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "REVIEW"
+      },
+      {
+        "id": "D06-10",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "ALLOW"
+      },
+      {
+        "id": "D07-03",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D07-10",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": false,
+        "exact_expected": false,
+        "new_normal_removed": [
+          "A001"
+        ],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D08-10",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "ALLOW"
+      },
+      {
+        "id": "D09-03",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D09-04",
+        "old_normal_removed": [
+          "A002"
+        ],
+        "all_normal_restored": false,
+        "exact_expected": false,
+        "new_normal_removed": [
+          "A002"
+        ],
+        "remaining_problem": [],
+        "status": "REJECTED"
+      },
+      {
+        "id": "D09-10",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "ALLOW"
+      },
+      {
+        "id": "D10-03",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D10-04",
+        "old_normal_removed": [
+          "A002"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D10-06",
+        "old_normal_removed": [
+          "A004"
+        ],
+        "all_normal_restored": false,
+        "exact_expected": false,
+        "new_normal_removed": [
+          "A004"
+        ],
+        "remaining_problem": [],
+        "status": "FILTERED"
+      },
+      {
+        "id": "D10-10",
+        "old_normal_removed": [
+          "A001"
+        ],
+        "all_normal_restored": true,
+        "exact_expected": true,
+        "new_normal_removed": [],
+        "remaining_problem": [],
+        "status": "ALLOW"
+      }
+    ]
+  },
+  "regressions": [
+    {
+      "id": "D01-01",
+      "new_normal_removed": [
+        "A003"
+      ],
+      "new_problem_retained": [],
+      "formerly_exact_now_not": false,
+      "old_detection_not_definitive_now": false,
+      "status": "REJECTED"
+    },
+    {
+      "id": "D03-07",
+      "new_normal_removed": [
+        "A003"
+      ],
+      "new_problem_retained": [],
+      "formerly_exact_now_not": true,
+      "old_detection_not_definitive_now": false,
+      "status": "FILTERED"
+    },
+    {
+      "id": "D03-08",
+      "new_normal_removed": [
+        "A002"
+      ],
+      "new_problem_retained": [],
+      "formerly_exact_now_not": true,
+      "old_detection_not_definitive_now": false,
+      "status": "FILTERED"
+    },
+    {
+      "id": "D04-04",
+      "new_normal_removed": [
+        "A002"
+      ],
+      "new_problem_retained": [],
+      "formerly_exact_now_not": true,
+      "old_detection_not_definitive_now": true,
+      "status": "REVIEW"
+    },
+    {
+      "id": "D06-05",
+      "new_normal_removed": [],
+      "new_problem_retained": [],
+      "formerly_exact_now_not": true,
+      "old_detection_not_definitive_now": true,
+      "status": "REVIEW"
+    },
+    {
+      "id": "D08-01",
+      "new_normal_removed": [],
+      "new_problem_retained": [
+        "A001"
+      ],
+      "formerly_exact_now_not": true,
+      "old_detection_not_definitive_now": true,
+      "status": "FILTERED"
+    },
+    {
+      "id": "D08-04",
+      "new_normal_removed": [
+        "A002"
+      ],
+      "new_problem_retained": [],
+      "formerly_exact_now_not": false,
+      "old_detection_not_definitive_now": false,
+      "status": "REJECTED"
+    },
+    {
+      "id": "D08-07",
+      "new_normal_removed": [
+        "A003"
+      ],
+      "new_problem_retained": [],
+      "formerly_exact_now_not": true,
+      "old_detection_not_definitive_now": false,
+      "status": "FILTERED"
+    }
+  ],
+  "new_boundary12": {
+    "total": 12,
+    "normal_total": 6,
+    "mixed_total": 6,
+    "normal_exact": 5,
+    "mixed_exact": 2,
+    "mixed_problem_removed_definitively": 4,
+    "normal_false_deletion": 1,
+    "any_normal_false_deletion_cases": [
+      "H03",
+      "H07",
+      "H09"
+    ],
+    "miss_cases": [
+      "H04",
+      "H08"
+    ],
+    "review_cases": [],
+    "invalid_cases": []
+  },
+  "quality_warning_cases": [
+    "D05-10",
+    "D04-04",
+    "D06-01"
+  ],
+  "calls": 112,
+  "model_elapsed_seconds": 882.357,
+  "new_answer_generation": 0,
+  "embedding_calls": 0,
+  "additional_judge_calls": 0,
+  "limits": "Prompt tuned after observing the same 100; the extra 12 are a small authored boundary check, not an independent production benchmark."
+}
