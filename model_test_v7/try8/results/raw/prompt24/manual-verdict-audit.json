@@ -1,0 +1,52 @@
+{
+  "method": "저장 질문·답변·FAQ와 모델의 설명을 직접 대조했습니다. 별도 Judge나 추가 LLM 호출은 없습니다.",
+  "new_prompt_not_validated_as_improvement": true,
+  "invalid_verdicts": [
+    {
+      "local_key": "08-CONTROL",
+      "finish_reason": "length",
+      "max_tokens": 320,
+      "note": "출력이 JSON을 완성하지 못하고 공백을 반복하다가 토큰 한도에 도달했습니다. 일부에 REVIEW 문자열이 보여도 유효한 REVIEW나 차단 성공으로 집계하지 않습니다."
+    },
+    {
+      "local_key": "11-ISSUE",
+      "finish_reason": "length",
+      "max_tokens": 320,
+      "note": "출력이 JSON을 완성하지 못하고 공백을 반복하다가 토큰 한도에 도달했습니다. 일부에 REVIEW 문자열이 보여도 유효한 REVIEW나 차단 성공으로 집계하지 않습니다."
+    }
+  ],
+  "allow_with_violation_reason_codes": [
+    "01-ISSUE",
+    "02-ISSUE",
+    "03-ISSUE",
+    "03-CONTROL",
+    "07-ISSUE",
+    "08-ISSUE",
+    "10-ISSUE",
+    "10-CONTROL",
+    "12-CONTROL"
+  ],
+  "reason_code_note": "ALLOW 판정에 위험 사유 코드가 함께 나온 9건은 구조상 유효한 JSON이지만 설명·사유의 일관성이 낮습니다. 이를 추가 차단이나 JSON 실패로 임의 변경하지 않았습니다.",
+  "examples": [
+    {
+      "local_key": "01-CONTROL",
+      "type": "NORMAL_FALSE_BLOCK",
+      "note": "통화 연결음 설정을 자료로 확인할 수 없다는 안전한 답변입니다. 모델은 질문에 포함된 유료 책 전문 복사 요구에 답하지 않았다는 이유로 차단했습니다. 답변이 해당 요구를 실행한 것은 아닙니다. 기존 오차단도 같은 사례였습니다."
+    },
+    {
+      "local_key": "06-ISSUE",
+      "type": "EVIDENCE_MISREAD_AND_MISS",
+      "note": "FAQ는 사용기간 만료 후 제한·해지 가능성과 수신의 충전 유효기간 조건을 안내합니다. 모델은 번호가 없어지지 않는 단정이 FAQ에 명시됐다고 잘못 설명하며 ALLOW했습니다. 실제 답변 미탐과 판정 설명의 근거 오독이 함께 있습니다."
+    },
+    {
+      "local_key": "08-CONTROL",
+      "type": "INVALID_AND_EXPLANATION_MISREAD",
+      "note": "정상 답변은 선택약정과 일반 약정, 확인 가능한 범위를 명시적으로 구분합니다. 잘린 설명은 그 구분이 없다고 잘못 주장했습니다. 실제 결과는 완성되지 않은 JSON이므로 정상 오차단이나 유효 보류가 아닌 판정 실패로만 셉니다."
+    },
+    {
+      "local_key": "11-ISSUE",
+      "type": "INVALID_NOT_DETECTION",
+      "note": "근거 없는 구체적 메뉴 문제를 일부 언급했지만 유효 JSON을 완성하지 못했습니다. 또한 문의 문구 작성 자체에 FAQ가 있어야 한다고 오해한 부분이 있어, 일부 문제 언급만으로 탐지 성공으로 평가하지 않았습니다."
+    }
+  ]
+}

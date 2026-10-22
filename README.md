@@ -1,5 +1,10 @@
 # LLM_Test — FAQ 챗봇용 로컬 LLM 선정 테스트
 
+> 2026-10-23 입력 가드 구성 비교: [v7 try9 — 최초363건·새300건·합산663건](model_test_v7/try9/results/all_summary.md). 통합형/별도형의 합산 위험 차단349/350, 정상오차단14/17·보류9/5. 새 표본 결과와 질문 분류·시간을 분리했습니다.
+
+> 2026-10-22~23 출력 가드 세 구성: [v7 try8 — 저장 답변363건·코드 보완·미채택24건 프롬프트 실험](model_test_v7/try8/results/all_summary.md). 최신 코드＋저장LLM은102건 전체 차단, 검토된 문제32건 중20건 차단·12건 미탐입니다. 차단 건수와 정확도를 구분합니다.
+
+
 > 2026-10-22 문장 의존관계 실험: [v7 try7 — 기준선100건·보완112건·오삭제11건 원본/최종 답변](model_test_v7/try7/results/all_summary.md). 문장별 LLM 가드 프롬프트 원문과 미탐·보류·새 오삭제를 보관했습니다. 제품 미적용 실험이며 최종 선택은 위험 검출 시 질문/답변 전체 차단입니다.
 
 > 2026-10-22 코드 출력 가드 대체 비교: [v7 try6 — 저장 답변448건·23건 상세 비교](model_test_v7/try6/results/all_summary.md). LLM 단독 ALLOW237/BLOCK52/형식미달155/REVIEW4. 기존23건 중 유효 차단10은 문제9+정상 오차단1이며, 실제 문제를 짚은 차단은8건입니다. 전체 안전성 정확도는 미확정입니다.
@@ -107,6 +112,8 @@ LLM_Test/
 | **v8 try2** (정상 FAQ 가드 적용) | 2026-10-16 · EC2 NVIDIA L4 | 같은 코어 1,000개 · 현재 STS 입력 가드 → 실제 임베딩·RedHatAI → 출력 가드 | 그대로 711·정리 238·전체 차단 51. **최종 답변 Judge 완료: 정답 614·근거 이탈 161**. 정상 안내 손실·기준점과의 차이 함께 기록 | [all_summary](model_test_v8/try2/results/all_summary.md) |
 | **v7 try3** (하드 입력·별도 임베딩) | 2026-10-21 · 로컬/EC2 NVIDIA L4 | 공격320·정상80 코드 검사 후 같은398개를 Qwen·IBM·카카오 분류; 이전 공격10개 별도 BGE-M3 검색 | 코드 위험 처리7·잔존313, AI 추가256·172·193, 정상 오차단16·13·1. 이전10개 전체 정리본 모두 검색0.75 이상; 답변 생성·Judge 없음 | [all_summary](model_test_v7/try3/results/all_summary.md) |
 | **v7 try6** (출력 가드 대체 비교) | 2026-10-22 · EC2 NVIDIA L4 | 저장 답변448건에 RedHat v2 LLM 가드만 적용, 코드 가드 저장 결과와 비교 | ALLOW237/BLOCK52/형식미달155/REVIEW4. 기존23건의 유효 차단10=문제9+정상1, 실제 문제 탐지8. 외부 Judge 없음 | [all_summary](model_test_v7/try6/results/all_summary.md) |
+| **v7 try8** (출력 세 구성) | 2026-10-22~23 · 저장 결과 | 동일 답변363건 코드·코드＋LLM·LLM단독, 코드 보완·미채택24건 프롬프트 | 최신코드＋저장LLM은 확정문제32건 중20건 차단·12건 미탐. 처리 건수와 정확도 구분 | [all_summary](model_test_v7/try8/results/all_summary.md) |
+| **v7 try9** (입력 구성 비교) | 2026-10-23 · EC2 RedHat4B | 최초363건＋중복 없는300건, 안전 판정·조건부 질문 분류 | 합산 위험349/350, 정상오차단14/17·보류9/5. 임베딩·답변생성·외부Judge 없음 | [all_summary](model_test_v7/try9/results/all_summary.md) |
 
 이번 `test/ai-guard-input` 브랜치의 결과는 `model_test_v7/`와 `data/raw/ai_guard_input_20261013/`에 있습니다. 기존 `test_set5` 질문을 재사용하며 실행·평가 코드는 변경하지 않았습니다. v7은 native 분류 결과 보관용으로 공통 상담 엔진의 실행 profile이 아닙니다. [설정·범위](model_test_v7/SETUP.md) · [방법과 한계](model_test_v7/try1/results/summary/methodology_and_limits.md).
 

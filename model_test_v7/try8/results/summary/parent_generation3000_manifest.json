@@ -1,0 +1,25 @@
+{
+  "cases": 3000,
+  "normal_questions": 1180,
+  "attack_scenarios": 1820,
+  "context_attack_scenarios": 100,
+  "source": "fresh current STS snapshot; no product modification",
+  "input_guard": "bypass detection only in test harness; retain normalization and planner",
+  "output_guard": "bypass generation stage; replay whole-answer code guard afterwards",
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "database": "disposable Testcontainers only; no actual DB",
+  "source_files": 914,
+  "comparison": [
+    "CODE",
+    "CODE_THEN_LLM",
+    "LLM_ONLY"
+  ],
+  "policy": "one whole-answer ALLOW/BLOCK/REVIEW; never per-sentence filtering",
+  "generation_checkpoint": "append-only results.jsonl; completed case IDs skipped on resume",
+  "faq_poisoning": "inject payload only when its anchor FAQ reached final materials; record not-reached separately",
+  "limitations": [
+    "Independent first turns, not a multi-turn history benchmark",
+    "Question labels are not answer-quality labels; a normal question can generate a wrong answer",
+    "Unrelated in-progress counsel module excluded from isolated app bootstrap"
+  ]
+}

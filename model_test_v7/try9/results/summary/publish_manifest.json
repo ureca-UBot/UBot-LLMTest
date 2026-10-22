@@ -1,0 +1,348 @@
+{
+  "repository": "https://github.com/ureca-UBot/UBot-LLMTest.git",
+  "branch": "test/ai-guard-input",
+  "base_commit": "b5b81d43da8a80476797c505daf3bb580285e2ae",
+  "files_sha256": {
+    "all_summary.md": "0ac0bab1fc78517d81799b6e856a38a5f79306f9d4874d01e0fda5058acb01c0",
+    "raw/holdout300/cases-and-gold.jsonl": "b2a6b1ddf4df2880a7f2c11d0e8a66c98f3361407b61aa5dcabffd94282394e1",
+    "raw/holdout300/classification-inputs.jsonl": "67953b483a89e32cf8c4d4c1c8640048e571fa27c95594133565b08928daebd8",
+    "raw/holdout300/classification-results.jsonl": "daadfb05b39d00d637e32950a6686b18e8a09ca7b7014de73ff58b4af85de63d",
+    "raw/holdout300/code-and-route.jsonl": "f984fb9f34aea85249f68d89fddb87b150485b711eb9cd6e24e50dff5c665f8f",
+    "raw/holdout300/comparison.jsonl": "c96af399d8f10cdd32bfe4d1a24ec410ff3e93333b65f0c09699127652c0a545",
+    "raw/holdout300/frozen-model-requests.jsonl": "18f8244b15ac078a4fc6cb1404509add0c62f7bdbf9a593a4dea6f35430dd6e2",
+    "raw/holdout300/model-results.jsonl": "c6aa24780d32e84fb5f56e38d6f5c720ba4c120c943cad0089b77bb524474117",
+    "raw/holdout300/request-uses.jsonl": "3184ddbec66809185ada563994bb32897429f71812fa8cfc6a7a3cfe7a3a6eb7",
+    "raw/initial363/cases-and-gold.jsonl": "fc43e25223ba8bc52b7d9343c6dc68cf6a72a3bf9ec2a51d50aad75a6b2e91f8",
+    "raw/initial363/classification-inputs.jsonl": "fd72962acfba194cc62b1ee6944082030dbb5fb17e581551914106080d8faa2f",
+    "raw/initial363/classification-results.jsonl": "3bcb82004a94bb425bdee5a4e6aef50cb8cbcaee506df88b9c4825b0b2cfb148",
+    "raw/initial363/code-and-route.jsonl": "41352903a6f176731c5c835a3f04279e426625e6c02406c71d4ffbe47518a3ba",
+    "raw/initial363/comparison.jsonl": "110f4c57ed64b3a179c77ec0db85f6f582180f50cc9e54e718b9be0294da7cf4",
+    "raw/initial363/frozen-model-requests.jsonl": "a46c23a2a3e153a4aad319a06feaa8fad5e2fccba282ce6cbfd496ea47984796",
+    "raw/initial363/model-results.jsonl": "cab0a250359e1b661eda2a05bac394bc97a4078b250fedaa6325b5c4a7378f9c",
+    "raw/initial363/request-uses.jsonl": "5120563e98724cc773817f0f254d56b4773b65e59d242a77f6423eb6e5ab022a",
+    "report/category_results.md": "180eca3c162ab35092b075f25380b1ea14c93b34d3b1a92035f9e5874d440926",
+    "report/classification_and_timing.md": "7e8b076fc99be48f6371e782fbf8f0b2a39302a81f6f9d68127b4ac8172090e6",
+    "report/input_holdout300.csv": "c4d00fc9f831160e131bbc34e17ad649a0630c897649b87b1f08bba54227eae6",
+    "report/input_holdout300.html": "622621be12d7d4af196f0f8413b3c270e99120040b6b78eaa65350c78a355807",
+    "report/input_initial363.csv": "f971b5838b8018dc731a6032a36a897bbe0b3771dd1e942008f290a9104327e9",
+    "report/input_initial363.html": "035407b481a9d7d123be819417acf9becf24584dfa66974a77167d0124e188ae",
+    "report/raw_records.md": "2676e81b6e8da5bab01bbc4105b515358c2527f80e9ba15639b3a6a147f30e6f",
+    "summary/holdout300/category-results.json": "8b8a9efe61fc026c8e976ef79621358356153c778d24d40d61c6828da0c40c95",
+    "summary/holdout300/classification-changes.json": "f301bb308cce4559bb533e11323da5031735a7db5d72e045d539f0560c91b652",
+    "summary/holdout300/final-analysis.json": "5a7c5f0ae938547ab0518744b25b61d40430549e3ae842a245ec7260f4d6daa0",
+    "summary/holdout300/guard-schema.json": "e5cbd319360018cedaf41c1c8a6dbcc138f488f857ac999d73c67a5e583aba41",
+    "summary/holdout300/joint-schema.json": "a720b08eec076a3a1ed24b4559280eefaae7d55dfea96902315c7c4d853c3b09",
+    "summary/holdout300/manual-classification-review.json": "ef40a9f448dfde3208ca3c4899fe459f198a1daab72680203c33776d9ef24e5f",
+    "summary/holdout300/model-cleanup.json": "ba2539531c7b4766d1132d856328f342c30a6c08445b4e7afdc75113a66fe760",
+    "summary/holdout300/model-verification.json": "8476ab8df800f507b6112d9d81587237ca7cf6a4bf32e66aab5ade58c4a58286",
+    "summary/holdout300/protocol.json": "7d5f9ddcb3a9c8839aa3fbb3af14b9ccd370346d15d12227f1869b44aa1d18d9",
+    "summary/holdout300/safety-disagreements.json": "456a41df5ba0d658cb845073e5061a6bd74cf5598c4cef38c30802958d084a08",
+    "summary/holdout300/selection-audit.json": "46828c6266bbc19a6695281d7b7c0b0edb6243e6fd9541f229de8f1da74a1701",
+    "summary/holdout300/summary.json": "3b5c4e8ea1632702ae27798c15c42dded3d0d3d838168134952ab1c19ae7f3c9",
+    "summary/holdout300/timing-comparison.json": "c6582efa81c2668d0c4852171e197c07ad866ff6062b35e79b4f97d728f15d45",
+    "summary/holdout300/verification.json": "953dbc111c7258438096b4b0692789f23b9b19e349878c1d12879c008957e229",
+    "summary/initial363/classification-changes.json": "61ca588c4e2319cafa070b3cd156ed4ad1f2d62635744d028cc79d7642355522",
+    "summary/initial363/final-analysis.json": "dde98de98df9140f0b5497355bcebca8ef69196ffedaa7e015defbd80dcd4018",
+    "summary/initial363/focus12-results.json": "7bca42d7f463890ad6595bc153057cbe02c14d663b7a35f04cd21010ac1a637a",
+    "summary/initial363/guard-schema.json": "e5cbd319360018cedaf41c1c8a6dbcc138f488f857ac999d73c67a5e583aba41",
+    "summary/initial363/joint-schema.json": "a720b08eec076a3a1ed24b4559280eefaae7d55dfea96902315c7c4d853c3b09",
+    "summary/initial363/manual-classification-review.json": "46067fa94eb4a4730e4aafca2f86179aaf32bc0fa1961b528211e7c9ffa1d0fd",
+    "summary/initial363/model-cleanup.json": "ba2539531c7b4766d1132d856328f342c30a6c08445b4e7afdc75113a66fe760",
+    "summary/initial363/model-verification.json": "b6b0a7a796a274647cdd56dd3df9a5a0458433a80acce9cca8fd25bc317dd414",
+    "summary/initial363/payload-preflight.json": "fb342565a80f660ddb527be2c03c9314090781d98a7a99ad9d76d0be6908876a",
+    "summary/initial363/protocol.json": "6d2c28ddb254e529bc8482fbf62576b6683e9a3b35336b7d4aafa4e634942766",
+    "summary/initial363/scope.json": "b25c46a47b7fa970cab6a0dc223e1fd0982600821942aea41a9524d9f13d54d9",
+    "summary/initial363/summary.json": "9706193cefa651940101c3e5958287c61be0e3803bd08bc978d7fdb67c796627"
+  },
+  "copied_source_records": [
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/cases-and-gold.jsonl",
+      "path": "model_test_v7/try9/results/raw/initial363/cases-and-gold.jsonl",
+      "sha256": "fc43e25223ba8bc52b7d9343c6dc68cf6a72a3bf9ec2a51d50aad75a6b2e91f8",
+      "bytes": 196169
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/code-and-route.jsonl",
+      "path": "model_test_v7/try9/results/raw/initial363/code-and-route.jsonl",
+      "sha256": "41352903a6f176731c5c835a3f04279e426625e6c02406c71d4ffbe47518a3ba",
+      "bytes": 252926
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/comparison.jsonl",
+      "path": "model_test_v7/try9/results/raw/initial363/comparison.jsonl",
+      "sha256": "110f4c57ed64b3a179c77ec0db85f6f582180f50cc9e54e718b9be0294da7cf4",
+      "bytes": 513639
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/classification-inputs.jsonl",
+      "path": "model_test_v7/try9/results/raw/initial363/classification-inputs.jsonl",
+      "sha256": "fd72962acfba194cc62b1ee6944082030dbb5fb17e581551914106080d8faa2f",
+      "bytes": 117537
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/classification-results.jsonl",
+      "path": "model_test_v7/try9/results/raw/initial363/classification-results.jsonl",
+      "sha256": "3bcb82004a94bb425bdee5a4e6aef50cb8cbcaee506df88b9c4825b0b2cfb148",
+      "bytes": 434029
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/model-results.jsonl",
+      "path": "model_test_v7/try9/results/raw/initial363/model-results.jsonl",
+      "sha256": "cab0a250359e1b661eda2a05bac394bc97a4078b250fedaa6325b5c4a7378f9c",
+      "bytes": 667405
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/frozen-model-requests.jsonl",
+      "path": "model_test_v7/try9/results/raw/initial363/frozen-model-requests.jsonl",
+      "sha256": "a46c23a2a3e153a4aad319a06feaa8fad5e2fccba282ce6cbfd496ea47984796",
+      "bytes": 2885324
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/request-uses.jsonl",
+      "path": "model_test_v7/try9/results/raw/initial363/request-uses.jsonl",
+      "sha256": "5120563e98724cc773817f0f254d56b4773b65e59d242a77f6423eb6e5ab022a",
+      "bytes": 169165
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/scope.json",
+      "path": "model_test_v7/try9/results/summary/initial363/scope.json",
+      "sha256": "b25c46a47b7fa970cab6a0dc223e1fd0982600821942aea41a9524d9f13d54d9",
+      "bytes": 1761
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/protocol.json",
+      "path": "model_test_v7/try9/results/summary/initial363/protocol.json",
+      "sha256": "6d2c28ddb254e529bc8482fbf62576b6683e9a3b35336b7d4aafa4e634942766",
+      "bytes": 1113
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/summary.json",
+      "path": "model_test_v7/try9/results/summary/initial363/summary.json",
+      "sha256": "9706193cefa651940101c3e5958287c61be0e3803bd08bc978d7fdb67c796627",
+      "bytes": 1257
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/final-analysis.json",
+      "path": "model_test_v7/try9/results/summary/initial363/final-analysis.json",
+      "sha256": "dde98de98df9140f0b5497355bcebca8ef69196ffedaa7e015defbd80dcd4018",
+      "bytes": 8402
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/classification-changes.json",
+      "path": "model_test_v7/try9/results/summary/initial363/classification-changes.json",
+      "sha256": "61ca588c4e2319cafa070b3cd156ed4ad1f2d62635744d028cc79d7642355522",
+      "bytes": 104616
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/manual-classification-review.json",
+      "path": "model_test_v7/try9/results/summary/initial363/manual-classification-review.json",
+      "sha256": "46067fa94eb4a4730e4aafca2f86179aaf32bc0fa1961b528211e7c9ffa1d0fd",
+      "bytes": 2559
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/focus12-results.json",
+      "path": "model_test_v7/try9/results/summary/initial363/focus12-results.json",
+      "sha256": "7bca42d7f463890ad6595bc153057cbe02c14d663b7a35f04cd21010ac1a637a",
+      "bytes": 24199
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/payload-preflight.json",
+      "path": "model_test_v7/try9/results/summary/initial363/payload-preflight.json",
+      "sha256": "fb342565a80f660ddb527be2c03c9314090781d98a7a99ad9d76d0be6908876a",
+      "bytes": 387
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/model-verification.json",
+      "path": "model_test_v7/try9/results/summary/initial363/model-verification.json",
+      "sha256": "b6b0a7a796a274647cdd56dd3df9a5a0458433a80acce9cca8fd25bc317dd414",
+      "bytes": 917
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/model-cleanup.json",
+      "path": "model_test_v7/try9/results/summary/initial363/model-cleanup.json",
+      "sha256": "ba2539531c7b4766d1132d856328f342c30a6c08445b4e7afdc75113a66fe760",
+      "bytes": 67
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/guard-schema.json",
+      "path": "model_test_v7/try9/results/summary/initial363/guard-schema.json",
+      "sha256": "e5cbd319360018cedaf41c1c8a6dbcc138f488f857ac999d73c67a5e583aba41",
+      "bytes": 510
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/joint-schema.json",
+      "path": "model_test_v7/try9/results/summary/initial363/joint-schema.json",
+      "sha256": "a720b08eec076a3a1ed24b4559280eefaae7d55dfea96902315c7c4d853c3b09",
+      "bytes": 641
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/입력AI가드_363건_세구성_비교결과.html",
+      "path": "model_test_v7/try9/results/report/input_initial363.html",
+      "sha256": "035407b481a9d7d123be819417acf9becf24584dfa66974a77167d0124e188ae",
+      "bytes": 497873
+    },
+    {
+      "source": "outputs/input-ai-threeway363-20261023-side/case-results.csv",
+      "path": "model_test_v7/try9/results/report/input_initial363.csv",
+      "sha256": "f971b5838b8018dc731a6032a36a897bbe0b3771dd1e942008f290a9104327e9",
+      "bytes": 103679
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/cases-and-gold.jsonl",
+      "path": "model_test_v7/try9/results/raw/holdout300/cases-and-gold.jsonl",
+      "sha256": "b2a6b1ddf4df2880a7f2c11d0e8a66c98f3361407b61aa5dcabffd94282394e1",
+      "bytes": 227245
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/code-and-route.jsonl",
+      "path": "model_test_v7/try9/results/raw/holdout300/code-and-route.jsonl",
+      "sha256": "f984fb9f34aea85249f68d89fddb87b150485b711eb9cd6e24e50dff5c665f8f",
+      "bytes": 222464
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/comparison.jsonl",
+      "path": "model_test_v7/try9/results/raw/holdout300/comparison.jsonl",
+      "sha256": "c96af399d8f10cdd32bfe4d1a24ec410ff3e93333b65f0c09699127652c0a545",
+      "bytes": 354074
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/classification-inputs.jsonl",
+      "path": "model_test_v7/try9/results/raw/holdout300/classification-inputs.jsonl",
+      "sha256": "67953b483a89e32cf8c4d4c1c8640048e571fa27c95594133565b08928daebd8",
+      "bytes": 68219
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/classification-results.jsonl",
+      "path": "model_test_v7/try9/results/raw/holdout300/classification-results.jsonl",
+      "sha256": "daadfb05b39d00d637e32950a6686b18e8a09ca7b7014de73ff58b4af85de63d",
+      "bytes": 200362
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/model-results.jsonl",
+      "path": "model_test_v7/try9/results/raw/holdout300/model-results.jsonl",
+      "sha256": "c6aa24780d32e84fb5f56e38d6f5c720ba4c120c943cad0089b77bb524474117",
+      "bytes": 457978
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/frozen-model-requests.jsonl",
+      "path": "model_test_v7/try9/results/raw/holdout300/frozen-model-requests.jsonl",
+      "sha256": "18f8244b15ac078a4fc6cb1404509add0c62f7bdbf9a593a4dea6f35430dd6e2",
+      "bytes": 2155328
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/request-uses.jsonl",
+      "path": "model_test_v7/try9/results/raw/holdout300/request-uses.jsonl",
+      "sha256": "3184ddbec66809185ada563994bb32897429f71812fa8cfc6a7a3cfe7a3a6eb7",
+      "bytes": 77911
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/selection-audit.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/selection-audit.json",
+      "sha256": "46828c6266bbc19a6695281d7b7c0b0edb6243e6fd9541f229de8f1da74a1701",
+      "bytes": 1278
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/protocol.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/protocol.json",
+      "sha256": "7d5f9ddcb3a9c8839aa3fbb3af14b9ccd370346d15d12227f1869b44aa1d18d9",
+      "bytes": 995
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/summary.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/summary.json",
+      "sha256": "3b5c4e8ea1632702ae27798c15c42dded3d0d3d838168134952ab1c19ae7f3c9",
+      "bytes": 612
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/final-analysis.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/final-analysis.json",
+      "sha256": "5a7c5f0ae938547ab0518744b25b61d40430549e3ae842a245ec7260f4d6daa0",
+      "bytes": 23551
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/classification-changes.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/classification-changes.json",
+      "sha256": "f301bb308cce4559bb533e11323da5031735a7db5d72e045d539f0560c91b652",
+      "bytes": 104179
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/manual-classification-review.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/manual-classification-review.json",
+      "sha256": "ef40a9f448dfde3208ca3c4899fe459f198a1daab72680203c33776d9ef24e5f",
+      "bytes": 13692
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/safety-disagreements.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/safety-disagreements.json",
+      "sha256": "456a41df5ba0d658cb845073e5061a6bd74cf5598c4cef38c30802958d084a08",
+      "bytes": 5103
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/timing-comparison.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/timing-comparison.json",
+      "sha256": "c6582efa81c2668d0c4852171e197c07ad866ff6062b35e79b4f97d728f15d45",
+      "bytes": 1818
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/category-results.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/category-results.json",
+      "sha256": "8b8a9efe61fc026c8e976ef79621358356153c778d24d40d61c6828da0c40c95",
+      "bytes": 71668
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/verification.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/verification.json",
+      "sha256": "953dbc111c7258438096b4b0692789f23b9b19e349878c1d12879c008957e229",
+      "bytes": 353
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/model-verification.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/model-verification.json",
+      "sha256": "8476ab8df800f507b6112d9d81587237ca7cf6a4bf32e66aab5ade58c4a58286",
+      "bytes": 917
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/model-cleanup.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/model-cleanup.json",
+      "sha256": "ba2539531c7b4766d1132d856328f342c30a6c08445b4e7afdc75113a66fe760",
+      "bytes": 67
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/guard-schema.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/guard-schema.json",
+      "sha256": "e5cbd319360018cedaf41c1c8a6dbcc138f488f857ac999d73c67a5e583aba41",
+      "bytes": 510
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/joint-schema.json",
+      "path": "model_test_v7/try9/results/summary/holdout300/joint-schema.json",
+      "sha256": "a720b08eec076a3a1ed24b4559280eefaae7d55dfea96902315c7c4d853c3b09",
+      "bytes": 641
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/입력AI가드_추가300건_비교결과.html",
+      "path": "model_test_v7/try9/results/report/input_holdout300.html",
+      "sha256": "622621be12d7d4af196f0f8413b3c270e99120040b6b78eaa65350c78a355807",
+      "bytes": 428628
+    },
+    {
+      "source": "outputs/input-ai-holdout300-20261023-side/case-results.csv",
+      "path": "model_test_v7/try9/results/report/input_holdout300.csv",
+      "sha256": "c4d00fc9f831160e131bbc34e17ad649a0630c897649b87b1f08bba54227eae6",
+      "bytes": 84647
+    }
+  ],
+  "prompt_files_sha256": {
+    "prompts/output_guard/redhat4b_whole_answer_20261022.txt": "60a98c8a9b0768e1a7bc25c07bcbe280d7ddcf3aae493febe90eaf04076baf40",
+    "prompts/output_guard/redhat4b_grounding24_20261022_not_adopted.txt": "ed6abbb5a1eb5ef9d3d6fe43fce07f8254f1dc2271aca28db58d703ec3ce4b48",
+    "prompts/input_guard/redhat4b_input_safety_20261023.txt": "eb75a7ba738290a87e822f98cb260863df45a6a002eb4ad1c710de4a029c66e2",
+    "prompts/input_guard/redhat4b_input_safety_planning_20261023.txt": "19c4eb7e2664867f9ee51a2a844580143c1bb57310fd3e7c005677ee1f07fc4b",
+    "prompts/input_guard/redhat4b_input_shared_criteria_20261023.txt": "2d95e4c7f5fbb97d19a9b84e73ef50cbd0acf6d54cb3dec4a8be1604496ca61a",
+    "prompts/input_guard/question_planner_baseline_snapshot_20261023.txt": "6bb22ded7251de4cbb01d0dc1cf7f038d4c8d4af1504d608ccde87e3c550d6fa"
+  },
+  "self_digest_excluded": true,
+  "service_code_uploaded": false,
+  "execution_scripts_uploaded": false,
+  "new_llm_calls_during_publication": 0,
+  "git_push_target": "HEAD:refs/heads/test/ai-guard-input"
+}

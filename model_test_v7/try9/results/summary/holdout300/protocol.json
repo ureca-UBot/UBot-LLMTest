@@ -1,0 +1,24 @@
+{
+  "cases": 300,
+  "arms": [
+    "INTEGRATED",
+    "SEPARATE"
+  ],
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "temperature": 0,
+  "concurrency": 1,
+  "automatic_retries": 0,
+  "code_and_prompts_same_as_previous_363": true,
+  "frozen_gold_sha256": "b2a6b1ddf4df2880a7f2c11d0e8a66c98f3361407b61aa5dcabffd94282394e1",
+  "gold_in_model_input": false,
+  "case_ids_in_model_input": false,
+  "order_seed": 2026102303,
+  "randomized_case_and_arm_order": true,
+  "classification": "Original router and conditional question preparation through pre-search boundary; existing SubQuestionGuard afterward",
+  "search_first_integrated_behavior": "Same standalone safety request; retain original search-first plan",
+  "timing": "Measured HTTP model-request durations; shared exact requests reused. Not service end-to-end latency.",
+  "previous_model_response_cache_used": false,
+  "external_judge_calls": 0,
+  "embedding_calls": 0,
+  "answer_generation_calls": 0
+}

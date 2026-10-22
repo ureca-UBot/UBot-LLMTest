@@ -2042,6 +2042,218 @@
     ]
   ]
 }
+,
+{
+  "id": "v7-try8",
+  "short": "v7 try8",
+  "color": "#3b6476",
+  "env": "EC2 RedHat 4B · 저장 실험 결과",
+  "judge": "외부 Judge 없음 · 수동 내용/기대값 검토",
+  "cond": "위험 검출 시 전체 판정 · 실행 코드 미게시",
+  "label": "v7 try8 — 출력 가드 세 구성363건",
+  "pill": "v7-try8 · 2026.10.23",
+  "title": "v7 try8 — 출력 가드 세 구성363건",
+  "sub": "개발 표본의 관측 건수입니다. 보류·실패는 차단 성공으로 세지 않습니다.",
+  "provenance": [
+    "<a href=\"model_test_v7/try8/results/all_summary.md\">전체 결과·조건·원본</a>"
+  ],
+  "cards": [],
+  "models": [
+    {
+      "tag": "CODE",
+      "label": "코드 출력 가드",
+      "idx": 1,
+      "latency": null,
+      "vals": {
+        "og363_allow": 298,
+        "og363_block": 65,
+        "og363_invalid": 0
+      },
+      "subs": {}
+    },
+    {
+      "tag": "CODE_THEN_LLM",
+      "label": "코드＋LLM 가드",
+      "idx": 2,
+      "latency": null,
+      "vals": {
+        "og363_allow": 260,
+        "og363_block": 102,
+        "og363_invalid": 1
+      },
+      "subs": {}
+    },
+    {
+      "tag": "LLM_ONLY",
+      "label": "LLM 가드 단독",
+      "idx": 3,
+      "latency": null,
+      "vals": {
+        "og363_allow": 312,
+        "og363_block": 50,
+        "og363_invalid": 1
+      },
+      "subs": {}
+    }
+  ],
+  "metrics": [
+    {
+      "key": "og363_allow",
+      "name": "ALLOW",
+      "unit": "건",
+      "max": 363,
+      "digits": 0,
+      "group": "measure",
+      "note": "저장363건 최신코드＋동일본문의 저장LLM 재사용. 처리 건수이며 정확도 아님."
+    },
+    {
+      "key": "og363_block",
+      "name": "전체 차단",
+      "unit": "건",
+      "max": 363,
+      "digits": 0,
+      "group": "measure",
+      "note": "저장363건 최신코드＋동일본문의 저장LLM 재사용. 처리 건수이며 정확도 아님."
+    },
+    {
+      "key": "og363_invalid",
+      "name": "판정 실패",
+      "unit": "건",
+      "max": 363,
+      "digits": 0,
+      "group": "measure",
+      "note": "저장363건 최신코드＋동일본문의 저장LLM 재사용. 처리 건수이며 정확도 아님."
+    }
+  ],
+  "itemMetrics": [],
+  "itemSets": [],
+  "speedNote": "서로 다른 범위의 시간은 비교하지 않습니다. 입력 비교의 시간은 AI HTTP 구간만 측정했습니다.",
+  "links": [
+    {
+      "label": "전체 결과",
+      "href": "model_test_v7/try8/results/all_summary.md"
+    },
+    {
+      "label": "상세 HTML",
+      "href": "model_test_v7/try8/results/report/output_latest_threeway363.html"
+    }
+  ],
+  "notes": [
+    [
+      "범위",
+      "코드 보완 이후 표는 동일한 통과 본문의 저장 LLM 판정만 재사용했습니다. 새 모델 실행 아님."
+    ],
+    [
+      "미해결",
+      "확정 문제32건 중 코드＋LLM이 놓친12건. 정상 질문에서도 잘못된 답변이 생깁니다."
+    ]
+  ]
+},
+{
+  "id": "v7-try9",
+  "short": "v7 try9",
+  "color": "#6856a5",
+  "env": "EC2 RedHat 4B · 저장 실험 결과",
+  "judge": "외부 Judge 없음 · 수동 내용/기대값 검토",
+  "cond": "위험 검출 시 전체 판정 · 실행 코드 미게시",
+  "label": "v7 try9 — 입력363＋300건 구성 비교",
+  "pill": "v7-try9 · 2026.10.23",
+  "title": "v7 try9 — 입력363＋300건 구성 비교",
+  "sub": "개발 표본의 관측 건수입니다. 보류·실패는 차단 성공으로 세지 않습니다.",
+  "provenance": [
+    "<a href=\"model_test_v7/try9/results/all_summary.md\">전체 결과·조건·원본</a>"
+  ],
+  "cards": [],
+  "models": [
+    {
+      "tag": "INTEGRATED",
+      "label": "코드＋분류 통합 AI",
+      "idx": 1,
+      "latency": null,
+      "vals": {
+        "ig663_block": 349,
+        "ig663_miss": 6,
+        "ig663_falseblock": 14,
+        "ig663_review": 9
+      },
+      "subs": {}
+    },
+    {
+      "tag": "SEPARATE",
+      "label": "코드＋별도 AI",
+      "idx": 2,
+      "latency": null,
+      "vals": {
+        "ig663_block": 350,
+        "ig663_miss": 5,
+        "ig663_falseblock": 17,
+        "ig663_review": 5
+      },
+      "subs": {}
+    }
+  ],
+  "metrics": [
+    {
+      "key": "ig663_block",
+      "name": "위험 차단 /355",
+      "unit": "건",
+      "max": 355,
+      "digits": 0,
+      "group": "measure",
+      "note": "합산663건의 사전 수동 기대값 대비 분류 건수. 답변 정확도나 운영 전수 성능 아님."
+    },
+    {
+      "key": "ig663_miss",
+      "name": "미탐",
+      "unit": "건",
+      "max": 355,
+      "digits": 0,
+      "group": "measure",
+      "note": "합산663건의 사전 수동 기대값 대비 분류 건수. 답변 정확도나 운영 전수 성능 아님."
+    },
+    {
+      "key": "ig663_falseblock",
+      "name": "정상 오차단 /308",
+      "unit": "건",
+      "max": 308,
+      "digits": 0,
+      "group": "measure",
+      "note": "합산663건의 사전 수동 기대값 대비 분류 건수. 답변 정확도나 운영 전수 성능 아님."
+    },
+    {
+      "key": "ig663_review",
+      "name": "보류",
+      "unit": "건",
+      "max": 663,
+      "digits": 0,
+      "group": "measure",
+      "note": "합산663건의 사전 수동 기대값 대비 분류 건수. 답변 정확도나 운영 전수 성능 아님."
+    }
+  ],
+  "itemMetrics": [],
+  "itemSets": [],
+  "speedNote": "서로 다른 범위의 시간은 비교하지 않습니다. 입력 비교의 시간은 AI HTTP 구간만 측정했습니다.",
+  "links": [
+    {
+      "label": "전체 결과",
+      "href": "model_test_v7/try9/results/all_summary.md"
+    },
+    {
+      "label": "상세 HTML",
+      "href": "model_test_v7/try9/results/report/input_holdout300.html"
+    }
+  ],
+  "notes": [
+    [
+      "같은 조건",
+      "추가300건에서 코드·모델·프롬프트 고정. 실제 서비스는 수정하지 않았습니다."
+    ],
+    [
+      "시간",
+      "동일 정상 분류46건 평균 통합2.441초·별도2.558초. 전체 표본 합계에서 통합형이 더 빠르지는 않았습니다."
+    ]
+  ]
+}
 ]
 </script>
 <script>

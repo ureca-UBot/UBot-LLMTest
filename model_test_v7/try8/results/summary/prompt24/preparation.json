@@ -1,0 +1,40 @@
+{
+  "prepared_at": "2026-10-22T14:18:24.518869+00:00",
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "cases": 24,
+  "issue_answers": 12,
+  "control_answers": 12,
+  "label_fields_sent": false,
+  "fixture_ids_sent": false,
+  "original_question_answer_faq_unchanged": true,
+  "only_system_prompt_changed": true,
+  "baseline_cache_counts": {
+    "ISSUE": {
+      "ALLOW": 12
+    },
+    "CONTROL": {
+      "BLOCK": 1,
+      "ALLOW": 7,
+      "NOT_CACHED": 4
+    }
+  },
+  "temperature": 0,
+  "max_tokens": 320,
+  "concurrency": 1,
+  "automatic_retries": 0,
+  "new_prompt_sha256": "ed6abbb5a1eb5ef9d3d6fe43fce07f8254f1dc2271aca28db58d703ec3ce4b48",
+  "old_prompt_sha256": "60a98c8a9b0768e1a7bc25c07bcbe280d7ddcf3aae493febe90eaf04076baf40",
+  "answer_generation_calls": 0,
+  "guard_calls": 0,
+  "judge_calls": 0,
+  "embedding_calls": 0,
+  "limitations": [
+    "문제 12건을 보고 보완한 개발용 표본으로 독립 검증셋이 아닙니다.",
+    "정상 대조는 저장 답변에서 선택했으며 같은 질문의 최소 변경 짝이 아닐 수 있습니다.",
+    "공항 시설 사례와 기기 설정 사례는 같은 질문의 안전 답변이 없어 가까운 유형을 사용했습니다.",
+    "기존 요청과 동일하게 tools 필드는 모델 입력에 없고 execution_results는 빈 목록입니다.",
+    "기존 판정은 저장 캐시이며 없는 정상 대조의 보완 전 판정을 추정하지 않습니다.",
+    "FAQ 부재에 따른 근거 없는 단정은 실제 세상에서 거짓임을 입증한 것과 다릅니다.",
+    "24건 결과를 운영 정확도나 전체 성능으로 일반화하지 않습니다."
+  ]
+}

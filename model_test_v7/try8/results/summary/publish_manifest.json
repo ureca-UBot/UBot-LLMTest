@@ -1,0 +1,339 @@
+{
+  "repository": "https://github.com/ureca-UBot/UBot-LLMTest.git",
+  "branch": "test/ai-guard-input",
+  "base_commit": "b5b81d43da8a80476797c505daf3bb580285e2ae",
+  "files_sha256": {
+    "all_summary.md": "e84660b25256d76b76c4849786d692db94ac901b5c69d6333dae812e7deccfdf",
+    "raw/baseline363/cache-origin.json": "196bcbc7dc77ba5fa6f853423c0244690db2b7c328981463bb8445c27ce9ed11",
+    "raw/baseline363/code-results.jsonl": "7a221b331c8f8a999ab14098b8d2f04f37fe37cf55f4d40978ebd30f744e7ecc",
+    "raw/baseline363/comparison.jsonl": "2010bbc2c9d14d199c56954985a2c76071f64c285d6875bdb67385f3868edf5a",
+    "raw/baseline363/frozen-guard-requests.jsonl": "e60bb6355aabdd3c5e93ed91594760c3f6f3cbac5fe72ba4770d0ae2fb95716f",
+    "raw/baseline363/guard-inputs.jsonl": "a6b707f49968e66dc5f8a301742026587a388ac4af54a753d099d8603b8bb99f",
+    "raw/baseline363/llm-results.jsonl": "ff6f1d3c9b34f38d4c7ac2c5d72d50690ab2a4d8cbe007a96f41a5491c894bcc",
+    "raw/code_replay363/before-code-results.jsonl": "8491fead6b845134b7c6b599294ad53fe394c492f86e023595294bc1900ec723",
+    "raw/code_replay363/candidate-code-results.jsonl": "2828fbc6b9eec61d8121177848e08bfb0c08f3a24911ce8b0e4a735437564236",
+    "raw/code_replay363/comparison.jsonl": "5a4d47492b106a15815a2fa2feb70bbe8a40ec517f3b3a70fcd34717e9f751b9",
+    "raw/code_replay363/normal-block-review.json": "1df9fc911a7362af83be5ae47f6910d16bc1d35cda9d6321c943e8f5916c0b13",
+    "raw/code_replay363/remaining-14.json": "3f3317d99389480aa89e5e807570e518b939c4ab8343f8713cb6aa8dff0da926",
+    "raw/code_replay363/reviewed-32.json": "a41ab0ba6a4af39e34c8a0a7dc0037d82f0ffa2b3c0e808561f15e6fc65ae99b",
+    "raw/code_replay363/uncertain-28.json": "0e49ab1577ec8aacb7f089831fe0e19a3c536b0f7249e47369a8588573ab3de0",
+    "raw/latest_code_with_saved_llm363.jsonl": "b80c77089363339b2f4bdc596687a1bb1a703283b1c95219fec558b35b709eed",
+    "raw/parent_no_answer98.json": "4dc739b7f7a8760b3c5880f75b3636ba0faeb50be760c82ae41b7c455cd5de5c",
+    "raw/parent_questions3000.jsonl": "92c4b0477026fe7c464fd71765b07a55479d365564df1243ae376c263522e85e",
+    "raw/prompt24/baseline-results.jsonl": "9e4f2c1ff08b15b080e461fd4569c493a05cda8c9f546954e2f16bdd0cf82f36",
+    "raw/prompt24/before-after-comparison.json": "34280023f16c792cfb31d893d2538acf209e44661dbfa344ff705ccded5711c5",
+    "raw/prompt24/evaluation-cases.jsonl": "9c047b809a2b362217317a5aac1bd8d11552fafce532111d136a343abd7966b1",
+    "raw/prompt24/llm-results-after.jsonl": "0a329fd48dd0a2264466cbcb4a549820e4fb5796844f224160091ca6fb22e05d",
+    "raw/prompt24/manual-verdict-audit.json": "ebfc4cf226b645047cf2083f37ef4b0a40c70df2116bfec580bbaefedc90335d",
+    "raw/prompt24/model-requests-after.jsonl": "edefc4ffbe04af1ff1c1f47bbf846ca2a8830cf9d28030e13bae6b547e985295",
+    "report/category_results.md": "ece5d4ae3ed283e2a3359cf9b7541117c89189c459ca214f7d4d954f40d22dde",
+    "report/output_code_replay363.html": "e7f89b822a62c5f7a196d0cde8b890b7a2e961bfd3a7acfd6286b78686dae335",
+    "report/output_latest_threeway363.csv": "ec9dfb67bf9637ea1afe47a0be6f5537c614efd649d8189408dd371ce20c8098",
+    "report/output_latest_threeway363.html": "0b0e706e58778fef68317b4ced2877b35a908cc1db50d429dbaf6512b32928ef",
+    "report/output_prompt24_not_adopted.html": "d70dcc832674d1370f973968b9dd4755f596fd1cba4a30867a2882ac1d8a306d",
+    "report/output_reviewed_findings.md": "6f4b1f8b2186c7decad3c31e6ee61364364d3ae4daccb6bc66887e1ad6c2a966",
+    "report/output_threeway363.html": "c55bc43d1569baffb68a60a643f0b52c2400976a1acd5a2f5215c5810af14db1",
+    "report/raw_records.md": "eb6fda94ce831c3200ea0269e48df1ce429fe4578e823cf05ccbe0dca8746d14",
+    "summary/baseline363/category-comparison.json": "3fb696db0f997bb8e0189b4552352e884d774b4aeac70f99cc85d420eea3982f",
+    "summary/baseline363/comparison-summary.json": "6d42f4eb19d96513a2eaa634b362c2f5c718b99d6948eacbdbbf49fd3be8d48b",
+    "summary/baseline363/guard-protocol.json": "3dd2f812cbd7f26615f225581e76f3ff2f7b67379ca7e09946f23df20e6c98a8",
+    "summary/baseline363/model-cleanup.json": "520b8704b22d81f3c629aa2b23e14bae2de8cca0fd8f8efe4a17e9e5448b9ff7",
+    "summary/baseline363/model-metadata.json": "d1aa2282452a9d5503cd18daa0fbef82d74f7df56bd244c629742539c6b87b92",
+    "summary/baseline363/payload-verification.json": "c764ab9bd7fbb2ead0fa2e46db4513bfa4bb41b422f2187bc8724672db8e34cb",
+    "summary/baseline363/schema.json": "143808934ea56c40d29f18dc01e5156a9bf5727f8c47cd86be591b3c4d82cae6",
+    "summary/baseline363/selection-verification.json": "eb6d4b351b60e866e6c0c24991131679322ad9ca180fec3cdad880d7ee4af423",
+    "summary/baseline363/selection.json": "fb774f82db01c80cdf1d2525239b013f90c5cb12efdc66b187f304c41a339b52",
+    "summary/baseline363/verification.json": "05a01f13944f27b43a3d4f13ac6d8acc018446254f00961b4376f76cf4778b35",
+    "summary/code_replay363/scope.json": "4cfd2ed249961dc0f0f23b4180a294a499ea993f30ea0d2371211dddbadb58b2",
+    "summary/code_replay363/unit-test-results.json": "06fc8d036af2368bb839ed7173d895707f72acc41a0086bec5078934cdab26aa",
+    "summary/code_replay363/verification.json": "7d39883bbc4c03c61856577873018f9719e9ad1b462d2f222ca84ac43bed3869",
+    "summary/latest_code_with_saved_llm363.json": "36bbbe1b6100002828a30b1b1a046bd3b5b019f6b380e3bf88c6ea1182952d00",
+    "summary/parent_generation3000_manifest.json": "32f70b5a335d220aee2383b8651e09361b530668d1b9584eea926312b5eaa003",
+    "summary/prompt24/after-summary.json": "d1b1aad5b483401db052bd8a1c2ca7f21847361b4eb14936df5dd2e46c28420e",
+    "summary/prompt24/final-verification.json": "44bed2e8d5c6fe9b75cc94e1348e19ba7e48096b04b56ff182cabe4014293f6e",
+    "summary/prompt24/model-cleanup.json": "ba2539531c7b4766d1132d856328f342c30a6c08445b4e7afdc75113a66fe760",
+    "summary/prompt24/model-verification.json": "619baf4b881b8a5eb4619f2c15a5f7a7425ce765268884347c2173397f982269",
+    "summary/prompt24/preparation.json": "4b976c0243df5f336a06aaefddbd872753f4654024971b5810e7fde58ec0caa6",
+    "summary/prompt24/schema.json": "143808934ea56c40d29f18dc01e5156a9bf5727f8c47cd86be591b3c4d82cae6",
+    "summary/prompt24/verification.json": "bdfb2d2872a05c7459107783ef93432217f98a819ad97fdfd32e67566950e2ad"
+  },
+  "copied_source_records": [
+    {
+      "source": "outputs/guard-quick363-20261022-side/guard-inputs.jsonl",
+      "path": "model_test_v7/try8/results/raw/baseline363/guard-inputs.jsonl",
+      "sha256": "a6b707f49968e66dc5f8a301742026587a388ac4af54a753d099d8603b8bb99f",
+      "bytes": 957961
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/code-results.jsonl",
+      "path": "model_test_v7/try8/results/raw/baseline363/code-results.jsonl",
+      "sha256": "7a221b331c8f8a999ab14098b8d2f04f37fe37cf55f4d40978ebd30f744e7ecc",
+      "bytes": 227211
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/llm-results.jsonl",
+      "path": "model_test_v7/try8/results/raw/baseline363/llm-results.jsonl",
+      "sha256": "ff6f1d3c9b34f38d4c7ac2c5d72d50690ab2a4d8cbe007a96f41a5491c894bcc",
+      "bytes": 742001
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/frozen-guard-requests.jsonl",
+      "path": "model_test_v7/try8/results/raw/baseline363/frozen-guard-requests.jsonl",
+      "sha256": "e60bb6355aabdd3c5e93ed91594760c3f6f3cbac5fe72ba4770d0ae2fb95716f",
+      "bytes": 4724792
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/comparison.jsonl",
+      "path": "model_test_v7/try8/results/raw/baseline363/comparison.jsonl",
+      "sha256": "2010bbc2c9d14d199c56954985a2c76071f64c285d6875bdb67385f3868edf5a",
+      "bytes": 57723
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/cache-origin.json",
+      "path": "model_test_v7/try8/results/raw/baseline363/cache-origin.json",
+      "sha256": "196bcbc7dc77ba5fa6f853423c0244690db2b7c328981463bb8445c27ce9ed11",
+      "bytes": 4307
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/comparison-summary.json",
+      "path": "model_test_v7/try8/results/summary/baseline363/comparison-summary.json",
+      "sha256": "6d42f4eb19d96513a2eaa634b362c2f5c718b99d6948eacbdbbf49fd3be8d48b",
+      "bytes": 1844
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/category-comparison.json",
+      "path": "model_test_v7/try8/results/summary/baseline363/category-comparison.json",
+      "sha256": "3fb696db0f997bb8e0189b4552352e884d774b4aeac70f99cc85d420eea3982f",
+      "bytes": 44897
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/selection.json",
+      "path": "model_test_v7/try8/results/summary/baseline363/selection.json",
+      "sha256": "fb774f82db01c80cdf1d2525239b013f90c5cb12efdc66b187f304c41a339b52",
+      "bytes": 33878
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/selection-verification.json",
+      "path": "model_test_v7/try8/results/summary/baseline363/selection-verification.json",
+      "sha256": "eb6d4b351b60e866e6c0c24991131679322ad9ca180fec3cdad880d7ee4af423",
+      "bytes": 237
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/payload-verification.json",
+      "path": "model_test_v7/try8/results/summary/baseline363/payload-verification.json",
+      "sha256": "c764ab9bd7fbb2ead0fa2e46db4513bfa4bb41b422f2187bc8724672db8e34cb",
+      "bytes": 350
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/verification.json",
+      "path": "model_test_v7/try8/results/summary/baseline363/verification.json",
+      "sha256": "05a01f13944f27b43a3d4f13ac6d8acc018446254f00961b4376f76cf4778b35",
+      "bytes": 266
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/guard-protocol.json",
+      "path": "model_test_v7/try8/results/summary/baseline363/guard-protocol.json",
+      "sha256": "3dd2f812cbd7f26615f225581e76f3ff2f7b67379ca7e09946f23df20e6c98a8",
+      "bytes": 538
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/schema.json",
+      "path": "model_test_v7/try8/results/summary/baseline363/schema.json",
+      "sha256": "143808934ea56c40d29f18dc01e5156a9bf5727f8c47cd86be591b3c4d82cae6",
+      "bytes": 571
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/model-metadata.json",
+      "path": "model_test_v7/try8/results/summary/baseline363/model-metadata.json",
+      "sha256": "d1aa2282452a9d5503cd18daa0fbef82d74f7df56bd244c629742539c6b87b92",
+      "bytes": 771
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/model-cleanup.json",
+      "path": "model_test_v7/try8/results/summary/baseline363/model-cleanup.json",
+      "sha256": "520b8704b22d81f3c629aa2b23e14bae2de8cca0fd8f8efe4a17e9e5448b9ff7",
+      "bytes": 126
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/전체차단_항목별363건_가드비교.html",
+      "path": "model_test_v7/try8/results/report/output_threeway363.html",
+      "sha256": "c55bc43d1569baffb68a60a643f0b52c2400976a1acd5a2f5215c5810af14db1",
+      "bytes": 2527375
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/before-code-results.jsonl",
+      "path": "model_test_v7/try8/results/raw/code_replay363/before-code-results.jsonl",
+      "sha256": "8491fead6b845134b7c6b599294ad53fe394c492f86e023595294bc1900ec723",
+      "bytes": 223218
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/candidate-code-results.jsonl",
+      "path": "model_test_v7/try8/results/raw/code_replay363/candidate-code-results.jsonl",
+      "sha256": "2828fbc6b9eec61d8121177848e08bfb0c08f3a24911ce8b0e4a735437564236",
+      "bytes": 221378
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/comparison.jsonl",
+      "path": "model_test_v7/try8/results/raw/code_replay363/comparison.jsonl",
+      "sha256": "5a4d47492b106a15815a2fa2feb70bbe8a40ec517f3b3a70fcd34717e9f751b9",
+      "bytes": 1450225
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/reviewed-32.json",
+      "path": "model_test_v7/try8/results/raw/code_replay363/reviewed-32.json",
+      "sha256": "a41ab0ba6a4af39e34c8a0a7dc0037d82f0ffa2b3c0e808561f15e6fc65ae99b",
+      "bytes": 157333
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/uncertain-28.json",
+      "path": "model_test_v7/try8/results/raw/code_replay363/uncertain-28.json",
+      "sha256": "0e49ab1577ec8aacb7f089831fe0e19a3c536b0f7249e47369a8588573ab3de0",
+      "bytes": 135635
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/remaining-14.json",
+      "path": "model_test_v7/try8/results/raw/code_replay363/remaining-14.json",
+      "sha256": "3f3317d99389480aa89e5e807570e518b939c4ab8343f8713cb6aa8dff0da926",
+      "bytes": 85300
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/normal-block-review.json",
+      "path": "model_test_v7/try8/results/raw/code_replay363/normal-block-review.json",
+      "sha256": "1df9fc911a7362af83be5ae47f6910d16bc1d35cda9d6321c943e8f5916c0b13",
+      "bytes": 62199
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/verification.json",
+      "path": "model_test_v7/try8/results/summary/code_replay363/verification.json",
+      "sha256": "7d39883bbc4c03c61856577873018f9719e9ad1b462d2f222ca84ac43bed3869",
+      "bytes": 3152
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/unit-test-results.json",
+      "path": "model_test_v7/try8/results/summary/code_replay363/unit-test-results.json",
+      "sha256": "06fc8d036af2368bb839ed7173d895707f72acc41a0086bec5078934cdab26aa",
+      "bytes": 33314
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/scope.json",
+      "path": "model_test_v7/try8/results/summary/code_replay363/scope.json",
+      "sha256": "4cfd2ed249961dc0f0f23b4180a294a499ea993f30ea0d2371211dddbadb58b2",
+      "bytes": 403
+    },
+    {
+      "source": "outputs/output-guard363-fix-20261022-side/출력가드_363건_보완결과.html",
+      "path": "model_test_v7/try8/results/report/output_code_replay363.html",
+      "sha256": "e7f89b822a62c5f7a196d0cde8b890b7a2e961bfd3a7acfd6286b78686dae335",
+      "bytes": 87196
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/evaluation-cases.jsonl",
+      "path": "model_test_v7/try8/results/raw/prompt24/evaluation-cases.jsonl",
+      "sha256": "9c047b809a2b362217317a5aac1bd8d11552fafce532111d136a343abd7966b1",
+      "bytes": 82726
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/baseline-results.jsonl",
+      "path": "model_test_v7/try8/results/raw/prompt24/baseline-results.jsonl",
+      "sha256": "9e4f2c1ff08b15b080e461fd4569c493a05cda8c9f546954e2f16bdd0cf82f36",
+      "bytes": 16179
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/llm-results-after.jsonl",
+      "path": "model_test_v7/try8/results/raw/prompt24/llm-results-after.jsonl",
+      "sha256": "0a329fd48dd0a2264466cbcb4a549820e4fb5796844f224160091ca6fb22e05d",
+      "bytes": 45073
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/model-requests-after.jsonl",
+      "path": "model_test_v7/try8/results/raw/prompt24/model-requests-after.jsonl",
+      "sha256": "edefc4ffbe04af1ff1c1f47bbf846ca2a8830cf9d28030e13bae6b547e985295",
+      "bytes": 237015
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/before-after-comparison.json",
+      "path": "model_test_v7/try8/results/raw/prompt24/before-after-comparison.json",
+      "sha256": "34280023f16c792cfb31d893d2538acf209e44661dbfa344ff705ccded5711c5",
+      "bytes": 13462
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/manual-verdict-audit.json",
+      "path": "model_test_v7/try8/results/raw/prompt24/manual-verdict-audit.json",
+      "sha256": "ebfc4cf226b645047cf2083f37ef4b0a40c70df2116bfec580bbaefedc90335d",
+      "bytes": 3013
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/after-summary.json",
+      "path": "model_test_v7/try8/results/summary/prompt24/after-summary.json",
+      "sha256": "d1b1aad5b483401db052bd8a1c2ca7f21847361b4eb14936df5dd2e46c28420e",
+      "bytes": 545
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/final-verification.json",
+      "path": "model_test_v7/try8/results/summary/prompt24/final-verification.json",
+      "sha256": "44bed2e8d5c6fe9b75cc94e1348e19ba7e48096b04b56ff182cabe4014293f6e",
+      "bytes": 13118
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/model-verification.json",
+      "path": "model_test_v7/try8/results/summary/prompt24/model-verification.json",
+      "sha256": "619baf4b881b8a5eb4619f2c15a5f7a7425ce765268884347c2173397f982269",
+      "bytes": 926
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/model-cleanup.json",
+      "path": "model_test_v7/try8/results/summary/prompt24/model-cleanup.json",
+      "sha256": "ba2539531c7b4766d1132d856328f342c30a6c08445b4e7afdc75113a66fe760",
+      "bytes": 67
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/verification.json",
+      "path": "model_test_v7/try8/results/summary/prompt24/verification.json",
+      "sha256": "bdfb2d2872a05c7459107783ef93432217f98a819ad97fdfd32e67566950e2ad",
+      "bytes": 409
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/preparation.json",
+      "path": "model_test_v7/try8/results/summary/prompt24/preparation.json",
+      "sha256": "4b976c0243df5f336a06aaefddbd872753f4654024971b5810e7fde58ec0caa6",
+      "bytes": 1711
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/schema.json",
+      "path": "model_test_v7/try8/results/summary/prompt24/schema.json",
+      "sha256": "143808934ea56c40d29f18dc01e5156a9bf5727f8c47cd86be591b3c4d82cae6",
+      "bytes": 571
+    },
+    {
+      "source": "outputs/llm-guard-grounding24-20261022-side/LLM가드_24건_보완전후_결과.html",
+      "path": "model_test_v7/try8/results/report/output_prompt24_not_adopted.html",
+      "sha256": "d70dcc832674d1370f973968b9dd4755f596fd1cba4a30867a2882ac1d8a306d",
+      "bytes": 152837
+    },
+    {
+      "source": "outputs/guard-threeway3000-20261022-side/execution-manifest.json",
+      "path": "model_test_v7/try8/results/summary/parent_generation3000_manifest.json",
+      "sha256": "32f70b5a335d220aee2383b8651e09361b530668d1b9584eea926312b5eaa003",
+      "bytes": 1162
+    },
+    {
+      "source": "outputs/guard-quick363-20261022-side/generation-no-answer-cases.json",
+      "path": "model_test_v7/try8/results/raw/parent_no_answer98.json",
+      "sha256": "4dc739b7f7a8760b3c5880f75b3636ba0faeb50be760c82ae41b7c455cd5de5c",
+      "bytes": 109097
+    }
+  ],
+  "prompt_files_sha256": {
+    "prompts/output_guard/redhat4b_whole_answer_20261022.txt": "60a98c8a9b0768e1a7bc25c07bcbe280d7ddcf3aae493febe90eaf04076baf40",
+    "prompts/output_guard/redhat4b_grounding24_20261022_not_adopted.txt": "ed6abbb5a1eb5ef9d3d6fe43fce07f8254f1dc2271aca28db58d703ec3ce4b48",
+    "prompts/input_guard/redhat4b_input_safety_20261023.txt": "eb75a7ba738290a87e822f98cb260863df45a6a002eb4ad1c710de4a029c66e2",
+    "prompts/input_guard/redhat4b_input_safety_planning_20261023.txt": "19c4eb7e2664867f9ee51a2a844580143c1bb57310fd3e7c005677ee1f07fc4b",
+    "prompts/input_guard/redhat4b_input_shared_criteria_20261023.txt": "2d95e4c7f5fbb97d19a9b84e73ef50cbd0acf6d54cb3dec4a8be1604496ca61a",
+    "prompts/input_guard/question_planner_baseline_snapshot_20261023.txt": "6bb22ded7251de4cbb01d0dc1cf7f038d4c8d4af1504d608ccde87e3c550d6fa"
+  },
+  "self_digest_excluded": true,
+  "service_code_uploaded": false,
+  "execution_scripts_uploaded": false,
+  "new_llm_calls_during_publication": 0,
+  "git_push_target": "HEAD:refs/heads/test/ai-guard-input"
+}

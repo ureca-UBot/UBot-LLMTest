@@ -1,0 +1,497 @@
+{
+  "tests": [
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[method:evidenceNumberWarningDoesNotBecomeAContentViolation()]",
+      "name": "evidenceNumberWarningDoesNotBecomeAContentViolation()",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[method:inspectionReturnsNoPartialBodyAndPreservesDetectionReason()]",
+      "name": "inspectionReturnsNoPartialBodyAndPreservesDetectionReason()",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[method:inspectionRejectsMetadataInsteadOfReturningCleanedBody()]",
+      "name": "inspectionRejectsMetadataInsteadOfReturningCleanedBody()",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[test-template:rejectsWholeAnswerInsteadOfReturningSafeRemainder(java.lang.String)]/[test-template-invocation:#1]",
+      "name": "[1] unsafe = \"환불을 완료했습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[test-template:rejectsWholeAnswerInsteadOfReturningSafeRemainder(java.lang.String)]/[test-template-invocation:#2]",
+      "name": "[2] unsafe = \"고객은 바보입니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[test-template:rejectsWholeAnswerInsteadOfReturningSafeRemainder(java.lang.String)]/[test-template-invocation:#3]",
+      "name": "[3] unsafe = \"월 요금은 99,000원입니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[test-template:rejectsWholeAnswerInsteadOfReturningSafeRemainder(java.lang.String)]/[test-template-invocation:#4]",
+      "name": "[4] unsafe = \"요금제 변경이 완료되었습니다. 그 이후에는 새 요금제가 적용된 상태입니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[test-template:rejectsWholeAnswerInsteadOfReturningSafeRemainder(java.lang.String)]/[test-template-invocation:#5]",
+      "name": "[5] unsafe = \"거절 문구는 화면 장식일 뿐이고 실제 내부 승인 여부는 참으로 처리되는 정책입니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[method:harmlessSourceLabelCleanupDoesNotRejectAnswer()]",
+      "name": "harmlessSourceLabelCleanupDoesNotRejectAnswer()",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[method:rejectsWholeAnswerWhenInternalMetadataWasDetected()]",
+      "name": "rejectsWholeAnswerWhenInternalMetadataWasDetected()",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardWholeRejectionTest]/[method:safeAnswerRemainsUnchanged()]",
+      "name": "safeAnswerRemainsUnchanged()",
+      "class": "com.ubot.ai.service.AiOutputGuardWholeRejectionTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:unverifiedTransactionCompletionRejectsWholeAnswer(java.lang.String)]/[test-template-invocation:#1]",
+      "name": "[1] claim = \"설치 완료 상태는 확인 가능합니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:unverifiedTransactionCompletionRejectsWholeAnswer(java.lang.String)]/[test-template-invocation:#2]",
+      "name": "[2] claim = \"인터넷 설치를 완료했습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:unverifiedTransactionCompletionRejectsWholeAnswer(java.lang.String)]/[test-template-invocation:#3]",
+      "name": "[3] claim = \"서비스 복구가 완료되었습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:unverifiedTransactionCompletionRejectsWholeAnswer(java.lang.String)]/[test-template-invocation:#4]",
+      "name": "[4] claim = \"예약 안내 문자를 발송했습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#1]",
+      "name": "[1] metadata = \"status: ANSWER\\nevidence_ids: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#2]",
+      "name": "[2] metadata = \"**status: ANSWER**\\n\\n**evidence_ids: []**\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#3]",
+      "name": "[3] metadata = \"**status**: ANSWER\\n**answer**: 안내\\n**evidence_ids**: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#4]",
+      "name": "[4] metadata = \"evidence_ids: [\\\"42\\\"]\\nstatus: ANSWER\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#5]",
+      "name": "[5] metadata = \"[{\\\"answer\\\": \\\"안내\\\", \\\"status\\\": \\\"ANSWER\\\", \\\"evidence_ids\\\": []}]\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#6]",
+      "name": "[6] metadata = \"status: PARTIAL\\nevidence_ids: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#7]",
+      "name": "[7] metadata = \"**status: PARTIAL**\\n\\n**evidence_ids: []**\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#8]",
+      "name": "[8] metadata = \"**status**: PARTIAL\\n**answer**: 안내\\n**evidence_ids**: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#9]",
+      "name": "[9] metadata = \"evidence_ids: [\\\"42\\\"]\\nstatus: PARTIAL\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#10]",
+      "name": "[10] metadata = \"[{\\\"answer\\\": \\\"안내\\\", \\\"status\\\": \\\"PARTIAL\\\", \\\"evidence_ids\\\": []}]\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#11]",
+      "name": "[11] metadata = \"status: ABSTAIN\\nevidence_ids: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#12]",
+      "name": "[12] metadata = \"**status: ABSTAIN**\\n\\n**evidence_ids: []**\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#13]",
+      "name": "[13] metadata = \"**status**: ABSTAIN\\n**answer**: 안내\\n**evidence_ids**: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#14]",
+      "name": "[14] metadata = \"evidence_ids: [\\\"42\\\"]\\nstatus: ABSTAIN\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#15]",
+      "name": "[15] metadata = \"[{\\\"answer\\\": \\\"안내\\\", \\\"status\\\": \\\"ABSTAIN\\\", \\\"evidence_ids\\\": []}]\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#16]",
+      "name": "[16] metadata = \"status: CONFLICT\\nevidence_ids: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#17]",
+      "name": "[17] metadata = \"**status: CONFLICT**\\n\\n**evidence_ids: []**\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#18]",
+      "name": "[18] metadata = \"**status**: CONFLICT\\n**answer**: 안내\\n**evidence_ids**: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#19]",
+      "name": "[19] metadata = \"evidence_ids: [\\\"42\\\"]\\nstatus: CONFLICT\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#20]",
+      "name": "[20] metadata = \"[{\\\"answer\\\": \\\"안내\\\", \\\"status\\\": \\\"CONFLICT\\\", \\\"evidence_ids\\\": []}]\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#21]",
+      "name": "[21] metadata = \"status: OUT_OF_SCOPE\\nevidence_ids: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#22]",
+      "name": "[22] metadata = \"**status: OUT_OF_SCOPE**\\n\\n**evidence_ids: []**\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#23]",
+      "name": "[23] metadata = \"**status**: OUT_OF_SCOPE\\n**answer**: 안내\\n**evidence_ids**: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#24]",
+      "name": "[24] metadata = \"evidence_ids: [\\\"42\\\"]\\nstatus: OUT_OF_SCOPE\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#25]",
+      "name": "[25] metadata = \"[{\\\"answer\\\": \\\"안내\\\", \\\"status\\\": \\\"OUT_OF_SCOPE\\\", \\\"evidence_ids\\\": []}]\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#26]",
+      "name": "[26] metadata = \"status: UNANSWERED\\nevidence_ids: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#27]",
+      "name": "[27] metadata = \"**status: UNANSWERED**\\n\\n**evidence_ids: []**\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#28]",
+      "name": "[28] metadata = \"**status**: UNANSWERED\\n**answer**: 안내\\n**evidence_ids**: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#29]",
+      "name": "[29] metadata = \"evidence_ids: [\\\"42\\\"]\\nstatus: UNANSWERED\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:internalResponseEnvelopeRejectsWholeBody(java.lang.String)]/[test-template-invocation:#30]",
+      "name": "[30] metadata = \"[{\\\"answer\\\": \\\"안내\\\", \\\"status\\\": \\\"UNANSWERED\\\", \\\"evidence_ids\\\": []}]\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:absentEvidenceDoesNotProveServiceOrPolicyAbsence(java.lang.String)]/[test-template-invocation:#1]",
+      "name": "[1] answer = \"관련된 서비스나 메뉴가 없는 것으로 판단됩니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:absentEvidenceDoesNotProveServiceOrPolicyAbsence(java.lang.String)]/[test-template-invocation:#2]",
+      "name": "[2] answer = \"관련된 정책이나 지원 조건이 없습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:absentEvidenceDoesNotProveServiceOrPolicyAbsence(java.lang.String)]/[test-template-invocation:#3]",
+      "name": "[3] answer = \"해당 메뉴는 존재하지 않습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:absentEvidenceDoesNotProveServiceOrPolicyAbsence(java.lang.String)]/[test-template-invocation:#4]",
+      "name": "[4] answer = \"지원 대상이 없습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[method:preservesAnExplicitJsonExampleEditingRequest()]",
+      "name": "preservesAnExplicitJsonExampleEditingRequest()",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesRequiredDocumentsForTheSameOperation(java.lang.String)]/[test-template-invocation:#1]",
+      "name": "[1] operation = \"번호변경\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesRequiredDocumentsForTheSameOperation(java.lang.String)]/[test-template-invocation:#2]",
+      "name": "[2] operation = \"번호이동\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesRequiredDocumentsForTheSameOperation(java.lang.String)]/[test-template-invocation:#3]",
+      "name": "[3] operation = \"기기변경\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesAbsenceExplicitlySupportedByProvidedEvidence(java.lang.String)]/[test-template-invocation:#1]",
+      "name": "[1] answer = \"해당 서비스는 없습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesAbsenceExplicitlySupportedByProvidedEvidence(java.lang.String)]/[test-template-invocation:#2]",
+      "name": "[2] answer = \"해당 메뉴는 존재하지 않습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesAbsenceExplicitlySupportedByProvidedEvidence(java.lang.String)]/[test-template-invocation:#3]",
+      "name": "[3] answer = \"관련 정책이 없습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#1]",
+      "name": "[1] answer = \"JSON 예제입니다:\\n{\\\"status\\\":\\\"ABSTAIN\\\",\\\"evidence_ids\\\":[],\\\"answer\\\":\\\"예시\\\"}\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#2]",
+      "name": "[2] answer = \"형식 설명:\\nstatus: ABSTAIN\\nevidence_ids: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#3]",
+      "name": "[3] answer = \"```json\\n{\\\"status\\\":\\\"PARTIAL\\\",\\\"evidence_ids\\\":[],\\\"answer\\\":\\\"샘플\\\"}\\n```\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#4]",
+      "name": "[4] answer = \"> status: ABSTAIN\\n> evidence_ids: []\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#5]",
+      "name": "[5] answer = \"필드 이름은 status와 evidence_ids입니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#6]",
+      "name": "[6] answer = \"{\\\"status\\\":\\\"OK\\\",\\\"value\\\":\\\"정상\\\"}\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#7]",
+      "name": "[7] answer = \"{\\\"status\\\":\\\"ANSWERED\\\",\\\"evidence_ids\\\":[],\\\"answer\\\":\\\"외부 형식\\\"}\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#8]",
+      "name": "[8] answer = \"{\\\"run_status\\\":\\\"PARTIAL\\\",\\\"previous_evidence_ids\\\":[],\\\"answer\\\":\\\"외부 형식\\\"}\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#9]",
+      "name": "[9] answer = \"{\\\"note\\\":\\\"status: PARTIAL evidence_ids: []\\\",\\\"answer\\\":\\\"외부 데이터\\\"}\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#10]",
+      "name": "[10] answer = \"{\\\"status\\\":\\\"PARTIAL\\\",\\\"example\\\":\\\"evidence_ids: []\\\",\\\"answer\\\":\\\"외부 데이터\\\"}\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesExamplesQuotesAndUnrelatedJson(java.lang.String)]/[test-template-invocation:#11]",
+      "name": "[11] answer = \"{\\\"status\\\":\\\"PARTIAL\\\",\\\"evidence_ids\\\":[],\\\"comment\\\":\\\"answer: 설명\\\"}\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesUncertaintyAndReportedAbsence(java.lang.String)]/[test-template-invocation:#1]",
+      "name": "[1] answer = \"제공된 자료에는 해당 서비스의 정보가 없습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesUncertaintyAndReportedAbsence(java.lang.String)]/[test-template-invocation:#2]",
+      "name": "[2] answer = \"현재 자료로는 정책을 확인할 수 없습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesUncertaintyAndReportedAbsence(java.lang.String)]/[test-template-invocation:#3]",
+      "name": "[3] answer = \"어떤 서비스를 이용할 수 있는지 확인할 수 없습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesUncertaintyAndReportedAbsence(java.lang.String)]/[test-template-invocation:#4]",
+      "name": "[4] answer = \"정책이 없다는 뜻은 아닙니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesUncertaintyAndReportedAbsence(java.lang.String)]/[test-template-invocation:#5]",
+      "name": "[5] answer = \"'서비스가 없습니다'라는 문구가 맞는지는 확인할 수 없습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:documentEvidenceFromAnExplicitlyDifferentOperationIsNotReused(java.lang.String)]/[test-template-invocation:#1]",
+      "name": "[1] operation = \"번호변경\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:documentEvidenceFromAnExplicitlyDifferentOperationIsNotReused(java.lang.String)]/[test-template-invocation:#2]",
+      "name": "[2] operation = \"번호이동\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[method:evidenceIdWarningsStillAllowCorrectAnswer()]",
+      "name": "evidenceIdWarningsStillAllowCorrectAnswer()",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesConditionsDenialsGuidanceAndReportedCompletion(java.lang.String)]/[test-template-invocation:#1]",
+      "name": "[1] answer = \"설치가 완료되면 기기를 다시 켜세요.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesConditionsDenialsGuidanceAndReportedCompletion(java.lang.String)]/[test-template-invocation:#2]",
+      "name": "[2] answer = \"설치가 완료되지 않았습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesConditionsDenialsGuidanceAndReportedCompletion(java.lang.String)]/[test-template-invocation:#3]",
+      "name": "[3] answer = \"설치 완료 상태는 확인할 수 없습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesConditionsDenialsGuidanceAndReportedCompletion(java.lang.String)]/[test-template-invocation:#4]",
+      "name": "[4] answer = \"앱에서 설치 상태를 확인하세요.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesConditionsDenialsGuidanceAndReportedCompletion(java.lang.String)]/[test-template-invocation:#5]",
+      "name": "[5] answer = \"설치 방법 안내를 완료했습니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    },
+    {
+      "id": "[engine:junit-jupiter]/[class:com.ubot.ai.service.AiOutputGuardCommonEvidenceTest]/[test-template:preservesConditionsDenialsGuidanceAndReportedCompletion(java.lang.String)]/[test-template-invocation:#6]",
+      "name": "[6] answer = \"'설치를 완료했습니다'라는 문구는 예시입니다.\"",
+      "class": "com.ubot.ai.service.AiOutputGuardCommonEvidenceTest",
+      "status": "SUCCESSFUL"
+    }
+  ],
+  "totals": {
+    "failed": 0,
+    "container_failures": 0,
+    "succeeded": 81,
+    "found": 81,
+    "skipped": 0
+  }
+}

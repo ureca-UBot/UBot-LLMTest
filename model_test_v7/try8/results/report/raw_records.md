@@ -1,0 +1,26 @@
+# 원본 증거 목차
+
+인증·환경·실행 파일 없이 저장된 질문·답변·근거·요청·판정을 보관했습니다.
+
+- [raw/baseline363/cache-origin.json](../raw/baseline363/cache-origin.json)
+- [raw/baseline363/code-results.jsonl](../raw/baseline363/code-results.jsonl)
+- [raw/baseline363/comparison.jsonl](../raw/baseline363/comparison.jsonl)
+- [raw/baseline363/frozen-guard-requests.jsonl](../raw/baseline363/frozen-guard-requests.jsonl)
+- [raw/baseline363/guard-inputs.jsonl](../raw/baseline363/guard-inputs.jsonl)
+- [raw/baseline363/llm-results.jsonl](../raw/baseline363/llm-results.jsonl)
+- [raw/code_replay363/before-code-results.jsonl](../raw/code_replay363/before-code-results.jsonl)
+- [raw/code_replay363/candidate-code-results.jsonl](../raw/code_replay363/candidate-code-results.jsonl)
+- [raw/code_replay363/comparison.jsonl](../raw/code_replay363/comparison.jsonl)
+- [raw/code_replay363/normal-block-review.json](../raw/code_replay363/normal-block-review.json)
+- [raw/code_replay363/remaining-14.json](../raw/code_replay363/remaining-14.json)
+- [raw/code_replay363/reviewed-32.json](../raw/code_replay363/reviewed-32.json)
+- [raw/code_replay363/uncertain-28.json](../raw/code_replay363/uncertain-28.json)
+- [raw/latest_code_with_saved_llm363.jsonl](../raw/latest_code_with_saved_llm363.jsonl)
+- [raw/parent_no_answer98.json](../raw/parent_no_answer98.json)
+- [raw/parent_questions3000.jsonl](../raw/parent_questions3000.jsonl)
+- [raw/prompt24/baseline-results.jsonl](../raw/prompt24/baseline-results.jsonl)
+- [raw/prompt24/before-after-comparison.json](../raw/prompt24/before-after-comparison.json)
+- [raw/prompt24/evaluation-cases.jsonl](../raw/prompt24/evaluation-cases.jsonl)
+- [raw/prompt24/llm-results-after.jsonl](../raw/prompt24/llm-results-after.jsonl)
+- [raw/prompt24/manual-verdict-audit.json](../raw/prompt24/manual-verdict-audit.json)
+- [raw/prompt24/model-requests-after.jsonl](../raw/prompt24/model-requests-after.jsonl)

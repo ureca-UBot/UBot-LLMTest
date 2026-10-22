@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-10-22T20:15:05.863890+09:00",
+  "sts_path": "C:\\Users\\82102\\Documents\\UBot-Dev\\UBot-BE",
+  "applied_files": [
+    {
+      "path": "src/main/java/com/ubot/ai/service/AiOutputGuardService.java",
+      "before_sha256": "78fe07abf77f43668bab844f85472d90864ebf8cd9d2c2cb479dfc5832d2ea13",
+      "after_sha256": "15fc197c0781fb136657d918b2df82113d3e99e911a4b659d8080ef44cad5d3a"
+    },
+    {
+      "path": "src/test/java/com/ubot/ai/service/AiOutputGuardCommonEvidenceTest.java",
+      "before_sha256": null,
+      "after_sha256": "b3443c5be34c2a599ad507744fb25d487530eca3b1225a00c5d43db0de2cf0a1"
+    }
+  ],
+  "compilation": {
+    "jdk": "21.0.10",
+    "main_sources": 656,
+    "cached_dependencies_only": true,
+    "test_sources_identical_to_sts": true,
+    "method": "Full captured main sources compiled; modified guard and selected tests recompiled against them"
+  },
+  "unit_tests": {
+    "failed": 0,
+    "container_failures": 0,
+    "succeeded": 81,
+    "found": 81,
+    "skipped": 0
+  },
+  "additional_normal_boundary_tests": 30,
+  "saved_answers": 363,
+  "before_decisions": {
+    "ALLOW": 306,
+    "BLOCK": 57
+  },
+  "after_decisions": {
+    "ALLOW": 298,
+    "BLOCK": 65
+  },
+  "confirmed_issue_answers": 32,
+  "confirmed_issues_missed_before": 22,
+  "confirmed_issues_missed_after": 14,
+  "newly_blocked_confirmed_issues": 8,
+  "previous_blocks_preserved": 57,
+  "new_false_blocks_observed_in_reviewed_sample": 0,
+  "allowed_body_changes": 0,
+  "normal_input_after_blocks": 14,
+  "normal_input_block_review": {
+    "EXISTING_NORMAL_CONTEXT_FALSE_BLOCK": 7,
+    "CONFIRMED_ANSWER_ERROR": 2,
+    "EXISTING_FOLLOWUP_POLICY_BLOCK": 2,
+    "UNCERTAIN_OR_QUALITY": 3
+  },
+  "uncertain_or_quality_cases": 28,
+  "uncertain_decision_changes": 0,
+  "other_protected_file_changes": [],
+  "unexpected_new_files": [],
+  "llm_calls": 0,
+  "judge_calls": 0,
+  "embedding_calls": 0,
+  "db_calls": 0,
+  "service_restarts": 0,
+  "git_mutations": 0,
+  "changed_parser_or_prompt_or_input_guard": false,
+  "limitations": [
+    "기존 저장 답변을 사용한 코드 검사이며 답변 생성 또는 LLM 가드의 새 판정은 실행하지 않았습니다.",
+    "확정 32건은 제공 자료와 대조한 수동 내용·근거 검토입니다. 전체 서비스 정확도를 보장하는 독립 정답셋은 아닙니다.",
+    "항목별 363건 표본은 희귀 유형이 과대표집되어 전체 운영 오류율로 일반화할 수 없습니다.",
+    "정상 입력 라벨은 생성된 답변의 정상 여부를 뜻하지 않습니다. 신규 정상 입력 차단 1건은 실제 문제 답변입니다.",
+    "의미·업무·생략된 조건의 모호한 연결 오류 14건은 특정 FAQ 예외를 추가하지 않고 남겼습니다.",
+    "기존 정상 문맥 차단 의심 7건과 후속 질문 정책 차단 2건은 유지되며 이번 추가 보완으로 해결됐다고 주장하지 않습니다.",
+    "Gradle 전체 테스트·실제 DB·실제 서버·브라우저·EC2 연동 검증은 이번 범위에 포함하지 않았습니다."
+  ]
+}

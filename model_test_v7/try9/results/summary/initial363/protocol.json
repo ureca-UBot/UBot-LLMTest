@@ -1,0 +1,27 @@
+{
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "temperature": 0,
+  "concurrency": 1,
+  "automatic_retries": 0,
+  "token_limits": {
+    "INPUT_GUARD": 128,
+    "JOINT": 512,
+    "BASELINE_CLASSIFIER": 512
+  },
+  "initial_tasks": {
+    "BASELINE_CLASSIFIER": 72,
+    "INPUT_GUARD": 363,
+    "JOINT": 72
+  },
+  "conditional_extra_classifier_calls": "Only AI_ONLY ALLOW cases that code rejected and whose router needs preparation",
+  "same_safety_input_and_criteria": true,
+  "gold_sent_to_model": false,
+  "fixture_ids_sent_to_model": false,
+  "no_history_created": true,
+  "judge_calls": 0,
+  "embedding_calls": 0,
+  "answer_generation_calls": 0,
+  "classification_scope": "Through original code routing and conditional AI preparation; no retrieval-failure fallback",
+  "integrated_search_first_behavior": "Use shared safety-only request and preserve existing search-first plan when router does not need preparation AI",
+  "latency_note": "Arm totals reuse actual per-request timings without cache; physical new calls and logical uncached calls reported separately."
+}

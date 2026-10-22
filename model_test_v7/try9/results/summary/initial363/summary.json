@@ -1,0 +1,53 @@
+{
+  "cases": 363,
+  "gold_counts": {
+    "BLOCK": 205,
+    "ALLOW": 158
+  },
+  "arm_outcomes": {
+    "CODE_ONLY": {
+      "CORRECT": 330,
+      "MISS": 33
+    },
+    "INTEGRATED": {
+      "CORRECT": 354,
+      "FALSE_BLOCK": 5,
+      "MISS": 2,
+      "REVIEW": 2
+    },
+    "SEPARATE": {
+      "CORRECT": 356,
+      "FALSE_BLOCK": 3,
+      "MISS": 2,
+      "REVIEW": 2
+    },
+    "AI_ONLY": {
+      "CORRECT": 306,
+      "MISS": 51,
+      "REVIEW": 3,
+      "FALSE_BLOCK": 3
+    }
+  },
+  "unique_physical_model_calls": 556,
+  "physical_calls_by_kind": {
+    "BASELINE_CLASSIFIER": 121,
+    "INPUT_GUARD": 363,
+    "JOINT": 72
+  },
+  "logical_uncached_calls_by_arm": {
+    "CODE_ONLY": 72,
+    "INTEGRATED": 191,
+    "SEPARATE": 230,
+    "AI_ONLY": 451
+  },
+  "guard_prompt_hashes": {
+    "INPUT_GUARD": "8ffba84082330a25bbdb54913ec71b0c747f969b0b83b873677ab81e6a27303c",
+    "JOINT": "cadee2a3183e12ddc2fe8e53c0712d915dba51a0921f90a434eb828c6aee4fa4",
+    "BASELINE_CLASSIFIER": "37b00a840a632450c99696ed7f76cb71bf01bdffa539826a537999ad6dcec75d"
+  },
+  "elapsed_model_seconds": 529.686,
+  "all_histories_empty": true,
+  "embedding_calls": 0,
+  "answer_generation_calls": 0,
+  "external_judge_calls": 0
+}

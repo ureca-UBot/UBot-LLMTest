@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-23T00:38:38.975766+09:00",
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "sts_path": "C:\\Users\\82102\\Documents\\UBot-Dev\\UBot-BE",
+  "source_file": "outputs\\guard-quick363-20261022-side\\guard-inputs.jsonl",
+  "source_sha256": "a6b707f49968e66dc5f8a301742026587a388ac4af54a753d099d8603b8bb99f",
+  "snapshot_java_files": 656,
+  "questions": 363,
+  "gold_counts": {
+    "BLOCK": 205,
+    "ALLOW": 158
+  },
+  "document_only_injection_allowed": 13,
+  "history_empty": 363,
+  "forbidden_word_snapshot_count": 38,
+  "real_db_access": false,
+  "live_forbidden_word_list_read": false,
+  "normalization_method": "Existing prepareCandidates; no regex reimplementation",
+  "code_detection_bypass": "Only arm AI_ONLY uses preparation without safety validation",
+  "classifier": "Existing Kiwi QuestionRouter; conditional SubQuestionPromptService; existing SubQuestionGuard and MultiTurnDetector",
+  "scope_steering": "All arms include existing classification through the pre-search boundary; identical baseline requests reused",
+  "limits": [
+    "All saved histories are empty: actual multi-turn quality cannot be validated.",
+    "No retrieval/embedding is run: a search-first route might later call a preparation LLM after retrieval failure; that later call is outside this test.",
+    "Integrated safety must run for every code-allowed question, including routes that would originally skip preparation AI.",
+    "Gold is a manual review of fixed synthetic questions, not independent production ground truth.",
+    "Frozen forbidden words and FAQ English word lists are used; no actual database is read.",
+    "Classification output differences alone do not establish a loss of correctness."
+  ]
+}
