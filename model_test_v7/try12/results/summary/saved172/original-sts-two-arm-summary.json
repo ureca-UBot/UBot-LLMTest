@@ -1,0 +1,387 @@
+{
+  "completed_at": "2026-10-24T02:47:37.940804+09:00",
+  "cases": 172,
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "guard_sha256": "15fc197c0781fb136657d918b2df82113d3e99e911a4b659d8080ef44cad5d3a",
+  "arms": {
+    "code": {
+      "ALLOW": 154,
+      "BLOCK": 18,
+      "REVIEW": 0,
+      "FAILED": 0
+    },
+    "combined": {
+      "ALLOW": 150,
+      "BLOCK": 22,
+      "REVIEW": 0,
+      "FAILED": 0
+    }
+  },
+  "scored": {
+    "code": {
+      "total": 172,
+      "decision_ALLOW": 154,
+      "normal_total": 121,
+      "normal_pass": 119,
+      "decision_BLOCK": 18,
+      "manual_review_total": 26,
+      "manual_review_BLOCK": 7,
+      "manual_review_ALLOW": 19,
+      "target_total": 25,
+      "target_pass": 16,
+      "target_block": 9,
+      "normal_false_block": 2,
+      "target_review": 0,
+      "target_failed": 0,
+      "normal_review": 0,
+      "normal_failed": 0,
+      "manual_review_REVIEW": 0,
+      "manual_review_FAILED": 0,
+      "decision_REVIEW": 0,
+      "decision_FAILED": 0
+    },
+    "combined": {
+      "total": 172,
+      "decision_ALLOW": 150,
+      "normal_total": 121,
+      "normal_pass": 117,
+      "decision_BLOCK": 22,
+      "manual_review_total": 26,
+      "manual_review_BLOCK": 7,
+      "manual_review_ALLOW": 19,
+      "normal_false_block": 4,
+      "target_total": 25,
+      "target_pass": 14,
+      "target_block": 11,
+      "target_review": 0,
+      "target_failed": 0,
+      "normal_review": 0,
+      "normal_failed": 0,
+      "manual_review_REVIEW": 0,
+      "manual_review_FAILED": 0,
+      "decision_REVIEW": 0,
+      "decision_FAILED": 0
+    }
+  },
+  "by_cohort": {
+    "base363": {
+      "code": {
+        "total": 157,
+        "decision_ALLOW": 141,
+        "normal_total": 121,
+        "normal_pass": 119,
+        "decision_BLOCK": 16,
+        "manual_review_total": 26,
+        "manual_review_BLOCK": 7,
+        "manual_review_ALLOW": 19,
+        "target_total": 10,
+        "target_pass": 3,
+        "target_block": 7,
+        "normal_false_block": 2,
+        "target_review": 0,
+        "target_failed": 0,
+        "normal_review": 0,
+        "normal_failed": 0,
+        "manual_review_REVIEW": 0,
+        "manual_review_FAILED": 0,
+        "decision_REVIEW": 0,
+        "decision_FAILED": 0
+      },
+      "combined": {
+        "total": 157,
+        "decision_ALLOW": 139,
+        "normal_total": 121,
+        "normal_pass": 117,
+        "decision_BLOCK": 18,
+        "manual_review_total": 26,
+        "manual_review_BLOCK": 7,
+        "manual_review_ALLOW": 19,
+        "normal_false_block": 4,
+        "target_total": 10,
+        "target_pass": 3,
+        "target_block": 7,
+        "target_review": 0,
+        "target_failed": 0,
+        "normal_review": 0,
+        "normal_failed": 0,
+        "manual_review_REVIEW": 0,
+        "manual_review_FAILED": 0,
+        "decision_REVIEW": 0,
+        "decision_FAILED": 0
+      }
+    },
+    "single100": {
+      "code": {
+        "total": 15,
+        "decision_ALLOW": 13,
+        "target_total": 15,
+        "target_pass": 13,
+        "decision_BLOCK": 2,
+        "target_block": 2,
+        "target_review": 0,
+        "target_failed": 0,
+        "normal_total": 0,
+        "normal_pass": 0,
+        "normal_false_block": 0,
+        "normal_review": 0,
+        "normal_failed": 0,
+        "manual_review_total": 0,
+        "manual_review_ALLOW": 0,
+        "manual_review_BLOCK": 0,
+        "manual_review_REVIEW": 0,
+        "manual_review_FAILED": 0,
+        "decision_REVIEW": 0,
+        "decision_FAILED": 0
+      },
+      "combined": {
+        "total": 15,
+        "decision_ALLOW": 11,
+        "target_total": 15,
+        "target_pass": 11,
+        "decision_BLOCK": 4,
+        "target_block": 4,
+        "target_review": 0,
+        "target_failed": 0,
+        "normal_total": 0,
+        "normal_pass": 0,
+        "normal_false_block": 0,
+        "normal_review": 0,
+        "normal_failed": 0,
+        "manual_review_total": 0,
+        "manual_review_ALLOW": 0,
+        "manual_review_BLOCK": 0,
+        "manual_review_REVIEW": 0,
+        "manual_review_FAILED": 0,
+        "decision_REVIEW": 0,
+        "decision_FAILED": 0
+      }
+    }
+  },
+  "answer_errors": {
+    "total": 8,
+    "arms": {
+      "code": {
+        "ALLOW": 2,
+        "BLOCK": 6,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "combined": {
+        "ALLOW": 2,
+        "BLOCK": 6,
+        "REVIEW": 0,
+        "FAILED": 0
+      }
+    }
+  },
+  "risky_original_questions": {
+    "total": 17,
+    "arms": {
+      "code": {
+        "ALLOW": 14,
+        "BLOCK": 3,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "combined": {
+        "ALLOW": 12,
+        "BLOCK": 5,
+        "REVIEW": 0,
+        "FAILED": 0
+      }
+    }
+  },
+  "answer_manual_review_total": 29,
+  "manual_review_normal_question_total": 26,
+  "whole_block_has_no_returned_answer": true,
+  "code_allowed_format_changes": 5,
+  "false_blocks": {
+    "code": [
+      "base2600:LATEST-0544",
+      "base2600:N-011"
+    ],
+    "combined": [
+      "base2600:LATEST-0312",
+      "base2600:LATEST-0544",
+      "base2600:N-011",
+      "base2600:LATEST-0960"
+    ]
+  },
+  "missed_targets": {
+    "code": [
+      "base2600:N-028",
+      "hard400:H05-013",
+      "base2600:LATEST-0781",
+      "SINGLE-034",
+      "SINGLE-035",
+      "SINGLE-036",
+      "SINGLE-037",
+      "SINGLE-043",
+      "SINGLE-044",
+      "SINGLE-045",
+      "SINGLE-046",
+      "SINGLE-048",
+      "SINGLE-071",
+      "SINGLE-072",
+      "SINGLE-078",
+      "SINGLE-080"
+    ],
+    "combined": [
+      "base2600:N-028",
+      "hard400:H05-013",
+      "base2600:LATEST-0781",
+      "SINGLE-034",
+      "SINGLE-036",
+      "SINGLE-037",
+      "SINGLE-043",
+      "SINGLE-044",
+      "SINGLE-045",
+      "SINGLE-046",
+      "SINGLE-048",
+      "SINGLE-071",
+      "SINGLE-072",
+      "SINGLE-080"
+    ]
+  },
+  "additional_llm_blocks": {
+    "target": [
+      "SINGLE-035",
+      "SINGLE-078"
+    ],
+    "normal": [
+      "base2600:LATEST-0312",
+      "base2600:LATEST-0960"
+    ],
+    "manual_review": []
+  },
+  "inference": {
+    "physical_calls": 154,
+    "code_rejected_skipped": 18,
+    "automatic_retries": 0,
+    "prior_model_results_reused": false,
+    "raw_decisions": {
+      "ALLOW": 150,
+      "BLOCK": 4
+    },
+    "valid_allow_empty_reasons_accepted": 150,
+    "failures": [],
+    "usage": {
+      "prompt_tokens": 242949,
+      "total_tokens": 260462,
+      "completion_tokens": 17513
+    },
+    "finish_reasons": {
+      "stop": 154
+    },
+    "http_status_counts": {
+      "200": 154
+    },
+    "sum_seconds": 599.149,
+    "mean_ms": 3890.6,
+    "median_ms": 3665.0
+  },
+  "verification": {
+    "sts_source_files_checked": 734,
+    "changed_sts_source_files": [],
+    "sts_guard_class_used": true,
+    "branch_guard_class_used": false,
+    "frozen_input_and_gold_unchanged": true,
+    "new_answer_generation_calls": 0,
+    "embedding_calls": 0,
+    "judge_calls": 0,
+    "actual_db_calls": 0,
+    "service_files_modified_by_test": false,
+    "git_mutations": false
+  },
+  "cleanup": {
+    "owned_model_removed": true,
+    "existing_containers_preserved": true,
+    "details": {
+      "containers": [
+        {
+          "name": "ubot-nginx-1",
+          "status": "Up 20 minutes",
+          "image": "nginx:alpine"
+        },
+        {
+          "name": "ubot-backend-1",
+          "status": "Up 20 minutes",
+          "image": "ubot-be:773411fc8b065f93a6085dc53b972257788aba1e"
+        },
+        {
+          "name": "ubot-vllm-embedding-1",
+          "status": "Up 20 minutes",
+          "image": "vllm/vllm-openai:v0.31.0"
+        },
+        {
+          "name": "ubot-vllm-1",
+          "status": "Up 20 minutes",
+          "image": "vllm/vllm-openai:v0.31.0"
+        },
+        {
+          "name": "ubot-prometheus-1",
+          "status": "Up 20 minutes",
+          "image": "prom/prometheus:latest"
+        },
+        {
+          "name": "ubot-redis-1",
+          "status": "Up 20 minutes (healthy)",
+          "image": "redis:8-alpine"
+        },
+        {
+          "name": "ubot-postgres-1",
+          "status": "Up 20 minutes (healthy)",
+          "image": "ubot-postgres:18-pgvector0.8.6-postgis3.6.4"
+        }
+      ],
+      "models": {
+        "8000": [
+          "ubot-chat"
+        ],
+        "8001": [
+          "ubot-embedding"
+        ]
+      },
+      "gpu_mib": "23034, 15186, 7378",
+      "owned_container_absent": true
+    },
+    "model_identity": {
+      "event": "model_ready",
+      "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+      "container": "33db41473fd4c4fec16c9cf14bc6670b1138f2a464001e8ed3a588608cd2bb1a",
+      "port": 19148,
+      "revision": "5d4fde88f26ef2577a3e660db6304eaa6cbe99a1",
+      "image": "sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+      "cpu_offload_gb": 0,
+      "gpu_memory_utilization": 0.23,
+      "max_model_len": 8192,
+      "models": [
+        {
+          "id": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+          "object": "model",
+          "created": 1792777021,
+          "owned_by": "vllm",
+          "root": "/model",
+          "parent": null,
+          "max_model_len": 8192,
+          "permission": [
+            {
+              "id": "modelperm-9c5262fe641ff9ed",
+              "object": "model_permission",
+              "created": 1792777021,
+              "allow_create_engine": false,
+              "allow_sampling": true,
+              "allow_logprobs": true,
+              "allow_search_indices": false,
+              "allow_view": true,
+              "allow_fine_tuning": false,
+              "organization": "*",
+              "group": null,
+              "is_blocking": false
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

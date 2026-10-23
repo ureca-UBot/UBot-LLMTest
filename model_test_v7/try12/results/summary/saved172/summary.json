@@ -1,0 +1,126 @@
+{
+  "cases": 172,
+  "code_guard_source": "current STS",
+  "guard_sha256": "15fc197c0781fb136657d918b2df82113d3e99e911a4b659d8080ef44cad5d3a",
+  "all": {
+    "total": 172,
+    "arms": {
+      "code": {
+        "ALLOW": 154,
+        "BLOCK": 18,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "combined": {
+        "ALLOW": 150,
+        "BLOCK": 22,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "llm_only": {
+        "ALLOW": 167,
+        "BLOCK": 5,
+        "REVIEW": 0,
+        "FAILED": 0
+      }
+    }
+  },
+  "answer_errors": {
+    "total": 8,
+    "arms": {
+      "code": {
+        "ALLOW": 2,
+        "BLOCK": 6,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "combined": {
+        "ALLOW": 2,
+        "BLOCK": 6,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "llm_only": {
+        "ALLOW": 7,
+        "BLOCK": 1,
+        "REVIEW": 0,
+        "FAILED": 0
+      }
+    }
+  },
+  "risky_original_questions": {
+    "total": 17,
+    "arms": {
+      "code": {
+        "ALLOW": 14,
+        "BLOCK": 3,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "combined": {
+        "ALLOW": 12,
+        "BLOCK": 5,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "llm_only": {
+        "ALLOW": 15,
+        "BLOCK": 2,
+        "REVIEW": 0,
+        "FAILED": 0
+      }
+    }
+  },
+  "normal_question_and_answer": {
+    "total": 121,
+    "arms": {
+      "code": {
+        "ALLOW": 119,
+        "BLOCK": 2,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "combined": {
+        "ALLOW": 117,
+        "BLOCK": 4,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "llm_only": {
+        "ALLOW": 119,
+        "BLOCK": 2,
+        "REVIEW": 0,
+        "FAILED": 0
+      }
+    }
+  },
+  "manual_review_normal_question": {
+    "total": 26,
+    "arms": {
+      "code": {
+        "ALLOW": 19,
+        "BLOCK": 7,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "combined": {
+        "ALLOW": 19,
+        "BLOCK": 7,
+        "REVIEW": 0,
+        "FAILED": 0
+      },
+      "llm_only": {
+        "ALLOW": 26,
+        "BLOCK": 0,
+        "REVIEW": 0,
+        "FAILED": 0
+      }
+    }
+  },
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "revision": "5d4fde88f26ef2577a3e660db6304eaa6cbe99a1",
+  "actual_calls_in_sts_combined_experiment": 154,
+  "standalone_cached_original_responses": 172,
+  "standalone_reparse": "Use the same valid ALLOW+[] experiment adapter and current frozen human labels; exclude all ::CODE_RETURNED variants from the old branch run",
+  "publication_new_model_calls": 0
+}

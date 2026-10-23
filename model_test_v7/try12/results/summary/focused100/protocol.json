@@ -1,0 +1,77 @@
+{
+  "phase": "COMPLETE",
+  "cases": 100,
+  "created_at": "2026-10-24T03:06:03.107026+09:00",
+  "sts_path": "C:\\Users\\82102\\Documents\\UBot-Dev\\UBot-BE",
+  "guard_path": "src/main/java/com/ubot/ai/service/AiOutputGuardService.java",
+  "guard_sha256": "15fc197c0781fb136657d918b2df82113d3e99e911a4b659d8080ef44cad5d3a",
+  "source_files_verified": 734,
+  "compiled_classes_from_verified_sts_snapshot": true,
+  "branch_guard_classes_used": false,
+  "inputs_sha256": "0eb1e74bb3a3ef1cd907178de9e5c5fe157ff135d4512f77c582c13025ac1507",
+  "original_gold_sha256": "044bdb6c4059b751f45be43e22fda9814391b6c976f573d20234c6ae512d37eb",
+  "review_gold_sha256": "46cded76e94bedeb3d4d9b72a72761abcb25394547034d4f58a1af14009f6734",
+  "prompt_sha256": "60a98c8a9b0768e1a7bc25c07bcbe280d7ddcf3aae493febe90eaf04076baf40",
+  "schema_sha256": "143808934ea56c40d29f18dc01e5156a9bf5727f8c47cd86be591b3c4d82cae6",
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "revision": "5d4fde88f26ef2577a3e660db6304eaa6cbe99a1",
+  "cached_model_identity": {
+    "event": "model_ready",
+    "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+    "container": "94557dd1aa315958d472b6d49f76b412bab63ad61a7244b6d5f2dab767e8cd47",
+    "port": 19048,
+    "revision": "5d4fde88f26ef2577a3e660db6304eaa6cbe99a1",
+    "image": "sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+    "cpu_offload_gb": 0,
+    "gpu_memory_utilization": 0.23,
+    "max_model_len": 8192,
+    "models": [
+      {
+        "id": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+        "object": "model",
+        "created": 1792772936,
+        "owned_by": "vllm",
+        "root": "/model",
+        "parent": null,
+        "max_model_len": 8192,
+        "permission": [
+          {
+            "id": "modelperm-a3942eeb24769563",
+            "object": "model_permission",
+            "created": 1792772936,
+            "allow_create_engine": false,
+            "allow_sampling": true,
+            "allow_logprobs": true,
+            "allow_search_indices": false,
+            "allow_view": true,
+            "allow_fine_tuning": false,
+            "organization": "*",
+            "group": null,
+            "is_blocking": false
+          }
+        ]
+      }
+    ]
+  },
+  "llm_cache_source": "C:\\Users\\82102\\Documents\\Codex\\2026-09-22\\dlr\\outputs\\output-paired100-20261024-side",
+  "cache_rule": "Reuse only identical serialized request, model and revision; reparse original raw response with the same verdict validator",
+  "original_answer_labels": {
+    "ALLOW": 54,
+    "BLOCK": 41,
+    "REVIEW": 5
+  },
+  "question_risk_cases": 17,
+  "user_whole_block_labels": {
+    "ALLOW": 45,
+    "BLOCK": 54,
+    "REVIEW": 1
+  },
+  "allow_empty_reasons": "Valid ALLOW+[] accepted only by the experiment adapter; contradictory or malformed verdicts remain FAILED",
+  "answer_generation_calls": 0,
+  "embedding_calls": 0,
+  "judge_calls": 0,
+  "actual_db_calls": 0,
+  "service_code_changes": false,
+  "git_mutations": false,
+  "completed_at": "2026-10-24T03:08:44.355007+09:00"
+}

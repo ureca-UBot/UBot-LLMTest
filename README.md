@@ -594,3 +594,8 @@ v8 try2의 출력 가드 최종 답변 1,000건을 같은 팀 Judge 기준으로
 
 
 > 2026-10-23 입력 가드 후속 결과: [네 구성363건·분류기 포함/제외 후속 실행](model_test_v7/try10/results/all_summary.md) · [단일문장100건 순수 통합형/별도형](model_test_v7/try11/results/all_summary.md). 과거 보조 안전 검사 포함 결과와 순수 통합형 재검사를 구분했습니다.
+
+
+## 2026-10-24 STS 출력 가드 재검사 — try12
+
+[현재 STS 코드 기준 FAQ5·저장172·취약점100 결과](model_test_v7/try12/results/all_summary.md). 과거 Git 브랜치 출력 코드 결과는 이번 회차에서 제외하고 원문·근거·오차단·판정 실패·LLM 재사용 범위를 함께 보관했습니다.
