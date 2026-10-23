@@ -1,0 +1,90 @@
+{
+  "repository": "https://github.com/ureca-UBot/UBot-LLMTest.git",
+  "target_branch": "test/ai-guard-input",
+  "base_commit": "aeef58319023ebf4c646f4c7fc93df9e3d6e4772",
+  "published_on": "2026-10-23",
+  "new_inference_calls_for_publication": 0,
+  "service_code_changed": false,
+  "preserved_copy_hashes": [
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/case-manifest.jsonl",
+      "path": "model_test_v7/try10/results/raw/pipeline155/case-manifest.jsonl",
+      "sha256": "987fa35cdb355d9ab79f884f5eb28cb5951346e23e0d8c4b4796f5640075ce91",
+      "bytes": 676906
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/results.jsonl",
+      "path": "model_test_v7/try10/results/raw/pipeline155/results.jsonl",
+      "sha256": "8334656836d298fc97fe4cb97a58719e507b0cc6a921c9902e0361fae9c243d9",
+      "bytes": 4902881
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/paired-results.json",
+      "path": "model_test_v7/try10/results/raw/pipeline155/paired-results.json",
+      "sha256": "cc3ce9dd55b65fbf2d03fb70693bf28d5c4de4b0d2a640398eafa438f3166abe",
+      "bytes": 328297
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/embedding-cache.jsonl",
+      "path": "model_test_v7/try10/results/raw/pipeline155/embedding-cache.jsonl",
+      "sha256": "e05039640d43bcc9f14e007850a0b664aaca6cccccd06f7ec3ec99fba78d58e8",
+      "bytes": 10178236
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/llm-cache.jsonl",
+      "path": "model_test_v7/try10/results/raw/pipeline155/llm-cache.jsonl",
+      "sha256": "a98ebb4613e6bec18d11ae1104fe0cb8bbca91f3c1ee97d7c75165fb7ed97b4d",
+      "bytes": 1285642
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/summary.json",
+      "path": "model_test_v7/try10/results/summary/pipeline155/summary.json",
+      "sha256": "f2b9b0af4584915873532ab91ef27bf57bbe7879c633cf9f4faad99998608da4",
+      "bytes": 10617
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/protocol.json",
+      "path": "model_test_v7/try10/results/summary/pipeline155/protocol.json",
+      "sha256": "1487f61186f442d3eb60c0b6b008cf29c830c257ce70054c3110309b86f4a008",
+      "bytes": 1887
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/verification.json",
+      "path": "model_test_v7/try10/results/summary/pipeline155/verification.json",
+      "sha256": "d30984502080c423c9e5be445bc4cc96e909c69d07b64dbc9c2574b7e6ad4acf",
+      "bytes": 870
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/manual-review.json",
+      "path": "model_test_v7/try10/results/summary/pipeline155/manual-review.json",
+      "sha256": "267e8000d645f38776e69d0d7cc0361eff03d167fde89eb8add944ad508c108c",
+      "bytes": 4021
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/input-missed-risk-results.json",
+      "path": "model_test_v7/try10/results/summary/pipeline155/input-missed-risk-results.json",
+      "sha256": "18ee5d0231f36443c1fb2d7f2bfc5ce69ef5fe9a350ca1559a18fbd7258cc3b1",
+      "bytes": 58238
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/paired-results.csv",
+      "path": "model_test_v7/try10/results/report/pipeline155.csv",
+      "sha256": "1efdca082880a25529ab69727fa7acd842ecd5ad111dc4e2c80f98e9bcb3ac33",
+      "bytes": 169901
+    },
+    {
+      "source": "outputs/input-ai-stage24-pipeline363-20261023-side/②④_후속파이프라인_비교결과.html",
+      "path": "model_test_v7/try10/results/report/pipeline155.html",
+      "sha256": "093e694fc897b364e95596cbf03ff6f8190b9dff9ab048ff078cd92e3fe3f565",
+      "bytes": 295851
+    }
+  ],
+  "original363_reference": "model_test_v7/try9/results/raw/initial363/",
+  "prompt_sha256": "19c4eb7e2664867f9ee51a2a844580143c1bb57310fd3e7c005677ee1f07fc4b",
+  "limitations": [
+    "No normal controls in the single-sentence100 set",
+    "No output LLM guard or external Judge in the follow-on pipelines",
+    "Initial363 integrated arm included auxiliary safety; pure100 does not",
+    "No new model calls were made for publication"
+  ]
+}

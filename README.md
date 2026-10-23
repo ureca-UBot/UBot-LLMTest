@@ -591,3 +591,6 @@ node model_test_v1/scripts/aggregate_rag_stability_round.js small          # 4. 
 ## FAQ 코어 1,000건 가드 최종 답변 평가 — 2026-10-16
 
 v8 try2의 출력 가드 최종 답변 1,000건을 같은 팀 Judge 기준으로 평가했습니다. 원판정 정답 614건·근거 이탈 161건이며, [평가 보고서](model_test_v8/try2/results/llm_judge/core1000-guard-final-accuracy-context-v1_20261016/evaluation_report.md)에서 가드 없는 기준점과 정상 안내 손실을 함께 볼 수 있습니다. [전체 사례](model_test_v8/try2/results/llm_judge/core1000-guard-final-accuracy-context-v1_20261016/cases/README.md).
+
+
+> 2026-10-23 입력 가드 후속 결과: [네 구성363건·분류기 포함/제외 후속 실행](model_test_v7/try10/results/all_summary.md) · [단일문장100건 순수 통합형/별도형](model_test_v7/try11/results/all_summary.md). 과거 보조 안전 검사 포함 결과와 순수 통합형 재검사를 구분했습니다.

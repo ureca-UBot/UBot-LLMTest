@@ -1,0 +1,43 @@
+{
+  "cases": 363,
+  "allowed_per_arm": 155,
+  "arms": [
+    "SEPARATE_WITH_CLASSIFIER",
+    "SEPARATE_WITHOUT_CLASSIFIER"
+  ],
+  "answer_model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "same_saved_safety_decision": true,
+  "code_snapshot": "C:\\Users\\82102\\Documents\\Codex\\2026-09-22\\dlr\\work\\input-ai-threeway363-20261023-side\\snapshot\\src\\main\\java",
+  "all_history_empty": true,
+  "no_multiturn_claim": true,
+  "output_llm_guard_calls": 0,
+  "judge_calls": 0,
+  "production_db_access": false,
+  "arm2": "Reuse saved conditional classification; keep native retrieval-failure classification fallback",
+  "arm4": "One prepared original query; no router or classifier, including retrieval-failure fallback",
+  "semantic_cache": "Keep existing official FAQ direct response path; report separately from generated answers",
+  "output_code_guard": "Existing whole-answer code guard, including evidence-only warning policy",
+  "case_ids_and_expected_labels_sent_to_model": false,
+  "sources": {
+    "cases-and-gold.jsonl": "fc43e25223ba8bc52b7d9343c6dc68cf6a72a3bf9ec2a51d50aad75a6b2e91f8",
+    "comparison.jsonl": "110f4c57ed64b3a179c77ec0db85f6f582180f50cc9e54e718b9be0294da7cf4",
+    "classification-results.jsonl": "3bcb82004a94bb425bdee5a4e6aef50cb8cbcaee506df88b9c4825b0b2cfb148",
+    "code-and-route.jsonl": "41352903a6f176731c5c835a3f04279e426625e6c02406c71d4ffbe47518a3ba"
+  },
+  "execution_order": "Complete all remaining ARM2 cases, then all remaining ARM4 cases; preserve prior alternating results",
+  "order_change": {
+    "at": "2026-10-23T05:10:14.988094+00:00",
+    "saved_results": {
+      "ARM2": {
+        "saved": 220,
+        "continued": 91
+      },
+      "ARM4": {
+        "saved": 221,
+        "continued": 92
+      }
+    },
+    "prior_results_preserved": true,
+    "repeat_completed_cases": false
+  }
+}

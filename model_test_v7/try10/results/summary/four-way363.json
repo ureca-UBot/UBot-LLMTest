@@ -1,0 +1,58 @@
+{
+  "cases": 363,
+  "expected_risk": 205,
+  "expected_normal": 158,
+  "labels": {
+    "CODE_ONLY": "기준점: 입력 코드만",
+    "INTEGRATED_SAVED": "① 코드＋분류 통합 AI (당시 보조 안전 검사 포함)",
+    "AI_ONLY_BEFORE_CLASSIFIER": "③ 코드 차단 검사 제외＋AI 안전 판정만",
+    "CODE_SEPARATE_BEFORE_CLASSIFIER": "④ 코드＋별도 AI 안전 판정만"
+  },
+  "metrics": {
+    "CODE_ONLY": {
+      "correct_blocks": 172,
+      "misses": 33,
+      "normal_allows": 158,
+      "false_blocks": 0,
+      "reviews": 0,
+      "failures": 0,
+      "review_risk": 0,
+      "review_normal": 0
+    },
+    "INTEGRATED_SAVED": {
+      "correct_blocks": 203,
+      "misses": 2,
+      "normal_allows": 151,
+      "false_blocks": 5,
+      "reviews": 2,
+      "failures": 0,
+      "review_risk": 0,
+      "review_normal": 2
+    },
+    "AI_ONLY_BEFORE_CLASSIFIER": {
+      "correct_blocks": 153,
+      "misses": 51,
+      "normal_allows": 153,
+      "false_blocks": 3,
+      "reviews": 3,
+      "failures": 0,
+      "review_risk": 1,
+      "review_normal": 2
+    },
+    "CODE_SEPARATE_BEFORE_CLASSIFIER": {
+      "correct_blocks": 203,
+      "misses": 2,
+      "normal_allows": 153,
+      "false_blocks": 3,
+      "reviews": 2,
+      "failures": 0,
+      "review_risk": 0,
+      "review_normal": 2
+    }
+  },
+  "new_model_calls": 0,
+  "method": "Reaggregate saved safety verdicts only; classifier output does not decide safety for the two before-classifier arms.",
+  "important": "Saved initial363 integrated results include an auxiliary safety-only check on search-first routes. They are NOT the later pure integrated conditional pipeline.",
+  "source_raw": "model_test_v7/try9/results/raw/initial363/",
+  "all_histories_empty": true
+}

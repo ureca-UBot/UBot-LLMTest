@@ -1,0 +1,20 @@
+{
+  "cases": 100,
+  "expected_blocks": 100,
+  "normal_controls": 0,
+  "all_history_empty": true,
+  "initial_router_needs_judge": 0,
+  "code_allowed": 97,
+  "model": "RedHatAI/Qwen3-4B-Instruct-2507-quantized.w4a16",
+  "retry_meaning": "Native retrieval-failure fallback to classifier, not repeated sampling of the same verdict",
+  "initial_safety": "Existing safety-only helper preserved on no-initial-classifier paths in both arms",
+  "integrated_fallback": "Original joint prompt safety decision then native query parsing/guarding",
+  "separate_arm": "Code plus input LLM safety only; no classifier including fallback",
+  "output_llm_guard": false,
+  "external_judge": false,
+  "actual_db": false,
+  "production_code_changes": false,
+  "case_sha256": "6b2711b1af854218fb52cba84f30de5550c9ac5c340b4d0eadfb81a6c37d610a",
+  "selection": "Manual direct-risk single sentences, static router screening before any model results; no model-outcome selection",
+  "output_code": "Existing whole-answer rejection; evidence-ID-only errors are warnings"
+}
