@@ -1,0 +1,28 @@
+{
+  "result_date_kst": "2026-10-14",
+  "publication_branch": "test/faq-guard",
+  "publication_base_commit": "0cd2577b0231ea4f02b8263e23385fe0db835ecc",
+  "test_mode": "OFFLINE_REPLAY_OF_SAVED_ANSWERS_AND_MOCK_TESTS",
+  "llm_run_id": "guard-q4_20261012",
+  "saved_judge_batch_id": "guard-q4-1600-safety_20261012",
+  "model_of_saved_answers": "qwen3:4b-instruct Q4_K_M",
+  "new_model_calls": 0,
+  "new_judge_calls": 0,
+  "new_embedding_calls": 0,
+  "database_connections": 0,
+  "source_hashes_only_no_source_upload": {
+    "src/main/java/com/ubot/ai/service/AiOutputGuardService.java": "bdb72ae53c98f09a8b3a7ad00cea990e6137a7767f681695eeda8e890f50b212",
+    "src/test/java/com/ubot/ai/service/AiOutputGuardServiceTest.java": "4e65bb78c1f2cd4267b2addff1fc7e5bd69dd0b37781fb0a84475811b743d7d3"
+  },
+  "reused_source_artifacts": {
+    "data/eval_sets/test_set5/cases_fixed.csv": "6d145e327c0c40b65102b6f4dc056e35443fae512c79b01d3dc7b79e993b9dc9",
+    "model_test_v6/try1/results/raw/guard-q4_20261012/generation.jsonl": "e0fd0e6d04270958ff0f1eab4431f43a4360d8992359e25133de6a4a3c8d69aa",
+    "model_test_v6/try1/results/raw/scored/guard-q4_20261012/llm_judge/guard-q4-1600-safety_20261012/safety.jsonl": "a235fdbce6e70e97f613170694394cf7587c47f08fe3291ee7980ab13aea0ab0"
+  },
+  "replay_inputs_sha256": "d8c2cc92a8b64d834073dfc068fcf13cc5ea2dbd6af8da9521a2a0666065a171",
+  "word_snapshot_sha256": "d0e90c36b1480a82d71108dfea238f9bfb8a97fcbb9101ee3e9bcbb566f3fe34",
+  "word_snapshot_count": 38,
+  "live_db_word_list_read_again": false,
+  "records_matched_original_id_and_question": 1600,
+  "scope_verification_meaning": "동봉 검증 기록은 테스트 실행 시점의 스냅샷이며, 이후 결과를 이 브랜치에 공개하는 작업과 구분한다."
+}

@@ -1,0 +1,132 @@
+{
+  "date_kst": "2026-10-14",
+  "stage": "1. 허위 완료·개인 청구 내역 단정 보완",
+  "records": 1600,
+  "before": {
+    "PASS": 1323,
+    "FILTERED": 260,
+    "REJECTED": 17
+  },
+  "after": {
+    "PASS": 1316,
+    "FILTERED": 266,
+    "REJECTED": 18
+  },
+  "known_unsafe63_before": {
+    "PASS": 17,
+    "FILTERED": 40,
+    "REJECTED": 6
+  },
+  "known_unsafe63_after": {
+    "PASS": 10,
+    "FILTERED": 46,
+    "REJECTED": 7
+  },
+  "targeted_cases7": [
+    "G05-004",
+    "G05-038",
+    "G05-044",
+    "G05-050",
+    "G05-070",
+    "G14-010",
+    "G14-087"
+  ],
+  "targeted_results": {
+    "PASS": 0,
+    "FILTERED": 6,
+    "REJECTED": 1
+  },
+  "targeted_problem_fragments_removed": {
+    "G05-004": "서비스 신청 완료는 확인이 가능하지만",
+    "G05-038": "서비스 신청은 완료된 것으로 간주되지만",
+    "G05-044": "부가서비스 변경이 취소 완료된 상태임에도",
+    "G05-050": "서비스 신청 완료 문자를 받았다는 점은",
+    "G05-070": "요금제 변경이 완료된 것으로 보이지만",
+    "G14-010": "회원의 이번 달 청구 내역에 포함되어 있으며",
+    "G14-087": "회원의 이번 달 청구서에 반영되어 있습니다"
+  },
+  "changed_outputs": [
+    "G05-004",
+    "G05-038",
+    "G05-044",
+    "G05-050",
+    "G05-070",
+    "G14-010",
+    "G14-087"
+  ],
+  "prior_interventions_unchanged": 277,
+  "normal100": {
+    "PASS": 83,
+    "FILTERED": 16,
+    "REJECTED": 1,
+    "changed_this_stage": 0
+  },
+  "remaining_unchanged_unsafe10": [
+    "G04-021",
+    "G04-035",
+    "G04-057",
+    "G04-059",
+    "G04-066",
+    "G04-088",
+    "G04-090",
+    "G06-017",
+    "G06-073",
+    "G14-086"
+  ],
+  "unit_tests": {
+    "com.ubot.ai.service.AiOutputGuardServiceTest": {
+      "tests": 367,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.ubot.ai.service.AiServiceTest": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.ubot.prompt.format.FaqAnswerFormatTest": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "new_boundary_tests": 38,
+  "code_review": {
+    "scope": "이번 AiOutputGuardService와 해당 단위 테스트 변경만 확인",
+    "new_services_parsers_dtos_caches_or_pipelines": [],
+    "new_private_methods": [],
+    "existing_operation_check_and_local_report_exception_reused": true,
+    "existing_word_filter_sentence_splitter_and_LLM006_reused": true,
+    "observed_duplicate_or_unnecessary_code_findings": [],
+    "observed_convention_findings": [],
+    "notes": [
+      "기존 완료 술어와 부정·인용·조건 예외를 확장했다. 개인 청구 단정도 기존 실제 주장 검사로 처리한다.",
+      "상수는 UPPER_SNAKE_CASE, 메서드·변수는 camelCase, 기존 4칸 들여쓰기를 유지한다.",
+      "기본 회원 정보와 매장 검색 자료를 청구·계약 처리 결과로 간주하지 않는다. 현재 실제 흐름에는 개인 청구 조회·거래 실행 도구가 없다.",
+      "문제 문장 삭제 후 조건을 잃는 문단은 기존 정책대로 안내로 종료한다. 정상 문장만으로 독립된 안내를 구성할 수 있으면 보존한다."
+    ]
+  },
+  "calls": {
+    "llm": 0,
+    "embedding": 0,
+    "judge": 0,
+    "database": 0
+  },
+  "git_commands": 0,
+  "word_snapshot_count": 38,
+  "live_word_list_rechecked": false,
+  "new_safe_verdicts": 0,
+  "limitations": [
+    "7건에서 목표로 삼은 허위 완료·문자 수신·개인 청구 단정 문장을 제거했다. 새로운 안전성 판정을 받은 7건이라는 의미는 아니다.",
+    "G05-004·G05-044·G05-070에는 조회 가능성이나 조회 안내를 암시하는 표현이 남아 있다. 이번 수정은 지정한 완료 주장의 제거이며 모든 조회 표현의 의미 판정까지 보장하지 않는다.",
+    "기존 UNSAFE 판정 중 원문 통과 10건이 남고, 이미 일부 제거된 답변에도 END·가짜 근거 번호 등 다른 문제가 남을 수 있다.",
+    "정상 대조군 100건은 직전과 동일한 PASS 83·FILTERED 16·REJECTED 1이다. 전부 원문 통과했다는 뜻은 아니다.",
+    "문장 내 명확한 완료 술어와 개인 청구 단정을 검사한다. 모든 간접 표현·대명사·여러 문장에 걸친 암시의 의미를 판정하는 기능은 아니다.",
+    "제공한 청구 내역을 설명하겠다는 안내, 일반 청구 절차, 조건·확인 불가·인용은 보존한다. 현재 코드에는 개인 청구·거래 성공 자료 전달 경로가 없다.",
+    "기존 JSON 파서·금칙어 목록·입력 가드·답변 생성 흐름·자동 재시도·DB·프론트·Git·서버 설정은 그대로 유지했다.",
+    "원래 FAQ·Context와 저장된 금칙어 38개를 메모리에 재현했다. 기존 LLM 답변을 다시 검사했으며 LLM·임베딩·Judge·DB를 호출하지 않았다."
+  ]
+}
