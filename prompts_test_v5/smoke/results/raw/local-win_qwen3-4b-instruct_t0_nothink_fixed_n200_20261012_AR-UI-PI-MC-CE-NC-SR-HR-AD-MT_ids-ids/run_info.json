@@ -1,0 +1,99 @@
+{
+  "run_id": "local-win_qwen3-4b-instruct_t0_nothink_fixed_n200_20261012_AR-UI-PI-MC-CE-NC-SR-HR-AD-MT_ids-ids",
+  "test": "prompts_test_v5",
+  "try": "smoke",
+  "model_tag": "qwen3:4b-instruct",
+  "env": "local-win",
+  "condition": "t0_nothink",
+  "gen_params": {
+    "temperature": 0,
+    "seed": null,
+    "think": null,
+    "format": {
+      "type": "object",
+      "properties": {
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ANSWER",
+            "PARTIAL",
+            "ABSTAIN",
+            "CONFLICT",
+            "OUT_OF_SCOPE"
+          ]
+        },
+        "answer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_ids",
+        "status",
+        "answer"
+      ]
+    }
+  },
+  "context_mode": "fixed",
+  "prompt_variant": "v4_base",
+  "system_prompt_sha256": "c9c583f14e66c48c119af35dc5c1d079a1758e99842b2909a6dcdf816c82085d",
+  "dataset": "test_set4r",
+  "cases_sha256": "9b619df1eae773ab3cd4d979e87cfdf7faf284b47caa80fb7155543db4f8c007",
+  "selection": {
+    "size": 200,
+    "items": [
+      "AR",
+      "UI",
+      "PI",
+      "MC",
+      "CE",
+      "NC",
+      "SR",
+      "HR",
+      "AD",
+      "MT"
+    ],
+    "difficulty": null,
+    "limit": null,
+    "ids_file": "prompts_test_v5/smoke/ids.txt",
+    "ids_sha256": "45ae22dd3e6bfc2a4ea73bcc1cd8a91dcc76701fc570d58eee8eedc2849ea917"
+  },
+  "case_ids": [
+    "NC-0003",
+    "MC-0116",
+    "MC-0148",
+    "UI-0098",
+    "UI-0152",
+    "UI-0168",
+    "UI-0171",
+    "UI-0183",
+    "CE-0013",
+    "PI-0112",
+    "PI-0141",
+    "PI-0171",
+    "SR-0001",
+    "HR-0001",
+    "MT-0188",
+    "AD-0001",
+    "AR-0014",
+    "AR-0082",
+    "AR-0092",
+    "AR-0102",
+    "AR-0121",
+    "AR-0131",
+    "AR-0181",
+    "AR-0191"
+  ],
+  "runtime": {
+    "ollama_host": "http://127.0.0.1:11434",
+    "ollama_version": "0.40.2",
+    "model_digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "quantization": "Q4_K_M"
+  },
+  "created_at": "2026-10-12T02:55:50.126Z"
+}

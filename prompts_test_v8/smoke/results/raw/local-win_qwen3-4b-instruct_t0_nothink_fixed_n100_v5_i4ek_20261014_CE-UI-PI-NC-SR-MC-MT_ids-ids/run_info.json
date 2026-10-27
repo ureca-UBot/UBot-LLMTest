@@ -1,0 +1,98 @@
+{
+  "run_id": "local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i4ek_20261014_CE-UI-PI-NC-SR-MC-MT_ids-ids",
+  "test": "prompts_test_v8_evcalc",
+  "try": "smoke",
+  "model_tag": "qwen3:4b-instruct",
+  "env": "local-win",
+  "condition": "t0_nothink",
+  "gen_params": {
+    "temperature": 0,
+    "seed": null,
+    "think": null,
+    "format": {
+      "type": "object",
+      "properties": {
+        "a_evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "b_calc": {
+          "type": "string"
+        },
+        "c_status": {
+          "type": "string",
+          "enum": [
+            "ANSWER",
+            "PARTIAL",
+            "ABSTAIN",
+            "CONFLICT",
+            "OUT_OF_SCOPE"
+          ]
+        },
+        "d_answer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "a_evidence_ids",
+        "b_calc",
+        "c_status",
+        "d_answer"
+      ]
+    }
+  },
+  "context_mode": "fixed",
+  "prompt_variant": "v5_i4ek",
+  "system_prompt_sha256": "997871e63b8c5af6ddc43e87cb494608f164c96429d24385f70ca2fd1ef21bde",
+  "dataset": "test_set4r",
+  "cases_sha256": "44468e0c392eff4719c1c94e6366c1aafa6ff227442e43aed458130691b26838",
+  "selection": {
+    "size": 100,
+    "items": [
+      "CE",
+      "UI",
+      "PI",
+      "NC",
+      "SR",
+      "MC",
+      "MT"
+    ],
+    "difficulty": null,
+    "limit": null,
+    "ids_file": "prompts_test_v8_evcalc/smoke/ids.txt",
+    "ids_sha256": "0e7c44e4351f63123be998feaebc590198f4a718d1dcb192d716336c0806675f"
+  },
+  "case_ids": [
+    "NC-0024",
+    "NC-0156",
+    "NC-0180",
+    "MC-0004",
+    "UI-0035",
+    "UI-0039",
+    "UI-0067",
+    "UI-0070",
+    "CE-0041",
+    "CE-0053",
+    "CE-0055",
+    "CE-0058",
+    "CE-0076",
+    "PI-0002",
+    "PI-0082",
+    "PI-0084",
+    "PI-0093",
+    "PI-0134",
+    "SR-0025",
+    "SR-0055",
+    "SR-0057",
+    "MT-0022"
+  ],
+  "runtime": {
+    "ollama_host": "http://127.0.0.1:11434",
+    "ollama_version": "0.40.3",
+    "model_digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "quantization": "Q4_K_M"
+  },
+  "created_at": "2026-10-14T04:51:55.433Z"
+}

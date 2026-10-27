@@ -1,0 +1,85 @@
+{
+  "run_id": "local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_v5_i1_20261012_CF-AD-PI-SR",
+  "definition": "채택률 = 인용한 문서가 모두 정답 근거 문서이고 하나 이상 인용한 비율(틀린 문서 없음). 엄격 채택률 = 정답 근거 문서를 모두 인용한 비율. 대상 행 기준. 정답 근거가 없는 행, 제외 항목, 대상 외 기대 상태는 빼고 excluded_by에 사유를 남긴다.",
+  "scope": {
+    "exclude_items": [
+      "AR"
+    ],
+    "expected_statuses": [
+      "ANSWER",
+      "PARTIAL",
+      "CONFLICT"
+    ]
+  },
+  "all_rows": {
+    "n": 20,
+    "n_applicable": 20,
+    "adoption_rate": 1,
+    "adoption_strict_rate": 1,
+    "exact_rate": 1,
+    "gold_recall_avg": 1,
+    "precision_avg": 1,
+    "category_counts": {
+      "EXACT": 20,
+      "WITH_EXTRA": 0,
+      "PARTIAL": 0,
+      "WRONG": 0,
+      "NONE": 0
+    },
+    "invalid_citation_rate": 0,
+    "non_doc_label_rows": 0,
+    "non_doc_label_rate": 0,
+    "answering_rows": 20,
+    "answered_without_citation": 0,
+    "answered_without_citation_rate": 0,
+    "not_applicable_citing_rate": null
+  },
+  "independent": {
+    "n": 20,
+    "n_applicable": 20,
+    "adoption_rate": 1,
+    "adoption_strict_rate": 1,
+    "exact_rate": 1,
+    "gold_recall_avg": 1,
+    "precision_avg": 1,
+    "category_counts": {
+      "EXACT": 20,
+      "WITH_EXTRA": 0,
+      "PARTIAL": 0,
+      "WRONG": 0,
+      "NONE": 0
+    },
+    "invalid_citation_rate": 0,
+    "non_doc_label_rows": 0,
+    "non_doc_label_rate": 0,
+    "answering_rows": 20,
+    "answered_without_citation": 0,
+    "answered_without_citation_rate": 0,
+    "not_applicable_citing_rate": null
+  },
+  "by_item": {
+    "PI": {
+      "n": 20,
+      "n_applicable": 20,
+      "adoption_rate": 1,
+      "adoption_strict_rate": 1,
+      "exact_rate": 1,
+      "gold_recall_avg": 1,
+      "precision_avg": 1,
+      "category_counts": {
+        "EXACT": 20,
+        "WITH_EXTRA": 0,
+        "PARTIAL": 0,
+        "WRONG": 0,
+        "NONE": 0
+      },
+      "invalid_citation_rate": 0,
+      "non_doc_label_rows": 0,
+      "non_doc_label_rate": 0,
+      "answering_rows": 20,
+      "answered_without_citation": 0,
+      "answered_without_citation_rate": 0,
+      "not_applicable_citing_rate": null
+    }
+  }
+}

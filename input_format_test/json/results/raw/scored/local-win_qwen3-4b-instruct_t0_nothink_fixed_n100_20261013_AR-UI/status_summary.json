@@ -1,0 +1,284 @@
+{
+  "run_id": "local-win_qwen3-4b-instruct_t0_nothink_fixed_n100_20261013_AR-UI",
+  "all_rows": {
+    "n": 200,
+    "status_match_rate": 0.72,
+    "label_direction_counts": {
+      "MATCH": 144,
+      "OVER": 53,
+      "UNDER": 3,
+      "CROSS": 0,
+      "NONE": 0
+    },
+    "missing_status_count": 0,
+    "recall_by_expected": {
+      "ANSWER": {
+        "n": 113,
+        "match": 110,
+        "rate": 0.9734513274336283
+      },
+      "PARTIAL": {
+        "n": 61,
+        "match": 25,
+        "rate": 0.4098360655737705
+      },
+      "ABSTAIN": {
+        "n": 26,
+        "match": 9,
+        "rate": 0.34615384615384615
+      }
+    },
+    "precision_by_predicted": {
+      "ANSWER": {
+        "n": 154,
+        "match": 110,
+        "rate": 0.7142857142857143
+      },
+      "PARTIAL": {
+        "n": 37,
+        "match": 25,
+        "rate": 0.6756756756756757
+      },
+      "ABSTAIN": {
+        "n": 9,
+        "match": 9,
+        "rate": 1
+      }
+    },
+    "confusion": {
+      "ANSWER": {
+        "ANSWER": 110,
+        "PARTIAL": 3
+      },
+      "PARTIAL": {
+        "ANSWER": 36,
+        "PARTIAL": 25
+      },
+      "ABSTAIN": {
+        "ABSTAIN": 9,
+        "PARTIAL": 9,
+        "ANSWER": 8
+      }
+    },
+    "abstain_detection": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 17,
+      "tn": 174,
+      "precision": 1,
+      "recall": 0.34615384615384615,
+      "f1": 0.5142857142857142
+    }
+  },
+  "independent": {
+    "n": 200,
+    "status_match_rate": 0.72,
+    "label_direction_counts": {
+      "MATCH": 144,
+      "OVER": 53,
+      "UNDER": 3,
+      "CROSS": 0,
+      "NONE": 0
+    },
+    "missing_status_count": 0,
+    "recall_by_expected": {
+      "ANSWER": {
+        "n": 113,
+        "match": 110,
+        "rate": 0.9734513274336283
+      },
+      "PARTIAL": {
+        "n": 61,
+        "match": 25,
+        "rate": 0.4098360655737705
+      },
+      "ABSTAIN": {
+        "n": 26,
+        "match": 9,
+        "rate": 0.34615384615384615
+      }
+    },
+    "precision_by_predicted": {
+      "ANSWER": {
+        "n": 154,
+        "match": 110,
+        "rate": 0.7142857142857143
+      },
+      "PARTIAL": {
+        "n": 37,
+        "match": 25,
+        "rate": 0.6756756756756757
+      },
+      "ABSTAIN": {
+        "n": 9,
+        "match": 9,
+        "rate": 1
+      }
+    },
+    "confusion": {
+      "ANSWER": {
+        "ANSWER": 110,
+        "PARTIAL": 3
+      },
+      "PARTIAL": {
+        "ANSWER": 36,
+        "PARTIAL": 25
+      },
+      "ABSTAIN": {
+        "ABSTAIN": 9,
+        "PARTIAL": 9,
+        "ANSWER": 8
+      }
+    },
+    "abstain_detection": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 17,
+      "tn": 174,
+      "precision": 1,
+      "recall": 0.34615384615384615,
+      "f1": 0.5142857142857142
+    }
+  },
+  "by_item": {
+    "UI": {
+      "n": 100,
+      "status_match_rate": 0.81,
+      "label_direction_counts": {
+        "MATCH": 81,
+        "OVER": 17,
+        "UNDER": 2,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ANSWER": {
+          "n": 60,
+          "match": 58,
+          "rate": 0.9666666666666667
+        },
+        "PARTIAL": {
+          "n": 40,
+          "match": 23,
+          "rate": 0.575
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 75,
+          "match": 58,
+          "rate": 0.7733333333333333
+        },
+        "PARTIAL": {
+          "n": 25,
+          "match": 23,
+          "rate": 0.92
+        }
+      },
+      "confusion": {
+        "ANSWER": {
+          "ANSWER": 58,
+          "PARTIAL": 2
+        },
+        "PARTIAL": {
+          "ANSWER": 17,
+          "PARTIAL": 23
+        }
+      },
+      "abstain_detection": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 100,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "AR": {
+      "n": 100,
+      "status_match_rate": 0.63,
+      "label_direction_counts": {
+        "MATCH": 63,
+        "OVER": 36,
+        "UNDER": 1,
+        "CROSS": 0,
+        "NONE": 0
+      },
+      "missing_status_count": 0,
+      "recall_by_expected": {
+        "ANSWER": {
+          "n": 53,
+          "match": 52,
+          "rate": 0.9811320754716981
+        },
+        "ABSTAIN": {
+          "n": 26,
+          "match": 9,
+          "rate": 0.34615384615384615
+        },
+        "PARTIAL": {
+          "n": 21,
+          "match": 2,
+          "rate": 0.09523809523809523
+        }
+      },
+      "precision_by_predicted": {
+        "ANSWER": {
+          "n": 79,
+          "match": 52,
+          "rate": 0.6582278481012658
+        },
+        "PARTIAL": {
+          "n": 12,
+          "match": 2,
+          "rate": 0.16666666666666666
+        },
+        "ABSTAIN": {
+          "n": 9,
+          "match": 9,
+          "rate": 1
+        }
+      },
+      "confusion": {
+        "ANSWER": {
+          "ANSWER": 52,
+          "PARTIAL": 1
+        },
+        "ABSTAIN": {
+          "ABSTAIN": 9,
+          "PARTIAL": 9,
+          "ANSWER": 8
+        },
+        "PARTIAL": {
+          "ANSWER": 19,
+          "PARTIAL": 2
+        }
+      },
+      "abstain_detection": {
+        "tp": 9,
+        "fp": 0,
+        "fn": 17,
+        "tn": 74,
+        "precision": 1,
+        "recall": 0.34615384615384615,
+        "f1": 0.5142857142857142
+      }
+    }
+  },
+  "independent_by_difficulty": {
+    "Easy": {
+      "n": 60,
+      "status_match_rate": 1
+    },
+    "Medium": {
+      "n": 80,
+      "status_match_rate": 0.575
+    },
+    "Hard": {
+      "n": 60,
+      "status_match_rate": 0.6333333333333333
+    }
+  }
+}

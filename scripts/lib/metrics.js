@@ -11,9 +11,17 @@ function stripCodeFence(text) {
   return m ? m[1] : text;
 }
 
+// 출력 키 이름을 바꾼 테스트(config.output.keyNames — 표준 키 → 출력 키)는 표준 키로 되돌린다.
+// 순서는 유지한다(JSON.parse가 원문 순서를 보존).
+function toStandardKeys(obj, keyNames) {
+  const back = Object.fromEntries(Object.entries(keyNames || {}).map(([std, emitted]) => [emitted, std]));
+  if (!Object.keys(back).length) return obj;
+  return Object.fromEntries(Object.entries(obj).map(([k, v]) => [back[k] || k, v]));
+}
+
 // Parses the model's raw content into {status, answer, evidence_ids} and
 // reports whether it satisfies the output contract.
-function checkFormatSuccess(rawContent) {
+function checkFormatSuccess(rawContent, keyNames = null) {
   const cleaned = stripCodeFence(rawContent);
   let parsed;
   try {
@@ -24,6 +32,7 @@ function checkFormatSuccess(rawContent) {
   if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
     return { pass: false, reason: 'JSON 객체가 아님', parsed: null };
   }
+  parsed = toStandardKeys(parsed, keyNames);
   const missing = ['status', 'answer', 'evidence_ids'].filter((k) => !(k in parsed));
   if (missing.length > 0) {
     return { pass: false, reason: `필수 키 누락: ${missing.join(', ')}`, parsed };
@@ -44,12 +53,12 @@ function checkFormatSuccess(rawContent) {
 }
 
 // 원본 출력에서 최상위 키가 나온 순서. JSON.parse는 순서를 보존하지만 중첩 객체와 섞이지 않도록
-// 파싱된 최상위 키만 원문 위치 순으로 정렬한다.
-function topLevelKeyOrder(rawContent, parsed) {
+// 파싱된 최상위 키만 원문 위치 순으로 정렬한다. parsed는 표준 키이므로 keyNames로 원문 키를 찾는다.
+function topLevelKeyOrder(rawContent, parsed, keyNames = null) {
   if (!parsed || typeof parsed !== 'object') return null;
   const text = stripCodeFence(rawContent || '');
   return Object.keys(parsed)
-    .map((k) => ({ k, at: text.indexOf(JSON.stringify(k)) }))
+    .map((k) => ({ k, at: text.indexOf(JSON.stringify((keyNames && keyNames[k]) || k)) }))
     .filter((x) => x.at >= 0)
     .sort((a, b) => a.at - b.at)
     .map((x) => x.k);

@@ -13,8 +13,11 @@
 //                         (= 근거 점수 1~3 · is_grounded false — 스키마 교차 검증으로 셋이 같다)
 //   abstain-label-correct 상담봇 status 라벨은 ABSTAIN인데 본문은 답을 냈고(Judge content_stance ANSWER/PARTIAL)
 //                         정확도 CORRECT인 문항 — 라벨만 보류로 잘못 단 경우
+//   incorrect             정확도 INCORRECT인 문항(오답만)
+// --models: 이 모델만 문서로 만든다(쉼표로 여럿). 출력 폴더 이름에 모델 이름이 붙는다(<filter>_<모델>).
+// 오답 문항에는 오답 원인 자동 분류(cause_breakdown.js와 같은 정의, judge_report.js의 paths.jsonl 필요)를 한 줄 붙인다.
 //
-// Usage: node scripts/docgen/judge_review_export.js --batch <id> [--filter <이름>] [--test v4] [--try try1]
+// Usage: node scripts/docgen/judge_review_export.js --batch <id> [--filter <이름>] [--models <tag,...>] [--test v4] [--try try1]
 
 const fs = require('fs');
 const path = require('path');
@@ -25,13 +28,20 @@ const { parseRunArgs } = require('../lib/args');
 const { readAll } = require('../lib/jsonl');
 const { loadCases, itemOrder, itemName } = require('../lib/dataset');
 
+const { HALLU, WRONG, claimCause } = require('./cause_breakdown');
+
 const KINDS = ['accuracy', 'safety', 'persona'];
+const HALLU_NAME = Object.fromEntries(HALLU.map(([k, n]) => [k, n]));
 
 // 문항 선택 필터: (판정 모음 judged.get(key), 채점 작업 job) -> boolean
 const FILTERS = {
   'correct-hallucinated': {
     label: '정답(CORRECT)인데 환각 주장이 있는 문항',
     test: (j) => j.accuracy?.accuracy?.verdict === 'CORRECT' && j.accuracy.hallucination.hallucinated_claims.length > 0,
+  },
+  incorrect: {
+    label: '정확도 INCORRECT(오답)인 문항',
+    test: (j) => j.accuracy?.accuracy?.verdict === 'INCORRECT',
   },
   'abstain-label-correct': {
     label: '상담봇 status는 ABSTAIN인데 본문은 실제로 답해(ANSWER/PARTIAL) 정답(CORRECT)인 문항',
@@ -133,13 +143,21 @@ function main() {
   // 아직 판정 결과가 하나도 없는 문항(Judge 진행 중·중단)은 뺀다 — 진행된 판정만 검토한다.
   const allKeys = [...cases.keys()];
   const judgedKeys = allKeys.filter((k) => Object.keys(judged.get(k)).length);
-  const keys = judgedKeys.filter((k) => !filter || filter.test(judged.get(k), cases.get(k))).sort((a, b) => {
+  const keys = judgedKeys.filter((k) => (!opts.models || opts.models.includes(cases.get(k).model_tag))
+    && (!filter || filter.test(judged.get(k), cases.get(k)))).sort((a, b) => {
     const ja = cases.get(a), jb = cases.get(b);
     return order.indexOf(ja.item) - order.indexOf(jb.item) || ja.model_tag.localeCompare(jb.model_tag) || ja.id.localeCompare(jb.id);
   });
   const models = [...new Set(keys.map((k) => cases.get(k).model_tag))].sort();
   const pending = allKeys.length - judgedKeys.length;
-  const outDir = path.join(paths.llmJudgeDir, 'review', opts.batch, ...(filter ? [opts.filter] : []));
+  const sub = [filter ? opts.filter : null, opts.models ? opts.models.map(modelSlug).join('+') : null].filter(Boolean).join('_');
+  const outDir = path.join(paths.llmJudgeDir, 'review', opts.batch, ...(sub ? [sub] : []));
+  // 오답 원인 자동 분류용: judge_report.js가 만든 paths.jsonl(run/id -> 판정 경로)
+  const pathRows = new Map();
+  for (const run of manifest.runs) {
+    const f = path.join(path.dirname(paths.judgeResultPath(run.run_id, opts.batch, 'accuracy')), 'paths.jsonl');
+    if (fs.existsSync(f)) for (const p of readAll(f)) pathRows.set(`${run.run_id}/${p.id}`, p);
+  }
   fs.mkdirSync(outDir, { recursive: true });
   const header = (title) => {
     const H = [`# ${title}`, ''];
@@ -231,6 +249,7 @@ function main() {
       if (r.error) { L.push(`**${KIND_LABEL[kind]}**: 판정 실패 — ${r.error}`, ''); continue; }
       const v = judgeView(kind, r);
       L.push(`**${KIND_LABEL[kind]} 판정**: \`${v.verdict}\``, '');
+      if (kind === 'accuracy' && v.verdict === 'INCORRECT') L.push(`- 오답 원인(자동 분류): ${wrongCause(key, r)}`);
       L.push(`- reason: ${v.reasoning}`);
       L.push('- 특이사항');
       L.push(...v.notes.map((n) => n.split('\n').map((l) => `  ${l}`).join('\n')), '');
@@ -238,6 +257,16 @@ function main() {
 
     L.push('#### 사람 평가', '', '- [ ] Judge 판정에 동의', '- [ ] 동의하지 않음 → 올바른 판정:', '- 메모:', '');
     return L;
+  }
+
+  // 배타 분류 1개 + (환각이면) 환각 주장 원인들. paths.jsonl이 없으면 표시하지 않는다.
+  function wrongCause(key, r) {
+    const p = pathRows.get(key);
+    if (!p) return '(paths.jsonl 없음 — judge_report.js를 먼저 실행)';
+    const row = { ...p, claims: r.hallucination.hallucinated_claims };
+    const [, name] = WRONG.find(([, , f]) => f(row));
+    const hallu = [...new Set(row.claims.map((c) => HALLU_NAME[claimCause(c, row)]))];
+    return `**${name}**${hallu.length ? ` · 환각 주장: ${hallu.join(', ')}` : ''}`;
   }
 }
 

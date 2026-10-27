@@ -20,10 +20,11 @@ function main() {
   const runId = runIdArg(argv);
   const { rows, scoredDir } = loadRun(runId);
 
-  const expectedOrder = profile.load().config.output?.keyOrder || null;
+  const { output } = profile.load().config;
+  const expectedOrder = output?.keyOrder || null;
   const scored = rows.map(({ g }) => {
     const t = g.timing;
-    const keyOrder = g.format_pass ? topLevelKeyOrder(g.raw_content, g.parsed) : null;
+    const keyOrder = g.format_pass ? topLevelKeyOrder(g.raw_content, g.parsed, output?.keyNames) : null;
     const tps = t && t.eval_count && t.eval_duration_ns ? t.eval_count / (t.eval_duration_ns / 1e9) : null;
     return {
       id: g.id, run_id: runId, model_tag: g.model_tag,

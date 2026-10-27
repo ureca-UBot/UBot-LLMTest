@@ -128,7 +128,7 @@ async function main() {
         }),
         { retries: config.generation.retries, label: `generate ${c.id}`, shouldRetry: (e) => !ollama.isTimeout(e) }
       );
-      const fmt = checkFormatSuccess(res.content);
+      const fmt = checkFormatSuccess(res.content, config.output?.keyNames);
       record = {
         ...base,
         raw_content: res.content,
