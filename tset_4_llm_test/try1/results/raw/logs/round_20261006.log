@@ -1,0 +1,73 @@
+
+===== 전체 라운드 (모든 모델 × 모든 항목) [tset_4_llm_test/try1] =====
+조건 t0_nothink · 프롬프트 v4_base · 컨텍스트 fixed · 항목당 10건 · 전체 항목 · 모델당 140행
+  - qwen3:4b {"temperature":0,"seed":null,"think":false,"format":"schema(evidence_ids>status>answer)"} -> local-win_qwen3-4b_t0_nothink_fixed_n10_20261006
+  - gemma3:4b {"temperature":0,"seed":null,"think":null,"format":"schema(evidence_ids>status>answer)"} -> local-win_gemma3-4b_t0_nothink_fixed_n10_20261006
+
+########## [1/2] qwen3:4b (local-win_qwen3-4b_t0_nothink_fixed_n10_20261006) ##########
+파이프라인 [tset_4_llm_test/try1] run_id=local-win_qwen3-4b_t0_nothink_fixed_n10_20261006 model=qwen3:4b
+
+=== 1/10 생성 (run/run_generation.js) ===
+[tset_4_llm_test/try1] run_id=local-win_qwen3-4b_t0_nothink_fixed_n10_20261006 model=qwen3:4b env=local-win
+조건 t0_nothink {"temperature":0,"seed":null,"think":false,"format":"schema(evidence_ids>status>answer)"} · 프롬프트 v4_base · n10
+총 140건, 이미 완료 0건, 이번에 처리 140건 -> tset_4_llm_test/try1/results/raw/local-win_qwen3-4b_t0_nothink_fixed_n10_20261006/generation.jsonl
+
+===== 전체 라운드 (모든 모델 × 모든 항목) [tset_4_llm_test/try1] =====
+조건 t0_nothink · 프롬프트 v4_base · 컨텍스트 fixed · 항목당 10건 · 전체 항목 · 모델당 140행
+  - qwen3:4b {"temperature":0,"seed":null,"think":false,"format":"schema(evidence_ids>status>answer)"} -> local-win_qwen3-4b_t0_nothink_fixed_n10_20261006
+
+########## [1/1] qwen3:4b (local-win_qwen3-4b_t0_nothink_fixed_n10_20261006) ##########
+파이프라인 [tset_4_llm_test/try1] run_id=local-win_qwen3-4b_t0_nothink_fixed_n10_20261006 model=qwen3:4b
+
+=== 1/10 생성 (run/run_generation.js) ===
+[tset_4_llm_test/try1] run_id=local-win_qwen3-4b_t0_nothink_fixed_n10_20261006 model=qwen3:4b env=local-win
+조건 t0_nothink {"temperature":0,"seed":null,"think":false,"format":"schema(evidence_ids>status>answer)"} · 프롬프트 v4_base · n10
+총 140건, 이미 완료 19건, 이번에 처리 121건 -> tset_4_llm_test/try1/results/raw/local-win_qwen3-4b_t0_nothink_fixed_n10_20261006/generation.jsonl
+  25/121 (성공 25, 실패 0, 경과 57s)
+  50/121 (성공 50, 실패 0, 경과 93s)
+  75/121 (성공 75, 실패 0, 경과 143s)
+  100/121 (성공 100, 실패 0, 경과 181s)
+  121/121 (성공 121, 실패 0, 경과 208s)
+완료. 성공 121, 실패 0
+
+=== 2/10 포맷·성능 (score/score_format_performance.js) ===
+포맷 준수 100.0% · 키 순서 준수 100.0% {"evidence_ids>status>answer":140} · 타임아웃 0건 · 지연 avg 1699ms / p95 3646ms · TPS 81.7 (전체 140행)
+
+=== 3/10 기대 상태 판단 (score/score_status.js) ===
+기대 상태 일치 58.5% (독립 표본 130행) · 부재 판단 F1 0.667
+
+=== 4/10 근거 채택(evidence_ids vs 정답 문서) (score/score_evidence.js) ===
+근거 채택률 55.3% (엄격 64.7%) · 정확 인용 54.1% · 정밀도 92.9% · 없는 ID 인용 0.0% · 사용자 정보/API 꼬리표 인용 0행 (독립 표본 대상 85/130행)
+답했는데 근거 미기재 0건 (0.0%, 답·부분 답·충돌 라벨 57행 중)
+
+=== 5/10 정답 유사도·키워드 (score/score_answer_similarity.js) ===
+유사도 대상 140건 (이미 완료 0건)
+  32/140
+  64/140
+  96/140
+  128/140
+  140/140
+정답 유사도 평균 81.8 · 키워드 포함률 50.1% (독립 표본 130행)
+
+=== 6/10 근거(NLI·숫자) — 참고 (score/score_rag_grounding.js) ===
+NLI 대상 75건, 쌍 963개
+  NLI 1-500/963
+  NLI 501-963/963
+NLI 지지율 평균 47.5% · 미확인 숫자 포함 10.8% (독립 표본 측정 65행)
+
+=== 7/10 표현 규칙 (score/score_expression_rules.js) ===
+표현 규칙 점수 평균 71.8 · 실격 20.8% (독립 표본 130행)
+
+=== 8/10 반복 일관성 (score/score_repeat_consistency.js) ===
+반복 일관성(상태+숫자) 100.0% · 상태 100.0% (원본 질문 1/1개 완료)
+
+=== 9/10 통합 CSV (docgen/build_review_export.js) ===
+review.csv 140행 -> tset_4_llm_test/try1/results/raw/scored/local-win_qwen3-4b_t0_nothink_fixed_n10_20261006/review.csv
+
+=== 10/10 run 보고서 (docgen/build_run_report.js) ===
+보고서 -> tset_4_llm_test/try1/results/report/local-win_qwen3-4b_t0_nothink_fixed_n10_20261006_summary.md
+
+파이프라인 완료 (5.0분)
+
+===== 전체 라운드 (모든 모델 × 모든 항목) 요약 (5.0분) =====
+  OK   qwen3:4b (local-win_qwen3-4b_t0_nothink_fixed_n10_20261006)

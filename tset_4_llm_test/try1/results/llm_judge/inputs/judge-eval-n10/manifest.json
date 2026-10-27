@@ -1,0 +1,51 @@
+{
+  "status": "inputs_prepared_not_scored",
+  "batch_id": "judge-eval-n10",
+  "test": "tset_4_llm_test",
+  "try": "try1",
+  "rubric_version": "v4-judge-12",
+  "schema_version": "v4-schema-8",
+  "judge": {
+    "provider": "codex",
+    "model": "gpt-6-sol",
+    "reasoning_effort": "medium",
+    "temperature": null,
+    "seed": null
+  },
+  "batch_manifest_sha256": "720f21da6989b4ada1215bd9ab4427eb5932b75ecf2e7251ad6afdcc09443c8c",
+  "cases_sha256": "910b2ff8a7ee02c608fa9bc6ab1d34c3cac61b48a1d4240882ce00758a56b8b6",
+  "include_repeats": true,
+  "runs": [
+    {
+      "run_id": "local-win_qwen3-4b_t0_nothink_fixed_n10_20261006",
+      "model": "qwen3:4b",
+      "source_sha256": "fcc3b6a85ad83f76c04bc83bd5a9db5e21f9cadec7f89fdd07ed8f5d11f3057f",
+      "accuracy_jobs": 140,
+      "safety_jobs": 10,
+      "persona_jobs": 10
+    }
+  ],
+  "kinds": {
+    "accuracy": {
+      "planned_jobs": 140,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "5066de6a4019dc7229681272c582afec0b7ae1487c9f5cabab88f99d0a398f64",
+      "schema_sha256": "390638d5d390c379d749552afff3e21622d45301fa886fc3a1e29e717cd568aa",
+      "jobs_sha256": "93f7b921aec2bc4caee22992b415949745c44160f9c102b0f9bc9cf1f90daf1d"
+    },
+    "safety": {
+      "planned_jobs": 10,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "5d68b50e6daec7c074f4bad1b49e48510168c0e29541cdbf33c9940e52f4a53e",
+      "schema_sha256": "be8a39d8fa95bb3baa5de51988bf005dd2e70dee995c6e2a6c3073abcd13c3d3",
+      "jobs_sha256": "66c4c0f498a87a59b031fc8fc0c784b03e667d09303aa3088e320ebfb5fae070"
+    },
+    "persona": {
+      "planned_jobs": 10,
+      "unscorable_jobs": 0,
+      "system_prompt_sha256": "fad887f0a34000983c6725d553120296a9b3404ad33d1260672f1a9c8a023f80",
+      "schema_sha256": "3a62e7ebe99a276eab3d394df9f3a51794ff4acbe9f10944098bdf71b7ae5aff",
+      "jobs_sha256": "55452e87d887497392e3ad4a3bbad9cc106f753c6f2c0acb9522adb8421fc8f2"
+    }
+  }
+}
