@@ -1,0 +1,902 @@
+[
+  {
+    "Slide": 1,
+    "Name": "purpose-1001",
+    "Text": "설계 관점 · 모델 선정",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 150.62505
+  },
+  {
+    "Slide": 1,
+    "Name": "purpose-1002",
+    "Text": "상담 품질과 응답 지연을 함께 고려한 선택",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 645.25
+  },
+  {
+    "Slide": 1,
+    "Name": "purpose-1003",
+    "Text": "같은 문항에서 품질·지연을 비교해 4B Instruct Q4를 선택",
+    "Width": 981.75,
+    "Height": 37.5,
+    "BoundHeight": 26.1,
+    "BoundWidth": 558.37506
+  },
+  {
+    "Slide": 1,
+    "Name": "purpose-1004",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 1,
+    "Name": "purpose-1005",
+    "Text": "01",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 19.37504
+  },
+  {
+    "Slide": 1,
+    "Name": "purpose-1006",
+    "Text": "동일 1,300행 품질 비교 · T4 순차 단일 요청 · 전체 서비스 성능과 구분",
+    "Width": 981.0,
+    "Height": 24.75,
+    "BoundHeight": 16.8,
+    "BoundWidth": 450.0
+  },
+  {
+    "Slide": 1,
+    "Name": "purpose-1007",
+    "Text": "답변 정답률 (%)",
+    "Width": 600.0,
+    "Height": 23.25,
+    "BoundHeight": 20.7,
+    "BoundWidth": 131.62505
+  },
+  {
+    "Slide": 1,
+    "Name": "purpose-1008",
+    "Text": "Q4_K_M",
+    "Width": 322.5,
+    "Height": 50.25,
+    "BoundHeight": 43.2,
+    "BoundWidth": 145.87505
+  },
+  {
+    "Slide": 1,
+    "Name": "purpose-1009",
+    "Text": "평균 2.61초",
+    "Width": 322.5,
+    "Height": 42.0,
+    "BoundHeight": 33.3,
+    "BoundWidth": 156.0
+  },
+  {
+    "Slide": 1,
+    "Name": "purpose-1010",
+    "Text": "Q8은 3.49초\r정답률 차이 1.3%p는\r유의하지 않음 (p=0.22)",
+    "Width": 337.5,
+    "Height": 90.75,
+    "BoundHeight": 67.5,
+    "BoundWidth": 206.87505
+  },
+  {
+    "Slide": 1,
+    "Name": "purpose-1011",
+    "Text": "Instruct 전환 시 환각률도 22.8%에서 26.2%로 증가해 별도 제어 필요",
+    "Width": 981.75,
+    "Height": 21.0,
+    "BoundHeight": 18.9,
+    "BoundWidth": 498.37503
+  },
+  {
+    "Slide": 2,
+    "Name": "purpose-1012",
+    "Text": "설계 관점 · 정확도",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 130.62505
+  },
+  {
+    "Slide": 2,
+    "Name": "purpose-1013",
+    "Text": "복합·생략 질문의 의도를 빠짐없이 처리",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 602.12506
+  },
+  {
+    "Slide": 2,
+    "Name": "purpose-1014",
+    "Text": "질문 일부를 놓치거나, 생략된 대상을 잘못 짚는 문제에 대응",
+    "Width": 981.75,
+    "Height": 37.5,
+    "BoundHeight": 26.1,
+    "BoundWidth": 584.25
+  },
+  {
+    "Slide": 2,
+    "Name": "purpose-1015",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 2,
+    "Name": "purpose-1016",
+    "Text": "02",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 19.37504
+  },
+  {
+    "Slide": 2,
+    "Name": "purpose-1017",
+    "Text": "분리 성공은 복합 질문 100건의 보조 지표 · 최종 답변 정답률과 구분 · 사람 검수 전",
+    "Width": 981.0,
+    "Height": 24.75,
+    "BoundHeight": 16.8,
+    "BoundWidth": 528.5
+  },
+  {
+    "Slide": 2,
+    "Name": "purpose-1018",
+    "Text": "90 / 100",
+    "Width": 367.5,
+    "Height": 55.5,
+    "BoundHeight": 47.7,
+    "BoundWidth": 167.12505
+  },
+  {
+    "Slide": 2,
+    "Name": "purpose-1019",
+    "Text": "검색어만 출력하도록 단순화한 뒤 분리 성공\r원문 보존 칸 + 검색어 출력은 69 / 100",
+    "Width": 585.0,
+    "Height": 56.25,
+    "BoundHeight": 45.0,
+    "BoundWidth": 375.0
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1020",
+    "Text": "설계 관점 · 임베딩 정확도 · 검색 입력",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 261.25
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1021",
+    "Text": "질문에 맞는 FAQ를 찾기 위한 검색 입력",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 612.37506
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1022",
+    "Text": "질문의 의도는 보존하고, 검색에 필요한 대상과 조건을 보완",
+    "Width": 981.75,
+    "Height": 37.5,
+    "BoundHeight": 26.1,
+    "BoundWidth": 577.12506
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1023",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1024",
+    "Text": "03",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 19.37504
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1025",
+    "Text": "의도 201개 · 정답 FAQ가 상위 3개 안에 있고 유사도 0.75 이상 · AI 생성 라벨, 사람 검수 전",
+    "Width": 981.0,
+    "Height": 24.75,
+    "BoundHeight": 16.8,
+    "BoundWidth": 582.62506
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1026",
+    "Text": "keep + 검색어",
+    "Width": 322.5,
+    "Height": 22.5,
+    "BoundHeight": 18.9,
+    "BoundWidth": 108.0
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1027",
+    "Text": "검색어만 · 최종",
+    "Width": 315.0,
+    "Height": 22.5,
+    "BoundHeight": 18.9,
+    "BoundWidth": 116.12504
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1028",
+    "Text": "175 / 201",
+    "Width": 322.5,
+    "Height": 42.75,
+    "BoundHeight": 36.9,
+    "BoundWidth": 146.87505
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1029",
+    "Text": "182 / 201",
+    "Width": 315.0,
+    "Height": 42.75,
+    "BoundHeight": 36.9,
+    "BoundWidth": 146.87505
+  },
+  {
+    "Slide": 3,
+    "Name": "purpose-1030",
+    "Text": "복합 질문 테스트에서\r정답 FAQ 검색 건수",
+    "Width": 303.75,
+    "Height": 48.75,
+    "BoundHeight": 43.2,
+    "BoundWidth": 180.0
+  },
+  {
+    "Slide": 4,
+    "Name": "purpose-1031",
+    "Text": "설계 관점 · 할루시네이션 제어",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 210.62505
+  },
+  {
+    "Slide": 4,
+    "Name": "purpose-1032",
+    "Text": "검색어 변형과 이전 오류의 전파 제어",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 567.37506
+  },
+  {
+    "Slide": 4,
+    "Name": "purpose-1033",
+    "Text": "재작성한 문장과 이전 답변의 오류가 답변 근거로 굳는 문제에 대응",
+    "Width": 981.75,
+    "Height": 37.5,
+    "BoundHeight": 26.1,
+    "BoundWidth": 648.37506
+  },
+  {
+    "Slide": 4,
+    "Name": "purpose-1034",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 4,
+    "Name": "purpose-1035",
+    "Text": "04",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 19.37504
+  },
+  {
+    "Slide": 4,
+    "Name": "purpose-1036",
+    "Text": "같은 FAQ를 사용한 100건에서 원문 방식과 keep 방식의 근거 맞힘은 각각 76건",
+    "Width": 981.0,
+    "Height": 24.75,
+    "BoundHeight": 16.8,
+    "BoundWidth": 505.25
+  },
+  {
+    "Slide": 4,
+    "Name": "logic-1037",
+    "Text": "사용자 원문",
+    "Width": 258.75,
+    "Height": 61.5,
+    "BoundHeight": 26.1,
+    "BoundWidth": 123.25
+  },
+  {
+    "Slide": 4,
+    "Name": "logic-1038",
+    "Text": "답변 LLM",
+    "Width": 296.25,
+    "Height": 61.5,
+    "BoundHeight": 26.1,
+    "BoundWidth": 99.12496
+  },
+  {
+    "Slide": 4,
+    "Name": "logic-1039",
+    "Text": "판정 LLM 검색어",
+    "Width": 258.75,
+    "Height": 61.5,
+    "BoundHeight": 22.5,
+    "BoundWidth": 148.0
+  },
+  {
+    "Slide": 4,
+    "Name": "logic-1040",
+    "Text": "검색한 FAQ",
+    "Width": 296.25,
+    "Height": 61.5,
+    "BoundHeight": 22.5,
+    "BoundWidth": 106.5
+  },
+  {
+    "Slide": 4,
+    "Name": "purpose-1041",
+    "Text": "사용자가 쓴 질문을 그대로 전달",
+    "Width": 352.5,
+    "Height": 25.5,
+    "BoundHeight": 21.6,
+    "BoundWidth": 264.0
+  },
+  {
+    "Slide": 4,
+    "Name": "purpose-1042",
+    "Text": "검색에만 사용",
+    "Width": 150.0,
+    "Height": 22.5,
+    "BoundHeight": 20.7,
+    "BoundWidth": 115.0
+  },
+  {
+    "Slide": 4,
+    "Name": "purpose-1043",
+    "Text": "이전 질문도 원문 유지 · 맥락이 필요할 때만 최근 3턴 전달",
+    "Width": 981.75,
+    "Height": 32.25,
+    "BoundHeight": 24.3,
+    "BoundWidth": 529.0
+  },
+  {
+    "Slide": 5,
+    "Name": "purpose-1044",
+    "Text": "설계 관점 · 보안",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 115.62504
+  },
+  {
+    "Slide": 5,
+    "Name": "purpose-1045",
+    "Text": "공격 명령의 검색 진입과 원문 보관 관리",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 611.87506
+  },
+  {
+    "Slide": 5,
+    "Name": "purpose-1046",
+    "Text": "공격 명령의 우회와 개인정보의 불필요한 장기 보관에 대응",
+    "Width": 981.75,
+    "Height": 37.5,
+    "BoundHeight": 26.1,
+    "BoundWidth": 570.0
+  },
+  {
+    "Slide": 5,
+    "Name": "purpose-1047",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 5,
+    "Name": "purpose-1048",
+    "Text": "05",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 19.37504
+  },
+  {
+    "Slide": 5,
+    "Name": "purpose-1049",
+    "Text": "검색어 가드와 프로젝트 보관 정책의 담당 범위 · 서비스 전체 보안 성능과 구분",
+    "Width": 981.0,
+    "Height": 24.75,
+    "BoundHeight": 16.8,
+    "BoundWidth": 499.37503
+  },
+  {
+    "Slide": 5,
+    "Name": "purpose-1050",
+    "Text": "매일 04:00 KST",
+    "Width": 457.5,
+    "Height": 47.25,
+    "BoundHeight": 37.8,
+    "BoundWidth": 231.12505
+  },
+  {
+    "Slide": 5,
+    "Name": "purpose-1051",
+    "Text": "분산 잠금과 배치 삭제로\r중복 실행·긴 DB 잠금 완화",
+    "Width": 435.0,
+    "Height": 58.5,
+    "BoundHeight": 46.8,
+    "BoundWidth": 242.75
+  },
+  {
+    "Slide": 6,
+    "Name": "txt-24",
+    "Text": "프로젝트 수행 절차 및 방법 · 모델 선정",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 270.62503
+  },
+  {
+    "Slide": 6,
+    "Name": "txt-25",
+    "Text": "품질을 확인한 뒤 4B 모델로 운영 범위를 조정",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 698.25
+  },
+  {
+    "Slide": 6,
+    "Name": "txt-26",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 6,
+    "Name": "txt-27",
+    "Text": "A1",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 20.25
+  },
+  {
+    "Slide": 6,
+    "Name": "txt-28",
+    "Text": "평균 정답률과 함께 오답의 성격·응답 시간을 판단",
+    "Width": 967.5,
+    "Height": 32.25,
+    "BoundHeight": 27.0,
+    "BoundWidth": 502.37503
+  },
+  {
+    "Slide": 7,
+    "Name": "txt-29",
+    "Text": "프로젝트 수행 절차 및 방법 · 모델 선정",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 270.62503
+  },
+  {
+    "Slide": 7,
+    "Name": "txt-30",
+    "Text": "정답률 뒤에 있는 오답 유형을 분석",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 534.0
+  },
+  {
+    "Slide": 7,
+    "Name": "txt-31",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 7,
+    "Name": "txt-32",
+    "Text": "A2",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 20.25
+  },
+  {
+    "Slide": 7,
+    "Name": "txt-33",
+    "Text": "v4 · 고정 컨텍스트 · RT 제외 · Gemma 2,598행 / Qwen 2,600행",
+    "Width": 981.0,
+    "Height": 24.75,
+    "BoundHeight": 16.8,
+    "BoundWidth": 415.62503
+  },
+  {
+    "Slide": 7,
+    "Name": "txt-34",
+    "Text": "Qwen의 과잉 보류를 튜닝 대상으로 선택",
+    "Width": 975.0,
+    "Height": 33.75,
+    "BoundHeight": 28.8,
+    "BoundWidth": 439.12503
+  },
+  {
+    "Slide": 7,
+    "Name": "txt-35",
+    "Text": "¹ 기대 ANSWER 중 실제 답한 부분집합의 결과로, 자신 있는 문항을 고른 효과도 포함",
+    "Width": 975.0,
+    "Height": 28.5,
+    "BoundHeight": 21.6,
+    "BoundWidth": 693.75
+  },
+  {
+    "Slide": 8,
+    "Name": "txt-63",
+    "Text": "프로젝트 수행 절차 및 방법 · 입력 파이프라인",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 315.62503
+  },
+  {
+    "Slide": 8,
+    "Name": "txt-64",
+    "Text": "명확한 질문은 원문으로 먼저 검색",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 522.87506
+  },
+  {
+    "Slide": 8,
+    "Name": "txt-65",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 8,
+    "Name": "txt-66",
+    "Text": "A3",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 20.25
+  },
+  {
+    "Slide": 8,
+    "Name": "txt-67",
+    "Text": "2차 재설계 실험 · 이전 대화 없는 141건 중 66건 · 운영 전체 트래픽 비율이 아님",
+    "Width": 981.0,
+    "Height": 24.75,
+    "BoundHeight": 16.8,
+    "BoundWidth": 510.5
+  },
+  {
+    "Slide": 8,
+    "Name": "txt-68",
+    "Text": "47%",
+    "Width": 348.75,
+    "Height": 90.0,
+    "BoundHeight": 81.9,
+    "BoundWidth": 158.0
+  },
+  {
+    "Slide": 8,
+    "Name": "txt-69",
+    "Text": "판정 LLM을 생략하고\r원문 검색으로 처리",
+    "Width": 600.0,
+    "Height": 71.25,
+    "BoundHeight": 59.4,
+    "BoundWidth": 240.37505
+  },
+  {
+    "Slide": 9,
+    "Name": "txt-70",
+    "Text": "프로젝트 수행 절차 및 방법 · 입력 파이프라인",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 315.62503
+  },
+  {
+    "Slide": 9,
+    "Name": "txt-71",
+    "Text": "판정 LLM은 검색어 생성에 집중",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 486.12503
+  },
+  {
+    "Slide": 9,
+    "Name": "txt-72",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 9,
+    "Name": "txt-73",
+    "Text": "A4",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 20.25
+  },
+  {
+    "Slide": 9,
+    "Name": "txt-74",
+    "Text": "복합 질문 100건 · 로컬 Ollama Q4_K_M · 1회 실행 · AI 생성 문항·판정, 사람 검수 전",
+    "Width": 981.0,
+    "Height": 24.75,
+    "BoundHeight": 16.8,
+    "BoundWidth": 541.12506
+  },
+  {
+    "Slide": 9,
+    "Name": "txt-75",
+    "Text": "원문 보존은 코드가 담당",
+    "Width": 952.5,
+    "Height": 33.75,
+    "BoundHeight": 30.6,
+    "BoundWidth": 283.5
+  },
+  {
+    "Slide": 9,
+    "Name": "txt-76",
+    "Text": "LLM에는 하위 질문마다 검색에 쓸 문장 하나만 요청",
+    "Width": 960.0,
+    "Height": 33.75,
+    "BoundHeight": 26.1,
+    "BoundWidth": 512.37506
+  },
+  {
+    "Slide": 9,
+    "Name": "txt-77",
+    "Text": "프롬프트의 괄호 나열 제거 후 문구 누출 5건에서 0건",
+    "Width": 967.5,
+    "Height": 28.5,
+    "BoundHeight": 22.5,
+    "BoundWidth": 452.75
+  },
+  {
+    "Slide": 10,
+    "Name": "txt-88",
+    "Text": "프로젝트 수행 절차 및 방법 · 입력 파이프라인",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 315.62503
+  },
+  {
+    "Slide": 10,
+    "Name": "txt-89",
+    "Text": "검색어의 의미 변형을 코드로 검사",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 522.87506
+  },
+  {
+    "Slide": 10,
+    "Name": "txt-90",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 10,
+    "Name": "txt-91",
+    "Text": "A5",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 20.25
+  },
+  {
+    "Slide": 10,
+    "Name": "txt-92",
+    "Text": "현재 프롬프트 출력 300건에서 실제 변형 9건 탐지 · 이 표본에서 오탐 0건, 미탐 사례는 남음",
+    "Width": 981.0,
+    "Height": 24.75,
+    "BoundHeight": 16.8,
+    "BoundWidth": 585.87506
+  },
+  {
+    "Slide": 10,
+    "Name": "txt-93",
+    "Text": "가드는 검색을 보호하고, 원문 분리는 답변을 보호",
+    "Width": 975.0,
+    "Height": 33.75,
+    "BoundHeight": 27.9,
+    "BoundWidth": 518.5
+  },
+  {
+    "Slide": 11,
+    "Name": "txt-99",
+    "Text": "부록 · 모델 평가",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 115.62504
+  },
+  {
+    "Slide": 11,
+    "Name": "txt-100",
+    "Text": "모델 비교의 조건과 해석 범위",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 456.12503
+  },
+  {
+    "Slide": 11,
+    "Name": "txt-101",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 11,
+    "Name": "txt-102",
+    "Text": "A6",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 20.25
+  },
+  {
+    "Slide": 11,
+    "Name": "txt-103",
+    "Text": "고정 컨텍스트 정확도는 검색 실패·가드 후 최종 품질을 포함하지 않음",
+    "Width": 967.5,
+    "Height": 42.75,
+    "BoundHeight": 25.2,
+    "BoundWidth": 654.0
+  },
+  {
+    "Slide": 12,
+    "Name": "txt-104",
+    "Text": "부록 · 스케줄러",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 110.62504
+  },
+  {
+    "Slide": 12,
+    "Name": "txt-105",
+    "Text": "데이터별 보관·익명화 정책",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 413.0
+  },
+  {
+    "Slide": 12,
+    "Name": "txt-106",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 12,
+    "Name": "txt-107",
+    "Text": "A7",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 20.25
+  },
+  {
+    "Slide": 12,
+    "Name": "txt-108",
+    "Text": "프로젝트에 설정한 보관 정책 · 삭제 조건은 DB 프로시저에서 관리",
+    "Width": 981.0,
+    "Height": 24.75,
+    "BoundHeight": 16.8,
+    "BoundWidth": 421.12503
+  },
+  {
+    "Slide": 13,
+    "Name": "txt-109",
+    "Text": "부록 · 멀티턴",
+    "Width": 945.0,
+    "Height": 22.5,
+    "BoundHeight": 18.0,
+    "BoundWidth": 95.62504
+  },
+  {
+    "Slide": 13,
+    "Name": "txt-110",
+    "Text": "이전 대화 전달을 결정하는 기준",
+    "Width": 982.5,
+    "Height": 56.25,
+    "BoundHeight": 40.8,
+    "BoundWidth": 489.5
+  },
+  {
+    "Slide": 13,
+    "Name": "txt-111",
+    "Text": "UBot",
+    "Width": 172.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 33.75
+  },
+  {
+    "Slide": 13,
+    "Name": "txt-112",
+    "Text": "A8",
+    "Width": 70.5,
+    "Height": 19.5,
+    "BoundHeight": 15.6,
+    "BoundWidth": 20.25
+  },
+  {
+    "Slide": 13,
+    "Name": "txt-113",
+    "Text": "이전 질문도 사용자가 입력한 원문으로 유지",
+    "Width": 967.5,
+    "Height": 36.75,
+    "BoundHeight": 28.8,
+    "BoundWidth": 470.25
+  },
+  {
+    "Slide": 13,
+    "Name": "txt-114",
+    "Text": "LLM이 한 번 만든 지명·조건이 다음 턴의 사실로 굳는 현상을 방지",
+    "Width": 967.5,
+    "Height": 28.5,
+    "BoundHeight": 22.5,
+    "BoundWidth": 561.25
+  }
+]

@@ -1,0 +1,818 @@
+{
+  "at": "2026-10-23T05:46:35.431Z",
+  "run_id": "local-win_qwen3-4b-instruct_t0_pv5_feat277_n390_20261023",
+  "overall": {
+    "cases": 390,
+    "paths": {
+      "LLM": 356,
+      "CHAT-013": 33,
+      "CHAT-021": 1
+    },
+    "exec_error": {
+      "count": 1
+    },
+    "status": {
+      "match": 274,
+      "match_rate": 70.26,
+      "match_strict": 283,
+      "match_strict_rate": 72.56,
+      "match_partial": 268,
+      "match_partial_rate": 68.72,
+      "match_llm_only_among_llm": 246,
+      "llm_cases": 356,
+      "confusion": {
+        "PARTIAL -> PARTIAL": 57,
+        "PARTIAL -> ABSTAIN": 16,
+        "ANSWER -> ANSWER": 124,
+        "ABSTAIN -> ABSTAIN": 65,
+        "ANSWER -> SYSTEM_ABSTAIN": 3,
+        "ANSWER -> ABSTAIN": 35,
+        "ANSWER -> PARTIAL": 19,
+        "ABSTAIN -> PARTIAL": 9,
+        "ABSTAIN -> ANSWER": 16,
+        "ABSTAIN -> SYSTEM_ABSTAIN": 13,
+        "PARTIAL -> ANSWER": 11,
+        "PARTIAL -> SYSTEM_ABSTAIN": 2,
+        "ANSWER -> null": 3,
+        "ABSTAIN -> null": 1,
+        "PARTIAL -> null": 1,
+        "OUT_OF_SCOPE -> SYSTEM_ABSTAIN": 15
+      }
+    },
+    "sub_status": {
+      "cases": 356,
+      "aligned_cases": 343,
+      "valid_cases": 352,
+      "pair_match": 372,
+      "pairs": 486,
+      "pair_match_rate": 76.54,
+      "pair_match_strict_rate": 78.6,
+      "pair_match_partial_rate": 75.51
+    },
+    "retrieval": {
+      "sub_questions": 520,
+      "verdicts": {
+        "HIT": 440,
+        "RETRIEVAL_MISS": 80
+      },
+      "hit_rate": 84.62
+    },
+    "planner": {
+      "judge_called": 214,
+      "sub_count_match": 381
+    },
+    "leak": {
+      "base_llm_cases": 356,
+      "any": 11,
+      "any_rate": 3.09,
+      "notice": 11,
+      "ask_back": 0,
+      "refer": 4,
+      "judge_decline_notice": 13,
+      "judge_asks_user": 0,
+      "judged": 356
+    },
+    "empty_answer_when_expected_decline": {
+      "cases": 91,
+      "empty": 65
+    },
+    "judge": {
+      "judged": 356,
+      "correct": 254,
+      "correct_rate": 71.35,
+      "grounded": 310,
+      "hallucination_rate": 12.92,
+      "claim_types": {
+        "FABRICATION": 21,
+        "UNSUPPORTED_GENERALIZATION": 23,
+        "MISATTRIBUTION": 13,
+        "SILENT_CONFLICT_PICK": 1
+      },
+      "sub_outcomes": {
+        "CORRECT_ANSWER": 225,
+        "CORRECT_DECLINE": 172,
+        "MISSING_ANSWER": 68,
+        "WRONG_ANSWER": 21,
+        "UNSUPPORTED_ANSWER": 21
+      },
+      "query_rewrite": {
+        "FAITHFUL": 163,
+        "NOT_APPLICABLE": 176,
+        "CHANGED": 17
+      }
+    },
+    "passed": 254,
+    "passed_rate": 65.13,
+    "failure_causes": {
+      "STATUS_MISMATCH": 94,
+      "ANSWER_INCORRECT": 15,
+      "RETRIEVAL_MISS": 26,
+      "EXEC_ERROR": 1
+    },
+    "latency_ms_avg": 4668
+  },
+  "guards": {
+    "final_case_traces": 390,
+    "input_guard_called": 390,
+    "input_guard_completed": 390,
+    "sub_question_guard_cases": 214,
+    "output_guard_cases": 261,
+    "output_guard_checks": 319,
+    "output_guard_removed_cases": [
+      "MT-016",
+      "CQ-005",
+      "CQ-011",
+      "CQ-018",
+      "IN-007",
+      "MA-005",
+      "MA-006",
+      "MA-014",
+      "MA-015",
+      "MA-016",
+      "MA-020",
+      "MA-024",
+      "MA-025",
+      "MA-034",
+      "MN-014",
+      "MN-020",
+      "MP-019",
+      "MP-029",
+      "MP-037",
+      "MP-043",
+      "MP-058",
+      "MP-059",
+      "MT-004",
+      "MT-025",
+      "MT-026",
+      "OS-022",
+      "OS-026",
+      "SA-004",
+      "SA-024",
+      "SA-041",
+      "ST-023",
+      "UD-001",
+      "UD-016"
+    ],
+    "output_guard_removed_checks": 34,
+    "final_slot_abstentions_by_guard": 34,
+    "changed_cases": [
+      "MT-016",
+      "CQ-005",
+      "CQ-011",
+      "CQ-018",
+      "IN-007",
+      "MA-005",
+      "MA-006",
+      "MA-014",
+      "MA-015",
+      "MA-016",
+      "MA-020",
+      "MA-024",
+      "MA-025",
+      "MA-034",
+      "MN-014",
+      "MN-020",
+      "MP-019",
+      "MP-029",
+      "MP-037",
+      "MP-043",
+      "MP-058",
+      "MP-059",
+      "MT-004",
+      "MT-025",
+      "MT-026",
+      "OS-022",
+      "OS-026",
+      "SA-004",
+      "SA-024",
+      "SA-041",
+      "ST-023",
+      "UD-001",
+      "UD-016"
+    ],
+    "whole_output_rejections": [],
+    "unanswered_collection_completed": 356,
+    "unanswered_candidates": 227,
+    "collapsed_slot_cases": [
+      "SA-022",
+      "ST-017",
+      "CQ-005",
+      "CQ-007",
+      "CQ-008",
+      "CQ-015",
+      "CQ-018",
+      "IN-009",
+      "MA-003",
+      "MA-019",
+      "SA-002",
+      "SA-009",
+      "SA-010",
+      "SA-038",
+      "SA-039",
+      "SA-040",
+      "SA-044",
+      "SA-046",
+      "SB-015",
+      "SB-027",
+      "ST-005",
+      "ST-006",
+      "ST-029",
+      "UD-001"
+    ],
+    "tool_calls": {
+      "getBillingByMonth": 79,
+      "getUsageByMonth": 80,
+      "findNearbyStores": 38
+    },
+    "reasons": {
+      "ANSWER_ERROR": {
+        "checks": 33,
+        "cases": [
+          "MT-016",
+          "CQ-005",
+          "CQ-011",
+          "CQ-018",
+          "IN-007",
+          "MA-005",
+          "MA-006",
+          "MA-014",
+          "MA-015",
+          "MA-016",
+          "MA-020",
+          "MA-024",
+          "MA-025",
+          "MA-034",
+          "MN-014",
+          "MN-020",
+          "MP-019",
+          "MP-029",
+          "MP-037",
+          "MP-043",
+          "MP-058",
+          "MP-059",
+          "MT-004",
+          "MT-025",
+          "MT-026",
+          "OS-022",
+          "OS-026",
+          "SA-004",
+          "SA-024",
+          "SA-041",
+          "ST-023",
+          "UD-016"
+        ]
+      },
+      "FALSE_EXECUTION": {
+        "checks": 1,
+        "cases": [
+          "UD-001"
+        ]
+      },
+      "FAQ_SHORTAGE_SUSPECTED": {
+        "checks": 43,
+        "cases": [
+          "MT-016",
+          "ST-017",
+          "MA-021",
+          "MA-029",
+          "MP-044",
+          "MP-052",
+          "MP-058",
+          "MT-002",
+          "ST-001",
+          "ST-002",
+          "ST-003",
+          "ST-004",
+          "ST-005",
+          "ST-006",
+          "ST-007",
+          "ST-008",
+          "ST-009",
+          "ST-010",
+          "ST-011",
+          "ST-012",
+          "ST-018",
+          "ST-019",
+          "ST-022",
+          "ST-023",
+          "ST-025",
+          "ST-026",
+          "ST-029",
+          "UD-005",
+          "UD-006",
+          "UD-007",
+          "UD-009",
+          "UD-011",
+          "UD-012",
+          "UD-016",
+          "UD-017",
+          "UD-019",
+          "UD-020",
+          "UD-023",
+          "UD-024",
+          "UD-029",
+          "UD-030"
+        ]
+      },
+      "UNCLASSIFIED": {
+        "checks": 11,
+        "cases": [
+          "CQ-008",
+          "CQ-015",
+          "IN-009",
+          "IN-015",
+          "MA-017",
+          "MP-002",
+          "MT-011",
+          "OS-030",
+          "SB-011",
+          "UD-023"
+        ]
+      }
+    }
+  },
+  "verification": {
+    "completed_at": "2026-10-23T05:46:35.414Z",
+    "cases": 390,
+    "unique_ids": 390,
+    "eligible": 356,
+    "judge_success": 356,
+    "judge_input_hashes_valid": true,
+    "final_http_answer_matches_guard_output": 356,
+    "missing_trace": [],
+    "case_sha256": "513d1383c549275120409362f806521bde728428fdd2e1bb2c1496170b06950a",
+    "faq_comparison": {
+      "old_rows": 1688,
+      "new_rows": 1688,
+      "changed_rows": 0,
+      "changed_ids": []
+    },
+    "guards": {
+      "final_case_traces": 390,
+      "input_guard_called": 390,
+      "input_guard_completed": 390,
+      "sub_question_guard_cases": 214,
+      "output_guard_cases": 261,
+      "output_guard_checks": 319,
+      "output_guard_removed_cases": [
+        "MT-016",
+        "CQ-005",
+        "CQ-011",
+        "CQ-018",
+        "IN-007",
+        "MA-005",
+        "MA-006",
+        "MA-014",
+        "MA-015",
+        "MA-016",
+        "MA-020",
+        "MA-024",
+        "MA-025",
+        "MA-034",
+        "MN-014",
+        "MN-020",
+        "MP-019",
+        "MP-029",
+        "MP-037",
+        "MP-043",
+        "MP-058",
+        "MP-059",
+        "MT-004",
+        "MT-025",
+        "MT-026",
+        "OS-022",
+        "OS-026",
+        "SA-004",
+        "SA-024",
+        "SA-041",
+        "ST-023",
+        "UD-001",
+        "UD-016"
+      ],
+      "output_guard_removed_checks": 34,
+      "final_slot_abstentions_by_guard": 34,
+      "changed_cases": [
+        "MT-016",
+        "CQ-005",
+        "CQ-011",
+        "CQ-018",
+        "IN-007",
+        "MA-005",
+        "MA-006",
+        "MA-014",
+        "MA-015",
+        "MA-016",
+        "MA-020",
+        "MA-024",
+        "MA-025",
+        "MA-034",
+        "MN-014",
+        "MN-020",
+        "MP-019",
+        "MP-029",
+        "MP-037",
+        "MP-043",
+        "MP-058",
+        "MP-059",
+        "MT-004",
+        "MT-025",
+        "MT-026",
+        "OS-022",
+        "OS-026",
+        "SA-004",
+        "SA-024",
+        "SA-041",
+        "ST-023",
+        "UD-001",
+        "UD-016"
+      ],
+      "whole_output_rejections": [],
+      "unanswered_collection_completed": 356,
+      "unanswered_candidates": 227,
+      "collapsed_slot_cases": [
+        "SA-022",
+        "ST-017",
+        "CQ-005",
+        "CQ-007",
+        "CQ-008",
+        "CQ-015",
+        "CQ-018",
+        "IN-009",
+        "MA-003",
+        "MA-019",
+        "SA-002",
+        "SA-009",
+        "SA-010",
+        "SA-038",
+        "SA-039",
+        "SA-040",
+        "SA-044",
+        "SA-046",
+        "SB-015",
+        "SB-027",
+        "ST-005",
+        "ST-006",
+        "ST-029",
+        "UD-001"
+      ],
+      "tool_calls": {
+        "getBillingByMonth": 79,
+        "getUsageByMonth": 80,
+        "findNearbyStores": 38
+      },
+      "reasons": {
+        "ANSWER_ERROR": {
+          "checks": 33,
+          "cases": [
+            "MT-016",
+            "CQ-005",
+            "CQ-011",
+            "CQ-018",
+            "IN-007",
+            "MA-005",
+            "MA-006",
+            "MA-014",
+            "MA-015",
+            "MA-016",
+            "MA-020",
+            "MA-024",
+            "MA-025",
+            "MA-034",
+            "MN-014",
+            "MN-020",
+            "MP-019",
+            "MP-029",
+            "MP-037",
+            "MP-043",
+            "MP-058",
+            "MP-059",
+            "MT-004",
+            "MT-025",
+            "MT-026",
+            "OS-022",
+            "OS-026",
+            "SA-004",
+            "SA-024",
+            "SA-041",
+            "ST-023",
+            "UD-016"
+          ]
+        },
+        "FALSE_EXECUTION": {
+          "checks": 1,
+          "cases": [
+            "UD-001"
+          ]
+        },
+        "FAQ_SHORTAGE_SUSPECTED": {
+          "checks": 43,
+          "cases": [
+            "MT-016",
+            "ST-017",
+            "MA-021",
+            "MA-029",
+            "MP-044",
+            "MP-052",
+            "MP-058",
+            "MT-002",
+            "ST-001",
+            "ST-002",
+            "ST-003",
+            "ST-004",
+            "ST-005",
+            "ST-006",
+            "ST-007",
+            "ST-008",
+            "ST-009",
+            "ST-010",
+            "ST-011",
+            "ST-012",
+            "ST-018",
+            "ST-019",
+            "ST-022",
+            "ST-023",
+            "ST-025",
+            "ST-026",
+            "ST-029",
+            "UD-005",
+            "UD-006",
+            "UD-007",
+            "UD-009",
+            "UD-011",
+            "UD-012",
+            "UD-016",
+            "UD-017",
+            "UD-019",
+            "UD-020",
+            "UD-023",
+            "UD-024",
+            "UD-029",
+            "UD-030"
+          ]
+        },
+        "UNCLASSIFIED": {
+          "checks": 11,
+          "cases": [
+            "CQ-008",
+            "CQ-015",
+            "IN-009",
+            "IN-015",
+            "MA-017",
+            "MP-002",
+            "MT-011",
+            "OS-030",
+            "SB-011",
+            "UD-023"
+          ]
+        }
+      }
+    },
+    "database": {
+      "at": "2026-10-23T05:45:59.758Z",
+      "database": "ubot_feat277_eval_20261023",
+      "verified_attempts": 390,
+      "persisted_job_statuses_match": true,
+      "saved_final_answers_match": 356,
+      "unanswered": [
+        {
+          "source": "LLM_MODEL",
+          "reason": "LLM_ABSTAIN",
+          "count": 111
+        },
+        {
+          "source": "OUTPUT_GUARD",
+          "reason": "INSUFFICIENT_FAQ",
+          "count": 31
+        },
+        {
+          "source": "RETRIEVAL",
+          "reason": "INSUFFICIENT_FAQ",
+          "count": 85
+        }
+      ],
+      "pending_unanswered_outbox": 0
+    },
+    "source_current": {
+      "checked_at": "2026-10-23T14:36:17.8550952+09:00",
+      "source": "C:/Ureka/ureca_project2/BackEnd",
+      "snapshot_files": 987,
+      "original_current_source_files": 987,
+      "changed_since_snapshot": [
+        {
+          "path": "src/main/java/com/ubot/ai/dto/AiAnswer.java",
+          "snapshot": "ed32b938b5a6754248a1872380236d98ff30ff5b33aeff431028fdaf7e803446",
+          "current": "a43443b5ead2c32234e6a5d20e58a6291d88a0a1aab5a1d36390bfe19e0427c2"
+        },
+        {
+          "path": "src/main/java/com/ubot/ai/dto/LookupFailure.java",
+          "snapshot": "5959fb0f3f7a42c0bde9218ec46e1ea05074bea82d60bf3ebb98a0fefa02187a",
+          "current": "699ea9692ea7fad923cfe96ce43614c21d89f158434c59af40a934d551234f80"
+        },
+        {
+          "path": "src/main/java/com/ubot/ai/service/AiService.java",
+          "snapshot": "f30f458f175a687fc24d260bc33ccaac4157931d91bb586e15275c28e8a92a30",
+          "current": "4ac474b9b3cbc0a6f0bb91acab00596f37259a054c28d0eaaddc11e4f57762e6"
+        },
+        {
+          "path": "src/main/java/com/ubot/ai/service/SubQuestionLabels.java",
+          "snapshot": "e8b503e902cc5a2003ac88f09d9c2df03affbd82c82e4082661b71523086ec03",
+          "current": "40c9bf0191eff115e25e945efb475a86aa96e6977353d6ae766549d9b8dac41a"
+        },
+        {
+          "path": "src/main/java/com/ubot/ai/service/SubQuestionStatuses.java",
+          "snapshot": "3c75d4901c6ead84b637e0ed818fd1dc7f7bbb795a402c1d003556b3e889a770",
+          "current": "a60dac0edd321dc35789ea8b4b461d961f28da32cd8120cb11562f2860faa835"
+        },
+        {
+          "path": "src/main/java/com/ubot/ai/tool/StoreSearchRecorder.java",
+          "snapshot": "97de41f1e03173eb1a9b001c3b3822a28687e57ed00265c1ade5e521991b7c8a",
+          "current": "0a60368ee9c52e9f2569c0983b85c6fa7d144c5e72defac0369fc621afa3e0d4"
+        },
+        {
+          "path": "src/main/java/com/ubot/ai/tool/StoreTools.java",
+          "snapshot": "fa5454874f19030a493cde00d0045ff4e1bc0756e0ea3b80b641c21fba5f81e1",
+          "current": "fea0bd05e4f8d267b6659dc09dc66d39581757c8bdd9d23fd10046e2ff5f4a85"
+        },
+        {
+          "path": "src/main/java/com/ubot/ai/tool/UserDataRecorder.java",
+          "snapshot": "e15d76acb1e6bf0f7d2977bd348ec2a1396ebe98e82d8cc5d2e4a42ecc367cb9",
+          "current": "fae7096f94659596cfb142380649e2ad5bdb348456e7c9ab9cd5f11e7f89dc5f"
+        },
+        {
+          "path": "src/main/java/com/ubot/ai/tool/UserDataSummarizer.java",
+          "snapshot": "be6491b25de3a62d0d92555b33e4e6858a94c1dc2087e5a289176481b43d094b",
+          "current": "2c89654efe49902f30124623ff28e1d29af3a9a971f1dbaad1e7c42637e09af3"
+        },
+        {
+          "path": "src/main/java/com/ubot/ai/tool/UserDataTools.java",
+          "snapshot": "53fd8deab68e1b3b50f5ee80a4b7e111876bbc92cb98303411d48ff03312dd1c",
+          "current": "ac3a42dc11ac64f43872f4d6e60b8eb2ab053392ef716e534eaf22087e2c0843"
+        },
+        {
+          "path": "src/main/java/com/ubot/chat/context/StoreIntentHandler.java",
+          "snapshot": "cb2e268132e20a531e96a490e1a7aac389715807a27575b6177c04095bd0bf25",
+          "current": "9d3169d04b5aca8878b4a2d6ca0529e339e0252c46f3a9b6ffebe1bb14971831"
+        },
+        {
+          "path": "src/main/java/com/ubot/chat/context/UserIntentHandler.java",
+          "snapshot": "89dc3e18172a7c70ebafae4a53acca1cdb99015b08c1b916e9e22c1380ebb16f",
+          "current": "2667c063a5915336ef8b3a0e510578bd789955a7c8f2bb7f535010c006640aaa"
+        },
+        {
+          "path": "src/main/java/com/ubot/unanswered/enums/UnansweredReason.java",
+          "snapshot": "d269791318ee93663b2ca697ac0c66a1715c3e9434074c22038f1a1e99918f56",
+          "current": "a2854d288655dce3118cd198ef91bbf5fd0cc0c0943ea01f1a84b5aedc791a60"
+        },
+        {
+          "path": "src/main/java/com/ubot/unanswered/enums/UnansweredSource.java",
+          "snapshot": "8525adf73d57ed84abaa190b2fd32386f4cd7df4ed2cc21f333b66a1b004b391",
+          "current": "1b63e46bd65c87617ff4b5f831f3b5e37d4b4cef9fc95cdab7558b595d1b4aa9"
+        },
+        {
+          "path": "src/main/resources/db/migration/V52__add_llm_model_unanswered_source.sql",
+          "snapshot": "d8d2a8abe63a65c6e4fe4bb6a9a9743feb83ac7e895b09ddeae4c364e894f618",
+          "current": "527c073c447bfc12534e88cf905af9b2e160cdcd52b96a9ec99eb0d38c6a6bb1"
+        },
+        {
+          "path": "src/main/resources/prompts/README.md",
+          "snapshot": "d42e61324d2f168a24893fb5747b1a4264df869efea30dfb2292a8760b1201d0",
+          "current": "53ea15d85aa0d18e55d3d32ac5210d55c3246d8f88a43a27ca8aa94c073c3d77"
+        },
+        {
+          "path": "src/test/java/com/ubot/ai/service/AiServiceTest.java",
+          "snapshot": "9728ee8f94bde1b6f7c7d0461e7be4dfed269f316814c61a2d0f2e9240081328",
+          "current": "cf3b4b9c7fbf3fce4811d2167c75ebabaf5c0e738d0f70f297a533d0cf6ba71d"
+        },
+        {
+          "path": "src/test/java/com/ubot/ai/service/SubQuestionLabelsTest.java",
+          "snapshot": "34a8f55fa6631ab7dfb227c58175453d8d02b37e528f25c068076da24e5e3303",
+          "current": "5976c5ddc7c43ba90c30fdf03196cd1b0dc511926c1c8271dfbf0bd21ea4c32e"
+        },
+        {
+          "path": "src/test/java/com/ubot/ai/service/SubQuestionStatusesTest.java",
+          "snapshot": "512f34ced442ca9cba1778cbe23ae874e19986023b203d14e1d7aa5b00b3762e",
+          "current": "6c6dd787d7bc88df2bccaffa68c95fa626d88d0e4dc52a4157000fb1d48ad564"
+        },
+        {
+          "path": "src/test/java/com/ubot/chat/service/ChatAnswerProcessorSubQuestionTest.java",
+          "snapshot": "eafc4d56342dd63f2504092ff276ab6560bf48d2b1113479097db6ec0ede54aa",
+          "current": "dbfe58f6dc94a1a4b1eb655c87409d0a2561c6a1be627ebc2308eb73244179fb"
+        },
+        {
+          "path": "src/test/java/com/ubot/chat/service/ChatServiceTest.java",
+          "snapshot": "28e0824c904ffb8a6ebead274a288d9eccd446fcfb81ae6ad1c0c242dae2c3c9",
+          "current": "4ecc3dabda581318acdc37ad5c055345008ff383ba667f64805c58de02c0cf75"
+        },
+        {
+          "path": "src/test/java/com/ubot/chat/service/OutputGuardUnansweredConnectionTest.java",
+          "snapshot": "a8c425097180ef28919cf882057cf91029e2ded3cd8dd5cfa757e14425262a98",
+          "current": "55eddec1ae701306281f6a1dbb44c37eb2beca9127527eb23def738e8e275c07"
+        },
+        {
+          "path": "src/test/java/com/ubot/guardreview/GuardReviewPostgresIntegrationTest.java",
+          "snapshot": "15718e838b0172c87e38f8ff7b41eb9145371187d4afb02bb74db87067a56af5",
+          "current": "05071ac3c3ea638e724106762040653abe55297a91db803d377f80a4ba359598"
+        }
+      ],
+      "branch": "feat/277-sub-answer",
+      "commit": "f7e6f50ca03081777dbabab100493f9f887d383e",
+      "git_status": []
+    },
+    "source_text": {
+      "at": "2026-10-23T05:39:06.317Z",
+      "files": 987,
+      "observation_hooks_reversed_and_verified": true,
+      "line_ending_only": 22,
+      "content_differences": [
+        "src/main/resources/prompts/README.md"
+      ]
+    },
+    "judge_calls": {
+      "total": 412,
+      "failed": 56,
+      "timeouts": 0
+    },
+    "regression": {
+      "tests": 2334,
+      "suites": [
+        {
+          "name": "com.ubot.ai.service.AiOutputGuardServiceTest",
+          "tests": 1006,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "name": "com.ubot.ai.service.AiServiceTest",
+          "tests": 49,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "name": "com.ubot.ai.service.SubQuestionStatusesTest",
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "name": "com.ubot.ai.tool.UserDataOutputGuardTest",
+          "tests": 21,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "name": "하위 질문별 검색·답변 계산 테스트",
+          "tests": 23,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "name": "채팅 질문 정리·요청 분리·기존 검사 연결",
+          "tests": 217,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "name": "채팅 프롬프트 조작 검사",
+          "tests": 958,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "name": "com.ubot.chat.service.OutputGuardUnansweredConnectionTest",
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "name": "com.ubot.chat.service.SubQuestionGuardEnglishPolicyTest",
+          "tests": 11,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "name": "하위 질문 가드 테스트",
+          "tests": 18,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        {
+          "name": "com.ubot.prompt.format.FaqAnswerFormatTest",
+          "tests": 15,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      ]
+    }
+  }
+}

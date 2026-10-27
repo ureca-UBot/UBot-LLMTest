@@ -1,0 +1,105 @@
+{
+  "retrieval_100": {
+    "original": {
+      "intent_hits": 161,
+      "all_intents_hit": 69,
+      "questions": 100,
+      "intents": 201,
+      "correct_question_count": null
+    },
+    "initial": {
+      "intent_hits": 181,
+      "all_intents_hit": 81,
+      "questions": 100,
+      "intents": 201,
+      "correct_question_count": 81
+    },
+    "improved": {
+      "intent_hits": 182,
+      "all_intents_hit": 84,
+      "questions": 100,
+      "intents": 201,
+      "correct_question_count": 90
+    }
+  },
+  "retrieval_definition": "Top3 FAQ score >=0.75. all_intents_hit requires each gold intent. Saved vector-search comparison, not end-to-end answer accuracy.",
+  "model_v3": [
+    {
+      "model": "gemma3:4b",
+      "accuracy_pct": 31.3,
+      "grounded_pct": 49.7,
+      "hallucination_pct": 50.3
+    },
+    {
+      "model": "qwen3:1.7b",
+      "accuracy_pct": 39.0,
+      "grounded_pct": 57.0,
+      "hallucination_pct": 43.0
+    },
+    {
+      "model": "qwen3:4b",
+      "accuracy_pct": 72.3,
+      "grounded_pct": 86.3,
+      "hallucination_pct": 13.7
+    },
+    {
+      "model": "qwen3:8b",
+      "accuracy_pct": 59.7,
+      "grounded_pct": 73.2,
+      "hallucination_pct": 26.8
+    },
+    {
+      "model": "exaone3.5:7.8b",
+      "accuracy_pct": 37.3,
+      "grounded_pct": 46.7,
+      "hallucination_pct": 53.3
+    },
+    {
+      "model": "gemma3:12b",
+      "accuracy_pct": 64.0,
+      "grounded_pct": 78.7,
+      "hallucination_pct": 21.3
+    },
+    {
+      "model": "qwen3:14b",
+      "accuracy_pct": 75.6,
+      "grounded_pct": 75.3,
+      "hallucination_pct": 24.7
+    },
+    {
+      "model": "qwen3:1.7b (추론 OFF)",
+      "accuracy_pct": 23.0,
+      "grounded_pct": 43.3,
+      "hallucination_pct": 56.7
+    },
+    {
+      "model": "qwen3:4b (추론 OFF)",
+      "accuracy_pct": 43.7,
+      "grounded_pct": 71.0,
+      "hallucination_pct": 29.0
+    },
+    {
+      "model": "qwen3:8b (추론 OFF)",
+      "accuracy_pct": 43.7,
+      "grounded_pct": 74.0,
+      "hallucination_pct": 26.0
+    },
+    {
+      "model": "qwen3:14b (추론 OFF)",
+      "accuracy_pct": 70.7,
+      "grounded_pct": 76.3,
+      "hallucination_pct": 23.7
+    }
+  ],
+  "initial_41_explanation": "Subset of initial 200 functional test: 59 with history, of which 41 had nonempty annotated gold FAQ. Not full test size.",
+  "sources": [
+    {
+      "path": "C:\\Ureka\\ureca_project2\\eval_205_multiturn\\docs-evaluation\\2026-10-16-split\\final\\split\\split-analysis.json",
+      "sha256": "f73a14b6febca4eb1599acb16783453ed3a339b9da22e1c63fa5f1a0a4c520e9"
+    },
+    {
+      "path": "C:\\Ureka\\ureca_project2\\LLM_Test\\model_test_v3\\try1\\results\\all_summary.md",
+      "sha256": "4e15fc99aa4d61cb2b44a8eb6c89c3591e0739242c14f5c87d5ad78455a7d02b"
+    }
+  ]
+}
