@@ -1,0 +1,5217 @@
+{
+  "generated_by": "scripts/docgen/pipeline_try_report.js",
+  "cases": 390,
+  "runs": [
+    {
+      "label": "single",
+      "run_id": "local-win_qwen3-4b-instruct_t0_pv1_single_n390_20261020",
+      "location": "pipeline_test_v1/try1/local-win_qwen3-4b-instruct_t0_pv1_single_n390_20261020",
+      "judge_batches": "pv1-try1+pv1-try1-store"
+    },
+    {
+      "label": "sub",
+      "run_id": "local-win_qwen3-4b-instruct_t0_pv1_sub_n390_20261020",
+      "location": "pipeline_test_v1/try1/local-win_qwen3-4b-instruct_t0_pv1_sub_n390_20261020",
+      "judge_batches": "pv1-try1+pv1-try1-store"
+    },
+    {
+      "label": "subp",
+      "run_id": "local-win_qwen3-4b-instruct_t0_pv1_subp_n390_20261021",
+      "location": "pipeline_test_v1/try1/local-win_qwen3-4b-instruct_t0_pv1_subp_n390_20261021",
+      "judge_batches": "pv1-try1+pv1-try1-store"
+    }
+  ],
+  "overall": {
+    "single": {
+      "cases": 390,
+      "paths": {
+        "LLM": 352,
+        "CHAT-013": 37,
+        "CHAT-021": 1
+      },
+      "exec_error": 1,
+      "judged": 352,
+      "correct": 285,
+      "correct_and_grounded": 271,
+      "hallucinated": 44,
+      "hallucination_claim_cases": {
+        "MISATTRIBUTION": 16,
+        "FABRICATION": 24,
+        "UNSUPPORTED_GENERALIZATION": 8,
+        "SILENT_CONFLICT_PICK": 1
+      },
+      "sub_outcomes": {
+        "CORRECT_ANSWER": 256,
+        "WRONG_ANSWER": 26,
+        "MISSING_ANSWER": 28,
+        "CORRECT_DECLINE": 175,
+        "UNSUPPORTED_ANSWER": 18
+      },
+      "notice_pattern": 192,
+      "ask_back_pattern": 5,
+      "notice_judge": 202,
+      "asks_user_judge": 6,
+      "code_notice": 0,
+      "double_notice": 0,
+      "empty_answer": 0,
+      "status_match": 274,
+      "status_match_strict": 282,
+      "passed": 253,
+      "failure_causes_scored": {
+        "RETRIEVAL_MISS": 23,
+        "STATUS_MISMATCH": 91,
+        "ANSWER_INCORRECT": 16,
+        "QUERY_VARIANT_MISS": 6,
+        "EXEC_ERROR": 1
+      },
+      "judge_wrong_causes": {
+        "STATUS_OK_CONTENT_WRONG": 42,
+        "EXPECTED_ANSWER_DECLINED_WROTE": 16,
+        "SUB_COUNT_MISMATCH": 4,
+        "OTHER": 3,
+        "EXPECTED_DECLINE_ANSWERED": 2
+      },
+      "latency_avg_ms": 4102
+    },
+    "sub": {
+      "cases": 390,
+      "paths": {
+        "LLM": 342,
+        "CHAT-013": 38,
+        "LLM-005": 10
+      },
+      "exec_error": 10,
+      "judged": 342,
+      "correct": 260,
+      "correct_and_grounded": 257,
+      "hallucinated": 31,
+      "hallucination_claim_cases": {
+        "MISATTRIBUTION": 11,
+        "SILENT_CONFLICT_PICK": 2,
+        "FABRICATION": 13,
+        "UNSUPPORTED_GENERALIZATION": 7
+      },
+      "sub_outcomes": {
+        "CORRECT_ANSWER": 234,
+        "MISSING_ANSWER": 53,
+        "WRONG_ANSWER": 15,
+        "CORRECT_DECLINE": 173,
+        "UNSUPPORTED_ANSWER": 19
+      },
+      "notice_pattern": 69,
+      "ask_back_pattern": 2,
+      "notice_judge": 68,
+      "asks_user_judge": 2,
+      "code_notice": 191,
+      "double_notice": 64,
+      "empty_answer": 120,
+      "status_match": 303,
+      "status_match_strict": 317,
+      "passed": 282,
+      "failure_causes_scored": {
+        "RETRIEVAL_MISS": 22,
+        "STATUS_MISMATCH": 52,
+        "QUERY_VARIANT_MISS": 6,
+        "ANSWER_INCORRECT": 18,
+        "EXEC_ERROR": 10
+      },
+      "judge_wrong_causes": {
+        "EXPECTED_ANSWER_DECLINED_EMPTY": 39,
+        "STATUS_OK_CONTENT_WRONG": 18,
+        "EXPECTED_ANSWER_DECLINED_WROTE": 6,
+        "SUB_COUNT_MISMATCH": 5,
+        "OTHER": 2,
+        "EXPECTED_DECLINE_ANSWERED": 12
+      },
+      "latency_avg_ms": 3728
+    },
+    "subp": {
+      "cases": 390,
+      "paths": {
+        "LLM": 347,
+        "CHAT-013": 38,
+        "LLM-005": 5
+      },
+      "exec_error": 5,
+      "judged": 347,
+      "correct": 274,
+      "correct_and_grounded": 265,
+      "hallucinated": 37,
+      "hallucination_claim_cases": {
+        "FABRICATION": 16,
+        "MISATTRIBUTION": 14,
+        "SILENT_CONFLICT_PICK": 1,
+        "UNSUPPORTED_GENERALIZATION": 14
+      },
+      "sub_outcomes": {
+        "CORRECT_ANSWER": 245,
+        "MISSING_ANSWER": 44,
+        "WRONG_ANSWER": 16,
+        "CORRECT_DECLINE": 176,
+        "UNSUPPORTED_ANSWER": 18
+      },
+      "notice_pattern": 85,
+      "ask_back_pattern": 2,
+      "notice_judge": 89,
+      "asks_user_judge": 3,
+      "code_notice": 200,
+      "double_notice": 79,
+      "empty_answer": 103,
+      "status_match": 300,
+      "status_match_strict": 314,
+      "passed": 278,
+      "failure_causes_scored": {
+        "RETRIEVAL_MISS": 21,
+        "STATUS_MISMATCH": 58,
+        "QUERY_VARIANT_MISS": 7,
+        "ANSWER_INCORRECT": 21,
+        "EXEC_ERROR": 5
+      },
+      "judge_wrong_causes": {
+        "EXPECTED_ANSWER_DECLINED_EMPTY": 29,
+        "SUB_COUNT_MISMATCH": 4,
+        "STATUS_OK_CONTENT_WRONG": 18,
+        "OTHER": 1,
+        "EXPECTED_ANSWER_DECLINED_WROTE": 7,
+        "EXPECTED_DECLINE_ANSWERED": 13,
+        "STATUSES_INVALID": 1
+      },
+      "latency_avg_ms": 3870
+    }
+  },
+  "by_type": {
+    "single": {
+      "SA": {
+        "cases": 50,
+        "paths": {
+          "LLM": 50
+        },
+        "exec_error": 0,
+        "judged": 50,
+        "correct": 50,
+        "correct_and_grounded": 49,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "FABRICATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 50
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 50,
+        "status_match_strict": 50,
+        "passed": 50,
+        "failure_causes_scored": {},
+        "judge_wrong_causes": {},
+        "latency_avg_ms": 3256
+      },
+      "SB": {
+        "cases": 50,
+        "paths": {
+          "LLM": 43,
+          "CHAT-013": 7
+        },
+        "exec_error": 0,
+        "judged": 43,
+        "correct": 41,
+        "correct_and_grounded": 41,
+        "hallucinated": 2,
+        "hallucination_claim_cases": {
+          "FABRICATION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 41,
+          "UNSUPPORTED_ANSWER": 2
+        },
+        "notice_pattern": 39,
+        "ask_back_pattern": 0,
+        "notice_judge": 42,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 33,
+        "status_match_strict": 33,
+        "passed": 32,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 17,
+          "ANSWER_INCORRECT": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 1,
+          "EXPECTED_DECLINE_ANSWERED": 1
+        },
+        "latency_avg_ms": 3133
+      },
+      "UD": {
+        "cases": 30,
+        "paths": {
+          "LLM": 28,
+          "CHAT-013": 2
+        },
+        "exec_error": 0,
+        "judged": 28,
+        "correct": 24,
+        "correct_and_grounded": 21,
+        "hallucinated": 4,
+        "hallucination_claim_cases": {
+          "FABRICATION": 3,
+          "UNSUPPORTED_GENERALIZATION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 8,
+          "CORRECT_DECLINE": 24,
+          "MISSING_ANSWER": 4
+        },
+        "notice_pattern": 25,
+        "ask_back_pattern": 0,
+        "notice_judge": 26,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 20,
+        "status_match_strict": 21,
+        "passed": 19,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 6,
+          "RETRIEVAL_MISS": 3,
+          "QUERY_VARIANT_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_WROTE": 3,
+          "STATUS_OK_CONTENT_WRONG": 1
+        },
+        "latency_avg_ms": 3649
+      },
+      "MA": {
+        "cases": 40,
+        "paths": {
+          "LLM": 39,
+          "CHAT-013": 1
+        },
+        "exec_error": 0,
+        "judged": 39,
+        "correct": 32,
+        "correct_and_grounded": 30,
+        "hallucinated": 6,
+        "hallucination_claim_cases": {
+          "SILENT_CONFLICT_PICK": 1,
+          "UNSUPPORTED_GENERALIZATION": 1,
+          "FABRICATION": 3,
+          "MISATTRIBUTION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 68,
+          "WRONG_ANSWER": 3,
+          "MISSING_ANSWER": 7
+        },
+        "notice_pattern": 6,
+        "ask_back_pattern": 0,
+        "notice_judge": 5,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 33,
+        "status_match_strict": 33,
+        "passed": 30,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 2,
+          "STATUS_MISMATCH": 3,
+          "RETRIEVAL_MISS": 4,
+          "QUERY_VARIANT_MISS": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 4,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 2,
+          "OTHER": 1
+        },
+        "latency_avg_ms": 5435
+      },
+      "MP": {
+        "cases": 60,
+        "paths": {
+          "LLM": 58,
+          "CHAT-013": 2
+        },
+        "exec_error": 0,
+        "judged": 58,
+        "correct": 42,
+        "correct_and_grounded": 39,
+        "hallucinated": 15,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 3,
+          "MISATTRIBUTION": 7,
+          "FABRICATION": 8
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 58,
+          "CORRECT_DECLINE": 47,
+          "UNSUPPORTED_ANSWER": 11,
+          "WRONG_ANSWER": 3,
+          "MISSING_ANSWER": 2
+        },
+        "notice_pattern": 52,
+        "ask_back_pattern": 0,
+        "notice_judge": 51,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 46,
+        "status_match_strict": 46,
+        "passed": 38,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 10,
+          "ANSWER_INCORRECT": 8,
+          "RETRIEVAL_MISS": 4
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 14,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 2
+        },
+        "latency_avg_ms": 5419
+      },
+      "MN": {
+        "cases": 20,
+        "paths": {
+          "LLM": 15,
+          "CHAT-013": 5
+        },
+        "exec_error": 0,
+        "judged": 15,
+        "correct": 12,
+        "correct_and_grounded": 12,
+        "hallucinated": 3,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 2,
+          "FABRICATION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 26,
+          "UNSUPPORTED_ANSWER": 4
+        },
+        "notice_pattern": 14,
+        "ask_back_pattern": 0,
+        "notice_judge": 14,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 10,
+        "status_match_strict": 10,
+        "passed": 10,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 10
+        },
+        "judge_wrong_causes": {
+          "OTHER": 2,
+          "EXPECTED_DECLINE_ANSWERED": 1
+        },
+        "latency_avg_ms": 4708
+      },
+      "OS": {
+        "cases": 30,
+        "paths": {
+          "CHAT-013": 15,
+          "LLM": 15
+        },
+        "exec_error": 0,
+        "judged": 15,
+        "correct": 14,
+        "correct_and_grounded": 14,
+        "hallucinated": 0,
+        "hallucination_claim_cases": {},
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 17,
+          "CORRECT_ANSWER": 12,
+          "UNSUPPORTED_ANSWER": 1
+        },
+        "notice_pattern": 12,
+        "ask_back_pattern": 0,
+        "notice_judge": 14,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 22,
+        "status_match_strict": 22,
+        "passed": 22,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 8
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 1
+        },
+        "latency_avg_ms": 3399
+      },
+      "IN": {
+        "cases": 20,
+        "paths": {
+          "LLM": 20
+        },
+        "exec_error": 0,
+        "judged": 20,
+        "correct": 4,
+        "correct_and_grounded": 4,
+        "hallucinated": 4,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 3,
+          "FABRICATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 4,
+          "MISSING_ANSWER": 8,
+          "WRONG_ANSWER": 8
+        },
+        "notice_pattern": 18,
+        "ask_back_pattern": 0,
+        "notice_judge": 18,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 2,
+        "status_match_strict": 9,
+        "passed": 1,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 15,
+          "RETRIEVAL_MISS": 3,
+          "ANSWER_INCORRECT": 1
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_WROTE": 8,
+          "STATUS_OK_CONTENT_WRONG": 4,
+          "SUB_COUNT_MISMATCH": 4
+        },
+        "latency_avg_ms": 4034
+      },
+      "CQ": {
+        "cases": 30,
+        "paths": {
+          "LLM": 29,
+          "CHAT-013": 1
+        },
+        "exec_error": 0,
+        "judged": 29,
+        "correct": 26,
+        "correct_and_grounded": 23,
+        "hallucinated": 4,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 2,
+          "FABRICATION": 1,
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 26,
+          "WRONG_ANSWER": 3
+        },
+        "notice_pattern": 5,
+        "ask_back_pattern": 0,
+        "notice_judge": 5,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 24,
+        "status_match_strict": 24,
+        "passed": 22,
+        "failure_causes_scored": {
+          "RETRIEVAL_MISS": 5,
+          "STATUS_MISMATCH": 3
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 3
+        },
+        "latency_avg_ms": 4070
+      },
+      "MT": {
+        "cases": 30,
+        "paths": {
+          "LLM": 25,
+          "CHAT-013": 4,
+          "CHAT-021": 1
+        },
+        "exec_error": 1,
+        "judged": 25,
+        "correct": 20,
+        "correct_and_grounded": 19,
+        "hallucinated": 2,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 1,
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 12,
+          "WRONG_ANSWER": 4,
+          "CORRECT_DECLINE": 11,
+          "MISSING_ANSWER": 1
+        },
+        "notice_pattern": 11,
+        "ask_back_pattern": 0,
+        "notice_judge": 11,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 22,
+        "status_match_strict": 22,
+        "passed": 19,
+        "failure_causes_scored": {
+          "RETRIEVAL_MISS": 4,
+          "STATUS_MISMATCH": 3,
+          "QUERY_VARIANT_MISS": 1,
+          "EXEC_ERROR": 1,
+          "ANSWER_INCORRECT": 2
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 4,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 1
+        },
+        "latency_avg_ms": 3597
+      },
+      "ST": {
+        "cases": 30,
+        "paths": {
+          "LLM": 30
+        },
+        "exec_error": 0,
+        "judged": 30,
+        "correct": 20,
+        "correct_and_grounded": 19,
+        "hallucinated": 3,
+        "hallucination_claim_cases": {
+          "FABRICATION": 3
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 18,
+          "WRONG_ANSWER": 5,
+          "MISSING_ANSWER": 6,
+          "CORRECT_DECLINE": 9
+        },
+        "notice_pattern": 10,
+        "ask_back_pattern": 5,
+        "notice_judge": 16,
+        "asks_user_judge": 6,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 12,
+        "status_match_strict": 12,
+        "passed": 10,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 2,
+          "STATUS_MISMATCH": 16,
+          "QUERY_VARIANT_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 10
+        },
+        "latency_avg_ms": 4053
+      }
+    },
+    "sub": {
+      "SA": {
+        "cases": 50,
+        "paths": {
+          "LLM": 50
+        },
+        "exec_error": 0,
+        "judged": 50,
+        "correct": 50,
+        "correct_and_grounded": 49,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 50
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 50,
+        "status_match_strict": 50,
+        "passed": 50,
+        "failure_causes_scored": {},
+        "judge_wrong_causes": {},
+        "latency_avg_ms": 3137
+      },
+      "SB": {
+        "cases": 50,
+        "paths": {
+          "LLM": 43,
+          "CHAT-013": 7
+        },
+        "exec_error": 0,
+        "judged": 43,
+        "correct": 42,
+        "correct_and_grounded": 42,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 42,
+          "UNSUPPORTED_ANSWER": 1
+        },
+        "notice_pattern": 2,
+        "ask_back_pattern": 0,
+        "notice_judge": 2,
+        "asks_user_judge": 0,
+        "code_notice": 43,
+        "double_notice": 2,
+        "empty_answer": 41,
+        "status_match": 50,
+        "status_match_strict": 50,
+        "passed": 49,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 1
+        },
+        "latency_avg_ms": 2466
+      },
+      "UD": {
+        "cases": 30,
+        "paths": {
+          "LLM": 28,
+          "CHAT-013": 2
+        },
+        "exec_error": 0,
+        "judged": 28,
+        "correct": 20,
+        "correct_and_grounded": 20,
+        "hallucinated": 0,
+        "hallucination_claim_cases": {},
+        "sub_outcomes": {
+          "MISSING_ANSWER": 7,
+          "WRONG_ANSWER": 1,
+          "CORRECT_ANSWER": 4,
+          "CORRECT_DECLINE": 24
+        },
+        "notice_pattern": 3,
+        "ask_back_pattern": 0,
+        "notice_judge": 3,
+        "asks_user_judge": 0,
+        "code_notice": 26,
+        "double_notice": 3,
+        "empty_answer": 23,
+        "status_match": 21,
+        "status_match_strict": 22,
+        "passed": 20,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 5,
+          "ANSWER_INCORRECT": 1,
+          "RETRIEVAL_MISS": 2,
+          "QUERY_VARIANT_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 7,
+          "STATUS_OK_CONTENT_WRONG": 1
+        },
+        "latency_avg_ms": 2837
+      },
+      "MA": {
+        "cases": 40,
+        "paths": {
+          "LLM": 39,
+          "CHAT-013": 1
+        },
+        "exec_error": 0,
+        "judged": 39,
+        "correct": 32,
+        "correct_and_grounded": 31,
+        "hallucinated": 4,
+        "hallucination_claim_cases": {
+          "SILENT_CONFLICT_PICK": 2,
+          "FABRICATION": 1,
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 68,
+          "WRONG_ANSWER": 3,
+          "MISSING_ANSWER": 7
+        },
+        "notice_pattern": 4,
+        "ask_back_pattern": 0,
+        "notice_judge": 2,
+        "asks_user_judge": 1,
+        "code_notice": 4,
+        "double_notice": 2,
+        "empty_answer": 1,
+        "status_match": 34,
+        "status_match_strict": 34,
+        "passed": 31,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 2,
+          "STATUS_MISMATCH": 2,
+          "RETRIEVAL_MISS": 4,
+          "QUERY_VARIANT_MISS": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 2,
+          "SUB_COUNT_MISMATCH": 1,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 1,
+          "OTHER": 1,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 2
+        },
+        "latency_avg_ms": 5426
+      },
+      "MP": {
+        "cases": 60,
+        "paths": {
+          "LLM": 58,
+          "CHAT-013": 2
+        },
+        "exec_error": 0,
+        "judged": 58,
+        "correct": 36,
+        "correct_and_grounded": 35,
+        "hallucinated": 17,
+        "hallucination_claim_cases": {
+          "FABRICATION": 8,
+          "MISATTRIBUTION": 6,
+          "UNSUPPORTED_GENERALIZATION": 3
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 53,
+          "CORRECT_DECLINE": 46,
+          "MISSING_ANSWER": 7,
+          "UNSUPPORTED_ANSWER": 12,
+          "WRONG_ANSWER": 3
+        },
+        "notice_pattern": 41,
+        "ask_back_pattern": 0,
+        "notice_judge": 41,
+        "asks_user_judge": 0,
+        "code_notice": 48,
+        "double_notice": 39,
+        "empty_answer": 6,
+        "status_match": 41,
+        "status_match_strict": 41,
+        "passed": 35,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 15,
+          "ANSWER_INCORRECT": 6,
+          "RETRIEVAL_MISS": 4
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 6,
+          "STATUS_OK_CONTENT_WRONG": 6,
+          "EXPECTED_DECLINE_ANSWERED": 8,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 1,
+          "OTHER": 1
+        },
+        "latency_avg_ms": 5035
+      },
+      "MN": {
+        "cases": 20,
+        "paths": {
+          "LLM": 15,
+          "CHAT-013": 5
+        },
+        "exec_error": 0,
+        "judged": 15,
+        "correct": 11,
+        "correct_and_grounded": 11,
+        "hallucinated": 4,
+        "hallucination_claim_cases": {
+          "FABRICATION": 3,
+          "UNSUPPORTED_GENERALIZATION": 1,
+          "MISATTRIBUTION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 25,
+          "UNSUPPORTED_ANSWER": 5
+        },
+        "notice_pattern": 3,
+        "ask_back_pattern": 1,
+        "notice_judge": 3,
+        "asks_user_judge": 0,
+        "code_notice": 14,
+        "double_notice": 3,
+        "empty_answer": 10,
+        "status_match": 16,
+        "status_match_strict": 16,
+        "passed": 15,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 4,
+          "ANSWER_INCORRECT": 1
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_DECLINE_ANSWERED": 3,
+          "STATUS_OK_CONTENT_WRONG": 1
+        },
+        "latency_avg_ms": 4026
+      },
+      "OS": {
+        "cases": 30,
+        "paths": {
+          "CHAT-013": 15,
+          "LLM": 15
+        },
+        "exec_error": 0,
+        "judged": 15,
+        "correct": 10,
+        "correct_and_grounded": 10,
+        "hallucinated": 0,
+        "hallucination_claim_cases": {},
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 17,
+          "MISSING_ANSWER": 4,
+          "CORRECT_ANSWER": 8,
+          "UNSUPPORTED_ANSWER": 1
+        },
+        "notice_pattern": 6,
+        "ask_back_pattern": 0,
+        "notice_judge": 7,
+        "asks_user_judge": 0,
+        "code_notice": 14,
+        "double_notice": 6,
+        "empty_answer": 7,
+        "status_match": 26,
+        "status_match_strict": 26,
+        "passed": 25,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 1,
+          "STATUS_MISMATCH": 4
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 1,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 2,
+          "SUB_COUNT_MISMATCH": 1,
+          "EXPECTED_DECLINE_ANSWERED": 1
+        },
+        "latency_avg_ms": 3196
+      },
+      "IN": {
+        "cases": 20,
+        "paths": {
+          "LLM": 19,
+          "CHAT-013": 1
+        },
+        "exec_error": 0,
+        "judged": 19,
+        "correct": 1,
+        "correct_and_grounded": 1,
+        "hallucinated": 2,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 2
+        },
+        "sub_outcomes": {
+          "MISSING_ANSWER": 15,
+          "CORRECT_ANSWER": 1,
+          "WRONG_ANSWER": 3
+        },
+        "notice_pattern": 1,
+        "ask_back_pattern": 0,
+        "notice_judge": 1,
+        "asks_user_judge": 0,
+        "code_notice": 16,
+        "double_notice": 1,
+        "empty_answer": 15,
+        "status_match": 3,
+        "status_match_strict": 17,
+        "passed": 1,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 13,
+          "RETRIEVAL_MISS": 4,
+          "ANSWER_INCORRECT": 2
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 14,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 1,
+          "SUB_COUNT_MISMATCH": 3
+        },
+        "latency_avg_ms": 3357
+      },
+      "CQ": {
+        "cases": 30,
+        "paths": {
+          "LLM": 28,
+          "CHAT-013": 2
+        },
+        "exec_error": 0,
+        "judged": 28,
+        "correct": 21,
+        "correct_and_grounded": 21,
+        "hallucinated": 0,
+        "hallucination_claim_cases": {},
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 21,
+          "MISSING_ANSWER": 6,
+          "WRONG_ANSWER": 1
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 6,
+        "double_notice": 0,
+        "empty_answer": 6,
+        "status_match": 21,
+        "status_match_strict": 21,
+        "passed": 20,
+        "failure_causes_scored": {
+          "RETRIEVAL_MISS": 5,
+          "STATUS_MISMATCH": 4,
+          "QUERY_VARIANT_MISS": 1
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 6,
+          "STATUS_OK_CONTENT_WRONG": 1
+        },
+        "latency_avg_ms": 3414
+      },
+      "MT": {
+        "cases": 30,
+        "paths": {
+          "LLM": 26,
+          "CHAT-013": 3,
+          "LLM-005": 1
+        },
+        "exec_error": 1,
+        "judged": 26,
+        "correct": 22,
+        "correct_and_grounded": 22,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 16,
+          "WRONG_ANSWER": 2,
+          "MISSING_ANSWER": 2,
+          "CORRECT_DECLINE": 10
+        },
+        "notice_pattern": 5,
+        "ask_back_pattern": 0,
+        "notice_judge": 5,
+        "asks_user_judge": 0,
+        "code_notice": 10,
+        "double_notice": 5,
+        "empty_answer": 5,
+        "status_match": 25,
+        "status_match_strict": 25,
+        "passed": 23,
+        "failure_causes_scored": {
+          "RETRIEVAL_MISS": 3,
+          "STATUS_MISMATCH": 2,
+          "ANSWER_INCORRECT": 1,
+          "EXEC_ERROR": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 2,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 2
+        },
+        "latency_avg_ms": 3799
+      },
+      "ST": {
+        "cases": 30,
+        "paths": {
+          "LLM": 21,
+          "LLM-005": 9
+        },
+        "exec_error": 9,
+        "judged": 21,
+        "correct": 15,
+        "correct_and_grounded": 15,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "FABRICATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 13,
+          "MISSING_ANSWER": 5,
+          "WRONG_ANSWER": 2,
+          "CORRECT_DECLINE": 9
+        },
+        "notice_pattern": 4,
+        "ask_back_pattern": 1,
+        "notice_judge": 4,
+        "asks_user_judge": 1,
+        "code_notice": 10,
+        "double_notice": 3,
+        "empty_answer": 6,
+        "status_match": 16,
+        "status_match_strict": 15,
+        "passed": 13,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 3,
+          "EXEC_ERROR": 9,
+          "STATUS_MISMATCH": 3,
+          "QUERY_VARIANT_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 3,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 1,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 2
+        },
+        "latency_avg_ms": 3647
+      }
+    },
+    "subp": {
+      "SA": {
+        "cases": 50,
+        "paths": {
+          "LLM": 50
+        },
+        "exec_error": 0,
+        "judged": 50,
+        "correct": 50,
+        "correct_and_grounded": 49,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "FABRICATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 50
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 0,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 50,
+        "status_match_strict": 50,
+        "passed": 50,
+        "failure_causes_scored": {},
+        "judge_wrong_causes": {},
+        "latency_avg_ms": 3135
+      },
+      "SB": {
+        "cases": 50,
+        "paths": {
+          "LLM": 43,
+          "CHAT-013": 7
+        },
+        "exec_error": 0,
+        "judged": 43,
+        "correct": 42,
+        "correct_and_grounded": 42,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 1,
+          "FABRICATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 42,
+          "UNSUPPORTED_ANSWER": 1
+        },
+        "notice_pattern": 3,
+        "ask_back_pattern": 0,
+        "notice_judge": 4,
+        "asks_user_judge": 0,
+        "code_notice": 43,
+        "double_notice": 3,
+        "empty_answer": 39,
+        "status_match": 46,
+        "status_match_strict": 46,
+        "passed": 46,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 4
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_DECLINE_ANSWERED": 1
+        },
+        "latency_avg_ms": 2377
+      },
+      "UD": {
+        "cases": 30,
+        "paths": {
+          "LLM": 28,
+          "CHAT-013": 2
+        },
+        "exec_error": 0,
+        "judged": 28,
+        "correct": 20,
+        "correct_and_grounded": 20,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "MISSING_ANSWER": 6,
+          "WRONG_ANSWER": 2,
+          "CORRECT_ANSWER": 4,
+          "CORRECT_DECLINE": 24
+        },
+        "notice_pattern": 4,
+        "ask_back_pattern": 0,
+        "notice_judge": 4,
+        "asks_user_judge": 0,
+        "code_notice": 26,
+        "double_notice": 4,
+        "empty_answer": 22,
+        "status_match": 21,
+        "status_match_strict": 22,
+        "passed": 20,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 5,
+          "ANSWER_INCORRECT": 1,
+          "RETRIEVAL_MISS": 2,
+          "QUERY_VARIANT_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 6,
+          "STATUS_OK_CONTENT_WRONG": 1,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 1
+        },
+        "latency_avg_ms": 2994
+      },
+      "MA": {
+        "cases": 40,
+        "paths": {
+          "LLM": 39,
+          "CHAT-013": 1
+        },
+        "exec_error": 0,
+        "judged": 39,
+        "correct": 30,
+        "correct_and_grounded": 29,
+        "hallucinated": 5,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 2,
+          "SILENT_CONFLICT_PICK": 1,
+          "UNSUPPORTED_GENERALIZATION": 2,
+          "FABRICATION": 2
+        },
+        "sub_outcomes": {
+          "WRONG_ANSWER": 6,
+          "CORRECT_ANSWER": 65,
+          "MISSING_ANSWER": 7
+        },
+        "notice_pattern": 6,
+        "ask_back_pattern": 1,
+        "notice_judge": 4,
+        "asks_user_judge": 1,
+        "code_notice": 5,
+        "double_notice": 4,
+        "empty_answer": 1,
+        "status_match": 33,
+        "status_match_strict": 33,
+        "passed": 30,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 3,
+          "STATUS_MISMATCH": 2,
+          "RETRIEVAL_MISS": 4,
+          "QUERY_VARIANT_MISS": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 3,
+          "SUB_COUNT_MISMATCH": 1,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 1,
+          "OTHER": 1,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 3
+        },
+        "latency_avg_ms": 5280
+      },
+      "MP": {
+        "cases": 60,
+        "paths": {
+          "LLM": 58,
+          "CHAT-013": 2
+        },
+        "exec_error": 0,
+        "judged": 58,
+        "correct": 39,
+        "correct_and_grounded": 37,
+        "hallucinated": 16,
+        "hallucination_claim_cases": {
+          "FABRICATION": 6,
+          "MISATTRIBUTION": 7,
+          "UNSUPPORTED_GENERALIZATION": 6
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 55,
+          "CORRECT_DECLINE": 47,
+          "MISSING_ANSWER": 5,
+          "UNSUPPORTED_ANSWER": 11,
+          "WRONG_ANSWER": 3
+        },
+        "notice_pattern": 42,
+        "ask_back_pattern": 0,
+        "notice_judge": 44,
+        "asks_user_judge": 0,
+        "code_notice": 51,
+        "double_notice": 40,
+        "empty_answer": 4,
+        "status_match": 44,
+        "status_match_strict": 44,
+        "passed": 35,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 12,
+          "ANSWER_INCORRECT": 9,
+          "RETRIEVAL_MISS": 4
+        },
+        "judge_wrong_causes": {
+          "SUB_COUNT_MISMATCH": 1,
+          "EXPECTED_DECLINE_ANSWERED": 8,
+          "STATUS_OK_CONTENT_WRONG": 6,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 3,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 1
+        },
+        "latency_avg_ms": 5369
+      },
+      "MN": {
+        "cases": 20,
+        "paths": {
+          "LLM": 15,
+          "CHAT-013": 5
+        },
+        "exec_error": 0,
+        "judged": 15,
+        "correct": 12,
+        "correct_and_grounded": 11,
+        "hallucinated": 4,
+        "hallucination_claim_cases": {
+          "FABRICATION": 2,
+          "UNSUPPORTED_GENERALIZATION": 2,
+          "MISATTRIBUTION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 26,
+          "UNSUPPORTED_ANSWER": 4
+        },
+        "notice_pattern": 4,
+        "ask_back_pattern": 0,
+        "notice_judge": 5,
+        "asks_user_judge": 0,
+        "code_notice": 15,
+        "double_notice": 4,
+        "empty_answer": 7,
+        "status_match": 13,
+        "status_match_strict": 13,
+        "passed": 13,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 7
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_DECLINE_ANSWERED": 3
+        },
+        "latency_avg_ms": 4639
+      },
+      "OS": {
+        "cases": 30,
+        "paths": {
+          "CHAT-013": 15,
+          "LLM": 15
+        },
+        "exec_error": 0,
+        "judged": 15,
+        "correct": 11,
+        "correct_and_grounded": 11,
+        "hallucinated": 0,
+        "hallucination_claim_cases": {},
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 17,
+          "CORRECT_ANSWER": 9,
+          "MISSING_ANSWER": 3,
+          "UNSUPPORTED_ANSWER": 1
+        },
+        "notice_pattern": 7,
+        "ask_back_pattern": 0,
+        "notice_judge": 8,
+        "asks_user_judge": 0,
+        "code_notice": 15,
+        "double_notice": 7,
+        "empty_answer": 6,
+        "status_match": 29,
+        "status_match_strict": 29,
+        "passed": 26,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 3,
+          "STATUS_MISMATCH": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 2,
+          "SUB_COUNT_MISMATCH": 1,
+          "EXPECTED_DECLINE_ANSWERED": 1
+        },
+        "latency_avg_ms": 3651
+      },
+      "IN": {
+        "cases": 20,
+        "paths": {
+          "LLM": 18,
+          "CHAT-013": 1,
+          "LLM-005": 1
+        },
+        "exec_error": 1,
+        "judged": 18,
+        "correct": 3,
+        "correct_and_grounded": 3,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "FABRICATION": 1
+        },
+        "sub_outcomes": {
+          "MISSING_ANSWER": 14,
+          "CORRECT_ANSWER": 3,
+          "WRONG_ANSWER": 1
+        },
+        "notice_pattern": 2,
+        "ask_back_pattern": 0,
+        "notice_judge": 2,
+        "asks_user_judge": 0,
+        "code_notice": 16,
+        "double_notice": 2,
+        "empty_answer": 14,
+        "status_match": 2,
+        "status_match_strict": 15,
+        "passed": 1,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 13,
+          "RETRIEVAL_MISS": 4,
+          "ANSWER_INCORRECT": 1,
+          "EXEC_ERROR": 1
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 14,
+          "SUB_COUNT_MISMATCH": 1
+        },
+        "latency_avg_ms": 2895
+      },
+      "CQ": {
+        "cases": 30,
+        "paths": {
+          "LLM": 28,
+          "CHAT-013": 2
+        },
+        "exec_error": 0,
+        "judged": 28,
+        "correct": 24,
+        "correct_and_grounded": 24,
+        "hallucinated": 0,
+        "hallucination_claim_cases": {},
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 24,
+          "MISSING_ANSWER": 4
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 5,
+        "double_notice": 0,
+        "empty_answer": 4,
+        "status_match": 23,
+        "status_match_strict": 23,
+        "passed": 23,
+        "failure_causes_scored": {
+          "RETRIEVAL_MISS": 4,
+          "STATUS_MISMATCH": 2,
+          "QUERY_VARIANT_MISS": 1
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 4
+        },
+        "latency_avg_ms": 3667
+      },
+      "MT": {
+        "cases": 30,
+        "paths": {
+          "LLM": 27,
+          "CHAT-013": 3
+        },
+        "exec_error": 0,
+        "judged": 27,
+        "correct": 23,
+        "correct_and_grounded": 20,
+        "hallucinated": 5,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 1,
+          "UNSUPPORTED_GENERALIZATION": 2,
+          "FABRICATION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 16,
+          "WRONG_ANSWER": 2,
+          "MISSING_ANSWER": 1,
+          "CORRECT_DECLINE": 11,
+          "UNSUPPORTED_ANSWER": 1
+        },
+        "notice_pattern": 11,
+        "ask_back_pattern": 0,
+        "notice_judge": 11,
+        "asks_user_judge": 0,
+        "code_notice": 14,
+        "double_notice": 11,
+        "empty_answer": 2,
+        "status_match": 24,
+        "status_match_strict": 24,
+        "passed": 21,
+        "failure_causes_scored": {
+          "RETRIEVAL_MISS": 3,
+          "STATUS_MISMATCH": 3,
+          "QUERY_VARIANT_MISS": 1,
+          "ANSWER_INCORRECT": 2
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 3,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 1
+        },
+        "latency_avg_ms": 3752
+      },
+      "ST": {
+        "cases": 30,
+        "paths": {
+          "LLM": 26,
+          "LLM-005": 4
+        },
+        "exec_error": 4,
+        "judged": 26,
+        "correct": 20,
+        "correct_and_grounded": 19,
+        "hallucinated": 3,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 2,
+          "FABRICATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 19,
+          "MISSING_ANSWER": 4,
+          "CORRECT_DECLINE": 9,
+          "WRONG_ANSWER": 2
+        },
+        "notice_pattern": 6,
+        "ask_back_pattern": 1,
+        "notice_judge": 7,
+        "asks_user_judge": 2,
+        "code_notice": 10,
+        "double_notice": 4,
+        "empty_answer": 4,
+        "status_match": 15,
+        "status_match_strict": 15,
+        "passed": 13,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 2,
+          "EXEC_ERROR": 4,
+          "STATUS_MISMATCH": 9,
+          "QUERY_VARIANT_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 3,
+          "STATUSES_INVALID": 1,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 2
+        },
+        "latency_avg_ms": 4257
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "a": "single",
+      "b": "sub",
+      "metrics": {
+        "correct": {
+          "n": 339,
+          "a": 278,
+          "b": 257,
+          "gained": [
+            "IN-007",
+            "MA-007",
+            "MN-005",
+            "MP-018",
+            "MP-025",
+            "MT-019",
+            "SB-025",
+            "SB-034"
+          ],
+          "lost": [
+            "CQ-005",
+            "CQ-012",
+            "CQ-022",
+            "CQ-029",
+            "IN-001",
+            "IN-002",
+            "IN-003",
+            "IN-009",
+            "MA-003",
+            "MN-003",
+            "MN-015",
+            "MP-002",
+            "MP-009",
+            "MP-010",
+            "MP-017",
+            "MP-019",
+            "MP-035",
+            "MP-044",
+            "MP-045",
+            "OS-016",
+            "OS-022",
+            "OS-023",
+            "OS-026",
+            "SB-035",
+            "ST-006",
+            "UD-001",
+            "UD-002",
+            "UD-004",
+            "UD-026"
+          ],
+          "p": 0.0007528970600105822
+        },
+        "grounded": {
+          "n": 339,
+          "a": 295,
+          "b": 308,
+          "gained": [
+            "CQ-010",
+            "CQ-012",
+            "CQ-018",
+            "CQ-020",
+            "IN-007",
+            "IN-013",
+            "MA-007",
+            "MA-011",
+            "MA-017",
+            "MN-005",
+            "MP-018",
+            "MP-025",
+            "MP-026",
+            "MP-058",
+            "MT-006",
+            "MT-012",
+            "SB-025",
+            "SB-034",
+            "ST-027",
+            "ST-030",
+            "UD-002",
+            "UD-013",
+            "UD-018",
+            "UD-024"
+          ],
+          "lost": [
+            "MA-015",
+            "MN-003",
+            "MN-015",
+            "MP-017",
+            "MP-031",
+            "MP-035",
+            "MP-037",
+            "MP-044",
+            "MP-045",
+            "MT-003",
+            "SB-035"
+          ],
+          "p": 0.04095959151163697
+        },
+        "correct_and_grounded": {
+          "n": 339,
+          "a": 264,
+          "b": 254,
+          "gained": [
+            "CQ-018",
+            "CQ-020",
+            "IN-007",
+            "MA-007",
+            "MA-011",
+            "MA-017",
+            "MN-005",
+            "MP-018",
+            "MP-025",
+            "MP-026",
+            "MT-012",
+            "MT-019",
+            "SB-025",
+            "SB-034",
+            "ST-027",
+            "UD-013",
+            "UD-018"
+          ],
+          "lost": [
+            "CQ-005",
+            "CQ-022",
+            "CQ-029",
+            "IN-001",
+            "IN-002",
+            "IN-003",
+            "IN-009",
+            "MA-003",
+            "MA-015",
+            "MN-003",
+            "MN-015",
+            "MP-002",
+            "MP-009",
+            "MP-017",
+            "MP-019",
+            "MP-035",
+            "MP-044",
+            "MP-045",
+            "OS-016",
+            "OS-022",
+            "OS-023",
+            "OS-026",
+            "SB-035",
+            "ST-006",
+            "UD-001",
+            "UD-004",
+            "UD-026"
+          ],
+          "p": 0.17417114727072658
+        },
+        "notice_free_judge": {
+          "n": 339,
+          "a": 145,
+          "b": 272,
+          "gained": [
+            "CQ-007",
+            "CQ-008",
+            "CQ-010",
+            "CQ-022",
+            "CQ-029",
+            "IN-002",
+            "IN-003",
+            "IN-004",
+            "IN-005",
+            "IN-006",
+            "IN-007",
+            "IN-009",
+            "IN-010",
+            "IN-011",
+            "IN-013",
+            "IN-014",
+            "IN-015",
+            "IN-017",
+            "IN-018",
+            "IN-019",
+            "IN-020",
+            "MA-011",
+            "MA-016",
+            "MA-018",
+            "MN-001",
+            "MN-002",
+            "MN-003",
+            "MN-005",
+            "MN-006",
+            "MN-008",
+            "MN-010",
+            "MN-011",
+            "MN-013",
+            "MN-016",
+            "MN-019",
+            "MP-002",
+            "MP-009",
+            "MP-017",
+            "MP-019",
+            "MP-022",
+            "MP-033",
+            "MP-035",
+            "MP-043",
+            "MP-044",
+            "MP-045",
+            "MP-049",
+            "MT-006",
+            "MT-010",
+            "MT-014",
+            "MT-018",
+            "MT-029",
+            "OS-016",
+            "OS-022",
+            "OS-023",
+            "OS-026",
+            "OS-028",
+            "OS-029",
+            "OS-030",
+            "SB-001",
+            "SB-002",
+            "SB-003",
+            "SB-004",
+            "SB-005",
+            "SB-006",
+            "SB-007",
+            "SB-008",
+            "SB-009",
+            "SB-011",
+            "SB-012",
+            "SB-013",
+            "SB-014",
+            "SB-015",
+            "SB-017",
+            "SB-018",
+            "SB-019",
+            "SB-020",
+            "SB-021",
+            "SB-022",
+            "SB-023",
+            "SB-025",
+            "SB-026",
+            "SB-027",
+            "SB-028",
+            "SB-029",
+            "SB-030",
+            "SB-031",
+            "SB-032",
+            "SB-037",
+            "SB-038",
+            "SB-040",
+            "SB-041",
+            "SB-042",
+            "SB-045",
+            "SB-046",
+            "SB-047",
+            "SB-048",
+            "SB-049",
+            "SB-050",
+            "ST-013",
+            "ST-014",
+            "ST-015",
+            "ST-016",
+            "ST-022",
+            "ST-027",
+            "ST-028",
+            "UD-001",
+            "UD-002",
+            "UD-007",
+            "UD-008",
+            "UD-009",
+            "UD-010",
+            "UD-011",
+            "UD-012",
+            "UD-013",
+            "UD-014",
+            "UD-015",
+            "UD-016",
+            "UD-017",
+            "UD-018",
+            "UD-019",
+            "UD-020",
+            "UD-021",
+            "UD-022",
+            "UD-023",
+            "UD-024",
+            "UD-025",
+            "UD-026",
+            "UD-029"
+          ],
+          "lost": [
+            "MP-029"
+          ],
+          "p": 3.820356640172434e-37
+        },
+        "status_match": {
+          "n": 390,
+          "a": 274,
+          "b": 303,
+          "gained": [
+            "CQ-008",
+            "IN-007",
+            "IN-015",
+            "MA-011",
+            "MN-001",
+            "MN-005",
+            "MN-008",
+            "MN-015",
+            "MN-016",
+            "MN-019",
+            "MP-010",
+            "MP-023",
+            "MP-051",
+            "MP-057",
+            "MT-008",
+            "MT-010",
+            "MT-017",
+            "MT-027",
+            "OS-018",
+            "OS-019",
+            "OS-020",
+            "OS-021",
+            "OS-028",
+            "OS-030",
+            "SB-001",
+            "SB-003",
+            "SB-004",
+            "SB-006",
+            "SB-007",
+            "SB-008",
+            "SB-011",
+            "SB-013",
+            "SB-014",
+            "SB-015",
+            "SB-030",
+            "SB-031",
+            "SB-034",
+            "SB-036",
+            "SB-041",
+            "SB-046",
+            "SB-049",
+            "ST-005",
+            "ST-007",
+            "ST-013",
+            "ST-014",
+            "ST-021",
+            "ST-027",
+            "UD-010",
+            "UD-013",
+            "UD-015",
+            "UD-028"
+          ],
+          "lost": [
+            "CQ-005",
+            "CQ-009",
+            "CQ-012",
+            "CQ-026",
+            "IN-001",
+            "MP-002",
+            "MP-009",
+            "MP-015",
+            "MP-017",
+            "MP-019",
+            "MP-022",
+            "MP-033",
+            "MP-043",
+            "MP-058",
+            "MT-028",
+            "OS-023",
+            "OS-026",
+            "ST-016",
+            "ST-030",
+            "UD-004",
+            "UD-025",
+            "UD-026"
+          ],
+          "p": 0.0009142745821630898
+        },
+        "passed": {
+          "n": 390,
+          "a": 253,
+          "b": 282,
+          "gained": [
+            "CQ-008",
+            "IN-007",
+            "MA-007",
+            "MA-011",
+            "MN-001",
+            "MN-005",
+            "MN-008",
+            "MN-016",
+            "MN-019",
+            "MP-018",
+            "MP-025",
+            "MP-051",
+            "MP-057",
+            "MT-008",
+            "MT-010",
+            "MT-017",
+            "MT-019",
+            "MT-027",
+            "OS-018",
+            "OS-019",
+            "OS-020",
+            "OS-021",
+            "OS-028",
+            "OS-030",
+            "SB-001",
+            "SB-003",
+            "SB-004",
+            "SB-006",
+            "SB-007",
+            "SB-008",
+            "SB-011",
+            "SB-013",
+            "SB-014",
+            "SB-015",
+            "SB-025",
+            "SB-030",
+            "SB-031",
+            "SB-034",
+            "SB-036",
+            "SB-041",
+            "SB-046",
+            "SB-049",
+            "ST-005",
+            "ST-007",
+            "ST-013",
+            "ST-014",
+            "ST-027",
+            "UD-010",
+            "UD-013",
+            "UD-015",
+            "UD-028"
+          ],
+          "lost": [
+            "CQ-005",
+            "CQ-009",
+            "CQ-012",
+            "IN-001",
+            "MA-003",
+            "MP-002",
+            "MP-009",
+            "MP-015",
+            "MP-017",
+            "MP-019",
+            "MP-035",
+            "MP-045",
+            "MT-028",
+            "OS-016",
+            "OS-023",
+            "OS-026",
+            "SB-035",
+            "ST-006",
+            "ST-016",
+            "UD-002",
+            "UD-004",
+            "UD-026"
+          ],
+          "p": 0.0009142745821630898
+        }
+      }
+    },
+    {
+      "a": "single",
+      "b": "subp",
+      "metrics": {
+        "correct": {
+          "n": 345,
+          "a": 282,
+          "b": 272,
+          "gained": [
+            "IN-008",
+            "IN-020",
+            "MA-007",
+            "MN-005",
+            "MP-025",
+            "MP-058",
+            "MT-019",
+            "SB-025",
+            "SB-034",
+            "ST-009",
+            "ST-011"
+          ],
+          "lost": [
+            "CQ-022",
+            "IN-001",
+            "IN-002",
+            "IN-009",
+            "MA-003",
+            "MA-016",
+            "MA-024",
+            "MN-003",
+            "MP-009",
+            "MP-017",
+            "MP-019",
+            "MP-035",
+            "MP-044",
+            "OS-019",
+            "OS-023",
+            "OS-026",
+            "SB-035",
+            "UD-001",
+            "UD-002",
+            "UD-004",
+            "UD-026"
+          ],
+          "p": 0.11018416518345475
+        },
+        "grounded": {
+          "n": 345,
+          "a": 301,
+          "b": 308,
+          "gained": [
+            "CQ-010",
+            "CQ-012",
+            "CQ-018",
+            "CQ-020",
+            "IN-007",
+            "IN-013",
+            "IN-016",
+            "MA-007",
+            "MA-011",
+            "MA-017",
+            "MN-005",
+            "MP-025",
+            "MP-026",
+            "MP-058",
+            "MT-006",
+            "MT-012",
+            "SB-025",
+            "SB-034",
+            "ST-027",
+            "ST-030",
+            "UD-002",
+            "UD-013",
+            "UD-018",
+            "UD-024"
+          ],
+          "lost": [
+            "MA-006",
+            "MA-016",
+            "MN-003",
+            "MN-008",
+            "MP-017",
+            "MP-035",
+            "MP-037",
+            "MP-044",
+            "MT-003",
+            "MT-009",
+            "MT-021",
+            "MT-023",
+            "MT-029",
+            "SB-035",
+            "ST-016",
+            "ST-029",
+            "UD-026"
+          ],
+          "p": 0.34888887944907765
+        },
+        "correct_and_grounded": {
+          "n": 345,
+          "a": 268,
+          "b": 263,
+          "gained": [
+            "CQ-012",
+            "CQ-018",
+            "CQ-020",
+            "IN-008",
+            "IN-020",
+            "MA-007",
+            "MA-011",
+            "MA-017",
+            "MN-005",
+            "MP-025",
+            "MP-026",
+            "MP-058",
+            "MT-012",
+            "MT-019",
+            "SB-025",
+            "SB-034",
+            "ST-009",
+            "ST-011",
+            "ST-027",
+            "UD-013",
+            "UD-018"
+          ],
+          "lost": [
+            "CQ-022",
+            "IN-001",
+            "IN-002",
+            "IN-009",
+            "MA-003",
+            "MA-006",
+            "MA-016",
+            "MA-024",
+            "MN-003",
+            "MN-008",
+            "MP-009",
+            "MP-017",
+            "MP-019",
+            "MP-035",
+            "MP-044",
+            "MT-009",
+            "MT-021",
+            "MT-023",
+            "OS-019",
+            "OS-023",
+            "OS-026",
+            "SB-035",
+            "ST-016",
+            "UD-001",
+            "UD-004",
+            "UD-026"
+          ],
+          "p": 0.5600646295802107
+        },
+        "notice_free_judge": {
+          "n": 345,
+          "a": 147,
+          "b": 257,
+          "gained": [
+            "CQ-007",
+            "CQ-008",
+            "CQ-010",
+            "CQ-022",
+            "CQ-029",
+            "IN-002",
+            "IN-003",
+            "IN-004",
+            "IN-005",
+            "IN-006",
+            "IN-007",
+            "IN-009",
+            "IN-010",
+            "IN-011",
+            "IN-013",
+            "IN-014",
+            "IN-015",
+            "IN-017",
+            "IN-019",
+            "MA-011",
+            "MA-018",
+            "MN-001",
+            "MN-002",
+            "MN-003",
+            "MN-006",
+            "MN-010",
+            "MN-011",
+            "MN-013",
+            "MN-014",
+            "MN-019",
+            "MP-009",
+            "MP-017",
+            "MP-019",
+            "MP-022",
+            "MP-023",
+            "MP-033",
+            "MP-041",
+            "MP-043",
+            "MP-049",
+            "MT-006",
+            "MT-018",
+            "MT-029",
+            "OS-019",
+            "OS-023",
+            "OS-026",
+            "OS-028",
+            "OS-029",
+            "OS-030",
+            "SB-001",
+            "SB-002",
+            "SB-003",
+            "SB-004",
+            "SB-005",
+            "SB-006",
+            "SB-007",
+            "SB-009",
+            "SB-011",
+            "SB-012",
+            "SB-013",
+            "SB-014",
+            "SB-015",
+            "SB-017",
+            "SB-018",
+            "SB-019",
+            "SB-020",
+            "SB-021",
+            "SB-022",
+            "SB-023",
+            "SB-025",
+            "SB-026",
+            "SB-027",
+            "SB-028",
+            "SB-029",
+            "SB-030",
+            "SB-031",
+            "SB-032",
+            "SB-037",
+            "SB-038",
+            "SB-040",
+            "SB-042",
+            "SB-045",
+            "SB-046",
+            "SB-047",
+            "SB-048",
+            "SB-049",
+            "SB-050",
+            "ST-011",
+            "ST-013",
+            "ST-014",
+            "ST-015",
+            "ST-016",
+            "ST-028",
+            "ST-029",
+            "UD-001",
+            "UD-002",
+            "UD-007",
+            "UD-008",
+            "UD-009",
+            "UD-010",
+            "UD-011",
+            "UD-012",
+            "UD-013",
+            "UD-014",
+            "UD-015",
+            "UD-016",
+            "UD-017",
+            "UD-018",
+            "UD-019",
+            "UD-020",
+            "UD-021",
+            "UD-022",
+            "UD-023",
+            "UD-024",
+            "UD-025",
+            "UD-029"
+          ],
+          "lost": [
+            "MA-030",
+            "MP-036",
+            "MP-058",
+            "MT-012",
+            "MT-021"
+          ],
+          "p": 2.9954333738275177e-28
+        },
+        "status_match": {
+          "n": 390,
+          "a": 274,
+          "b": 300,
+          "gained": [
+            "CQ-008",
+            "CQ-029",
+            "IN-003",
+            "IN-015",
+            "MA-011",
+            "MN-001",
+            "MN-015",
+            "MN-019",
+            "MP-010",
+            "MP-023",
+            "MP-036",
+            "MP-044",
+            "MP-051",
+            "MP-057",
+            "MT-017",
+            "MT-027",
+            "MT-029",
+            "OS-018",
+            "OS-019",
+            "OS-020",
+            "OS-021",
+            "OS-022",
+            "OS-025",
+            "OS-028",
+            "OS-030",
+            "SB-001",
+            "SB-003",
+            "SB-004",
+            "SB-006",
+            "SB-007",
+            "SB-011",
+            "SB-013",
+            "SB-014",
+            "SB-015",
+            "SB-030",
+            "SB-031",
+            "SB-034",
+            "SB-046",
+            "SB-049",
+            "ST-005",
+            "ST-008",
+            "ST-011",
+            "ST-013",
+            "ST-014",
+            "ST-027",
+            "ST-029",
+            "UD-010",
+            "UD-013",
+            "UD-015",
+            "UD-028"
+          ],
+          "lost": [
+            "CQ-009",
+            "CQ-015",
+            "CQ-026",
+            "IN-001",
+            "IN-016",
+            "MA-030",
+            "MP-009",
+            "MP-014",
+            "MP-015",
+            "MP-017",
+            "MP-019",
+            "MP-028",
+            "MP-043",
+            "MP-058",
+            "MT-021",
+            "OS-023",
+            "SB-035",
+            "ST-006",
+            "ST-016",
+            "ST-026",
+            "ST-030",
+            "UD-004",
+            "UD-025",
+            "UD-026"
+          ],
+          "p": 0.0033722333341480717
+        },
+        "passed": {
+          "n": 390,
+          "a": 253,
+          "b": 278,
+          "gained": [
+            "CQ-008",
+            "CQ-029",
+            "IN-003",
+            "MA-007",
+            "MA-011",
+            "MN-001",
+            "MN-015",
+            "MN-019",
+            "MP-010",
+            "MP-025",
+            "MP-051",
+            "MP-057",
+            "MT-017",
+            "MT-019",
+            "MT-027",
+            "OS-018",
+            "OS-020",
+            "OS-021",
+            "OS-022",
+            "OS-028",
+            "OS-030",
+            "SB-001",
+            "SB-003",
+            "SB-004",
+            "SB-006",
+            "SB-007",
+            "SB-011",
+            "SB-013",
+            "SB-014",
+            "SB-015",
+            "SB-025",
+            "SB-030",
+            "SB-031",
+            "SB-034",
+            "SB-046",
+            "SB-049",
+            "ST-005",
+            "ST-008",
+            "ST-011",
+            "ST-013",
+            "ST-014",
+            "ST-027",
+            "UD-010",
+            "UD-013",
+            "UD-015",
+            "UD-028"
+          ],
+          "lost": [
+            "CQ-009",
+            "IN-001",
+            "MA-003",
+            "MA-024",
+            "MP-009",
+            "MP-014",
+            "MP-015",
+            "MP-017",
+            "MP-019",
+            "MP-028",
+            "MP-035",
+            "MT-021",
+            "OS-023",
+            "OS-026",
+            "SB-035",
+            "ST-006",
+            "ST-016",
+            "ST-026",
+            "UD-002",
+            "UD-004",
+            "UD-026"
+          ],
+          "p": 0.0030653176696087414
+        }
+      }
+    },
+    {
+      "a": "sub",
+      "b": "subp",
+      "metrics": {
+        "correct": {
+          "n": 339,
+          "a": 259,
+          "b": 267,
+          "gained": [
+            "CQ-005",
+            "CQ-012",
+            "CQ-029",
+            "IN-003",
+            "IN-008",
+            "IN-020",
+            "MN-015",
+            "MP-002",
+            "MP-010",
+            "MP-045",
+            "MP-058",
+            "OS-016",
+            "OS-022"
+          ],
+          "lost": [
+            "IN-007",
+            "MA-016",
+            "MA-024",
+            "MP-018",
+            "OS-019"
+          ],
+          "p": 0.09625244140625
+        },
+        "grounded": {
+          "n": 339,
+          "a": 308,
+          "b": 303,
+          "gained": [
+            "IN-016",
+            "MA-015",
+            "MN-015",
+            "MP-031",
+            "MP-045"
+          ],
+          "lost": [
+            "MA-006",
+            "MA-016",
+            "MN-008",
+            "MP-018",
+            "MT-009",
+            "MT-021",
+            "MT-023",
+            "MT-029",
+            "ST-016",
+            "UD-026"
+          ],
+          "p": 0.3017578125
+        },
+        "correct_and_grounded": {
+          "n": 339,
+          "a": 256,
+          "b": 258,
+          "gained": [
+            "CQ-005",
+            "CQ-012",
+            "CQ-029",
+            "IN-003",
+            "IN-008",
+            "IN-020",
+            "MA-015",
+            "MN-015",
+            "MP-002",
+            "MP-045",
+            "MP-058",
+            "OS-016",
+            "OS-022"
+          ],
+          "lost": [
+            "IN-007",
+            "MA-006",
+            "MA-016",
+            "MA-024",
+            "MN-008",
+            "MP-018",
+            "MT-009",
+            "MT-021",
+            "MT-023",
+            "OS-019",
+            "ST-016"
+          ],
+          "p": 0.8388197422027588
+        },
+        "notice_free_judge": {
+          "n": 339,
+          "a": 271,
+          "b": 253,
+          "gained": [
+            "MN-014",
+            "MP-023",
+            "MP-029",
+            "MP-041",
+            "OS-019"
+          ],
+          "lost": [
+            "IN-020",
+            "MA-016",
+            "MA-030",
+            "MN-005",
+            "MN-008",
+            "MN-016",
+            "MP-002",
+            "MP-035",
+            "MP-036",
+            "MP-044",
+            "MP-045",
+            "MP-058",
+            "MT-010",
+            "MT-012",
+            "MT-014",
+            "MT-021",
+            "OS-016",
+            "OS-022",
+            "SB-008",
+            "SB-041",
+            "ST-022",
+            "ST-027",
+            "UD-026"
+          ],
+          "p": 0.0009122341871261597
+        },
+        "status_match": {
+          "n": 390,
+          "a": 303,
+          "b": 300,
+          "gained": [
+            "CQ-005",
+            "CQ-012",
+            "CQ-029",
+            "IN-003",
+            "MP-002",
+            "MP-022",
+            "MP-033",
+            "MP-036",
+            "MP-044",
+            "MT-028",
+            "MT-029",
+            "OS-022",
+            "OS-025",
+            "OS-026",
+            "ST-008",
+            "ST-011",
+            "ST-029"
+          ],
+          "lost": [
+            "CQ-015",
+            "IN-007",
+            "IN-016",
+            "MA-030",
+            "MN-005",
+            "MN-008",
+            "MN-016",
+            "MP-014",
+            "MP-028",
+            "MT-008",
+            "MT-010",
+            "MT-021",
+            "SB-008",
+            "SB-035",
+            "SB-036",
+            "SB-041",
+            "ST-006",
+            "ST-007",
+            "ST-021",
+            "ST-026"
+          ],
+          "p": 0.7428293587290682
+        },
+        "passed": {
+          "n": 390,
+          "a": 282,
+          "b": 278,
+          "gained": [
+            "CQ-005",
+            "CQ-012",
+            "CQ-029",
+            "IN-003",
+            "MN-015",
+            "MP-002",
+            "MP-010",
+            "MP-045",
+            "MT-028",
+            "OS-016",
+            "OS-022",
+            "ST-008",
+            "ST-011"
+          ],
+          "lost": [
+            "IN-007",
+            "MA-024",
+            "MN-005",
+            "MN-008",
+            "MN-016",
+            "MP-014",
+            "MP-018",
+            "MP-028",
+            "MT-008",
+            "MT-010",
+            "MT-021",
+            "OS-019",
+            "SB-008",
+            "SB-036",
+            "SB-041",
+            "ST-007",
+            "ST-026"
+          ],
+          "p": 0.584664711728692
+        }
+      }
+    }
+  ],
+  "notices": {
+    "single": [
+      {
+        "id": "CQ-007",
+        "code_notice": false,
+        "sentences": [
+          "다만, 유심이 다른 휴대폰에서도 인식되지 않는지 확인할 수 없으므로 그 점은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "CQ-008",
+        "code_notice": false,
+        "sentences": [
+          "그러나 사용자 정보에 요금, 데이터 사용량, 미납 정보가 제공되지 않았기 때문에 구체적인 요금 항목이나 사용량을 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "CQ-010",
+        "code_notice": false,
+        "sentences": [
+          "그러나 제공된 FAQ 문서 중에서 직접적으로 '번호이동'에 대한 정책이나 절차가 명시되어 있지 않습니다.",
+          "따라서 번호이동에 대한 구체적인 절차나 요금, 조건 등은 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "CQ-022",
+        "code_notice": false,
+        "sentences": [
+          "그러나 사용자 정보나 API 결과가 없어 정확한 요금 상태나 납부 기간을 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "CQ-029",
+        "code_notice": false,
+        "sentences": [
+          "그러나 사용자의 요금제 종류나 데이터 기본 제공량이 명시되어 있지 않아 구체적인 적용 여부를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "IN-002",
+        "code_notice": false,
+        "sentences": [
+          "다만, 상품의 구체적인 내용(예: 보상 한도, 보장 범위, 보험료 등)은 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "IN-003",
+        "code_notice": false,
+        "sentences": [
+          "요금에 대한 구체적인 금액이나 조건은 제공된 자료에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "IN-004",
+        "code_notice": false,
+        "sentences": [
+          "IPTV 프리미엄 상품의 채널 수에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "IN-005",
+        "code_notice": false,
+        "sentences": [
+          "키즈가드 기능에 대한 사용 시간 제한 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "IN-006",
+        "code_notice": false,
+        "sentences": [
+          "비디오패스의 이용 조건에 대한 정보로, 동시 시청 기기 수에 관한 내용이 포함되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "IN-007",
+        "code_notice": false,
+        "sentences": [
+          "그러나 변상금의 구체적인 금액은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "IN-008",
+        "code_notice": false,
+        "sentences": [
+          "장기 일시정지의 최대 기간은 FAQ 문서에서 명시되어 있지 않습니다.",
+          "FAQ [1431]과 [1435]는 일시정지의 기간(최대 90일)과 장기 정지의 증빙 조건을 설명하지만, 장기 일시정지의 최대 기간에 대한 구체적인 정보는 제공되지 않았습니다.",
+          "따라서 장기 일시정지의 최대 기간을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "IN-009",
+        "code_notice": false,
+        "sentences": [
+          "그러나 비용에 대한 구체적인 금액이나 요금제별 비용 정보는 FAQ에 포함되어 있지 않습니다.",
+          "따라서 데이터 쉐어링의 비용을 포함한 이용 조건을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "IN-010",
+        "code_notice": false,
+        "sentences": [
+          "복지 할인 혜택에 대한 감면 금액에 관한 자세한 내용은 제공된 FAQ 문서에서 확인할 수 없습니다.",
+          "따라서 복지 할인 혜택의 감면 금액에 대해 정확한 정보를 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "IN-011",
+        "code_notice": false,
+        "sentences": [
+          "그러나 보상 기준에 대한 구체적인 배수 값이나 감면 조건의 세부 내용은 FAQ에 명시되어 있지 않습니다.",
+          "따라서 감면 배수의 정확한 수치는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "IN-012",
+        "code_notice": false,
+        "sentences": [
+          "셀프개통의 신분증 인증에 대한 실패 횟수 제한에 관한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "IN-013",
+        "code_notice": false,
+        "sentences": [
+          "멤버십 제휴 할인에 대한 할인율 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "IN-014",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 결제 비밀번호의 자릿수는 FAQ 문서에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "IN-015",
+        "code_notice": false,
+        "sentences": [
+          "다만, 예매 가능 매수에 대한 명시적인 제한 조건이나 예매 가능 수량의 상세 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 예매 가능 매수의 정확한 수치는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "IN-017",
+        "code_notice": false,
+        "sentences": [
+          "해외 로밍 중 전화 수신 요금에 대한 국가별 금액 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "전화 수신 요금 기준과 국가별 금액에 대한 구체적인 정보는 이 FAQ에 없습니다."
+        ]
+      },
+      {
+        "id": "IN-018",
+        "code_notice": false,
+        "sentences": [
+          "하지만 판매 품목에 대한 정보는 제공된 자료에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "IN-019",
+        "code_notice": false,
+        "sentences": [
+          "인터넷 이전 설치 절차에 대한 주말 방문 여부는 제공된 FAQ 및 사용자 정보에서 명시되어 있지 않습니다.",
+          "따라서 해당 정보를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "IN-020",
+        "code_notice": false,
+        "sentences": [
+          "친구 추천 혜택에 대한 조건은 친구가 Ubot 앱에 3개월 이상 이용해야 하며, 추천 인원 제한에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 추천 인원 제한에 대한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MA-014",
+        "code_notice": false,
+        "sentences": [
+          "테더링은 키즈 안심 요금제에서 제공되지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-015",
+        "code_notice": false,
+        "sentences": [
+          "태블릿 요금제 20GB는 월 19,900원이며, 음성통화는 제공되지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-016",
+        "code_notice": false,
+        "sentences": [
+          "다만, FAQ 원문에 데이터 초과 후의 구체적인 처리 방식(예: 요금 부과, 서비스 중단 등)이 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-018",
+        "code_notice": false,
+        "sentences": [
+          "멤버십 포인트 적립 방법 및 유효 기간에 대한 정보가 FAQ에 없습니다.",
+          "따라서 질문에 답할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MA-027",
+        "code_notice": false,
+        "sentences": [
+          "다만, FAQ 원문에 세 번 틀렸을 때의 구체적인 결과에 대한 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "MA-033",
+        "code_notice": false,
+        "sentences": [
+          "친구 결합 2회선 할인 금액은 FAQ 문서에 명시되어 있지 않습니다.",
+          "다만, 가족 결합에 대한 할인 정보는 제공되었지만, 친구 결합에 대한 할인은 포함되어 있지 않습니다.",
+          "따라서 친구 결합 2회선 할인 금액과 3회선 할인 금액에 대한 정확한 정보를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-001",
+        "code_notice": false,
+        "sentences": [
+          "반납 방법에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MN-002",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 보험의 월 보험료와 자기부담금 금액에 대한 정보가 FAQ에 포함되어 있지 않습니다.",
+          "휴대폰 보험에 대한 가입 방법은 제공되었지만, 월 보험료나 자기부담금의 금액은 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MN-003",
+        "code_notice": false,
+        "sentences": [
+          "무상 수리 기간은 제조사 보증 정책을 따르며, 구체적인 기간은 FAQ에 명시되어 있지 않습니다.",
+          "배터리 교체에 대한 무상 정책도 FAQ에 포함되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MN-004",
+        "code_notice": false,
+        "sentences": [
+          "자세한 금액은 대상자 종류에 따라 달라지며, FAQ에 명시된 금액 정보가 없습니다.",
+          "자격 재확인은 매년 1년마다 진행되며, 정확한 재확인 월은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MN-005",
+        "code_notice": false,
+        "sentences": [
+          "와이파이 콜링 요금은 단말기와 요금제에 따라 달라서 정확한 금액을 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-006",
+        "code_notice": false,
+        "sentences": [
+          "쉐어링 서브 회선의 월 요금 및 서브 회선 개통비에 대한 정보가 FAQ에 없습니다.",
+          "따라서 요금과 개통비에 대해 답변할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-008",
+        "code_notice": false,
+        "sentences": [
+          "일본에서 로밍 중에 전화를 받으면 분당 요금이 부과되지만, FAQ 원문에는 일본에 대한 구체적인 분당 요금이 명시되어 있지 않습니다.",
+          "그러나 실제 분당 금액은 국가별로 다르며, FAQ에 제공된 정보에서는 일본에 대한 분당 요금이 명시되어 있지 않습니다.",
+          "한국으로 걸면 분당 요금도 FAQ에 명시되어 있지 않으며, 해외에서 전화를 걸 때는 일반적으로 국가별로 분당 요금이 부과되지만, 해당 요금은 한국으로 걸 때의 분당 금액이 명시되어 있지 않습니다.",
+          "따라서 일본에서 로밍 중에 전화를 받거나 한국으로 걸 때의 분당 요금은 FAQ에 기재된 정보로는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-010",
+        "code_notice": false,
+        "sentences": [
+          "제공된 FAQ 문서에는 500Mbps 또는 1Gbps 인터넷 상품의 월 요금에 대한 정보가 없습니다.",
+          "따라서 인터넷 500Mbps와 1Gbps의 월 요금을 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-011",
+        "code_notice": false,
+        "sentences": [
+          "비디오패스 동시 시청 기기 수와 영상 다운로드 저장 가능 여부에 대한 정보가 FAQ 문서에 포함되어 있지 않습니다.",
+          "질문의 핵심 내용을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-013",
+        "code_notice": false,
+        "sentences": [
+          "멤버십 카페 할인율에 대한 정보는 제공되지 않았으며, 편의점 할인율에 대한 정보도 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "MN-014",
+        "code_notice": false,
+        "sentences": [
+          "환불에 대한 기간 정보는 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MN-015",
+        "code_notice": false,
+        "sentences": [
+          "장기 일시정지의 최대 기간과 연장 횟수에 대한 정확한 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "그러나 이 내용은 일시정지와 장기 정지의 차이를 설명하는 것이며, 장기 일시정지의 최대 기간이나 연장 횟수에 대한 구체적인 기준은 포함되어 있지 않습니다.",
+          "따라서 장기 일시정지의 최대 기간과 연장 횟수는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-016",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 결제 비밀번호의 자릿수는 FAQ에서 명시되어 있지 않습니다.",
+          "비밀번호를 잊었을 때 초기화 방법은 FAQ에 따르면 휴대폰 결제 비밀번호는 Ubot 앱에서 설정한 것으로, 초기화 방법이 명시되어 있지 않습니다.",
+          "따라서 휴대폰 결제 비밀번호의 자릿수와 초기화 방법에 대한 구체적인 정보는 제공된 FAQ에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-019",
+        "code_notice": false,
+        "sentences": [
+          "공시지원금은 휴대폰 모델과 요금제에 따라 달라지며, 갤럭시 최신 모델이나 아이폰 최신 모델의 경우 구체적인 금액은 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "MP-002",
+        "code_notice": false,
+        "sentences": [
+          "그러나 월 보험료에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-003",
+        "code_notice": false,
+        "sentences": [
+          "그러나 자기부담금의 구체적인 금액은 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-004",
+        "code_notice": false,
+        "sentences": [
+          "FAQ에서 언급된 기간은 구체적으로 명시되어 있지 않으며, 무상 수리 기간은 제조사별로 다릅니다."
+        ]
+      },
+      {
+        "id": "MP-005",
+        "code_notice": false,
+        "sentences": [
+          "구체적인 금액은 FAQ에 명시되어 있지 않으며, 자세한 정보는 매장이나 고객센터에서 확인해야 합니다."
+        ]
+      },
+      {
+        "id": "MP-006",
+        "code_notice": false,
+        "sentences": [
+          "그러나 몇 배를 감면해 주는지에 대한 구체적인 배수는 FAQ에 명시되어 있지 않으며, 개별 통신 장애의 경우 고객센터에 신청해야 합니다."
+        ]
+      },
+      {
+        "id": "MP-007",
+        "code_notice": false,
+        "sentences": [
+          "요금 정보는 제공된 자료에서 명시되어 있지 않으며, 로밍 상품 요금은 국가와 관계없이 데이터 사용 24시간 구간마다 베이직 1GB 11,000원, 플러스 2GB 13,000원, 맥스 5GB 15,000원이지만, 이는 와이파이 콜링과는 별개의 요금입니다."
+        ]
+      },
+      {
+        "id": "MP-008",
+        "code_notice": false,
+        "sentences": [
+          "서브 회선 하나당 월 요금은 FAQ에 기재되어 있지 않아 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-009",
+        "code_notice": false,
+        "sentences": [
+          "그러나 하루 사용 시간 제한에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-010",
+        "code_notice": false,
+        "sentences": [
+          "잃어버리면 변상금은 정해진 금액이 청구되지만, 그 금액은 FAQ에 명시되어 있지 않습니다.",
+          "그러나 변상금의 구체적인 금액은 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-011",
+        "code_notice": false,
+        "sentences": [
+          "몇 번 틀렸는지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않으며, 유심 비밀번호의 경우 잠금 화면에서 요구하는 해제 코드를 확인해야 하는 것으로만 언급되어 있습니다.",
+          "따라서 고객 보호 비밀번호의 틀린 횟수에 대한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-012",
+        "code_notice": false,
+        "sentences": [
+          "일본에서의 분당 요금은 FAQ에 명시되어 있지 않으며, 국가별로 다르고, 로밍 조건에 따라 달라질 수 있습니다."
+        ]
+      },
+      {
+        "id": "MP-013",
+        "code_notice": false,
+        "sentences": [
+          "그러나 미국으로 전화를 걸 때 분당 요금은 FAQ에 명시되어 있지 않아 정확한 금액을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-014",
+        "code_notice": false,
+        "sentences": [
+          "그러나 안 되면 1분에 얼마인지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-015",
+        "code_notice": false,
+        "sentences": [
+          "그러나 500Mbps의 요금 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-016",
+        "code_notice": false,
+        "sentences": [
+          "IPTV 베이직 요금은 월 16,500원이며, 프리미엄 채널 수에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-017",
+        "code_notice": false,
+        "sentences": [
+          "주말에 기사님이 와요라는 정보는 FAQ에 없습니다.",
+          "따라서 주말에 기사님이 와요는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-018",
+        "code_notice": false,
+        "sentences": [
+          "예약 시간에 늦으면 기다려주는 기준은 제공된 FAQ에서 명시되어 있지 않으며, 기다려주는 시간은 없습니다."
+        ]
+      },
+      {
+        "id": "MP-019",
+        "code_notice": false,
+        "sentences": [
+          "동시에 볼 수 있는 기기 수에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 동시에 몇 대에서 볼 수 있는지에 대한 정확한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-020",
+        "code_notice": false,
+        "sentences": [
+          "한 달에 읽을 수 있는 권수에 대한 정보가 FAQ에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-021",
+        "code_notice": false,
+        "sentences": [
+          "그러나 몇 명까지 추천할 수 있는지에 대한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-022",
+        "code_notice": false,
+        "sentences": [
+          "영화 예매 수량에 대한 명시적 정보는 FAQ에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-023",
+        "code_notice": false,
+        "sentences": [
+          "※ FAQ [197]에 따르면, 사용이 시작되지 않았을 경우에만 전액 환불이 가능하며, 중간 해지 시 남은 날만큼 환불되는 내용은 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-024",
+        "code_notice": false,
+        "sentences": [
+          "그러나 1MB당 요금은 방문 국가와 로밍 상품에 따라 달라지므로, 구체적인 금액은 FAQ에 명시되어 있지 않습니다.",
+          "해외 데이터 로밍 요금은 방문 국가와 가입한 로밍 상품에 따라 달라지며, 데이터 사용량에 대한 1MB당 요금은 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-025",
+        "code_notice": false,
+        "sentences": [
+          "최대 기간은 FAQ에서 명시되어 있지 않으며, 일시정지의 경우 1회 최대 90일까지 가능하지만, 장기 정지의 최대 기간은 정해져 있지 않습니다.",
+          "따라서 장기 일시정지의 최대 기간에 대한 구체적인 정보는 제공된 자료에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-026",
+        "code_notice": false,
+        "sentences": [
+          "그러나 몇 자리인지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 결제 비밀번호의 자릿수는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-027",
+        "code_notice": false,
+        "sentences": [
+          "그러나 신분증 촬영이 몇 번 실패하면 막혀요라는 내용은 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-028",
+        "code_notice": false,
+        "sentences": [
+          "그러나 키즈 안심 요금제에 대한 데이터 소진 후 속도 정보는 제공된 FAQ에서 명시되어 있지 않아, 정확한 속도는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-030",
+        "code_notice": false,
+        "sentences": [
+          "그러나 충전하면 보너스가 붙는다는 내용은 FAQ에 명시되어 있지 않습니다.",
+          "보너스 관련 정보가 없으므로 보너스가 붙는지에 대한 답변은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-031",
+        "code_notice": false,
+        "sentences": [
+          "데이터 플러스 5GB의 월 요금은 FAQ 원문에 명시되어 있지 않으며, 제공된 자료에서 해당 요금제에 대한 정보가 없습니다.",
+          "자동 갱신 없이 한 달만 살 수 있는지에 대한 정보도 FAQ 원문에 포함되어 있지 않습니다.",
+          "따라서 두 질문 모두 답변할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-033",
+        "code_notice": false,
+        "sentences": [
+          "다만, 보상 지급 기간에 대한 구체적인 기준은 FAQ에 명시되어 있지 않아 정확한 일수는 확인이 어렵습니다."
+        ]
+      },
+      {
+        "id": "MP-035",
+        "code_notice": false,
+        "sentences": [
+          "교체 비용에 대한 정보는 제공된 FAQ에 없습니다.",
+          "따라서 교체가 유료인지 여부는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-037",
+        "code_notice": false,
+        "sentences": [
+          "그러나 처리 기간에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-038",
+        "code_notice": false,
+        "sentences": [
+          "하루에 시도할 수 있는 횟수는 FAQ에서 명시되어 있지 않으며, 번호이동 인증에 대한 정보(하루 7회)는 안면인증과 관련이 없으므로 하루에 몇 번까지 시도할 수 있는지에 대한 정확한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-039",
+        "code_notice": false,
+        "sentences": [
+          "파일로 내려받을 수 있는 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-041",
+        "code_notice": false,
+        "sentences": [
+          "제공된 자료에는 갤럭시 최신 모델 기준의 구체적인 금액이 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-042",
+        "code_notice": false,
+        "sentences": [
+          "카페에서의 할인 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-043",
+        "code_notice": false,
+        "sentences": [
+          "해제 후 다시 걸리는 시간에 대한 정보는 제공된 FAQ에서 없습니다.",
+          "따라서 해제 후 몇 시간 뒤에 다시 걸리는지에 대한 답변은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-044",
+        "code_notice": false,
+        "sentences": [
+          "유심 판매는 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-045",
+        "code_notice": false,
+        "sentences": [
+          "그러나 매장에서 가입할 수 있는지에 대한 정보가 FAQ에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-046",
+        "code_notice": false,
+        "sentences": [
+          "음악을 오프라인으로 저장할 수 있는 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-047",
+        "code_notice": false,
+        "sentences": [
+          "그러나 앱을 통해 신청할 수 있는지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-048",
+        "code_notice": false,
+        "sentences": [
+          "그러나 임대 공유기의 월 사용료 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-049",
+        "code_notice": false,
+        "sentences": [
+          "GOLD 등급 기준 요금에 대한 정보가 제공되지 않았습니다.",
+          "제휴 할인에 대한 정보도 FAQ에서 복지 할인에 관한 내용만 제공되어 있으며, 제휴 할인의 횟수에 대한 명시적 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "MP-050",
+        "code_notice": false,
+        "sentences": [
+          "그러나 건당 이용료 금액은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-051",
+        "code_notice": false,
+        "sentences": [
+          "다만, 로밍 에그의 구체적인 하루 대여료는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-052",
+        "code_notice": false,
+        "sentences": [
+          "장기 일시정지는 FAQ에서 명시된 정보가 없으므로, 일반적으로 장기 정지는 증빙 서류가 있는 경우에만 가능하지만, 최대 기간은 제공되지 않았습니다.",
+          "따라서 장기 일시정지의 최대 기간은 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-053",
+        "code_notice": false,
+        "sentences": [
+          "그러나 월 보험료에 대한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-054",
+        "code_notice": false,
+        "sentences": [
+          "그러나 영상통화 1분 요금에 대한 정보가 FAQ에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-055",
+        "code_notice": false,
+        "sentences": [
+          "그러나 프리미엄 채널 수에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-057",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 결제 비밀번호는 FAQ에 명시된 바 없으며, 설정 조건은 제공되지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-058",
+        "code_notice": false,
+        "sentences": [
+          "공항 로밍센터에서 유심을 판매하는 서비스는 제공되지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-060",
+        "code_notice": false,
+        "sentences": [
+          "키즈가드의 하루 사용 시간 제한에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MT-006",
+        "code_notice": false,
+        "sentences": [
+          "그러나 사용자가 특정 요금제를 지칭하고 있는지 명확하지 않아 정확한 금액을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MT-009",
+        "code_notice": false,
+        "sentences": [
+          "월 보험료는 제공된 정보에 없으므로 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MT-010",
+        "code_notice": false,
+        "sentences": [
+          "로밍 에그의 하루 대여료는 FAQ 문서에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MT-011",
+        "code_notice": false,
+        "sentences": [
+          "제공된 FAQ에서는 프리미엄 상품의 채널 수에 대한 정보가 없습니다.",
+          "따라서 프리미엄의 채널 수를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MT-013",
+        "code_notice": false,
+        "sentences": [
+          "키즈가드의 사용 시간 제한에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MT-014",
+        "code_notice": false,
+        "sentences": [
+          "비디오패스는 동시에 볼 수 있는 대수에 대한 정보가 FAQ에 없습니다."
+        ]
+      },
+      {
+        "id": "MT-016",
+        "code_notice": false,
+        "sentences": [
+          "분실 시 변상금은 정해진 금액이 청구되지만, 그 금액은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MT-018",
+        "code_notice": false,
+        "sentences": [
+          "따라서 거기서 전화를 받으면 얼마인지 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "MT-019",
+        "code_notice": false,
+        "sentences": [
+          "늦은 경우 기다려주는 시간은 FAQ에 명시되어 있지 않아 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MT-028",
+        "code_notice": false,
+        "sentences": [
+          "공항 로밍센터에서 유심을 팔는지에 대한 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "MT-029",
+        "code_notice": false,
+        "sentences": [
+          "충전 단위와 보너스에 대한 정보가 FAQ에 없습니다.",
+          "질문의 핵심 내용을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "OS-016",
+        "code_notice": false,
+        "sentences": [
+          "그러나 오늘 날씨에 대한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "OS-017",
+        "code_notice": false,
+        "sentences": [
+          "저녁 메뉴 추천은 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "OS-018",
+        "code_notice": false,
+        "sentences": [
+          "김치찌개 끓이는 법은 FAQ에 포함되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "OS-020",
+        "code_notice": false,
+        "sentences": [
+          "일본 여행 맛집 추천은 FAQ에 포함되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "OS-021",
+        "code_notice": false,
+        "sentences": [
+          "파이썬 정렬 코드는 제공된 자료에 없으므로 작성할 수 없습니다."
+        ]
+      },
+      {
+        "id": "OS-022",
+        "code_notice": false,
+        "sentences": [
+          "강아지 산책은 하루 몇 번이 좋아요에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "OS-023",
+        "code_notice": false,
+        "sentences": [
+          "그러나 이번 주의 로또 번호는 통신 서비스 정책상 제공되지 않으며, 해당 정보는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "OS-026",
+        "code_notice": false,
+        "sentences": [
+          "제주도 여행 코스 추천은 제공된 FAQ에서 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "OS-027",
+        "code_notice": false,
+        "sentences": [
+          "축구 경기 일정은 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "OS-028",
+        "code_notice": false,
+        "sentences": [
+          "오늘의 날씨 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "OS-029",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 보험 월 보험료에 대한 정보가 FAQ에 없습니다.",
+          "저녁 메뉴 추천에 대한 정보도 FAQ에 없습니다."
+        ]
+      },
+      {
+        "id": "OS-030",
+        "code_notice": false,
+        "sentences": [
+          "주식 전망에 대한 정보는 제공된 FAQ에서 없습니다.",
+          "와이파이 콜링 요금은 단말기와 요금제에 따라 달라서 정확한 요금을 알 수 없으며, 고객센터에서 확인해야 합니다."
+        ]
+      },
+      {
+        "id": "SB-001",
+        "code_notice": false,
+        "sentences": [
+          "FAQ 문서에서는 하루 대여료에 대한 구체적인 금액이 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "SB-002",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 보험 월 보험료에 대한 정보가 제공된 FAQ 문서 없이, 사용자 정보 및 API 결과에서도 관련 금액이 명시되어 있지 않습니다.",
+          "따라서 보험료를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-003",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 보험의 자기부담금 금액은 FAQ 문서에서 명시되어 있지 않습니다.",
+          "파손형과 분실·파손 종합형에 대해 자기부담금이 존재한다고 언급은 되었으나, 구체적인 금액은 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "SB-005",
+        "code_notice": false,
+        "sentences": [
+          "복지 할인을 받는 경우 월 요금 감면액은 FAQ에 명시되어 있지 않습니다.",
+          "따라서 감면 금액은 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-006",
+        "code_notice": false,
+        "sentences": [
+          "통신 장애 보상에 대한 요금 감면 배율은 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "그러나 감면 배율이나 요금의 몇 배를 감면해 주는지에 대한 구체적인 정보는 포함되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "SB-007",
+        "code_notice": false,
+        "sentences": [
+          "와이파이 콜링 요금은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "SB-008",
+        "code_notice": false,
+        "sentences": [
+          "그러나 갤럭시 최신 모델의 구체적인 공시지원금 금액은 FAQ에 명시되어 있지 않습니다.",
+          "따라서 갤럭시 최신 폰의 공시지원금 금액을 정확히 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-009",
+        "code_notice": false,
+        "sentences": [
+          "따라서 요금을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-011",
+        "code_notice": false,
+        "sentences": [
+          "그러나 변상금의 구체적인 금액은 해당 FAQ에서 언급되어 있지 않습니다.",
+          "따라서 변상금의 금액은 제공된 자료에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-012",
+        "code_notice": false,
+        "sentences": [
+          "엠세이퍼 가입 제한을 잠시 해제한 후 몇 시간 뒤에 다시 걸리는 내용은 FAQ 원문에 포함되어 있지 않습니다.",
+          "따라서 해당 정보를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-013",
+        "code_notice": false,
+        "sentences": [
+          "고객 보호 비밀번호에 대한 틀린 입력 횟수에 관한 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "SB-014",
+        "code_notice": false,
+        "sentences": [
+          "일본에서 로밍 중에 전화를 받으면 분당 요금이 부과되며, 해당 요금은 국가별로 달라서 일본의 분당 요금은 FAQ에 명시되어 있지 않습니다.",
+          "그러나 일본에 대한 구체적인 분당 요금은 제공된 FAQ에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-015",
+        "code_notice": false,
+        "sentences": [
+          "국제전화의 분당 요금은 제공된 FAQ 문서에서 명시되어 있지 않습니다.",
+          "따라서 미국으로 국제전화를 걸 때 분당 요금은 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-018",
+        "code_notice": false,
+        "sentences": [
+          "따라서 요금을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-019",
+        "code_notice": false,
+        "sentences": [
+          "IPTV 프리미엄의 채널 수에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "SB-020",
+        "code_notice": false,
+        "sentences": [
+          "인터넷 설치 기사의 방문 일정에 대한 정보가 FAQ 문서에 없고, 사용자 정보 및 API 결과에서도 관련 내용이 제공되지 않았습니다.",
+          "따라서 주말에 방문하는지 여부를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-021",
+        "code_notice": false,
+        "sentences": [
+          "매장 예약 시간에 늦으면 기다려주는 시간에 대한 정보가 FAQ에 없습니다."
+        ]
+      },
+      {
+        "id": "SB-022",
+        "code_notice": false,
+        "sentences": [
+          "비디오패스에 대한 기기 수 제한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "SB-023",
+        "code_notice": false,
+        "sentences": [
+          "뮤직패스로 음악을 오프라인 저장할 수 있는지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 해당 기능 여부를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-025",
+        "code_notice": false,
+        "sentences": [
+          "그러나 제공된 FAQ에서는 친구 추천의 수에 대한 명시적인 정보가 없고, '3개월 이상 이용하면'이라는 조건은 추천한 친구의 이용 기간에 관한 것이며, 추천 가능한 친구의 최대 수는 언급되어 있지 않습니다.",
+          "따라서 친구 추천 가능 수에 대한 정확한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-026",
+        "code_notice": false,
+        "sentences": [
+          "따라서 할인률을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-027",
+        "code_notice": false,
+        "sentences": [
+          "VIP 영화 예매 혜택의 한 번에 가능한 예매 장수에 대한 정보는 제공된 FAQ 문서에 포함되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "SB-029",
+        "code_notice": false,
+        "sentences": [
+          "로밍 패스를 쓰다가 중간에 해지하면 남은 날만큼 환불되는 경우는 FAQ에 명시되어 있지 않습니다.",
+          "여행이 취소되고 사용이 시작되지 않았을 경우에만 전액 환불이 가능하다고 되어 있으며, 중간 해지 시 남은 날의 환불 여부에 대한 정보는 제공되지 않습니다.",
+          "따라서 해당 상황에 대한 정책은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-030",
+        "code_notice": false,
+        "sentences": [
+          "그러나 1MB당 요금은 FAQ에 명시되어 있지 않습니다.",
+          "따라서 1MB당 얼마인지에 대한 구체적인 금액은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-031",
+        "code_notice": false,
+        "sentences": [
+          "장기 정지의 최대 기간은 FAQ 문서에서 명시되어 있지 않습니다.",
+          "일시정지와 장기 정지의 차이점에 따르면 장기 정지는 증빙 서류가 있는 경우에 적용되지만, 그 기간에 대한 구체적인 제한(예: 최대 몇 년)은 제공된 FAQ에서 언급되어 있지 않습니다.",
+          "따라서 장기 일시정지의 최대 기간은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-032",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 결제 비밀번호의 자리 수에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "SB-035",
+        "code_notice": false,
+        "sentences": [
+          "제공된 FAQ 중에는 '키즈 안심 요금제'에 대한 정보가 없으며, '밸런스 79·69', '밸런스 39', '실속 LTE·태블릿·워치 요금제' 등 특정 요금제에 대한 정보만 포함되어 있습니다.",
+          "따라서 키즈 안심 요금제의 데이터 소진 후 속도 제한 내용은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-036",
+        "code_notice": false,
+        "sentences": [
+          "워치 요금제의 개통비는 FAQ 문서에 명시되어 있지 않습니다.",
+          "제공된 FAQ에서는 개통비에 대한 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "SB-037",
+        "code_notice": false,
+        "sentences": [
+          "선불 요금제에 대한 충전 시 보너스 금액이 붙는다는 내용은 제공된 FAQ 문서에서 언급되어 있지 않습니다.",
+          "따라서 선불 요금제에 충전하면 보너스 금액이 붙는다는 것은 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-038",
+        "code_notice": false,
+        "sentences": [
+          "데이터 플러스를 자동 갱신 없이 한 달만 살 수 있는지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "SB-040",
+        "code_notice": false,
+        "sentences": [
+          "실속 요금제는 매장에서 가입할 수 있는지에 대한 정보가 FAQ에 없습니다.",
+          "제공된 FAQ 문서는 요금제 변경이나 요금 납부에 관한 내용만 포함되어 있으며, '실속 요금제' 가입 여부에 대한 직접적인 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "SB-041",
+        "code_notice": false,
+        "sentences": [
+          "그러나 접수 후 몇 일 안에 처리되는지에 대한 구체적인 기간은 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 처리 기간에 대한 정확한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-042",
+        "code_notice": false,
+        "sentences": [
+          "해외 장기 체류 일시정지 신청에 대한 앱으로의 신청 가능 여부는 제공된 FAQ에서 언급되어 있지 않습니다.",
+          "따라서 앱으로 신청할 수 있는지 여부를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-045",
+        "code_notice": false,
+        "sentences": [
+          "공유기의 월 사용료에 대한 정보는 제공된 FAQ에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-046",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 번호 변경 시 수수료가 청구되는지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 휴대폰 번호 변경 시 수수료가 있는지 여부는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-047",
+        "code_notice": false,
+        "sentences": [
+          "개명 후 가입자 이름 변경에 대한 처리 기간에 대해서는 제공된 FAQ 문서에서 명시되어 있지 않습니다.",
+          "따라서 처리 시간은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-048",
+        "code_notice": false,
+        "sentences": [
+          "안면인증에 대한 하루 시도 횟수는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 안면인증의 하루 시도 제한은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-049",
+        "code_notice": false,
+        "sentences": [
+          "챗봇 대화 기록을 파일로 내려받을 수 있는 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "SB-050",
+        "code_notice": false,
+        "sentences": [
+          "해외에서 산 휴대폰에 Ubot 휴대폰 보험을 가입할 수 있는지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "Ubot 휴대폰 보험에 대한 정책이나 해외 휴대폰에 대한 가입 가능 여부는 관련 FAQ에 포함되어 있지 않아, 해당 내용을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "ST-014",
+        "code_notice": false,
+        "sentences": [
+          "기준 위치를 알려주지 않아 근처 매장의 영업 상태를 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "ST-015",
+        "code_notice": false,
+        "sentences": [
+          "집 근처 매장을 찾는 데 필요한 위치 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "ST-017",
+        "code_notice": false,
+        "sentences": [
+          "강남역 근처 매장 중 주차가 가능한 곳에 대한 정보가 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "ST-018",
+        "code_notice": false,
+        "sentences": [
+          "하지만 주차 가능 여부에 대한 정보는 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "ST-020",
+        "code_notice": false,
+        "sentences": [
+          "이 매장은 외국인 가입을 받는지에 대한 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "ST-021",
+        "code_notice": false,
+        "sentences": [
+          "제공된 정보에 따르면 주말 영업 여부는 명시되어 있지 않으며, 일요일 영업 여부는 각 매장별로 확인해야 합니다."
+        ]
+      },
+      {
+        "id": "ST-022",
+        "code_notice": false,
+        "sentences": [
+          "매장 방문 시 챙겨야 할 사항은 FAQ에 명시되어 있지 않아 알려드릴 수 없습니다."
+        ]
+      },
+      {
+        "id": "ST-023",
+        "code_notice": false,
+        "sentences": [
+          "서면역 근처 매장 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "ST-026",
+        "code_notice": false,
+        "sentences": [
+          "그러나 휴대폰 보험 월 보험료에 대한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "ST-029",
+        "code_notice": false,
+        "sentences": [
+          "질문에 대한 정확한 정보를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-001",
+        "code_notice": false,
+        "sentences": [
+          "그러나 가입 기간(예: 몇 년, 몇 개월)에 대한 정보는 제공된 FAQ 및 사용자 정보에서 명시되어 있지 않습니다.",
+          "따라서 가입 기간은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-002",
+        "code_notice": false,
+        "sentences": [
+          "등급은 직전 6개월의 평균 월정액을 기준으로 산정되지만, 사용자의 요금 정보가 없기 때문에 등급 구분은 불가능합니다."
+        ]
+      },
+      {
+        "id": "UD-007",
+        "code_notice": false,
+        "sentences": [
+          "사용자 정보에 데이터 사용량이나 남은 데이터 용량이 포함되어 있지 않습니다.",
+          "따라서 현재 남은 데이터 용량을 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-008",
+        "code_notice": false,
+        "sentences": [
+          "요금 정보는 제공되지 않았습니다.",
+          "사용자 정보에 따르면 요금, 데이터 사용량, 미납 정보가 모두 제공되지 않았으며, 관련 API 결과도 존재하지 않습니다."
+        ]
+      },
+      {
+        "id": "UD-009",
+        "code_notice": false,
+        "sentences": [
+          "요금 미납 정보가 제공되지 않았으며, 사용자 정보에 따르면 요금, 데이터 사용량, 미납 정보가 없습니다.",
+          "따라서 밀린 요금이 있는지 여부를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-010",
+        "code_notice": false,
+        "sentences": [
+          "사용자 정보에 현재 사용 중인 요금제 이름은 제공되지 않았습니다.",
+          "앱 첫 화면이나 내 정보 메뉴에서 확인할 수 있지만, 사용자 정보에 요금제 이름이 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "UD-011",
+        "code_notice": false,
+        "sentences": [
+          "제 선택약정의 종료일은 제공된 정보에서 확인할 수 없습니다.",
+          "가입일은 2026년 10월 20일이지만, 선택약정 기간이나 조건에 대한 정보가 없습니다.",
+          "따라서 약정 종료일을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-012",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 할부 기간 정보는 제공된 사용자 정보 및 API 결과에서 확인할 수 없습니다.",
+          "할부 남은 개월수를 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-013",
+        "code_notice": false,
+        "sentences": [
+          "따라서 할인반환금의 구체적인 금액을 정확히 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-014",
+        "code_notice": false,
+        "sentences": [
+          "멤버십 포인트의 현재 점수는 제공된 정보에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-015",
+        "code_notice": false,
+        "sentences": [
+          "사용자 정보에 따르면 가입일은 2026-10-20이며, 요금 정보가 제공되지 않았습니다.",
+          "그러나 현재 가입일이 2026년 10월이며, 직전 6개월의 요금 정보가 없으므로 등급을 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-016",
+        "code_notice": false,
+        "sentences": [
+          "제공된 FAQ 문서와 사용자 정보/API 결과에서 회선이 가족 결합으로 누구랑 묶여 있는지에 대한 정보가 없습니다.",
+          "따라서 해당 정보를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-017",
+        "code_notice": false,
+        "sentences": [
+          "사용자 정보 및 제공된 FAQ 원문에 로밍 차단 상태에 대한 정보가 없습니다.",
+          "따라서 현재 폰에 로밍 차단이 걸려 있는지 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-018",
+        "code_notice": false,
+        "sentences": [
+          "소액결제 사용 내역은 제공된 정보에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-020",
+        "code_notice": false,
+        "sentences": [
+          "사용자 정보 및 FAQ 원문에 따라 요금이 매달 언제 빠져나가는지에 대한 정보가 제공되지 않았습니다.",
+          "따라서 해당 내용을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-021",
+        "code_notice": false,
+        "sentences": [
+          "사용자 정보에 통화 시간 기록이나 사용 내역이 포함되어 있지 않으며, 관련 API 결과도 제공되지 않았습니다.",
+          "따라서 이번 달의 통화 시간을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-022",
+        "code_notice": false,
+        "sentences": [
+          "사용자 정보에 따르면 데이터 사용량은 제공되지 않았으며, 요금이나 데이터 사용량 정보가 없습니다.",
+          "따라서 제 쉐어링 서브 회선의 데이터 사용량을 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-023",
+        "code_notice": false,
+        "sentences": [
+          "제 약정 만료일은 제공된 정보에서 확인할 수 없습니다.",
+          "가입일(2026-10-20)만 제공되었고, 약정 기간이나 만료일은 명시되어 있지 않습니다.",
+          "따라서 제 약정 언제 끝나는지 알 수 없습니다.",
+          "재약정은 만료 며칠 전부터 신청할 수 있는지에 대한 정보는 FAQ에서 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "UD-024",
+        "code_notice": false,
+        "sentences": [
+          "따라서 포인트 잔액과 유효기간을 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-025",
+        "code_notice": false,
+        "sentences": [
+          "요금을 2개월 밀렸는지 확인할 수 없습니다.",
+          "제공된 정보에 요금, 데이터 사용량, 미납 정보가 없습니다.",
+          "또한, 요금을 2개월 미납했을 때의 구체적인 결과는 FAQ에서 언급되어 있지 않습니다.",
+          "따라서 2개월 미납이면 어떻게 되는지에 대한 정확한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-026",
+        "code_notice": false,
+        "sentences": [
+          "사용자 정보에 요금제 종류나 기본 데이터 용량이 명시되어 있지 않아 제 요금제 기본 데이터 크기와 데이터 쉐어링이 가능한 요금제의 조건을 확정할 수 없습니다.",
+          "데이터 쉐어링은 5G 스탠다드 이상 요금제에서 가능하지만, 사용자의 구체적인 요금제 정보가 없어 해당 요금제의 종류를 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-027",
+        "code_notice": false,
+        "sentences": [
+          "그러나 이번 달 제 문자 추가 요금이 나왔는지 여부는 사용자 정보 및 API 결과에 기재된 내용에서 확인할 수 없습니다.",
+          "제공된 정보에서는 이번 달 문자 추가 요금 발생 여부를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-028",
+        "code_notice": false,
+        "sentences": [
+          "이번 달의 데이터 사용량은 제공된 정보에 없습니다."
+        ]
+      },
+      {
+        "id": "UD-029",
+        "code_notice": false,
+        "sentences": [
+          "사용자 정보 및 FAQ 원문에 따르면, 평가회원의 폰 할부 남은 금액이나 중도 완납 시 추가로 지불해야 하는 비용에 대한 정보가 제공되지 않았습니다.",
+          "따라서 할부 남은 금액과 중도 완납 시 추가 비용에 대해 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-030",
+        "code_notice": false,
+        "sentences": [
+          "그러나 요금 정보는 제공된 사용자 정보에 없습니다.",
+          "요금은 가입일(2026-10-20) 이후에 발생했을 가능성이 있으며, 현재 요금 정보가 없기 때문에 이번 달 요금을 알 수 없습니다."
+        ]
+      }
+    ],
+    "sub": [
+      {
+        "id": "IN-008",
+        "code_notice": true,
+        "sentences": [
+          "장기 일시정지의 최대 기간은 FAQ 문서에서 명시되어 있지 않습니다.",
+          "FAQ [1431]과 [1435]는 일시정지와 장기 정지의 차이를 설명하지만, 장기 정지의 최대 기간에 대한 구체적인 기준이나 기간 정보는 제공되지 않았습니다.",
+          "따라서 장기 일시정지의 최대 기간을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MA-014",
+        "code_notice": false,
+        "sentences": [
+          "테더링은 키즈 안심 요금제에서 제공되지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-015",
+        "code_notice": false,
+        "sentences": [
+          "그러나 음성통화는 제공되지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-027",
+        "code_notice": true,
+        "sentences": [
+          "다만, 세 번 틀렸을 때의 정확한 처리 방식은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-033",
+        "code_notice": true,
+        "sentences": [
+          "그러나 '친구 결합'과 '가족 결합'이 동일한 정책인지 확인할 수 없습니다.",
+          "따라서 친구 결합 2회선 할인 금액은 확정할 수 없습니다.",
+          "그러나 '친구 결합'과 '가족 결합'의 정책 차이가 명시되지 않아, 친구 결합 3회선 할인 금액은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-004",
+        "code_notice": true,
+        "sentences": [
+          "하지만 자격 재확인의 구체적인 월은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MN-014",
+        "code_notice": true,
+        "sentences": [
+          "환불 처리 기간에 대해서는 FAQ에 명시된 정보가 없어 정확한 기간을 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-015",
+        "code_notice": true,
+        "sentences": [
+          "장기 일시정지의 최대 기간은 FAQ 문서에서 명시되어 있지 않습니다.",
+          "그러나 구체적인 기간(예: 몇 년까지)은 제공되지 않았습니다.",
+          "그러나 '장기 일시정지'와 '일시정지'의 구분이 명확히 되어 있지 않아, 장기 일시정지의 연장 횟수에 대한 정확한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-003",
+        "code_notice": true,
+        "sentences": [
+          "그러나 자기부담금의 구체적인 금액은 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-004",
+        "code_notice": true,
+        "sentences": [
+          "FAQ에는 무상 수리 기간이 명시되어 있지 않아 정확한 년수는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-005",
+        "code_notice": true,
+        "sentences": [
+          "구체적인 금액은 FAQ에 명시되어 있지 않으며, 실제 감면 금액은 대상별로 정부에서 결정하고, 매장이나 고객센터에서 자격 확인 후 적용됩니다."
+        ]
+      },
+      {
+        "id": "MP-006",
+        "code_notice": true,
+        "sentences": [
+          "그러나 몇 배를 감면해 주는지에 대한 구체적인 배수는 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-007",
+        "code_notice": true,
+        "sentences": [
+          "요금 정보는 제공된 FAQ에서 로밍 상품 요금에만 언급되어 있으며, 와이파이 콜링에 대한 구체적인 요금은 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-008",
+        "code_notice": true,
+        "sentences": [
+          "서브 회선 하나당 월 요금은 FAQ에 기재되어 있지 않아 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-010",
+        "code_notice": true,
+        "sentences": [
+          "잃어버리면 변상금은 정해진 금액이 청구되며, 그 금액은 FAQ에서 명시되어 있지 않습니다.",
+          "변상금의 구체적인 금액은 제공된 FAQ에서 명시되어 있지 않아 정확한 금액을 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-011",
+        "code_notice": true,
+        "sentences": [
+          "몇 번 틀리면 잠기는 내용은 제공된 FAQ에서 명시되어 있지 않으며, 유심 비밀번호에 대한 정보만 포함되어 있습니다.",
+          "따라서 고객 보호 비밀번호의 틀린 횟수에 대한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-012",
+        "code_notice": true,
+        "sentences": [
+          "다만, 일본에서의 구체적인 분당 요금은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-013",
+        "code_notice": true,
+        "sentences": [
+          "그러나 미국으로 전화를 걸 때 분당 요금은 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 미국으로 걸면 분당 얼마인지에 대한 구체적인 금액은 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-014",
+        "code_notice": true,
+        "sentences": [
+          "그러나 '안 되면 1분에 얼마예요'에 대한 구체적인 요금 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-015",
+        "code_notice": false,
+        "sentences": [
+          "그러나 500Mbps의 요금 정보는 제공된 FAQ에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-016",
+        "code_notice": true,
+        "sentences": [
+          "프리미엄 채널 수에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-018",
+        "code_notice": true,
+        "sentences": [
+          "예약한 시간에 늦으면 기다려주는 시간은 명시되어 있지 않으며, 관련 FAQ에서는 예약 취소나 다른 고객의 예약에 대한 내용만 제공됩니다."
+        ]
+      },
+      {
+        "id": "MP-020",
+        "code_notice": true,
+        "sentences": [
+          "한 달에 읽을 수 있는 권수는 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-021",
+        "code_notice": true,
+        "sentences": [
+          "그러나 몇 명까지 추천할 수 있는 제한은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-023",
+        "code_notice": true,
+        "sentences": [
+          "쓰다가 중간에 해지하면, 사용이 시작되지 않았다는 조건을 충족하지 않기 때문에 남은 날만큼 환불되는 경우는 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-024",
+        "code_notice": true,
+        "sentences": [
+          "그러나 1MB당 요금은 방문 국가와 로밍 상품에 따라 달라지므로 정확한 금액은 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 1MB당 요금은 명시되지 않았고, 계산하거나 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-025",
+        "code_notice": true,
+        "sentences": [
+          "그러나 구체적인 최대 기간(년 단위)은 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 최대 몇 년까지 가능한지에 대한 정확한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-026",
+        "code_notice": true,
+        "sentences": [
+          "몇 자리에 대해서는 FAQ에 명시되어 있지 않으며, 결제 비밀번호의 자릿수는 제공된 자료에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-027",
+        "code_notice": true,
+        "sentences": [
+          "신분증 촬영에 대한 실패 횟수 제한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-028",
+        "code_notice": true,
+        "sentences": [
+          "그러나 키즈 안심 요금제에 대한 속도 정보는 제공된 FAQ에서 명시되어 있지 않으며, 위 정보는 밸런스 및 실속 요금제에 대한 내용입니다.",
+          "따라서 키즈 안심 요금제의 데이터 소진 후 속도는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-029",
+        "code_notice": false,
+        "sentences": [
+          "또한 개통비에 대한 언급은 해당 FAQ에 포함되어 있지 않으며, 다른 FAQ 문서에서도 개통비에 대한 정보가 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "MP-030",
+        "code_notice": true,
+        "sentences": [
+          "그러나 충전하면 보너스가 붙는다는 내용은 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "보너스 관련 정보는 없으므로, 보너스가 붙는다는 점은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-031",
+        "code_notice": true,
+        "sentences": [
+          "그러나 '데이터 플러스 5GB'라는 명칭의 요금제는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 데이터 플러스 5GB의 월 요금은 확인할 수 없습니다.",
+          "하위 질문 2: 자동 갱신 없이 한 달만 살 수 있는지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 자동 갱신 없이 한 달만 살 수 있는지 여부는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-037",
+        "code_notice": true,
+        "sentences": [
+          "처리 시간에 대해서는 FAQ에 명시된 정보가 없어 정확한 일수는 확인할 수 없습니다.",
+          "처리는 며칠 걸려요?에 대한 답변은 제공된 FAQ에서 처리 기간에 관한 정보가 없습니다.",
+          "따라서 처리 시간은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-038",
+        "code_notice": true,
+        "sentences": [
+          "하루에 시도할 수 있는 횟수는 FAQ에서 명시되어 있지 않으며, 번호이동 인증에 대한 정보만 제공되어 있습니다."
+        ]
+      },
+      {
+        "id": "MP-039",
+        "code_notice": true,
+        "sentences": [
+          "파일로 내려받을 수 있는 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-041",
+        "code_notice": true,
+        "sentences": [
+          "그러나 갤럭시 최신 모델 기준의 구체적인 금액은 FAQ에 명시되어 있지 않으며, 요금제에 따라 달라지므로 주문 화면에서 모델별 요금제별 공시지원금을 비교해야 합니다."
+        ]
+      },
+      {
+        "id": "MP-042",
+        "code_notice": true,
+        "sentences": [
+          "카페에서의 할인 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-046",
+        "code_notice": true,
+        "sentences": [
+          "음악을 오프라인으로 저장할 수 있는 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-047",
+        "code_notice": true,
+        "sentences": [
+          "출국한 뒤에는 대리인이 위임장을 가지고 매장에서 신청할 수 있지만, 앱을 통해 신청하는 것은 제공된 정보에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-048",
+        "code_notice": true,
+        "sentences": [
+          "임대 공유기의 월 사용료는 FAQ에 명시된 정보가 없어 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-050",
+        "code_notice": true,
+        "sentences": [
+          "하지만 건당 금액은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-051",
+        "code_notice": true,
+        "sentences": [
+          "하지만 구체적인 하루 대여료는 FAQ에 명시되어 있지 않아 정확한 금액을 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-052",
+        "code_notice": true,
+        "sentences": [
+          "장기 일시정지는 FAQ에서 명시된 정보가 없으나, 일시정지와 장기 정지의 차이에 따르면 장기 정지는 증빙 서류가 있는 경우에만 가능하지만, 그 기간에 대한 명시적 제한은 없습니다."
+        ]
+      },
+      {
+        "id": "MP-053",
+        "code_notice": true,
+        "sentences": [
+          "월 보험료는 제공된 정보에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-054",
+        "code_notice": true,
+        "sentences": [
+          "영상통화 1분 요금은 제공된 FAQ에서 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "MP-055",
+        "code_notice": true,
+        "sentences": [
+          "그러나 프리미엄 채널 수에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-057",
+        "code_notice": true,
+        "sentences": [
+          "휴대폰 결제 비밀번호는 FAQ 문서에서 명시되어 있지 않으며, 결제 비밀번호의 자릿수에 대한 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "MP-060",
+        "code_notice": true,
+        "sentences": [
+          "키즈가드 하루 사용 시간 제한에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MT-009",
+        "code_notice": true,
+        "sentences": [
+          "휴대폰 보험의 월 보험료는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 월 보험료를 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MT-011",
+        "code_notice": true,
+        "sentences": [
+          "프리미엄 채널 수에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MT-016",
+        "code_notice": true,
+        "sentences": [
+          "그러나 분실 시 정해진 변상금이 청구되며, 그 금액은 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MT-017",
+        "code_notice": true,
+        "sentences": [
+          "그러나 월 보험료에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MT-019",
+        "code_notice": true,
+        "sentences": [
+          "늦은 경우 기다려주는 시간은 FAQ에 명시되어 있지 않아 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "OS-017",
+        "code_notice": true,
+        "sentences": [
+          "저녁 메뉴 추천은 제공된 정보에 없습니다."
+        ]
+      },
+      {
+        "id": "OS-019",
+        "code_notice": true,
+        "sentences": [
+          "주식 종목 추천은 통신 서비스와 관련이 없으며, 제공된 FAQ 및 정보를 기반으로 답변할 수 없습니다."
+        ]
+      },
+      {
+        "id": "OS-020",
+        "code_notice": true,
+        "sentences": [
+          "일본 여행 맛집 추천은 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "OS-021",
+        "code_notice": true,
+        "sentences": [
+          "파이썬 정렬 코드는 제공된 정보에 없으므로 작성할 수 없습니다."
+        ]
+      },
+      {
+        "id": "OS-024",
+        "code_notice": true,
+        "sentences": [
+          "다이어트 식단은 제공된 정보에 없으므로 짜드릴 수 없습니다."
+        ]
+      },
+      {
+        "id": "OS-027",
+        "code_notice": true,
+        "sentences": [
+          "축구 경기 일정은 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "SB-035",
+        "code_notice": true,
+        "sentences": [
+          "'데이터 안심 서비스'에 대한 정보는 존재하지만, 이는 일반 요금제에 대한 설명이며 키즈 요금제에 대한 적용 여부는 명시되어 있지 않습니다.",
+          "따라서 키즈 안심 요금제의 데이터 소진 후 속도 제한 내용은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "SB-036",
+        "code_notice": true,
+        "sentences": [
+          "워치 요금제의 개통비는 명시되어 있지 않습니다.",
+          "제공된 FAQ에서는 워치 요금제의 데이터 용량과 가격(0.5GB 월 5,500원, 1GB 월 8,800원, 2GB 월 11,000원)이 설명되어 있지만, 개통비에 대한 정보는 포함되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "ST-018",
+        "code_notice": true,
+        "sentences": [
+          "주차 가능 여부는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "ST-021",
+        "code_notice": false,
+        "sentences": [
+          "모든 매장의 영업시간은 09:00~18:00이며, 주말 영업 여부는 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "ST-023",
+        "code_notice": true,
+        "sentences": [
+          "서면역 근처 매장 정보는 제공된 FAQ에서 없습니다.",
+          "하지만 서면역 근처 매장의 구체적인 위치나 정보는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "ST-026",
+        "code_notice": true,
+        "sentences": [
+          "휴대폰 보험 월 보험료는 제공된 정보에 없으므로 알려드릴 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-027",
+        "code_notice": true,
+        "sentences": [
+          "그러나 이번 달 제 문자 추가 요금이 나왔는지 여부는 사용자 정보 및 API 결과에서 확인할 수 없습니다.",
+          "요금 정보는 FAQ 문서에 기재되어 있지만, 사용자의 실제 요금 청구 내역은 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "UD-028",
+        "code_notice": true,
+        "sentences": [
+          "이번 달의 데이터 사용량은 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "UD-030",
+        "code_notice": true,
+        "sentences": [
+          "이번 달 요금은 제공된 정보에 없습니다."
+        ]
+      }
+    ],
+    "subp": [
+      {
+        "id": "IN-008",
+        "code_notice": true,
+        "sentences": [
+          "장기 일시정지의 최대 기간은 FAQ 문서에서 명시되어 있지 않습니다.",
+          "장기 정지는 군 입대, 해외 체류, 입원 등 증빙 서류가 있는 경우에만 신청 가능하며, 그 기간은 문서에서 명시되어 있지 않습니다.",
+          "따라서 장기 일시정지의 최대 기간에 대한 구체적인 정보는 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "IN-020",
+        "code_notice": true,
+        "sentences": [
+          "그러나 추천 인원 제한에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-014",
+        "code_notice": false,
+        "sentences": [
+          "테더링은 키즈 안심 요금제에서 제공되지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-015",
+        "code_notice": false,
+        "sentences": [
+          "그러나 이 요금제는 음성통화와 문자를 제공하지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-016",
+        "code_notice": true,
+        "sentences": [
+          "다만, FAQ 원문에는 데이터 초과 후의 구체적인 처리 방식(예: 요금 부과, 서비스 중단 등)이 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-027",
+        "code_notice": true,
+        "sentences": [
+          "다만, 세 번 틀렸을 때의 구체적인 처리 방식에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MA-030",
+        "code_notice": true,
+        "sentences": [
+          "상대 번호 전체가 나온 내역은 앱에서 확인할 수 없으며, 매장에서 신청해야 합니다.",
+          "하지만 제공된 FAQ에서는 상대 번호 전체가 나온 내역을 신청하는 구체적인 절차나 채널이 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MA-033",
+        "code_notice": true,
+        "sentences": [
+          "친구 결합 2회선 할인 금액은 FAQ 문서에 명시되어 있지 않습니다.",
+          "가족 결합 할인은 휴대폰 2회선이면 월 6,000원, 3회선이면 월 15,000원 등으로 되어 있지만, 이는 가족 결합에 대한 내용이며 친구 결합에 대한 정보는 제공되지 않았습니다.",
+          "따라서 친구 결합 2회선 할인 금액은 확인할 수 없습니다.",
+          "친구 결합에 대한 할인 정책은 문서에 명시되어 있지 않아, 2회선 및 3회선 할인 금액을 정확히 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-004",
+        "code_notice": true,
+        "sentences": [
+          "구체적인 금액은 대상자 종류에 따라 달라지며, FAQ에 정확한 금액이 명시되어 있지 않습니다.",
+          "그러나 자격 재확인이 정해진 월은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MN-008",
+        "code_notice": true,
+        "sentences": [
+          "일본에서 로밍 중에 전화를 받으면 분당 요금이 부과되지만, FAQ 원문에 일본에 대한 구체적인 분당 요금이 명시되어 있지 않습니다.",
+          "그러나 실제 분당 금액은 국가별로 다르며, 일본에 대한 정확한 분당 요금은 제공된 FAQ에서 확인할 수 없습니다.",
+          "한국으로 걸면 분당 요금은 제공된 FAQ에서 언급되어 있지 않습니다.",
+          "해외에서 전화를 걸 때는 일반적으로 로밍 요금이 부과되지만, 한국으로 걸 때의 분당 요금은 국가별로 다르며, 한국에 대한 구체적인 분당 요금은 FAQ 원문에 포함되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MN-015",
+        "code_notice": true,
+        "sentences": [
+          "장기 일시정지의 최대 기간은 FAQ 문서에서 명시되어 있지 않습니다.",
+          "따라서 장기 일시정지의 최대 기간은 확정할 수 없습니다.",
+          "연장 가능한 횟수는 FAQ 문서에서 명시되어 있지 않습니다.",
+          "따라서 연장 가능한 횟수도 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-016",
+        "code_notice": true,
+        "sentences": [
+          "휴대폰 결제 비밀번호의 자릿수는 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 휴대폰 결제 비밀번호의 자릿수는 확정할 수 없습니다.",
+          "비밀번호를 잊었을 때 초기화 방법은 휴대폰 결제 비밀번호에 관한 초기화 절차가 FAQ에 명시되어 있지 않습니다.",
+          "따라서 비밀번호를 잊었을 때 초기화 방법은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-002",
+        "code_notice": true,
+        "sentences": [
+          "그러나 월 보험료에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-003",
+        "code_notice": true,
+        "sentences": [
+          "그러나 자기부담금의 구체적인 금액은 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-004",
+        "code_notice": true,
+        "sentences": [
+          "기간은 FAQ에 명시되어 있지 않아 정확한 년수는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-005",
+        "code_notice": true,
+        "sentences": [
+          "구체적인 금액은 FAQ에 명시되어 있지 않으며, 실제 감면 금액은 대상별로 정부에서 결정하고, 매장이나 고객센터에서 자격을 확인 후 적용됩니다."
+        ]
+      },
+      {
+        "id": "MP-006",
+        "code_notice": true,
+        "sentences": [
+          "그러나 몇 배를 감면해 주는지에 대한 구체적인 배수는 FAQ에 명시되어 있지 않으며, 개별 통신 장애의 경우 고객센터에 신청해야 합니다."
+        ]
+      },
+      {
+        "id": "MP-008",
+        "code_notice": true,
+        "sentences": [
+          "서브 회선 하나당 월 요금은 FAQ에 기재되어 있지 않아 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-010",
+        "code_notice": true,
+        "sentences": [
+          "잃어버리면 변상금이 청구되며, 정해진 변상금액은 FAQ에서 명시되어 있지 않아 구체적인 금액을 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-011",
+        "code_notice": true,
+        "sentences": [
+          "몇 번 틀리면 잠기는 내용은 제공된 FAQ에서 명시되어 있지 않으며, 유심 비밀번호에 대한 정보만 포함되어 있습니다.",
+          "따라서 '몇 번 틀리면 잠기나요'에 대한 정확한 답변은 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-012",
+        "code_notice": true,
+        "sentences": [
+          "일본에서는 분당 로밍 요금이 부과되지만, 구체적인 분당 금액은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-013",
+        "code_notice": true,
+        "sentences": [
+          "그러나 미국으로 국제전화를 걸 때 분당 요금은 FAQ에 명시되어 있지 않아 정확한 금액을 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-014",
+        "code_notice": true,
+        "sentences": [
+          "그러나 '안 되면 1분에 얼마예요'에 대한 구체적인 금액은 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-015",
+        "code_notice": false,
+        "sentences": [
+          "그러나 500Mbps의 요금 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-016",
+        "code_notice": true,
+        "sentences": [
+          "프리미엄 채널 수에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-018",
+        "code_notice": true,
+        "sentences": [
+          "예약 시간에 늦으면 기다려주는 기준은 제공된 FAQ에서 명시되어 있지 않으며, 기다려주는 시간은 없습니다."
+        ]
+      },
+      {
+        "id": "MP-020",
+        "code_notice": true,
+        "sentences": [
+          "한 달에 읽을 수 있는 권수는 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-021",
+        "code_notice": true,
+        "sentences": [
+          "추천 가능한 친구의 수에 대한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-024",
+        "code_notice": true,
+        "sentences": [
+          "그러나 1MB당 요금은 명시되어 있지 않으며, 해외 데이터 로밍 요금은 방문 국가와 가입한 로밍 상품에 따라 달라지므로 구체적인 1MB당 요금은 제공되지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-025",
+        "code_notice": true,
+        "sentences": [
+          "그러나 정확한 최대 기간은 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-026",
+        "code_notice": true,
+        "sentences": [
+          "몇 자리에 대해서는 FAQ에 명시되어 있지 않으며, 결제 비밀번호의 자릿수는 제공된 자료에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-027",
+        "code_notice": true,
+        "sentences": [
+          "신분증 촬영에 대한 실패 횟수 제한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-028",
+        "code_notice": true,
+        "sentences": [
+          "그러나 요금제의 데이터 사용량에 따라 속도가 어떻게 되는지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 데이터 사용량과 속도의 관계에 대한 구체적인 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-030",
+        "code_notice": true,
+        "sentences": [
+          "그러나 충전하면 보너스가 붙는다는 내용은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-031",
+        "code_notice": true,
+        "sentences": [
+          "데이터 플러스 5GB는 FAQ 원문에 명시되어 있지 않습니다.",
+          "그러나 데이터 플러스 5GB 요금제에 대한 구체적인 요금 정보는 제공되지 않았습니다.",
+          "자동 갱신 없이 한 달만 살 수 있는 여부에 대해서는 FAQ 원문에 관련 내용이 없어 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-035",
+        "code_notice": true,
+        "sentences": [
+          "다만, FAQ 원문에 '교체는 유료예요'에 대한 정보가 없으므로 유료 여부는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-037",
+        "code_notice": true,
+        "sentences": [
+          "처리 기간에 대한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-038",
+        "code_notice": true,
+        "sentences": [
+          "하루에 시도할 수 있는 횟수는 FAQ에서 명시된 정보가 없으므로, 번호이동 인증의 경우 하루 7회까지 가능하다는 내용은 해당되지 않으며, 안면인증에 대한 하루 시도 제한은 제공된 자료에 없습니다.",
+          "따라서 하루에 몇 번까지 시도할 수 있는지에 대한 정확한 정보는 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-039",
+        "code_notice": true,
+        "sentences": [
+          "그러나 파일로 내려받을 수 있는지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-042",
+        "code_notice": true,
+        "sentences": [
+          "카페에서의 할인율 정보는 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "MP-044",
+        "code_notice": true,
+        "sentences": [
+          "유심 판매는 제공된 정보에서 언급되어 있지 않으며, 공항 로밍센터에서 유심을 판매할 수 있는지에 대한 명확한 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "MP-045",
+        "code_notice": true,
+        "sentences": [
+          "매장에서 가입할 수 있는지에 대한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-046",
+        "code_notice": true,
+        "sentences": [
+          "음악을 오프라인으로 저장할 수 있는 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-047",
+        "code_notice": true,
+        "sentences": [
+          "그러나 앱을 통해 신청할 수 있는지에 대한 정보는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-048",
+        "code_notice": true,
+        "sentences": [
+          "임대 공유기의 월 사용료에 대한 정보는 제공된 FAQ에서 명시되어 있지 않으며, 임대폰의 사용료 정보만 포함되어 있습니다.",
+          "따라서 임대 공유기 월 사용료는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-050",
+        "code_notice": true,
+        "sentences": [
+          "하지만 건당 금액은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-051",
+        "code_notice": true,
+        "sentences": [
+          "구체적인 요금은 제공된 FAQ에서 명시되어 있지 않아 정확한 금액을 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-052",
+        "code_notice": true,
+        "sentences": [
+          "장기 일시정지는 FAQ에서 명시된 정보가 없으나, 일시정지와 장기 정지의 차이에 따르면 장기 정지는 증빙 서류가 있는 경우에만 가능하지만, 그 기간은 명시되어 있지 않습니다.",
+          "따라서 장기 일시정지의 최대 기간은 제공된 자료에서 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MP-053",
+        "code_notice": true,
+        "sentences": [
+          "월 보험료는 제공된 정보에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-054",
+        "code_notice": true,
+        "sentences": [
+          "영상통화 1분 요금에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-055",
+        "code_notice": true,
+        "sentences": [
+          "그러나 프리미엄 채널 수에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MP-057",
+        "code_notice": true,
+        "sentences": [
+          "휴대폰 결제 비밀번호는 FAQ 문서에서 명시되어 있지 않으며, 설정 방법은 언급되지만 자릿수는 설명되지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-058",
+        "code_notice": false,
+        "sentences": [
+          "공항 로밍센터에서 유심을 판매하는지 여부에 대한 정보가 제공되지 않았습니다.",
+          "운영시간에 대한 정보는 인천공항 제1·제2여객터미널의 로밍센터가 매일 06:00~22:00 운영된다고 되어 있지만, 유심 판매 여부는 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MP-060",
+        "code_notice": true,
+        "sentences": [
+          "키즈가드의 하루 사용 시간 제한에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MT-009",
+        "code_notice": true,
+        "sentences": [
+          "사용자 정보 및 API 결과에 따라 휴대폰 보험의 월 보험료가 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MT-010",
+        "code_notice": true,
+        "sentences": [
+          "로밍 에그의 하루 대여료는 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MT-011",
+        "code_notice": true,
+        "sentences": [
+          "프리미엄 채널 수에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "MT-012",
+        "code_notice": true,
+        "sentences": [
+          "하지만 구체적인 금액은 FAQ에 명시되어 있지 않아 정확한 수치를 알 수 없습니다."
+        ]
+      },
+      {
+        "id": "MT-013",
+        "code_notice": true,
+        "sentences": [
+          "사용자 정보 및 API 결과에 사용 시간 제한에 대한 내용이 없으므로, 키즈가드의 사용 시간 제한에 대해 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MT-014",
+        "code_notice": true,
+        "sentences": [
+          "비디오패스는 동시에 볼 수 있는 대수에 대한 정보가 FAQ에 포함되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MT-016",
+        "code_notice": true,
+        "sentences": [
+          "그러나 분실 시 정해진 변상금이 청구되며, 그 금액은 FAQ에서 명시되어 있지 않습니다.",
+          "따라서 변상금의 구체적인 금액은 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MT-017",
+        "code_notice": true,
+        "sentences": [
+          "월 보험료는 제공된 정보에 없습니다."
+        ]
+      },
+      {
+        "id": "MT-019",
+        "code_notice": true,
+        "sentences": [
+          "늦은 경우 기다려주는 시간은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "MT-028",
+        "code_notice": true,
+        "sentences": [
+          "공항 로밍센터에서 유심을 팔아요는 정보가 없습니다."
+        ]
+      },
+      {
+        "id": "MT-029",
+        "code_notice": true,
+        "sentences": [
+          "보너스는 제공되지 않습니다."
+        ]
+      },
+      {
+        "id": "OS-016",
+        "code_notice": true,
+        "sentences": [
+          "그러나 오늘 날씨에 대한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "OS-017",
+        "code_notice": true,
+        "sentences": [
+          "저녁 메뉴 추천은 제공된 정보에 없습니다."
+        ]
+      },
+      {
+        "id": "OS-020",
+        "code_notice": true,
+        "sentences": [
+          "일본 여행 맛집 추천은 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "OS-021",
+        "code_notice": true,
+        "sentences": [
+          "파이썬 정렬 코드는 제공된 정보에 없으므로 작성할 수 없습니다."
+        ]
+      },
+      {
+        "id": "OS-022",
+        "code_notice": true,
+        "sentences": [
+          "강아지 산책은 하루 몇 번이 좋아요에 대한 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "OS-024",
+        "code_notice": true,
+        "sentences": [
+          "다이어트 식단은 제공된 정보에 없으므로 짜드릴 수 없습니다."
+        ]
+      },
+      {
+        "id": "OS-027",
+        "code_notice": true,
+        "sentences": [
+          "축구 경기 일정은 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "SB-008",
+        "code_notice": true,
+        "sentences": [
+          "그러나 갤럭시 최신 모델의 구체적인 공시지원금 금액은 FAQ에 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "SB-036",
+        "code_notice": true,
+        "sentences": [
+          "워치 요금제의 개통비는 제공된 FAQ에서 언급되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "SB-041",
+        "code_notice": true,
+        "sentences": [
+          "그러나 접수 후 몇 일 안에 처리되는지에 대한 구체적인 기간은 제공된 FAQ에서 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "ST-018",
+        "code_notice": true,
+        "sentences": [
+          "주차 가능 여부는 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "ST-020",
+        "code_notice": true,
+        "sentences": [
+          "그러나 이 매장이 외국인 가입을 받는지에 대한 정보는 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "ST-021",
+        "code_notice": true,
+        "sentences": [
+          "모든 매장의 영업시간이 09:00~18:00이며, 주말 영업 여부는 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "ST-022",
+        "code_notice": false,
+        "sentences": [
+          "매장 방문 시 챙겨야 할 사항은 FAQ에 명시되어 있지 않아 구체적인 안내를 제공할 수 없습니다."
+        ]
+      },
+      {
+        "id": "ST-023",
+        "code_notice": true,
+        "sentences": [
+          "서면역 근처 매장 정보는 제공된 FAQ에서 없습니다."
+        ]
+      },
+      {
+        "id": "ST-026",
+        "code_notice": false,
+        "sentences": [
+          "휴대폰 보험 월 보험료는 제공된 정보에 없어 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-026",
+        "code_notice": true,
+        "sentences": [
+          "제 요금제 기본 데이터 크기와 데이터 쉐어링이 가능한 요금제에 대한 정보는 제공된 자료에서 확인할 수 없습니다.",
+          "사용자 정보에 요금제 종류나 데이터 사용량이 포함되어 있지 않으며, FAQ 문서에서도 기본 데이터 용량에 대한 정보가 없습니다.",
+          "데이터 쉐어링은 5G 스탠다드 이상 요금제에서 가능하다고 되어 있지만, 사용자의 요금제 종류가 명시되어 있지 않아 어떤 요금제부터 가능하다는 점을 확정할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-027",
+        "code_notice": true,
+        "sentences": [
+          "그러나 이번 달 제 문자 추가 요금이 나왔는지 여부는 확인할 수 없습니다.",
+          "사용자 정보에 요금, 데이터 사용량, 미납 정보가 제공되지 않았기 때문에 추가 요금 발생 여부를 판단할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-028",
+        "code_notice": true,
+        "sentences": [
+          "이번 달의 데이터 사용량은 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "UD-030",
+        "code_notice": true,
+        "sentences": [
+          "이번 달 요금은 제공된 정보에 없어 확인할 수 없습니다."
+        ]
+      }
+    ]
+  }
+}

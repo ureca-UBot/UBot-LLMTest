@@ -1,6 +1,6 @@
 # pipeline_test_v1 — 다음 시도 계획 (2026-10-21 작성)
 
-sub 모드(하위 질문별 status + 코드 조합·고정 안내)의 남은 누출을 줄이는 시도다. 근거는 [try1 정리](try1/results/interim_summary.md) 3-2절(누출 패턴)이다. **두 단계로 나눠 따로 적용·측정한다.**
+sub 모드(하위 질문별 status + 코드 조합·고정 안내)의 남은 누출을 줄이는 시도다. 근거는 [try1 정리](try1/results/all_summary.md) 5절(고지·누출 — 옛 3-2절)이다. **두 단계로 나눠 따로 적용·측정한다.**
 
 | 단계 | 테스트 폴더 | 내용 | 바꾸는 곳 |
 |---|---|---|---|
@@ -77,7 +77,7 @@ node scripts/score/score_pipeline.js --test pipeline_test_v2 --try try1 --runs <
 - **먼저 할 일 — 완료(2026-10-21):** 채점 누출 패턴이 "제공된 FAQ에서 없습니다" 형태를 놓치던 것을 고쳤다.
   - `NOTICE_PATTERNS`의 `(자료|정보|안내|FAQ)(에|에는|에서는)…`에 `에서`를 넣었다.
   - try1 세 run을 다시 채점했다(같은 Judge 배치). 누출(패턴): single 179 → **195**, sub 66 → **70**, subp 78 → **87**. 새로 잡힌 29건은 모두 실제 고지 문장이다(오탐 0, 예: MP-016 "프리미엄 채널 수에 대한 정보는 제공된 FAQ에서 없습니다").
-  - Judge 고지·정답·status는 그대로다. `try1/results/interim_summary.md`의 누출 수치는 보강 전 값이다.
+  - Judge 고지·정답·status는 그대로다. `try1/results/all_summary.md` 5절 표의 누출 수치는 보강 전 값이다(1절 표는 보강 후).
 
 ---
 

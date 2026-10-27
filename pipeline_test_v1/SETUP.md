@@ -1,6 +1,6 @@
 # pipeline_test_v1 — 백엔드 파이프라인 전체 테스트 · 하위 질문별 status 비교 · 인계 문서
 
-> **다른 세션에서 결과를 정리할 때 이 문서부터 읽는다.** 생성·채점·Judge는 2026-10-20에 끝났다(5절 실행 기록). 결과 정리는 2026-10-21에 [try1/results/interim_summary.md](try1/results/interim_summary.md)로 마쳤다.
+> **다른 세션에서 결과를 정리할 때 이 문서부터 읽는다.** 생성·채점·Judge는 2026-10-20에 끝났다(5절 실행 기록). 결과 정리는 2026-10-21에 [try1/results/all_summary.md](try1/results/all_summary.md)로 마쳤다(2026-10-27 interim_summary를 all_summary로 통합).
 
 prompts_test_v1~v9는 답변 LLM 하나에 고정 Context를 넣어 쟀다. 이 테스트는 **백엔드 레포의 실제 파이프라인**을 HTTP로 그대로 거친다. 파이프라인은 판정 LLM 하위 질문 분리 → 가드 → 임베딩 검색·문장 필터 → intent별 자료(FAQ·사용자 정보·매장 도구) → 답변 LLM 순서다. 같은 케이스셋 390건을 두 방식으로 돌려 비교한다.
 
@@ -189,7 +189,7 @@ BackEnd/ (브랜치 test/pipeline-eval, feat/205-multiturn b492470에서 분기,
 - 입력은 두 run의 `raw/scored/<run_id>/summary.json`·`case_scores.jsonl`이고, 사례를 볼 때는 `raw/<run_id>/results.jsonl`과 `llm_judge/pv1-try1/<run_id>.judgments.jsonl`(error=null인 줄)을 쓴다.
 - 비교는 single과 sub를 같은 케이스로 짝지어 한다. 볼 지표는 최종 status 일치(느슨·엄격·LLM만), 누출(패턴과 Judge 보조), Judge 정답, 환각, 실패 원인 분포, 유형별(by_type) 차이다. 사용자가 원래 보려던 것은 누출, status 불일치, PARTIAL 삭제의 영향(IN 유형, `status_match_strict`)이다.
 - 파이프라인 단계(검색, 판정 LLM 질문 변형)는 두 안이 같다. 그래서 검색 적중·QUERY_VARIANT_MISS 차이는 노이즈다(LLM 생성이 섞이는 MT 이전 턴 정도만 다를 수 있음).
-- 결과 문서는 `pipeline_test_v1/try1/results/interim_summary.md`로 쓰고, LLM_Test `CLAUDE.md`의 현재 상태에 한 단락을 추가한다(기존 테스트들과 같은 방식).
+- 결과 문서는 `pipeline_test_v1/try1/results/all_summary.md`로 쓰고, LLM_Test `CLAUDE.md`의 현재 상태에 한 단락을 추가한다(기존 테스트들과 같은 방식).
 
 ## 8. 알려진 주의점 (결과를 해석할 때 반드시 반영)
 

@@ -1,4 +1,13 @@
-# pipeline_test_v4 try2 — sub vs slot (2026-10-23)
+# pipeline_test_v4 · try2 — 전체 요약 (all_summary): sub vs slot 390건 (2026-10-23)
+
+> **출력 구조 비교 — sub(공통 본문 + 하위 statuses) vs slot(하위 질문마다 answer → status, ANSWER 칸만 사용자에게)** · 생성 2026-10-22~23(이 PC, try1 119건 재사용 + 271건 추가) · LLM Judge `pv4-try2` 692건
+> 이전: [try1 119건 스모크](../../try1/results/all_summary.md) · [pipeline_test_v3](../../../pipeline_test_v3/try1/results/all_summary.md)(2단계 코드 — 이 백엔드에 포함) · [pipeline_test_v1](../../../pipeline_test_v1/try1/results/all_summary.md)(single·sub). 다음: [pipeline_test_v5](../../../pipeline_test_v5/try1/results/all_summary.md)(feat/277 전체 파이프라인).
+
+[SETUP](../SETUP.md) · [FAQ 경로 분석(매장·API 제외)](analysis_no_store_api.md) · [매장·사용자 정보 분석](analysis_store_api.md) · [single → sub → slot 환각 변화와 제어 지점](review/hallucination_progression.md) · [환각 케이스 원장](review/hallucination_cases.md) · [오답 케이스와 원인](review/failure_cases.md) · [비교 집계 JSON](summary/comparison.json)
+
+**한 줄 결론: slot은 모델 고지(Judge 70 → 8)·이중 고지(67 → 1)·과잉 보류(빈 본문 120 → 97)·도구 경로 실행 오류(LLM-005 12 → 0)를 구조적으로 줄였고 정답도 오르는 방향이다(공통 339건 259 → 272, p=0.06). 하지만 환각은 줄지 않고(30 → 36) "자료에 없음 → 없다·안 된다" 단정이 ANSWER 칸 안으로 들어왔다(SB 환각 1 → 7). 방향은 slot을 채택하고, ANSWER 칸 안의 단정을 따로 막아야 한다.**
+
+목차: [대상과 평가 기준](#대상과-평가-기준) · [전체 결과](#전체-결과--judge-우선) · [해석과 남은 문제](#해석과-남은-문제) · [짝 비교](#같은-문항의-짝-비교) · [환각](#환각) · [실패 원인](#실패-원인) · [칸 제거와 남은 고지](#칸-제거와-남은-고지) · [유형별 결과](#유형별-결과) · [판단과 다음](#판단과-다음) · [비교 해석의 제한](#비교-해석의-제한) · [증거 경로](#증거-경로)
 
 ## 대상과 평가 기준
 
@@ -63,6 +72,47 @@
 - sub에만 Judge가 있는 문항: 1건, 그중 정답 1건 (MT-017).
 - slot에만 Judge가 있는 문항: 13건, 그중 정답 8건 (MP-044, MT-013, MT-028, ST-004, ST-005, ST-006, ST-009, ST-010, ST-011, ST-012, ST-017, ST-020, ST-029).
 
+## 환각
+
+케이스별 원장(질문·답변·Judge 주장·사유·제어 후보)은 [review/hallucination_cases.md](review/hallucination_cases.md), single → sub → slot 변화와 제어 규칙(HC01~HC08)은 [review/hallucination_progression.md](review/hallucination_progression.md).
+
+| 종류 (해당 종류가 나온 케이스 수, 중복) | sub | slot |
+|---|---|---|
+| 실질적 환각 케이스 | 30 / 340 | 36 / 352 |
+| 없는 사실·값 생성 (FABRICATION) | 20 | 22 |
+| 대상·속성·근거 오적용 (MISATTRIBUTION) | 9 | 8 |
+| 조건 누락·범위 확대 (UNSUPPORTED_GENERALIZATION) | 2 | **11** |
+| 상충 자료의 임의 선택 | 1 | 1 |
+| 미실행 작업 완료 주장 | 0 | 0 |
+
+- 공통 339건: 환각 30 → 33, 사라짐 17 · 새로 생김 20(p=0.74). slot 전체 36건은 모두 status 배열이 유효하고 ANSWER 칸 원본과 사용자 본문이 일치한다 — **비ANSWER 칸 제거나 스키마 검증만으로는 남은 환각을 막을 수 없다.**
+- **환각은 위치만 옮겨 갔다.** sub에서는 섞인 경우의 고지·끌어오기였고, slot에서는 "모두 ANSWER" 안의 단정이다(모두 ANSWER 환각 8 → 19, [analysis_no_store_api](analysis_no_store_api.md) 5절).
+- 반복 패턴 세 가지:
+  1. **예/아니오 질문에서 "자료에 없다"를 "안 된다·없다"로 단정하고 ANSWER** — SB 환각 1 → 7. SB-034 "공항 로밍센터에서는 유심을 판매하거나 구매할 수는 없습니다." · SB-037 "보너스 금액이 붙지 않습니다." · SB-038 "자동 갱신 없이 한 달만 살 수는 없습니다." · SB-042 "출국한 뒤 앱으로 신청할 수 없습니다." · SB-049 · MP-047. sub는 같은 문항에서 ABSTAIN + 빈 본문으로 정답이었다.
+  2. **칸 끝 "따라서 …" 결론 문장이 묻지 않은 결론으로 건너뜀** — MP-036 "따라서 수수료가 있습니다." · MP-059 "따라서 번호 변경 수수료는 없으며"(정반대 결론) · MP-040 "따라서 해외에서 산 휴대폰으로도 Ubot 휴대폰 보험을 들 수 있습니다."
+  3. **근거 없는 일반화·지어낸 값**(일반화 2 → 11 케이스) — MP-019·056 "비디오패스는 1대에서만" · MP-014 "1분에 1,000원입니다."(완전히 지어낸 값, sub는 ABSTAIN) · CQ-010 "번호이동은 휴대폰 번호를 변경하는 것".
+- 원인(추정): answer를 먼저 쓰고 그 문장을 보고 ANSWER를 붙인다 + status 기준의 "'불가하다'로 확정되는 경우도 ANSWER" 문장이 단정을 정당화한다 + slot은 빈 칸으로 빠질 선택지가 없다(과잉 보류 감소와 맞바꾸는 관계).
+- 매장·사용자 정보: 공항 유심 부정 단정 3건(MP-044·058·MT-028), "조회 결과에 없음" → "미납 없음"(UD-009, [analysis_store_api](analysis_store_api.md) 2-6절)이 같은 모양이다.
+
+## 실패 원인
+
+오답 케이스 전체(원인 분류·Judge 하위 판정 사유)는 [review/failure_cases.md](review/failure_cases.md).
+
+| 원인 (Judge 오답, 기계 분류) | sub | slot |
+|---|---|---|
+| 답할 수 있는 하위 질문을 보류 + 본문 빔 | **38** | 24 |
+| 답할 수 있는 하위 질문을 보류, 본문은 씀 | 6 | 6 |
+| 답할 수 없는 하위 질문을 ANSWER로 두고 답함 | 12 | **20** |
+| 하위 질문 수 불일치(질문 분리) | 5 | 3 |
+| statuses 배열 잘못 | 1 | 0 |
+| status는 맞음, 본문 오류·누락 | 18 | 19 |
+| 합계 | 80 | 72 |
+
+- **과잉 보류 38 → 24와 지어냄 12 → 20이 맞바뀌었다.** 빈 본문으로 빠지던 문항이 ANSWER로 옮겨 가면서 맞힌 것(CQ·IN·UD·OS 회복)과 지어낸 것(SB·MP)이 함께 늘었다.
+- IN은 여전히 약하다(정답 2/19 → 4/19). 하위 질문 하나 안에 답할 수 있는 부분과 없는 부분이 섞이면 통째로 보류한다(v1부터 같음).
+- 매장 경로: slot은 LLM-005 12 → 0으로 판정 대상이 27 → 39건이 됐다. 오답 분류는 [analysis_store_api](analysis_store_api.md) 1-3절.
+- 채점 실패 원인(STATUS 52 → 56)은 SB 라벨 악화(50 → 41)가 대부분이다. 라벨은 "자료에 없음 = ABSTAIN" 기준이다.
+
 ## 칸 제거와 남은 고지
 
 - 칸 원본이 있는 케이스 352건 / 총 506칸. ANSWER 314칸.
@@ -86,6 +136,16 @@
 - **ST (30건)**: 정답 15/20 → 22/30; 환각 1 → 2; 고지(패턴) 5 → 1; status 일치 16 → 22; 검색 적중 92.11% → 92.11%.
 - **UD (30건)**: 정답 20/28 → 23/28; 환각 0 → 0; 고지(패턴) 3 → 1; status 일치 21 → 23; 검색 적중 71.05% → 71.05%.
 - **SB (50건)**: 정답 42/43 → 37/43; 환각 1 → 7; 고지(패턴) 2 → 1; status 일치 50 → 41; 검색 적중 64% → 64%.
+
+## 판단과 다음
+
+- **방향은 slot을 채택한다.** 목표였던 "ABSTAIN 안내는 코드가 붙이고, 모델 고지와 이중 고지는 없앰"을 구조적으로 달성했고(Judge 고지 70 → 8, 이중 고지 67 → 1, notice_free 짝 66 / 5), 도구 경로 실행 오류가 사라졌다. 정답은 오르는 방향이지만 유의하지 않다(p=0.06).
+- **환각은 그대로라 ANSWER 칸 안을 따로 다뤄야 한다.** 다음 후보(효과는 다시 재야 한다):
+  1. status 기준의 "'불가하다'로 확정되는 경우도 ANSWER"를 좁힌다 — 자료에 "불가"라고 쓰여 있을 때만 ANSWER(SB-034·037·038·042·049, MP-047). SB·IN·CQ 과잉 보류가 다시 늘지 않는지 함께 본다.
+  2. ANSWER 칸 끝의 "따라서 …" 결론 문장을 코드로 검사한다(MP-036·040·059). 답 자체가 "따라서" 문장인 경우(MA-032)가 있어 그냥 지우면 안 된다.
+  3. 칸 수 불일치 처리(CQ-007·MA-019·ST-004·005·009·011 — 최종 status null, 안내 누락).
+  4. 제어 규칙 HC01(미확인 필드를 부정·0·무료로 바꾸지 않기)부터 — [hallucination_progression](review/hallucination_progression.md) 6절.
+- slot 출력 형식은 feat/277 브랜치에 들어가 [pipeline_test_v5](../../../pipeline_test_v5/try1/results/all_summary.md)에서 가드·실제 도구와 함께 다시 쟀다.
 
 ## 비교 해석의 제한
 

@@ -1,0 +1,1349 @@
+{
+  "generated_by": "scripts/docgen/pipeline_try_report.js",
+  "cases": 172,
+  "runs": [
+    {
+      "label": "v5",
+      "run_id": "local-win_qwen3-4b-instruct_t0_pv5_feat277_n390_20261023",
+      "location": "pipeline_test_v5/try1/local-win_qwen3-4b-instruct_t0_pv5_feat277_n390_20261023",
+      "judge_batches": "pv5-feat277-try1"
+    },
+    {
+      "label": "v6",
+      "run_id": "local-win_qwen3-4b-instruct_t0_pv6_feat277lines_n172_20261023",
+      "location": "pipeline_test_v6/try1/local-win_qwen3-4b-instruct_t0_pv6_feat277lines_n172_20261023",
+      "judge_batches": "pv6-lines-try1"
+    }
+  ],
+  "overall": {
+    "v5": {
+      "cases": 172,
+      "paths": {
+        "LLM": 172
+      },
+      "exec_error": 0,
+      "judged": 172,
+      "correct": 109,
+      "correct_and_grounded": 106,
+      "hallucinated": 31,
+      "hallucination_claim_cases": {
+        "UNSUPPORTED_GENERALIZATION": 18,
+        "FABRICATION": 12,
+        "SILENT_CONFLICT_PICK": 1,
+        "MISATTRIBUTION": 6
+      },
+      "sub_outcomes": {
+        "MISSING_ANSWER": 42,
+        "WRONG_ANSWER": 14,
+        "CORRECT_ANSWER": 97,
+        "CORRECT_DECLINE": 80,
+        "UNSUPPORTED_ANSWER": 15
+      },
+      "notice_pattern": 10,
+      "ask_back_pattern": 0,
+      "notice_judge": 11,
+      "asks_user_judge": 0,
+      "code_notice": 104,
+      "double_notice": 3,
+      "empty_answer": 59,
+      "status_match": 106,
+      "status_match_strict": 108,
+      "passed": 93,
+      "failure_causes_scored": {
+        "STATUS_MISMATCH": 52,
+        "ANSWER_INCORRECT": 12,
+        "RETRIEVAL_MISS": 15
+      },
+      "judge_wrong_causes": {
+        "EXPECTED_ANSWER_DECLINED_EMPTY": 24,
+        "STATUS_OK_CONTENT_WRONG": 11,
+        "SUB_COUNT_MISMATCH": 4,
+        "EXPECTED_ANSWER_DECLINED_WROTE": 8,
+        "STATUSES_INVALID": 2,
+        "EXPECTED_DECLINE_ANSWERED": 13,
+        "OTHER": 1
+      },
+      "latency_avg_ms": 5056
+    },
+    "v6": {
+      "cases": 172,
+      "paths": {
+        "LLM": 170,
+        "CHAT-015": 1,
+        "LLM-005": 1
+      },
+      "exec_error": 2,
+      "judged": 170,
+      "correct": 111,
+      "correct_and_grounded": 109,
+      "hallucinated": 26,
+      "hallucination_claim_cases": {
+        "UNSUPPORTED_GENERALIZATION": 6,
+        "FABRICATION": 14,
+        "MISATTRIBUTION": 10,
+        "SILENT_CONFLICT_PICK": 1
+      },
+      "sub_outcomes": {
+        "CORRECT_ANSWER": 111,
+        "MISSING_ANSWER": 43,
+        "WRONG_ANSWER": 14,
+        "CORRECT_DECLINE": 66,
+        "UNSUPPORTED_ANSWER": 10
+      },
+      "notice_pattern": 3,
+      "ask_back_pattern": 0,
+      "notice_judge": 4,
+      "asks_user_judge": 0,
+      "code_notice": 94,
+      "double_notice": 1,
+      "empty_answer": 54,
+      "status_match": 119,
+      "status_match_strict": 117,
+      "passed": 106,
+      "failure_causes_scored": {
+        "STATUS_MISMATCH": 40,
+        "RETRIEVAL_MISS": 13,
+        "ANSWER_INCORRECT": 11,
+        "EXEC_ERROR": 2
+      },
+      "judge_wrong_causes": {
+        "EXPECTED_ANSWER_DECLINED_EMPTY": 26,
+        "STATUS_OK_CONTENT_WRONG": 13,
+        "SUB_COUNT_MISMATCH": 2,
+        "EXPECTED_ANSWER_DECLINED_WROTE": 8,
+        "EXPECTED_DECLINE_ANSWERED": 9,
+        "OTHER": 1
+      },
+      "latency_avg_ms": 5817
+    }
+  },
+  "by_type": {
+    "v5": {
+      "SA": {
+        "cases": 20,
+        "paths": {
+          "LLM": 20
+        },
+        "exec_error": 0,
+        "judged": 20,
+        "correct": 19,
+        "correct_and_grounded": 18,
+        "hallucinated": 2,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 2,
+          "FABRICATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 19,
+          "WRONG_ANSWER": 1
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 6,
+        "double_notice": 0,
+        "empty_answer": 0,
+        "status_match": 14,
+        "status_match_strict": 14,
+        "passed": 13,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 6,
+          "ANSWER_INCORRECT": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 1
+        },
+        "latency_avg_ms": 4252
+      },
+      "SB": {
+        "cases": 15,
+        "paths": {
+          "LLM": 15
+        },
+        "exec_error": 0,
+        "judged": 15,
+        "correct": 13,
+        "correct_and_grounded": 13,
+        "hallucinated": 2,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 1,
+          "UNSUPPORTED_GENERALIZATION": 1,
+          "FABRICATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 13,
+          "UNSUPPORTED_ANSWER": 2
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 14,
+        "double_notice": 0,
+        "empty_answer": 12,
+        "status_match": 12,
+        "status_match_strict": 12,
+        "passed": 12,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 3
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_DECLINE_ANSWERED": 2
+        },
+        "latency_avg_ms": 3960
+      },
+      "UD": {
+        "cases": 30,
+        "paths": {
+          "LLM": 30
+        },
+        "exec_error": 0,
+        "judged": 30,
+        "correct": 16,
+        "correct_and_grounded": 16,
+        "hallucinated": 10,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 9,
+          "FABRICATION": 2
+        },
+        "sub_outcomes": {
+          "MISSING_ANSWER": 6,
+          "CORRECT_ANSWER": 7,
+          "UNSUPPORTED_ANSWER": 10,
+          "CORRECT_DECLINE": 14,
+          "WRONG_ANSWER": 1
+        },
+        "notice_pattern": 3,
+        "ask_back_pattern": 0,
+        "notice_judge": 4,
+        "asks_user_judge": 0,
+        "code_notice": 15,
+        "double_notice": 0,
+        "empty_answer": 11,
+        "status_match": 14,
+        "status_match_strict": 15,
+        "passed": 13,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 13,
+          "ANSWER_INCORRECT": 1,
+          "RETRIEVAL_MISS": 3
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 4,
+          "EXPECTED_DECLINE_ANSWERED": 9,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 1
+        },
+        "latency_avg_ms": 3860
+      },
+      "MA": {
+        "cases": 18,
+        "paths": {
+          "LLM": 18
+        },
+        "exec_error": 0,
+        "judged": 18,
+        "correct": 8,
+        "correct_and_grounded": 6,
+        "hallucinated": 5,
+        "hallucination_claim_cases": {
+          "SILENT_CONFLICT_PICK": 1,
+          "FABRICATION": 1,
+          "UNSUPPORTED_GENERALIZATION": 2,
+          "MISATTRIBUTION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 22,
+          "WRONG_ANSWER": 3,
+          "MISSING_ANSWER": 11
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 9,
+        "double_notice": 0,
+        "empty_answer": 4,
+        "status_match": 9,
+        "status_match_strict": 9,
+        "passed": 7,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 2,
+          "STATUS_MISMATCH": 7,
+          "RETRIEVAL_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 2,
+          "SUB_COUNT_MISMATCH": 1,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 3,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 3,
+          "STATUSES_INVALID": 1
+        },
+        "latency_avg_ms": 6732
+      },
+      "MP": {
+        "cases": 22,
+        "paths": {
+          "LLM": 22
+        },
+        "exec_error": 0,
+        "judged": 22,
+        "correct": 14,
+        "correct_and_grounded": 14,
+        "hallucinated": 2,
+        "hallucination_claim_cases": {
+          "FABRICATION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 19,
+          "CORRECT_DECLINE": 20,
+          "MISSING_ANSWER": 7,
+          "UNSUPPORTED_ANSWER": 2
+        },
+        "notice_pattern": 2,
+        "ask_back_pattern": 0,
+        "notice_judge": 2,
+        "asks_user_judge": 0,
+        "code_notice": 21,
+        "double_notice": 2,
+        "empty_answer": 6,
+        "status_match": 15,
+        "status_match_strict": 15,
+        "passed": 14,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 5,
+          "ANSWER_INCORRECT": 1,
+          "RETRIEVAL_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 4,
+          "STATUSES_INVALID": 1,
+          "SUB_COUNT_MISMATCH": 1,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 1,
+          "EXPECTED_DECLINE_ANSWERED": 1
+        },
+        "latency_avg_ms": 7090
+      },
+      "MN": {
+        "cases": 6,
+        "paths": {
+          "LLM": 6
+        },
+        "exec_error": 0,
+        "judged": 6,
+        "correct": 5,
+        "correct_and_grounded": 5,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 11,
+          "UNSUPPORTED_ANSWER": 1
+        },
+        "notice_pattern": 1,
+        "ask_back_pattern": 0,
+        "notice_judge": 1,
+        "asks_user_judge": 0,
+        "code_notice": 6,
+        "double_notice": 1,
+        "empty_answer": 4,
+        "status_match": 4,
+        "status_match_strict": 4,
+        "passed": 4,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 2
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_DECLINE_ANSWERED": 1
+        },
+        "latency_avg_ms": 6590
+      },
+      "OS": {
+        "cases": 8,
+        "paths": {
+          "LLM": 8
+        },
+        "exec_error": 0,
+        "judged": 8,
+        "correct": 6,
+        "correct_and_grounded": 6,
+        "hallucinated": 0,
+        "hallucination_claim_cases": {},
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 9,
+          "CORRECT_ANSWER": 5,
+          "MISSING_ANSWER": 2
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 8,
+        "double_notice": 0,
+        "empty_answer": 3,
+        "status_match": 6,
+        "status_match_strict": 6,
+        "passed": 6,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 2
+        },
+        "judge_wrong_causes": {
+          "SUB_COUNT_MISMATCH": 1,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 1
+        },
+        "latency_avg_ms": 5713
+      },
+      "IN": {
+        "cases": 7,
+        "paths": {
+          "LLM": 7
+        },
+        "exec_error": 0,
+        "judged": 7,
+        "correct": 1,
+        "correct_and_grounded": 1,
+        "hallucinated": 2,
+        "hallucination_claim_cases": {
+          "FABRICATION": 2,
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 1,
+          "WRONG_ANSWER": 2,
+          "MISSING_ANSWER": 4
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 5,
+        "double_notice": 0,
+        "empty_answer": 4,
+        "status_match": 2,
+        "status_match_strict": 4,
+        "passed": 1,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 2,
+          "RETRIEVAL_MISS": 3,
+          "ANSWER_INCORRECT": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 1,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 4,
+          "SUB_COUNT_MISMATCH": 1
+        },
+        "latency_avg_ms": 4577
+      },
+      "CQ": {
+        "cases": 6,
+        "paths": {
+          "LLM": 6
+        },
+        "exec_error": 0,
+        "judged": 6,
+        "correct": 0,
+        "correct_and_grounded": 0,
+        "hallucinated": 3,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 3,
+          "FABRICATION": 1
+        },
+        "sub_outcomes": {
+          "MISSING_ANSWER": 3,
+          "WRONG_ANSWER": 3
+        },
+        "notice_pattern": 2,
+        "ask_back_pattern": 0,
+        "notice_judge": 2,
+        "asks_user_judge": 0,
+        "code_notice": 3,
+        "double_notice": 0,
+        "empty_answer": 3,
+        "status_match": 3,
+        "status_match_strict": 3,
+        "passed": 0,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 3,
+          "ANSWER_INCORRECT": 2,
+          "RETRIEVAL_MISS": 1
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 3,
+          "STATUS_OK_CONTENT_WRONG": 3
+        },
+        "latency_avg_ms": 4576
+      },
+      "MT": {
+        "cases": 10,
+        "paths": {
+          "LLM": 10
+        },
+        "exec_error": 0,
+        "judged": 10,
+        "correct": 5,
+        "correct_and_grounded": 5,
+        "hallucinated": 0,
+        "hallucination_claim_cases": {},
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 3,
+          "MISSING_ANSWER": 5,
+          "CORRECT_DECLINE": 4
+        },
+        "notice_pattern": 2,
+        "ask_back_pattern": 0,
+        "notice_judge": 2,
+        "asks_user_judge": 0,
+        "code_notice": 5,
+        "double_notice": 0,
+        "empty_answer": 5,
+        "status_match": 2,
+        "status_match_strict": 2,
+        "passed": 2,
+        "failure_causes_scored": {
+          "RETRIEVAL_MISS": 3,
+          "STATUS_MISMATCH": 5
+        },
+        "judge_wrong_causes": {
+          "OTHER": 1,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 4
+        },
+        "latency_avg_ms": 4287
+      },
+      "ST": {
+        "cases": 30,
+        "paths": {
+          "LLM": 30
+        },
+        "exec_error": 0,
+        "judged": 30,
+        "correct": 22,
+        "correct_and_grounded": 22,
+        "hallucinated": 4,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 2,
+          "FABRICATION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 21,
+          "WRONG_ANSWER": 4,
+          "CORRECT_DECLINE": 9,
+          "MISSING_ANSWER": 4
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 12,
+        "double_notice": 0,
+        "empty_answer": 7,
+        "status_match": 25,
+        "status_match_strict": 24,
+        "passed": 21,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 4,
+          "STATUS_MISMATCH": 4,
+          "RETRIEVAL_MISS": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 4,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 1,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 3
+        },
+        "latency_avg_ms": 4821
+      }
+    },
+    "v6": {
+      "SA": {
+        "cases": 20,
+        "paths": {
+          "LLM": 20
+        },
+        "exec_error": 0,
+        "judged": 20,
+        "correct": 14,
+        "correct_and_grounded": 13,
+        "hallucinated": 2,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 1,
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 14,
+          "MISSING_ANSWER": 5,
+          "WRONG_ANSWER": 1
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 8,
+        "double_notice": 0,
+        "empty_answer": 5,
+        "status_match": 12,
+        "status_match_strict": 12,
+        "passed": 11,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 8,
+          "ANSWER_INCORRECT": 1
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 5,
+          "STATUS_OK_CONTENT_WRONG": 1
+        },
+        "latency_avg_ms": 5021
+      },
+      "SB": {
+        "cases": 15,
+        "paths": {
+          "LLM": 15
+        },
+        "exec_error": 0,
+        "judged": 15,
+        "correct": 11,
+        "correct_and_grounded": 11,
+        "hallucinated": 4,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 2,
+          "FABRICATION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 11,
+          "UNSUPPORTED_ANSWER": 4
+        },
+        "notice_pattern": 1,
+        "ask_back_pattern": 0,
+        "notice_judge": 1,
+        "asks_user_judge": 0,
+        "code_notice": 11,
+        "double_notice": 0,
+        "empty_answer": 11,
+        "status_match": 11,
+        "status_match_strict": 11,
+        "passed": 11,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 4
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_DECLINE_ANSWERED": 4
+        },
+        "latency_avg_ms": 4560
+      },
+      "UD": {
+        "cases": 30,
+        "paths": {
+          "LLM": 29,
+          "LLM-005": 1
+        },
+        "exec_error": 1,
+        "judged": 29,
+        "correct": 16,
+        "correct_and_grounded": 16,
+        "hallucinated": 7,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 1,
+          "FABRICATION": 4,
+          "MISATTRIBUTION": 3
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 17,
+          "WRONG_ANSWER": 4,
+          "MISSING_ANSWER": 8,
+          "UNSUPPORTED_ANSWER": 3,
+          "CORRECT_DECLINE": 4
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 1,
+        "asks_user_judge": 0,
+        "code_notice": 11,
+        "double_notice": 0,
+        "empty_answer": 9,
+        "status_match": 19,
+        "status_match_strict": 18,
+        "passed": 16,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 9,
+          "ANSWER_INCORRECT": 2,
+          "EXEC_ERROR": 1,
+          "RETRIEVAL_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 4,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 5,
+          "EXPECTED_DECLINE_ANSWERED": 3,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 1
+        },
+        "latency_avg_ms": 5163
+      },
+      "MA": {
+        "cases": 18,
+        "paths": {
+          "LLM": 18
+        },
+        "exec_error": 0,
+        "judged": 18,
+        "correct": 9,
+        "correct_and_grounded": 9,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "SILENT_CONFLICT_PICK": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 22,
+          "WRONG_ANSWER": 1,
+          "MISSING_ANSWER": 13
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 8,
+        "double_notice": 0,
+        "empty_answer": 5,
+        "status_match": 10,
+        "status_match_strict": 10,
+        "passed": 9,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 1,
+          "STATUS_MISMATCH": 6,
+          "RETRIEVAL_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 1,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 3,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 5
+        },
+        "latency_avg_ms": 7269
+      },
+      "MP": {
+        "cases": 22,
+        "paths": {
+          "LLM": 22
+        },
+        "exec_error": 0,
+        "judged": 22,
+        "correct": 16,
+        "correct_and_grounded": 16,
+        "hallucinated": 3,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 1,
+          "FABRICATION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 21,
+          "CORRECT_DECLINE": 20,
+          "UNSUPPORTED_ANSWER": 2,
+          "WRONG_ANSWER": 1,
+          "MISSING_ANSWER": 4
+        },
+        "notice_pattern": 1,
+        "ask_back_pattern": 0,
+        "notice_judge": 1,
+        "asks_user_judge": 0,
+        "code_notice": 21,
+        "double_notice": 1,
+        "empty_answer": 3,
+        "status_match": 18,
+        "status_match_strict": 18,
+        "passed": 16,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 2,
+          "ANSWER_INCORRECT": 2,
+          "RETRIEVAL_MISS": 2
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_DECLINE_ANSWERED": 1,
+          "STATUS_OK_CONTENT_WRONG": 1,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 3,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 1
+        },
+        "latency_avg_ms": 7322
+      },
+      "MN": {
+        "cases": 6,
+        "paths": {
+          "LLM": 5,
+          "CHAT-015": 1
+        },
+        "exec_error": 1,
+        "judged": 5,
+        "correct": 4,
+        "correct_and_grounded": 4,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "FABRICATION": 1,
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 9,
+          "UNSUPPORTED_ANSWER": 1
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 5,
+        "double_notice": 0,
+        "empty_answer": 4,
+        "status_match": 4,
+        "status_match_strict": 4,
+        "passed": 4,
+        "failure_causes_scored": {
+          "EXEC_ERROR": 1,
+          "STATUS_MISMATCH": 1
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_DECLINE_ANSWERED": 1
+        },
+        "latency_avg_ms": 7855
+      },
+      "OS": {
+        "cases": 8,
+        "paths": {
+          "LLM": 8
+        },
+        "exec_error": 0,
+        "judged": 8,
+        "correct": 7,
+        "correct_and_grounded": 6,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_DECLINE": 9,
+          "CORRECT_ANSWER": 6,
+          "MISSING_ANSWER": 1
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 8,
+        "double_notice": 0,
+        "empty_answer": 2,
+        "status_match": 7,
+        "status_match_strict": 7,
+        "passed": 7,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 1
+        },
+        "judge_wrong_causes": {
+          "SUB_COUNT_MISMATCH": 1
+        },
+        "latency_avg_ms": 6463
+      },
+      "IN": {
+        "cases": 7,
+        "paths": {
+          "LLM": 7
+        },
+        "exec_error": 0,
+        "judged": 7,
+        "correct": 1,
+        "correct_and_grounded": 1,
+        "hallucinated": 3,
+        "hallucination_claim_cases": {
+          "FABRICATION": 3,
+          "MISATTRIBUTION": 2,
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 1,
+          "WRONG_ANSWER": 3,
+          "MISSING_ANSWER": 3
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 4,
+        "double_notice": 0,
+        "empty_answer": 3,
+        "status_match": 3,
+        "status_match_strict": 3,
+        "passed": 1,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 2,
+          "RETRIEVAL_MISS": 3,
+          "STATUS_MISMATCH": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 2,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 3,
+          "SUB_COUNT_MISMATCH": 1
+        },
+        "latency_avg_ms": 6903
+      },
+      "CQ": {
+        "cases": 6,
+        "paths": {
+          "LLM": 6
+        },
+        "exec_error": 0,
+        "judged": 6,
+        "correct": 3,
+        "correct_and_grounded": 3,
+        "hallucinated": 1,
+        "hallucination_claim_cases": {
+          "UNSUPPORTED_GENERALIZATION": 1
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 3,
+          "MISSING_ANSWER": 3
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 2,
+        "double_notice": 0,
+        "empty_answer": 2,
+        "status_match": 4,
+        "status_match_strict": 4,
+        "passed": 3,
+        "failure_causes_scored": {
+          "STATUS_MISMATCH": 2,
+          "RETRIEVAL_MISS": 1
+        },
+        "judge_wrong_causes": {
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 2,
+          "STATUS_OK_CONTENT_WRONG": 1
+        },
+        "latency_avg_ms": 7364
+      },
+      "MT": {
+        "cases": 10,
+        "paths": {
+          "LLM": 10
+        },
+        "exec_error": 0,
+        "judged": 10,
+        "correct": 7,
+        "correct_and_grounded": 7,
+        "hallucinated": 0,
+        "hallucination_claim_cases": {},
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 5,
+          "WRONG_ANSWER": 1,
+          "MISSING_ANSWER": 2,
+          "CORRECT_DECLINE": 4
+        },
+        "notice_pattern": 0,
+        "ask_back_pattern": 0,
+        "notice_judge": 0,
+        "asks_user_judge": 0,
+        "code_notice": 5,
+        "double_notice": 0,
+        "empty_answer": 4,
+        "status_match": 7,
+        "status_match_strict": 7,
+        "passed": 7,
+        "failure_causes_scored": {
+          "RETRIEVAL_MISS": 2,
+          "STATUS_MISMATCH": 1
+        },
+        "judge_wrong_causes": {
+          "OTHER": 1,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 2
+        },
+        "latency_avg_ms": 5513
+      },
+      "ST": {
+        "cases": 30,
+        "paths": {
+          "LLM": 30
+        },
+        "exec_error": 0,
+        "judged": 30,
+        "correct": 23,
+        "correct_and_grounded": 23,
+        "hallucinated": 3,
+        "hallucination_claim_cases": {
+          "MISATTRIBUTION": 1,
+          "FABRICATION": 2
+        },
+        "sub_outcomes": {
+          "CORRECT_ANSWER": 22,
+          "WRONG_ANSWER": 3,
+          "CORRECT_DECLINE": 9,
+          "MISSING_ANSWER": 4
+        },
+        "notice_pattern": 1,
+        "ask_back_pattern": 0,
+        "notice_judge": 1,
+        "asks_user_judge": 0,
+        "code_notice": 11,
+        "double_notice": 0,
+        "empty_answer": 6,
+        "status_match": 24,
+        "status_match_strict": 23,
+        "passed": 21,
+        "failure_causes_scored": {
+          "ANSWER_INCORRECT": 3,
+          "STATUS_MISMATCH": 5,
+          "RETRIEVAL_MISS": 1
+        },
+        "judge_wrong_causes": {
+          "STATUS_OK_CONTENT_WRONG": 3,
+          "EXPECTED_ANSWER_DECLINED_EMPTY": 1,
+          "EXPECTED_ANSWER_DECLINED_WROTE": 3
+        },
+        "latency_avg_ms": 4612
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "a": "v5",
+      "b": "v6",
+      "metrics": {
+        "correct": {
+          "n": 170,
+          "a": 108,
+          "b": 111,
+          "gained": [
+            "CQ-005",
+            "CQ-018",
+            "CQ-028",
+            "MA-003",
+            "MA-011",
+            "MP-017",
+            "MP-028",
+            "MP-046",
+            "MT-007",
+            "MT-016",
+            "OS-026",
+            "ST-029",
+            "UD-001",
+            "UD-007",
+            "UD-011",
+            "UD-017"
+          ],
+          "lost": [
+            "MA-004",
+            "MP-010",
+            "SA-005",
+            "SA-019",
+            "SA-023",
+            "SA-038",
+            "SA-040",
+            "SB-014",
+            "SB-045",
+            "UD-006",
+            "UD-022",
+            "UD-026",
+            "UD-027"
+          ],
+          "p": 0.711071103811264
+        },
+        "grounded": {
+          "n": 170,
+          "a": 139,
+          "b": 144,
+          "gained": [
+            "CQ-008",
+            "CQ-022",
+            "MA-003",
+            "MA-011",
+            "MA-017",
+            "MA-032",
+            "MP-046",
+            "SA-019",
+            "ST-029",
+            "UD-007",
+            "UD-009",
+            "UD-011",
+            "UD-012",
+            "UD-017",
+            "UD-029"
+          ],
+          "lost": [
+            "IN-010",
+            "MP-010",
+            "MP-012",
+            "OS-019",
+            "SA-009",
+            "SB-014",
+            "SB-045",
+            "UD-002",
+            "UD-006",
+            "UD-022"
+          ],
+          "p": 0.42435622215270996
+        },
+        "correct_and_grounded": {
+          "n": 170,
+          "a": 105,
+          "b": 109,
+          "gained": [
+            "CQ-005",
+            "CQ-018",
+            "CQ-028",
+            "MA-003",
+            "MA-011",
+            "MA-017",
+            "MA-032",
+            "MP-017",
+            "MP-028",
+            "MP-046",
+            "MT-007",
+            "MT-016",
+            "OS-026",
+            "ST-029",
+            "UD-001",
+            "UD-007",
+            "UD-011",
+            "UD-017"
+          ],
+          "lost": [
+            "MA-004",
+            "MP-010",
+            "OS-019",
+            "SA-005",
+            "SA-009",
+            "SA-023",
+            "SA-038",
+            "SA-040",
+            "SB-014",
+            "SB-045",
+            "UD-006",
+            "UD-022",
+            "UD-026",
+            "UD-027"
+          ],
+          "p": 0.5966148958541453
+        },
+        "notice_free_judge": {
+          "n": 170,
+          "a": 159,
+          "b": 166,
+          "gained": [
+            "CQ-008",
+            "CQ-015",
+            "MN-013",
+            "MP-011",
+            "MT-002",
+            "MT-011",
+            "UD-019",
+            "UD-020",
+            "UD-023",
+            "UD-030"
+          ],
+          "lost": [
+            "SB-045",
+            "ST-016",
+            "UD-013"
+          ],
+          "p": 0.09228515625
+        },
+        "status_match": {
+          "n": 172,
+          "a": 106,
+          "b": 119,
+          "gained": [
+            "CQ-005",
+            "CQ-018",
+            "CQ-028",
+            "IN-009",
+            "MA-003",
+            "MA-006",
+            "MN-013",
+            "MP-012",
+            "MP-017",
+            "MP-028",
+            "MP-046",
+            "MT-007",
+            "MT-011",
+            "MT-016",
+            "MT-020",
+            "MT-030",
+            "OS-026",
+            "SA-010",
+            "SA-046",
+            "SB-015",
+            "UD-001",
+            "UD-007",
+            "UD-010",
+            "UD-011",
+            "UD-017",
+            "UD-019",
+            "UD-020",
+            "UD-023",
+            "UD-030"
+          ],
+          "lost": [
+            "CQ-008",
+            "CQ-022",
+            "MA-004",
+            "MN-008",
+            "MP-010",
+            "SA-005",
+            "SA-019",
+            "SA-020",
+            "SA-023",
+            "SB-014",
+            "SB-045",
+            "ST-016",
+            "UD-022",
+            "UD-024",
+            "UD-026",
+            "UD-027"
+          ],
+          "p": 0.07245426016254441
+        },
+        "passed": {
+          "n": 172,
+          "a": 93,
+          "b": 106,
+          "gained": [
+            "CQ-005",
+            "CQ-018",
+            "CQ-028",
+            "MA-003",
+            "MA-006",
+            "MA-011",
+            "MN-013",
+            "MP-017",
+            "MP-028",
+            "MP-046",
+            "MT-007",
+            "MT-011",
+            "MT-016",
+            "MT-020",
+            "MT-030",
+            "OS-026",
+            "SA-010",
+            "SA-046",
+            "SB-015",
+            "ST-029",
+            "UD-001",
+            "UD-007",
+            "UD-010",
+            "UD-011",
+            "UD-017",
+            "UD-019",
+            "UD-020"
+          ],
+          "lost": [
+            "MA-004",
+            "MN-008",
+            "MP-010",
+            "SA-005",
+            "SA-019",
+            "SA-020",
+            "SA-023",
+            "SB-014",
+            "SB-045",
+            "ST-016",
+            "UD-006",
+            "UD-022",
+            "UD-026",
+            "UD-027"
+          ],
+          "p": 0.05958388801809633
+        }
+      }
+    }
+  ],
+  "notices": {
+    "v5": [
+      {
+        "id": "CQ-008",
+        "code_notice": false,
+        "sentences": [
+          "요금 상세 내역을 확인할 수 없습니다.",
+          "이용 중인 회선이 없으므로 데이터 추가 사용, 로밍, 소액결제, 부가서비스 등의 사용 내역을 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "CQ-015",
+        "code_notice": false,
+        "sentences": [
+          "인터넷과 IPTV 결합의 할인은 가입 내역에서 확인할 수 있으나, 현재 가입 내역이 없기 때문에 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "MN-013",
+        "code_notice": true,
+        "sentences": [
+          "편의점 할인율에 대한 정보는 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "MP-002",
+        "code_notice": true,
+        "sentences": [
+          "월 보험료는 제공된 정보에 없습니다."
+        ]
+      },
+      {
+        "id": "MP-011",
+        "code_notice": true,
+        "sentences": [
+          "그러나 고객 보호 비밀번호와 유심 비밀번호는 서로 다른 개념이며, 고객 보호 비밀번호의 틀린 입력 횟수에 대한 정보는 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "MT-002",
+        "code_notice": false,
+        "sentences": [
+          "할인율에 대한 정보가 제공되지 않았습니다."
+        ]
+      },
+      {
+        "id": "MT-011",
+        "code_notice": false,
+        "sentences": [
+          "IPTV 프리미엄의 채널 수에 대한 정보는 제공된 자료에 없습니다."
+        ]
+      },
+      {
+        "id": "UD-019",
+        "code_notice": false,
+        "sentences": [
+          "따라서 부가서비스 목록을 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-020",
+        "code_notice": false,
+        "sentences": [
+          "이용 중인 회선이 없기 때문에 요금이 빠져나가는 날짜를 확인할 수 없습니다."
+        ]
+      },
+      {
+        "id": "UD-023",
+        "code_notice": false,
+        "sentences": [
+          "약정 재약정에 대한 정보가 없습니다.",
+          "이용 중인 회선이 없으므로 재약정 신청 기간도 확인할 수 없습니다."
+        ]
+      }
+    ],
+    "v6": [
+      {
+        "id": "MP-002",
+        "code_notice": true,
+        "sentences": [
+          "월 보험료는 제공된 정보에 없습니다."
+        ]
+      },
+      {
+        "id": "SB-045",
+        "code_notice": false,
+        "sentences": [
+          "제공된 FAQ와 사용자 정보에서 관련된 요금이나 사용료는 명시되어 있지 않습니다."
+        ]
+      },
+      {
+        "id": "ST-016",
+        "code_notice": false,
+        "sentences": [
+          "따라서 지금 바로 갈 수 있는 매장이 있는지 확인할 수 없습니다."
+        ]
+      }
+    ]
+  }
+}
