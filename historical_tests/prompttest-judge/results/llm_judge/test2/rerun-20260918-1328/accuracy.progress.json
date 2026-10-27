@@ -1,0 +1,94 @@
+{
+  "batch_id": "rerun-20260918-1328",
+  "kind": "accuracy",
+  "updated_at": "2026-09-18T08:50:54.372Z",
+  "expected": 1500,
+  "completed": 1500,
+  "models": [
+    {
+      "run_id": "local-win_qwen3-4b_20260918_rerun-1328",
+      "model_tag": "qwen3:4b",
+      "n_expected": 300,
+      "n_scored": 300,
+      "n_unscored": 0,
+      "error_attempts": 0,
+      "accuracy_verdict_counts": {
+        "CORRECT": 216,
+        "INCORRECT": 84
+      },
+      "is_grounded_rate": 0.86,
+      "grounding_score_avg": 4.67,
+      "hallucinated_claims_total": 48,
+      "hallucinated_case_count": 42,
+      "expression_quality_avg": 4.333333333333333
+    },
+    {
+      "run_id": "local-win_qwen3-8b_20260918_rerun-1328",
+      "model_tag": "qwen3:8b",
+      "n_expected": 300,
+      "n_scored": 300,
+      "n_unscored": 0,
+      "error_attempts": 0,
+      "accuracy_verdict_counts": {
+        "CORRECT": 191,
+        "INCORRECT": 109
+      },
+      "is_grounded_rate": 0.73,
+      "grounding_score_avg": 4.39,
+      "hallucinated_claims_total": 98,
+      "hallucinated_case_count": 81,
+      "expression_quality_avg": 4.3133333333333335
+    },
+    {
+      "run_id": "local-win_exaone3-5-7-8b_20260918_rerun-1328",
+      "model_tag": "exaone3.5:7.8b",
+      "n_expected": 300,
+      "n_scored": 300,
+      "n_unscored": 0,
+      "error_attempts": 0,
+      "accuracy_verdict_counts": {
+        "CORRECT": 155,
+        "INCORRECT": 145
+      },
+      "is_grounded_rate": 0.4866666666666667,
+      "grounding_score_avg": 3.716666666666667,
+      "hallucinated_claims_total": 239,
+      "hallucinated_case_count": 154,
+      "expression_quality_avg": 3.9966666666666666
+    },
+    {
+      "run_id": "local-win_qwen3-1-7b_20260918_rerun-1328",
+      "model_tag": "qwen3:1.7b",
+      "n_expected": 300,
+      "n_scored": 300,
+      "n_unscored": 0,
+      "error_attempts": 0,
+      "accuracy_verdict_counts": {
+        "CORRECT": 141,
+        "INCORRECT": 159
+      },
+      "is_grounded_rate": 0.58,
+      "grounding_score_avg": 3.8333333333333335,
+      "hallucinated_claims_total": 207,
+      "hallucinated_case_count": 126,
+      "expression_quality_avg": 4.05
+    },
+    {
+      "run_id": "local-win_gemma3-4b_20260918_rerun-1328",
+      "model_tag": "gemma3:4b",
+      "n_expected": 300,
+      "n_scored": 300,
+      "n_unscored": 0,
+      "error_attempts": 0,
+      "accuracy_verdict_counts": {
+        "CORRECT": 107,
+        "INCORRECT": 193
+      },
+      "is_grounded_rate": 0.5733333333333334,
+      "grounding_score_avg": 3.8766666666666665,
+      "hallucinated_claims_total": 182,
+      "hallucinated_case_count": 128,
+      "expression_quality_avg": 4.16
+    }
+  ]
+}

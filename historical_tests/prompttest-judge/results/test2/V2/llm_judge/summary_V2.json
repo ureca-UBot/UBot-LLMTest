@@ -1,0 +1,752 @@
+{
+  "batch_id": "rerun-20260918-1328",
+  "status": "completed",
+  "created_at": "2026-09-18T09:10:15.992Z",
+  "rubric_revision": "20260918-minor-issues",
+  "accuracy_prompt_sha256": "88ab71c485b1b111c865565f9ea2391a8cac5b6a3d01711143636bd368cb1d05",
+  "safety_prompt_sha256": "c859cc2ab9501412f3a7ab25aa32a802db775edaca39bc0d9a6396ec98526708",
+  "judge_model": "gpt-6-astra",
+  "judge_reasoning_effort": "medium",
+  "accuracy_scored": 1500,
+  "safety_scored": 75,
+  "expected_judgments": 1575,
+  "original_generations_reexecuted": false,
+  "original_source_hashes_verified": true,
+  "models": [
+    {
+      "model": "qwen3:4b",
+      "run_id": "local-win_qwen3-4b_20260918_rerun-1328",
+      "accuracy_scored": 300,
+      "safety_scored": 15,
+      "accuracy_expected": 300,
+      "safety_expected": 15,
+      "accuracy_counts": {
+        "CORRECT": 216,
+        "INCORRECT": 84,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "safety_counts": {
+        "SAFE": 10,
+        "UNSAFE": 2,
+        "OVER_REFUSAL": 0,
+        "NOT_APPLICABLE": 3
+      },
+      "hallucinated_cases": 42,
+      "hallucinated_claims": 48,
+      "grounding_score_avg": 4.67,
+      "expression_quality_avg": 4.333333333333333,
+      "error_attempts": 0,
+      "generation_latency_ms_avg": 10612.473333333333,
+      "generation_latency_ms_p95": 29157,
+      "generation_tps_avg": 120.90337928084698,
+      "report": "qwen3-4b_V2.md",
+      "types": [
+        {
+          "type": "단일 FAQ 답변",
+          "n": 18,
+          "correct": 16,
+          "incorrect": 2,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 0,
+          "expression_quality_avg": 4.722222222222222
+        },
+        {
+          "type": "유사 FAQ 구분·노이즈",
+          "n": 22,
+          "correct": 21,
+          "incorrect": 1,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 0,
+          "expression_quality_avg": 5
+        },
+        {
+          "type": "다중 FAQ 조합",
+          "n": 30,
+          "correct": 19,
+          "incorrect": 11,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 9,
+          "expression_quality_avg": 4.166666666666667
+        },
+        {
+          "type": "사용자 정보+FAQ",
+          "n": 24,
+          "correct": 8,
+          "incorrect": 16,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 5,
+          "expression_quality_avg": 4.333333333333333
+        },
+        {
+          "type": "조건·예외·경계값",
+          "n": 24,
+          "correct": 22,
+          "incorrect": 2,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 2,
+          "expression_quality_avg": 4.583333333333333
+        },
+        {
+          "type": "부분 정보",
+          "n": 35,
+          "correct": 21,
+          "incorrect": 14,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 6,
+          "expression_quality_avg": 4.057142857142857
+        },
+        {
+          "type": "유사하지만 답 없음",
+          "n": 35,
+          "correct": 25,
+          "incorrect": 10,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 7,
+          "expression_quality_avg": 4.142857142857143
+        },
+        {
+          "type": "무관 FAQ",
+          "n": 20,
+          "correct": 17,
+          "incorrect": 3,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 6,
+          "expression_quality_avg": 4.3
+        },
+        {
+          "type": "빈 컨텍스트",
+          "n": 30,
+          "correct": 29,
+          "incorrect": 1,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 1,
+          "expression_quality_avg": 4.033333333333333
+        },
+        {
+          "type": "FAQ 충돌·시행일",
+          "n": 15,
+          "correct": 9,
+          "incorrect": 6,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 2,
+          "expression_quality_avg": 4.2
+        },
+        {
+          "type": "멀티턴 대화",
+          "n": 27,
+          "correct": 17,
+          "incorrect": 10,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 0,
+          "expression_quality_avg": 4.481481481481482
+        },
+        {
+          "type": "적대적 입력·범위 밖",
+          "n": 15,
+          "correct": 11,
+          "incorrect": 4,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 3,
+          "expression_quality_avg": 4.333333333333333
+        },
+        {
+          "type": "API 결과 답변",
+          "n": 5,
+          "correct": 1,
+          "incorrect": 4,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 1,
+          "expression_quality_avg": 4.6
+        }
+      ]
+    },
+    {
+      "model": "qwen3:8b",
+      "run_id": "local-win_qwen3-8b_20260918_rerun-1328",
+      "accuracy_scored": 300,
+      "safety_scored": 15,
+      "accuracy_expected": 300,
+      "safety_expected": 15,
+      "accuracy_counts": {
+        "CORRECT": 191,
+        "INCORRECT": 109,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "safety_counts": {
+        "SAFE": 9,
+        "UNSAFE": 2,
+        "OVER_REFUSAL": 0,
+        "NOT_APPLICABLE": 4
+      },
+      "hallucinated_cases": 81,
+      "hallucinated_claims": 98,
+      "grounding_score_avg": 4.39,
+      "expression_quality_avg": 4.3133333333333335,
+      "error_attempts": 0,
+      "generation_latency_ms_avg": 5829.06,
+      "generation_latency_ms_p95": 9276,
+      "generation_tps_avg": 75.31098019556926,
+      "report": "qwen3-8b_V2.md",
+      "types": [
+        {
+          "type": "단일 FAQ 답변",
+          "n": 18,
+          "correct": 18,
+          "incorrect": 0,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 3,
+          "expression_quality_avg": 4.777777777777778
+        },
+        {
+          "type": "유사 FAQ 구분·노이즈",
+          "n": 22,
+          "correct": 22,
+          "incorrect": 0,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 5,
+          "expression_quality_avg": 4.590909090909091
+        },
+        {
+          "type": "다중 FAQ 조합",
+          "n": 30,
+          "correct": 21,
+          "incorrect": 9,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 8,
+          "expression_quality_avg": 3.8333333333333335
+        },
+        {
+          "type": "사용자 정보+FAQ",
+          "n": 24,
+          "correct": 12,
+          "incorrect": 12,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 6,
+          "expression_quality_avg": 4.333333333333333
+        },
+        {
+          "type": "조건·예외·경계값",
+          "n": 24,
+          "correct": 23,
+          "incorrect": 1,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 4,
+          "expression_quality_avg": 4.208333333333333
+        },
+        {
+          "type": "부분 정보",
+          "n": 35,
+          "correct": 24,
+          "incorrect": 11,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 11,
+          "expression_quality_avg": 4.085714285714285
+        },
+        {
+          "type": "유사하지만 답 없음",
+          "n": 35,
+          "correct": 11,
+          "incorrect": 24,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 9,
+          "expression_quality_avg": 4.285714285714286
+        },
+        {
+          "type": "무관 FAQ",
+          "n": 20,
+          "correct": 14,
+          "incorrect": 6,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 6,
+          "expression_quality_avg": 4.55
+        },
+        {
+          "type": "빈 컨텍스트",
+          "n": 30,
+          "correct": 5,
+          "incorrect": 25,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 14,
+          "expression_quality_avg": 4.233333333333333
+        },
+        {
+          "type": "FAQ 충돌·시행일",
+          "n": 15,
+          "correct": 10,
+          "incorrect": 5,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 1,
+          "expression_quality_avg": 4.066666666666666
+        },
+        {
+          "type": "멀티턴 대화",
+          "n": 27,
+          "correct": 18,
+          "incorrect": 9,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 7,
+          "expression_quality_avg": 4.851851851851852
+        },
+        {
+          "type": "적대적 입력·범위 밖",
+          "n": 15,
+          "correct": 12,
+          "incorrect": 3,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 4,
+          "expression_quality_avg": 4.066666666666666
+        },
+        {
+          "type": "API 결과 답변",
+          "n": 5,
+          "correct": 1,
+          "incorrect": 4,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 3,
+          "expression_quality_avg": 4.6
+        }
+      ]
+    },
+    {
+      "model": "exaone3.5:7.8b",
+      "run_id": "local-win_exaone3-5-7-8b_20260918_rerun-1328",
+      "accuracy_scored": 300,
+      "safety_scored": 15,
+      "accuracy_expected": 300,
+      "safety_expected": 15,
+      "accuracy_counts": {
+        "CORRECT": 155,
+        "INCORRECT": 145,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "safety_counts": {
+        "SAFE": 7,
+        "UNSAFE": 3,
+        "OVER_REFUSAL": 0,
+        "NOT_APPLICABLE": 5
+      },
+      "hallucinated_cases": 154,
+      "hallucinated_claims": 239,
+      "grounding_score_avg": 3.716666666666667,
+      "expression_quality_avg": 3.9966666666666666,
+      "error_attempts": 0,
+      "generation_latency_ms_avg": 1937.54,
+      "generation_latency_ms_p95": 3151,
+      "generation_tps_avg": 75.11815902648071,
+      "report": "exaone3-5-7-8b_V2.md",
+      "types": [
+        {
+          "type": "단일 FAQ 답변",
+          "n": 18,
+          "correct": 15,
+          "incorrect": 3,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 8,
+          "expression_quality_avg": 4.388888888888889
+        },
+        {
+          "type": "유사 FAQ 구분·노이즈",
+          "n": 22,
+          "correct": 18,
+          "incorrect": 4,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 8,
+          "expression_quality_avg": 3.9545454545454546
+        },
+        {
+          "type": "다중 FAQ 조합",
+          "n": 30,
+          "correct": 18,
+          "incorrect": 12,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 12,
+          "expression_quality_avg": 3.6
+        },
+        {
+          "type": "사용자 정보+FAQ",
+          "n": 24,
+          "correct": 10,
+          "incorrect": 14,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 13,
+          "expression_quality_avg": 4.041666666666667
+        },
+        {
+          "type": "조건·예외·경계값",
+          "n": 24,
+          "correct": 8,
+          "incorrect": 16,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 7,
+          "expression_quality_avg": 4.041666666666667
+        },
+        {
+          "type": "부분 정보",
+          "n": 35,
+          "correct": 20,
+          "incorrect": 15,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 22,
+          "expression_quality_avg": 4.228571428571429
+        },
+        {
+          "type": "유사하지만 답 없음",
+          "n": 35,
+          "correct": 18,
+          "incorrect": 17,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 22,
+          "expression_quality_avg": 4.0285714285714285
+        },
+        {
+          "type": "무관 FAQ",
+          "n": 20,
+          "correct": 13,
+          "incorrect": 7,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 15,
+          "expression_quality_avg": 4.2
+        },
+        {
+          "type": "빈 컨텍스트",
+          "n": 30,
+          "correct": 4,
+          "incorrect": 26,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 25,
+          "expression_quality_avg": 3.8333333333333335
+        },
+        {
+          "type": "FAQ 충돌·시행일",
+          "n": 15,
+          "correct": 9,
+          "incorrect": 6,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 2,
+          "expression_quality_avg": 3.4
+        },
+        {
+          "type": "멀티턴 대화",
+          "n": 27,
+          "correct": 12,
+          "incorrect": 15,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 14,
+          "expression_quality_avg": 3.962962962962963
+        },
+        {
+          "type": "적대적 입력·범위 밖",
+          "n": 15,
+          "correct": 9,
+          "incorrect": 6,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 3,
+          "expression_quality_avg": 4.133333333333334
+        },
+        {
+          "type": "API 결과 답변",
+          "n": 5,
+          "correct": 1,
+          "incorrect": 4,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 3,
+          "expression_quality_avg": 4.6
+        }
+      ]
+    },
+    {
+      "model": "qwen3:1.7b",
+      "run_id": "local-win_qwen3-1-7b_20260918_rerun-1328",
+      "accuracy_scored": 300,
+      "safety_scored": 15,
+      "accuracy_expected": 300,
+      "safety_expected": 15,
+      "accuracy_counts": {
+        "CORRECT": 141,
+        "INCORRECT": 159,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "safety_counts": {
+        "SAFE": 9,
+        "UNSAFE": 2,
+        "OVER_REFUSAL": 0,
+        "NOT_APPLICABLE": 4
+      },
+      "hallucinated_cases": 126,
+      "hallucinated_claims": 207,
+      "grounding_score_avg": 3.8333333333333335,
+      "expression_quality_avg": 4.05,
+      "error_attempts": 0,
+      "generation_latency_ms_avg": 2024.3333333333333,
+      "generation_latency_ms_p95": 3680,
+      "generation_tps_avg": 236.7749519355839,
+      "report": "qwen3-1-7b_V2.md",
+      "types": [
+        {
+          "type": "단일 FAQ 답변",
+          "n": 18,
+          "correct": 16,
+          "incorrect": 2,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 6,
+          "expression_quality_avg": 4
+        },
+        {
+          "type": "유사 FAQ 구분·노이즈",
+          "n": 22,
+          "correct": 20,
+          "incorrect": 2,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 4,
+          "expression_quality_avg": 4.090909090909091
+        },
+        {
+          "type": "다중 FAQ 조합",
+          "n": 30,
+          "correct": 14,
+          "incorrect": 16,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 12,
+          "expression_quality_avg": 4.233333333333333
+        },
+        {
+          "type": "사용자 정보+FAQ",
+          "n": 24,
+          "correct": 5,
+          "incorrect": 19,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 8,
+          "expression_quality_avg": 4.625
+        },
+        {
+          "type": "조건·예외·경계값",
+          "n": 24,
+          "correct": 11,
+          "incorrect": 13,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 2,
+          "expression_quality_avg": 4.291666666666667
+        },
+        {
+          "type": "부분 정보",
+          "n": 35,
+          "correct": 8,
+          "incorrect": 27,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 27,
+          "expression_quality_avg": 3.742857142857143
+        },
+        {
+          "type": "유사하지만 답 없음",
+          "n": 35,
+          "correct": 21,
+          "incorrect": 14,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 23,
+          "expression_quality_avg": 3.657142857142857
+        },
+        {
+          "type": "무관 FAQ",
+          "n": 20,
+          "correct": 11,
+          "incorrect": 9,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 6,
+          "expression_quality_avg": 4.05
+        },
+        {
+          "type": "빈 컨텍스트",
+          "n": 30,
+          "correct": 3,
+          "incorrect": 27,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 20,
+          "expression_quality_avg": 3.7
+        },
+        {
+          "type": "FAQ 충돌·시행일",
+          "n": 15,
+          "correct": 6,
+          "incorrect": 9,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 5,
+          "expression_quality_avg": 3.7333333333333334
+        },
+        {
+          "type": "멀티턴 대화",
+          "n": 27,
+          "correct": 13,
+          "incorrect": 14,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 9,
+          "expression_quality_avg": 4.2592592592592595
+        },
+        {
+          "type": "적대적 입력·범위 밖",
+          "n": 15,
+          "correct": 11,
+          "incorrect": 4,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 2,
+          "expression_quality_avg": 4.466666666666667
+        },
+        {
+          "type": "API 결과 답변",
+          "n": 5,
+          "correct": 2,
+          "incorrect": 3,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 2,
+          "expression_quality_avg": 4.6
+        }
+      ]
+    },
+    {
+      "model": "gemma3:4b",
+      "run_id": "local-win_gemma3-4b_20260918_rerun-1328",
+      "accuracy_scored": 300,
+      "safety_scored": 15,
+      "accuracy_expected": 300,
+      "safety_expected": 15,
+      "accuracy_counts": {
+        "CORRECT": 107,
+        "INCORRECT": 193,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "safety_counts": {
+        "SAFE": 10,
+        "UNSAFE": 1,
+        "OVER_REFUSAL": 0,
+        "NOT_APPLICABLE": 4
+      },
+      "hallucinated_cases": 128,
+      "hallucinated_claims": 182,
+      "grounding_score_avg": 3.8766666666666665,
+      "expression_quality_avg": 4.16,
+      "error_attempts": 0,
+      "generation_latency_ms_avg": 1851.5066666666667,
+      "generation_latency_ms_p95": 2782,
+      "generation_tps_avg": 121.48591245313736,
+      "report": "gemma3-4b_V2.md",
+      "types": [
+        {
+          "type": "단일 FAQ 답변",
+          "n": 18,
+          "correct": 12,
+          "incorrect": 6,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 4,
+          "expression_quality_avg": 4.555555555555555
+        },
+        {
+          "type": "유사 FAQ 구분·노이즈",
+          "n": 22,
+          "correct": 13,
+          "incorrect": 9,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 0,
+          "expression_quality_avg": 4.409090909090909
+        },
+        {
+          "type": "다중 FAQ 조합",
+          "n": 30,
+          "correct": 18,
+          "incorrect": 12,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 8,
+          "expression_quality_avg": 4.133333333333334
+        },
+        {
+          "type": "사용자 정보+FAQ",
+          "n": 24,
+          "correct": 6,
+          "incorrect": 18,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 10,
+          "expression_quality_avg": 4.208333333333333
+        },
+        {
+          "type": "조건·예외·경계값",
+          "n": 24,
+          "correct": 12,
+          "incorrect": 12,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 4,
+          "expression_quality_avg": 4.541666666666667
+        },
+        {
+          "type": "부분 정보",
+          "n": 35,
+          "correct": 5,
+          "incorrect": 30,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 18,
+          "expression_quality_avg": 3.6857142857142855
+        },
+        {
+          "type": "유사하지만 답 없음",
+          "n": 35,
+          "correct": 1,
+          "incorrect": 34,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 28,
+          "expression_quality_avg": 3.914285714285714
+        },
+        {
+          "type": "무관 FAQ",
+          "n": 20,
+          "correct": 6,
+          "incorrect": 14,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 11,
+          "expression_quality_avg": 3.7
+        },
+        {
+          "type": "빈 컨텍스트",
+          "n": 30,
+          "correct": 0,
+          "incorrect": 30,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 26,
+          "expression_quality_avg": 4.066666666666666
+        },
+        {
+          "type": "FAQ 충돌·시행일",
+          "n": 15,
+          "correct": 7,
+          "incorrect": 8,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 5,
+          "expression_quality_avg": 4.533333333333333
+        },
+        {
+          "type": "멀티턴 대화",
+          "n": 27,
+          "correct": 15,
+          "incorrect": 12,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 9,
+          "expression_quality_avg": 4.333333333333333
+        },
+        {
+          "type": "적대적 입력·범위 밖",
+          "n": 15,
+          "correct": 11,
+          "incorrect": 4,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 2,
+          "expression_quality_avg": 4.466666666666667
+        },
+        {
+          "type": "API 결과 답변",
+          "n": 5,
+          "correct": 1,
+          "incorrect": 4,
+          "insufficient_evidence": 0,
+          "hallucinated_cases": 3,
+          "expression_quality_avg": 4.2
+        }
+      ]
+    }
+  ]
+}

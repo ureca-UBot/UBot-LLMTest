@@ -1,0 +1,55 @@
+﻿model,id,primary,reason,raw_response,accuracy
+qwen3:4b,SF-0023,true,필수 키 누락: evidence_ids,"{
+  ""status"": ""CLARIFY"",
+  ""answer"": ""회사 옮겨"" 			
+  }",INCORRECT
+qwen3:4b,UI-0088-R3,false,필수 키 누락: evidence_ids,"{
+  ""status"": ""ANSWER"",
+  ""answer"": ""데이터 초과 사용량 3GB에 따른 추가 요금은 360원입니다."",
+  ""reason"": ""Nuri 플랜의 국내 기본 데이터는 15GB로, 테더링 1GB가 국내 기본 데이터에서 차감됩니다. 따라서 실제 사용 가능한 국내 데이터는 14GB입니다. 사용자에게 조회된 국내 데이터 사용량은 17GB로, 14GB에서 3GB 초과하여 360원(3GB × 120원)이 추가 요금으로 계산됩니다.""
+}",반복 회차: AI 대상 아님
+qwen3:4b,UI-0090,true,"필수 키 누락: status, evidence_ids","{
+  ""answer"": ""0"",
+  ""reasoning"": ""여울 요금제(SYN-P05)는 국내 데이터 25GB를 기본량으로 하며, 기본량 소진 후 데이터가 차단되고 자동 추가 요금이 없습니다. 따라서 초과 사용량(27GB - 25GB = 2GB)에 대한 추가 데이터 요금은 0원입니다.""
+}",INCORRECT
+exaone3.5:7.8b,MC-0056,true,"JSON 파싱 실패: Expected ',' or '}' after property value in JSON at position 429 (line 17 column 3)","{""status"": ""ANSWER"", ""answer"": ""번호이동 시와 기기만 변경할 때 모두 기존 전화번호는 유지됩니다. 하지만 차이점은 다음과 같습니다:\n\n- **번호이동**: 이 경우 고객은 현재 이용 중인 통신사를 다른 통신사로 변경하면서 기존 전화번호를 그대로 유지합니다. 이 과정에서는 서비스 제공 업체가 바뀌지만, 사용자의 전화번호는 변하지 않습니다.\n\n- **기기만 변경**: 기존 통신사를 유지한 채로 새로운 기기로 교체하는 경우입니다. 이 경우에도 사용자의 전화번호는 그대로 유지되지만, 변경된 기기의 설정이나 가입 절차가 필요할 수 있습니다.\n\n결론적으로, 두 경우 모두 전화번호 유지 측면에서는 동일하지만, 주요 차이점은 통신사 변경 여부에 있습니다.""
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  ",CORRECT
+exaone3.5:7.8b,MC-0105-R2,false,"JSON 파싱 실패: Expected ',' or '}' after property value in JSON at position 520 (line 2 column 45)","{""status"": ""ANSWER"", ""answer"": ""전화와 문자 메시지의 발신 또는 수신 문제 발생 시 확인해야 할 사항들을 다음과 같이 정리해 드립니다:\n\n**전화 발신 및 수신 관련 확인 사항:**\n1. 통신 상태와 비행기 모드 설정 확인\n2. 발신 제한 설정 확인\n3. 서비스 제공자와의 연결 상태 확인 (네트워크 문제 여부)\n\n**문자 메시지 발신 및 수신 관련 확인 사항:**\n1. 수신 차단 설정 확인\n2. 저장 공간 충분 여부 확인\n3. 네트워크 상태 확인\n\n위 사항들을 하나씩 확인해 보시면 도움이 될 것입니다. 만약 여전히 문제가 지속된다면 고객센터에 직접 문의해 보시는 것을 추천드립니다.\n\n**관련 FAQ:**\n- [FAQ-059] 전화가 걸리지 않아요.\n- [FAQ-060] 전화가 오지 않아요.\n- [FAQ-062] 문자 메시지를 받지 못하고 있어요.\n\n**참고 FAQ ID:** [""	
+  	  	  	  	  	  	  	  	  	  	  	  	  	  	  ",반복 회차: AI 대상 아님
+exaone3.5:7.8b,SR-0006,true,필수 키 누락: evidence_ids,"{""status"": ""CLARIFY"", ""answer"": ""위약금의 정확한 금액은 사용자분의 계약 조건과 남은 약정 기간에 따라 달라집니다. 계약 조건에 따라 다르며, 할인이나 지원금을 받은 경우 추가 위약금이 발생할 수도 있습니다. 정확한 위약금 금액을 확인하려면 고객센터에 문의하시거나, 온라인 계정에서 계약 정보를 확인해 보시는 것이 좋습니다. 필요한 정보를 제공해 주시면 더 구체적인 안내를 도와드릴 수 있습니다.""
+
+            
+        }",INCORRECT
+qwen3:1.7b,NC-0086-R2,false,JSON 파싱 실패: Unexpected end of JSON input,,반복 회차: AI 대상 아님
+qwen3:1.7b,AR-0003,true,evidence_ids가 문자열 배열이 아님,"{
+  ""status"": ""ANSWER"",
+  ""answer"": ""현재 영업 중인 가장 가까운 매장은 \""다온점\""입니다. 주소는 가상시 테스트로 3번지이며, 거리는 440미터입니다."",
+  ""evidence_ids"": [1]
+}",CORRECT
+gemma3:4b,NC-0058,true,"필수 키 누락: status, answer, evidence_ids",{},INCORRECT
+gemma3:4b,MC-0096,true,status 값이 enum 밖: answer,"{
+  ""status"": ""answer"",
+  ""answer"": ""가족 데이터 공유는 지원 요금제나 가족 결합 서비스에서, 남은 데이터 이월은 데이터 이월을 지원하는 요금제에서, 공유용 추가 회선은 지원 요금제에서는 데이터 공유용 추가 회선을 이용할 수 있습니다."",
+  ""evidence_ids"": [
+    ""FAQ-071"",
+    ""FAQ-072"",
+    ""FAQ-098""
+  ]
+}",CORRECT
+gemma3:4b,HR-0014,true,"필수 키 누락: status, answer, evidence_ids",{},INCORRECT
+gemma3:4b,HR-0020,true,"필수 키 누락: status, answer, evidence_ids",{},INCORRECT

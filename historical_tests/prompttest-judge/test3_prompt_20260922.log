@@ -1,0 +1,271 @@
+
+프롬프트 비교 — model=qwen3:14b suite=test3_prompt env=ec2-linux date=20260922
+대상 안 3개: v1_status_rules, v2_value_guard, v3_decision_tree
+대조군(v0_baseline)은 새로 생성하지 않고 test3의 기존 t0_nothink run을 쓴다.
+결과 경로: results/{raw,scored,reports}/test3_prompt/ · 문서: results/test3_prompt/
+
+===== 프롬프트 v1_status_rules (qwen3:14b, temp=0, think off) =====
+suite=test3_prompt env=ec2-linux date=20260922 모델 1개
+생성 파라미터: {"temperature":0,"think":false,"seed":null,"primaryOnly":true,"skipRepeat":true,"prompt":"v1_status_rules","limit":null}
+  - qwen3:14b  ->  ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922
+[사전확인] 대상 모델 + 임베딩 모델 전부 확인됨.
+
+
+########## [1/1] qwen3:14b (run_id=ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922) ##########
+파이프라인 시작: run_id=ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922 model=qwen3:14b env=ec2-linux suite=test3_prompt
+
+=== 1/9 모델 생성 (항목6·7 원자료 포함) ===
+생성 파라미터: {"temperature":0,"seed":null,"think":false,"format":"json"} prompt=v1_status_rules
+run_id=ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922 model=qwen3:14b env=ec2-linux
+총 300건, 이미 완료 0건, 이번에 처리할 건수 300건
+출력: /home/ubuntu/UBot-LLMTest/results/raw/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/generation.jsonl
+  25/300 (성공 25, 실패 0, 경과 84s)
+  50/300 (성공 50, 실패 0, 경과 187s)
+  75/300 (성공 75, 실패 0, 경과 347s)
+  100/300 (성공 100, 실패 0, 경과 464s)
+  125/300 (성공 125, 실패 0, 경과 585s)
+  150/300 (성공 150, 실패 0, 경과 710s)
+  175/300 (성공 175, 실패 0, 경과 810s)
+  200/300 (성공 200, 실패 0, 경과 908s)
+  225/300 (성공 225, 실패 0, 경과 998s)
+  250/300 (성공 250, 실패 0, 경과 1106s)
+  275/300 (성공 275, 실패 0, 경과 1201s)
+  300/300 (성공 300, 실패 0, 경과 1293s)
+완료. 성공 300, 실패 0
+
+=== 2/9 항목6·7 채점 (포맷·성능) ===
+항목6(포맷성공률): 100.0% -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/format_success.jsonl
+항목7(성능): avg latency 4287ms, avg TPS 22.5 -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/performance.jsonl
+항목8(VRAM 실측): avg 9353MiB, max 9353MiB (n=300)
+요약 -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/performance_summary.json
+
+=== 3/9 항목1 채점 (답변정확도) ===
+대상 300건 (이미 완료 0건 스킵)
+  32/300
+  64/300
+  96/300
+  128/300
+  160/300
+  192/300
+  224/300
+  256/300
+  288/300
+  300/300
+항목1(답변정확도): 고유문항(회차1) 기준 유사도 통과 123/300 (41.0%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/answer_accuracy.jsonl
+
+=== 4/9 항목2 채점 (RAG충실도) ===
+NLI 대상: 200건 (사실주장 없는 status 100건 제외)
+NLI 쌍 총 1845개 (컨텍스트 블록 단위로 분해됨) — 배치로 한 번에 채점합니다...
+  NLI 배치 1-500/1845
+  NLI 배치 501-1000/1845
+  NLI 배치 1001-1500/1845
+  NLI 배치 1501-1845/1845
+항목2(RAG충실도): 전체 200건 채점(스킵 100), 고유문항(회차1) 기준 faithful 45/200 (22.5%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/rag_faithfulness.jsonl
+
+=== 5/9 항목3 채점 (FAQ부재판단) ===
+항목3(FAQ부재판단): P=0.941 R=0.909 F1=0.925 (skipped=0) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/absence_detection.jsonl
+
+=== 6/9 항목5 채점 (표현품질) ===
+항목5(표현품질): 고유문항(회차1) 기준 300건, 평균 54.7점, 실격 124건 (41.3%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/expression_quality.jsonl
+
+=== 7/9 반복 일관성 채점 (--skip-repeat로 건너뜀) ===
+
+=== 8/9 LLM 재판단 필요 여부 판정 ===
+에스컬레이션: 300건 중 139건 재판단 필요로 플래그 (46.3%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/escalation.jsonl
+
+=== 9/9 사람이 읽을 통합 결과 파일 생성 ===
+통합 리뷰 파일: 300행 (재확인 필요 139건) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/review.csv
+
+=== 종합 리포트 생성 ===
+요약 리포트 -> /home/ubuntu/UBot-LLMTest/results/reports/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922_summary.md
+
+파이프라인 완료 (24.9분). 결과:
+  - 사람이 읽을 통합 파일: results/scored/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922/review.csv
+  - 종합 리포트: results/reports/test3_prompt/ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922_summary.md
+
+
+========== 프롬프트 v1_status_rules (qwen3:14b, temp=0, think off) 요약 (24.9분) ==========
+  OK   qwen3:14b (run_id=ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922)
+
+===== 프롬프트 v2_value_guard (qwen3:14b, temp=0, think off) =====
+suite=test3_prompt env=ec2-linux date=20260922 모델 1개
+생성 파라미터: {"temperature":0,"think":false,"seed":null,"primaryOnly":true,"skipRepeat":true,"prompt":"v2_value_guard","limit":null}
+  - qwen3:14b  ->  ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922
+[사전확인] 대상 모델 + 임베딩 모델 전부 확인됨.
+
+
+########## [1/1] qwen3:14b (run_id=ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922) ##########
+파이프라인 시작: run_id=ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922 model=qwen3:14b env=ec2-linux suite=test3_prompt
+
+=== 1/9 모델 생성 (항목6·7 원자료 포함) ===
+생성 파라미터: {"temperature":0,"seed":null,"think":false,"format":"json"} prompt=v2_value_guard
+run_id=ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922 model=qwen3:14b env=ec2-linux
+총 300건, 이미 완료 0건, 이번에 처리할 건수 300건
+출력: /home/ubuntu/UBot-LLMTest/results/raw/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/generation.jsonl
+  25/300 (성공 25, 실패 0, 경과 81s)
+  50/300 (성공 50, 실패 0, 경과 183s)
+  75/300 (성공 75, 실패 0, 경과 348s)
+  100/300 (성공 100, 실패 0, 경과 467s)
+  125/300 (성공 125, 실패 0, 경과 585s)
+  150/300 (성공 150, 실패 0, 경과 713s)
+  175/300 (성공 175, 실패 0, 경과 815s)
+  200/300 (성공 200, 실패 0, 경과 911s)
+  225/300 (성공 225, 실패 0, 경과 1003s)
+  250/300 (성공 250, 실패 0, 경과 1112s)
+  275/300 (성공 275, 실패 0, 경과 1202s)
+  300/300 (성공 300, 실패 0, 경과 1295s)
+완료. 성공 300, 실패 0
+
+=== 2/9 항목6·7 채점 (포맷·성능) ===
+항목6(포맷성공률): 100.0% -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/format_success.jsonl
+항목7(성능): avg latency 4292ms, avg TPS 22.5 -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/performance.jsonl
+항목8(VRAM 실측): avg 9438MiB, max 10123MiB (n=300)
+요약 -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/performance_summary.json
+
+=== 3/9 항목1 채점 (답변정확도) ===
+대상 300건 (이미 완료 0건 스킵)
+  32/300
+  64/300
+  96/300
+  128/300
+  160/300
+  192/300
+  224/300
+  256/300
+  288/300
+  300/300
+항목1(답변정확도): 고유문항(회차1) 기준 유사도 통과 119/300 (39.7%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/answer_accuracy.jsonl
+
+=== 4/9 항목2 채점 (RAG충실도) ===
+NLI 대상: 202건 (사실주장 없는 status 98건 제외)
+NLI 쌍 총 1916개 (컨텍스트 블록 단위로 분해됨) — 배치로 한 번에 채점합니다...
+  NLI 배치 1-500/1916
+  NLI 배치 501-1000/1916
+  NLI 배치 1001-1500/1916
+  NLI 배치 1501-1916/1916
+항목2(RAG충실도): 전체 202건 채점(스킵 98), 고유문항(회차1) 기준 faithful 47/202 (23.3%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/rag_faithfulness.jsonl
+
+=== 5/9 항목3 채점 (FAQ부재판단) ===
+항목3(FAQ부재판단): P=0.940 R=0.898 F1=0.919 (skipped=0) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/absence_detection.jsonl
+
+=== 6/9 항목5 채점 (표현품질) ===
+항목5(표현품질): 고유문항(회차1) 기준 300건, 평균 62.1점, 실격 101건 (33.7%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/expression_quality.jsonl
+
+=== 7/9 반복 일관성 채점 (--skip-repeat로 건너뜀) ===
+
+=== 8/9 LLM 재판단 필요 여부 판정 ===
+에스컬레이션: 300건 중 144건 재판단 필요로 플래그 (48.0%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/escalation.jsonl
+
+=== 9/9 사람이 읽을 통합 결과 파일 생성 ===
+통합 리뷰 파일: 300행 (재확인 필요 144건) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/review.csv
+
+=== 종합 리포트 생성 ===
+요약 리포트 -> /home/ubuntu/UBot-LLMTest/results/reports/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922_summary.md
+
+파이프라인 완료 (25.2분). 결과:
+  - 사람이 읽을 통합 파일: results/scored/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922/review.csv
+  - 종합 리포트: results/reports/test3_prompt/ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922_summary.md
+
+
+========== 프롬프트 v2_value_guard (qwen3:14b, temp=0, think off) 요약 (25.2분) ==========
+  OK   qwen3:14b (run_id=ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922)
+
+===== 프롬프트 v3_decision_tree (qwen3:14b, temp=0, think off) =====
+suite=test3_prompt env=ec2-linux date=20260922 모델 1개
+생성 파라미터: {"temperature":0,"think":false,"seed":null,"primaryOnly":true,"skipRepeat":true,"prompt":"v3_decision_tree","limit":null}
+  - qwen3:14b  ->  ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922
+[사전확인] 대상 모델 + 임베딩 모델 전부 확인됨.
+
+
+########## [1/1] qwen3:14b (run_id=ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922) ##########
+파이프라인 시작: run_id=ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922 model=qwen3:14b env=ec2-linux suite=test3_prompt
+
+=== 1/9 모델 생성 (항목6·7 원자료 포함) ===
+생성 파라미터: {"temperature":0,"seed":null,"think":false,"format":"json"} prompt=v3_decision_tree
+run_id=ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922 model=qwen3:14b env=ec2-linux
+총 300건, 이미 완료 0건, 이번에 처리할 건수 300건
+출력: /home/ubuntu/UBot-LLMTest/results/raw/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/generation.jsonl
+  25/300 (성공 25, 실패 0, 경과 81s)
+  50/300 (성공 50, 실패 0, 경과 184s)
+  75/300 (성공 75, 실패 0, 경과 349s)
+  100/300 (성공 100, 실패 0, 경과 468s)
+  125/300 (성공 125, 실패 0, 경과 580s)
+  150/300 (성공 150, 실패 0, 경과 702s)
+  175/300 (성공 175, 실패 0, 경과 801s)
+  200/300 (성공 200, 실패 0, 경과 900s)
+  225/300 (성공 225, 실패 0, 경과 994s)
+  250/300 (성공 250, 실패 0, 경과 1100s)
+  275/300 (성공 275, 실패 0, 경과 1199s)
+  300/300 (성공 300, 실패 0, 경과 1291s)
+완료. 성공 300, 실패 0
+
+=== 2/9 항목6·7 채점 (포맷·성능) ===
+항목6(포맷성공률): 100.0% -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/format_success.jsonl
+항목7(성능): avg latency 4279ms, avg TPS 22.5 -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/performance.jsonl
+항목8(VRAM 실측): avg 9425MiB, max 10125MiB (n=300)
+요약 -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/performance_summary.json
+
+=== 3/9 항목1 채점 (답변정확도) ===
+대상 300건 (이미 완료 0건 스킵)
+  32/300
+  64/300
+  96/300
+  128/300
+  160/300
+  192/300
+  224/300
+  256/300
+  288/300
+  300/300
+항목1(답변정확도): 고유문항(회차1) 기준 유사도 통과 118/300 (39.3%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/answer_accuracy.jsonl
+
+=== 4/9 항목2 채점 (RAG충실도) ===
+NLI 대상: 199건 (사실주장 없는 status 101건 제외)
+NLI 쌍 총 1876개 (컨텍스트 블록 단위로 분해됨) — 배치로 한 번에 채점합니다...
+  NLI 배치 1-500/1876
+  NLI 배치 501-1000/1876
+  NLI 배치 1001-1500/1876
+  NLI 배치 1501-1876/1876
+항목2(RAG충실도): 전체 199건 채점(스킵 101), 고유문항(회차1) 기준 faithful 45/199 (22.6%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/rag_faithfulness.jsonl
+
+=== 5/9 항목3 채점 (FAQ부재판단) ===
+항목3(FAQ부재판단): P=0.950 R=0.864 F1=0.905 (skipped=0) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/absence_detection.jsonl
+
+=== 6/9 항목5 채점 (표현품질) ===
+항목5(표현품질): 고유문항(회차1) 기준 300건, 평균 59.9점, 실격 107건 (35.7%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/expression_quality.jsonl
+
+=== 7/9 반복 일관성 채점 (--skip-repeat로 건너뜀) ===
+
+=== 8/9 LLM 재판단 필요 여부 판정 ===
+에스컬레이션: 300건 중 144건 재판단 필요로 플래그 (48.0%) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/escalation.jsonl
+
+=== 9/9 사람이 읽을 통합 결과 파일 생성 ===
+통합 리뷰 파일: 300행 (재확인 필요 144건) -> /home/ubuntu/UBot-LLMTest/results/scored/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/review.csv
+
+=== 종합 리포트 생성 ===
+요약 리포트 -> /home/ubuntu/UBot-LLMTest/results/reports/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922_summary.md
+
+파이프라인 완료 (25.2분). 결과:
+  - 사람이 읽을 통합 파일: results/scored/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922/review.csv
+  - 종합 리포트: results/reports/test3_prompt/ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922_summary.md
+
+
+========== 프롬프트 v3_decision_tree (qwen3:14b, temp=0, think off) 요약 (25.2분) ==========
+  OK   qwen3:14b (run_id=ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922)
+
+=== 비교 문서 생성 ===
+
+프롬프트 비교 (qwen3:14b, test3_prompt)
+  v0_baseline        상태일치  79.3% · 부재F1 0.725 · 포맷 100.0% · 지연   5.51s  (대조군)
+  v1_status_rules    상태일치  85.0% · 부재F1 0.925 · 포맷 100.0% · 지연   4.29s  (개선 +38 / 퇴보 -21 / 순증 17)
+  v2_value_guard     상태일치  87.3% · 부재F1 0.919 · 포맷 100.0% · 지연   4.29s  (개선 +32 / 퇴보 -8 / 순증 24)
+  v3_decision_tree   상태일치  82.3% · 부재F1 0.905 · 포맷 100.0% · 지연   4.28s  (개선 +35 / 퇴보 -26 / 순증 9)
+
+-> results/test3_prompt/prompt_test_qwen3-14b_20260922.md
+
+========== 프롬프트 비교 요약 ==========
+  OK   v1_status_rules (run_id=ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922)
+  OK   v2_value_guard (run_id=ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922)
+  OK   v3_decision_tree (run_id=ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922)
+
+결과 문서는 results/test3_prompt/ 아래에 있습니다. ROOT=.

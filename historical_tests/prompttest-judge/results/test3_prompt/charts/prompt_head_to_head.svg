@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 770" width="640" height="770"
+ role="img" aria-label="유형별 정답률 맞대결 v2 값 가드 대 v0 기준선" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+<style>
+  .viz { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+         --grid:#e1e0d9; --axis:#c3c2b7;
+         --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; }
+  @media (prefers-color-scheme: dark) {
+    .viz { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+           --grid:#2c2c2a; --axis:#383835;
+           --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; }
+  }
+  .bg   { fill: var(--surface); }
+  .ttl  { fill: var(--ink);   font-weight:700; }
+  .sub  { fill: var(--ink2); }
+  .lbl  { fill: var(--ink);  }
+  .axl  { fill: var(--muted); }
+  .grid { stroke: var(--grid); stroke-width:1; }
+  .axis { stroke: var(--axis); stroke-width:1; }
+  .note { fill: var(--ink2); }
+  .pt   { cursor: default; }
+  .pt:hover circle { stroke: var(--ink); stroke-width: 2.5; }
+</style>
+<g class="viz"><rect class="bg" x="0" y="0" width="640" height="770"/>
+<text x="26.0" y="32.0" class="ttl" font-size="19" text-anchor="start">유형별 정답률 맞대결 — v2 값 가드 vs v0 기준선</text>
+<text x="26.0" y="54.0" class="sub" font-size="12.5" text-anchor="start">대각선 위 = v2 우세. 원 크기는 문항 수, 빈 원은 10문항 미만. LLM Judge 정답률.</text>
+<text x="26.0" y="74.0" class="sub" font-size="12.5" text-anchor="start">점에 마우스를 올리면 유형 이름과 안별 정답률이 보인다.</text>
+<text x="26.0" y="96.0" class="sub" font-size="13" text-anchor="start" font-weight="700">v2 5승 · v0 4승 · 무 4</text>
+<line class="grid" x1="86.0" y1="118" x2="86.0" y2="638"/>
+<line class="grid" x1="86" y1="638.0" x2="606" y2="638.0"/>
+<text x="86.0" y="658.0" class="axl" font-size="11" text-anchor="middle">20%</text>
+<text x="76.0" y="642.0" class="axl" font-size="11" text-anchor="end">20%</text>
+<line class="grid" x1="216.0" y1="118" x2="216.0" y2="638"/>
+<line class="grid" x1="86" y1="508.0" x2="606" y2="508.0"/>
+<text x="216.0" y="658.0" class="axl" font-size="11" text-anchor="middle">40%</text>
+<text x="76.0" y="512.0" class="axl" font-size="11" text-anchor="end">40%</text>
+<line class="grid" x1="346.0" y1="118" x2="346.0" y2="638"/>
+<line class="grid" x1="86" y1="378.0" x2="606" y2="378.0"/>
+<text x="346.0" y="658.0" class="axl" font-size="11" text-anchor="middle">60%</text>
+<text x="76.0" y="382.0" class="axl" font-size="11" text-anchor="end">60%</text>
+<line class="grid" x1="476.0" y1="118" x2="476.0" y2="638"/>
+<line class="grid" x1="86" y1="248.0" x2="606" y2="248.0"/>
+<text x="476.0" y="658.0" class="axl" font-size="11" text-anchor="middle">80%</text>
+<text x="76.0" y="252.0" class="axl" font-size="11" text-anchor="end">80%</text>
+<line class="grid" x1="606.0" y1="118" x2="606.0" y2="638"/>
+<line class="grid" x1="86" y1="118.0" x2="606" y2="118.0"/>
+<text x="606.0" y="658.0" class="axl" font-size="11" text-anchor="middle">100%</text>
+<text x="76.0" y="122.0" class="axl" font-size="11" text-anchor="end">100%</text>
+<text x="346.0" y="684.0" class="sub" font-size="12.5" text-anchor="middle" font-weight="600">v0 기준선 정답률 →</text>
+<text transform="translate(30 378.0) rotate(-90)" class="sub" font-size="12.5" font-weight="600" text-anchor="middle">v2 값 가드 정답률 →</text>
+<line x1="86" y1="638" x2="606" y2="118" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6 5" opacity="0.8"/>
+<text x="161.0" y="577.0" class="note" font-size="11" text-anchor="start">동률선</text>
+<text x="98.0" y="140.0" class="sub" font-size="12" text-anchor="start" font-weight="600">▲ v2 우세</text>
+<text x="594.0" y="624.0" class="sub" font-size="12" text-anchor="end" font-weight="600">v0 우세 ▼</text>
+<line x1="470.6" y1="334.6" x2="460.2" y2="334.6" stroke="var(--ink2)" stroke-width="1" opacity="0.6"/>
+<circle cx="470.6" cy="334.6" r="2.5" fill="var(--ink2)"/>
+<line x1="476.0" y1="334.6" x2="486.4" y2="334.6" stroke="var(--ink2)" stroke-width="1" opacity="0.6"/>
+<circle cx="476.0" cy="334.6" r="2.5" fill="var(--ink2)"/>
+<line x1="562.6" y1="139.6" x2="558.4" y2="133.7" stroke="var(--ink2)" stroke-width="1" opacity="0.6"/>
+<circle cx="562.6" cy="139.6" r="2.5" fill="var(--ink2)"/>
+<line x1="562.6" y1="161.4" x2="559.7" y2="166.1" stroke="var(--ink2)" stroke-width="1" opacity="0.6"/>
+<circle cx="562.6" cy="161.4" r="2.5" fill="var(--ink2)"/>
+<line x1="576.4" y1="147.6" x2="581.5" y2="152.5" stroke="var(--ink2)" stroke-width="1" opacity="0.6"/>
+<circle cx="576.4" cy="147.6" r="2.5" fill="var(--ink2)"/>
+<line x1="606.0" y1="118.0" x2="594.3" y2="129.7" stroke="var(--ink2)" stroke-width="1" opacity="0.6"/>
+<circle cx="606.0" cy="118.0" r="2.5" fill="var(--ink2)"/>
+<g class="pt" data-tip="유사하지만 답 없음 (35문항)&#10;v0 29% → v2 80% (+51%p)&#10;v1 86% · v3 69%"><title>유사하지만 답 없음 (35문항)
+v0 29% → v2 80% (+51%p)
+v1 86% · v3 69%</title><circle cx="141.7" cy="248.0" r="14.0" fill="var(--s3)" fill-opacity="0.95" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="부분 정보 (35문항)&#10;v0 83% → v2 91% (+9%p)&#10;v1 97% · v3 86%"><title>부분 정보 (35문항)
+v0 83% → v2 91% (+9%p)
+v1 97% · v3 86%</title><circle cx="494.6" cy="173.7" r="14.0" fill="var(--s3)" fill-opacity="0.65" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="빈 컨텍스트 (30문항)&#10;v0 60% → v2 97% (+37%p)&#10;v1 100% · v3 100%"><title>빈 컨텍스트 (30문항)
+v0 60% → v2 97% (+37%p)
+v1 100% · v3 100%</title><circle cx="346.0" cy="139.6" r="13.4" fill="var(--s3)" fill-opacity="0.95" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="다중 FAQ 조합 (30문항)&#10;v0 93% → v2 97% (+3%p)&#10;v1 83% · v3 80%"><title>다중 FAQ 조합 (30문항)
+v0 93% → v2 97% (+3%p)
+v1 83% · v3 80%</title><circle cx="558.4" cy="133.7" r="13.4" fill="var(--s3)" fill-opacity="0.65" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="멀티턴 대화 (27문항)&#10;v0 59% → v2 56% (−4%p)&#10;v1 52% · v3 44%"><title>멀티턴 대화 (27문항)
+v0 59% → v2 56% (−4%p)
+v1 52% · v3 44%</title><circle cx="341.2" cy="406.9" r="13.0" fill="var(--s2)" fill-opacity="0.65" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="사용자 정보+FAQ (24문항)&#10;v0 50% → v2 38% (−12%p)&#10;v1 33% · v3 38%"><title>사용자 정보+FAQ (24문항)
+v0 50% → v2 38% (−12%p)
+v1 33% · v3 38%</title><circle cx="281.0" cy="524.3" r="12.6" fill="var(--s2)" fill-opacity="0.95" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="조건·예외·경계값 (24문항)&#10;v0 79% → v2 67% (−12%p)&#10;v1 58% · v3 63%"><title>조건·예외·경계값 (24문항)
+v0 79% → v2 67% (−12%p)
+v1 58% · v3 63%</title><circle cx="460.2" cy="334.6" r="12.6" fill="var(--s2)" fill-opacity="0.95" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="유사 FAQ 구분·노이즈 (22문항)&#10;v0 95% → v2 95% (±0%p)&#10;v1 86% · v3 82%"><title>유사 FAQ 구분·노이즈 (22문항)
+v0 95% → v2 95% (±0%p)
+v1 86% · v3 82%</title><circle cx="581.5" cy="152.5" r="12.3" fill="var(--muted)" fill-opacity="0.65" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="무관 FAQ (20문항)&#10;v0 65% → v2 80% (+15%p)&#10;v1 85% · v3 85%"><title>무관 FAQ (20문항)
+v0 65% → v2 80% (+15%p)
+v1 85% · v3 85%</title><circle cx="378.5" cy="248.0" r="12.0" fill="var(--s3)" fill-opacity="0.95" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="단일 FAQ 답변 (18문항)&#10;v0 100% → v2 100% (±0%p)&#10;v1 94% · v3 89%"><title>단일 FAQ 답변 (18문항)
+v0 100% → v2 100% (±0%p)
+v1 94% · v3 89%</title><circle cx="594.3" cy="129.7" r="11.7" fill="var(--muted)" fill-opacity="0.65" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="FAQ 충돌·시행일 (15문항)&#10;v0 80% → v2 67% (−13%p)&#10;v1 80% · v3 80%"><title>FAQ 충돌·시행일 (15문항)
+v0 80% → v2 67% (−13%p)
+v1 80% · v3 80%</title><circle cx="486.4" cy="334.6" r="11.2" fill="var(--s2)" fill-opacity="0.95" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="적대적 입력·범위 밖 (15문항)&#10;v0 93% → v2 93% (±0%p)&#10;v1 93% · v3 87%"><title>적대적 입력·범위 밖 (15문항)
+v0 93% → v2 93% (±0%p)
+v1 93% · v3 87%</title><circle cx="559.7" cy="166.1" r="11.2" fill="var(--muted)" fill-opacity="0.65" stroke="var(--surface)" stroke-width="1.5"/></g>
+<g class="pt" data-tip="API 결과 답변 (5문항) ⚠ 10문항 미만&#10;v0 40% → v2 40% (±0%p)&#10;v1 40% · v3 60%"><title>API 결과 답변 (5문항) ⚠ 10문항 미만
+v0 40% → v2 40% (±0%p)
+v1 40% · v3 60%</title><circle cx="216.0" cy="508.0" r="9.0" fill="var(--surface)" stroke="var(--muted)" stroke-width="2.5"/></g>
+<text x="26.0" y="722.0" class="note" font-size="11.5" text-anchor="start">초록 = v2가 높음, 주황 = v0가 높음, 회색 = 같음. 진한 원 = 10%p 이상 차이.</text>
+<text x="26.0" y="740.0" class="note" font-size="11.5" text-anchor="start">축은 20%부터. 겹치는 원은 옆으로 밀고 실제 위치는 작은 점과 가는 선으로 남겼다.</text>
+<text x="26.0" y="758.0" class="note" font-size="11.5" text-anchor="start">qwen3:14b · temperature 0 · 추론 끔 · 300문항 · v0 Judge medium, v1~v3 Judge ultra</text>
+</g></svg>

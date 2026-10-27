@@ -1,0 +1,173 @@
+{
+  "generated_at": "2026-09-22T02:43:40.543Z",
+  "suite": "test3",
+  "condition": "t0_think",
+  "n_models": 7,
+  "rho_all_vs_premise_complete": 0.964,
+  "rho_split_half": 0.75,
+  "max_rank_shift": 1,
+  "usable_for_ranking": true,
+  "usable_for_full_ordering": false,
+  "pairs_total": 21,
+  "pairs_separable": 5,
+  "pairs_separable_and_consistent": 5,
+  "separable_pairs": [
+    {
+      "higher": "gemma3:4b",
+      "lower": "qwen3:14b",
+      "gap_pp": 12.6,
+      "order_holds_in_both_halves": true
+    },
+    {
+      "higher": "gemma3:4b",
+      "lower": "qwen3:1.7b",
+      "gap_pp": 12.7,
+      "order_holds_in_both_halves": true
+    },
+    {
+      "higher": "gemma3:4b",
+      "lower": "exaone3.5:7.8b",
+      "gap_pp": 19.8,
+      "order_holds_in_both_halves": true
+    },
+    {
+      "higher": "qwen3:4b",
+      "lower": "exaone3.5:7.8b",
+      "gap_pp": 16.6,
+      "order_holds_in_both_halves": true
+    },
+    {
+      "higher": "gemma3:12b",
+      "lower": "exaone3.5:7.8b",
+      "gap_pp": 14,
+      "order_holds_in_both_halves": true
+    }
+  ],
+  "caveats": [
+    "절대값은 실제 근거율보다 낮게 나온다. premise에서 빠진 입력을 쓰는 문항이 구조적으로 불리하다.",
+    "분모(n_scored)가 모델마다 다르다. 보류(ABSTAIN/CLARIFY/OUT_OF_SCOPE)가 많은 모델일수록 채점 문항이 적다.",
+    "이 검증은 순위의 내부 일관성만 본다. 실제 근거 충실도와 일치하는지는 LLM Judge 채점으로 따로 확인해야 한다.",
+    "신뢰구간이 겹치는 쌍은 순서를 주장하지 않는다. 전체 줄세우기가 아니라 구분 가능한 쌍끼리만 비교한다."
+  ],
+  "models": [
+    {
+      "model": "gemma3:4b",
+      "run_id": "ec2-linux_gemma3-4b_t0_think_20260920",
+      "rate_all": 0.3493975903614458,
+      "n_all": 166,
+      "n_skipped": 134,
+      "rate_premise_complete": 0.4690265486725664,
+      "n_premise_complete": 113,
+      "rate_half_a": 0.3170731707317073,
+      "rate_half_b": 0.38095238095238093,
+      "ci95": [
+        0.281,
+        0.4246
+      ],
+      "rank_all": 1,
+      "rank_premise_complete": 1
+    },
+    {
+      "model": "qwen3:1.7b",
+      "run_id": "ec2-linux_qwen3-1-7b_t0_think_20260920",
+      "rate_all": 0.2222222222222222,
+      "n_all": 270,
+      "n_skipped": 30,
+      "rate_premise_complete": 0.2676056338028169,
+      "n_premise_complete": 213,
+      "rate_half_a": 0.21481481481481482,
+      "rate_half_b": 0.22962962962962963,
+      "ci95": [
+        0.1767,
+        0.2755
+      ],
+      "rank_all": 6,
+      "rank_premise_complete": 5
+    },
+    {
+      "model": "qwen3:4b",
+      "run_id": "ec2-linux_qwen3-4b_t0_think_20260920",
+      "rate_all": 0.3165137614678899,
+      "n_all": 218,
+      "n_skipped": 82,
+      "rate_premise_complete": 0.39263803680981596,
+      "n_premise_complete": 163,
+      "rate_half_a": 0.3364485981308411,
+      "rate_half_b": 0.2972972972972973,
+      "ci95": [
+        0.2584,
+        0.381
+      ],
+      "rank_all": 2,
+      "rank_premise_complete": 2
+    },
+    {
+      "model": "qwen3:8b",
+      "run_id": "ec2-linux_qwen3-8b_t0_think_20260920",
+      "rate_all": 0.23,
+      "n_all": 200,
+      "n_skipped": 98,
+      "rate_premise_complete": 0.27586206896551724,
+      "n_premise_complete": 145,
+      "rate_half_a": 0.19801980198019803,
+      "rate_half_b": 0.26262626262626265,
+      "ci95": [
+        0.1771,
+        0.2931
+      ],
+      "rank_all": 4,
+      "rank_premise_complete": 4
+    },
+    {
+      "model": "exaone3.5:7.8b",
+      "run_id": "ec2-linux_exaone3-5-7-8b_t0_think_20260920",
+      "rate_all": 0.1509433962264151,
+      "n_all": 212,
+      "n_skipped": 88,
+      "rate_premise_complete": 0.19375,
+      "n_premise_complete": 160,
+      "rate_half_a": 0.16666666666666666,
+      "rate_half_b": 0.1346153846153846,
+      "ci95": [
+        0.109,
+        0.2053
+      ],
+      "rank_all": 7,
+      "rank_premise_complete": 7
+    },
+    {
+      "model": "gemma3:12b",
+      "run_id": "ec2-linux_gemma3-12b_t0_think_20260920",
+      "rate_all": 0.2909090909090909,
+      "n_all": 220,
+      "n_skipped": 80,
+      "rate_premise_complete": 0.3609467455621302,
+      "n_premise_complete": 169,
+      "rate_half_a": 0.2777777777777778,
+      "rate_half_b": 0.30357142857142855,
+      "ci95": [
+        0.2349,
+        0.3541
+      ],
+      "rank_all": 3,
+      "rank_premise_complete": 3
+    },
+    {
+      "model": "qwen3:14b",
+      "run_id": "ec2-linux_qwen3-14b_t0_think_20260920",
+      "rate_all": 0.22317596566523606,
+      "n_all": 233,
+      "n_skipped": 66,
+      "rate_premise_complete": 0.26256983240223464,
+      "n_premise_complete": 179,
+      "rate_half_a": 0.2543859649122807,
+      "rate_half_b": 0.19327731092436976,
+      "ci95": [
+        0.1744,
+        0.2809
+      ],
+      "rank_all": 5,
+      "rank_premise_complete": 6
+    }
+  ]
+}

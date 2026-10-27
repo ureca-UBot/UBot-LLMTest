@@ -1,0 +1,60 @@
+{
+  "batch_id": "prompt-qwen3-14b-20260922",
+  "kind": "accuracy",
+  "updated_at": "2026-09-22T08:59:52.394Z",
+  "expected": 900,
+  "completed": 900,
+  "models": [
+    {
+      "run_id": "ec2-linux_qwen3-14b_v1_status_rules_t0_nothink_20260922",
+      "model_tag": "qwen3:14b",
+      "n_expected": 300,
+      "n_scored": 300,
+      "n_unscored": 0,
+      "error_attempts": 0,
+      "accuracy_verdict_counts": {
+        "CORRECT": 236,
+        "INCORRECT": 64
+      },
+      "is_grounded_rate": 0.84,
+      "grounding_score_avg": 4.6,
+      "hallucinated_claims_total": 56,
+      "hallucinated_case_count": 48,
+      "expression_quality_avg": 4.803333333333334
+    },
+    {
+      "run_id": "ec2-linux_qwen3-14b_v2_value_guard_t0_nothink_20260922",
+      "model_tag": "qwen3:14b",
+      "n_expected": 300,
+      "n_scored": 300,
+      "n_unscored": 0,
+      "error_attempts": 0,
+      "accuracy_verdict_counts": {
+        "CORRECT": 239,
+        "INCORRECT": 61
+      },
+      "is_grounded_rate": 0.8533333333333334,
+      "grounding_score_avg": 4.64,
+      "hallucinated_claims_total": 49,
+      "hallucinated_case_count": 44,
+      "expression_quality_avg": 4.823333333333333
+    },
+    {
+      "run_id": "ec2-linux_qwen3-14b_v3_decision_tree_t0_nothink_20260922",
+      "model_tag": "qwen3:14b",
+      "n_expected": 300,
+      "n_scored": 300,
+      "n_unscored": 0,
+      "error_attempts": 1,
+      "accuracy_verdict_counts": {
+        "CORRECT": 223,
+        "INCORRECT": 77
+      },
+      "is_grounded_rate": 0.8133333333333334,
+      "grounding_score_avg": 4.5633333333333335,
+      "hallucinated_claims_total": 62,
+      "hallucinated_case_count": 56,
+      "expression_quality_avg": 4.81
+    }
+  ]
+}

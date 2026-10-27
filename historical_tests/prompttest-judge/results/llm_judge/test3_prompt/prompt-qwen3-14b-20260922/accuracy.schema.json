@@ -1,0 +1,132 @@
+{
+  "type": "object",
+  "properties": {
+    "accuracy": {
+      "type": "object",
+      "properties": {
+        "verdict": {
+          "type": "string",
+          "enum": [
+            "CORRECT",
+            "INCORRECT",
+            "INSUFFICIENT_EVIDENCE"
+          ]
+        },
+        "missing_required_facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contradicted_facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status_appropriate": {
+          "type": "boolean"
+        },
+        "status_content_consistent": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "verdict",
+        "missing_required_facts",
+        "contradicted_facts",
+        "status_appropriate",
+        "status_content_consistent"
+      ],
+      "additionalProperties": false
+    },
+    "hallucination": {
+      "type": "object",
+      "properties": {
+        "grounding_score": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "is_grounded": {
+          "type": "boolean"
+        },
+        "hallucinated_claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "claim": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim",
+              "reason"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "minor_issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "claim": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim",
+              "reason"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "silent_conflict_pick": {
+          "type": "boolean"
+        },
+        "evidence_ids_valid": {
+          "type": "boolean"
+        },
+        "evidence_ids_issue": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "grounding_score",
+        "is_grounded",
+        "hallucinated_claims",
+        "minor_issues",
+        "silent_conflict_pick",
+        "evidence_ids_valid",
+        "evidence_ids_issue"
+      ],
+      "additionalProperties": false
+    },
+    "expression_quality": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "reasoning": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "accuracy",
+    "hallucination",
+    "expression_quality",
+    "reasoning"
+  ],
+  "additionalProperties": false
+}
