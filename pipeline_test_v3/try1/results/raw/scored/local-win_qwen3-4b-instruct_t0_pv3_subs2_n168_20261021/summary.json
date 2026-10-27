@@ -1,0 +1,779 @@
+{
+  "run_id": "local-win_qwen3-4b-instruct_t0_pv3_subs2_n168_20261021",
+  "status_mode": "sub",
+  "judge_batch": null,
+  "scored_at": "2026-10-21T06:25:47.970Z",
+  "overall": {
+    "cases": 168,
+    "paths": {
+      "LLM": 160,
+      "LLM-005": 6,
+      "CHAT-013": 2
+    },
+    "exec_error": {
+      "count": 6
+    },
+    "status": {
+      "match": 112,
+      "match_rate": 66.67,
+      "match_strict": 128,
+      "match_strict_rate": 76.19,
+      "match_partial": 111,
+      "match_partial_rate": 66.07,
+      "match_llm_only_among_llm": 112,
+      "llm_cases": 160,
+      "confusion": {
+        "ANSWER -> ANSWER": 30,
+        "ANSWER -> ABSTAIN": 24,
+        "ANSWER -> PARTIAL": 4,
+        "ABSTAIN -> PARTIAL": 3,
+        "PARTIAL -> PARTIAL": 59,
+        "PARTIAL -> ABSTAIN": 14,
+        "PARTIAL -> ANSWER": 1,
+        "ABSTAIN -> ABSTAIN": 23,
+        "ANSWER -> null": 7,
+        "PARTIAL -> null": 1,
+        "ANSWER -> SYSTEM_ABSTAIN": 2
+      }
+    },
+    "sub_status": {
+      "cases": 166,
+      "aligned_cases": 157,
+      "valid_cases": 158,
+      "pair_match": 194,
+      "pairs": 252,
+      "pair_match_rate": 76.98,
+      "pair_match_strict_rate": 83.33,
+      "pair_match_partial_rate": 76.59
+    },
+    "retrieval": {
+      "sub_questions": 253,
+      "verdicts": {
+        "HIT": 222,
+        "RETRIEVAL_MISS": 25,
+        "QUERY_VARIANT_MISS": 6
+      },
+      "hit_rate": 87.75
+    },
+    "planner": {
+      "judge_called": 100,
+      "sub_count_match": 166
+    },
+    "leak": {
+      "base_llm_cases": 160,
+      "any": 66,
+      "any_rate": 41.25,
+      "notice": 66,
+      "ask_back": 0,
+      "refer": 2,
+      "judge_decline_notice": 0,
+      "judge_asks_user": 0,
+      "judged": 0
+    },
+    "empty_answer_when_expected_decline": {
+      "cases": 26,
+      "empty": 23
+    },
+    "judge": null,
+    "passed": 112,
+    "passed_rate": 66.67,
+    "failure_causes": {
+      "RETRIEVAL_MISS": 11,
+      "STATUS_MISMATCH": 35,
+      "EXEC_ERROR": 6,
+      "QUERY_VARIANT_MISS": 4
+    },
+    "latency_ms_avg": 4093
+  },
+  "by_type": {
+    "CQ": {
+      "cases": 6,
+      "paths": {
+        "LLM": 6
+      },
+      "exec_error": {
+        "count": 0
+      },
+      "status": {
+        "match": 3,
+        "match_rate": 50,
+        "match_strict": 3,
+        "match_strict_rate": 50,
+        "match_partial": 3,
+        "match_partial_rate": 50,
+        "match_llm_only_among_llm": 3,
+        "llm_cases": 6,
+        "confusion": {
+          "ANSWER -> ANSWER": 3,
+          "ANSWER -> ABSTAIN": 3
+        }
+      },
+      "sub_status": {
+        "cases": 6,
+        "aligned_cases": 6,
+        "valid_cases": 6,
+        "pair_match": 3,
+        "pairs": 6,
+        "pair_match_rate": 50,
+        "pair_match_strict_rate": 50,
+        "pair_match_partial_rate": 50
+      },
+      "retrieval": {
+        "sub_questions": 6,
+        "verdicts": {
+          "HIT": 3,
+          "RETRIEVAL_MISS": 3
+        },
+        "hit_rate": 50
+      },
+      "planner": {
+        "judge_called": 1,
+        "sub_count_match": 6
+      },
+      "leak": {
+        "base_llm_cases": 6,
+        "any": 0,
+        "any_rate": 0,
+        "notice": 0,
+        "ask_back": 0,
+        "refer": 0,
+        "judge_decline_notice": 0,
+        "judge_asks_user": 0,
+        "judged": 0
+      },
+      "empty_answer_when_expected_decline": {
+        "cases": 0,
+        "empty": 0
+      },
+      "judge": null,
+      "passed": 3,
+      "passed_rate": 50,
+      "failure_causes": {
+        "RETRIEVAL_MISS": 2,
+        "STATUS_MISMATCH": 1
+      },
+      "latency_ms_avg": 3079
+    },
+    "IN": {
+      "cases": 15,
+      "paths": {
+        "LLM": 15
+      },
+      "exec_error": {
+        "count": 0
+      },
+      "status": {
+        "match": 0,
+        "match_rate": 0,
+        "match_strict": 15,
+        "match_strict_rate": 100,
+        "match_partial": 0,
+        "match_partial_rate": 0,
+        "match_llm_only_among_llm": 0,
+        "llm_cases": 15,
+        "confusion": {
+          "ANSWER -> ABSTAIN": 15
+        }
+      },
+      "sub_status": {
+        "cases": 15,
+        "aligned_cases": 15,
+        "valid_cases": 15,
+        "pair_match": 0,
+        "pairs": 15,
+        "pair_match_rate": 0,
+        "pair_match_strict_rate": 100,
+        "pair_match_partial_rate": 0
+      },
+      "retrieval": {
+        "sub_questions": 15,
+        "verdicts": {
+          "HIT": 12,
+          "RETRIEVAL_MISS": 3
+        },
+        "hit_rate": 80
+      },
+      "planner": {
+        "judge_called": 4,
+        "sub_count_match": 14
+      },
+      "leak": {
+        "base_llm_cases": 15,
+        "any": 1,
+        "any_rate": 6.67,
+        "notice": 1,
+        "ask_back": 0,
+        "refer": 0,
+        "judge_decline_notice": 0,
+        "judge_asks_user": 0,
+        "judged": 0
+      },
+      "empty_answer_when_expected_decline": {
+        "cases": 0,
+        "empty": 0
+      },
+      "judge": null,
+      "passed": 0,
+      "passed_rate": 0,
+      "failure_causes": {
+        "STATUS_MISMATCH": 12,
+        "RETRIEVAL_MISS": 3
+      },
+      "latency_ms_avg": 2343
+    },
+    "MA": {
+      "cases": 8,
+      "paths": {
+        "LLM": 8
+      },
+      "exec_error": {
+        "count": 0
+      },
+      "status": {
+        "match": 5,
+        "match_rate": 62.5,
+        "match_strict": 5,
+        "match_strict_rate": 62.5,
+        "match_partial": 5,
+        "match_partial_rate": 62.5,
+        "match_llm_only_among_llm": 5,
+        "llm_cases": 8,
+        "confusion": {
+          "ANSWER -> ANSWER": 5,
+          "ANSWER -> PARTIAL": 2,
+          "ANSWER -> ABSTAIN": 1
+        }
+      },
+      "sub_status": {
+        "cases": 8,
+        "aligned_cases": 8,
+        "valid_cases": 8,
+        "pair_match": 12,
+        "pairs": 16,
+        "pair_match_rate": 75,
+        "pair_match_strict_rate": 75,
+        "pair_match_partial_rate": 75
+      },
+      "retrieval": {
+        "sub_questions": 16,
+        "verdicts": {
+          "HIT": 14,
+          "RETRIEVAL_MISS": 2
+        },
+        "hit_rate": 87.5
+      },
+      "planner": {
+        "judge_called": 8,
+        "sub_count_match": 8
+      },
+      "leak": {
+        "base_llm_cases": 8,
+        "any": 3,
+        "any_rate": 37.5,
+        "notice": 3,
+        "ask_back": 0,
+        "refer": 0,
+        "judge_decline_notice": 0,
+        "judge_asks_user": 0,
+        "judged": 0
+      },
+      "empty_answer_when_expected_decline": {
+        "cases": 0,
+        "empty": 0
+      },
+      "judge": null,
+      "passed": 5,
+      "passed_rate": 62.5,
+      "failure_causes": {
+        "STATUS_MISMATCH": 1,
+        "RETRIEVAL_MISS": 2
+      },
+      "latency_ms_avg": 5136
+    },
+    "MN": {
+      "cases": 3,
+      "paths": {
+        "LLM": 3
+      },
+      "exec_error": {
+        "count": 0
+      },
+      "status": {
+        "match": 0,
+        "match_rate": 0,
+        "match_strict": 0,
+        "match_strict_rate": 0,
+        "match_partial": 0,
+        "match_partial_rate": 0,
+        "match_llm_only_among_llm": 0,
+        "llm_cases": 3,
+        "confusion": {
+          "ABSTAIN -> PARTIAL": 3
+        }
+      },
+      "sub_status": {
+        "cases": 3,
+        "aligned_cases": 3,
+        "valid_cases": 3,
+        "pair_match": 3,
+        "pairs": 6,
+        "pair_match_rate": 50,
+        "pair_match_strict_rate": 50,
+        "pair_match_partial_rate": 50
+      },
+      "retrieval": {
+        "sub_questions": 6,
+        "verdicts": {
+          "HIT": 6
+        },
+        "hit_rate": 100
+      },
+      "planner": {
+        "judge_called": 3,
+        "sub_count_match": 3
+      },
+      "leak": {
+        "base_llm_cases": 3,
+        "any": 2,
+        "any_rate": 66.67,
+        "notice": 2,
+        "ask_back": 0,
+        "refer": 0,
+        "judge_decline_notice": 0,
+        "judge_asks_user": 0,
+        "judged": 0
+      },
+      "empty_answer_when_expected_decline": {
+        "cases": 3,
+        "empty": 0
+      },
+      "judge": null,
+      "passed": 0,
+      "passed_rate": 0,
+      "failure_causes": {
+        "STATUS_MISMATCH": 3
+      },
+      "latency_ms_avg": 5064
+    },
+    "MP": {
+      "cases": 49,
+      "paths": {
+        "LLM": 49
+      },
+      "exec_error": {
+        "count": 0
+      },
+      "status": {
+        "match": 42,
+        "match_rate": 85.71,
+        "match_strict": 42,
+        "match_strict_rate": 85.71,
+        "match_partial": 42,
+        "match_partial_rate": 85.71,
+        "match_llm_only_among_llm": 42,
+        "llm_cases": 49,
+        "confusion": {
+          "PARTIAL -> PARTIAL": 42,
+          "PARTIAL -> ABSTAIN": 7
+        }
+      },
+      "sub_status": {
+        "cases": 49,
+        "aligned_cases": 49,
+        "valid_cases": 49,
+        "pair_match": 96,
+        "pairs": 103,
+        "pair_match_rate": 93.2,
+        "pair_match_strict_rate": 93.2,
+        "pair_match_partial_rate": 93.2
+      },
+      "retrieval": {
+        "sub_questions": 103,
+        "verdicts": {
+          "HIT": 96,
+          "QUERY_VARIANT_MISS": 2,
+          "RETRIEVAL_MISS": 5
+        },
+        "hit_rate": 93.2
+      },
+      "planner": {
+        "judge_called": 49,
+        "sub_count_match": 49
+      },
+      "leak": {
+        "base_llm_cases": 49,
+        "any": 40,
+        "any_rate": 81.63,
+        "notice": 40,
+        "ask_back": 0,
+        "refer": 2,
+        "judge_decline_notice": 0,
+        "judge_asks_user": 0,
+        "judged": 0
+      },
+      "empty_answer_when_expected_decline": {
+        "cases": 0,
+        "empty": 0
+      },
+      "judge": null,
+      "passed": 42,
+      "passed_rate": 85.71,
+      "failure_causes": {
+        "STATUS_MISMATCH": 5,
+        "RETRIEVAL_MISS": 2
+      },
+      "latency_ms_avg": 5208
+    },
+    "MT": {
+      "cases": 5,
+      "paths": {
+        "LLM": 5
+      },
+      "exec_error": {
+        "count": 0
+      },
+      "status": {
+        "match": 4,
+        "match_rate": 80,
+        "match_strict": 4,
+        "match_strict_rate": 80,
+        "match_partial": 4,
+        "match_partial_rate": 80,
+        "match_llm_only_among_llm": 4,
+        "llm_cases": 5,
+        "confusion": {
+          "ANSWER -> ABSTAIN": 1,
+          "PARTIAL -> PARTIAL": 4
+        }
+      },
+      "sub_status": {
+        "cases": 5,
+        "aligned_cases": 5,
+        "valid_cases": 5,
+        "pair_match": 8,
+        "pairs": 9,
+        "pair_match_rate": 88.89,
+        "pair_match_strict_rate": 88.89,
+        "pair_match_partial_rate": 88.89
+      },
+      "retrieval": {
+        "sub_questions": 9,
+        "verdicts": {
+          "HIT": 8,
+          "RETRIEVAL_MISS": 1
+        },
+        "hit_rate": 88.89
+      },
+      "planner": {
+        "judge_called": 4,
+        "sub_count_match": 5
+      },
+      "leak": {
+        "base_llm_cases": 5,
+        "any": 4,
+        "any_rate": 80,
+        "notice": 4,
+        "ask_back": 0,
+        "refer": 0,
+        "judge_decline_notice": 0,
+        "judge_asks_user": 0,
+        "judged": 0
+      },
+      "empty_answer_when_expected_decline": {
+        "cases": 0,
+        "empty": 0
+      },
+      "judge": null,
+      "passed": 4,
+      "passed_rate": 80,
+      "failure_causes": {
+        "STATUS_MISMATCH": 1
+      },
+      "latency_ms_avg": 4566
+    },
+    "OS": {
+      "cases": 12,
+      "paths": {
+        "LLM": 12
+      },
+      "exec_error": {
+        "count": 0
+      },
+      "status": {
+        "match": 9,
+        "match_rate": 75,
+        "match_strict": 9,
+        "match_strict_rate": 75,
+        "match_partial": 9,
+        "match_partial_rate": 75,
+        "match_llm_only_among_llm": 9,
+        "llm_cases": 12,
+        "confusion": {
+          "PARTIAL -> ABSTAIN": 2,
+          "PARTIAL -> PARTIAL": 8,
+          "PARTIAL -> ANSWER": 1,
+          "ABSTAIN -> ABSTAIN": 1
+        }
+      },
+      "sub_status": {
+        "cases": 12,
+        "aligned_cases": 11,
+        "valid_cases": 12,
+        "pair_match": 9,
+        "pairs": 22,
+        "pair_match_rate": 40.91,
+        "pair_match_strict_rate": 40.91,
+        "pair_match_partial_rate": 40.91
+      },
+      "retrieval": {
+        "sub_questions": 12,
+        "verdicts": {
+          "HIT": 11,
+          "RETRIEVAL_MISS": 1
+        },
+        "hit_rate": 91.67
+      },
+      "planner": {
+        "judge_called": 12,
+        "sub_count_match": 11
+      },
+      "leak": {
+        "base_llm_cases": 12,
+        "any": 8,
+        "any_rate": 66.67,
+        "notice": 8,
+        "ask_back": 0,
+        "refer": 0,
+        "judge_decline_notice": 0,
+        "judge_asks_user": 0,
+        "judged": 0
+      },
+      "empty_answer_when_expected_decline": {
+        "cases": 1,
+        "empty": 1
+      },
+      "judge": null,
+      "passed": 9,
+      "passed_rate": 75,
+      "failure_causes": {
+        "STATUS_MISMATCH": 3
+      },
+      "latency_ms_avg": 4560
+    },
+    "SA": {
+      "cases": 10,
+      "paths": {
+        "LLM": 10
+      },
+      "exec_error": {
+        "count": 0
+      },
+      "status": {
+        "match": 10,
+        "match_rate": 100,
+        "match_strict": 10,
+        "match_strict_rate": 100,
+        "match_partial": 10,
+        "match_partial_rate": 100,
+        "match_llm_only_among_llm": 10,
+        "llm_cases": 10,
+        "confusion": {
+          "ANSWER -> ANSWER": 10
+        }
+      },
+      "sub_status": {
+        "cases": 10,
+        "aligned_cases": 10,
+        "valid_cases": 10,
+        "pair_match": 10,
+        "pairs": 10,
+        "pair_match_rate": 100,
+        "pair_match_strict_rate": 100,
+        "pair_match_partial_rate": 100
+      },
+      "retrieval": {
+        "sub_questions": 10,
+        "verdicts": {
+          "HIT": 10
+        },
+        "hit_rate": 100
+      },
+      "planner": {
+        "judge_called": 0,
+        "sub_count_match": 10
+      },
+      "leak": {
+        "base_llm_cases": 10,
+        "any": 0,
+        "any_rate": 0,
+        "notice": 0,
+        "ask_back": 0,
+        "refer": 0,
+        "judge_decline_notice": 0,
+        "judge_asks_user": 0,
+        "judged": 0
+      },
+      "empty_answer_when_expected_decline": {
+        "cases": 0,
+        "empty": 0
+      },
+      "judge": null,
+      "passed": 10,
+      "passed_rate": 100,
+      "failure_causes": {},
+      "latency_ms_avg": 2894
+    },
+    "ST": {
+      "cases": 30,
+      "paths": {
+        "LLM": 24,
+        "LLM-005": 6
+      },
+      "exec_error": {
+        "count": 6
+      },
+      "status": {
+        "match": 17,
+        "match_rate": 56.67,
+        "match_strict": 17,
+        "match_strict_rate": 56.67,
+        "match_partial": 16,
+        "match_partial_rate": 53.33,
+        "match_llm_only_among_llm": 17,
+        "llm_cases": 24,
+        "confusion": {
+          "ANSWER -> ANSWER": 10,
+          "ANSWER -> null": 7,
+          "ABSTAIN -> ABSTAIN": 6,
+          "ANSWER -> ABSTAIN": 2,
+          "PARTIAL -> PARTIAL": 1,
+          "PARTIAL -> null": 1,
+          "ANSWER -> PARTIAL": 2,
+          "PARTIAL -> ABSTAIN": 1
+        }
+      },
+      "sub_status": {
+        "cases": 30,
+        "aligned_cases": 22,
+        "valid_cases": 22,
+        "pair_match": 23,
+        "pairs": 29,
+        "pair_match_rate": 79.31,
+        "pair_match_strict_rate": 79.31,
+        "pair_match_partial_rate": 75.86
+      },
+      "retrieval": {
+        "sub_questions": 38,
+        "verdicts": {
+          "HIT": 35,
+          "QUERY_VARIANT_MISS": 2,
+          "RETRIEVAL_MISS": 1
+        },
+        "hit_rate": 92.11
+      },
+      "planner": {
+        "judge_called": 8,
+        "sub_count_match": 30
+      },
+      "leak": {
+        "base_llm_cases": 24,
+        "any": 4,
+        "any_rate": 16.67,
+        "notice": 4,
+        "ask_back": 0,
+        "refer": 0,
+        "judge_decline_notice": 0,
+        "judge_asks_user": 0,
+        "judged": 0
+      },
+      "empty_answer_when_expected_decline": {
+        "cases": 6,
+        "empty": 6
+      },
+      "judge": null,
+      "passed": 17,
+      "passed_rate": 56.67,
+      "failure_causes": {
+        "EXEC_ERROR": 6,
+        "STATUS_MISMATCH": 5,
+        "QUERY_VARIANT_MISS": 2
+      },
+      "latency_ms_avg": 4105
+    },
+    "UD": {
+      "cases": 30,
+      "paths": {
+        "LLM": 28,
+        "CHAT-013": 2
+      },
+      "exec_error": {
+        "count": 0
+      },
+      "status": {
+        "match": 22,
+        "match_rate": 73.33,
+        "match_strict": 23,
+        "match_strict_rate": 76.67,
+        "match_partial": 22,
+        "match_partial_rate": 73.33,
+        "match_llm_only_among_llm": 22,
+        "llm_cases": 28,
+        "confusion": {
+          "ANSWER -> ABSTAIN": 2,
+          "ANSWER -> ANSWER": 2,
+          "ANSWER -> SYSTEM_ABSTAIN": 2,
+          "ABSTAIN -> ABSTAIN": 16,
+          "PARTIAL -> ABSTAIN": 4,
+          "PARTIAL -> PARTIAL": 4
+        }
+      },
+      "sub_status": {
+        "cases": 28,
+        "aligned_cases": 28,
+        "valid_cases": 28,
+        "pair_match": 30,
+        "pairs": 36,
+        "pair_match_rate": 83.33,
+        "pair_match_strict_rate": 86.11,
+        "pair_match_partial_rate": 83.33
+      },
+      "retrieval": {
+        "sub_questions": 38,
+        "verdicts": {
+          "HIT": 27,
+          "RETRIEVAL_MISS": 9,
+          "QUERY_VARIANT_MISS": 2
+        },
+        "hit_rate": 71.05
+      },
+      "planner": {
+        "judge_called": 11,
+        "sub_count_match": 30
+      },
+      "leak": {
+        "base_llm_cases": 28,
+        "any": 4,
+        "any_rate": 14.29,
+        "notice": 4,
+        "ask_back": 0,
+        "refer": 0,
+        "judge_decline_notice": 0,
+        "judge_asks_user": 0,
+        "judged": 0
+      },
+      "empty_answer_when_expected_decline": {
+        "cases": 16,
+        "empty": 16
+      },
+      "judge": null,
+      "passed": 22,
+      "passed_rate": 73.33,
+      "failure_causes": {
+        "STATUS_MISMATCH": 4,
+        "RETRIEVAL_MISS": 2,
+        "QUERY_VARIANT_MISS": 2
+      },
+      "latency_ms_avg": 3095
+    }
+  }
+}

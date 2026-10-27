@@ -1,0 +1,375 @@
+{
+  "gemma_overall": {
+    "v3": {
+      "n": 300,
+      "hallucinated": 151,
+      "rate": 0.5033333333333333
+    },
+    "v4": {
+      "n": 2598,
+      "hallucinated": 625,
+      "rate": 0.2405696689761355
+    }
+  },
+  "by_common_type": [
+    {
+      "item": "NC",
+      "name": "유사 FAQ 구분·노이즈",
+      "v3": {
+        "n": 22,
+        "hallucinated": 2,
+        "rate": 0.09090909090909091
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 29,
+        "rate": 0.145
+      }
+    },
+    {
+      "item": "MC",
+      "name": "다중 FAQ 조합",
+      "v3": {
+        "n": 30,
+        "hallucinated": 7,
+        "rate": 0.23333333333333334
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 13,
+        "rate": 0.065
+      }
+    },
+    {
+      "item": "UI",
+      "name": "사용자 정보+FAQ",
+      "v3": {
+        "n": 24,
+        "hallucinated": 11,
+        "rate": 0.4583333333333333
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 68,
+        "rate": 0.34
+      }
+    },
+    {
+      "item": "CE",
+      "name": "조건·예외·경계값",
+      "v3": {
+        "n": 24,
+        "hallucinated": 4,
+        "rate": 0.16666666666666666
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 44,
+        "rate": 0.22
+      }
+    },
+    {
+      "item": "PI",
+      "name": "부분 정보",
+      "v3": {
+        "n": 35,
+        "hallucinated": 24,
+        "rate": 0.6857142857142857
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 96,
+        "rate": 0.48
+      }
+    },
+    {
+      "item": "SR",
+      "name": "유사하지만 답 없음",
+      "v3": {
+        "n": 35,
+        "hallucinated": 32,
+        "rate": 0.9142857142857143
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 60,
+        "rate": 0.3
+      }
+    },
+    {
+      "item": "HR",
+      "name": "무관 FAQ",
+      "v3": {
+        "n": 20,
+        "hallucinated": 16,
+        "rate": 0.8
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 56,
+        "rate": 0.28
+      }
+    },
+    {
+      "item": "EC",
+      "name": "빈 컨텍스트",
+      "v3": {
+        "n": 30,
+        "hallucinated": 28,
+        "rate": 0.9333333333333333
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 57,
+        "rate": 0.285
+      }
+    },
+    {
+      "item": "CF",
+      "name": "FAQ 충돌·시행일",
+      "v3": {
+        "n": 15,
+        "hallucinated": 7,
+        "rate": 0.4666666666666667
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 65,
+        "rate": 0.325
+      }
+    },
+    {
+      "item": "MT",
+      "name": "멀티턴 대화",
+      "v3": {
+        "n": 27,
+        "hallucinated": 9,
+        "rate": 0.3333333333333333
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 16,
+        "rate": 0.08
+      }
+    },
+    {
+      "item": "AD",
+      "name": "적대적 입력·범위 밖",
+      "v3": {
+        "n": 15,
+        "hallucinated": 4,
+        "rate": 0.26666666666666666
+      },
+      "v4": {
+        "n": 200,
+        "hallucinated": 27,
+        "rate": 0.135
+      }
+    },
+    {
+      "item": "AR",
+      "name": "API 결과 답변",
+      "v3": {
+        "n": 5,
+        "hallucinated": 3,
+        "rate": 0.6
+      },
+      "v4": {
+        "n": 198,
+        "hallucinated": 56,
+        "rate": 0.2828282828282828
+      }
+    }
+  ],
+  "weight_check": {
+    "common_types": 12,
+    "v3_common_rate": 0.5212765957446809,
+    "v4_common_rate": 0.24478732276897414,
+    "v4_rates_with_v3_common_type_weights": 0.2500146858657497,
+    "scope": "Aggregation sensitivity only. Different questions, prompts and evaluators remain; not a controlled causal estimate."
+  },
+  "v4_status_breakdown": {
+    "qwen3": {
+      "n": 2600,
+      "hallucinated": 572,
+      "label_status": {
+        "ANSWER": {
+          "n": 577,
+          "hallucinated": 48,
+          "conditional_rate": 0.0831889081455806,
+          "share_of_all_hallucinated": 0.08391608391608392
+        },
+        "PARTIAL": {
+          "n": 422,
+          "hallucinated": 140,
+          "conditional_rate": 0.33175355450236965,
+          "share_of_all_hallucinated": 0.24475524475524477
+        },
+        "ABSTAIN": {
+          "n": 1364,
+          "hallucinated": 354,
+          "conditional_rate": 0.2595307917888563,
+          "share_of_all_hallucinated": 0.6188811188811189
+        },
+        "OUT_OF_SCOPE": {
+          "n": 73,
+          "hallucinated": 6,
+          "conditional_rate": 0.0821917808219178,
+          "share_of_all_hallucinated": 0.01048951048951049
+        },
+        "CONFLICT": {
+          "n": 164,
+          "hallucinated": 24,
+          "conditional_rate": 0.14634146341463414,
+          "share_of_all_hallucinated": 0.04195804195804196
+        }
+      },
+      "content_stance": {
+        "ANSWER": {
+          "n": 1177,
+          "hallucinated": 236,
+          "conditional_rate": 0.20050977060322855,
+          "share_of_all_hallucinated": 0.4125874125874126
+        },
+        "PARTIAL": {
+          "n": 265,
+          "hallucinated": 109,
+          "conditional_rate": 0.41132075471698115,
+          "share_of_all_hallucinated": 0.19055944055944055
+        },
+        "ABSTAIN": {
+          "n": 973,
+          "hallucinated": 200,
+          "conditional_rate": 0.20554984583761562,
+          "share_of_all_hallucinated": 0.34965034965034963
+        },
+        "OUT_OF_SCOPE": {
+          "n": 83,
+          "hallucinated": 15,
+          "conditional_rate": 0.18072289156626506,
+          "share_of_all_hallucinated": 0.026223776223776224
+        },
+        "CONFLICT": {
+          "n": 102,
+          "hallucinated": 12,
+          "conditional_rate": 0.11764705882352941,
+          "share_of_all_hallucinated": 0.02097902097902098
+        }
+      }
+    },
+    "gemma3": {
+      "n": 2598,
+      "hallucinated": 625,
+      "label_status": {
+        "ANSWER": {
+          "n": 1313,
+          "hallucinated": 240,
+          "conditional_rate": 0.1827875095201828,
+          "share_of_all_hallucinated": 0.384
+        },
+        "PARTIAL": {
+          "n": 288,
+          "hallucinated": 119,
+          "conditional_rate": 0.4131944444444444,
+          "share_of_all_hallucinated": 0.1904
+        },
+        "ABSTAIN": {
+          "n": 863,
+          "hallucinated": 257,
+          "conditional_rate": 0.29779837775202783,
+          "share_of_all_hallucinated": 0.4112
+        },
+        "OUT_OF_SCOPE": {
+          "n": 72,
+          "hallucinated": 5,
+          "conditional_rate": 0.06944444444444445,
+          "share_of_all_hallucinated": 0.008
+        },
+        "CONFLICT": {
+          "n": 62,
+          "hallucinated": 4,
+          "conditional_rate": 0.06451612903225806,
+          "share_of_all_hallucinated": 0.0064
+        }
+      },
+      "content_stance": {
+        "ANSWER": {
+          "n": 1487,
+          "hallucinated": 342,
+          "conditional_rate": 0.22999327505043712,
+          "share_of_all_hallucinated": 0.5472
+        },
+        "PARTIAL": {
+          "n": 328,
+          "hallucinated": 109,
+          "conditional_rate": 0.3323170731707317,
+          "share_of_all_hallucinated": 0.1744
+        },
+        "ABSTAIN": {
+          "n": 635,
+          "hallucinated": 166,
+          "conditional_rate": 0.2614173228346457,
+          "share_of_all_hallucinated": 0.2656
+        },
+        "OUT_OF_SCOPE": {
+          "n": 74,
+          "hallucinated": 7,
+          "conditional_rate": 0.0945945945945946,
+          "share_of_all_hallucinated": 0.0112
+        },
+        "CONFLICT": {
+          "n": 74,
+          "hallucinated": 1,
+          "conditional_rate": 0.013513513513513514,
+          "share_of_all_hallucinated": 0.0016
+        }
+      }
+    }
+  },
+  "empty_context_status": {
+    "v3": {
+      "n": 30,
+      "status_counts": {
+        "CLARIFY": 30
+      }
+    },
+    "v4": {
+      "n": 200,
+      "status_counts": {
+        "ABSTAIN": 200
+      }
+    }
+  },
+  "sources": [
+    {
+      "path": "C:\\Ureka\\ureca_project2\\LLM_Test\\model_test_v3\\try1\\results\\llm_judge\\metrics.json",
+      "sha256": "820d8b4a46dffbdea0f0efe4f0533dfb93dcb509b8c4c479cb004686fe77ab27"
+    },
+    {
+      "path": "C:\\Ureka\\ureca_project2\\LLM_Test\\model_test_v4\\try1\\results\\llm_judge\\v4-try1-n200_metrics.json",
+      "sha256": "15249ad4a64d96eea4e924b7c2c274ef06514083a659e4f373203d04327c24a2"
+    },
+    {
+      "path": "C:\\Ureka\\ureca_project2\\LLM_Test\\model_test_v4\\try1\\results\\raw\\scored\\ec2-linux_qwen3-4b_t0_nothink_fixed_n200_20261005\\llm_judge\\v4-try1-n200\\paths.jsonl",
+      "sha256": "692b284b61106c3b95bfde73b34be97a3c5bbc315afa942574c2cdbb0e4b45b8"
+    },
+    {
+      "path": "C:\\Ureka\\ureca_project2\\LLM_Test\\model_test_v4\\try1\\results\\raw\\scored\\ec2-linux_gemma3-4b_t0_nothink_fixed_n200_20261005\\llm_judge\\v4-try1-n200\\paths.jsonl",
+      "sha256": "6f43fc18b61ce99becb7a5ccbd33a535b6654e30fed0057dd2882d53d84fc811"
+    },
+    {
+      "path": "C:\\Ureka\\ureca_project2\\LLM_Test\\model_test_v3\\try1\\results\\raw\\ec2-linux_gemma3-4b_t0_think_20260920\\generation.jsonl",
+      "sha256": "290e1b3f4b8a6e6fa12dab3948c95493eaf3b8d058762def0420c5ec243be8d3"
+    },
+    {
+      "path": "C:\\Ureka\\ureca_project2\\LLM_Test\\model_test_v4\\try1\\results\\raw\\ec2-linux_gemma3-4b_t0_nothink_fixed_n200_20261005\\generation.jsonl",
+      "sha256": "c1c76b8518f8cdb7dbe609944c0ca725509126c4a7ef413dc3fa2893f262ac91"
+    }
+  ],
+  "limits": [
+    "No paired same-question v3/v4 generation and no common-evaluator rescoring was performed.",
+    "Both use gemma3:4b with think=null. The run condition name is not an actual Gemma thinking ON/OFF toggle.",
+    "V3 and V4 both broadly count grounding scores 1-3 as material hallucination; their detailed rubrics and judge models differ.",
+    "V4 rubric explicitly separates incorrect arithmetic using supplied inputs from invented facts."
+  ]
+}

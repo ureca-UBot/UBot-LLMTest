@@ -1,0 +1,111 @@
+{
+  "Qwen": {
+    "total": 2600,
+    "over_abstain": {
+      "count": 352,
+      "n": 962,
+      "rate": 0.3659043659043659
+    },
+    "over_abstain_without_hallucination": 255,
+    "answered_accuracy": {
+      "count": 839,
+      "n": 1090,
+      "rate": 0.7697247706422018
+    },
+    "calculation_accuracy": {
+      "count": 156,
+      "n": 281,
+      "rate": 0.5551601423487544
+    },
+    "calculation_hallucination": {
+      "count": 62,
+      "n": 281,
+      "rate": 0.2206405693950178
+    },
+    "decline_accuracy": {
+      "count": 724,
+      "n": 830,
+      "rate": 0.8722891566265061
+    },
+    "no_answer_error": {
+      "count": 71,
+      "n": 670,
+      "rate": 0.10597014925373134
+    },
+    "no_answer_hallucination": {
+      "count": 143,
+      "n": 670,
+      "rate": 0.21343283582089553
+    },
+    "labeled_answer_hallucination": {
+      "count": 48,
+      "n": 577,
+      "rate": 0.0831889081455806
+    }
+  },
+  "Gemma": {
+    "total": 2598,
+    "over_abstain": {
+      "count": 32,
+      "n": 908,
+      "rate": 0.03524229074889868
+    },
+    "over_abstain_without_hallucination": 15,
+    "answered_accuracy": {
+      "count": 922,
+      "n": 1319,
+      "rate": 0.6990144048521607
+    },
+    "calculation_accuracy": {
+      "count": 188,
+      "n": 392,
+      "rate": 0.47959183673469385
+    },
+    "calculation_hallucination": {
+      "count": 66,
+      "n": 392,
+      "rate": 0.1683673469387755
+    },
+    "decline_accuracy": {
+      "count": 660,
+      "n": 830,
+      "rate": 0.7951807228915663
+    },
+    "no_answer_error": {
+      "count": 123,
+      "n": 670,
+      "rate": 0.18358208955223881
+    },
+    "no_answer_hallucination": {
+      "count": 214,
+      "n": 670,
+      "rate": 0.3194029850746269
+    },
+    "labeled_answer_hallucination": {
+      "count": 240,
+      "n": 1313,
+      "rate": 0.1827875095201828
+    }
+  },
+  "sources": [
+    {
+      "path": "C:\\Ureka\\ureca_project2\\LLM_Test\\model_test_v4\\try1\\results\\raw\\scored\\ec2-linux_qwen3-4b_t0_nothink_fixed_n200_20261005\\llm_judge\\v4-try1-n200\\paths.jsonl",
+      "sha256": "692b284b61106c3b95bfde73b34be97a3c5bbc315afa942574c2cdbb0e4b45b8"
+    },
+    {
+      "path": "C:\\Ureka\\ureca_project2\\LLM_Test\\model_test_v4\\try1\\results\\raw\\scored\\ec2-linux_gemma3-4b_t0_nothink_fixed_n200_20261005\\llm_judge\\v4-try1-n200\\paths.jsonl",
+      "sha256": "6f43fc18b61ce99becb7a5ccbd33a535b6654e30fed0057dd2882d53d84fc811"
+    },
+    {
+      "path": "C:\\Ureka\\ureca_project2\\LLM_Test\\model_test_v4\\try1\\results\\summary\\tuning_target_decision.md",
+      "sha256": "df32a01edbe3b6bce4be9454dba0517cca1f82b60d12946f3ca2c37c128328c0"
+    }
+  ],
+  "definitions": {
+    "answered": "Expected ANSWER and actual body stance ANSWER. Different selected populations; not an overall accuracy or causal improvement estimate.",
+    "no_answer": "Expected ABSTAIN, 670 identical questions in each model.",
+    "decline": "Expected ABSTAIN/CONFLICT/OUT_OF_SCOPE, 830 questions.",
+    "labeled_answer": "Model output status ANSWER, distinct from body stance ANSWER.",
+    "hallucination": "Independent of correctness; correct and hallucinated can overlap."
+  }
+}

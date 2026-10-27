@@ -1,0 +1,118 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sub_results",
+    "accuracy",
+    "is_grounded",
+    "grounding_score",
+    "hallucinated_claims",
+    "decline_notice",
+    "asks_user",
+    "query_rewrite",
+    "query_rewrite_note",
+    "reasoning"
+  ],
+  "properties": {
+    "sub_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "outcome",
+          "note"
+        ],
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "CORRECT_ANSWER",
+              "WRONG_ANSWER",
+              "MISSING_ANSWER",
+              "CORRECT_DECLINE",
+              "UNSUPPORTED_ANSWER"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "accuracy": {
+      "type": "string",
+      "enum": [
+        "CORRECT",
+        "INCORRECT"
+      ]
+    },
+    "is_grounded": {
+      "type": "boolean"
+    },
+    "grounding_score": {
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "hallucinated_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "claim",
+          "type",
+          "reason"
+        ],
+        "properties": {
+          "claim": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "FABRICATION",
+              "FALSE_COMPLETION",
+              "MISATTRIBUTION",
+              "UNSUPPORTED_GENERALIZATION",
+              "SILENT_CONFLICT_PICK"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "decline_notice": {
+      "type": "boolean"
+    },
+    "asks_user": {
+      "type": "boolean"
+    },
+    "query_rewrite": {
+      "type": "string",
+      "enum": [
+        "FAITHFUL",
+        "CHANGED",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "query_rewrite_note": {
+      "type": "string"
+    },
+    "reasoning": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "dataset": "pipeline_test_v1",
+  "built_by": "scripts/run/build_pipeline_cases.js",
+  "rows": 390,
+  "cases_path": "pipeline_test_v1/cases/cases.jsonl",
+  "cases_sha256": "513d1383c549275120409362f806521bde728428fdd2e1bb2c1496170b06950a",
+  "faq_snapshot_path": "pipeline_test_v1/cases/faq_snapshot.csv",
+  "faq_snapshot_sha256": "25fb9fad3d9a1ee5fcc285c8007db9d8ed292515deab960e38049973765df0fc",
+  "faq_snapshot_rows": 1688,
+  "final_status_rule": "모두 ANSWER → ANSWER · ANSWER 1개 이상 + 나머지 → PARTIAL · ANSWER 없음·모두 같음 → 그 값 · ANSWER 없음·섞임 → CONFLICT > ABSTAIN > OUT_OF_SCOPE",
+  "in_label_policy": "status = 느슨(핵심 값을 확정하면 ANSWER), status_strict = 엄격(일부라도 못 정하면 ABSTAIN). 채점은 둘 다 낸다",
+  "path_policy": "LLM = 답변 LLM까지 가야 정답 · ANY = 검색 단계 실패(CHAT-012/013)도 정답",
+  "account": "member — 평가용 회원 하나(이름·거주 지역·가입일만 사용자 정보로 들어감). 케이스마다 새 대화",
+  "locations": {
+    "gangnam": {
+      "label": "강남역",
+      "latitude": 37.4979,
+      "longitude": 127.0276
+    },
+    "hongdae": {
+      "label": "홍대입구역",
+      "latitude": 37.5572,
+      "longitude": 126.9245
+    },
+    "seomyeon": {
+      "label": "부산 서면역",
+      "latitude": 35.1577,
+      "longitude": 129.0596
+    }
+  },
+  "types": {
+    "SA": "단일 · FAQ로 답할 수 있음",
+    "SB": "단일 · 주제 FAQ는 있으나 묻는 값이 없음",
+    "UD": "사용자 정보(USER_DATA) 질문",
+    "MA": "복합 · 모두 답할 수 있음",
+    "MP": "복합 · 답할 수 있음 + 답할 수 없음",
+    "MN": "복합 · 모두 답할 수 없음",
+    "OS": "범위 밖 단독 · 범위 밖 + 정상 질문",
+    "IN": "하위 질문 하나 안에 답할 수 있는 부분과 없는 부분이 섞임(분리 표지 없음)",
+    "CQ": "조건이 모호해 되묻기 쉬운 질문",
+    "MT": "멀티턴(같은 대화에서 이전 질문을 먼저 실행)",
+    "ST": "매장 질문(좌표·장소명·도구)"
+  },
+  "counts_by_type": {
+    "CQ": 30,
+    "IN": 20,
+    "MA": 40,
+    "MN": 20,
+    "MP": 60,
+    "MT": 30,
+    "OS": 30,
+    "SA": 50,
+    "SB": 50,
+    "ST": 30,
+    "UD": 30
+  },
+  "counts_by_final_status": {
+    "ANSWER": 184,
+    "ABSTAIN": 104,
+    "PARTIAL": 87,
+    "OUT_OF_SCOPE": 15
+  },
+  "counts_by_final_status_strict": {
+    "ANSWER": 160,
+    "ABSTAIN": 128,
+    "PARTIAL": 87,
+    "OUT_OF_SCOPE": 15
+  },
+  "counts_by_path": {
+    "LLM": 375,
+    "ANY": 15
+  },
+  "counts_by_sub_question_count": {
+    "1": 235,
+    "2": 150,
+    "3": 5
+  },
+  "multi_turn_cases": 30,
+  "location_cases": 6
+}
